@@ -12,11 +12,7 @@ export function CtaSignonForm() {
   return (
     <VisibilitySensor partialVisibility>
       {({ isVisible }) =>
-        isVisible ? (
-          <SignOnForm home />
-        ) : (
-          <div style={{ height: '20vh', width: '100%' }} />
-        )
+          <SignOnForm home isVisible={isVisible}/>
       }
     </VisibilitySensor>
   )

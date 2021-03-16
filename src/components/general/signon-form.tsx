@@ -4,7 +4,7 @@
  * LICENSE file in the root directory of this source tree.
  **/
 
-import React, { useRef, useCallback, useMemo, FunctionComponent } from 'react'
+import React, { useState, useEffect, useRef, useCallback, useMemo, FunctionComponent } from 'react'
 import { GoogleLogin } from 'react-google-login'
 import { useRouter } from 'next/router'
 
@@ -73,16 +73,24 @@ const useStyles = makeStyles((theme) => ({
 interface SignOnProps {
   loginView?: boolean
   home?: boolean
+  isVisible?: boolean
 }
 
-const SignOnForm: FunctionComponent<SignOnProps> = ({ loginView, home }) => {
+const SignOnForm: FunctionComponent<SignOnProps> = ({ loginView, home, isVisible }) => {
   const router = useRouter()
   const classes = useStyles()
+  const [stateVisible, setStateVisible] = useState(isVisible)
   const [signOnMutation, { data, error, loading }] = useMutation(
     loginView ? LOGIN : REGISTER
   )
   const emailRef = useRef<any>(null)
   const passwordRef = useRef<any>(null)
+
+  useEffect(() => {
+    if(!stateVisible && isVisible) {
+      setStateVisible(true)
+    }
+  }, [isVisible])
 
   useMemo(() => {
     if (data) {
@@ -130,6 +138,10 @@ const SignOnForm: FunctionComponent<SignOnProps> = ({ loginView, home }) => {
       }
     }
   }, [])
+
+  if(typeof isVisible !== 'undefined'  && !stateVisible) {
+      return <div style={{ height: '20vh', width: '100%' }} />
+  }
 
   return (
     <>
