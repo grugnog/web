@@ -17,7 +17,6 @@ import { WithSwipeModal as SwipeableTemporaryDrawer } from '@app/components/adho
 import { withApollo } from '@app/apollo'
 import {
   MarketingWebsites,
-  MarketingTestimonial,
   MarketingShapesTop,
 } from '@app/components/marketing'
 import { dev, DOCKER_ENV, API_ENDPOINT, API_URI_DOCKER } from '@app/configs'
@@ -33,7 +32,6 @@ function Index({ websites }: any) {
         <CtaCustomers />
         <CtaSearch />
         <MarketingWebsites websites={websites} />
-        <MarketingTestimonial />
         <Price blockFree />
         <CtaSignonForm />
       </MarketingDrawer>
