@@ -3,7 +3,7 @@
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
  **/
-import React, { useCallback, useState, useEffect } from 'react'
+import React, { useCallback, useState, useEffect, Fragment } from 'react'
 import {
   Container,
   Typography,
@@ -12,61 +12,30 @@ import {
   Fade,
   IconButton,
 } from '@material-ui/core'
-import { makeStyles } from '@material-ui/core/styles'
 import CloseIcon from '@material-ui/icons/Close'
-import { Link, NavBar, PageTitle, Box } from '@app/components/general'
+import {
+  Link,
+  NavBar,
+  PageTitle,
+  Box,
+  ProfileCell,
+} from '@app/components/general'
 import { TextSkeleton } from '@app/components/placeholders'
 import { AppManager } from '@app/managers'
 import { userData } from '@app/data'
 import { withApollo } from '@app/apollo'
 import { metaSetter } from '@app/utils'
+import { useProfileStyles as useStyles } from '@app/styles/pages/profile'
 import type { PageProps } from '@app/types'
-
-const useStyles = makeStyles(() => ({
-  row: {
-    display: 'flex',
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  email: {
-    marginBottom: 10.5,
-  },
-  password: {
-    marginRight: 70,
-  },
-  submit: {
-    minWidth: 170,
-  },
-  payments: {
-    minWidth: 170,
-    background: '#fff',
-    color: '#000',
-    marginBottom: 10.5,
-  },
-  form: {
-    display: 'flex',
-    flexDirection: 'column',
-    marginRight: 20,
-  },
-  input: {
-    marginBottom: 10,
-  },
-  passwordTitle: {
-    marginRight: 10,
-  },
-  defaultButton: {
-    margin: 0,
-    marginLeft: 70,
-    padding: 0,
-  },
-}))
 
 function Profile({ name }: PageProps) {
   const classes = useStyles()
   const { data = {}, loading, updateUser, updateUserData } = userData()
+
   const [changePassword, setChangePassword] = useState<boolean>(false)
   const [currentPassword, setCurrentPassword] = useState<string>('')
   const [newPassword, setNewPassword] = useState<string>('')
+
   const { user } = data
 
   const onChangeCurrent = useCallback(
@@ -80,19 +49,22 @@ function Profile({ name }: PageProps) {
     setNewPassword(e.target.value)
   }, [])
 
-  const updatePassword = useCallback((e: React.FormEvent) => {
-    e.preventDefault()
-    updateUser({
-      variables: {
-        password: currentPassword,
-        newPassword,
-      },
-    })
-  }, [])
+  const updatePassword = useCallback(
+    (e: React.FormEvent) => {
+      e.preventDefault()
+      updateUser({
+        variables: {
+          password: currentPassword,
+          newPassword,
+        },
+      })
+    },
+    [newPassword]
+  )
 
   const togglePassword = useCallback(() => {
     setChangePassword(!changePassword)
-  }, [])
+  }, [changePassword])
 
   useEffect(() => {
     if (updateUserData?.updateUser?.success) {
@@ -107,43 +79,37 @@ function Profile({ name }: PageProps) {
   }, [updateUserData])
 
   return (
-    <>
+    <Fragment>
       <NavBar backButton title={name} notitle />
       <Container maxWidth='xl'>
         <Box>
-          <PageTitle title={name} />
-          <Typography variant='subtitle1' component='p'>
-            Email
-          </Typography>
-          {!data?.user && loading ? (
-            <TextSkeleton className={classes.email} />
-          ) : (
-            <Typography
-              variant='subtitle2'
-              component='p'
-              className={classes.email}
-            >
-              {user.email}
-            </Typography>
-          )}
-          <Typography variant='subtitle1' component='p'>
-            Account Type
-          </Typography>
-          {!data?.user && loading ? (
-            <TextSkeleton className={classes.email} />
-          ) : (
-            <Typography
-              variant='subtitle2'
-              component='p'
-              className={classes.email}
-            >
-              {user?.role === 0
-                ? 'Free'
-                : user.role === 1
-                ? 'Basic'
-                : 'Premium'}
-            </Typography>
-          )}
+          <PageTitle title={'Your Profile'} />
+          <ProfileCell
+            title={'Email'}
+            skeletonLoad={!data?.user && loading}
+            subTitle={user?.email}
+            className={classes.email}
+          />
+          <ProfileCell
+            title={'Account Type'}
+            skeletonLoad={!data?.user && loading}
+            subTitle={
+              user?.role === 0 ? 'Free' : user?.role === 1 ? 'Basic' : 'Premium'
+            }
+            className={classes.email}
+          />
+          <ProfileCell
+            title={'Active Subscription'}
+            skeletonLoad={!data?.user && loading}
+            subTitle={user?.activeSubscription ? 'Yes' : 'No'}
+            className={classes.email}
+          />
+          <ProfileCell
+            title={'Alerts Enabled'}
+            skeletonLoad={!data?.user && loading}
+            subTitle={user?.alertEnabled ? 'Yes' : 'No'}
+            className={classes.email}
+          />
           <Button
             className={classes.payments}
             type='button'
@@ -248,7 +214,7 @@ function Profile({ name }: PageProps) {
           ) : null}
         </Box>
       </Container>
-    </>
+    </Fragment>
   )
 }
 

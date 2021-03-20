@@ -14,7 +14,8 @@
     "clean": "npm run fix && npm run lint",
     "preinstall": "bash ./load-env.sh",
     "prebuild": "bash ./scripts/create-robot.sh",
-    "test": "jest"
+    "test": "jest",
+    "test:ci": "jest tests --forceExit --ci -w=2"
   },
   "engines": {
     "node": "14.x"

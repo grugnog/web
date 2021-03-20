@@ -7,7 +7,6 @@
 import React, { useState, useEffect, useRef, useCallback, useMemo, FunctionComponent } from 'react'
 import { GoogleLogin } from 'react-google-login'
 import { useRouter } from 'next/router'
-
 import {
   Container,
   Typography,
