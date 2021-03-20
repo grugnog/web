@@ -8,7 +8,6 @@ const { resolve } = require('path')
 const { parsed } = require('dotenv').config()
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin')
 const withPWA = require('next-pwa')
-const { replaceDockerNetwork } = require('@a11ywatch/website-source-builder')
 const { domainMap } = require('./domain-map')
 const { generateSiteMap } = require('./generate-sitemap')
 const { getDynamicPaths } = require('./dynamic-paths')
@@ -19,9 +18,9 @@ const DOMAIN_NAME = process.env.DOMAIN_NAME || 'https://www.a11ywatch.com'
 const env = Object.assign({}, parsed, {
   dev,
   APP_TYPE: process.env.APP_TYPE || 'main',
-  API: replaceDockerNetwork(process.env.API),
-  API_URI_DOCKER: replaceDockerNetwork(process.env.API_URI_DOCKER),
-  WEB_SOCKET_URL: replaceDockerNetwork(process.env.WEB_SOCKET_URL),
+  API: process.env.API,
+  API_URI_DOCKER: process.env.API_URI_DOCKER,
+  WEB_SOCKET_URL: process.env.WEB_SOCKET_URL,
   STRIPE_KEY:
     process.env.STRIPE_KEY_PROD && !dev
       ? process.env.STRIPE_KEY_PROD
