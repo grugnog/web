@@ -17,7 +17,7 @@ import { theme } from '@app-theme'
 import { twitterSite } from '@app-config'
 import { WithSnackBar, WithSkipContent } from '@app/components/adhoc'
 import { initAppModel, userModel } from '@app/data'
-// import { startIntercom } from '@app/utils'
+import { startIntercom } from '@app/utils'
 import { DOMAIN_NAME } from '@app/configs'
 
 Router.events.on('routeChangeComplete', userModel.handleRoutes)
@@ -31,7 +31,8 @@ interface MergedApp extends AppProps {
 export default function MyApp({ Component, pageProps }: MergedApp) {
   useEffect(() => {
     initAppModel()
-    // startIntercom()
+    startIntercom()
+    userModel.redirect()
   }, [])
 
   const meta = Component?.meta || strings?.meta

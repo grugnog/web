@@ -21,9 +21,6 @@ export const navigationStyles = makeStyles((theme: Theme) => {
         duration: theme.transitions.duration.leavingScreen,
       }),
     },
-    contentSmall: {
-      paddingTop: theme.mixins.toolbar.minHeight,
-    },
     nav: {
       backgroundColor: theme.palette.background.default,
     },

@@ -3,7 +3,7 @@
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
  **/
-import React from 'react'
+import React, { Fragment } from 'react'
 import { observer } from 'mobx-react'
 
 import {
@@ -45,6 +45,7 @@ const SnackbarContainer = observer(({ store }: any) => {
   const needsUpgrade =
     tt.includes('Max websites added') ||
     tt === 'You need to upgrade your account to edit scripts'
+  const marketingRedirect = tt.includes('Redirected to Dashboard')
 
   return (
     <MUISnackbar
@@ -58,7 +59,7 @@ const SnackbarContainer = observer(({ store }: any) => {
       <SnackbarContent
         color='secondary'
         message={
-          <>
+          <Fragment>
             <Typography
               id='message-id'
               variant='subtitle1'
@@ -75,7 +76,12 @@ const SnackbarContainer = observer(({ store }: any) => {
                 UPGRADE ACCOUNT
               </Link>
             ) : null}
-          </>
+            {marketingRedirect ? (
+              <Link href='/?noredirect=true' style={{ fontWeight: 'bold' }}>
+                Go back to marketing page
+              </Link>
+            ) : null}
+          </Fragment>
         }
         className={store.snackbar.type === 'error' ? classes.error : ''}
         action={[

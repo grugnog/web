@@ -10,6 +10,8 @@ import { _AUTHED, _ALERTS_ENABLED, _JWT } from '@app/lib/cookies/names'
 import { parseJwt } from '@app/lib/auth'
 import { logPageView } from '@app/utils'
 import { shutdownIntercom } from 'intercom-next'
+import Router from 'next/router'
+import { AppManager } from '@app/managers'
 
 const defaultExp = 365
 
@@ -114,6 +116,14 @@ const userModel = {
       console.error(e)
     }
   },
+  redirect: function () {
+    if (this.loggedIn && this.unauthedRoute) {
+      Router.push({
+        pathname: '/dashboard',
+      })
+      AppManager.toggleSnack(true, 'Redirected to Dashboard')
+    }
+  },
   setJwt: function (jwt: any) {
     try {
       setCookie(_JWT, jwt, defaultExp)
@@ -121,6 +131,15 @@ const userModel = {
     } catch (e) {
       console.error(e)
     }
+  },
+  get unauthedRoute() {
+    if (
+      Router?.router?.asPath === '/?noredirect=true' ||
+      Router?.router?.query?.noredirect
+    ) {
+      return false
+    }
+    return ['/'].includes(String(Router?.router?.pathname))
   },
   get loggedIn() {
     return !!(getCookie(_AUTHED, '') || this.jwt)

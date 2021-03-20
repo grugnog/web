@@ -61,7 +61,7 @@ class AppManager {
   }
 
   @action
-  toggleSnack = (open: boolean, title: any, type: string) => {
+  toggleSnack = (open: boolean, title: any, type: string = 'message') => {
     const snackTitle = Array.isArray(title)
       ? title.length
         ? title[0].message
