@@ -29,17 +29,19 @@ const WithEditor = ({
 
   return (
     <ReactSizeDetector handleWidth handleHeight>
-      {({ height, width }: any) => (
-        <MonacoEditor
-          onChange={setValue}
-          value={value}
-          language={language}
-          defaultValue={children}
-          theme='vs-dark'
-          height={height || '100%'}
-          width={width || '100%'}
-        />
-      )}
+      {({ height, width }: any) => {
+        return (
+          <MonacoEditor
+            onChange={setValue}
+            value={value}
+            language={language}
+            defaultValue={children}
+            theme='vs-dark'
+            height={typeof height === 'undefined' ? 500 : height || '100%'}
+            width={width || '100%'}
+          />
+        )
+      }}
     </ReactSizeDetector>
   )
 }
