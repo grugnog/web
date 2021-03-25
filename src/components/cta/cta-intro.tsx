@@ -87,7 +87,7 @@ function CtaIntro({ checker }: any) {
           <Typography variant='h2' component={'h1'} className={classes.intro}>
             {checker
               ? 'Check Your Web Accessibility'
-              : 'Web Accessibility Watcher'}
+              : 'Web Accessibility Automation'}
           </Typography>
           <Typography variant='subtitle1' component={'p'} gutterBottom>
             {checker
