@@ -124,7 +124,11 @@ function CtaIntro({ checker }: any) {
             role='presentation'
             alt=''
           />
-          <a className={classes.bottomAnchor} href='#video-section'>
+          <a
+            className={classes.bottomAnchor}
+            href='#video-section'
+            aria-label='Scroll to introduction video'
+          >
             <ExpandMore />
           </a>
         </div>

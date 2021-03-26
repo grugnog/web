@@ -12,4 +12,3 @@ export const fixedFrame: string
 export const mainFrame: string
 export const main: string
 export const mainInput: string
-export const outerSpace: string

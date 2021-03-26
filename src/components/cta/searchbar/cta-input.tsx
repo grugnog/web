@@ -5,7 +5,7 @@
  **/
 
 import React, { useState, useRef } from 'react'
-import { InputBase, Button } from '@material-ui/core'
+import { InputLabel, InputBase, Button } from '@material-ui/core'
 import { fade, makeStyles, Theme, createStyles } from '@material-ui/core/styles'
 import { useSearch } from '@app/data'
 import { AppManager } from '@app/managers'
@@ -97,6 +97,12 @@ function CtaInput() {
   return (
     <form className={classes.root} onSubmit={submitForm} noValidate>
       <div className={classes.search}>
+        <InputLabel
+          htmlFor='search-input-c'
+          classes={{ root: classes.hiddenLabel }}
+        >
+          Search your website for issues
+        </InputLabel>
         <InputBase
           placeholder={'Enter website url'}
           id='search-input-c'
