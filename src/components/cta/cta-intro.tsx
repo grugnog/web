@@ -117,13 +117,7 @@ function CtaIntro({ checker }: any) {
           <Typography variant='subtitle2' component={'p'} gutterBottom>
             JOIN THOUSANDS OF HIGHLY PRODUCTIVE TEAMS
           </Typography>
-          <img
-            src={'/static/img/wave.svg'}
-            height={8}
-            width={120}
-            role='presentation'
-            alt=''
-          />
+          <img src={'/static/img/wave.svg'} height={8} width={120} alt='' />
           <a
             className={classes.bottomAnchor}
             href='#video-section'

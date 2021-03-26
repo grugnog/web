@@ -35,8 +35,8 @@ function MarketingWebsites({ websites }: any) {
   return (
     <section className={root}>
       <SectionHeading>{strings.usersUsing}</SectionHeading>
-      <Typography variant='h6' component='p' gutterBottom>
-        Some of our users using A11yWatch
+      <Typography variant='h6' component='h4' gutterBottom>
+        Websites accessibility tested using A11yWatch
       </Typography>
       <div className={container}>
         {websites.map(({ screenshotStill, url }: any, i: number) => {

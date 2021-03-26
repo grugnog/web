@@ -62,7 +62,7 @@ export function MarketingVideo() {
         </h2>
         <div id={'transition-modal-description'} className={classes.hidden}>
           a11ywatch intro video showing how to use the product to improve your
-          accessibility productivity
+          accessibility productivity with automation
         </div>
       </Paper>
     </Modal>
