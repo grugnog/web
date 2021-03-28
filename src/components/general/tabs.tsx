@@ -49,13 +49,13 @@ export function WebsiteTabs({ issues, html, screenshot, playground }: any) {
       <Tabs
         value={value}
         onChange={handleChange}
-        aria-label='web page tabs to compare problems and fixes'
-        variant='fullWidth'
+        aria-label='tabs to compare problems and fixes'
+        variant={'fullWidth'}
       >
         <Tab label='Insights' {...a11yProps(0)} />
         <Tab label='HTML' {...a11yProps(1)} />
         <Tab label='Screenshots' {...a11yProps(2)} />
-        <Tab label='Playground' {...a11yProps(3)} />
+        {playground ? <Tab label='Playground' {...a11yProps(3)} /> : null}
       </Tabs>
       <TabPanel value={value} index={0}>
         {issues}
@@ -66,9 +66,11 @@ export function WebsiteTabs({ issues, html, screenshot, playground }: any) {
       <TabPanel value={value} index={2}>
         {screenshot}
       </TabPanel>
-      <TabPanel value={value} index={3}>
-        {playground}
-      </TabPanel>
+      {playground ? (
+        <TabPanel value={value} index={3}>
+          {playground}
+        </TabPanel>
+      ) : null}
     </div>
   )
 }

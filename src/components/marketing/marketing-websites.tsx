@@ -36,21 +36,23 @@ function MarketingWebsites({ websites }: any) {
     <section className={root}>
       <SectionHeading>{strings.usersUsing}</SectionHeading>
       <Typography variant='h6' component='h4' gutterBottom>
-        Websites accessibility tested using A11yWatch
+        Websites tested using A11yWatch
       </Typography>
       <div className={container}>
-        {websites.map(({ screenshotStill, url }: any, i: number) => {
-          return screenshotStill ? (
-            <Screenshot
-              url={url}
-              src={screenshotStill}
-              width={480}
-              height={500}
-              resetMargin
-              key={i}
-            />
-          ) : null
-        })}
+        {websites.map(
+          ({ screenshotStill, screenshot, url }: any, i: number) => {
+            return (
+              <Screenshot
+                url={url}
+                src={screenshotStill ?? screenshot}
+                width={480}
+                height={500}
+                resetMargin
+                key={i}
+              />
+            )
+          }
+        )}
       </div>
     </section>
   )

@@ -28,7 +28,16 @@ const API_URI_DOCKER = process.env.API_URI_DOCKER
 const DOCKER_ENV = process.env.DOCKER_ENV
 const DOMAIN_NAME = process.env.DOMAIN_NAME
 
+const getAPIRoute = (type: 'api' | 'graphql' = 'api') => {
+  return `${
+    !process.browser && dev && DOCKER_ENV
+      ? String(API_URI_DOCKER).replace('graphql', type)
+      : API_ENDPOINT
+  }`
+}
+
 export {
+  getAPIRoute,
   DOMAIN_NAME,
   dev,
   API_URI_DOCKER,

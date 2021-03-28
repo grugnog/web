@@ -12,4 +12,5 @@ export interface MetaData {
 
 export type PageProps = {
   name: string
+  website?: any
 }

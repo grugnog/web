@@ -3,7 +3,7 @@
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
  **/
-import React from 'react'
+import React, { Fragment } from 'react'
 import { MarketingDrawer, SignOnForm } from '@app/components/general'
 import { CtaIntro } from '@app/components/cta'
 import { WithSwipeModal as SwipeableTemporaryDrawer } from '@app/components/adhoc'
@@ -14,13 +14,13 @@ import type { PageProps } from '@app/types'
 
 function WebsiteAccessibilityChecker({ name }: PageProps) {
   return (
-    <>
+    <Fragment>
       <MarketingDrawer title={name}>
         <CtaIntro checker />
         <SignOnForm home />
       </MarketingDrawer>
       <SwipeableTemporaryDrawer />
-    </>
+    </Fragment>
   )
 }
 

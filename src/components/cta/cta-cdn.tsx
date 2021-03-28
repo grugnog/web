@@ -4,12 +4,11 @@
  * LICENSE file in the root directory of this source tree.
  **/
 
-import React, { Fragment } from 'react'
+import React from 'react'
 import { Button, Typography } from '@material-ui/core'
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles'
 import { strings } from '@app-strings'
 import { Link } from '@app/components/general'
-import { userModel } from '@app/data'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -25,6 +24,11 @@ const useStyles = makeStyles((theme: Theme) =>
     register: {
       background: theme.palette.text.primary,
     },
+    report: {
+      background: 'transparent',
+      color: theme.palette.text.primary,
+      borderColor: theme.palette.text.primary,
+    },
     text: {
       fontWeight: 'bold',
       marginRight: '12px',
@@ -38,31 +42,26 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 )
 
-function CtaCdn({ website, block }: any) {
+function CtaCdn({ website, disablePlayground }: any) {
   const classes = useStyles()
-  const hasWebsite = website?.issues?.length
-  // const cdnPath = `${SCRIPTS_CDN_URL_HOST}/${website?.cdn}`
-
+  const noIssues =
+    Number(website?.issues?.length || website?.issues?.issues?.length) === 0
   const possibleIssuesFixedByCdn =
     website?.issuesInfo?.possibleIssuesFixedByCdn ?? '_'
   const totalIssuesOnPage = website?.issuesInfo?.totalIssues ?? '_'
-  // const issuesFixedByCdn = website?.issuesInfo?.issuesFixedByCdn
-  const shouldBlock = block && !userModel?.jwt
-
+  const shouldBlock = disablePlayground
   const limitedResonse = website?.issuesInfo?.limitedCount
     ? `This is a limited API response showing ${website.issuesInfo.limitedCount}/${totalIssuesOnPage} issues for the current page`
-    : 'Gathering details'
-
+    : !website?.issues && 'Gathering details'
   const cdnTitle = shouldBlock
     ? `Login to fix ${possibleIssuesFixedByCdn} out of ${totalIssuesOnPage} issues instantly with a custom secure cdn free`
     : `Fix ${possibleIssuesFixedByCdn} out of ${totalIssuesOnPage} issues instantly ${strings.tryOutCdn} `
-
   const moreInfo = shouldBlock
     ? `Get all your pages issues at once and more after signing in`
     : ''
 
   return (
-    <Fragment>
+    <div>
       <span className={classes.row} style={{ marginTop: 12 }}>
         <Typography
           component='span'
@@ -86,30 +85,41 @@ function CtaCdn({ website, block }: any) {
           <Typography variant={'subtitle2'}>{limitedResonse}</Typography>
         </div>
       ) : null}
-      <span className={classes.row} style={{ marginTop: 12 }}>
-        <Button
-          component={Link}
-          href={'/login'}
-          color={'secondary'}
-          variant={'contained'}
-          className={classes.text}
-        >
-          Login
-        </Button>
-        <Button
-          component={Link}
-          href={'/register'}
-          color={'secondary'}
-          variant={'outlined'}
-          className={`${classes.register} ${classes.text}`}
-        >
-          Register
-        </Button>
-      </span>
-      {hasWebsite === 0 ? (
-        <Typography>No issues found, great job!</Typography>
-      ) : null}
-    </Fragment>
+      {disablePlayground ? null : (
+        <span className={classes.row} style={{ marginTop: 12 }}>
+          <Button
+            component={Link}
+            href={'/login'}
+            color={'secondary'}
+            variant={'contained'}
+            className={classes.text}
+          >
+            Login
+          </Button>
+          <Button
+            component={Link}
+            href={'/register'}
+            color={'secondary'}
+            variant={'outlined'}
+            className={`${classes.register} ${classes.text}`}
+          >
+            Register
+          </Button>
+          {Object.keys(website).length > 1 ? (
+            <Button
+              component={Link}
+              href={`/reports?q=${website?.url}`}
+              color={'secondary'}
+              variant={'outlined'}
+              className={`${classes.report} ${classes.text}`}
+            >
+              Report Link
+            </Button>
+          ) : null}
+        </span>
+      )}
+      {noIssues ? <Typography>No issues found, great job!</Typography> : null}
+    </div>
   )
 }
 

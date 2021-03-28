@@ -20,6 +20,7 @@ export {
   API_URI_DOCKER,
   DOCKER_ENV,
   dev,
+  getAPIRoute,
 } from './app-config'
 export { Routes, LoggedInRoutes, LOGGIN_ROUTES } from './routes'
 export { features } from './features'

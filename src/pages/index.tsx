@@ -19,7 +19,7 @@ import {
   MarketingWebsites,
   MarketingShapesTop,
 } from '@app/components/marketing'
-import { dev, DOCKER_ENV, API_ENDPOINT, API_URI_DOCKER } from '@app/configs'
+import { getAPIRoute } from '@app/configs'
 
 function Index({ websites }: any) {
   return (
@@ -43,13 +43,7 @@ function Index({ websites }: any) {
 export async function getStaticProps() {
   let websites: any = []
   try {
-    const res = await fetch(
-      `${
-        !process.browser && dev && DOCKER_ENV
-          ? String(API_URI_DOCKER).replace('graphql', 'api')
-          : API_ENDPOINT
-      }/getWebsitesDaily`
-    )
+    const res = await fetch(`${getAPIRoute()}/getWebsitesDaily`)
 
     websites = await res.json()
   } catch (e) {

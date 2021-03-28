@@ -67,8 +67,8 @@
     "subscriptions-transport-ws": "0.9.16",
     "use-scroll-event": "0.0.19",
     "victory": "34.0.0",
-    "with-cookie": "1.2.2",
-    "webpack": "4.4.0"
+    "webpack": "4.4.0",
+    "with-cookie": "1.2.2"
   },
   "devDependencies": {
     "@babel/plugin-proposal-decorators": "7.8.3",
