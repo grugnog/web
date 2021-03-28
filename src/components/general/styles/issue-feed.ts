@@ -61,6 +61,6 @@ export const issueFeedStyles = makeStyles((theme: MergedTheme) => ({
   },
   titleContainer: containerPadding,
   print: {
-    marginTop: 16,
+    minHeight: 'auto',
   },
 }))

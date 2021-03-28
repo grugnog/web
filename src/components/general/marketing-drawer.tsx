@@ -49,10 +49,10 @@ export function MarketingDrawer({
             marketing
           />
           {renderCtaSearch ? (
-            <>
+            <div>
               <div style={{ flex: 1 }} />
               <SearchBar placeholder={'Enter website url...'} noWidth cta />
-            </>
+            </div>
           ) : null}
         </div>
       </NavBar>

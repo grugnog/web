@@ -40,7 +40,7 @@ function Pulse({
   const pulse = pulseStyles()
 
   return visible ? (
-    <>
+    <div>
       <div
         className={`${classNames.spinner} ${classes.spinner}`}
         style={{ width: size, height: size }}
@@ -55,7 +55,7 @@ function Pulse({
           className={`${classNames.bounce1} ${classes.bounce} ${pulse.bounce} ${pulse.bounce2}`}
         />
       </div>
-    </>
+    </div>
   ) : null
 }
 

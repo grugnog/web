@@ -9,6 +9,7 @@ import { printElement } from '@app/utils'
 import { issueSort } from '@app/lib'
 import { issueFeedStyles as useStyles } from './styles'
 import { RenderIssuesList } from './cells'
+import { getAPIRoute } from '@app/configs'
 
 const getIssue = (website: any) => {
   let issue
@@ -46,13 +47,24 @@ export function IssueList({ printable, website, className = '' }: any) {
   return (
     <Fragment>
       {printable ? (
-        <Button
-          className={classes.print}
-          style={{ marginBottom: 14 }}
-          onClick={() => printElement(CTA_LIST_ID, website)}
-        >
-          Print Issues
-        </Button>
+        <div style={{ marginBottom: 14, marginTop: 14 }}>
+          <Button
+            className={classes.print}
+            style={{ marginRight: 5 }}
+            onClick={() => printElement(CTA_LIST_ID, website)}
+          >
+            Print
+          </Button>
+          <Button
+            className={classes.print}
+            component={'a'}
+            href={`${getAPIRoute()}/get-website?q=${
+              website?.url
+            }&download=true`}
+          >
+            Download
+          </Button>
+        </div>
       ) : null}
       <List
         className={`${classes.searchList} ${className ?? ''}`}

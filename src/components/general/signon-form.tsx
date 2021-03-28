@@ -4,7 +4,14 @@
  * LICENSE file in the root directory of this source tree.
  **/
 
-import React, { useState, useEffect, useRef, useCallback, useMemo, FunctionComponent } from 'react'
+import React, {
+  useState,
+  useEffect,
+  useRef,
+  useCallback,
+  useMemo,
+  FunctionComponent,
+} from 'react'
 import { GoogleLogin } from 'react-google-login'
 import { useRouter } from 'next/router'
 import {
@@ -75,7 +82,11 @@ interface SignOnProps {
   isVisible?: boolean
 }
 
-const SignOnForm: FunctionComponent<SignOnProps> = ({ loginView, home, isVisible }) => {
+const SignOnForm: FunctionComponent<SignOnProps> = ({
+  loginView,
+  home,
+  isVisible,
+}) => {
   const router = useRouter()
   const classes = useStyles()
   const [stateVisible, setStateVisible] = useState(isVisible)
@@ -86,7 +97,7 @@ const SignOnForm: FunctionComponent<SignOnProps> = ({ loginView, home, isVisible
   const passwordRef = useRef<any>(null)
 
   useEffect(() => {
-    if(!stateVisible && isVisible) {
+    if (!stateVisible && isVisible) {
       setStateVisible(true)
     }
   }, [isVisible])
@@ -138,12 +149,12 @@ const SignOnForm: FunctionComponent<SignOnProps> = ({ loginView, home, isVisible
     }
   }, [])
 
-  if(typeof isVisible !== 'undefined'  && !stateVisible) {
-      return <div style={{ height: '20vh', width: '100%' }} />
+  if (typeof isVisible !== 'undefined' && !stateVisible) {
+    return <div style={{ height: '20vh', width: '100%' }} />
   }
 
   return (
-    <>
+    <div>
       <Container maxWidth='sm' className={classes.root}>
         <Typography
           variant={home ? 'h4' : 'h2'}
@@ -155,7 +166,7 @@ const SignOnForm: FunctionComponent<SignOnProps> = ({ loginView, home, isVisible
         </Typography>
         <div className={classes.paper}>
           {GOOGLE_CLIENT_ID ? (
-            <>
+            <div>
               <GoogleLogin
                 clientId={String(GOOGLE_CLIENT_ID)}
                 buttonText={loginView ? 'Login' : 'Sign up with google'}
@@ -198,7 +209,7 @@ const SignOnForm: FunctionComponent<SignOnProps> = ({ loginView, home, isVisible
               >
                 Or
               </Typography>
-            </>
+            </div>
           ) : null}
           <form autoComplete={loginView ? 'on' : 'off'} onSubmit={submit}>
             <div>
@@ -277,7 +288,7 @@ const SignOnForm: FunctionComponent<SignOnProps> = ({ loginView, home, isVisible
         </div>
       </Container>
       <LinearBottom loading={loading} />
-    </>
+    </div>
   )
 }
 

@@ -84,14 +84,14 @@ function CtaSearch({ checker }: any) {
       }`}
     >
       {checker ? (
-        <>
+        <div>
           <Typography variant='h1' component={'h3'}>
             Web Accessibility Checker
           </Typography>
           <Typography variant='h5' component={'span'}>
             Check your website for accessibility issues for free
           </Typography>
-        </>
+        </div>
       ) : (
         <SectionHeading>Scan your website free</SectionHeading>
       )}

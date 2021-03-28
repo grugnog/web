@@ -118,7 +118,7 @@ const NavBar = ({
       }
 
   return (
-    <>
+    <div>
       <AppBar
         position={position}
         className={`${className} ${classes.container} ${classes.hideShadow}`}
@@ -128,7 +128,7 @@ const NavBar = ({
           {toolbar || children ? (
             toolbar || children
           ) : (
-            <>
+            <div>
               {backButton || !marketing ? (
                 <IconButton className={classes.menu} {...buttonProps}>
                   {backButton ? <BackIcon /> : <AppIcon />}
@@ -140,7 +140,7 @@ const NavBar = ({
                 marketing={marketing}
                 notitle={notitle}
               />
-            </>
+            </div>
           )}
           {marketingLinks}
           {marketingLinks ? null : (
@@ -154,7 +154,7 @@ const NavBar = ({
         </Toolbar>
       </AppBar>
       {position === 'fixed' ? <WrapShadow /> : null}
-    </>
+    </div>
   )
 }
 
