@@ -62,7 +62,6 @@ const useStyles = makeStyles((theme) => ({
     marginBottom: 5,
   },
   listInnerContainer: {
-    maxWidth: '-webkit-fill-available',
     display: 'block',
     paddingTop: 0,
     paddingBottom: 0,

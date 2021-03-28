@@ -4,7 +4,7 @@
  * LICENSE file in the root directory of this source tree.
  **/
 
-import React from 'react'
+import React, { Fragment } from 'react'
 import { Container } from '@material-ui/core'
 import { navigationStyles } from '@app/styles/navigation'
 import { strings } from '@app-strings'
@@ -27,7 +27,7 @@ export function MarketingDrawer({
   const classes = navigationStyles()
 
   return (
-    <>
+    <Fragment>
       <NavBar
         position={navPosition}
         marketing
@@ -67,6 +67,6 @@ export function MarketingDrawer({
         )}
         {initClosed ? null : <Footer footerSpacing={footerSpacing} />}
       </main>
-    </>
+    </Fragment>
   )
 }

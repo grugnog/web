@@ -118,16 +118,7 @@ export function ReportView({ website, closeButton, disablePlayground }: any) {
         </div>
       ) : (
         <WebsiteTabs
-          issues={
-            <div
-              style={{
-                maxWidth: disablePlayground ? '40vw' : undefined,
-                overflow: 'hidden',
-              }}
-            >
-              <IssueList website={website} printable />
-            </div>
-          }
+          issues={<IssueList website={website} printable />}
           html={
             <div className={classes.block}>
               <EditableMixture

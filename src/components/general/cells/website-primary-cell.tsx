@@ -5,14 +5,12 @@
  **/
 import React, { useState } from 'react'
 import {
-  Fade,
   List,
   ListItem,
   ListItemSecondaryAction,
   ListItemText,
   IconButton,
   Typography,
-  Container,
   Menu,
   MenuItem,
 } from '@material-ui/core'
@@ -218,21 +216,17 @@ export function WebsitePrimaryCell({
             </IconButton>
           </div>
         ) : null}
-        <Fade in timeout={750}>
-          <Container className={classes.listContainer} maxWidth={'xl'}>
-            <List
-              className={`${
-                pageIssues?.length === 1
-                  ? classes.smallList
-                  : noMaxHeight
-                  ? ''
-                  : classes.list
-              } ${classes.overScroll}`}
-            >
-              <RenderIssuesList {...issueProps} />
-            </List>
-          </Container>
-        </Fade>
+        <List
+          className={`${
+            pageIssues?.length === 1
+              ? classes.smallList
+              : noMaxHeight
+              ? ''
+              : classes.list
+          } ${classes.overScroll}`}
+        >
+          <RenderIssuesList {...issueProps} />
+        </List>
       </div>
     )
   }

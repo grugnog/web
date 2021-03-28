@@ -15,7 +15,7 @@ import { getAPIRoute } from '@app/configs'
 function Reports({ name, website }: PageProps) {
   return (
     <Fragment>
-      <MarketingDrawer title={website?.url || name}>
+      <MarketingDrawer title={website?.url || name} maxWidth='xl'>
         <Head>
           <title>{`Web Accessibility report for ${website?.url} - A11yWatch`}</title>
           <meta
