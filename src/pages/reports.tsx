@@ -7,7 +7,7 @@ import type { PageProps } from '@app/types'
 import { GetServerSideProps } from 'next'
 import React, { Fragment } from 'react'
 import Head from 'next/head'
-import { MarketingDrawer } from '@app/components/general'
+import { MarketingDrawer, PageTitle } from '@app/components/general'
 import { ReportView } from '@app/components/ada'
 import { metaSetter } from '@app/utils'
 import { getAPIRoute } from '@app/configs'
@@ -24,6 +24,7 @@ function Reports({ name, website }: PageProps) {
             key='description'
           />
         </Head>
+        <PageTitle>{`Report for ${website?.url || 'page'}`}</PageTitle>
         <ReportView website={website} disablePlayground={true} />
       </MarketingDrawer>
     </Fragment>
