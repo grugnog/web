@@ -3,7 +3,6 @@
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
  **/
-import { Fragment } from 'react'
 import Document, {
   Html,
   Head,
@@ -37,10 +36,10 @@ class MyDocument extends Document {
 
     return Object.assign({}, initialProps, {
       styles: (
-        <Fragment>
+        <>
           {styles}
           {sheets.getStyleElement()}
-        </Fragment>
+        </>
       ),
     })
   }

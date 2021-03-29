@@ -7,15 +7,14 @@
 html {
   scroll-behavior: smooth;
 }
-
 ::-webkit-scrollbar {
   width: 12px;
   padding-left: 2px;
   padding-right: 2px;
-  background: #1a1a1a !important;
+  background: #1a1a1a;
 }
 ::-webkit-scrollbar-thumb {
-  background: #424242 !important;
+  background: #424242;
   max-width: 5px;
 }
 .goog-te-banner-frame {
@@ -23,7 +22,6 @@ html {
   top: unset !important;
   display: none !important;
 }
-
 a {
   min-height: 42px;
 }
