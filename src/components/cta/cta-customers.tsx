@@ -4,7 +4,7 @@
  * LICENSE file in the root directory of this source tree.
  **/
 
-import React, { useMemo, useCallback } from 'react'
+import React, { useCallback } from 'react'
 import { Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import { useMediaQuery } from '@material-ui/core'
@@ -46,7 +46,7 @@ export function CtaCustomers() {
         {strings.customersWhy}
       </Typography>
       <div className={classes.card}>
-        {useMemo(() => ['twitter', 'github', 'dropbox'], []).map((item, i) => (
+        {['twitter', 'github', 'dropbox'].map((item, i) => (
           <button
             onClick={() => clickItem(`https://${item}.com`)}
             aria-label={`Scan ${item} for issues`}
