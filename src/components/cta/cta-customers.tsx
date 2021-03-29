@@ -5,12 +5,11 @@
  **/
 
 import React, { useMemo, useCallback } from 'react'
-import { IconButton, Typography } from '@material-ui/core'
+import { Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import { useMediaQuery } from '@material-ui/core'
 import { strings } from '@app-strings'
 import { useSearch } from '@app/data'
-import Image from 'next/image'
 import { SectionHeading } from '../text'
 
 const useStyles = makeStyles((theme) => ({
@@ -48,18 +47,19 @@ export function CtaCustomers() {
       </Typography>
       <div className={classes.card}>
         {useMemo(() => ['twitter', 'github', 'dropbox'], []).map((item, i) => (
-          <IconButton
+          <button
             onClick={() => clickItem(`https://${item}.com`)}
             aria-label={`Scan ${item} for issues`}
             key={item + i}
+            style={{ border: 0 }}
           >
-            <Image
+            <img
               src={`/static/img/${item}.svg`}
               alt={item}
               width={size}
               height={size}
             />
-          </IconButton>
+          </button>
         ))}
       </div>
     </section>
