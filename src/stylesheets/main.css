@@ -12,17 +12,16 @@ html {
   width: 12px;
   padding-left: 2px;
   padding-right: 2px;
-  background: #1a1a1a;
-  transition: all 1s ease-in-out;
+  background: #1a1a1a !important;
 }
 ::-webkit-scrollbar-thumb {
-  background: #424242;
+  background: #424242 !important;
   max-width: 5px;
 }
 .goog-te-banner-frame {
-  bottom: 0;
+  bottom: 0 !important;
   top: unset !important;
-  display: none;
+  display: none !important;
 }
 
 a {

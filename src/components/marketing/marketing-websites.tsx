@@ -36,7 +36,7 @@ function MarketingWebsites({ websites }: any) {
     <section className={root}>
       <SectionHeading>{strings.usersUsing}</SectionHeading>
       <Typography variant='h6' component='h4' gutterBottom>
-        Websites tested using A11yWatch
+        Examples of some websites tested with A11yWatch
       </Typography>
       <div className={container}>
         {websites.map(

@@ -31,7 +31,7 @@ export const generateStrings = ({
     ctaTryOut: 'Try A11yWatch for free',
     ctaSeeHowItWorks: 'See How It Works',
     customers: 'Over 20,000 websites scanned',
-    usersUsing: 'Customers',
+    usersUsing: 'Some of our users',
     customersWhy:
       'See live results on a well known website like twitter, github, and dropbox below.',
     testimonials: [
