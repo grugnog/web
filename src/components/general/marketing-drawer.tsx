@@ -65,8 +65,8 @@ export function MarketingDrawer({
             {children}
           </Container>
         )}
-        {initClosed ? null : <Footer footerSpacing={footerSpacing} />}
       </main>
+      {initClosed ? null : <Footer footerSpacing={footerSpacing} />}
     </Fragment>
   )
 }

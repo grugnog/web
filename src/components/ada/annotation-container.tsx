@@ -5,10 +5,10 @@
  **/
 import React, { useRef } from 'react'
 import { Modal, Paper, Typography, IconButton } from '@material-ui/core'
+import CloseIcon from '@material-ui/icons/Close'
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles'
 import { DragHandler } from '@app/lib'
 import { ToolTip } from './tool-tip'
-import CloseIcon from '@material-ui/icons/Close'
 
 const useStyles = makeStyles(({ palette, spacing, shadows }: Theme) =>
   createStyles({

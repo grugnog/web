@@ -65,11 +65,10 @@ const { uiStylePath, uiComponentPath } = getDynamicPaths({
 })
 
 const aliases = {
+  ['@app']: resolve(__dirname, './src'),
   ['@app-theme']: resolve(__dirname, `./src/theme/${themeType}`),
   ['@app-strings']: resolve(__dirname, `./src/content/strings/${stringType}`),
-  ['@app']: resolve(__dirname, './src'),
   ['@app-config']: resolve(__dirname, './web-config.js'),
-  ['@app-ui-stylesheet']: uiStylePath,
   ['ui']: uiComponentPath,
 }
 

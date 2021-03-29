@@ -13,7 +13,11 @@ let BLOCK = 0
 
 export function startIntercom() {
   // Prevent intercom from injecting twice
-  if (BLOCK || !INTERCOM_APPID || !INTERCOM_ENABLED) {
+  if (
+    BLOCK ||
+    !INTERCOM_APPID ||
+    (typeof INTERCOM_ENABLED !== 'undefined' && !INTERCOM_ENABLED)
+  ) {
     return
   }
   const email = userModel?.email

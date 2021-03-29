@@ -3,7 +3,7 @@
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
  **/
-import '@app-ui-stylesheet'
+import '@a11ywatch/ui/css/tailwind.css'
 import '@app/stylesheets/tailwind.css'
 import '@app/stylesheets/main.css'
 import React, { useEffect, Fragment } from 'react'
@@ -17,8 +17,8 @@ import { theme } from '@app-theme'
 import { twitterSite } from '@app-config'
 import { WithSnackBar, WithSkipContent } from '@app/components/adhoc'
 import { initAppModel, userModel } from '@app/data'
-import { startIntercom } from '@app/utils'
 import { DOMAIN_NAME } from '@app/configs'
+// import { startIntercom } from '@app/utils'
 
 Router.events.on('routeChangeComplete', userModel.handleRoutes)
 
@@ -31,7 +31,7 @@ interface MergedApp extends AppProps {
 export default function MyApp({ Component, pageProps }: MergedApp) {
   useEffect(() => {
     initAppModel()
-    startIntercom()
+    // startIntercom()
     userModel.redirect()
   }, [])
 

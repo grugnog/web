@@ -3,7 +3,7 @@
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
  **/
-import React from 'react'
+import React, { Fragment } from 'react'
 import { userData } from '@app/data'
 import { drawerStyles } from '@app/styles/drawer'
 import { NavBarTitle, AuthedMenu } from './navigation'
@@ -27,7 +27,7 @@ export function DrawerWrapper({ route: routePath, title = '', classes }: any) {
   const route = routePath ?? title
 
   return (
-    <>
+    <Fragment>
       <NavBar
         title={title}
         position='fixed'
@@ -44,7 +44,7 @@ export function DrawerWrapper({ route: routePath, title = '', classes }: any) {
         dataSourceMap={dataSourceMap}
         classes={classes}
       />
-    </>
+    </Fragment>
   )
 }
 

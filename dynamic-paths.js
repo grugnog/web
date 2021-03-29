@@ -5,11 +5,11 @@
  **/
 const { resolve } = require('path')
 
-const A11YWATCH_PATH = './node_modules/@a11ywatch'
+const A11YWATCH_PATH = '@a11ywatch/ui'
 
 const getDynamicPaths = ({ themeType }) => ({
-  uiStylePath: resolve(__dirname, `${A11YWATCH_PATH}/ui/css/tailwind.css`),
-  uiComponentPath: resolve(__dirname, `${A11YWATCH_PATH}/ui/${themeType}`),
+  uiStylePath: resolve(__dirname, `${A11YWATCH_PATH}/css/tailwind.css`),
+  uiComponentPath: resolve(__dirname, `${A11YWATCH_PATH}/${themeType}`),
 })
 
 module.exports = {

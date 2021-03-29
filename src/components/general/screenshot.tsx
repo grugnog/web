@@ -64,7 +64,7 @@ export function Screenshot({ src, url, resetMargin, width, height }: any) {
       >
         <div className={resetMargin ? classes.float : classes.centerAlign}>
           <ImageComponent
-            src={src}
+            src={src.replace('127.0.0.1', 'localhost')}
             alt={`screenshot of ${url} tested`}
             width={width ?? 450}
             height={height ?? 500}
