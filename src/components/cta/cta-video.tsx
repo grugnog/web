@@ -7,7 +7,6 @@
 import React from 'react'
 import { makeStyles } from '@material-ui/core/styles'
 import VisibilitySensor from 'react-visibility-sensor'
-import Image from 'next/image'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -61,14 +60,7 @@ export function CtaVideo() {
                     className={videoClassName}
                   />
                 ) : (
-                  <span className={videoClassName}>
-                    <Image
-                      src={`/static/img/intro-poster.png`}
-                      alt='A11yWatch intro video poster'
-                      height={'552.16'}
-                      width={'1232'}
-                    />
-                  </span>
+                  <div className={videoClassName} />
                 )}
               </div>
             </div>
