@@ -1,6 +1,6 @@
 # a11ywatch-web
 
-[![A11yWatch](https://circleci.com/gh/A11yWatch/a11ywatch-web.svg?style=svg)](https://circleci.com/gh/A11yWatch/a11ywatch-web)[![Maintainability](https://api.codeclimate.com/v1/badges/f5fdfe29c6e911f323cf/maintainability)](https://codeclimate.com/github/A11yWatch/a11ywatch-web/maintainability)[![codecov](https://codecov.io/gh/A11yWatch/a11ywatch-web/branch/master/graph/badge.svg?token=MBV2LGQO3J)](https://codecov.io/gh/A11yWatch/a11ywatch-web)
+[![A11yWatch](https://circleci.com/gh/A11yWatch/web.svg?style=svg)](https://circleci.com/gh/A11yWatch/web)[![Maintainability](https://api.codeclimate.com/v1/badges/f5fdfe29c6e911f323cf/maintainability)](https://codeclimate.com/github/A11yWatch/web/maintainability)[![codecov](https://codecov.io/gh/A11yWatch/web/branch/master/graph/badge.svg?token=MBV2LGQO3J)](https://codecov.io/gh/A11yWatch/web)
 
 a11ywatch clientside web application
 
