@@ -4,7 +4,7 @@
  * LICENSE file in the root directory of this source tree.
  **/
 
-import React, { forwardRef, useRef, useEffect } from 'react'
+import React, { Fragment, forwardRef, useRef, useEffect } from 'react'
 import {
   fixedFrame,
   mainFrame,
@@ -115,7 +115,7 @@ const Container = observer(({ store }: { store: any }) => (
 
 export const AdaIframe = ({ url, miniPlayer, issue }: any) => {
   return (
-    <>
+    <Fragment>
       <MainFrame
         homeStore={HomeManager}
         iframeStore={IframeManager}
@@ -126,6 +126,6 @@ export const AdaIframe = ({ url, miniPlayer, issue }: any) => {
       <FixPortals store={IframeManager} />
       <Container store={IframeManager} />
       <HtmlView />
-    </>
+    </Fragment>
   )
 }

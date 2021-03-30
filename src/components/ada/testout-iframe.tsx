@@ -4,7 +4,7 @@
  * LICENSE file in the root directory of this source tree.
  **/
 
-import React, { useRef, useEffect } from 'react'
+import React, { Fragment, useRef, useEffect } from 'react'
 import { observer } from 'mobx-react'
 import { toJS } from 'mobx'
 import { mainFixed, mainFrame } from '@app/stylesheets/index.module.css'
@@ -63,7 +63,7 @@ const Container = observer(({ store }: any) => (
 
 export const TestOutIframe = ({ url, issue }: any) => {
   return (
-    <>
+    <Fragment>
       <MainFrame
         homeStore={HomeManager}
         iframeStore={IframeManager}
@@ -72,6 +72,6 @@ export const TestOutIframe = ({ url, issue }: any) => {
       />
       <Container store={IframeManager} />
       <Portals store={IframeManager} />
-    </>
+    </Fragment>
   )
 }

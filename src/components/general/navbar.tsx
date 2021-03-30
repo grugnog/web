@@ -4,7 +4,7 @@
  * LICENSE file in the root directory of this source tree.
  **/
 
-import React from 'react'
+import React, { Fragment } from 'react'
 import { useRouter } from 'next/router'
 import dynamic from 'next/dynamic'
 
@@ -29,7 +29,7 @@ const useStyles = makeStyles((theme) => ({
     flex: 1,
   },
   container: {
-    backgroundColor: theme.palette.background.default,
+    backgroundColor: 'transparent',
     overflow: 'hidden',
     zIndex: 1,
     ...theme.mixins.toolbar,
@@ -117,8 +117,10 @@ const NavBar = ({
         },
       }
 
+  const Container = position === 'fixed' ? 'div' : Fragment
+
   return (
-    <div>
+    <Container>
       <AppBar
         position={position}
         className={`${className} ${classes.container} ${classes.hideShadow}`}
@@ -154,7 +156,7 @@ const NavBar = ({
         </Toolbar>
       </AppBar>
       {position === 'fixed' ? <WrapShadow /> : null}
-    </div>
+    </Container>
   )
 }
 
