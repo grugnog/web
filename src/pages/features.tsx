@@ -37,14 +37,13 @@ const useStyles = makeStyles(({ breakpoints, palette }) => ({
 }))
 
 function Features({ name }: PageProps) {
-  const classes = useStyles()
-  const { paper } = classes
+  const { paper, row } = useStyles()
 
   function Image({ src, alt }: { src: string; alt: string }) {
     return (
       <NextImage
         src={src}
-        className='hide-print'
+        className={`hide-print`}
         alt={alt}
         height={500}
         width={400}
@@ -58,11 +57,13 @@ function Features({ name }: PageProps) {
       <Typography variant='subtitle1' component='h2' gutterBottom>
         Main Features
       </Typography>
-      <div className={classes.row}>
+      <div className={row}>
         <Paper className={paper}>
           <Section>
-            <Heading>Issue Reporter</Heading>
-            <Heading variant='h6' component='h4'>
+            <Heading variant='h4' component='h3'>
+              Issue Reporter
+            </Heading>
+            <Heading component='h4'>
               Our issue reporter scans for problems with recommended solutions.
               Get notified as they occur with detailed information on what
               happened. The reporter runs on all your pages and you can run the
@@ -75,10 +76,11 @@ function Features({ name }: PageProps) {
           />
         </Paper>
         <Paper className={paper}>
-          <Image src='/static/img/cloud_files.svg' alt={'cloud stored'} />
-          <Section alignRight>
-            <Heading>Auto CDN</Heading>
-            <Heading variant='h6' component='h4'>
+          <Section>
+            <Heading variant='h4' component='h3'>
+              Auto CDN
+            </Heading>
+            <Heading component='h4'>
               Include a custom cdn that fixes most of your issues at runtime.
               Our cdn uses a neural network that is composed of a couple of open
               nets like GoogleNet, ImageNet, and MobileNet. We also use common
@@ -87,27 +89,32 @@ function Features({ name }: PageProps) {
               precision.
             </Heading>
           </Section>
+          <Image src='/static/img/cloud_files.svg' alt={'cloud stored'} />
         </Paper>
       </div>
-      <div className={classes.row}>
+      <div className={row}>
         <Paper className={paper}>
-          <Image
-            src='/static/img/heatmap.svg'
-            alt={'website playground to test fixes'}
-          />
           <Section>
-            <Heading>Website View</Heading>
-            <Heading variant='h6' component='h4'>
+            <Heading variant='h4' component='h3'>
+              Website Visual Playground
+            </Heading>
+            <Heading component='h4'>
               View your website with annotations of the issues on your page.
               Experiment with recommended fixes before you add in our secure CDN
               to validate the changes and more.
             </Heading>
           </Section>
+          <Image
+            src='/static/img/heatmap.svg'
+            alt={'website playground to test fixes'}
+          />
         </Paper>
         <Paper className={paper}>
           <Section>
-            <Heading>Script View</Heading>
-            <Heading variant='h6' component='h4'>
+            <Heading variant='h4' component='h3'>
+              Temporary Script Remedy
+            </Heading>
+            <Heading component='h4'>
               View your scripts that come from the scripts page. Verifiy exactly
               what goes into production with notes on whats being changed. If
               you need to make a tweak, edit the script in real time with our
