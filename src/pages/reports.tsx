@@ -32,20 +32,32 @@ function Reports({ name, website }: PageProps) {
 }
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  const res = await fetch(`${getAPIRoute()}/get-website?q=${context?.query?.q}`)
-  const website = await res.json()
-
-  if (!website) {
-    return {
-      redirect: {
-        destination: '/',
-        permanent: false,
-      },
-    }
+  const redirect = {
+    redirect: {
+      destination: '/',
+      permanent: false,
+    },
   }
 
-  return {
-    props: { website },
+  try {
+    const { q, timestamp } = context.query
+    const res = await fetch(
+      `${getAPIRoute()}/get-website?q=${q}${
+        timestamp ? `&timestamp=${timestamp}` : ''
+      }`
+    )
+    const website = await res.json()
+
+    if (!website) {
+      return redirect
+    }
+
+    return {
+      props: { website },
+    }
+  } catch (e) {
+    console.error(e)
+    return redirect
   }
 }
 

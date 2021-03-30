@@ -72,14 +72,10 @@ export function RenderSecondary({
   pageHeaders,
 }: any) {
   const classes = useStyles()
-  // const pagesWithIssuesCount = issues?.length
   const matches = useMediaQuery('(min-width:600px)')
   const possibleIssuesFixedByCdn = issuesInfo?.possibleIssuesFixedByCdn
   const totalIssuesOnPage = issuesInfo?.totalIssues
-  // const totalIssuesOnAllPage = issuesInfo?.allPageTotalIssues
   const issuesFixedByCdn = issuesInfo?.issuesFixedByCdn
-  // const renderIssues =
-  //   (pagesWithIssuesCount && adaScore !== 100) || !!secondaryText
   const lastScan = (lastScanDate && new Date(lastScanDate)) || new Date()
   let allPageIssues = 0
 

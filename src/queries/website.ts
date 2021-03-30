@@ -16,6 +16,7 @@ const GET_WEBSITE = gql`
       cdnConnected
       htmlIncluded
       screenshot
+      timestamp
       script {
         script
       }

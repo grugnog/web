@@ -17,6 +17,7 @@ const SCAN_WEBSITE = gql`
         screenshot
         screenshotStill
         html
+        timestamp
         pageLoadTime {
           duration
           durationFormated
