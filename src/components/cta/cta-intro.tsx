@@ -89,10 +89,10 @@ function CtaIntro({ checker }: any) {
               ? 'Check Your Web Accessibility'
               : 'Web Accessibility Automation'}
           </Typography>
-          <Typography variant='subtitle1' component={'p'} gutterBottom>
+          <Typography variant='subtitle1' component={'h2'} gutterBottom>
             {checker
-              ? 'Test your website metrics'
-              : 'Safeguard to a pleasant web experience'}
+              ? 'Test your website accessibility'
+              : 'Safeguard to a pleasant inclusive experience'}
           </Typography>
           <Button
             component={Link}
