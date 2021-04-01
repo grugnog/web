@@ -4,7 +4,7 @@
  * LICENSE file in the root directory of this source tree.
  **/
 import React from 'react'
-import { Button } from 'ui'
+import { Button } from '@a11ywatch/ui'
 import { makeStyles } from '@material-ui/core/styles'
 
 const useStyles = makeStyles((theme) => ({

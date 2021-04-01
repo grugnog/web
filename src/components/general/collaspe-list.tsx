@@ -11,7 +11,7 @@ import {
   ListItemText,
   Checkbox,
 } from '@material-ui/core'
-import { Button } from 'ui'
+import { Button } from '@a11ywatch/ui'
 import { scriptData } from '@app/data'
 import { UserManager, AppManager } from '@app/managers'
 import { a11yDark } from '@app/styles'

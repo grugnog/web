@@ -4,7 +4,7 @@
  * LICENSE file in the root directory of this source tree.
  **/
 import React from 'react'
-import { Shape } from 'ui'
+import { Shape } from '@a11ywatch/ui'
 
 export function Circle({
   className,

@@ -10,7 +10,6 @@ const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin')
 const withPWA = require('next-pwa')
 const { domainMap } = require('./domain-map')
 const { generateSiteMap } = require('./generate-sitemap')
-const { getDynamicPaths } = require('./dynamic-paths')
 
 const dev = process.env.NODE_ENV !== 'production'
 const DOMAIN_NAME = process.env.DOMAIN_NAME || 'https://www.a11ywatch.com'
@@ -59,17 +58,12 @@ if (CDN_HOST) {
 }
 
 const { themeType, stringType } = domainMap(process.env.APP_TYPE)
-const { uiStylePath, uiComponentPath } = getDynamicPaths({
-  themeType,
-  dev,
-})
 
 const aliases = {
   ['@app']: resolve(__dirname, './src'),
   ['@app-theme']: resolve(__dirname, `./src/theme/${themeType}`),
   ['@app-strings']: resolve(__dirname, `./src/content/strings/${stringType}`),
   ['@app-config']: resolve(__dirname, './web-config.js'),
-  ['ui']: uiComponentPath,
 }
 
 module.exports = withPWA({
