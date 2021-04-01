@@ -41,16 +41,17 @@ function MarketingWebsites({ websites }: any) {
       <div className={container}>
         {websites.map(
           ({ screenshotStill, screenshot, url }: any, i: number) => {
-            return (
+            const ss = screenshotStill ?? screenshot
+            return ss ? (
               <Screenshot
                 url={url}
-                src={screenshotStill ?? screenshot}
+                src={ss}
                 width={480}
                 height={500}
                 resetMargin
                 key={i}
               />
-            )
+            ) : null
           }
         )}
       </div>

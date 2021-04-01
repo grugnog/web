@@ -28,12 +28,17 @@ const useStyles = makeStyles((theme) => ({
   flex: {
     flex: 1,
   },
-  container: {
-    backgroundColor: 'transparent',
+  container: ({
+    position,
+  }: {
+    position: 'static' | 'fixed' | 'absolute' | 'relative'
+  }) => ({
+    backgroundColor:
+      position === 'static' ? theme.palette.background.default : 'transparent',
     overflow: 'hidden',
     zIndex: 1,
     ...theme.mixins.toolbar,
-  },
+  }),
   menu: {
     display: 'flex',
     marginRight: theme.spacing(2),
@@ -101,7 +106,7 @@ const NavBar = ({
   marketingLinks,
   notitle,
 }: any) => {
-  const classes = useStyles()
+  const classes = useStyles({ position })
   const router = useRouter()
 
   const buttonProps = !backButton
