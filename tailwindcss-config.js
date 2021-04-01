@@ -5,8 +5,8 @@
  **/
 
 const fontFamilys = [
-  'IBM Plex Sans',
-  'Roboto',
+  'system-ui',
+  '-apple-system',
   'Helvetica Neue',
   'Arial',
   'sans-serif',
