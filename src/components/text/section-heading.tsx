@@ -7,8 +7,13 @@
 import React from 'react'
 import { Typography } from '@material-ui/core'
 
-export const SectionHeading = ({ children }: any) => (
-  <Typography variant='h4' component='h3' style={{ fontWeight: 'bold' }}>
+export const SectionHeading = ({ children, gutterBottom = false }: any) => (
+  <Typography
+    variant='h4'
+    component='h3'
+    style={{ fontWeight: 'bold' }}
+    gutterBottom={gutterBottom}
+  >
     {children}
   </Typography>
 )

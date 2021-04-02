@@ -15,7 +15,7 @@ const MobileRoutes = Routes.filter(
       '/login',
       '/testout',
       'https://a11ywatch.blog',
-      'https://a11ywatch.github.io/a11ywatch-docs/',
+      'https://a11ywatch.github.io/docs',
     ].includes(href)
 )
 

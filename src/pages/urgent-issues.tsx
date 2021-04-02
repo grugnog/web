@@ -3,10 +3,9 @@
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
  **/
-import React from 'react'
+import React, { Fragment } from 'react'
 import { Container } from '@material-ui/core'
 import {
-  Box,
   List,
   FormDialog,
   MiniPlayer,
@@ -14,6 +13,7 @@ import {
   LinearBottom,
   Drawer,
 } from '@app/components/general'
+import { Box } from '@a11ywatch/ui'
 import { websitesData, useSearchFilter } from '@app/data'
 import { filterSort } from '@app/lib'
 import { withApollo } from '@app/apollo'
@@ -26,7 +26,7 @@ function Urgent({ name }: PageProps) {
   const MAINDATASOURCE = filterSort(data, search)
 
   return (
-    <>
+    <Fragment>
       <Drawer title={name}>
         <Container maxWidth='xl'>
           <Box>
@@ -45,7 +45,7 @@ function Urgent({ name }: PageProps) {
         <MiniPlayer />
       </Drawer>
       <LinearBottom loading={!!loading} />
-    </>
+    </Fragment>
   )
 }
 

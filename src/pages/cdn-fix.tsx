@@ -5,12 +5,8 @@
  **/
 import React from 'react'
 import { Container } from '@material-ui/core'
-import {
-  PageTitle,
-  Drawer,
-  Box,
-  CollaspeListCdn,
-} from '@app/components/general'
+import { PageTitle, Drawer, CollaspeListCdn } from '@app/components/general'
+import { Box } from '@a11ywatch/ui'
 import { ScriptsPageSkeleton } from '@app/components/placeholders'
 import { groupBy, metaSetter } from '@app/utils'
 import { scriptsData, useSearchFilter } from '@app/data'

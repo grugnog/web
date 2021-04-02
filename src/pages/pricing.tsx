@@ -7,7 +7,6 @@ import React from 'react'
 import { Typography, Grid, Paper } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import {
-  Box,
   MarketingDrawer,
   Ribbon,
   Spacer,
@@ -15,6 +14,7 @@ import {
   SignOnForm,
   PageTitle,
 } from '@app/components/general'
+import { Box } from '@a11ywatch/ui'
 import { priceConfig } from '@app/configs'
 import { withApollo } from '@app/apollo'
 import { metaSetter } from '@app/utils'

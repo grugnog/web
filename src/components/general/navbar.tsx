@@ -135,7 +135,14 @@ const NavBar = ({
           {toolbar || children ? (
             toolbar || children
           ) : (
-            <div>
+            <div
+              style={{
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+                flex: 1,
+              }}
+            >
               {backButton || !marketing ? (
                 <IconButton className={classes.menu} {...buttonProps}>
                   {backButton ? <BackIcon /> : <AppIcon />}

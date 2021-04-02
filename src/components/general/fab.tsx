@@ -17,7 +17,7 @@ import {
 import { Button, Tooltip } from '@material-ui/core'
 import { useAutoFix, useMiniPlayer, useIframe, useHtmlView } from '@app/data'
 import { makeStyles } from '@material-ui/core/styles'
-import { Box } from '@app/components/general'
+import { Box } from '@a11ywatch/ui'
 import type { MergedTheme } from '@app/theme'
 
 const useStyles = makeStyles((theme: MergedTheme) => ({

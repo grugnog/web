@@ -13,13 +13,8 @@ import {
   IconButton,
 } from '@material-ui/core'
 import CloseIcon from '@material-ui/icons/Close'
-import {
-  Link,
-  NavBar,
-  PageTitle,
-  Box,
-  ProfileCell,
-} from '@app/components/general'
+import { Link, NavBar, PageTitle, ProfileCell } from '@app/components/general'
+import { Box } from '@a11ywatch/ui'
 import { TextSkeleton } from '@app/components/placeholders'
 import { AppManager } from '@app/managers'
 import { userData } from '@app/data'

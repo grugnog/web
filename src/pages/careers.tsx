@@ -5,7 +5,8 @@
  **/
 import React from 'react'
 import { Button, Typography, List, ListItem } from '@material-ui/core'
-import { MarketingDrawer, Box, PageTitle } from '@app/components/general'
+import { MarketingDrawer, PageTitle } from '@app/components/general'
+import { Box } from '@a11ywatch/ui'
 import { metaSetter } from '@app/utils'
 import type { PageProps } from '@app/types'
 

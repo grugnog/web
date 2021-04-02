@@ -6,7 +6,7 @@
 
 import React from 'react'
 import { Typography } from '@material-ui/core'
-import { Box } from '@app/components/general'
+import { Box } from '@a11ywatch/ui'
 
 export function Failure({
   title = 'Website failed to load',

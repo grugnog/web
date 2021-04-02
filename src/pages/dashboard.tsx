@@ -8,13 +8,13 @@ import dynamic from 'next/dynamic'
 import { Button, Container, Fade } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import {
-  Box,
   List,
   MiniPlayer,
   PageTitle,
   LinearBottom,
   Drawer,
 } from '@app/components/general'
+import { Box } from '@a11ywatch/ui'
 import { IssueFeed } from '@app/components/feed'
 import { UserManager } from '@app/managers'
 import {

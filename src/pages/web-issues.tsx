@@ -6,7 +6,6 @@
 import React from 'react'
 import { Container } from '@material-ui/core'
 import {
-  Box,
   List,
   FormDialog,
   MiniPlayer,
@@ -14,6 +13,7 @@ import {
   LinearBottom,
   Drawer,
 } from '@app/components/general'
+import { Box } from '@a11ywatch/ui'
 import { websitesData, useSearchFilter } from '@app/data'
 import { filterSort } from '@app/lib'
 import { withApollo } from '@app/apollo'

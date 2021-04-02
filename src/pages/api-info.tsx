@@ -3,12 +3,13 @@
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
  **/
-import React, { useState, useCallback } from 'react'
+import React, { Fragment, useState, useCallback } from 'react'
 import { Container, Typography, Button, IconButton } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import CopyIcon from '@material-ui/icons/FileCopy'
 import { API_ENDPOINT } from '@app/configs'
-import { NavBar, PageTitle, Box, Link } from '@app/components/general'
+import { NavBar, PageTitle, Link } from '@app/components/general'
+import { Box } from '@a11ywatch/ui'
 import { TextSkeleton } from '@app/components/placeholders'
 import { AppManager, UserManager } from '@app/managers'
 import { userData } from '@app/data'
@@ -124,22 +125,22 @@ function Api({ name }: PageProps) {
   }
 
   return (
-    <>
+    <Fragment>
       <NavBar backButton title={name} notitle />
       <Container maxWidth='xl' className={classes.root}>
         <Box>
-          <PageTitle title={name} />
+          <PageTitle title={'API Information'} />
           <SectionTitle variant='subtitle1'>
             Add authorization header with the jwt format <i>Bearer TOKEN</i> for
             more information check{' '}
-            <Link href={'https://a11ywatch.github.io/a11ywatch-docs/docs/api'}>
+            <Link href={'https://a11ywatch.github.io/docs/documentation/api'}>
               Docs
             </Link>
           </SectionTitle>
           {!data?.user && loading ? (
             <TextSkeleton className={classes.email} />
           ) : (
-            <>
+            <div>
               <Button
                 className={classes.payments}
                 type='button'
@@ -155,7 +156,7 @@ function Api({ name }: PageProps) {
                   </Typography>
                 </div>
               ) : null}
-            </>
+            </div>
           )}
           <SectionTitle variant='subtitle1' bold>
             Daily Allowed Usage
@@ -164,8 +165,8 @@ function Api({ name }: PageProps) {
             <TextSkeleton className={classes.email} />
           ) : (
             <SectionTitle className={classes.email}>
-              {user.apiUsage?.usage || 0}/
-              {user.role === 0 ? 3 : user.role === 1 ? 25 : 100}
+              {user?.apiUsage?.usage || 0}/
+              {user?.role === 0 ? 3 : user?.role === 1 ? 25 : 100}
             </SectionTitle>
           )}
           <SectionTitle variant='h4' component={'h2'} bold>
@@ -174,7 +175,7 @@ function Api({ name }: PageProps) {
           {!data?.user && loading ? (
             <TextSkeleton className={classes.email} />
           ) : (
-            <>
+            <div>
               <Box>
                 <SectionTitle variant={'h6'} component={'h3'}>
                   Page Issues : GET/POST
@@ -193,11 +194,11 @@ function Api({ name }: PageProps) {
                 </SectionTitle>
                 <CopyRow text={`${API_ENDPOINT}/getImage`} copy={true} />
               </Box>
-            </>
+            </div>
           )}
         </Box>
       </Container>
-    </>
+    </Fragment>
   )
 }
 

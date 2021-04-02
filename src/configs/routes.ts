@@ -67,7 +67,7 @@ export const Routes = [
   },
   {
     nav: false,
-    href: 'https://a11ywatch.github.io/a11ywatch-docs/',
+    href: 'https://a11ywatch.github.io/docs',
     name: 'Docs',
     type: 'resources',
   },
