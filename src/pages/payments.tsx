@@ -19,14 +19,13 @@ import {
 } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import { WithHydrate } from '@app/components/adhoc'
-import { NavBar, PageTitle } from '@app/components/general'
+import { NavBar, Price, PageTitle } from '@app/components/general'
 import { Box } from '@a11ywatch/ui'
 import { SimpleListItemSkeleton } from '@app/components/placeholders'
 import { STRIPE_KEY } from '@app/configs'
 import { withApollo } from '@app/apollo'
 import { paymentsData } from '@app/data'
 import { getOrdinalSuffix, metaSetter } from '@app/utils'
-import Pricing from './pricing'
 import type { PageProps } from '@app/types'
 
 const useStyles = makeStyles(() => ({
@@ -113,7 +112,7 @@ function Payments({ hideTitle = false, name }: PaymentProps) {
         <Box>
           {hideTitle ? null : <PageTitle>{name}</PageTitle>}
           {loading && !data ? (
-            <>
+            <div>
               <Typography variant='subtitle1' component='p'>
                 {!renderPayMentBoxes ? 'Account Info' : 'Upgrade Account'}
               </Typography>
@@ -121,21 +120,21 @@ function Payments({ hideTitle = false, name }: PaymentProps) {
                 <SimpleListItemSkeleton />
                 <SimpleListItemSkeleton />
               </List>
-            </>
+            </div>
           ) : (
-            <>
+            <div>
               <Typography variant='subtitle1' component='p' gutterBottom>
                 {!renderPayMentBoxes ? 'Account Info' : 'Upgrade Account'}
               </Typography>
               {renderPayMentBoxes ? (
-                <Pricing
+                <Price
                   priceOnly
                   basic={state.basic || data?.role === 1}
                   premium={state.premium || data?.role === 2}
-                  handleChange={handleChange}
+                  onClick={handleChange}
                 />
               ) : (
-                <>
+                <div>
                   {nextPaymentDay ? (
                     <Typography variant='subtitle1' component='p'>
                       {`${name} will occur on the ${getOrdinalSuffix(
@@ -150,19 +149,17 @@ function Payments({ hideTitle = false, name }: PaymentProps) {
                       data?.paymentSubscription?.plan?.amount / 100 || ''
                     }`}
                   </Typography>
-                </>
+                </div>
               )}
               {!renderPayMentBoxes ? (
-                <>
-                  <Button
-                    title={'Cancel Subscription'}
-                    type={'button'}
-                    onClick={handleModal(true)}
-                    className={classes.cancel}
-                  >
-                    Cancel Subscription
-                  </Button>
-                </>
+                <Button
+                  title={'Cancel Subscription'}
+                  type={'button'}
+                  onClick={handleModal(true)}
+                  className={classes.cancel}
+                >
+                  Cancel Subscription
+                </Button>
               ) : (
                 <StripeCheckout
                   token={onToken}
@@ -212,7 +209,7 @@ function Payments({ hideTitle = false, name }: PaymentProps) {
                   </Button>
                 </DialogActions>
               </Dialog>
-            </>
+            </div>
           )}
         </Box>
       </Container>

@@ -10,6 +10,7 @@ import { makeStyles } from '@material-ui/core/styles'
 import { Ribbon } from '@app/components/general'
 import { priceConfig } from '@app/configs'
 import { SectionHeading } from '../text'
+import Link from 'next/link'
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -55,6 +56,7 @@ export function Price({
   premium = false,
   onClick,
   blockFree,
+  navigate,
 }: any) {
   const classes = useStyles()
   const highLight = (
@@ -119,6 +121,11 @@ export function Price({
                 >
                   {cost}
                 </Typography>
+              ) : null}
+              {navigate ? (
+                <div style={{ marginTop: 10, fontWeight: 600 }}>
+                  <Link href={'/register'}>{'Start'}</Link>
+                </div>
               ) : null}
             </Paper>
           ))}
