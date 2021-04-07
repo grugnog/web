@@ -49,8 +49,9 @@ export function MarketingDrawer({
             marketing
           />
           {renderCtaSearch ? (
-            <div>
-              <div style={{ flex: 1 }} />
+            <div
+              style={{ display: 'flex', flex: 1, justifyContent: 'flex-end' }}
+            >
               <SearchBar placeholder={'Enter website url...'} noWidth cta />
             </div>
           ) : null}
