@@ -113,7 +113,7 @@ function CtaCdn({ website, disablePlayground }: any) {
               variant={'outlined'}
               className={`${classes.report} ${classes.text}`}
             >
-              Report Link
+              Report
             </Button>
           ) : null}
         </span>
