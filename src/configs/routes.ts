@@ -123,12 +123,6 @@ export const Routes = [
     name: 'Careers',
     type: 'company',
   },
-  {
-    nav: false,
-    href: 'https://www.miniprograms.xyz',
-    name: 'Mini Programs',
-    type: 'resources',
-  },
 ]
 
 export const LoggedInRoutes = [
