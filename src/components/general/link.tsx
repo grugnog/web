@@ -8,7 +8,12 @@ import { useRouter } from 'next/router'
 import NextLink from 'next/link'
 import MuiLink from '@material-ui/core/Link'
 
-const NextComposed = forwardRef(({ as, href, ...other }: any, ref: any) => (
+interface NextComposedProps {
+  as?: string,
+  href: string
+ }
+ 
+const NextComposed = forwardRef(({ as, href, ...other }: NextComposedProps, ref: React.Ref<HTMLAnchorElement>) => (
   <NextLink href={href} as={as}>
     <a ref={ref} {...other} />
   </NextLink>
