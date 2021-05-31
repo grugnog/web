@@ -22,8 +22,11 @@ const useStyles = makeStyles((theme) => ({
   oval2: {
     right: 220,
     top: -300,
-    height: 'auto',
     zIndex: 2,
+  },
+  oval2Image: {
+    width: 821,
+    height: 721,
   },
 }))
 
@@ -45,9 +48,10 @@ function MarketingShapesTop() {
         <img
           src={'/static/img/shapes/oval-2.svg'}
           height={721}
-          width={909}
+          width={821}
           role='presentation'
           alt=''
+          className={classes.oval2Image}
         />
       </div>
     </Fragment>
