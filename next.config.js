@@ -73,6 +73,10 @@ module.exports = withPWA({
     mode: process.env.WORKBOX_MODE || 'production',
     disable: dev,
     scope: '/src',
+    publicExcludes: [
+      '!robots.txt',
+      '!sitemap.xml.gz',
+    ]
   },
   images: {
     domains: domains,
