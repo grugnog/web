@@ -29,7 +29,7 @@ const urlReplacer = (url: string, homeStore: any) => {
     if (url.includes('http://localhost')) {
       return url
     }
-    return `/iframe/?url=${url}`
+    return `/api/iframe/?url=${url}`
   } else {
     return homeStore.getIframeSource(url)
   }

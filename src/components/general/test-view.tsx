@@ -3,7 +3,7 @@
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
  **/
-import React, {useEffect} from 'react'
+import React from 'react'
 import { observer } from 'mobx-react'
 
 import { TestOutIframe } from '../ada/testout-iframe'
@@ -11,18 +11,13 @@ import { Fab } from './fab'
 import { IssueModal } from './issue-modal'
 import { OverlayPortalContainer } from './overlay'
 import { issueData, scriptData } from '@app/data'
-import { AppManager, HomeManager } from '@app/managers'
+import { HomeManager } from '@app/managers'
 
 const TestViewContainer = observer(
   ({ url: currentUrl, store, marketing }: any) => {
     const url = currentUrl ?? store?.getTestFrameUrl
     const { issue } = issueData(url)
     const { script } = scriptData(url)
-
-    useEffect(() => {
-      /* NOTE: VERCEL REFACTOR NEED TO MOVE SERVER to Lambda */
-      AppManager.toggleSnack(true, `This page is currently under construction. Go to https://d2wp3p61hrgev6.cloudfront.net/testout?url=${url} for a snapshot`, 'info')
-    })
 
     return (
       <>
