@@ -155,7 +155,7 @@ const SignOnForm: FunctionComponent<SignOnProps> = ({
       <Container maxWidth='sm' className={classes.root}>
         <Typography
           variant={home ? 'h4' : 'h2'}
-          component={home ? 'h5' : 'h1'}
+          component={home ? 'h4' : 'h1'}
           gutterBottom
           align='center'
         >
