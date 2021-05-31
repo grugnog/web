@@ -11,7 +11,7 @@ import React, {
   useCallback,
   useMemo,
   FunctionComponent,
-  Fragment
+  Fragment,
 } from 'react'
 import { GoogleLogin } from 'react-google-login'
 import { useRouter } from 'next/router'
@@ -86,7 +86,7 @@ interface SignOnProps {
 const SignOnForm: FunctionComponent<SignOnProps> = ({
   loginView,
   home,
-  isVisible,
+  isVisible = true,
 }) => {
   const router = useRouter()
   const classes = useStyles()
@@ -162,63 +162,57 @@ const SignOnForm: FunctionComponent<SignOnProps> = ({
           {(loginView && 'Login') || (home && 'Sign up for free') || 'Register'}
         </Typography>
         <div className={classes.paper}>
-            <div>
-          {GOOGLE_CLIENT_ID && isVisible ? 
-              <GoogleLogin
-                clientId={String(GOOGLE_CLIENT_ID)}
-                buttonText={loginView ? 'Login' : 'Sign up with google'}
-                onSuccess={async (response: any) => {
-                  try {
-                    await signOnMutation({
-                      variables: {
-                        email: response?.profileObj?.email,
-                        password: '',
-                        googleId: response?.googleId,
-                      },
-                    })
-                  } catch (e) {
-                    console.error(e)
+          {GOOGLE_CLIENT_ID && isVisible ? (
+            <GoogleLogin
+              clientId={String(GOOGLE_CLIENT_ID)}
+              buttonText={loginView ? 'Login' : 'Sign up with google'}
+              onSuccess={async (response: any) => {
+                try {
+                  await signOnMutation({
+                    variables: {
+                      email: response?.profileObj?.email,
+                      password: '',
+                      googleId: response?.googleId,
+                    },
+                  })
+                } catch (e) {
+                  console.error(e)
+                }
+              }}
+              onFailure={(err) => {
+                console.error(err)
+              }}
+              cookiePolicy={'single_host_origin'}
+              render={(renderProps: any) => (
+                <Button
+                  onClick={renderProps.onClick}
+                  className={classes.google}
+                  disabled={renderProps.disabled}
+                  variant='text'
+                  size='small'
+                  startIcon={
+                    <GoogleIcon className={classes.iconColor} src={''} />
                   }
-                }}
-                onFailure={(err) => {
-                  console.error(err)
-                }}
-                cookiePolicy={'single_host_origin'}
-                render={(renderProps: any) => (
-                  <Button
-                    onClick={renderProps.onClick}
-                    className={classes.google}
-                    disabled={renderProps.disabled}
-                    variant='text'
-                    size='small'
-                    startIcon={
-                      <GoogleIcon className={classes.iconColor} src={''} />
-                    }
-                  >
-                    {loginView ? 'Login' : 'Sign up with google'}
-                  </Button>
-                )}
-              /> : <Button
+                >
+                  {loginView ? 'Login' : 'Sign up with google'}
+                </Button>
+              )}
+            />
+          ) : (
+            <Button
               onClick={() => {}}
               className={classes.google}
               disabled={true}
               variant='text'
               size='small'
-              startIcon={
-                <GoogleIcon className={classes.iconColor} src={''} />
-              }
+              startIcon={<GoogleIcon className={classes.iconColor} src={''} />}
             >
               {loginView ? 'Login' : 'Sign up with google'}
-            </Button>}
-              <Typography
-                variant='overline'
-                component='p'
-                className={classes.or}
-              >
-                Or
-              </Typography>
-            </div>
-          
+            </Button>
+          )}
+          <Typography variant='overline' component='p' className={classes.or}>
+            Or
+          </Typography>
           <form autoComplete={loginView ? 'on' : 'off'} onSubmit={submit}>
             <div>
               <FormControl>

@@ -43,6 +43,7 @@ const useStyles = makeStyles((theme) => ({
 
 export function CtaVideo() {
   const classes = useStyles()
+  const videoClassName = `${classes.video} ${classes.frame}`
 
   return (
     <VisibilitySensor partialVisibility>
@@ -51,14 +52,16 @@ export function CtaVideo() {
           <div className={classes.card}>
             <div className={`${classes.float} ${classes.video}`}>
               <div className={classes.video}>
-                <iframe
-                  src={`https://player.vimeo.com/video/389034032?title=0&byline=0&portrait=0&muted=1&autoplay=${
-                    isVisible ? 1 : 0
-                  }&controls=0&loop=1&texttrack=en`}
-                  allowFullScreen
-                  title='A11yWatch demo video'
-                  className={`${classes.video} ${classes.frame}`}
-                />
+                {isVisible ? (
+                  <iframe
+                    src={`https://player.vimeo.com/video/389034032?title=0&byline=0&portrait=0&muted=1&autoplay=${1}&controls=0&loop=1&texttrack=en`}
+                    allowFullScreen
+                    title='A11yWatch demo video'
+                    className={videoClassName}
+                  />
+                ) : (
+                  <div className={videoClassName} />
+                )}
               </div>
             </div>
           </div>
