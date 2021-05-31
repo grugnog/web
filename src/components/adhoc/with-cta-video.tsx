@@ -10,7 +10,7 @@ import { VideoSkeleton } from '../placeholders'
 export const WithCtaVideo = dynamic(
   () => import('../cta/cta-video').then((mod) => mod.CtaVideo) as any,
   {
-    ssr: false,
+    ssr: true,
     loading: () => <VideoSkeleton />,
   }
 )

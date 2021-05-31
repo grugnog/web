@@ -13,7 +13,7 @@ const useStyles = makeStyles((theme) => ({
     marginTop: '-16.1vh',
     width: '100%',
     borderRadius: 4,
-    minHeight: '50vh',
+    minHeight: '55vh',
     paddingBottom: '44.818182%',
     backgroundColor: theme.palette.background.paper,
     [theme.breakpoints.down('sm')]: {
