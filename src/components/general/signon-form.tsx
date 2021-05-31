@@ -11,6 +11,7 @@ import React, {
   useCallback,
   useMemo,
   FunctionComponent,
+  Fragment
 } from 'react'
 import { GoogleLogin } from 'react-google-login'
 import { useRouter } from 'next/router'
@@ -149,12 +150,8 @@ const SignOnForm: FunctionComponent<SignOnProps> = ({
     }
   }, [])
 
-  if (typeof isVisible !== 'undefined' && !stateVisible) {
-    return <div style={{ height: '20vh', width: '100%' }} />
-  }
-
   return (
-    <div>
+    <Fragment>
       <Container maxWidth='sm' className={classes.root}>
         <Typography
           variant={home ? 'h4' : 'h2'}
@@ -165,8 +162,8 @@ const SignOnForm: FunctionComponent<SignOnProps> = ({
           {(loginView && 'Login') || (home && 'Sign up for free') || 'Register'}
         </Typography>
         <div className={classes.paper}>
-          {GOOGLE_CLIENT_ID ? (
             <div>
+          {GOOGLE_CLIENT_ID && isVisible ? 
               <GoogleLogin
                 clientId={String(GOOGLE_CLIENT_ID)}
                 buttonText={loginView ? 'Login' : 'Sign up with google'}
@@ -201,7 +198,18 @@ const SignOnForm: FunctionComponent<SignOnProps> = ({
                     {loginView ? 'Login' : 'Sign up with google'}
                   </Button>
                 )}
-              />
+              /> : <Button
+              onClick={() => {}}
+              className={classes.google}
+              disabled={true}
+              variant='text'
+              size='small'
+              startIcon={
+                <GoogleIcon className={classes.iconColor} src={''} />
+              }
+            >
+              {loginView ? 'Login' : 'Sign up with google'}
+            </Button>}
               <Typography
                 variant='overline'
                 component='p'
@@ -210,7 +218,7 @@ const SignOnForm: FunctionComponent<SignOnProps> = ({
                 Or
               </Typography>
             </div>
-          ) : null}
+          
           <form autoComplete={loginView ? 'on' : 'off'} onSubmit={submit}>
             <div>
               <FormControl>
@@ -288,7 +296,7 @@ const SignOnForm: FunctionComponent<SignOnProps> = ({
         </div>
       </Container>
       <LinearBottom loading={loading} />
-    </div>
+    </Fragment>
   )
 }
 
