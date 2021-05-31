@@ -77,20 +77,26 @@ function MainCell({
 
   const submitEdit = async (e: any) => {
     e?.preventDefault()
-    await updateScript({
-      variables: {
-        url: source?.pageUrl,
-        scriptMeta: {
-          skipContentEnabled,
+    const confirm = window.confirm(
+      'Are you sure you wish to save this script? Your script may be changed to reflect your page as issues arise.'
+    )
+
+    if (confirm) {
+      await updateScript({
+        variables: {
+          url: source?.pageUrl,
+          scriptMeta: {
+            skipContentEnabled,
+          },
+          editScript: true,
+          newScript,
         },
-        editScript: true,
-        newScript,
-      },
-    }).catch((e: any) => {
-      console.error(e)
-    })
-    setSource({ ...source, script: newScript })
-    setEdit(false)
+      }).catch((e: any) => {
+        console.error(e)
+      })
+      setSource({ ...source, script: newScript })
+      setEdit(false)
+    }
   }
 
   return (
