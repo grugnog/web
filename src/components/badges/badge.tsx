@@ -28,7 +28,7 @@ export const Badge = ({
     children: any
   }) => {
     return (
-      <a href={href} style={aStyle} target={'_blank'} aria-label={label}>
+      <a href={href} style={aStyle} target={'_blank'} aria-label={label} rel="noreferrer">
         {children}
       </a>
     )
