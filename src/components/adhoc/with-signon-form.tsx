@@ -10,7 +10,7 @@ import { SignOnFormSkeleton } from '../placeholders'
 const WithSignOnForm = dynamic(
   () => import('../general/signon-form').then((mod) => mod.SignOnForm) as any,
   {
-    ssr: false,
+    ssr: true,
     loading: () => <SignOnFormSkeleton loginView={false} />,
   }
 )

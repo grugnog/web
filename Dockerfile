@@ -15,4 +15,4 @@ COPY . .
 
 RUN npm run build
 
-CMD [ "NODE_ENV=production", "node", "./dist/server.js" ]
+CMD [ "NODE_ENV=production", "npm", "run", "next" ]

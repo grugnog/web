@@ -26,11 +26,6 @@ You can start the project using docker or local
 
 check https://localhost:3000
 
-## Iframe local website
-
-in order to enable iframe rending to get websites with annotations currently you need to start the container or app using
-`npm run dev:server`. Theres a work in progress to try to replicate this without needing a server proxy.
-
 ## Credits
 
 logo and theme [Gilbert Bagaoisan](https://twitter.com/gbertb)

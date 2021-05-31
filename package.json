@@ -6,10 +6,8 @@
   "scripts": {
     "dev": "next dev",
     "dev:vercel": "vercel dev",
-    "dev:server": "TS_NODE_PROJECT=tsconfig.server.json ts-node --transpile-only ./server/server.ts",
-    "start": "NODE_ENV=production node ./dist/server.js",
-    "build": "next build && npm run build:server",
-    "build:server": "tsc --project tsconfig.server.json",
+    "start": "next start",
+    "build": "next build",
     "lint": "eslint .",
     "fix": "prettier --write '**/*.{js,jsx}'",
     "clean": "npm run fix && npm run lint",
