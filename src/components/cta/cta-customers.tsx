@@ -29,6 +29,14 @@ const useStyles = makeStyles((theme) => ({
     padding: 10,
     flexDirection: 'row',
   },
+  badge: {
+    height: 78,
+    width: 78,
+    [theme.breakpoints.down('sm')]: {
+      width: 25,
+      height: 25,
+    },
+  },
 }))
 
 export function CtaCustomers() {
@@ -56,6 +64,7 @@ export function CtaCustomers() {
             <img
               src={`/static/img/${item}.svg`}
               alt={item}
+              className={classes.badge}
               width={size}
               height={size}
             />
