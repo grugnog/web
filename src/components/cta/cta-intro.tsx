@@ -8,7 +8,6 @@ import React, { Fragment } from 'react'
 import { Typography, Button } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import { CtaInput } from './searchbar'
-import Image from 'next/image'
 import { Link } from '../general'
 import ExpandMore from '@material-ui/icons/ExpandMore'
 
@@ -104,7 +103,7 @@ function CtaIntro({ checker }: any) {
           <CtaInput />
         </div>
         <div className={`${classes.block} ${classes.mobileHidden}`}>
-          <Image
+          <img
             src={`/static/img/${checker ? 'browser-stats' : 'intro'}.svg`}
             height={500}
             width={500}
