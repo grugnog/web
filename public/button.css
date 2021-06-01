@@ -7,15 +7,23 @@ button {
   padding: 4px;
 }
 
+button:hover {
+  cursor: pointer;
+  opacity: 0.75;
+}
+
 button.current {
   box-shadow: 0 0 0 2px white, 0 0 0 4px black;
 }
 
 #scanPage {
-  background-color: #000;
+  background-color: #1a1a1a;
   color: #fff;
+  font-weight: 100;
   width: auto;
   height: auto;
   padding: 6px;
+  padding-left: 12px;
+  padding-right: 12px;
   border-radius: 12px;
 }
