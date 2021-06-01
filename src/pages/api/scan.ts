@@ -12,7 +12,7 @@ export default async (req: NextApiRequest, res: NextApiResponse<any>) => {
 
     try {
       const data = await fetch(
-        `${HOST}/api/website-check?url=${encodeURI(url)}&baseHref=${
+        `${HOST}/api/scanWebsiteAsync?url=${encodeURI(url)}&baseHref=${
           req.query.baseHref || true
         }`,
         {

@@ -1,5 +1,6 @@
 let changeColor = document.getElementById("changeColor");
 let scanPage = document.getElementById("scanPage");
+let scanResults = document.getElementById("scanResults");
 
 chrome.storage.sync.get("color", ({ color }) => {
   changeColor.style.backgroundColor = color;
@@ -27,9 +28,14 @@ changeColor.addEventListener("click", async () => {
 
 async function getPageIssues() {
     // "https://api.a11ywatch.com"
-    const response = await fetch(`http://www.a11ywatch.com/api/website-check?url=${location.href}`)
-    const data = await response.json();
-    console.log(data)
+    try {
+        const response = await fetch(`https://www.a11ywatch.com/api/scan?url=${encodeURI(location.href)}`)
+        const data = await response.json();
+        console.log(data)
+        scanResults.innerHTML = JSON.stringify(data);
+    } catch (e) {
+        console.error(e)
+    }
 }
 
 function setPageBackgroundColor() {
