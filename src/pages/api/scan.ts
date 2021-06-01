@@ -4,7 +4,6 @@ const HOST = String(process.env.API ?? 'http://localhost:8080')
 
 export default async (req: NextApiRequest, res: NextApiResponse<any>) => {
     let url = String(req.query.url)
-    const token = req.headers.authorization;
 
     if (/^((http|https):\/\/)/.test(url) === false) {
       url = `http://${url}`
@@ -16,11 +15,7 @@ export default async (req: NextApiRequest, res: NextApiResponse<any>) => {
           req.query.baseHref || true
         }`,
         {
-            method: "POST",
-            headers: new Headers({
-                'Authorization': "Bearer" + token, 
-                'Content-Type': 'application/json'
-              }),
+            method: "POST"
         }
       )
       const source = await data.json()
