@@ -27,3 +27,18 @@ button.current {
   padding-right: 12px;
   border-radius: 12px;
 }
+
+#a11yScanResults {
+  overflow-x: hidden;
+  overflow-y: scroll;
+}
+
+#a11yPageScanned {
+  font-weight: 600;
+  font-size: 1.5em;
+}
+
+footer {
+  padding: 12px;
+  background-color: #ccc;
+}
