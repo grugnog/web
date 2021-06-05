@@ -100,6 +100,7 @@ const NavLinks: any = ({ className, filterType }: any) => {
             children={name}
             variant={'subtitle1'}
             href={href}
+            target={href.includes('https') ? '_blank' : undefined}
           />
         </li>
       )

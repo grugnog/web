@@ -49,6 +49,12 @@ export const Routes = [
   },
   {
     nav: false,
+    href: 'https://chrome.google.com/webstore/detail/a11ywatch/opefmkkmhchekgcmgneakbjafeckbaag?hl=en&authuser=0',
+    name: 'Chrome Extension',
+    type: 'explore',
+  },
+  {
+    nav: false,
     href: '/api-info',
     name: 'API',
     type: 'explore',
