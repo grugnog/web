@@ -4,7 +4,7 @@
  * LICENSE file in the root directory of this source tree.
  **/
 
-import React, { useMemo } from 'react'
+import React from 'react'
 import { Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import { strings } from '@app-strings'
@@ -53,6 +53,14 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
+const rollStrings = [
+  strings.monitoring,
+  strings.fixer,
+  strings.helper,
+  strings.ai,
+  strings.productivity,
+]
+
 function CtaSearch({ checker }: any) {
   const classes = useStyles()
   const roll = rollStyles()
@@ -93,7 +101,14 @@ function CtaSearch({ checker }: any) {
           </Typography>
         </div>
       ) : (
-        <SectionHeading>Scan your website free</SectionHeading>
+        <div>
+          <SectionHeading>Scan your website free</SectionHeading>
+          <Typography variant='h5' component={'h4'}>
+            A11yWatch is built for websites that have many pages, update
+            frequently, authentication walls, or staying up to date on the
+            latest with accessibility.
+          </Typography>
+        </div>
       )}
       <CtaSearchBar checker={checker}>
         {checker ? (
@@ -102,16 +117,7 @@ function CtaSearch({ checker }: any) {
           <Head component='p'>
             <Heading component='p'>{`${strings.title} `}</Heading>
             <Heading className={roll.g} component='p'>
-              {useMemo(
-                () => [
-                  strings.monitoring,
-                  strings.fixer,
-                  strings.helper,
-                  strings.ai,
-                  strings.productivity,
-                ],
-                [strings]
-              ).map((item: string, itemIndex: number): any => (
+              {rollStrings.map((item: string, itemIndex: number): any => (
                 <Heading
                   component='p'
                   // @ts-ignore

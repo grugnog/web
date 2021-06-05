@@ -3,7 +3,7 @@
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
  **/
-import React, { useState } from 'react'
+import React, { useEffect, useState, useRef } from 'react'
 import StripeCheckout from 'react-stripe-checkout'
 import { getDate } from 'date-fns'
 import {
@@ -27,6 +27,7 @@ import { withApollo } from '@app/apollo'
 import { paymentsData } from '@app/data'
 import { getOrdinalSuffix, metaSetter } from '@app/utils'
 import type { PageProps } from '@app/types'
+import { useRouter } from 'next/router'
 
 const useStyles = makeStyles(() => ({
   row: {
@@ -56,15 +57,45 @@ interface PaymentProps extends PageProps {
   hideTitle?: boolean
 }
 
+type Plan = {
+  basic: boolean
+  premium: boolean
+}
+
 function Payments({ hideTitle = false, name }: PaymentProps) {
   const defaultState = {
     basic: true,
     premium: false,
   }
   const classes = useStyles()
+  const router = useRouter()
   const { data, loading, addSubscription, cancelSubscription } = paymentsData()
-  const [state, setState] = useState<any>(defaultState)
+  const [state, setState] = useState<Plan>(defaultState)
   const [open, setOpen] = useState<boolean>(false)
+  const stripRef = useRef<any>()
+  const plan = String(router?.query?.plan).toLocaleLowerCase() as string
+
+  useEffect(() => {
+    if (plan) {
+      setState({ basic: false, premium: false, [plan]: plan })
+    }
+  }, [plan])
+
+  const loadEvent = () => {
+    if (plan) {
+      // @ts-ignore
+      const cb = requestIdleCallback ?? setTimeout
+
+      cb(() => {
+        if (
+          stripRef?.current &&
+          typeof stripRef?.current?.onClick === 'function'
+        ) {
+          stripRef?.current?.onClick()
+        }
+      })
+    }
+  }
 
   const handleChange = (newState: any) => () => {
     setState({
@@ -162,7 +193,10 @@ function Payments({ hideTitle = false, name }: PaymentProps) {
                 </Button>
               ) : (
                 <StripeCheckout
+                  ref={stripRef}
                   token={onToken}
+                  // @ts-ignore
+                  onScriptTagCreated={loadEvent}
                   name={state.basic ? 'Basic' : 'Premium'}
                   stripeKey={STRIPE_KEY + ''}
                   email={data?.email || ''}
@@ -177,7 +211,7 @@ function Payments({ hideTitle = false, name }: PaymentProps) {
                   panelLabel={`${state.basic ? 'Basic' : 'Premium'} Plan`}
                 >
                   <Button color='secondary' variant='contained'>
-                    Pay With Card
+                    Start {state.basic ? 'Basic' : 'Premium'}
                   </Button>
                 </StripeCheckout>
               )}

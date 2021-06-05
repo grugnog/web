@@ -109,10 +109,15 @@ const SignOnForm: FunctionComponent<SignOnProps> = ({
       if (user) {
         userModel.logIn(user)
         UserManager.setUser(user)
-        router.push('/dashboard')
+        const plan = String(router?.query?.plan).toLocaleLowerCase() as string
+        const urlRoute =
+          typeof plan === 'string' && ['basic', 'premium'].includes(plan + '')
+            ? `/payments?plan=${plan}`
+            : '/dashboard'
+        router.push(urlRoute)
       }
     }
-  }, [data])
+  }, [data, router])
 
   useMemo(() => {
     if (error?.graphQLErrors?.length) {

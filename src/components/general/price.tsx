@@ -3,14 +3,13 @@
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
  **/
-import React from 'react'
-
-import { Typography, Grid, Paper } from '@material-ui/core'
+import React, { Fragment } from 'react'
+import { Typography, Grid, Button, Paper } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import { Ribbon } from '@app/components/general'
 import { priceConfig } from '@app/configs'
 import { SectionHeading } from '../text'
-import Link from 'next/link'
+import { Link } from './link'
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -97,37 +96,41 @@ export function Price({
               onClick={onClick ? onClick(title) : undefined}
               component={onClick ? 'button' : 'div'}
             >
-              {title === 'Premium' ? <Ribbon /> : null}
-              <Icon fontSize='large' />
-              <Typography
-                variant='h4'
-                component='span'
-                gutterBottom
-                style={{ fontWeight: 'bold' }}
-              >
-                {title}
-              </Typography>
-              <ol>
-                {details?.map((item: any) => (
-                  <Typography variant='subtitle1' component='li' key={item}>
-                    - {item}
-                  </Typography>
-                ))}
-              </ol>
-              {cost ? (
+              <Fragment>
+                {title === 'Premium' ? <Ribbon /> : null}
+                <Icon fontSize='large' />
                 <Typography
-                  variant='h5'
+                  variant='h4'
                   component='span'
-                  style={{ fontWeight: 600, marginTop: 12 }}
+                  gutterBottom
+                  style={{ fontWeight: 'bold' }}
                 >
-                  {cost}
+                  {title}
                 </Typography>
-              ) : null}
-              {navigate ? (
-                <div style={{ marginTop: 10, fontWeight: 600 }}>
-                  <Link href={`/register?plan=${title}`}>{'Start'}</Link>
-                </div>
-              ) : null}
+                <ol>
+                  {details?.map((item: any) => (
+                    <Typography variant='subtitle1' component='li' key={item}>
+                      - {item}
+                    </Typography>
+                  ))}
+                </ol>
+                {cost ? (
+                  <Typography
+                    variant='h5'
+                    component='span'
+                    style={{ fontWeight: 600, marginTop: 12 }}
+                  >
+                    {cost}
+                  </Typography>
+                ) : null}
+                {navigate ? (
+                  <Button
+                    style={{ marginTop: 10, fontWeight: 600 }}
+                    component={Link}
+                    href={`/register?plan=${title}`}
+                  >{`${title} Start`}</Button>
+                ) : null}
+              </Fragment>
             </Paper>
           ))}
       </Grid>

@@ -4,7 +4,10 @@
  * LICENSE file in the root directory of this source tree.
  **/
 import React, { Fragment } from 'react'
-import { MarketingDrawer, Price } from '@app/components/general'
+import { InferGetStaticPropsType } from 'next'
+import { MarketingDrawer, Price, Spacer } from '@app/components/general'
+import { WhatsNew } from '@app/components/alerts'
+import type { WhatsNewProps } from '@app/components/alerts'
 import {
   CtaFeatures,
   CtaIntro,
@@ -16,9 +19,9 @@ import {
 import { WithSwipeModal as SwipeableTemporaryDrawer } from '@app/components/adhoc'
 import { withApollo } from '@app/apollo'
 import { MarketingShapesTop } from '@app/components/marketing'
-// import { getAPIRoute } from '@app/configs'
+import { getAPIRoute } from '@app/configs'
 
-function Index() {
+function Index({ whatsNew }: InferGetStaticPropsType<typeof getStaticProps>) {
   return (
     <Fragment>
       <MarketingDrawer navPosition={'relative'}>
@@ -31,26 +34,37 @@ function Index() {
         <Price blockFree navigate />
         <CtaSignonForm />
       </MarketingDrawer>
+      {whatsNew ? <Spacer height={73} /> : null}
       <SwipeableTemporaryDrawer />
+      <WhatsNew {...whatsNew} />
     </Fragment>
   )
 }
 
-// export async function getStaticProps() {
-//   let websites: any = []
-//   try {
-//     const res = await fetch(`${getAPIRoute()}/getWebsitesDaily`)
+type IndexResponse = {
+  data: WhatsNewProps
+  message: string
+}
 
-//     websites = await res.json()
-//   } catch (e) {
-//     console.error(e)
-//   }
+export async function getStaticProps() {
+  let whatsNew: IndexResponse | null = null
+  try {
+    const res = await fetch(`${getAPIRoute()}/whats-new`)
+    const { data } = await res.json()
 
-//   return {
-//     props: {
-//       websites,
-//     },
-//   }
-// }
+    if (data) {
+      whatsNew = data
+    }
+  } catch (e) {
+    console.error(e)
+  }
+  return {
+    props: {
+      whatsNew,
+      // websites,
+    },
+    revalidate: 6 * 60 * 1000,
+  }
+}
 
 export default withApollo(Index)
