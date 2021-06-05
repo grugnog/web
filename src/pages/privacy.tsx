@@ -20,11 +20,12 @@ function Privacy({ name }: PageProps) {
         services.
       </Typography>
       <Spacer height={'20px'} />
-      <Typography variant='h3' component='h2' gutterBottom>
+      <Typography variant='h4' component='h2' gutterBottom>
         Analytics
       </Typography>
       <Typography variant='body1' component='p' gutterBottom>
-        We use google analytics to monitor our website usage.
+        We use google analytics to monitor our website usage. ( We plan on
+        removing this soon )
       </Typography>
     </MarketingDrawer>
   )
