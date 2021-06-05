@@ -166,6 +166,7 @@ function Payments({ hideTitle = false, name }: PaymentProps) {
                   name={state.basic ? 'Basic' : 'Premium'}
                   stripeKey={STRIPE_KEY + ''}
                   email={data?.email || ''}
+                  bitcoin
                   // @ts-ignore
                   disabled={Boolean(!state.basic && !state.premium)}
                   amount={state.basic ? 1000 : 2000}
@@ -174,7 +175,11 @@ function Payments({ hideTitle = false, name }: PaymentProps) {
                   // @ts-ignore
                   className={classes.cancel}
                   panelLabel={`${state.basic ? 'Basic' : 'Premium'} Plan`}
-                />
+                >
+                  <Button color='secondary' variant='contained'>
+                    Pay With Card
+                  </Button>
+                </StripeCheckout>
               )}
               <Dialog
                 open={open}
