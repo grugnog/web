@@ -3,24 +3,23 @@
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
  **/
-import React from 'react'
+import React, { Fragment } from 'react'
 import { observer } from 'mobx-react'
-
+import { issueData, userModel, scriptData } from '@app/data'
+import { HomeManager } from '@app/managers'
 import { TestOutIframe } from '../ada/testout-iframe'
 import { Fab } from './fab'
 import { IssueModal } from './issue-modal'
 import { OverlayPortalContainer } from './overlay'
-import { issueData, scriptData } from '@app/data'
-import { HomeManager } from '@app/managers'
 
 const TestViewContainer = observer(
   ({ url: currentUrl, store, marketing }: any) => {
     const url = currentUrl ?? store?.getTestFrameUrl
     const { issue } = issueData(url)
-    const { script } = scriptData(url)
+    const { script } = userModel.loggedIn ? scriptData(url) : { script: null }
 
     return (
-      <>
+      <Fragment>
         <TestOutIframe url={url} issue={issue} />
         <Fab
           direction='left'
@@ -31,7 +30,7 @@ const TestViewContainer = observer(
         />
         <OverlayPortalContainer />
         <IssueModal issue={issue} />
-      </>
+      </Fragment>
     )
   }
 )
