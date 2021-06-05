@@ -28,7 +28,7 @@ function Index() {
         <CtaFeatures />
         <CtaCustomers />
         <CtaSearch />
-        <Price blockFree />
+        <Price blockFree navigate />
         <CtaSignonForm />
       </MarketingDrawer>
       <SwipeableTemporaryDrawer />

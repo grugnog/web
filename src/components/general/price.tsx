@@ -69,6 +69,7 @@ export function Price({
       : ''
 
   const Container = !onClick ? 'section' : 'div'
+
   return (
     <Container className={!onClick ? classes.root : ''}>
       {typeof onClick === 'undefined' ? (
@@ -124,7 +125,7 @@ export function Price({
               ) : null}
               {navigate ? (
                 <div style={{ marginTop: 10, fontWeight: 600 }}>
-                  <Link href={'/register'}>{'Start'}</Link>
+                  <Link href={`/register?plan=${title}`}>{'Start'}</Link>
                 </div>
               ) : null}
             </Paper>
