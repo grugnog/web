@@ -45,13 +45,15 @@ function Profile({ name }: PageProps) {
   }, [])
 
   const updatePassword = useCallback(
-    (e: React.FormEvent) => {
+    async (e: React.FormEvent) => {
       e.preventDefault()
       updateUser({
         variables: {
           password: currentPassword,
           newPassword,
         },
+      }).catch((e) => {
+        console.error(e)
       })
     },
     [newPassword]
@@ -75,19 +77,28 @@ function Profile({ name }: PageProps) {
 
   return (
     <Fragment>
+      {user?.passwordRequired ? (
+        <Container
+          style={{ paddingTop: 12, paddingBottom: 12, textAlign: 'center' }}
+        >
+          <Typography>
+            Password reset required. Please change your password now
+          </Typography>
+        </Container>
+      ) : null}
       <NavBar backButton title={name} notitle />
       <Container maxWidth='xl'>
         <Box>
           <PageTitle title={'Your Profile'} />
           <ProfileCell
             title={'Email'}
-            skeletonLoad={!data?.user && loading}
+            skeletonLoad={!user && loading}
             subTitle={user?.email}
             className={classes.email}
           />
           <ProfileCell
             title={'Account Type'}
-            skeletonLoad={!data?.user && loading}
+            skeletonLoad={!user && loading}
             subTitle={
               user?.role === 0 ? 'Free' : user?.role === 1 ? 'Basic' : 'Premium'
             }
@@ -95,13 +106,13 @@ function Profile({ name }: PageProps) {
           />
           <ProfileCell
             title={'Active Subscription'}
-            skeletonLoad={!data?.user && loading}
+            skeletonLoad={!user && loading}
             subTitle={user?.activeSubscription ? 'Yes' : 'No'}
             className={classes.email}
           />
           <ProfileCell
             title={'Alerts Enabled'}
-            skeletonLoad={!data?.user && loading}
+            skeletonLoad={!user && loading}
             subTitle={user?.alertEnabled ? 'Yes' : 'No'}
             className={classes.email}
           />
@@ -133,7 +144,7 @@ function Profile({ name }: PageProps) {
               </IconButton>
             ) : null}
           </div>
-          {!data?.user && loading ? (
+          {!user && loading ? (
             <TextSkeleton width='8%' />
           ) : (
             <div className={classes.row}>

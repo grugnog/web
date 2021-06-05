@@ -16,6 +16,7 @@ const GET_USER = gql`
       role
       activeSubscription
       emailConfirmed
+      passwordRequired
       apiUsage {
         usage
         lastScanDate
