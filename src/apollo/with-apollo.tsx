@@ -47,10 +47,12 @@ const errorLink = onError(({ graphQLErrors, networkError }: any) => {
   if (process.browser) {
     let graphErrors = ''
     graphQLErrors?.map(({ message }: any) => {
-      if (message.includes('JWT:')) {
-        UserManager.clearUser('/')
+      if (message) {
+        if (message.includes('JWT:')) {
+          UserManager.clearUser('/')
+        }
+        graphErrors += `${message} \n`
       }
-      graphErrors += `${message} \n`
     })
     graphErrors && AppManager.toggleSnack(true, graphErrors, 'error')
 

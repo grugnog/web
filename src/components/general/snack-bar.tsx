@@ -40,7 +40,7 @@ const SnackbarContainer = observer(({ store }: any) => {
     store.closeSnack()
   }
 
-  const tt = store?.snackbar?.title
+  const tt = store?.snackbar?.title ?? ''
 
   const needsUpgrade =
     tt.includes('Max websites added') ||

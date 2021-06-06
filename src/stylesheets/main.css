@@ -9,29 +9,19 @@ html {
   scrollbar-width: thin;
 }
 
+body::-webkit-scrollbar,
 ::-webkit-scrollbar {
   width: 12px;
   padding-left: 2px;
   padding-right: 2px;
-  max-height: 10px;
-  background: #1a1a1a;
+  background: #1a1a1a !important;
 }
 
-::-webkit-scrollbar-thumb {
+::-webkit-scrollbar-thumb,
+body::-webkit-scrollbar-thumb,
+pre::-webkit-scrollbar-thumb {
   background: #424242 !important;
-  max-width: 5px;
-}
-
-body::-webkit-scrollbar {
-  width: 12px;
-  padding-left: 2px;
-  padding-right: 2px;
-  background: #1a1a1a;
-}
-
-body::-webkit-scrollbar-thumb {
-  background: #424242 !important;
-  max-width: 5px;
+  max-width: 5px !important;
 }
 
 .goog-te-banner-frame {

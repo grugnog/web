@@ -125,7 +125,7 @@ export function AnnotationContainer({
         <Typography variant='subtitle1' className={classes.title} gutterBottom>
           {message}
         </Typography>
-        {message?.includes('contrast ratio') ? (
+        {String(message)?.includes('contrast ratio') ? (
           <ToolTip
             visible={store.activeAnnotation}
             source={source}

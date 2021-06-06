@@ -83,7 +83,7 @@ export function SearchBar({ placeholder, noWidth, cta }: any) {
     e?.preventDefault()
 
     if (cta && ctaSearch) {
-      const searchUrl = ctaSearch.includes('http')
+      const searchUrl = String(ctaSearch).includes('http')
         ? ctaSearch
         : `http://${ctaSearch}`
       setSearch && setSearch({ search: '' })

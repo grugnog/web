@@ -31,7 +31,7 @@ export function DrawerWrapper({ route: routePath, title = '', classes }: any) {
       <NavBar
         title={title}
         position='fixed'
-        className={classes.appBar}
+        className={`${classes.nav} ${classes.appBar}`}
         toolbar={
           <span className={classes.drawerIconContainer}>
             <NavBarTitle title={title} flex />

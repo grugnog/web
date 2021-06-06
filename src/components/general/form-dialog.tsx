@@ -64,7 +64,7 @@ export function FormDialog({ buttonTitle = 'Add Website', okPress }: any) {
   const submit = (event: any) => {
     event?.preventDefault()
     if (typeof okPress === 'function') {
-      let cleanUrl = websitUrl
+      let cleanUrl = String(websitUrl)
         .replace(https ? 'https' : 'http', https ? 'http' : 'https')
         .replace(/^(?:https?:\/\/)?/i, '')
         .split('/')[0]

@@ -90,17 +90,18 @@ export function useSearch() {
   }
 
   const toggleModal = (bottom: boolean, text: string) => {
-    const hasPriorCom = text?.includes('www') && text?.includes('.')
+    const txt = text  || ""
+    const hasPriorCom = txt?.includes('www') && txt?.includes('.')
 
-    if (text && !isUrl(text) && !hasPriorCom) {
+    if (txt && !isUrl(txt) && !hasPriorCom) {
       AppManager.toggleSnack(
         true,
         'Please enter a valid website url starting with http:// or https://',
         'error'
       )
     } else {
-      if (bottom && text) {
-        scanPage(null, text)
+      if (bottom && txt) {
+        scanPage(null, txt)
       }
       client.writeData({
         data: {

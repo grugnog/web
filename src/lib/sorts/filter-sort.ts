@@ -5,4 +5,4 @@
  **/
 
 export const filterSort = (datasource: any[] = [], params: any) =>
-  datasource?.filter(({ domain }) => domain?.includes(params))
+  datasource?.filter(({ domain }) => String(domain)?.includes(params))
