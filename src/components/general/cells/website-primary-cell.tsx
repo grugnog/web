@@ -3,21 +3,16 @@
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
  **/
-import React, { useState } from 'react'
+import React, { Fragment, useState } from 'react'
 import {
-  List,
   ListItem,
   ListItemSecondaryAction,
   ListItemText,
   IconButton,
-  Typography,
   Menu,
   MenuItem,
 } from '@material-ui/core'
-import {
-  MoreVert as MoreIcon,
-  ExpandLess as ExpandLessIcon,
-} from '@material-ui/icons'
+import { MoreVert as MoreIcon } from '@material-ui/icons'
 import { makeStyles } from '@material-ui/core/styles'
 
 import { RenderAvatar, RenderSecondary, RenderIssuesList } from './render'
@@ -95,7 +90,6 @@ export function WebsitePrimaryCell({
   checkList,
   listIndex,
   openError,
-  noMaxHeight,
 }: any) {
   const classes = useStyles()
   const [anchorEl, setAnchorEl] = useState<any>(null)
@@ -187,66 +181,33 @@ export function WebsitePrimaryCell({
 
   const linkType = openError && !issuesModal
 
-  const extraProps = issueView
-    ? {}
-    : {
-        component: linkType ? Link : 'button',
-        href: linkType ? href : undefined,
-        color: 'inherit',
-        onClick: linkType ? undefined : viewIssue,
-        className: classes.noText,
-      }
-
-  if (issueView) {
-    return (
-      <div>
-        {!error ? (
-          <div className={classes.row}>
-            <Typography
-              variant={'h6'}
-              className={classes.title}
-              component={Link}
-              href={href}
-            >
-              {mainUrl}
-            </Typography>
-            <div className={classes.flex} />
-            <IconButton onClick={viewIssue}>
-              <ExpandLessIcon color={'primary'} />
-            </IconButton>
-          </div>
-        ) : null}
-        <List
-          className={`${
-            pageIssues?.length === 1
-              ? classes.smallList
-              : noMaxHeight
-              ? ''
-              : classes.list
-          } ${classes.overScroll}`}
-        >
-          <RenderIssuesList {...issueProps} />
-        </List>
-      </div>
-    )
+  const extraProps = {
+    component: linkType ? Link : 'button',
+    href: linkType ? href : undefined,
+    color: 'inherit',
+    onClick: linkType ? undefined : viewIssue,
+    className: classes.noText,
   }
 
   return (
-    <ListItem divider {...extraProps}>
-      <RenderAvatar {...item} error={error} />
-      <div>
-        <ListItemText
-          primary={mainUrl || item?.selector}
-          primaryTypographyProps={{
-            className: classes.listTitle,
-          }}
-        />
-        <RenderSecondary
-          {...item}
-          secondaryText={secondaryText || item?.context}
-        />
-      </div>
-      <ListItemSecondaryAction>{authForm}</ListItemSecondaryAction>
-    </ListItem>
+    <Fragment>
+      <ListItem divider {...extraProps}>
+        <RenderAvatar {...item} error={error} />
+        <div>
+          <ListItemText
+            primary={mainUrl || item?.selector}
+            primaryTypographyProps={{
+              className: classes.listTitle,
+            }}
+          />
+          <RenderSecondary
+            {...item}
+            secondaryText={secondaryText || item?.context}
+          />
+        </div>
+        <ListItemSecondaryAction>{authForm}</ListItemSecondaryAction>
+      </ListItem>
+      {issueView ? <RenderIssuesList {...issueProps} /> : null}
+    </Fragment>
   )
 }

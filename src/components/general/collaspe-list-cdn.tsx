@@ -76,6 +76,7 @@ const useStyles = makeStyles((theme) => ({
     paddingBottom: 2,
   },
   space: {
+    overflow: 'hidden',
     marginRight: theme.spacing(2),
   },
   adjust: {

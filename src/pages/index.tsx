@@ -40,7 +40,7 @@ function Index({ whatsNew }: InferGetStaticPropsType<typeof getStaticProps>) {
       </MarketingDrawer>
       {whatsNew ? <Spacer height={73} /> : null}
       <SwipeableTemporaryDrawer />
-      <WhatsNew {...whatsNew} />
+      {whatsNew ? <WhatsNew {...whatsNew} /> : null}
     </Fragment>
   )
 }
@@ -54,10 +54,10 @@ export async function getStaticProps() {
   let whatsNew: IndexResponse | null = null
   try {
     const res = await fetch(`${getAPIRoute()}/whats-new`)
-    const { data } = await res.json()
+    const resJson = await res.json()
 
-    if (data) {
-      whatsNew = data
+    if (resJson?.data) {
+      whatsNew = resJson.data
     }
   } catch (e) {
     console.error(e)

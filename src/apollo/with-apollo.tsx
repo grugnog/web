@@ -48,10 +48,16 @@ const errorLink = onError(({ graphQLErrors, networkError }: any) => {
     let graphErrors = ''
     graphQLErrors?.map(({ message }: any) => {
       if (message) {
-        if (message.includes('JWT:')) {
+        const invalidSignature = message.includes(
+          'Context creation failed: invalid signature'
+        )
+
+        if (message.includes('JWT:') || invalidSignature) {
           UserManager.clearUser('/')
         }
-        graphErrors += `${message} \n`
+
+        const errorMessage = invalidSignature ? 'Please re-login' : message
+        graphErrors += `${errorMessage} \n`
       }
     })
     graphErrors && AppManager.toggleSnack(true, graphErrors, 'error')
