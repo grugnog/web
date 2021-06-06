@@ -9,6 +9,19 @@ html {
   scrollbar-width: thin;
 }
 
+::-webkit-scrollbar {
+  width: 12px;
+  padding-left: 2px;
+  padding-right: 2px;
+  max-height: 10px;
+  background: #1a1a1a;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #424242 !important;
+  max-width: 5px;
+}
+
 body::-webkit-scrollbar {
   width: 12px;
   padding-left: 2px;
@@ -20,7 +33,6 @@ body::-webkit-scrollbar-thumb {
   background: #424242 !important;
   max-width: 5px;
 }
-
 
 .goog-te-banner-frame {
   bottom: 0 !important;

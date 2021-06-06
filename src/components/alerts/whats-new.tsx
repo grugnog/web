@@ -10,6 +10,8 @@ import { makeStyles, createStyles, Theme } from '@material-ui/core/styles'
 import { Extension, Close, NewReleases } from '@material-ui/icons'
 import { Link } from '../general'
 
+type Platform = 'desktop' | 'mobile' | 'crossplatform'
+
 const useStyles = makeStyles(({ breakpoints, palette, spacing }: Theme) =>
   createStyles({
     sticky: {
@@ -19,6 +21,9 @@ const useStyles = makeStyles(({ breakpoints, palette, spacing }: Theme) =>
       padding: spacing(1),
       [breakpoints.down('sm')]: {
         paddingRight: spacing(11),
+        display: ({ platform }: { platform?: Platform }) => {
+          return platform == 'desktop' ? 'none' : undefined
+        },
       },
       position: 'fixed',
       zIndex: 1,
@@ -49,10 +54,17 @@ export type WhatsNewProps = {
   label?: string
   message?: string
   canToggle?: boolean
+  platform?: Platform
 }
 
-function WhatsNew({ href, label, message, canToggle = true }: WhatsNewProps) {
-  const classes = useStyles()
+function WhatsNew({
+  href,
+  label,
+  message,
+  platform = 'desktop',
+  canToggle = true,
+}: WhatsNewProps) {
+  const classes = useStyles({ platform })
   const [visable, toggleVisible] = useState<boolean>(true)
 
   if (!message || !visable) {

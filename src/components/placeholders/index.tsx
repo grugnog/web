@@ -4,7 +4,7 @@
  * LICENSE file in the root directory of this source tree.
  **/
 
-export { ListItemSkeleton } from './list-item'
+export { ListItemSkeleton, ListItemIssuesSkeleton } from './list-item'
 export { ListSkeleton } from './list'
 export { TextSkeleton } from './text'
 export { SimpleListItemSkeleton } from './simple-list-item'

@@ -41,6 +41,21 @@ const useStyles = makeStyles((theme) => ({
   loading: {
     display: 'flex',
     justifyContent: 'center',
+    minHeight: 48,
+    ['& > li > *']: {
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center',
+      textAlign: 'center',
+      flex: 1,
+    },
+  },
+  toolbar: {
+    display: 'flex',
+    justifyContent: 'center',
+    paddingTop: 10,
+    paddingBottom: 10,
+    maxWidth: 160,
     ['& > li > *']: {
       display: 'flex',
       justifyContent: 'center',
@@ -102,9 +117,11 @@ export function ReportView({ website, closeButton, disablePlayground }: any) {
               JS Fixes
             </Typography>
             <Spacer height={2} />
-            <EditableMixture language='html' style={a11yDark} editMode>
-              {website?.script?.script || ''}
-            </EditableMixture>
+            <div>
+              <EditableMixture language='html' style={a11yDark} editMode>
+                {website?.script?.script || ''}
+              </EditableMixture>
+            </div>
           </Fragment>
         ) : null}
       </div>
@@ -113,24 +130,25 @@ export function ReportView({ website, closeButton, disablePlayground }: any) {
           <div className={classes.loading} role='presentation'>
             <ListSkeleton avatar={false} subTitle={false} count={4} />
           </div>
-          <ListSkeleton count={8} avatar={false} />
+          <div className={classes.toolbar} role='presentation'>
+            <ListSkeleton avatar={false} subTitle={false} count={2} />
+          </div>
+          <ListSkeleton count={8} avatar={false} report />
         </div>
       ) : (
         <WebsiteTabs
           issues={<IssueList website={website} printable />}
           html={
-            <div className={classes.block}>
-              <EditableMixture
-                language='html'
-                style={a11yDark}
-                lineProps={() => ({
-                  style: { display: 'block', cursor: 'pointer' },
-                })}
-                editMode
-              >
-                {website?.html || ''}
-              </EditableMixture>
-            </div>
+            <EditableMixture
+              language='html'
+              style={a11yDark}
+              lineProps={() => ({
+                style: { display: 'block', cursor: 'pointer' },
+              })}
+              editMode
+            >
+              {website?.html || ''}
+            </EditableMixture>
           }
           screenshot={
             <div className={classes.center}>

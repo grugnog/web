@@ -4,14 +4,31 @@
  * LICENSE file in the root directory of this source tree.
  **/
 
-import { useState } from 'react'
+import { useCallback, useState } from 'react'
 import { Tabs, Tab } from '@material-ui/core'
+import { makeStyles } from '@material-ui/core/styles'
 
 type TabPanelProps = {
   children: any
   index: any
   value: any
+  className: any
 }
+
+const useStyles = makeStyles(() => ({
+  container: {
+    height: '100%',
+    width: '100%',
+    '& > section': {
+      height: '100% !important',
+      width: '100% !important',
+    },
+  },
+  wrapper: {
+    height: '100%',
+    width: '100%',
+  },
+}))
 
 function TabPanel(props: TabPanelProps) {
   const { children, value, index, ...other } = props
@@ -22,7 +39,6 @@ function TabPanel(props: TabPanelProps) {
       hidden={value !== index}
       id={`a11y-tabpanel-${index}`}
       aria-labelledby={`a11y-tab-${index}`}
-      style={{ height: '100%' }}
       {...other}
     >
       {value === index && children}
@@ -39,13 +55,14 @@ function a11yProps(index: number) {
 
 export function WebsiteTabs({ issues, html, screenshot, playground }: any) {
   const [value, setValue] = useState<number>(0)
+  const classes = useStyles()
 
-  const handleChange = (_: any, newValue: number) => {
+  const handleChange = useCallback((_: any, newValue: number) => {
     setValue(newValue)
-  }
+  }, [])
 
   return (
-    <div style={{ height: '100%', width: '100%' }}>
+    <div className={classes.wrapper}>
       <Tabs
         value={value}
         onChange={handleChange}
@@ -57,17 +74,17 @@ export function WebsiteTabs({ issues, html, screenshot, playground }: any) {
         <Tab label='Screenshots' {...a11yProps(2)} />
         {playground ? <Tab label='Playground' {...a11yProps(3)} /> : null}
       </Tabs>
-      <TabPanel value={value} index={0}>
+      <TabPanel value={value} index={0} className={classes.container}>
         {issues}
       </TabPanel>
-      <TabPanel value={value} index={1}>
+      <TabPanel value={value} index={1} className={classes.container}>
         {html}
       </TabPanel>
-      <TabPanel value={value} index={2}>
+      <TabPanel value={value} index={2} className={classes.container}>
         {screenshot}
       </TabPanel>
       {playground ? (
-        <TabPanel value={value} index={3}>
+        <TabPanel value={value} index={3} className={classes.container}>
           {playground}
         </TabPanel>
       ) : null}

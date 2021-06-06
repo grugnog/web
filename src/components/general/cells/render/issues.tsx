@@ -12,20 +12,25 @@ import { WithHighlight } from '@app/components/adhoc'
 const useStyles = makeStyles(() => ({
   mainItemContainer: {
     overflow: 'hidden',
+    display: 'block',
   },
-  flex: {
-    flex: 1,
-  },
-  list: {
-    maxHeight: '50vh',
+  code: {
+    overflow: 'hidden',
+    maxWidth: '69vw',
   },
   mainSubtitle: {
-    fontSize: '13px',
-    marginBottom: '2px',
-    maxWidth: '88vw',
+    maxWidth: '88%',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+    fontWeight: 300,
+    fontSize: '1.1em',
+  },
+  secondSubtitle: {
+    maxWidth: '88%',
     overflow: 'hidden',
     textOverflow: 'ellipsis',
     fontWeight: 400,
+    fontSize: '1.35em',
   },
   blockColor: {
     color: 'rgb(202,109,102)',
@@ -65,7 +70,7 @@ export function RenderIssue({
   return (
     <ListItem
       // @ts-ignore
-      className={classes[type]}
+      className={`${classes.mainItemContainer} ${classes[type]}`}
       divider
       {...checkListProps}
     >
@@ -81,17 +86,15 @@ export function RenderIssue({
         </ListItemIcon>
       ) : null}
       <div className={classes.mainItemContainer}>
-        <Typography
-          variant='subtitle2'
-          className={classes.mainSubtitle}
-          component={'p'}
-        >
+        <Typography className={classes.mainSubtitle} component={'p'}>
           {code}
         </Typography>
-        <Typography variant='body1' gutterBottom>
+        <Typography gutterBottom className={classes.secondSubtitle}>
           {message}
         </Typography>
-        <WithHighlight>{String(context)}</WithHighlight>
+        <WithHighlight className={classes.code}>
+          {String(context)}
+        </WithHighlight>
       </div>
     </ListItem>
   )

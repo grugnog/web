@@ -4,7 +4,7 @@
  * LICENSE file in the root directory of this source tree.
  **/
 
-import React from 'react'
+import React, { Fragment } from 'react'
 import { Button, Typography } from '@material-ui/core'
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles'
 import { strings } from '@app-strings'
@@ -61,7 +61,7 @@ function CtaCdn({ website, disablePlayground }: any) {
     : ''
 
   return (
-    <div>
+    <Fragment>
       <span className={classes.row} style={{ marginTop: 12 }}>
         <Typography
           component='span'
@@ -119,7 +119,7 @@ function CtaCdn({ website, disablePlayground }: any) {
         </span>
       )}
       {noIssues ? <Typography>No issues found, great job!</Typography> : null}
-    </div>
+    </Fragment>
   )
 }
 
