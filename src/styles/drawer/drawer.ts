@@ -47,6 +47,9 @@ export const drawerStyles = makeStyles((theme: Theme) => {
       left: 0,
       right: 0,
     },
+    nav: {
+      backgroundColor: theme.palette.background.default,
+    },
     appBar: {
       transition: theme.transitions.create(['margin', 'width'], {
         easing: theme.transitions.easing.sharp,
