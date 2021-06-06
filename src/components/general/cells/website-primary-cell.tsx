@@ -12,7 +12,11 @@ import {
   Menu,
   MenuItem,
 } from '@material-ui/core'
-import { MoreVert as MoreIcon } from '@material-ui/icons'
+import {
+  ExpandLess as ExpandLessIcon,
+  ExpandMore as ExpandMoreIcon,
+  MoreVert as MoreIcon,
+} from '@material-ui/icons'
 import { makeStyles } from '@material-ui/core/styles'
 
 import { RenderAvatar, RenderSecondary, RenderIssuesList } from './render'
@@ -200,12 +204,27 @@ export function WebsitePrimaryCell({
               className: classes.listTitle,
             }}
           />
-          <RenderSecondary
-            {...item}
-            secondaryText={secondaryText || item?.context}
-          />
+          {error ? null : (
+            <RenderSecondary
+              {...item}
+              secondaryText={secondaryText || item?.context}
+            />
+          )}
         </div>
-        <ListItemSecondaryAction>{authForm}</ListItemSecondaryAction>
+        {error ? (
+          <ListItemSecondaryAction>
+            <IconButton
+              aria-label='toggle item visibility'
+              aria-controls='menu-appbar-item'
+              onClick={viewIssue}
+              color='inherit'
+            >
+              {issueView ? <ExpandMoreIcon /> : <ExpandLessIcon />}
+            </IconButton>
+          </ListItemSecondaryAction>
+        ) : (
+          <ListItemSecondaryAction>{authForm}</ListItemSecondaryAction>
+        )}
       </ListItem>
       {issueView ? <RenderIssuesList {...issueProps} /> : null}
     </Fragment>
