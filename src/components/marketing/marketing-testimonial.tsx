@@ -23,8 +23,6 @@ const useStyles = makeStyles((theme) => ({
     objectFit: 'contain',
     margin: '0 auto',
     border: '4px solid white',
-    height: '15vw',
-    width: '15vw',
     minHeight: '310px',
     minWidth: '310px',
     [theme.breakpoints.down('sm')]: {
@@ -39,6 +37,10 @@ const useStyles = makeStyles((theme) => ({
       textAlign: 'center',
     },
   },
+  image: {
+    backgroundColor: 'hsl(0, 0%, 90%)',
+    transition: 'background-color 300ms',
+  },
   subtitle: {
     [theme.breakpoints.down('sm')]: {
       textAlign: 'center',
@@ -47,7 +49,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
-export function MarketingTestimonial(): any {
+export function MarketingTestimonial() {
   const classes = useStyles()
 
   return (
@@ -61,8 +63,9 @@ export function MarketingTestimonial(): any {
         <Grid item xs={12} sm={6}>
           <Avatar className={classes.bigAvatar} variant='circular'>
             <Image
+              className={classes.image}
               alt={strings.testimonials[0].who}
-              src='https://images.unsplash.com/photo-1567473433986-94c54e951026?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80'
+              src='/static/img/gilbert.png'
               height={310}
               width={310}
               quality={100}
@@ -70,7 +73,7 @@ export function MarketingTestimonial(): any {
           </Avatar>
         </Grid>
         <Grid item xs={12} sm={6} container>
-          <>
+          <div>
             <Typography
               variant='h4'
               component='h5'
@@ -87,7 +90,7 @@ export function MarketingTestimonial(): any {
             >
               {strings.testimonials[0].who}
             </Typography>
-          </>
+          </div>
         </Grid>
       </Grid>
     </section>

@@ -18,7 +18,10 @@ import {
 } from '@app/components/cta'
 import { WithSwipeModal as SwipeableTemporaryDrawer } from '@app/components/adhoc'
 import { withApollo } from '@app/apollo'
-import { MarketingShapesTop } from '@app/components/marketing'
+import {
+  MarketingShapesTop,
+  MarketingTestimonial,
+} from '@app/components/marketing'
 import { getAPIRoute } from '@app/configs'
 
 function Index({ whatsNew }: InferGetStaticPropsType<typeof getStaticProps>) {
@@ -31,6 +34,7 @@ function Index({ whatsNew }: InferGetStaticPropsType<typeof getStaticProps>) {
         <CtaFeatures />
         <CtaCustomers />
         <CtaSearch />
+        <MarketingTestimonial />
         <Price blockFree navigate />
         <CtaSignonForm />
       </MarketingDrawer>

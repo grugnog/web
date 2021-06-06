@@ -37,8 +37,8 @@ export const generateStrings = ({
     testimonials: [
       {
         title:
-          'A11yWatch is lightning fast. Always stay up to date with the latest issues as they arise. Never lose another customer again.',
-        who: 'Henry West, Sr. Software Engineer at DesignFit',
+          'A11yWatch is lightning fast. Always stay up to date with the latest issues as they arise.',
+        who: 'Gilbert Bagaoisan, Head of Design at ZeeMee',
       },
     ],
     features: [
