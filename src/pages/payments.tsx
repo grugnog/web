@@ -98,14 +98,16 @@ function Payments({ hideTitle = false, name }: PaymentProps) {
       // @ts-ignore
       const cb = requestIdleCallback ?? setTimeout
 
-      cb(() => {
-        if (
-          stripRef?.current &&
-          typeof stripRef?.current?.onClick === 'function'
-        ) {
-          stripRef?.current?.onClick()
-        }
-      })
+      if (typeof cb === 'function') {
+        cb(() => {
+          if (
+            stripRef?.current &&
+            typeof stripRef?.current?.onClick === 'function'
+          ) {
+            stripRef.current.onClick()
+          }
+        })
+      }
     }
   }
 
@@ -213,7 +215,6 @@ function Payments({ hideTitle = false, name }: PaymentProps) {
                     name={state.basic ? 'Basic' : 'Premium'}
                     stripeKey={STRIPE_KEY + ''}
                     email={data?.email || ''}
-                    bitcoin
                     // @ts-ignore
                     disabled={Boolean(!state.basic && !state.premium)}
                     amount={state.basic ? 1000 : 2000}

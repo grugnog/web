@@ -65,12 +65,12 @@ export const Routes = [
     name: 'Consulting',
     type: 'resources',
   },
-  {
-    nav: false,
-    href: 'https://a11ywatch.blog',
-    name: 'Blog',
-    type: 'company',
-  },
+  // {
+  //   nav: false,
+  //   href: 'https://a11ywatch.blog',
+  //   name: 'Blog',
+  //   type: 'company',
+  // },
   {
     nav: false,
     href: 'https://a11ywatch.github.io/docs',
