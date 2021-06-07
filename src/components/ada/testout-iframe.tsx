@@ -39,19 +39,33 @@ const MainFrame = observer(({ homeStore, iframeStore, url, issue }: any) => {
     }
   }
 
+  const iframeSrc = homeStore.getIframeSource(url)
+  const pdfView = iframeSrc.includes('.pdf')
+
   return (
     <div className={mainFixed}>
       <ResetCss />
-      <iframe
-        src={homeStore.getIframeSource(url)}
-        id='ada-frame'
-        className={mainFrame}
-        title='ada fix example view'
-        name='ada iframe'
-        sandbox={`${sboxType} allow-scripts`}
-        onLoad={loadFrame}
-        ref={iframeRef}
-      />
+      {pdfView ? (
+        <embed
+          src={iframeSrc}
+          id='ada-frame'
+          className={mainFrame}
+          title='ada fix example view'
+          onLoad={loadFrame}
+          ref={iframeRef}
+        />
+      ) : (
+        <iframe
+          src={iframeSrc}
+          id='ada-frame'
+          className={mainFrame}
+          title='ada fix example view'
+          name='ada iframe'
+          sandbox={`${sboxType} allow-scripts`}
+          onLoad={loadFrame}
+          ref={iframeRef}
+        />
+      )}
     </div>
   )
 })

@@ -46,10 +46,22 @@ const useStyles = makeStyles(() => ({
     marginBottom: 30,
     background: '#fff',
     color: '#000',
+    minWidth: '148.906px',
+  },
+  pay: {
+    marginTop: 60,
+    marginBottom: 30,
+    minWidth: '148.906px',
   },
   cancelBtn: {
     background: 'transparent',
     boxShadow: 'none',
+  },
+  center: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    flexDirection: 'column',
   },
 }))
 
@@ -182,39 +194,44 @@ function Payments({ hideTitle = false, name }: PaymentProps) {
                   </Typography>
                 </div>
               )}
-              {!renderPayMentBoxes ? (
-                <Button
-                  title={'Cancel Subscription'}
-                  type={'button'}
-                  onClick={handleModal(true)}
-                  className={classes.cancel}
-                >
-                  Cancel Subscription
-                </Button>
-              ) : (
-                <StripeCheckout
-                  ref={stripRef}
-                  token={onToken}
-                  // @ts-ignore
-                  onScriptTagCreated={loadEvent}
-                  name={state.basic ? 'Basic' : 'Premium'}
-                  stripeKey={STRIPE_KEY + ''}
-                  email={data?.email || ''}
-                  bitcoin
-                  // @ts-ignore
-                  disabled={Boolean(!state.basic && !state.premium)}
-                  amount={state.basic ? 1000 : 2000}
-                  zipCode={false}
-                  billingAddress={false}
-                  // @ts-ignore
-                  className={classes.cancel}
-                  panelLabel={`${state.basic ? 'Basic' : 'Premium'} Plan`}
-                >
-                  <Button color='secondary' variant='contained'>
-                    Start {state.basic ? 'Basic' : 'Premium'}
+              <div className={classes.center}>
+                {!renderPayMentBoxes ? (
+                  <Button
+                    title={'Cancel Subscription'}
+                    type={'button'}
+                    onClick={handleModal(true)}
+                    className={classes.cancel}
+                  >
+                    Cancel Subscription
                   </Button>
-                </StripeCheckout>
-              )}
+                ) : (
+                  <StripeCheckout
+                    ref={stripRef}
+                    token={onToken}
+                    // @ts-ignore
+                    onScriptTagCreated={loadEvent}
+                    name={state.basic ? 'Basic' : 'Premium'}
+                    stripeKey={STRIPE_KEY + ''}
+                    email={data?.email || ''}
+                    bitcoin
+                    // @ts-ignore
+                    disabled={Boolean(!state.basic && !state.premium)}
+                    amount={state.basic ? 1000 : 2000}
+                    zipCode={false}
+                    billingAddress={false}
+                    // @ts-ignore
+                    panelLabel={`${state.basic ? 'Basic' : 'Premium'} Plan`}
+                  >
+                    <Button
+                      color='secondary'
+                      variant='contained'
+                      className={classes.pay}
+                    >
+                      Start {state.basic ? 'Basic' : 'Premium'}
+                    </Button>
+                  </StripeCheckout>
+                )}
+              </div>
               <Dialog
                 open={open}
                 onClose={handleModal(false)}

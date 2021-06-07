@@ -53,7 +53,11 @@ class IframeManager {
   @action
   removePortal = (index: number) => {
     this.adaElements.splice(index, 1)
-    this.portals[index] = null
+    if(this.portals[index]) {
+      this.portals[index] = null
+    } else {
+      // todo: portal left open on old window
+    }
   }
 
   @action addScriptFix = (fix: any) => {

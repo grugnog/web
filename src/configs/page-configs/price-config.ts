@@ -20,6 +20,7 @@ const plans = [
     title: 'Free',
     details: [
       'Monitor 1 website',
+      'Daily email reports',
       '2 daily manual page scans',
       'Root domain scanned daily',
       TRUSTED_CDN,
@@ -34,6 +35,7 @@ const plans = [
     title: 'Basic',
     details: [
       'Monitor up to 4 websites',
+      'Daily email reports',
       '10 daily manual page scans',
       'All pages scanned daily',
       TRUSTED_CDN,
@@ -48,6 +50,7 @@ const plans = [
     title: 'Premium',
     details: [
       'Monitor up to 10 websites',
+      'Daily email reports',
       'Unlimited daily manual page scans',
       'All pages scanned multiple times daily',
       TRUSTED_CDN,

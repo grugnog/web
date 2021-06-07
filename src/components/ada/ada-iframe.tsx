@@ -20,9 +20,15 @@ import { HtmlView } from './html-view'
 import { onLoad } from './utils'
 import { AnnotationContainer } from './annotation-container'
 
-const IFrameComponent = forwardRef((props: any, ref: any) => (
-  <iframe {...props} ref={ref} />
-))
+const IFrameComponent = forwardRef((props: any, ref: any) => {
+  const src = props?.src || ''
+  if (src?.includes('.pdf')) {
+    return (
+      <embed {...props} ref={ref} src={src.replace('/api/iframe/?url=', '')} />
+    )
+  }
+  return <iframe {...props} ref={ref} />
+})
 
 const urlReplacer = (url: string, homeStore: any) => {
   if (url) {
@@ -30,9 +36,8 @@ const urlReplacer = (url: string, homeStore: any) => {
       return url
     }
     return `/api/iframe/?url=${url}`
-  } else {
-    return homeStore.getIframeSource(url)
   }
+  return homeStore.getIframeSource(url)
 }
 
 const MainFrame = observer(
