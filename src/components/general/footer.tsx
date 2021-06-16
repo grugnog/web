@@ -97,12 +97,13 @@ const NavLinks: any = ({ className, filterType }: any) => {
           <Link
             color={'inherit'}
             className={className}
-            children={name}
             variant={'subtitle1'}
             href={href}
             rel={href.includes('https') ? 'noopener' : undefined}
             target={href.includes('https') ? '_blank' : undefined}
-          />
+          >
+            {name}
+          </Link>
         </li>
       )
     })

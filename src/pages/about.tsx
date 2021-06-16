@@ -30,7 +30,7 @@ function About({ name }: PageProps) {
         Our vision starts with really believing that the web should be a smooth
         universal experience. The web has grown and adopted many assistive
         technologies to try to make this experience feel natural for everyone.
-        One thing is that it's up to developers to assure this.
+        One thing is that {`it's`} up to developers to assure this.
       </Typography>
       <Typography variant='h4' component='h3' gutterBottom style={bold}>
         Goals

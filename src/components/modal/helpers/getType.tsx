@@ -31,7 +31,7 @@ const useStyles = makeStyles(() => ({
   },
 }))
 
-export const getType = ({ modalType, html }: any) => {
+export const GetType = ({ modalType, html }: any) => {
   const classes = useStyles()
 
   switch (modalType) {

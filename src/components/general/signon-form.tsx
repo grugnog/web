@@ -111,7 +111,8 @@ const SignOnForm: FunctionComponent<SignOnProps> = ({
         UserManager.setUser(user)
         const plan = String(router?.query?.plan).toLocaleLowerCase() as string
         const urlRoute =
-          typeof plan === 'string' && ['basic', 'premium'].includes(plan + '')
+          typeof plan === 'string' &&
+          ['basic', 'premium'].includes(String(plan))
             ? `/payments?plan=${plan}`
             : '/dashboard'
         router.push(urlRoute)
@@ -238,7 +239,7 @@ const SignOnForm: FunctionComponent<SignOnProps> = ({
                   id='my-email-text'
                   className={classes.textCenter}
                 >
-                  We'll never share your email.
+                  {`We'll never share your email.`}
                 </FormHelperText>
               </FormControl>
             </div>
@@ -264,7 +265,7 @@ const SignOnForm: FunctionComponent<SignOnProps> = ({
                   className={classes.textCenter}
                   style={{ marginBottom: 0 }}
                 >
-                  We'll never share your password.
+                  {`We'll never share your password.`}
                 </FormHelperText>
               </FormControl>
             </div>

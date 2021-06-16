@@ -14,8 +14,8 @@ const center = {
   display: 'flex',
   justifyContent: 'center',
   alignItems: 'center',
-  flexDirection: 'column' as 'column',
-}
+  flexDirection: 'column',
+} as React.CSSProperties
 
 const circleStyle = Object.assign(
   {},
@@ -40,9 +40,9 @@ function Contact({ name }: PageProps) {
         AI tool to help mitigate accessibility errors, our team of engineers
         work seamless with your engineers and designers. We provide project
         leadership and technical expertise. We won’t just be an extra set of
-        hands—we’ll help guide your strategy, provide best practices to ensure a
-        maintainable and sustainable product, and help your team boost up along
-        the way. Let's get started.
+        {`hands—we’ll`} help guide your strategy, provide best practices to
+        ensure a maintainable and sustainable product, and help your team boost
+        up along the way. {`Let's`} get started.
       </Typography>
       <div style={center}>
         <a

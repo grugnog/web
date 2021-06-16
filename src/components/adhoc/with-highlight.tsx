@@ -9,6 +9,7 @@ import dynamic from 'next/dynamic'
 import { makeStyles } from '@material-ui/core/styles'
 import { TextSkeleton } from '@app/components/placeholders'
 import { a11yDark } from '@app/styles'
+/* eslint-disable */
 
 const useStyles = makeStyles(() => ({
   code: {
@@ -39,7 +40,7 @@ const SyntaxHighlighter = dynamic(
   }
 )
 
-export function WithHighlight({ setScript, children, ...extraProps }: any) {
+function WithHighlight({ setScript, children, ...extraProps }: any) {
   const classes = useStyles()
 
   return (
@@ -54,3 +55,6 @@ export function WithHighlight({ setScript, children, ...extraProps }: any) {
     </SyntaxHighlighter>
   )
 }
+WithHighlight.displayName = 'WithHighlight'
+
+export { WithHighlight }

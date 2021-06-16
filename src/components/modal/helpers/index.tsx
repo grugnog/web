@@ -4,5 +4,5 @@
  * LICENSE file in the root directory of this source tree.
  **/
 
-export { getType } from './getType'
+export { GetType } from './getType'
 export { getTitle } from './getTitle'

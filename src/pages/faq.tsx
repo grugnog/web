@@ -61,8 +61,8 @@ function Faq({ name }: PageProps) {
         </ListItem>
         <ListItem>
           <Typography variant='subtitle1' component='p'>
-            <b>Give us feedback.</b> Tell us what we're doing well or where we
-            can improve. Please upvote (👍) the issues that you are the most
+            <b>Give us feedback.</b> Tell us what {`we're`} doing well or where
+            we can improve. Please upvote (👍) the issues that you are the most
             interested in seeing solved.
           </Typography>
         </ListItem>

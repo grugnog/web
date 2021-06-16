@@ -130,6 +130,8 @@ const ReccomendedItem = memo(
   }
 )
 
+ReccomendedItem.displayName = 'ReccomendedItem'
+
 export function ReccomendedFixes({
   source,
   primaryColorContrast,

@@ -14,14 +14,14 @@ function TermsOfService({ name }: PageProps) {
   const bold = { fontWeight: 600 }
   return (
     <MarketingDrawer title={name} footerSpacing>
-      <PageTitle>Terms of Service ("Terms")</PageTitle>
+      <PageTitle>Terms of Service ({`"Terms"`})</PageTitle>
       <Typography variant='body1' component='p' gutterBottom>
         Last updated: November 15, 2019
       </Typography>
       <Typography variant='body2' component='p' gutterBottom>
-        Please read these Terms of Service ("Terms", "Terms of Service")
-        carefully before using the {strings.appName} website (the "Service")
-        operated by {strings.appName} ("us", "we", or "our").
+        Please read these Terms of Service {`("Terms", "Terms of Service")`}
+        carefully before using the {strings.appName} website (the {`"Service"`})
+        operated by {strings.appName} {`("us", "we", or "our")`}.
       </Typography>
       <Typography>
         Your access to and use of the Service is conditioned on your acceptance

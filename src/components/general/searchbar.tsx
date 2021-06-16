@@ -70,14 +70,12 @@ const useStyles = makeStyles((theme) => ({
 export function SearchBar({ placeholder, noWidth, cta }: any) {
   const classes = useStyles({ noWidth })
   const { setSearchFilter } = useSearchFilter()
-  const { search: ctaSearch, setSearch, loading, toggleModal } = cta
-    ? useSearch()
-    : {
-        search: null,
-        setSearch: null,
-        loading: false,
-        toggleModal: null,
-      }
+  const {
+    search: ctaSearch = null,
+    setSearch = null,
+    loading = false,
+    toggleModal = null,
+  } = useSearch()
 
   const submit = (e: any) => {
     e?.preventDefault()

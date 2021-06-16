@@ -22,7 +22,7 @@ const inlineButtonStyle = {
   zIndex: 999999,
   border: 0,
   position: 'absolute',
-}
+} as React.CSSProperties
 
 export function Annotations({
   contrastRatio,
@@ -50,13 +50,14 @@ export function Annotations({
           context,
         })
       }}
-      style={Object.assign({}, inlineButtonStyle, {
+      style={{
+        ...inlineButtonStyle,
         background:
           errorType === 'error'
             ? 'linear-gradient(20deg, #EF6C00 10%, #E65100 95%)'
             : 'linear-gradient(20deg, #9E9D24 10%, #827717 95%)',
         color: '#fff',
-      })}
+      }}
     >
       {contrastRatio?.includes('.00') ? contrastRatio[0] : ''}
     </Button>

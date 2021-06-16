@@ -93,7 +93,7 @@ export function SignOnFormSkeleton({ loginView }: { loginView?: boolean }) {
             required
           />
           <FormHelperText id='my-email-text' className={classes.textCenter}>
-            We'll never share your email.
+            {`We'll never share your email.`}
           </FormHelperText>
         </FormControl>
         <FormControl>
@@ -117,7 +117,7 @@ export function SignOnFormSkeleton({ loginView }: { loginView?: boolean }) {
             className={classes.textCenter}
             style={{ marginBottom: 0 }}
           >
-            We'll never share your password.
+            {`We'll never share your password.`}
           </FormHelperText>
         </FormControl>
       </div>

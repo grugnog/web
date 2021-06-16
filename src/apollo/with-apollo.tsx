@@ -5,7 +5,6 @@
  **/
 
 import React from 'react'
-import Head from 'next/head'
 import fetch from 'isomorphic-unfetch'
 import { split, ApolloLink } from 'apollo-link'
 import { getMainDefinition } from 'apollo-utilities'
@@ -153,8 +152,6 @@ export function withApollo(
           } catch (error) {
             console.error('Error while running `getDataFromTree`', error)
           }
-
-          Head.rewind()
         }
       }
 

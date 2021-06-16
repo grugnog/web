@@ -9,15 +9,22 @@ import NextLink from 'next/link'
 import MuiLink from '@material-ui/core/Link'
 
 interface NextComposedProps {
-  as?: string,
+  as?: string
   href: string
- }
- 
-const NextComposed = forwardRef(({ as, href, ...other }: NextComposedProps, ref: React.Ref<HTMLAnchorElement>) => (
-  <NextLink href={href} as={as}>
-    <a ref={ref} {...other} />
-  </NextLink>
-))
+}
+
+const NextComposed = forwardRef(
+  (
+    { as, href, ...other }: NextComposedProps,
+    ref: React.Ref<HTMLAnchorElement>
+  ) => (
+    <NextLink href={href} as={as}>
+      <a ref={ref} {...other} />
+    </NextLink>
+  )
+)
+
+NextComposed.displayName = 'NextComposed'
 
 function MNLink({
   activeClassName = 'active',
@@ -62,5 +69,7 @@ function MNLink({
 const Link = forwardRef((props: any, ref: any) => (
   <MNLink {...props} innerRef={ref} />
 ))
+
+Link.displayName = 'Link'
 
 export { Link }

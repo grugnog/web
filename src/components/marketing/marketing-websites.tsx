@@ -27,10 +27,11 @@ const useStyles = makeStyles((theme: any) => ({
 }))
 
 function MarketingWebsites({ websites }: any) {
+  const { container, root } = useStyles()
+
   if (!websites?.length) {
     return null
   }
-  const { container, root } = useStyles()
 
   return (
     <section className={root}>

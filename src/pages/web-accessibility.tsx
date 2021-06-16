@@ -35,8 +35,8 @@ function WebAccessibility({ name }: PageProps) {
     <MarketingDrawer title={name}>
       <PageTitle>Web Accessibility</PageTitle>
       <Typography variant='subtitle1' component='h2' gutterBottom>
-        Improve your product's web accessibility for better a11y from the start
-        of the building process. Follow these principles to improve your
+        Improve your {`product's`} web accessibility for better a11y from the
+        start of the building process. Follow these principles to improve your
         websites accessibility with some building block rules.
       </Typography>
       <Typography variant='h4' component='h3' gutterBottom style={bold}>
@@ -49,7 +49,7 @@ function WebAccessibility({ name }: PageProps) {
           href={'https://material.io/design/color/#'}
           style={linkStyle}
           target='_blank'
-          rel='noopener'
+          rel='noreferrer'
         >
           https://material.io/design/color/#
         </a>
@@ -64,7 +64,7 @@ function WebAccessibility({ name }: PageProps) {
         <a
           target='_blank'
           href={'https://www.w3.org/WAI/fundamentals/accessibility-principles/'}
-          rel='noopener'
+          rel='noreferrer'
           style={linkStyle}
         >
           https://www.w3.org/WAI/fundamentals/accessibility-principles/
@@ -97,7 +97,7 @@ function WebAccessibility({ name }: PageProps) {
       </Typography>
       <Typography variant='subtitle1' component='p' gutterBottom>
         Accessibility comes in many forms, with macOS/iphones you can enhance a
-        major part of the application so it's best we understand the
+        major part of the application so {`it's`} best we understand the
         technologies underneath. This allows us to use these features to our
         advantage to better assist users or ensure your product just works.
       </Typography>
@@ -158,8 +158,9 @@ function WebAccessibility({ name }: PageProps) {
         vision impairment. VoiceOver runs natively so this adds a process onto
         your normal application (slows it down). This means that certain things
         that are not on the native end for speed can provide a not so ideal
-        experience. It's important to test how your application will run with
-        this enabled from aria-label, a11y assetive props, performance and more.
+        experience. {`It's`} important to test how your application will run
+        with this enabled from aria-label, a11y assetive props, performance and
+        more.
       </Typography>
       <List>
         <ListItem

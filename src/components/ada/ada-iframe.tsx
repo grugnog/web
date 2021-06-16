@@ -30,6 +30,8 @@ const IFrameComponent = forwardRef((props: any, ref: any) => {
   return <iframe {...props} ref={ref} />
 })
 
+IFrameComponent.displayName = 'IFrameComponent'
+
 const urlReplacer = (url: string, homeStore: any) => {
   if (url) {
     if (url.includes('http://localhost')) {

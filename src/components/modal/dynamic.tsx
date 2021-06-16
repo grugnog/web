@@ -7,7 +7,7 @@
 import React from 'react'
 import { Fade, Backdrop, Modal } from '@material-ui/core'
 import { useDynamicModal } from '@app/data'
-import { getType } from './helpers'
+import { GetType } from './helpers'
 import { makeStyles } from '@material-ui/core/styles'
 
 const useStyles = makeStyles((theme) => ({
@@ -45,7 +45,9 @@ export function DynamicModal() {
       BackdropComponent={Backdrop}
     >
       <Fade in={!!open}>
-        <div className={classes.paper}>{getType({ modalType, html })}</div>
+        <div className={classes.paper}>
+          <GetType modalType={modalType} html={html} />
+        </div>
       </Fade>
     </Modal>
   )
