@@ -234,7 +234,7 @@ function Payments({ hideTitle = false, name }: PaymentProps) {
                     email={data?.email || ''}
                     // @ts-ignore
                     disabled={Boolean(!state.basic && !state.premium)}
-                    amount={state.basic ? 1000 : 2000}
+                    amount={state.basic ? 999 : 1999}
                     zipCode={false}
                     billingAddress={false}
                     // @ts-ignore
