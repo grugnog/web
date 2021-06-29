@@ -130,6 +130,13 @@ export function Price({
                     href={`/register?plan=${title}`}
                   >{`${title} Start`}</Button>
                 ) : null}
+                <Typography
+                  variant='subtitle2'
+                  component='p'
+                  style={{ marginTop: 12, textAlign: 'center' }}
+                >
+                  {title !== 'Free' ? 'Cancel anytime.' : 'Forever Free'}
+                </Typography>
               </Fragment>
             </Paper>
           ))}
