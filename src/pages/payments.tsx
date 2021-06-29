@@ -28,6 +28,7 @@ import { paymentsData } from '@app/data'
 import { getOrdinalSuffix, metaSetter } from '@app/utils'
 import type { PageProps } from '@app/types'
 import { useRouter } from 'next/router'
+import { UserManager, AppManager } from '@app/managers'
 
 const useStyles = makeStyles(() => ({
   row: {
@@ -118,9 +119,9 @@ function Payments({ hideTitle = false, name }: PaymentProps) {
     })
   }
 
-  const onToken = (token: any) => {
+  const onToken = async (token: any) => {
     if (token) {
-      addSubscription({
+      const res = await addSubscription({
         variables: {
           stripeToken: JSON.stringify({
             ...token,
@@ -129,6 +130,14 @@ function Payments({ hideTitle = false, name }: PaymentProps) {
           email: token.email,
         },
       })
+      const jwt = res?.data?.addSubscription?.user.jwt
+
+      if (jwt) {
+        UserManager.setJwt(jwt)
+      }
+
+      AppManager.toggleSnack(true, 'Payment confirmed!', 'success')
+      router.push('/dashboard')
     }
   }
 
@@ -136,13 +145,21 @@ function Payments({ hideTitle = false, name }: PaymentProps) {
     setOpen(modalOpen)
   }
 
-  const cancelConfirm = () => {
-    cancelSubscription({
+  const cancelConfirm = async () => {
+    const res = await cancelSubscription({
       variables: {
         email: data?.email,
       },
     })
+    AppManager.toggleSnack(true, 'Payment cancelled!', 'success')
     setOpen(false)
+    const jwt = res?.data?.cancelSubscription?.user.jwt
+
+    if (jwt) {
+      UserManager.setJwt(jwt)
+    }
+
+    router.push('/dashboard')
   }
 
   const renderPayMentBoxes = data?.role === 0 && !data.activeSubscription
@@ -187,7 +204,7 @@ function Payments({ hideTitle = false, name }: PaymentProps) {
                       )} of every month`}
                     </Typography>
                   ) : null}
-                  <Typography variant='subtitle1' component='p'>
+                  <Typography variant='body2' component='p'>
                     {`Account type ${
                       data?.paymentSubscription?.plan?.nickname || ''
                     } - $${
