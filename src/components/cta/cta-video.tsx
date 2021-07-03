@@ -49,6 +49,7 @@ const useStyles = makeStyles((theme) => ({
 function Inner({ isVisible }: { isVisible: boolean }) {
   const classes = useStyles()
   const [loaded, setLoaded] = useState(false)
+  // const [muted, setMuted] = useState(1)
 
   useEffect(() => {
     const video = document.querySelector('iframe') as HTMLIFrameElement
@@ -66,9 +67,13 @@ function Inner({ isVisible }: { isVisible: boolean }) {
         player.pause()
       }
     }
-  }, [isVisible, loaded])
+  }, [isVisible])
 
   const videoClassName = `${classes.video} ${classes.frame}`
+
+  // const onIframeEvent = () => {
+  //   setMuted((val) => (val ? 0 : 1))
+  // }
 
   return (
     <div className={classes.root} id='video-section'>
@@ -77,9 +82,7 @@ function Inner({ isVisible }: { isVisible: boolean }) {
           <div className={classes.video}>
             {loaded ? (
               <iframe
-                src={
-                  'https://player.vimeo.com/video/389034032?title=0&byline=0&portrait=0&muted=1&autoplay=1&controls=0&loop=1&texttrack=en'
-                }
+                src={`https://player.vimeo.com/video/389034032?title=0&byline=0&portrait=0&muted=${1}&autoplay=1&controls=0&loop=1&texttrack=en`}
                 allowFullScreen
                 title='A11yWatch demo video'
                 className={videoClassName}
