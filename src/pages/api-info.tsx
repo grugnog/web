@@ -69,7 +69,7 @@ const useStyles = makeStyles((theme) => ({
 
 function Api({ name }: PageProps) {
   const classes = useStyles()
-  const { data = {}, loading } = userData()
+  const { data = {}, loading } = userData(null, { query: UserManager?.token })
   const [keyVisible, setKey] = useState<boolean>(false)
   const { user } = data
 
@@ -126,7 +126,12 @@ function Api({ name }: PageProps) {
 
   return (
     <Fragment>
-      <NavBar backButton title={name} notitle />
+      <NavBar
+        backButton
+        title={name}
+        notitle
+        marketingLinks={UserManager?.token ? [] : null}
+      />
       <Container maxWidth='xl' className={classes.root}>
         <Box>
           <PageTitle title={'API Information'} />
@@ -134,12 +139,12 @@ function Api({ name }: PageProps) {
             Add authorization header with the jwt format <i>Bearer TOKEN</i> for
             more information check{' '}
             <Link href={'https://a11ywatch.github.io/docs/documentation/api'}>
-              Docs
+              Documentation
             </Link>
           </SectionTitle>
           {!data?.user && loading ? (
             <TextSkeleton className={classes.email} />
-          ) : (
+          ) : UserManager?.token ? (
             <div>
               <Button
                 className={classes.payments}
@@ -157,7 +162,7 @@ function Api({ name }: PageProps) {
                 </div>
               ) : null}
             </div>
-          )}
+          ) : null}
           <SectionTitle variant='subtitle1' bold>
             Daily Allowed Usage
           </SectionTitle>
@@ -166,7 +171,13 @@ function Api({ name }: PageProps) {
           ) : (
             <SectionTitle className={classes.email}>
               {user?.apiUsage?.usage || 0}/
-              {user?.role === 0 ? 3 : user?.role === 1 ? 25 : 100}
+              {!data?.user
+                ? 0
+                : user?.role === 0
+                ? 3
+                : user?.role === 1
+                ? 25
+                : 100}
             </SectionTitle>
           )}
           <SectionTitle variant='h4' component={'h2'} bold>

@@ -20,10 +20,11 @@ import { EMAIL_VERIFIED_SUBSCRIPTION } from '@app/subscriptions'
 export const userData = (_?: any, config: any = { query: true }) => {
   const variables = {}
   const { data, loading } =
-    config.query &&
-    useQuery(GET_USER, {
-      variables,
-    })
+    (config.query &&
+      useQuery(GET_USER, {
+        variables,
+      })) ||
+    {}
 
   const [
     updateUser,
