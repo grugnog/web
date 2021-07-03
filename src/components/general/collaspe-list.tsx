@@ -204,7 +204,7 @@ function CollaspeListEntry({
         }
       }
     }
-  }, [updateScriptData])
+  }, [updateScriptData, sectionData])
 
   return (
     <span>

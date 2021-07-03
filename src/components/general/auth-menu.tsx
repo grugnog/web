@@ -21,11 +21,7 @@ interface Props {
   registerClassName?: string
 }
 
-function AuthMenu({
-  loginClassName,
-  className,
-  registerClassName,
-}: Props): any {
+function AuthMenu({ loginClassName, className, registerClassName }: Props) {
   const router = useRouter()
   const [anchorEl, setAnchorEl] = useState<any>(null)
 

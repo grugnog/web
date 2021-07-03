@@ -42,9 +42,12 @@ const useStyles = makeStyles((theme) => ({
 export function CtaCustomers() {
   const classes = useStyles()
   const { toggleModal } = useSearch()
-  const clickItem = useCallback((item: string) => {
-    toggleModal(true, item)
-  }, [])
+  const clickItem = useCallback(
+    (item: string) => {
+      toggleModal(true, item)
+    },
+    [toggleModal]
+  )
   const size = useMediaQuery('(min-width:600px)') ? 78 : 25
 
   return (

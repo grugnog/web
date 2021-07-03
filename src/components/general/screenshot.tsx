@@ -5,10 +5,8 @@
  **/
 
 import React from 'react'
-import { dev } from '@app/configs'
 import { makeStyles } from '@material-ui/core/styles'
 import { FakeButtonContainer } from '@app/components/fake'
-import Image from 'next/image'
 
 const useStyles = makeStyles((theme) => ({
   centerAlign: {
@@ -48,7 +46,6 @@ const useStyles = makeStyles((theme) => ({
 
 export function Screenshot({ src, url, resetMargin, width, height }: any) {
   const classes = useStyles()
-  const ImageComponent = !resetMargin && dev ? 'img' : Image
 
   return (
     <div
@@ -63,7 +60,7 @@ export function Screenshot({ src, url, resetMargin, width, height }: any) {
         }`}
       >
         <div className={resetMargin ? classes.float : classes.centerAlign}>
-          <ImageComponent
+          <img
             src={src.replace('127.0.0.1', 'localhost')}
             alt={`screenshot of ${url} tested`}
             width={width ?? 450}

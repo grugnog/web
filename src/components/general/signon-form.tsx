@@ -101,7 +101,7 @@ const SignOnForm: FunctionComponent<SignOnProps> = ({
     if (!stateVisible && isVisible) {
       setStateVisible(true)
     }
-  }, [isVisible])
+  }, [isVisible, stateVisible])
 
   useMemo(() => {
     if (data) {
@@ -118,7 +118,7 @@ const SignOnForm: FunctionComponent<SignOnProps> = ({
         router.push(urlRoute)
       }
     }
-  }, [data, router])
+  }, [data, router, loginView])
 
   useMemo(() => {
     if (error?.graphQLErrors?.length) {
@@ -126,35 +126,38 @@ const SignOnForm: FunctionComponent<SignOnProps> = ({
     }
   }, [error])
 
-  const submit = useCallback(async (e: any) => {
-    e?.preventDefault()
-    // @ts-ignore
-    if (!passwordRef?.current?.value || !emailRef?.current?.value) {
-      AppManager.toggleSnack(
-        true,
-        !emailRef?.current?.value
-          ? 'Please enter a password of at least 6 characters.'
-          : 'Please check your email and password and try again.',
-        'error'
-      )
-    } else {
-      try {
-        await signOnMutation({
-          variables: {
-            email: emailRef?.current?.value,
-            password: passwordRef?.current?.value,
-          },
-        })
-      } catch (e) {
-        console.error(e)
-      }
-
+  const submit = useCallback(
+    async (e: any) => {
+      e?.preventDefault()
       // @ts-ignore
-      if (passwordRef.current) {
-        passwordRef.current.value = ''
+      if (!passwordRef?.current?.value || !emailRef?.current?.value) {
+        AppManager.toggleSnack(
+          true,
+          !emailRef?.current?.value
+            ? 'Please enter a password of at least 6 characters.'
+            : 'Please check your email and password and try again.',
+          'error'
+        )
+      } else {
+        try {
+          await signOnMutation({
+            variables: {
+              email: emailRef?.current?.value,
+              password: passwordRef?.current?.value,
+            },
+          })
+        } catch (e) {
+          console.error(e)
+        }
+
+        // @ts-ignore
+        if (passwordRef.current) {
+          passwordRef.current.value = ''
+        }
       }
-    }
-  }, [])
+    },
+    [signOnMutation]
+  )
 
   return (
     <Fragment>

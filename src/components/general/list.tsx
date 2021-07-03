@@ -100,7 +100,7 @@ export function List({
     if (miniPlayer.open) {
       handleClose()
     }
-  }, [miniPlayer])
+  }, [miniPlayer, handleClose])
 
   const renderInner = () => {
     if (!data.length && loading) {

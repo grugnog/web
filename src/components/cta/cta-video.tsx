@@ -66,7 +66,7 @@ function Inner({ isVisible }: { isVisible: boolean }) {
         player.pause()
       }
     }
-  }, [isVisible])
+  }, [isVisible, loaded])
 
   const videoClassName = `${classes.video} ${classes.frame}`
 
