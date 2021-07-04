@@ -19,8 +19,8 @@ function Pricing({ name }: any) {
   return (
     <MarketingDrawer title={name}>
       <Box>
-        <PageTitle>Plans</PageTitle>
-        <Typography variant='body1' component='h2'>
+        <PageTitle>A11yWatch Pricing</PageTitle>
+        <Typography component='h2' gutterBottom>
           Choose a plan that best fits your needs
         </Typography>
         <Price navigate blockFree />

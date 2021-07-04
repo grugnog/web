@@ -70,9 +70,11 @@ export function Price({
   const Container = !onClick ? 'section' : 'div'
 
   return (
-    <Container className={!onClick ? classes.root : ''}>
+    <Container className={!onClick && !navigate ? classes.root : ''}>
       {typeof onClick === 'undefined' ? (
-        <SectionHeading gutterBottom>Pricing</SectionHeading>
+        <SectionHeading gutterBottom>
+          {navigate ? 'Plans' : 'Pricing'}
+        </SectionHeading>
       ) : null}
       <Grid container spacing={1} className={!onClick ? classes.container : ''}>
         {priceConfig.plans
