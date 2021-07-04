@@ -4,32 +4,30 @@
  * LICENSE file in the root directory of this source tree.
  **/
 
-import ReactGA from 'react-ga'
-import { GOOGLE_ANALYTIC_ID, AppConfig } from '@app/configs'
+import { getAPIRoute } from '@app/configs'
 import { UserManager } from '@app/managers'
 
-let initedGA = false
-
-export const initGA = () => {
-  ReactGA.initialize(GOOGLE_ANALYTIC_ID as string)
-  initedGA = true
-}
-
-// TODO: MOVE TO NEXTJS GA
 export const logPageView = (route?: string) => {
-  if (!AppConfig.dev) {
-    if (!initedGA) {
-      initGA()
-    }
-    const page = String(
-      route || (typeof window !== 'undefined' && window.location.pathname)
-    )
-
-    ReactGA.set({
-      page,
-      userId: UserManager.getID,
+  const page = String(
+    route || (typeof window !== 'undefined' && window.location.pathname)
+  )
+  const analyticsData = {
+    page,
+    userID: UserManager.getID,
+    // ip: undefined,
+  }
+  if (typeof navigator !== 'undefined' && navigator.sendBeacon) {
+    const beaconData = new Blob([JSON.stringify(analyticsData)], {
+      type: 'application/json',
     })
 
-    ReactGA.pageview(page)
+    navigator.sendBeacon(`${getAPIRoute()}/log/page`, beaconData)
+  } else if (typeof window !== 'undefined' && window.fetch) {
+    fetch(`${getAPIRoute()}/log/page`, {
+      method: 'POST',
+      body: JSON.stringify(analyticsData),
+    }).catch((error) => {
+      console.error(error)
+    })
   }
 }

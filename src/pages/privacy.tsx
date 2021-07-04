@@ -16,16 +16,17 @@ function Privacy({ name }: PageProps) {
       <Typography variant='body1' component='p' gutterBottom>
         The data that is collected is used within our service to improve your
         experience. All data is secure and safe coming from our service. None of
-        the data collected from a11ywatch is being shared with any 3rd party
-        services.
+        the data collected from A11yWatch is being shared with any 3rd party
+        service.
       </Typography>
       <Spacer height={'20px'} />
       <Typography variant='h4' component='h2' gutterBottom>
         Analytics
       </Typography>
       <Typography variant='body1' component='p' gutterBottom>
-        We use google analytics to monitor our website usage. ( We plan on
-        removing this soon )
+        We care about your privacy and value every aspect of it. Tracking is
+        respected through the request header DNT that your browser adds to your
+        out going network calls.
       </Typography>
     </MarketingDrawer>
   )
