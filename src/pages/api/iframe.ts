@@ -1,25 +1,30 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 
-const HOST = String(process.env.IFRAME_URL ?? process.env.API ?? 'http://localhost:8010')
+const HOST = String(
+  process.env.IFRAME_URL ?? process.env.API ?? 'http://localhost:8010'
+)
 
 export default async (req: NextApiRequest, res: NextApiResponse<string>) => {
-    let url = String(req.query.url)
+  let url = String(req.query.url)
 
-    if (/^((http|https):\/\/)/.test(url) === false) {
-      url = `http://${url}`
-    }
+  if (/^((http|https):\/\/)/.test(url) === false) {
+    url = `http://${url}`
+  }
 
-    try {
-      const data = await fetch(
-        `${HOST}/iframe?url=${encodeURI(url)}&baseHref=${
-          req.query.baseHref || true
-        }`
-      )
-      const iframe = await data.text()
+  const path = `${HOST}/iframe?url=${encodeURI(url)}&baseHref=${
+    req.query.baseHref || true
+  }`
 
-      res.send(iframe)
-    } catch (e) {
-      console.error(e)
-      res.send('')
-    }
+  console.log(path)
+
+  try {
+    const data = await fetch(path)
+    const iframe = await data.text()
+    console.log(data)
+    console.log(iframe)
+    res.send(iframe)
+  } catch (e) {
+    console.error(e)
+    res.send('')
+  }
 }
