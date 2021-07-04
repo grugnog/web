@@ -24,7 +24,11 @@ export const metaSetter = (
   const name = nameStripped.replace(' ', '')
 
   value.meta = {
-    title: title ?? `${strings.appName} - ${name}`,
+    title:
+      title ??
+      `${strings.appName} - ${
+        name.length <= 3 ? name.toLocaleUpperCase() : name
+      }`,
     description,
     name,
   }

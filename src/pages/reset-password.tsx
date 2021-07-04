@@ -121,7 +121,7 @@ function ResetPassword({ name }: PageProps) {
   }
 
   return (
-    <MarketingDrawer title={name} footerSpacing>
+    <MarketingDrawer title={name} footerSpacing maxWidth='sm'>
       <PageTitle component={resetSent ? 'h3' : 'h1'}>{title}</PageTitle>
       <Paper className={classes.paper}>
         <form autoComplete={resetSent ? 'on' : 'off'} onSubmit={submit}>

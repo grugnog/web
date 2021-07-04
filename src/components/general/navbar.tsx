@@ -88,9 +88,16 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
+    color: '#fff',
     [theme.breakpoints.down('sm')]: {
       display: 'none',
     },
+  },
+  toolbarInnerContainer: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    flex: 1,
   },
 }))
 
@@ -135,14 +142,7 @@ const NavBar = ({
           {toolbar || children ? (
             toolbar || children
           ) : (
-            <div
-              style={{
-                display: 'flex',
-                justifyContent: 'center',
-                alignItems: 'center',
-                flex: 1,
-              }}
-            >
+            <div className={classes.toolbarInnerContainer}>
               {backButton || !marketing ? (
                 <IconButton className={classes.menu} {...buttonProps}>
                   {backButton ? <BackIcon /> : <AppIcon />}

@@ -26,15 +26,17 @@ function MarketingNavMenu({
   classNameSpacing = '',
   classHiddenMobile = '',
 }: Props) {
+  const routes = useMemo(() => (mobileRender ? MobileRoutes : MainRoutes), [
+    mobileRender,
+  ])
+
   return (
     <List
       className={`${className}${
         classNameSpacing ? ` ${classNameSpacing}` : ''
       }`}
     >
-      {useMemo(() => (mobileRender ? MobileRoutes : MainRoutes), [
-        mobileRender,
-      ]).map(({ name, href }: { name: string; href: string }) => {
+      {routes.map(({ name, href }: { name: string; href: string }) => {
         const firstClassName = href === '/register' ? registerClassName : ''
         const itemClassName =
           !mobileRender && href !== '/register' && href !== '/login'

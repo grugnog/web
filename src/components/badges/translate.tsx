@@ -14,20 +14,10 @@ const useStyles = makeStyles((theme) => ({
     marginLeft: 6,
     background: 'none',
     pointerEvents: 'auto',
+    fill: '#959da5',
     [theme.breakpoints.down('sm')]: {
       marginRight: 12,
     },
-  },
-  hidden: {
-    border: 0,
-    clip: 'rect(1px 1px 1px 1px)',
-    clipPath: 'inset(50%)',
-    margin: -1,
-    overflow: 'hidden',
-    padding: 0,
-    position: 'absolute',
-    width: 1,
-    height: 1,
   },
 }))
 
@@ -44,8 +34,9 @@ export const TranslateBadge = ({
   return (
     <Translate
       aria-label={ariaT}
-      className={`${className ?? ''}${className ? ' ' + classes.badge : ''}`}
       inline={inline}
+      className={className}
+      classes={{ badge: classes.badge }}
       component={IconButton}
     />
   )
