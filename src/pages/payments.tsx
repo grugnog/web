@@ -163,9 +163,10 @@ function Payments({ hideTitle = false, name }: PaymentProps) {
   }
 
   const renderPayMentBoxes = data?.role === 0 && !data.activeSubscription
+  const paymentSubscription = data?.paymentSubscription
   const nextPaymentDay =
-    data?.paymentSubscription?.current_period_start &&
-    getDate(new Date(data?.paymentSubscription?.current_period_start))
+    paymentSubscription?.current_period_end &&
+    getDate(new Date(Number(paymentSubscription?.current_period_end)))
 
   return (
     <WithHydrate>
@@ -185,7 +186,7 @@ function Payments({ hideTitle = false, name }: PaymentProps) {
             </div>
           ) : (
             <div>
-              <Typography variant='subtitle1' component='p' gutterBottom>
+              <Typography variant='body1' component='p' gutterBottom>
                 {!renderPayMentBoxes ? 'Account Info' : 'Upgrade Account'}
               </Typography>
               {renderPayMentBoxes ? (
@@ -204,11 +205,12 @@ function Payments({ hideTitle = false, name }: PaymentProps) {
                       )} of every month`}
                     </Typography>
                   ) : null}
+                  <Typography variant='body1' component='p' gutterBottom>
+                    Account Type
+                  </Typography>
                   <Typography variant='body2' component='p'>
-                    {`Account type ${
-                      data?.paymentSubscription?.plan?.nickname || ''
-                    } - $${
-                      data?.paymentSubscription?.plan?.amount / 100 || ''
+                    {`${paymentSubscription?.plan?.nickname || ''} - $${
+                      paymentSubscription?.plan?.amount / 100 || ''
                     }`}
                   </Typography>
                 </div>
