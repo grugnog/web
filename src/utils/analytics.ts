@@ -8,8 +8,6 @@ import ReactGA from 'react-ga'
 import { GOOGLE_ANALYTIC_ID, AppConfig } from '@app/configs'
 import { UserManager } from '@app/managers'
 
-const prod = !AppConfig.dev
-
 let initedGA = false
 
 export const initGA = () => {
@@ -17,8 +15,9 @@ export const initGA = () => {
   initedGA = true
 }
 
+// TODO: MOVE TO NEXTJS GA
 export const logPageView = (route?: string) => {
-  if (prod) {
+  if (!AppConfig.dev) {
     if (!initedGA) {
       initGA()
     }
@@ -34,18 +33,3 @@ export const logPageView = (route?: string) => {
     ReactGA.pageview(page)
   }
 }
-
-export const logEvent = (category: string = '', action: string = '') => {
-  if (prod && category && action) {
-    ReactGA.event({ category, action })
-  }
-}
-
-// export const logException = (
-//   description?: string = '',
-//   fatal?: boolean = false
-// ) => {
-//   if (prod && description) {
-//     ReactGA.exception({ description, fatal })
-//   }
-// }
