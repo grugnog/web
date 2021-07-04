@@ -34,6 +34,7 @@ const env = Object.assign({}, parsed, {
   GOOGLE_ANALYTIC_ID: process.env.GOOGLE_ANALYTIC_ID,
   DONORBOX_URL: process.env.DONORBOX_URL,
   DOCKER_ENV: process.env.DOCKER_ENV,
+  MAINTENCE: process.env.MAINTENCE,
   DOMAIN_NAME,
   INTERCOM_ENABLED: process.env.INTERCOM_ENABLED,
   // # NEXT.JS REQUIRED EXCLUDES
@@ -73,10 +74,7 @@ module.exports = withPWA({
     mode: process.env.WORKBOX_MODE || 'production',
     disable: dev,
     scope: '/src',
-    publicExcludes: [
-      '!robots.txt',
-      '!sitemap.xml.gz',
-    ]
+    publicExcludes: ['!robots.txt', '!sitemap.xml.gz'],
   },
   images: {
     domains: domains,
@@ -91,10 +89,7 @@ module.exports = withPWA({
   typescriptLoaderOptions: {
     transpileOnly: true,
   },
-  webpack: (
-    config,
-    { buildId, dev: development, isServer, defaultLoaders, webpack }
-  ) => {
+  webpack: (config, { dev: development, webpack }) => {
     generateSiteMap(DOMAIN_NAME)
 
     config.plugins.push(new webpack.IgnorePlugin(/tests/))

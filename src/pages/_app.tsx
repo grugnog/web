@@ -74,6 +74,11 @@ export default function MyApp({ Component, pageProps }: MergedApp) {
       <ThemeProvider theme={theme}>
         <CssBaseline />
         <WithSkipContent />
+        {process.env.MAINTENCE ? (
+          <div className='py-4 p-4 font-bold underline'>
+            Server Maintence: Please check back later.
+          </div>
+        ) : null}
         <Component {...pageProps} name={name} />
         <WithSnackBar />
       </ThemeProvider>

@@ -5,9 +5,7 @@
  **/
 
 import React from 'react'
-
 import { List } from '@material-ui/core'
-
 import { featuresData, userModel, useEvents } from '@app/data'
 import { features } from '@app/configs'
 import { FeaturesCell } from '../cells'
