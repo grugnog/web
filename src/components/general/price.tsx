@@ -72,7 +72,7 @@ export function Price({
   return (
     <Container className={!onClick && !navigate ? classes.root : ''}>
       {typeof onClick === 'undefined' ? (
-        <SectionHeading gutterBottom>
+        <SectionHeading gutterBottom style={{ fontWeight: 200 }}>
           {navigate ? 'Plans' : 'Pricing'}
         </SectionHeading>
       ) : null}

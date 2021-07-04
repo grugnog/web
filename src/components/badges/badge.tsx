@@ -9,6 +9,7 @@ import { Typography, Tooltip } from '@material-ui/core'
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles'
 import { defaultProps } from './defaultProps'
 import type { BadgeProps } from './badge-types'
+import Image from 'next/image'
 
 const useStyles = makeStyles(({ breakpoints }: Theme) =>
   createStyles({
@@ -55,7 +56,7 @@ export const Badge = ({
     )
   }
 
-  const Img = () => <img src={src} height={size} width={size} alt={title} />
+  const Img = () => <Image src={src} height={size} width={size} alt={title} />
 
   if (inline) {
     return (
