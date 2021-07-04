@@ -34,7 +34,7 @@ class HomeManager {
   @computed get getTestFrameUrl() {
     return (
       (this.iframeSrc && this.iframeSrc.replace('/api/iframe/?url=', '')) ||
-      'https://www.drake.com'
+      'http://www.drake.com'
     )
   }
 

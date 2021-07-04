@@ -15,13 +15,10 @@ export default async (req: NextApiRequest, res: NextApiResponse<string>) => {
     req.query.baseHref || true
   }`
 
-  console.log(path)
-
   try {
     const data = await fetch(path)
     const iframe = await data.text()
-    console.log(data)
-    console.log(iframe)
+
     res.send(iframe)
   } catch (e) {
     console.error(e)
