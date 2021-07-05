@@ -49,11 +49,16 @@ const useStyles = makeStyles((theme) => ({
 export function Screenshot({ src, url, resetMargin, width, height }: any) {
   const classes = useStyles()
 
-  let baseURL = src.replace('127.0.0.1', 'localhost')
+  let baseURL = src
 
   if (!dev) {
     // TEMP: PROD FIX MIS MATCH CDN
-    baseURL = src.replace('localhost:8090', cdn).replace('http', 'https')
+    baseURL = baseURL
+      .replace('localhost:8090', cdn)
+      .replace('127.0.0.1:8090', cdn)
+      .replace('http', 'https')
+  } else {
+    baseURL = baseURL.replace('127.0.0.1', 'localhost')
   }
 
   return (
