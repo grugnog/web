@@ -32,7 +32,7 @@ function Faq({ name }: PageProps) {
         How can I support the project?
       </Typography>
       <Typography variant='body1'>
-        {strings.appName} has multiple ways to get support
+        {strings.appName} has multiple ways to get support.
       </Typography>
       <List aria-label={`support ${strings.appName}`} dense>
         <ListItem>
