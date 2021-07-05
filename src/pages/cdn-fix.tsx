@@ -19,7 +19,7 @@ function Cdn({ name }: PageProps) {
   const { data, loading } = scriptsData(true)
   const { search } = useSearchFilter()
   const dataSource = groupBy('domain')(filterSort(data, search))
-  const capsName = name.toUpperCase()
+  const capsName = String(name).toUpperCase()
 
   return (
     <WithHydrate>
