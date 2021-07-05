@@ -4,7 +4,7 @@ const HOST = String(
   process.env.IFRAME_URL ?? process.env.API ?? 'http://localhost:8010'
 )
 
-export default async (req: NextApiRequest, res: NextApiResponse<string>) => {
+const iframe = async (req: NextApiRequest, res: NextApiResponse<string>) => {
   let url = String(req.query.url)
 
   if (/^((http|https):\/\/)/.test(url) === false) {
@@ -25,3 +25,5 @@ export default async (req: NextApiRequest, res: NextApiResponse<string>) => {
     res.send('')
   }
 }
+
+export default iframe

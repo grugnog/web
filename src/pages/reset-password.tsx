@@ -3,7 +3,7 @@
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
  **/
-import React, { useRef, useEffect } from 'react'
+import React, { useRef, useEffect, SyntheticEvent } from 'react'
 import { makeStyles } from '@material-ui/core/styles'
 import {
   Paper,
@@ -78,7 +78,7 @@ function ResetPassword({ name }: PageProps) {
       UserManager.setUser(resetPasswordData.resetPassword)
       router.push('/dashboard')
     }
-  }, [resetPasswordData])
+  }, [router, resetPasswordData])
 
   useEffect(() => {
     if (resetSent) {
@@ -88,9 +88,9 @@ function ResetPassword({ name }: PageProps) {
         'message'
       )
     }
-  }, [forgotPasswordData])
+  }, [resetSent])
 
-  const submit = (e: any) => {
+  const submit = (e: SyntheticEvent) => {
     e.preventDefault()
     // @ts-ignore
     if (resetSent && resetRef?.current?.value) {

@@ -3,6 +3,7 @@
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
  **/
+
 import React, { useRef, FunctionComponent } from 'react'
 import {
   AppBar,
@@ -10,7 +11,6 @@ import {
   Toolbar,
   IconButton,
   Typography,
-  Grow,
 } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import CloseIcon from '@material-ui/icons/Close'
@@ -20,6 +20,7 @@ import { Fab } from './fab'
 import { AdaIframe } from '../ada/ada-iframe'
 import { Link } from './link'
 import type { MergedTheme } from '@app/theme'
+import { GrowTransition } from './grow'
 
 const useStyles = makeStyles((theme: MergedTheme) => ({
   root: {
@@ -40,9 +41,6 @@ const useStyles = makeStyles((theme: MergedTheme) => ({
     maxHeight: '50vh',
     margin: '0px !important',
   },
-  overflowY: {
-    overflowY: 'hidden',
-  },
   transparent: {
     background: 'inherit',
   },
@@ -58,17 +56,9 @@ const useStyles = makeStyles((theme: MergedTheme) => ({
   },
 }))
 
-const GrowTransition = React.forwardRef(function GrowTransition(
-  props: any,
-  ref: any
-) {
-  const classes = useStyles()
-  return <Grow ref={ref} {...props} className={classes.overflowY} />
-})
+interface MiniPlayerProps {}
 
-interface Props {}
-
-export const MiniPlayer: FunctionComponent<Props> = () => {
+export const MiniPlayer: FunctionComponent<MiniPlayerProps> = (_) => {
   const { miniPlayer, setMiniPlayerContent } = useMiniPlayer()
   const classes = useStyles()
   const appBarRef = useRef(null)
@@ -85,7 +75,7 @@ export const MiniPlayer: FunctionComponent<Props> = () => {
       fullWidth
       open={open}
       onClose={setMiniPlayerContent(false)}
-      TransitionComponent={GrowTransition as any}
+      TransitionComponent={GrowTransition as React.ComponentType}
       disableBackdropClick={true}
       hideBackdrop={true}
       disablePortal={true}

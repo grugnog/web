@@ -65,13 +65,13 @@ const MainFrame = observer(
         iframeStore.clearPortals()
         frameDom?.clearDom()
       }
-    }, [])
+    }, [iframeStore])
 
     useEffect(() => {
       if (issue && frameDom?.dom && !iframeStore.issueInited) {
         iframeStore.initIssueFix(issue)
       }
-    }, [issue])
+    }, [iframeStore, issue])
 
     const ariaL = `ada view for ${url}`
 

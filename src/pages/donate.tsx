@@ -9,12 +9,13 @@ import { withApollo } from '@app/apollo'
 import { metaSetter } from '@app/utils'
 import type { PageProps } from '@app/types'
 import { DONORBOX_URL } from '@app/configs'
+import Script from 'next/script'
 
 function Donate({ name }: PageProps) {
   return (
     <MarketingDrawer title={name} maxWidth='lg' footerSpacing>
       <PageTitle>{name}</PageTitle>
-      <script src='https://donorbox.org/widget.js'></script>
+      <Script src='https://donorbox.org/widget.js' />
       <iframe
         frameBorder='0'
         name='donorbox'
