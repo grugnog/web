@@ -68,7 +68,6 @@ export function MarketingTestimonial() {
               src='/static/img/gilbert.png'
               height={310}
               width={310}
-              quality={100}
             />
           </Avatar>
         </Grid>

@@ -15,7 +15,6 @@ import {
 import { strings } from '@app-strings'
 import { metaSetter } from '@app/utils'
 import type { PageProps } from '@app/types'
-import NextImage from 'next/image'
 
 const useStyles = makeStyles(({ breakpoints, palette }) => ({
   paper: {
@@ -41,7 +40,7 @@ function Features({ name }: PageProps) {
 
   function Image({ src, alt }: { src: string; alt: string }) {
     return (
-      <NextImage
+      <img
         src={src}
         className={`hide-print`}
         alt={alt}

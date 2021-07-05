@@ -6,7 +6,6 @@
 
 import React, { Fragment } from 'react'
 import { makeStyles } from '@material-ui/core/styles'
-import Image from 'next/image'
 
 const useStyles = makeStyles((theme) => ({
   shape: {
@@ -24,6 +23,12 @@ const useStyles = makeStyles((theme) => ({
     right: 220,
     top: -300,
     zIndex: 2,
+    [theme.breakpoints.down('sm')]: {
+      right: 0,
+      top: -350,
+      width: 221,
+      height: 121,
+    },
   },
   oval2Image: {
     width: 821,
@@ -37,7 +42,7 @@ function MarketingShapesTop() {
   return (
     <Fragment>
       <div className={`${classes.shape} ${classes.oval1}`}>
-        <Image
+        <img
           src={'/static/img/shapes/oval-1.svg'}
           height={241}
           width={230}
@@ -46,7 +51,7 @@ function MarketingShapesTop() {
         />
       </div>
       <div className={`${classes.shape} ${classes.oval2}`}>
-        <Image
+        <img
           src={'/static/img/shapes/oval-2.svg'}
           height={721}
           width={821}

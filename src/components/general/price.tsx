@@ -58,8 +58,10 @@ export function Price({
   navigate,
 }: any) {
   const classes = useStyles()
+  const Container = !onClick ? 'section' : 'div'
+
   const highLight = (
-    name: any = '',
+    name: string = '',
     highLightStyles: any,
     { basic, premium }: any
   ) =>
@@ -67,23 +69,16 @@ export function Price({
       ? highLightStyles
       : ''
 
-  const Container = !onClick ? 'section' : 'div'
-
   return (
     <Container className={!onClick && !navigate ? classes.root : ''}>
       {typeof onClick === 'undefined' ? (
-        <SectionHeading gutterBottom style={{ fontWeight: 200 }}>
+        <SectionHeading gutterBottom style={onClick ? { fontWeight: 200 } : {}}>
           {navigate ? 'Plans' : 'Pricing'}
         </SectionHeading>
       ) : null}
       <Grid container spacing={1} className={!onClick ? classes.container : ''}>
         {priceConfig.plans
-          .filter((item: any) => {
-            if (!blockFree) {
-              return item.title !== 'Free'
-            }
-            return true
-          })
+          .filter((item: any) => (!blockFree ? item.title !== 'Free' : true))
           .map(({ title, details, cost, Icon }: any) => (
             <Paper
               key={title}
