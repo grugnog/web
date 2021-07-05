@@ -1,26 +1,26 @@
-API=http://localhost:8080/graphql
-API_URI_DOCKER=http://localhost:8080/graphql
-WEB_SOCKET_URL=ws://localhost:8080/graphql
+# Environment
 
+env configuration for the webb app. Create a .env file from the `.env.example.txt` to get started.
+Run the command `cp .env.example.txt .env`.
+
+```
+GOOGLE_CLIENT_ID=
+API=http://localhost:8080/graphql
+API_URI_DOCKER=http://api:8080/graphql
+WEB_SOCKET_URL=ws://localhost:8080/graphql
 IFRAME_URL=http://localhost:8080
 APP_TYPE=main
-STRIPE_KEY=pk_test_enc1gdton1T8NXa7dP5VOlHM00EyC4zqsX
-
+STRIPE_KEY=
 SCRIPTS_CDN_URL_HOST=http://localhost:8090/cdn
-CDN_URL_HOST=cdn-a11ywatch.herokuapp.com,d1yufnsznjact2.cloudfront.net
+CDN_URL_HOST=
 DOMAIN_NAME=https://www.a11ywatch.com
-
-GOOGLE_CLIENT_ID=
 GOOGLE_SITE_VERICATION=
-
-INTERCOM_APPID=uy5ylvvt
-INTERCOM_ENABLED=true
+INTERCOM_APPID=
+INTERCOM_ENABLED=false
 DONORBOX_URL=https://donorbox.org/embed/a11ywatch?default_interval=o&amount=5&show_content=true
-OPTIMIZE_IMAGE=false
-
 WORKBOX_MODE=production
-SUPER_MODE=true
-DRIFT_ID=iuvgx65bvbuk
-DOCKER_ENV=false
+SUPER_MODE=false
+DOCKER_ENV=true
 TS_NODE_PROJECT=tsconfig.server.json
 TS_NODE_IGNORE=/__mocks__/
+```

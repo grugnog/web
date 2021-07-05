@@ -31,7 +31,6 @@ const env = Object.assign({}, parsed, {
   INTERCOM_APPID: process.env.INTERCOM_APPID,
   IFRAME_URL: process.env.IFRAME_URL,
   GOOGLE_CLIENT_ID: process.env.GOOGLE_CLIENT_ID,
-  GOOGLE_ANALYTIC_ID: process.env.GOOGLE_ANALYTIC_ID,
   DONORBOX_URL: process.env.DONORBOX_URL,
   DOCKER_ENV: process.env.DOCKER_ENV,
   DOMAIN_NAME,

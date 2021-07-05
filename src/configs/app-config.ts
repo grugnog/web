@@ -16,7 +16,6 @@ const SCRIPTS_CDN_URL_HOST = process.env.SCRIPTS_CDN_URL_HOST
 const INTERCOM_APPID = process.env.INTERCOM_APPID
 const APP_TYPE = process.env.APP_TYPE || 'main'
 const GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID
-const GOOGLE_ANALYTIC_ID = process.env.GOOGLE_ANALYTIC_ID
 const API_ENDPOINT =
   String(process.env.API).replace('/graphql', '/api') ||
   'http://localhost:8080/api'
@@ -46,7 +45,6 @@ export {
   INTERCOM_APPID,
   GOOGLE_CLIENT_ID,
   APP_TYPE,
-  GOOGLE_ANALYTIC_ID,
   API_ENDPOINT,
   STRIPE_KEY,
   SUPER_MODE,
