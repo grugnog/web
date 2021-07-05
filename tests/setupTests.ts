@@ -3,18 +3,6 @@ import preloadAll from 'jest-next-dynamic'
 import { createElement, FC } from 'react'
 import { render, screen } from '@testing-library/react'
 
-beforeAll(async () => {
-  await preloadAll()
-})
-
-jest.mock('next/router', () => ({
-  useRouter() {
-    return {
-      prefetch: () => null,
-    }
-  },
-}))
-
 declare global {
   namespace NodeJS {
     interface Global {
@@ -28,6 +16,18 @@ interface Target {
   folder?: string
   name?: string
 }
+
+beforeAll(async () => {
+  await preloadAll()
+})
+
+jest.mock('next/router', () => ({
+  useRouter() {
+    return {
+      prefetch: () => null,
+    }
+  },
+}))
 
 global.describePage = jest.fn(
   ({ component, folder, name: target }: Target, callBack?: () => void) => {
