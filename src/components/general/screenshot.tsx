@@ -8,6 +8,7 @@ import React from 'react'
 import { makeStyles } from '@material-ui/core/styles'
 import { FakeButtonContainer } from '@app/components/fake'
 import Image from 'next/image'
+import { dev, cdn } from '@app/configs'
 
 const useStyles = makeStyles((theme) => ({
   centerAlign: {
@@ -48,6 +49,13 @@ const useStyles = makeStyles((theme) => ({
 export function Screenshot({ src, url, resetMargin, width, height }: any) {
   const classes = useStyles()
 
+  let baseURL = src.replace('127.0.0.1', 'localhost')
+
+  if (!dev) {
+    // TEMP: PROD FIX MIS MATCH CDN
+    baseURL = src.replace('localhost:8090', cdn).replace('http', 'https')
+  }
+
   return (
     <div
       className={`${classes.container}${
@@ -62,7 +70,7 @@ export function Screenshot({ src, url, resetMargin, width, height }: any) {
       >
         <div className={resetMargin ? classes.float : classes.centerAlign}>
           <Image
-            src={src.replace('127.0.0.1', 'localhost')}
+            src={baseURL}
             alt={`screenshot of ${url} tested`}
             width={width ?? 450}
             height={height ?? 500}

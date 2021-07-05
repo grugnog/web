@@ -25,6 +25,7 @@ const DONORBOX_URL = process.env.DONORBOX_URL
 const INTERCOM_ENABLED = process.env.INTERCOM_ENABLED
 const API_URI_DOCKER = process.env.API_URI_DOCKER
 const DOMAIN_NAME = process.env.DOMAIN_NAME
+const cdn = process.env.CDN ?? 'localhost:8090'
 
 const getAPIRoute = (type: 'api' | 'graphql' = 'api') => {
   return `${String(API_ENDPOINT).replace('graphql', type)}`
@@ -45,4 +46,5 @@ export {
   SUPER_MODE,
   DONORBOX_URL,
   INTERCOM_ENABLED,
+  cdn,
 }

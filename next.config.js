@@ -34,6 +34,8 @@ const env = Object.assign({}, parsed, {
   DONORBOX_URL: process.env.DONORBOX_URL,
   DOMAIN_NAME,
   INTERCOM_ENABLED: process.env.INTERCOM_ENABLED,
+  // single CDN for app assets
+  CDN: process.env.CDN,
   // # NEXT.JS REQUIRED EXCLUDES
   NODE_ENV: undefined,
   NODE_MODULES_CACHE: undefined,
@@ -45,6 +47,7 @@ if (dev) {
   domains.push('127.0.0.1', 'localhost')
 }
 
+// comma seperated list of cdns to use
 const CDN_HOST = process.env.CDN_URL_HOST
 
 if (CDN_HOST) {

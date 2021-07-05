@@ -18,6 +18,7 @@ export {
   DONORBOX_URL,
   API_URI_DOCKER,
   dev,
+  cdn,
   getAPIRoute,
 } from './app-config'
 export { Routes, LoggedInRoutes, LOGGIN_ROUTES } from './routes'
