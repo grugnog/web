@@ -1,12 +1,11 @@
 import { getAccessibleColors } from '@app/lib'
 
-describe('get-colors util', () => {
+describe('determine accessible colors util', () => {
   it('renders without crashing', () => {
     const colors = getAccessibleColors({
       parentColor: '#000',
       elementColor: '#ccc',
     })
-    console.log(colors)
 
     const value = {
       background: { model: 'rgb', color: [0, 0, 0], valpha: 1 },
