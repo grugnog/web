@@ -32,7 +32,6 @@ const env = Object.assign({}, parsed, {
   IFRAME_URL: process.env.IFRAME_URL,
   GOOGLE_CLIENT_ID: process.env.GOOGLE_CLIENT_ID,
   DONORBOX_URL: process.env.DONORBOX_URL,
-  DOCKER_ENV: process.env.DOCKER_ENV,
   DOMAIN_NAME,
   INTERCOM_ENABLED: process.env.INTERCOM_ENABLED,
   // # NEXT.JS REQUIRED EXCLUDES

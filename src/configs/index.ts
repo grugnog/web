@@ -17,7 +17,6 @@ export {
   SUPER_MODE,
   DONORBOX_URL,
   API_URI_DOCKER,
-  DOCKER_ENV,
   dev,
   getAPIRoute,
 } from './app-config'

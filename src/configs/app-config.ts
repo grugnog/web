@@ -24,15 +24,10 @@ const SUPER_MODE = process.env.SUPER_MODE
 const DONORBOX_URL = process.env.DONORBOX_URL
 const INTERCOM_ENABLED = process.env.INTERCOM_ENABLED
 const API_URI_DOCKER = process.env.API_URI_DOCKER
-const DOCKER_ENV = process.env.DOCKER_ENV
 const DOMAIN_NAME = process.env.DOMAIN_NAME
 
 const getAPIRoute = (type: 'api' | 'graphql' = 'api') => {
-  return `${
-    !process.browser && dev && DOCKER_ENV
-      ? String(API_URI_DOCKER).replace('graphql', type)
-      : API_ENDPOINT
-  }`
+  return `${String(API_ENDPOINT).replace('graphql', type)}`
 }
 
 export {
@@ -50,5 +45,4 @@ export {
   SUPER_MODE,
   DONORBOX_URL,
   INTERCOM_ENABLED,
-  DOCKER_ENV,
 }

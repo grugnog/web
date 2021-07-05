@@ -18,6 +18,11 @@ You can start the project using docker or local
 
 open [localhost:3000](http://localhost:3000) in your browser.
 
+## API
+
+In order to use the application you need to make sure you have the [A11yWatch](https://github.com/A11yWatch/a11ywatch) system running locally. This central project starts
+all the services needed for the project. View the [compose](https://github.com/A11yWatch/a11ywatch/blob/master/docker-compose.yml) file to see the micro services used.
+
 ## Environment
 
 check out [ENVIRONMENT CONFIG](./ENVIRONMENT.md) for configuring project specefics like google authentication.
