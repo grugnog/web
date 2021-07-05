@@ -76,14 +76,13 @@ type Plan = {
 }
 
 function Payments({ hideTitle = false, name }: PaymentProps) {
-  const defaultState = {
-    basic: true,
-    premium: false,
-  }
   const classes = useStyles()
   const router = useRouter()
   const { data, loading, addSubscription, cancelSubscription } = paymentsData()
-  const [state, setState] = useState<Plan>(defaultState)
+  const [state, setState] = useState<Plan>({
+    basic: true,
+    premium: false,
+  })
   const [open, setOpen] = useState<boolean>(false)
   const stripRef = useRef<any>()
   const plan = String(router?.query?.plan).toLocaleLowerCase() as string
@@ -97,7 +96,7 @@ function Payments({ hideTitle = false, name }: PaymentProps) {
   const loadEvent = () => {
     if (plan) {
       // @ts-ignore
-      const cb = requestIdleCallback ?? setTimeout
+      const cb = window?.requestIdleCallback ?? setTimeout
 
       if (typeof cb === 'function') {
         cb(() => {
