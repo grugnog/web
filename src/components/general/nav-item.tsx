@@ -4,11 +4,21 @@
  * LICENSE file in the root directory of this source tree.
  **/
 
-import React from 'react'
+import React, { FC } from 'react'
 import { Button } from '@material-ui/core'
 import { Link } from './link'
 
-export const NavItem = ({
+interface Props {
+  href?: string
+  name?: string
+  className?: string
+  as?: string
+  route?: string
+  registerClassName?: string
+  loginClassName?: string
+}
+
+export const NavItem: FC<Props> = ({
   href,
   name,
   className,
@@ -16,7 +26,7 @@ export const NavItem = ({
   route,
   registerClassName = '',
   loginClassName = '',
-}: any) => {
+}) => {
   const home = `/${href}` === route
   return (
     <Button

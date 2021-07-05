@@ -3,17 +3,24 @@
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
  **/
-
-import React from 'react'
+import React, { FC } from 'react'
 import { NavItem } from './nav-item'
 
-const NavLinks = ({
+interface Props {
+  className?: string
+  as?: string
+  route?: string
+  registerClassName?: string
+  loginClassName?: string
+}
+
+export const NavLinks: FC<Props> = ({
   route,
   as,
   className,
   registerClassName,
   loginClassName,
-}: any) => {
+}) => {
   return (
     <NavItem
       href={'/register'}
@@ -27,5 +34,3 @@ const NavLinks = ({
     />
   )
 }
-
-export { NavLinks }

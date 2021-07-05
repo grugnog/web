@@ -3,7 +3,7 @@
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
  **/
-import React, { useRef } from 'react'
+import React, { useRef, FC } from 'react'
 import {
   AppBar,
   Dialog,
@@ -66,7 +66,9 @@ const GrowTransition = React.forwardRef(function GrowTransition(
   return <Grow ref={ref} {...props} className={classes.overflowY} />
 })
 
-export function MiniPlayer() {
+interface Props {}
+
+export const MiniPlayer: FC<Props> = () => {
   const { miniPlayer, setMiniPlayerContent } = useMiniPlayer()
   const classes = useStyles()
   const appBarRef = useRef(null)

@@ -3,7 +3,7 @@
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
  **/
-import React, { useCallback, useState, useEffect, Fragment } from 'react'
+import React, { FC, useCallback, useState, useEffect, Fragment } from 'react'
 import {
   Container,
   Typography,
@@ -23,10 +23,9 @@ import { metaSetter } from '@app/utils'
 import { useProfileStyles as useStyles } from '@app/styles/pages/profile'
 import type { PageProps } from '@app/types'
 
-function Profile({ name }: PageProps) {
+const Profile: FC<PageProps> = ({ name }) => {
   const classes = useStyles()
   const { data = {}, loading, updateUser, updateUserData } = userData()
-
   const [changePassword, setChangePassword] = useState<boolean>(false)
   const [currentPassword, setCurrentPassword] = useState<string>('')
   const [newPassword, setNewPassword] = useState<string>('')
@@ -37,17 +36,20 @@ function Profile({ name }: PageProps) {
     (e: React.ChangeEvent<HTMLInputElement>) => {
       setCurrentPassword(e.target.value)
     },
-    []
+    [setCurrentPassword]
   )
 
-  const onChangeNew = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
-    setNewPassword(e.target.value)
-  }, [])
+  const onChangeNew = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      setNewPassword(e.target.value)
+    },
+    [setNewPassword]
+  )
 
   const updatePassword = useCallback(
     async (e: React.FormEvent) => {
       e.preventDefault()
-      updateUser({
+      await updateUser({
         variables: {
           password: currentPassword,
           newPassword,
@@ -56,12 +58,12 @@ function Profile({ name }: PageProps) {
         console.error(e)
       })
     },
-    [newPassword]
+    [updateUser, currentPassword, newPassword]
   )
 
   const togglePassword = useCallback(() => {
-    setChangePassword(!changePassword)
-  }, [changePassword])
+    setChangePassword((p) => !p)
+  }, [setChangePassword])
 
   useEffect(() => {
     if (updateUserData?.updateUser?.success) {
@@ -73,7 +75,7 @@ function Profile({ name }: PageProps) {
       setCurrentPassword('')
       setNewPassword('')
     }
-  }, [updateUserData])
+  }, [updateUserData, setCurrentPassword, setNewPassword])
 
   return (
     <Fragment>

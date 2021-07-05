@@ -3,7 +3,7 @@
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
  **/
-import React, { useState, useEffect } from 'react'
+import React, { FC, useState, useEffect, useCallback } from 'react'
 import { List as MUList, Grid, Card, CardHeader } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 
@@ -88,13 +88,16 @@ export function List({
 
   const findIssues = data?.some((source: any) => source?.issues?.length)
 
-  const handleClickOpen = (data: any, title: any, url: any, error: any) => {
-    setOpen({ open: true, data, title, url, error })
-  }
+  const handleClickOpen = useCallback(
+    (data: any, title: any, url: any, error: any) => {
+      setOpen({ open: true, data, title, url, error })
+    },
+    [setOpen]
+  )
 
-  const handleClose = () => {
-    setOpen({ ...modal, open: false })
-  }
+  const handleClose = useCallback(() => {
+    setOpen((m) => ({ ...m, open: false }))
+  }, [setOpen])
 
   useEffect(() => {
     if (miniPlayer.open) {
@@ -102,7 +105,8 @@ export function List({
     }
   }, [miniPlayer, handleClose])
 
-  const renderInner = () => {
+  // TODO: MOVE OUTSIDE COMPONENT
+  const RenderInner: FC = () => {
     if (!data.length && loading) {
       // @ts-ignore
       return <ListSkeleton />
@@ -163,7 +167,9 @@ export function List({
     <div className={classes.root}>
       <Grid container spacing={2} justify='center'>
         <Grid item xs={12} md={12}>
-          <Card>{renderInner()}</Card>
+          <Card>
+            <RenderInner />
+          </Card>
         </Grid>
         {errorPage || history || blocked ? null : (
           <BottomButton

@@ -94,11 +94,11 @@ const ReccomendedItem = memo(
     }
 
     useEffect(() => {
-      if (visible) {
+      if (visible && !animatOnce) {
         setTimeout(mouseout, Math.floor(Math.random() * 500) + 1)
         animatOnce = true
       }
-    }, [visible && !animatOnce])
+    }, [visible])
 
     useEffect(() => {
       if (lastItem) {

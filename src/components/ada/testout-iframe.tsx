@@ -24,13 +24,13 @@ const MainFrame = observer(({ homeStore, iframeStore, url, issue }: any) => {
       iframeStore?.clearPortals()
       frameDom?.clearDom()
     }
-  }, [])
+  }, [iframeStore])
 
   useEffect(() => {
     if (issue && frameDom?.dom && !iframeStore.issueInited) {
       iframeStore.initIssueFix(issue)
     }
-  }, [issue])
+  }, [iframeStore, issue])
 
   const loadFrame = (event: any) => {
     onLoad(event, { iframeRef })
