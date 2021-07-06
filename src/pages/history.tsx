@@ -22,7 +22,7 @@ import { metaSetter } from '@app/utils'
 import type { PageProps } from '@app/types'
 
 const History = ({ name }: PageProps) => {
-  const { data, loading, refetch, crawlWebsite } = historyData(true)
+  const { data, loading, refetch, crawlWebsite } = historyData()
   const { search } = useSearchFilter()
   const listData = filterSort(data, search)
 
