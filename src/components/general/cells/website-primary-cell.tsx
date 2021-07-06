@@ -37,6 +37,9 @@ const useStyles = makeStyles((theme) => ({
     fontSize: '1.1em',
     fontWeight: 600,
   },
+  listTitleMax: {
+    maxWidth: '70%',
+  },
   flex: {
     flex: 1,
   },
@@ -94,6 +97,7 @@ export function WebsitePrimaryCell({
   checkList,
   listIndex,
   openError,
+  listTitleMax,
 }: any) {
   const classes = useStyles()
   const [anchorEl, setAnchorEl] = useState<any>(null)
@@ -201,7 +205,9 @@ export function WebsitePrimaryCell({
           <ListItemText
             primary={mainUrl || item?.selector}
             primaryTypographyProps={{
-              className: classes.listTitle,
+              className: `${classes.listTitle}${
+                listTitleMax ? ` ${classes.listTitleMax}` : ''
+              }`,
             }}
           />
           {error ? null : (

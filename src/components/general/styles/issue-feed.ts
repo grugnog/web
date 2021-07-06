@@ -32,6 +32,7 @@ export const issueFeedStyles = makeStyles((theme: MergedTheme) => ({
     overflowX: 'hidden',
     paddingBottom: 0,
     paddingTop: 0,
+    listStyleType: 'none',
   },
   searchList: {
     overflowX: 'hidden',

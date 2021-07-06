@@ -4,7 +4,7 @@
  * LICENSE file in the root directory of this source tree.
  **/
 import React from 'react'
-import { List, Typography, IconButton, Fade } from '@material-ui/core'
+import { Typography, IconButton, Fade } from '@material-ui/core'
 import { Close as CloseIcon } from '@material-ui/icons'
 import { useIssueFeed } from '@app/data'
 import { issueSort } from '@app/lib'
@@ -41,23 +41,24 @@ export function IssueFeed() {
               >
                 {issue.pageUrl}
               </Typography>
-              <List className={classes.list}>
+              <div className={classes.list}>
                 {issue?.issues
                   ?.sort(issueSort)
                   .map((item: any, listIndex: number) => {
                     return (
-                      <li key={`${listIndex} ${item?.selector} ${item?.code}`}>
+                      <div key={`${listIndex} ${item?.selector} ${item?.code}`}>
                         <WebsitePrimaryCell
                           issuesModal
                           error
                           item={item}
                           listIndex={listIndex}
                           url={issue?.pageUrl}
+                          listTitleMax
                         />
-                      </li>
+                      </div>
                     )
                   })}
-              </List>
+              </div>
             </div>
           )
         })}
