@@ -25,6 +25,11 @@ export const ADD_WEBSITE = gql`
           issuesFixedByCdn
           possibleIssuesFixedByCdn
           totalIssues
+          cdnConnected
+          skipContentIncluded
+          errorCount
+          warningCount
+          limitedCount
         }
         issues {
           pageUrl
