@@ -52,12 +52,13 @@ export function Screenshot({ src, url, resetMargin, width, height }: any) {
   let baseURL = src
 
   if (!dev) {
-    // TEMP: PROD FIX MIS MATCH CDN
     baseURL = baseURL
       .replace('localhost:8090', cdn)
       .replace('127.0.0.1:8090', cdn)
-      .replace('http', 'https')
       .replace('--1.png', '-1.png')
+    if (!baseURL.includes('https')) {
+      baseURL = baseURL.replace('http', 'https')
+    }
   } else {
     baseURL = baseURL.replace('127.0.0.1', 'localhost')
   }
