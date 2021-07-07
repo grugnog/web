@@ -22,11 +22,7 @@ function WebsiteDetails() {
     <WithHydrate>
       <NavBar title={websiteUrl} backButton notitle />
       {websiteUrl ? (
-        <AdaIframe
-          // TODO: TEMP FIX TO VALIDATE SERVER IFRAME ISSUE HTTP
-          url={String(websiteUrl).replace(/^https:\/\//i, 'http://')}
-          issue={issue}
-        />
+        <AdaIframe url={websiteUrl} issue={issue} />
       ) : (
         <div
           style={{
