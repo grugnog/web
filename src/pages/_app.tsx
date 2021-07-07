@@ -31,6 +31,7 @@ interface MergedApp extends AppProps {
 export default function MyApp({ Component, pageProps }: MergedApp) {
   useEffect(() => {
     initAppModel()
+    userModel.handleRoutes()
     startIntercom()
     userModel.redirect()
   }, [])
