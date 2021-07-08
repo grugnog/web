@@ -12,12 +12,15 @@ const useStyles = makeStyles((theme) => ({
   title: {
     flex: 1,
     fontSize: '3.4rem',
-    fontWeight: 900,
+    fontWeight: 800,
+    textOverflow: 'ellipsis',
+    overflow: 'hidden',
     [theme.breakpoints.down('md')]: {
       fontSize: '2.6rem',
     },
     [theme.breakpoints.down('sm')]: {
-      fontSize: '2.2rem',
+      fontSize: '2.21rem',
+      maxWidth: '95vw',
     },
   },
   row: {

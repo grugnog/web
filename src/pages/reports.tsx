@@ -20,11 +20,11 @@ function Reports({ name, website }: PageProps) {
           <title>{`Web Accessibility report for ${website?.url} - A11yWatch`}</title>
           <meta
             property='description'
-            content={`A detailed WCAG 2.1 report for ${website?.url} that can be used to audit by A11yWatch`}
+            content={`A detailed WCAG 2.1 report for ${website?.url} that can be used by A11yWatch`}
             key='description'
           />
         </Head>
-        <PageTitle>{`Report for ${website?.url || 'page'}`}</PageTitle>
+        <PageTitle>{`Report: ${website?.domain || 'page'}`}</PageTitle>
         <ReportView website={website} disablePlayground={true} />
       </MarketingDrawer>
     </Fragment>
