@@ -14,7 +14,7 @@ export const logPageView = (route?: string) => {
   const analyticsData = {
     page,
     userID: UserManager.getID,
-    screenResolution: window.innerWidth,
+    screenResolution: typeof window !== 'undefined' && window?.innerWidth,
     // ip: undefined,
   }
   if (typeof navigator !== 'undefined' && navigator.sendBeacon) {
