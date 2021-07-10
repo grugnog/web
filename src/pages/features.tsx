@@ -38,6 +38,22 @@ const useStyles = makeStyles(({ breakpoints, palette }) => ({
 function Features({ name }: PageProps) {
   const { paper, row } = useStyles()
 
+  function FeatureHeading({ children }: { children: string }) {
+    return (
+      <Heading component='h4' bold={false}>
+        {children}
+      </Heading>
+    )
+  }
+
+  function GeneralHeading({ children }: { children: string }) {
+    return (
+      <Heading variant='h4' component='h3'>
+        {children}
+      </Heading>
+    )
+  }
+
   function Image({ src, alt }: { src: string; alt: string }) {
     return (
       <img
@@ -59,15 +75,13 @@ function Features({ name }: PageProps) {
       <div className={row}>
         <Paper className={paper}>
           <Section>
-            <Heading variant='h4' component='h3'>
-              Issue Reporter
-            </Heading>
-            <Heading component='h4'>
+            <GeneralHeading>Issue Reporter</GeneralHeading>
+            <FeatureHeading>
               Our issue reporter scans for problems with recommended solutions.
               Get notified as they occur with detailed information on what
               happened. The reporter runs on all your pages and you can run the
               test multiple times a day.
-            </Heading>
+            </FeatureHeading>
           </Section>
           <Image
             src='/static/img/task_list.svg'
@@ -76,17 +90,15 @@ function Features({ name }: PageProps) {
         </Paper>
         <Paper className={paper}>
           <Section>
-            <Heading variant='h4' component='h3'>
-              Auto CDN
-            </Heading>
-            <Heading component='h4'>
+            <GeneralHeading>Auto CDN</GeneralHeading>
+            <FeatureHeading>
               Include a custom cdn that fixes most of your issues at runtime.
               Our cdn uses a neural network that is composed of a couple of open
               nets like GoogleNet, ImageNet, and MobileNet. We also use common
               learning into the mixture to have a generic model. The networks in
               layers allow us to learn and declare images with extraordinary
               precision.
-            </Heading>
+            </FeatureHeading>
           </Section>
           <Image src='/static/img/cloud_files.svg' alt={'cloud stored'} />
         </Paper>
@@ -94,14 +106,12 @@ function Features({ name }: PageProps) {
       <div className={row}>
         <Paper className={paper}>
           <Section>
-            <Heading variant='h4' component='h3'>
-              Website Visual Playground
-            </Heading>
-            <Heading component='h4'>
+            <GeneralHeading>Website Visual Playground</GeneralHeading>
+            <FeatureHeading>
               View your website with annotations of the issues on your page.
               Experiment with recommended fixes before you add in our secure CDN
               to validate the changes and more.
-            </Heading>
+            </FeatureHeading>
           </Section>
           <Image
             src='/static/img/heatmap.svg'
@@ -110,15 +120,13 @@ function Features({ name }: PageProps) {
         </Paper>
         <Paper className={paper}>
           <Section>
-            <Heading variant='h4' component='h3'>
-              Temporary Script Remedy
-            </Heading>
-            <Heading component='h4'>
+            <GeneralHeading>Temporary Script Remedy</GeneralHeading>
+            <FeatureHeading>
               View your scripts that come from the scripts page. Verifiy exactly
               what goes into production with notes on whats being changed. If
               you need to make a tweak, edit the script in real time with our
               editor.
-            </Heading>
+            </FeatureHeading>
           </Section>
           <Image src='/static/img/code_snippets.svg' alt={'code snippets'} />
         </Paper>
