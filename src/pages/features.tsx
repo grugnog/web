@@ -77,10 +77,10 @@ function Features({ name }: PageProps) {
           <Section>
             <GeneralHeading>Issue Reporter</GeneralHeading>
             <FeatureHeading>
-              Our issue reporter scans for problems with recommended solutions.
-              Get notified as they occur with detailed information on what
-              happened. The reporter runs on all your pages and you can run the
-              test multiple times a day.
+              Our issue reporter scans for problems with recommended solutions
+              that are tuned for your website. Get notified as issues occur with
+              detailed information on what happened. The reporter runs on all
+              your pages and you can run the test multiple times a day.
             </FeatureHeading>
           </Section>
           <Image
@@ -109,8 +109,8 @@ function Features({ name }: PageProps) {
             <GeneralHeading>Website Visual Playground</GeneralHeading>
             <FeatureHeading>
               View your website with annotations of the issues on your page.
-              Experiment with recommended fixes before you add in our secure CDN
-              to validate the changes and more.
+              Experiment with recommended fixes to validate changes before
+              release in real-time.
             </FeatureHeading>
           </Section>
           <Image
