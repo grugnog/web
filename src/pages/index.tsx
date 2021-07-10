@@ -3,7 +3,7 @@
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
  **/
-import React, { Fragment } from 'react'
+import React, { Fragment, useState } from 'react'
 import { InferGetStaticPropsType } from 'next'
 import { MarketingDrawer, Price, Spacer } from '@app/components/general'
 import { WhatsNew } from '@app/components/alerts'
@@ -25,6 +25,9 @@ import {
 import { getAPIRoute } from '@app/configs'
 
 function Index({ whatsNew }: InferGetStaticPropsType<typeof getStaticProps>) {
+  // TODO: MOVE TO PRICE COMPONENT
+  const [yearly, setYearly] = useState<boolean>(false)
+
   return (
     <Fragment>
       <MarketingDrawer navPosition={'relative'}>
@@ -35,7 +38,7 @@ function Index({ whatsNew }: InferGetStaticPropsType<typeof getStaticProps>) {
         <CtaCustomers />
         <CtaSearch />
         <MarketingTestimonial />
-        <Price blockFree navigate />
+        <Price blockFree navigate setYearly={setYearly} yearly={yearly} />
         <CtaSignonForm />
       </MarketingDrawer>
       {whatsNew ? <Spacer height={73} /> : null}

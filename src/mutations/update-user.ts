@@ -42,8 +42,16 @@ export const UPDATE_USER = gql`
 `
 
 export const ADD_PAYMENT_SUBSCRIPTION = gql`
-  mutation AddPaymentSubscription($email: String, $stripeToken: String) {
-    addPaymentSubscription(email: $email, stripeToken: $stripeToken) {
+  mutation AddPaymentSubscription(
+    $email: String
+    $stripeToken: String
+    $yearly: Boolean
+  ) {
+    addPaymentSubscription(
+      email: $email
+      stripeToken: $stripeToken
+      yearly: $yearly
+    ) {
       code
       success
       message

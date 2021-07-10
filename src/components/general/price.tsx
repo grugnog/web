@@ -48,6 +48,9 @@ const useStyles = makeStyles(() => ({
   large: {
     minHeight: '40vh',
   },
+  dot: {
+    top: '-0.4rem',
+  },
 }))
 
 export function Price({
@@ -56,6 +59,8 @@ export function Price({
   onClick,
   blockFree,
   navigate,
+  yearly,
+  setYearly,
 }: any) {
   const classes = useStyles()
   const Container = !onClick ? 'section' : 'div'
@@ -76,10 +81,29 @@ export function Price({
           {navigate ? 'Plans' : 'Pricing'}
         </SectionHeading>
       ) : null}
+      <div className='py-4'>
+        <label htmlFor='toogleA' className='flex items-center cursor-pointer'>
+          <div className='relative'>
+            <input
+              id='toogleA'
+              type='checkbox'
+              className='sr-only'
+              onClick={() => setYearly((y) => !y)}
+            />
+            <div className='w-10 h-4 bg-gray-400 rounded-full shadow-inner'></div>
+            <div
+              className={`dot absolute w-6 h-6 bg-white rounded-full shadow left-1 -top-1 transition ${classes.dot}`}
+            ></div>
+          </div>
+          <div className='ml-4 text-white-700 font-medium'>
+            {yearly ? 'Yearly' : 'Monthly'}
+          </div>
+        </label>
+      </div>
       <Grid container spacing={1} className={!onClick ? classes.container : ''}>
         {priceConfig.plans
           .filter((item: any) => (!blockFree ? item.title !== 'Free' : true))
-          .map(({ title, details, cost, Icon }: any) => (
+          .map(({ title, details, cost, costYearly, Icon }: any) => (
             <Paper
               key={title}
               className={`${classes.paper} ${highLight(
@@ -117,14 +141,16 @@ export function Price({
                     component='span'
                     style={{ fontWeight: 600, marginTop: 12 }}
                   >
-                    {cost}
+                    {yearly ? costYearly : cost}
                   </Typography>
                 ) : null}
                 {navigate ? (
                   <Button
                     style={{ marginTop: 10, fontWeight: 600 }}
                     component={Link}
-                    href={`/register?plan=${title}`}
+                    href={`/register?plan=${title}${
+                      yearly ? '&yearly=true' : ''
+                    }`}
                   >{`${title} Start`}</Button>
                 ) : null}
                 <Typography

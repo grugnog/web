@@ -34,6 +34,11 @@ a {
   min-height: 42px;
 }
 
+input:checked ~ .dot {
+  transform: translateX(100%);
+  background-color: #424242;
+}
+
 @media print {
   .hide-print {
     display: none;

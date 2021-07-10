@@ -5,7 +5,7 @@
  **/
 import React, { useEffect, useState, useRef } from 'react'
 import StripeCheckout from 'react-stripe-checkout'
-import { getDate } from 'date-fns'
+import { getDate, format } from 'date-fns'
 import {
   Container,
   Typography,
@@ -64,6 +64,9 @@ const useStyles = makeStyles(() => ({
     justifyContent: 'center',
     flexDirection: 'column',
   },
+  dot: {
+    top: '-0.4rem',
+  },
 }))
 
 interface PaymentProps extends PageProps {
@@ -75,6 +78,16 @@ type Plan = {
   premium: boolean
 }
 
+const getPlanName = (plan: number): string => {
+  let tier = 'Basic'
+  if ([999, 9999].includes(plan)) {
+    tier = 'Basic'
+  }
+  if ([9999, 1999].includes(plan)) {
+    tier = 'Premium'
+  }
+  return tier
+}
 function Payments({ hideTitle = false, name }: PaymentProps) {
   const classes = useStyles()
   const router = useRouter()
@@ -83,18 +96,26 @@ function Payments({ hideTitle = false, name }: PaymentProps) {
     basic: true,
     premium: false,
   })
+  const [yearly, setYearly] = useState<boolean>(false)
   const [open, setOpen] = useState<boolean>(false)
   const stripRef = useRef<any>()
   const plan = String(router?.query?.plan).toLocaleLowerCase() as string
+  const yearSet = String(router?.query?.yearly)
 
   useEffect(() => {
-    if (plan) {
+    if (yearSet && yearSet !== 'undefined') {
+      setYearly(true)
+    }
+  }, [setYearly, yearSet])
+
+  useEffect(() => {
+    if (plan && plan !== 'undefined') {
       setState({ basic: false, premium: false, [plan]: plan })
     }
-  }, [plan])
+  }, [setState, plan])
 
   const loadEvent = () => {
-    if (plan) {
+    if (plan && plan !== 'undefined') {
       // @ts-ignore
       const cb = window?.requestIdleCallback ?? setTimeout
 
@@ -127,6 +148,7 @@ function Payments({ hideTitle = false, name }: PaymentProps) {
             plan: state.premium ? 1 : 0,
           }),
           email: token.email,
+          yearly,
         },
       })
       const jwt = res?.data?.addSubscription?.user.jwt
@@ -165,7 +187,19 @@ function Payments({ hideTitle = false, name }: PaymentProps) {
   const paymentSubscription = data?.paymentSubscription
   const nextPaymentDay =
     paymentSubscription?.current_period_end &&
-    getDate(new Date(Number(paymentSubscription?.current_period_end)))
+    getDate(new Date(Number(paymentSubscription.current_period_end * 1000)))
+  const startDate =
+    paymentSubscription?.current_period_start &&
+    new Date(Number(paymentSubscription.start_date * 1000))
+  const price = state.basic ? 999 : 1999
+  const priceMultiplyier = yearly ? 9 : ''
+  const paymentDate = `${name} will occur on the ${
+    paymentSubscription?.plan?.interval === 'year'
+      ? `${format(startDate, 'MMMM')} `
+      : ''
+  }${getOrdinalSuffix(nextPaymentDay)} of every ${
+    paymentSubscription?.plan?.interval ?? 'month'
+  }`
 
   return (
     <WithHydrate>
@@ -194,23 +228,24 @@ function Payments({ hideTitle = false, name }: PaymentProps) {
                   basic={state.basic || data?.role === 1}
                   premium={state.premium || data?.role === 2}
                   onClick={handleChange}
+                  yearly={yearly}
+                  setYearly={setYearly}
                 />
               ) : (
                 <div>
                   {nextPaymentDay ? (
                     <Typography variant='subtitle1' component='p'>
-                      {`${name} will occur on the ${getOrdinalSuffix(
-                        nextPaymentDay
-                      )} of every month`}
+                      {paymentDate}
                     </Typography>
                   ) : null}
                   <Typography variant='body1' component='p' gutterBottom>
                     Account Type
                   </Typography>
                   <Typography variant='body2' component='p'>
-                    {`${paymentSubscription?.plan?.nickname || ''} - $${
-                      paymentSubscription?.plan?.amount / 100 || ''
-                    }`}
+                    {`${
+                      paymentSubscription?.plan?.nickname ||
+                      getPlanName(paymentSubscription?.plan?.amount)
+                    } - $${paymentSubscription?.plan?.amount / 100 || ''}`}
                   </Typography>
                 </div>
               )}
@@ -235,11 +270,11 @@ function Payments({ hideTitle = false, name }: PaymentProps) {
                     email={data?.email || ''}
                     // @ts-ignore
                     disabled={Boolean(!state.basic && !state.premium)}
-                    amount={state.basic ? 999 : 1999}
+                    amount={Number(`${price}${priceMultiplyier}`)}
                     zipCode={false}
                     billingAddress={false}
                     // @ts-ignore
-                    panelLabel={`${state.basic ? 'Basic' : 'Premium'} Plan`}
+                    panelLabel={`${state.basic ? 'Basic' : 'Premium'}`}
                   >
                     <Button
                       color='secondary'

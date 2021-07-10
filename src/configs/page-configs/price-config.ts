@@ -30,6 +30,7 @@ const plans = [
     ],
     Icon: FreeIcon,
     cost: '$0/month',
+    costYearly: '$0/year',
   },
   {
     title: 'Basic',
@@ -45,6 +46,7 @@ const plans = [
     ],
     Icon: PaidIcon,
     cost: '$9.99/month',
+    costYearly: '$99.99/year',
   },
   {
     title: 'Premium',
@@ -60,6 +62,7 @@ const plans = [
     ],
     Icon: WhatsHot,
     cost: '$19.99/month',
+    costYearly: '$199.99/year',
   },
 ]
 
