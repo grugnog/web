@@ -3,7 +3,7 @@
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
  **/
-import React from 'react'
+import React, { useState } from 'react'
 import { Typography } from '@material-ui/core'
 import {
   MarketingDrawer,
@@ -15,15 +15,17 @@ import { Box } from '@a11ywatch/ui'
 import { withApollo } from '@app/apollo'
 import { metaSetter } from '@app/utils'
 
-function Pricing({ name }: any) {
+function Pricing({ name }: { name: string }) {
+  const [yearly, setYearly] = useState<boolean>(false)
+
   return (
     <MarketingDrawer title={name}>
       <Box>
-        <PageTitle>A11yWatch Pricing</PageTitle>
+        <PageTitle>Pricing</PageTitle>
         <Typography component='h2' gutterBottom>
           Choose a plan that best fits your needs
         </Typography>
-        <Price navigate blockFree />
+        <Price navigate blockFree yearly={yearly} setYearly={setYearly} />
         <SignOnForm home />
       </Box>
     </MarketingDrawer>
