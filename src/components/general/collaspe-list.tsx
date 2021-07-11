@@ -42,7 +42,7 @@ function MainCell({
   newItemUpdate,
 }: any) {
   const [source, setSource] = useState<any>(sourceData)
-  const [newScript, setScript] = useState<any>(sourceData)
+  const [newScript, setScript] = useState<any>(source?.script ?? sourceData)
   const [editMode, setEdit] = useState<boolean>(false)
   const freeAccount = UserManager.freeAccount && !UserManager.firstDay
   const skipContentEnabled = source?.scriptMeta?.skipContentEnabled

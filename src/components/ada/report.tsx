@@ -155,7 +155,7 @@ export function ReportView({ website, closeButton, disablePlayground }: any) {
               <Screenshot
                 url={website?.url}
                 src={website?.screenshot ?? website.screenshotStill}
-                height={1000}
+                height={500}
               />
             </div>
           }
