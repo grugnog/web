@@ -78,9 +78,10 @@ function Features({ name }: PageProps) {
             <GeneralHeading>Issue Reporter</GeneralHeading>
             <FeatureHeading>
               Our issue reporter scans for problems with recommended solutions
-              that are tuned for your website. Get notified as issues occur with
-              detailed information on what happened. The reporter runs on all
-              your pages and you can run the test multiple times a day.
+              that are tuned for your website. Get notified when new issues
+              occur with detailed information on what happened. The reporter
+              runs on all your pages and you can run the test multiple times a
+              day.
             </FeatureHeading>
           </Section>
           <Image

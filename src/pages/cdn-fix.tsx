@@ -26,7 +26,7 @@ function Cdn({ name }: PageProps) {
       <Drawer title={capsName}>
         <Container maxWidth={'xl'}>
           <Box>
-            <PageTitle title={`All ${capsName} Scripts`} />
+            <PageTitle title={capsName} />
             <ScriptsPageSkeleton
               dataLength={Object.keys(dataSource)?.length}
               loading={loading}

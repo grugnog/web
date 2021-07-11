@@ -31,7 +31,7 @@ const History = ({ name }: PageProps) => {
       <Drawer title={name}>
         <Container maxWidth='xl'>
           <Box>
-            <PageTitle title={'All Past Websites'} />
+            <PageTitle title={name} />
             <List
               data={listData}
               loading={loading}

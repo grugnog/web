@@ -54,7 +54,7 @@ function Analytics({ name }: PageProps) {
       <Drawer title={name}>
         <Container maxWidth={'xl'}>
           <Box my={4}>
-            <PageTitle title={'All Analytics'} />
+            <PageTitle title={'Analytics'} />
             {loading && !dataSource.length ? (
               <List className={classes.center}>
                 <Box key={0} className={`${classes.center} ${classes.box}`}>

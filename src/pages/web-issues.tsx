@@ -31,7 +31,7 @@ function Issues({ name }: PageProps) {
       <Drawer title={name}>
         <Container maxWidth='xl'>
           <Box>
-            <PageTitle title={`All ${name}`} />
+            <PageTitle title={name} />
             <List
               data={MAINDATASOURCE}
               loading={loading}

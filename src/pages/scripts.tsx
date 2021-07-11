@@ -37,7 +37,7 @@ function Scripts({ name }: PageProps) {
       <Drawer title={name}>
         <Container maxWidth={'xl'}>
           <Box>
-            <PageTitle title={`All ${name}`} />
+            <PageTitle title={name} />
             <ScriptsPageSkeleton
               dataLength={Object.keys(dataSource)?.length}
               loading={loading}

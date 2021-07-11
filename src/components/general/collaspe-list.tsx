@@ -78,7 +78,7 @@ function MainCell({
   const submitEdit = async (e: any) => {
     e?.preventDefault()
     const confirm = window.confirm(
-      'Are you sure you wish to save this script? Your script may be changed to reflect your page as issues arise.'
+      'Are you sure you wish to save this script? Your script may be changed to reflect your page as problems arise.'
     )
 
     if (confirm) {
