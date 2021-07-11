@@ -88,7 +88,7 @@ export function Price({
               id='toogleA'
               type='checkbox'
               className='sr-only'
-              onClick={() => setYearly((y) => !y)}
+              onClick={() => setYearly((y: boolean) => !y)}
             />
             <div className='w-10 h-4 bg-gray-400 rounded-full shadow-inner'></div>
             <div

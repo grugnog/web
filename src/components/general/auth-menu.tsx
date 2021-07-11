@@ -10,7 +10,7 @@ import { IconButton, MenuItem, Menu, Tooltip } from '@material-ui/core'
 import { AccountCircle } from '@material-ui/icons'
 
 import { Link } from './link'
-
+import { TranslateBadge } from '../badges'
 import { UserManager } from '@app/managers'
 import { LOGGIN_ROUTES } from '@app/configs'
 import { NavLinks } from './nav-links'
@@ -24,14 +24,14 @@ interface Props {
 function AuthMenu({ loginClassName, className, registerClassName }: Props) {
   const router = useRouter()
   const [anchorEl, setAnchorEl] = useState<any>(null)
-
   const handleMenu = (event?: any) => {
     setAnchorEl(event?.currentTarget)
   }
 
   if (LOGGIN_ROUTES.includes(router?.pathname)) {
     return (
-      <>
+      <div>
+        <TranslateBadge />
         <Tooltip title={'More options'}>
           <IconButton
             aria-label='account of current user'
@@ -85,7 +85,7 @@ function AuthMenu({ loginClassName, className, registerClassName }: Props) {
             Logout
           </MenuItem>
         </Menu>
-      </>
+      </div>
     )
   }
   return (

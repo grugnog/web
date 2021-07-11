@@ -24,9 +24,11 @@ const useStyles = makeStyles((theme) => ({
 export const TranslateBadge = ({
   inline,
   className,
+  onClick,
 }: {
   className?: string
   inline?: boolean
+  onClick?: () => any
 }) => {
   const classes = useStyles()
   const ariaT = 'Translate page using google'
@@ -38,6 +40,7 @@ export const TranslateBadge = ({
       className={className}
       classes={{ badge: classes.badge }}
       component={IconButton}
+      onClick={onClick}
     />
   )
 }
