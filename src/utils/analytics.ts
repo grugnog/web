@@ -7,7 +7,7 @@
 import { getAPIRoute } from '@app/configs'
 import { UserManager } from '@app/managers'
 
-export const logPageView = (route?: string) => {
+export const logPageView = (route?: string, refer?: boolean) => {
   const page = String(
     route || (typeof window !== 'undefined' && window.location.pathname)
   )
@@ -15,7 +15,9 @@ export const logPageView = (route?: string) => {
     page,
     userID: UserManager.getID,
     screenResolution: typeof window !== 'undefined' && window?.innerWidth,
-    // ip: undefined,
+    documentReferrer: refer
+      ? typeof document !== 'undefined' && document.referrer
+      : undefined,
   }
   if (typeof navigator !== 'undefined' && navigator.sendBeacon) {
     const beaconData = new Blob([JSON.stringify(analyticsData)], {

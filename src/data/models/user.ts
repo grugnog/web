@@ -111,7 +111,7 @@ const userModel = {
       } else if (typeof window !== 'undefined') {
         userModel.originalUrl = window.location.pathname
       }
-      logPageView(userModel.originalUrl)
+      logPageView(userModel.originalUrl, true)
     } catch (e) {
       console.error(e)
     }
