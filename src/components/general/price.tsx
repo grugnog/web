@@ -6,6 +6,7 @@
 import React, { Fragment } from 'react'
 import { Typography, Grid, Button, Paper } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
+import { Toggle } from '@a11ywatch/ui'
 import { Ribbon } from '@app/components/general'
 import { priceConfig } from '@app/configs'
 import { SectionHeading } from '../text'
@@ -81,25 +82,7 @@ export function Price({
           {navigate ? 'Plans' : 'Pricing'}
         </SectionHeading>
       ) : null}
-      <div className='py-4'>
-        <label htmlFor='toogleA' className='flex items-center cursor-pointer'>
-          <div className='relative'>
-            <input
-              id='toogleA'
-              type='checkbox'
-              className='sr-only'
-              onClick={() => setYearly((y: boolean) => !y)}
-            />
-            <div className='w-10 h-4 bg-gray-400 rounded-full shadow-inner'></div>
-            <div
-              className={`dot absolute w-6 h-6 bg-white rounded-full shadow left-1 -top-1 transition ${classes.dot}`}
-            ></div>
-          </div>
-          <div className='ml-4 text-white-700 font-medium'>
-            {yearly ? 'Yearly' : 'Monthly'}
-          </div>
-        </label>
-      </div>
+      <Toggle onClick={() => setYearly((y: boolean) => !y)} active={yearly} />
       <Grid container spacing={1} className={!onClick ? classes.container : ''}>
         {priceConfig.plans
           .filter((item: any) => (!blockFree ? item.title !== 'Free' : true))
