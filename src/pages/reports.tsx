@@ -41,12 +41,17 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
   try {
     const { q, timestamp } = context.query
-    const res = await fetch(
-      `${getAPIRoute()}/get-website?q=${q}${
-        timestamp ? `&timestamp=${timestamp}` : ''
-      }`
-    )
-    const website = await res.json()
+
+    let website
+
+    if (q) {
+      const res = await fetch(
+        `${getAPIRoute()}/get-website?q=${q}${
+          timestamp ? `&timestamp=${timestamp}` : ''
+        }`
+      )
+      website = await res.json()
+    }
 
     if (!website) {
       return redirect
