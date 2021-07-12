@@ -46,7 +46,6 @@ function MarketingShapesTop() {
           src={'/static/img/shapes/oval-1.svg'}
           height={241}
           width={230}
-          role='presentation'
           alt=''
         />
       </div>
@@ -55,7 +54,6 @@ function MarketingShapesTop() {
           src={'/static/img/shapes/oval-2.svg'}
           height={721}
           width={821}
-          role='presentation'
           alt=''
           className={classes.oval2Image}
         />
