@@ -31,12 +31,6 @@ export const Routes = [
   },
   {
     nav: false,
-    href: '/donate',
-    name: 'Donate',
-    type: 'company',
-  },
-  {
-    nav: false,
     href: '/about',
     name: 'About',
     type: 'company',
@@ -49,7 +43,8 @@ export const Routes = [
   },
   {
     nav: false,
-    href: 'https://chrome.google.com/webstore/detail/a11ywatch/opefmkkmhchekgcmgneakbjafeckbaag?hl=en&authuser=0',
+    href:
+      'https://chrome.google.com/webstore/detail/a11ywatch/opefmkkmhchekgcmgneakbjafeckbaag?hl=en&authuser=0',
     name: 'Chrome Extension',
     type: 'explore',
   },
