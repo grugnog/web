@@ -21,6 +21,7 @@ import { withApollo } from '@app/apollo'
 import {
   MarketingShapesTop,
   MarketingTestimonial,
+  MarketingTrustBy,
 } from '@app/components/marketing'
 import { getAPIRoute } from '@app/configs'
 
@@ -38,6 +39,7 @@ function Index({ whatsNew }: InferGetStaticPropsType<typeof getStaticProps>) {
         <CtaCustomers />
         <CtaSearch />
         <MarketingTestimonial />
+        <MarketingTrustBy />
         <Price blockFree navigate setYearly={setYearly} yearly={yearly} />
         <CtaSignonForm />
       </MarketingDrawer>
