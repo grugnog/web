@@ -91,8 +91,8 @@ function Dashboard({ name }: PageProps) {
   const MAINDATASOURCE = filterSort(data, search)
   const userId = UserManager?.getID
 
-  const removePress = (url?: string, deleteMany: boolean = false) => {
-    removeWebsite({
+  const removePress = async (url?: string, deleteMany: boolean = false) => {
+    await removeWebsite({
       variables: {
         url,
         userId,
@@ -101,8 +101,8 @@ function Dashboard({ name }: PageProps) {
     }).catch((e) => console.error(e))
   }
 
-  const addPress = (url: string, customHeaders?: any) => {
-    addWebsite({
+  const addPress = async (url: string, customHeaders?: any) => {
+    await addWebsite({
       variables: {
         url,
         userId,
@@ -117,7 +117,7 @@ function Dashboard({ name }: PageProps) {
         firstAdd: true,
       })
     }
-  }, [issueSubData])
+  }, [issueSubData, events, setEvents])
 
   const blocked = typeof userId === 'number' && isNaN(userId)
 

@@ -37,9 +37,14 @@ const theme = {
 }
 
 module.exports = {
+  mode: 'jit',
   theme,
   varients: {
     borderRadius: ['responsive', 'hover', 'focus'],
   },
-  purge: ['./src/**/*.html', './src/**/*.vue', './src/**/*.jsx'],
+  purge: [
+    './src/**/*.html',
+    './src/**/*.{js,jsx,ts,tsx,vue}',
+    './src/**/**/*.{js,jsx,ts,tsx,vue}',
+  ],
 }

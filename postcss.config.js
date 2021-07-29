@@ -10,13 +10,15 @@ module.exports = {
             '@fullhuman/postcss-purgecss',
             {
               content: [
-                './src/pages/**/*.{js,jsx,ts,tsx}',
-                './src/components/**/*.{js,jsx,ts,tsx}',
-                './node_modules/@a11ywatch/ui/**/*.{js,jsx,ts,tsx}',
+                'src/pages/**/*.{js,jsx,ts,tsx}',
+                'src/components/**/*.{js,jsx,ts,tsx}',
+                'node_modules/@a11ywatch/ui/**/*.{js,jsx,ts,tsx}',
               ],
               defaultExtractor: (content) =>
                 content.match(/[\w-/:]+(?<!:)/g) || [],
               whitelistPatternsChildren: [/monaco-editor/],
+              safelist: ['html', 'body'],
+              whitelistPatterns: [/^p[x,y]-/, /^p-/],
             },
           ],
           ['cssnano', { preset: 'default' }],
