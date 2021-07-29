@@ -46,7 +46,7 @@ export const generateStrings = ({
         id: 0,
         title: 'On-Demand',
         detail:
-          'Target WCAG issues spot on without having to figure out whats wrong',
+          'Target WCAG issues spot on helping to figure out problems at hand',
         reason: 'Stop waisting time with figuring out what your ada issues are',
       },
       {
@@ -81,15 +81,14 @@ export const generateStrings = ({
       {
         id: 5,
         title: 'Speed Test',
-        detail:
-          'See how your site compares against other websites on performance',
+        detail: 'Test how your website does with performance and other metrics',
         reason: 'Basic',
       },
       {
         id: 6,
         title: 'Secure',
         detail:
-          'See your scripts with precision to see exactly whats going on anywhere',
+          'View your scripts with precision for changes before you include them',
         reason: 'Basic',
       },
       {
@@ -103,7 +102,7 @@ export const generateStrings = ({
         id: 8,
         title: 'Browser',
         detail:
-          'View the issues in the browser and experiment with fixes before hand',
+          'View the issues in the browser and experiment with fixes before realtime',
         reason: 'Basic',
       },
       {
