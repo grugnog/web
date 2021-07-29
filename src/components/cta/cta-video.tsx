@@ -60,14 +60,18 @@ function Inner({ isVisible }: { isVisible: boolean }) {
 
     const player = loaded ? new Player(video) : null
 
-    if (video && player) {
-      if (isVisible && player?.play) {
-        player.play()
-      } else if (!isVisible && player?.pause) {
-        player.pause()
+    if (loaded && video && player) {
+      try {
+        if (isVisible && player?.play) {
+          player.play()
+        } else if (!isVisible && player?.pause) {
+          player.pause()
+        }
+      } catch (e) {
+        console.error(e)
       }
     }
-  }, [isVisible])
+  }, [isVisible, loaded])
 
   const videoClassName = `${classes.video} ${classes.frame}`
 
