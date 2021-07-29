@@ -1,5 +1,8 @@
 import React from 'react'
 import Image from 'next/image'
+import { Typography } from '@material-ui/core'
+import { SectionHeading } from '../text'
+import Head from 'next/head'
 
 export function MarketingTrustBy() {
   const width = '231.68px'
@@ -13,11 +16,17 @@ export function MarketingTrustBy() {
       }}
     >
       <div className='max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:py-16 lg:px-8'>
-        <h3 className='text-center text-base font-semibold uppercase text-white tracking-wider'>
-          Trusted by many businesses from all over
-        </h3>
-        <style>
-          {`
+        <div>
+          <SectionHeading>
+            Trusted by many businesses from all over
+          </SectionHeading>
+          <Typography variant='h6' component='p' gutterBottom>
+            From small to Fortune 500
+          </Typography>
+        </div>
+        <Head>
+          <style>
+            {`
             .grayScale {
             filter: gray;
             -webkit-filter: grayscale(1); 
@@ -28,9 +37,10 @@ export function MarketingTrustBy() {
             filter: none;
             }
             `}
-        </style>
+          </style>
+        </Head>
         <div className='mt-6 grid grid-cols-2 gap-0.5 md:grid-cols-3 lg:mt-8'>
-          <div className='col-span-1 flex justify-center py-8 px-8 bg-gray-50'>
+          <div className='col-span-1 flex justify-center py-8 px-8'>
             <Image
               className='max-h-12 grayScale'
               src='/static/img/marketing_blockchain.svg'
@@ -39,7 +49,7 @@ export function MarketingTrustBy() {
               height={height}
             />
           </div>
-          <div className='col-span-1 flex justify-center py-8 px-8 bg-gray-50'>
+          <div className='col-span-1 flex justify-center py-8 px-8'>
             <Image
               width={width}
               height={height}
@@ -48,7 +58,7 @@ export function MarketingTrustBy() {
               alt='SuperMajority Logo'
             />
           </div>
-          <div className='col-span-1 flex justify-center py-8 px-8 bg-gray-50'>
+          <div className='col-span-1 flex justify-center py-8 px-8'>
             <Image
               width={width}
               height={height}
@@ -57,7 +67,7 @@ export function MarketingTrustBy() {
               alt='Matchmanao Logo'
             />
           </div>
-          <div className='col-span-1 flex justify-center py-8 px-8 bg-gray-50'>
+          <div className='col-span-1 flex justify-center py-8 px-8'>
             <Image
               width={width}
               height={height}
@@ -66,7 +76,7 @@ export function MarketingTrustBy() {
               alt='Chinquapin Lake Taho Resort Logo'
             />
           </div>
-          <div className='col-span-1 flex justify-center py-8 px-8 bg-gray-50'>
+          <div className='col-span-1 flex justify-center py-8 px-8'>
             <Image
               className='max-h-12 grayScale'
               src='/static/img/marketing_escape.svg'
@@ -75,7 +85,7 @@ export function MarketingTrustBy() {
               height={height}
             />
           </div>
-          <div className='col-span-1 flex justify-center py-8 px-8 bg-gray-50'>
+          <div className='col-span-1 flex justify-center py-8 px-8'>
             <Image
               className='max-h-12 grayScale'
               src='/static/img/marketing_vivacom.svg'

@@ -16,7 +16,7 @@ const fontFamilys = [
 ]
 
 const colors = {
-  main: 'grey',
+  main: 'gray',
   secondary: '#5c6bc0',
   transparent: 'transparent',
   black: '#000',
@@ -41,4 +41,5 @@ module.exports = {
   varients: {
     borderRadius: ['responsive', 'hover', 'focus'],
   },
+  purge: ['./src/**/*.html', './src/**/*.vue', './src/**/*.jsx'],
 }
