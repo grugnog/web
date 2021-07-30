@@ -72,8 +72,8 @@ export function MarketingTrustBy() {
               width={width}
               height={height}
               className='max-h-12 grayScale'
-              src='/static/img/marketing_chinquapin.png'
-              alt='Chinquapin Lake Taho Resort Logo'
+              src='/static/img/marketing_arrow.svg'
+              alt='Arrow Logo'
             />
           </div>
           <div className='col-span-1 flex justify-center py-8 px-8'>
