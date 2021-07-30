@@ -73,7 +73,7 @@ export function MarketingTrustBy() {
               height={height}
               className='max-h-12 grayScale'
               src='/static/img/marketing_arrow.svg'
-              alt='Arrow Logo'
+              alt='Arrow Electronics Logo'
             />
           </div>
           <div className='col-span-1 flex justify-center py-8 px-8'>

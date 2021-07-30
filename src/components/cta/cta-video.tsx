@@ -61,14 +61,14 @@ function Inner({ isVisible }: { isVisible: boolean }) {
     const player = loaded ? new Player(video) : null
 
     if (loaded && video && player) {
-      try {
-        if (isVisible && player?.play) {
-          player.play()
-        } else if (!isVisible && player?.pause) {
-          player.pause()
-        }
-      } catch (e) {
-        console.error(e)
+      if (isVisible && player?.play) {
+        player.play().catch((e) => {
+          console.error(e)
+        })
+      } else if (!isVisible && player?.pause) {
+        player.pause().catch((e) => {
+          console.error(e)
+        })
       }
     }
   }, [isVisible, loaded])
