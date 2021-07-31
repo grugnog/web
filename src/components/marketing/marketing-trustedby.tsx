@@ -2,11 +2,38 @@ import React from 'react'
 import Image from 'next/image'
 import { Typography } from '@material-ui/core'
 import { SectionHeading } from '../text'
-import Head from 'next/head'
+
+interface ImageProps {
+  src: string
+  alt: string
+}
 
 export function MarketingTrustBy() {
   const width = '231.68px'
   const height = '56.45px'
+
+  function MarketingImage({ src, alt }: ImageProps) {
+    return (
+      <div className='col-span-1 flex justify-center py-8 px-8'>
+        <Image
+          width={width}
+          height={height}
+          className='max-h-12 filter grayscale hover:grayscale-0'
+          src={`/static/img/${src}.svg`}
+          alt={alt}
+        />
+      </div>
+    )
+  }
+
+  const images = [
+    { src: 'marketing_blockchain', alt: 'BlockChain.com logo' },
+    { src: 'marketing_supermajority', alt: 'SuperMajority logo' },
+    { src: 'marketing_matchmanao', alt: 'Matchmanao logo' },
+    { src: 'marketing_arrow', alt: 'Arrow Electronics logo' },
+    { src: 'marketing_escape', alt: 'Escapada Rural logo' },
+    { src: 'marketing_vivacom', alt: 'Vivacom logo' },
+  ]
 
   return (
     <section
@@ -21,79 +48,13 @@ export function MarketingTrustBy() {
             Trusted by many businesses from all over
           </SectionHeading>
           <Typography variant='h6' component='p' gutterBottom>
-            From small to Fortune 500
+            From small companies to Fortune 500
           </Typography>
         </div>
-        <Head>
-          <style>
-            {`
-            .grayScale {
-            filter: gray;
-            -webkit-filter: grayscale(1); 
-            filter: grayscale(1); 
-            }
-            .grayScale:hover {
-            -webkit-filter: grayscale(0);
-            filter: none;
-            }
-            `}
-          </style>
-        </Head>
         <div className='mt-6 grid grid-cols-2 gap-0.5 md:grid-cols-3 lg:mt-8'>
-          <div className='col-span-1 flex justify-center py-8 px-8'>
-            <Image
-              className='max-h-12 grayScale'
-              src='/static/img/marketing_blockchain.svg'
-              alt='BlockChain.com logo'
-              width={width}
-              height={height}
-            />
-          </div>
-          <div className='col-span-1 flex justify-center py-8 px-8'>
-            <Image
-              width={width}
-              height={height}
-              className='max-h-12 grayScale'
-              src='/static/img/marketing_supermajority.svg'
-              alt='SuperMajority Logo'
-            />
-          </div>
-          <div className='col-span-1 flex justify-center py-8 px-8'>
-            <Image
-              width={width}
-              height={height}
-              className='max-h-12 grayScale'
-              src='/static/img/marketing_matchmanao.svg'
-              alt='Matchmanao Logo'
-            />
-          </div>
-          <div className='col-span-1 flex justify-center py-8 px-8'>
-            <Image
-              width={width}
-              height={height}
-              className='max-h-12 grayScale'
-              src='/static/img/marketing_arrow.svg'
-              alt='Arrow Electronics Logo'
-            />
-          </div>
-          <div className='col-span-1 flex justify-center py-8 px-8'>
-            <Image
-              className='max-h-12 grayScale'
-              src='/static/img/marketing_escape.svg'
-              alt='Escapada Rural Logo'
-              width={width}
-              height={height}
-            />
-          </div>
-          <div className='col-span-1 flex justify-center py-8 px-8'>
-            <Image
-              className='max-h-12 grayScale'
-              src='/static/img/marketing_vivacom.svg'
-              alt='Vivacom Logo'
-              width={width}
-              height={height}
-            />
-          </div>
+          {images.map(({ src, alt }: ImageProps) => {
+            return <MarketingImage src={src} alt={alt} />
+          })}
         </div>
       </div>
     </section>
