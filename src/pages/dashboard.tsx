@@ -84,7 +84,7 @@ function Dashboard({ name }: PageProps) {
     subscriptionData,
   } = websitesData()
   const { search } = useSearchFilter()
-  const { issueFeed } = useIssueFeed()
+  const { issueFeed, setIssueFeedContent } = useIssueFeed()
   const { events, setEvents } = useEvents()
   const { setModal } = useDynamicModal()
   const { issueSubData } = subscriptionData
@@ -169,7 +169,10 @@ function Dashboard({ name }: PageProps) {
           </Box>
         </Container>
         <MiniPlayerMemo />
-        <IssueFeed />
+        <IssueFeed
+          setIssueFeedContent={setIssueFeedContent}
+          issueFeed={issueFeed}
+        />
         <DynamicModal />
         <UpgradeBanner />
       </Drawer>

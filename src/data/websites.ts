@@ -114,10 +114,6 @@ export const websitesData = (
       )
 
       if (dataSource) {
-        if (dataSource.lastScanDate !== lastScanDate) {
-          AppManager.toggleSnack(true, 'Finalizing Scan', 'success')
-        }
-
         if (adaScore) {
           dataSource.adaScore = adaScore
         }
@@ -133,6 +129,7 @@ export const websitesData = (
         if (html) {
           dataSource.html = html
         }
+
         dataSource.cdnConnected = cdnConnected
         dataSource.htmlIncluded = htmlIncluded
       }
@@ -194,6 +191,7 @@ export const websitesData = (
         } else {
           dataSource.issues = [newIssue]
         }
+
         setIssueFeedContent(newIssue, true)()
 
         if (checkNotification()) {
@@ -208,15 +206,17 @@ export const websitesData = (
         }
       }
 
-      AppManager.toggleSnack(
-        true,
-        `Insight found on ${newIssue.pageUrl}`,
-        'success'
-      )
+      requestAnimationFrame(() => {
+        AppManager.toggleSnack(
+          true,
+          `Insight found on ${newIssue.pageUrl}`,
+          'success'
+        )
+      })
 
       console.log('NEW ISSUE ADDED', newIssue)
     }
-  }, [issueSubData])
+  }, [issueSubData, setIssueFeedContent])
 
   return {
     subscriptionData: {

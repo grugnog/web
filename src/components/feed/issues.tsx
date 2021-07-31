@@ -3,17 +3,23 @@
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
  **/
-import React from 'react'
+import React, { memo } from 'react'
 import { Typography, IconButton, Fade } from '@material-ui/core'
 import { Close as CloseIcon } from '@material-ui/icons'
-import { useIssueFeed } from '@app/data'
 import { issueSort } from '@app/lib'
 import { issueFeedStyles as useStyles } from '../general/styles'
 import { WebsitePrimaryCell } from '../general/cells'
 
-export function IssueFeed() {
+interface IssueFeedProps {
+  setIssueFeedContent?: any
+  issueFeed: {
+    data?: any[]
+    open?: boolean
+  }
+}
+
+function Feed({ setIssueFeedContent, issueFeed }: IssueFeedProps) {
   const classes = useStyles()
-  const { issueFeed, setIssueFeedContent } = useIssueFeed()
 
   return issueFeed?.data?.length && issueFeed.open ? (
     <Fade in>
@@ -66,3 +72,5 @@ export function IssueFeed() {
     </Fade>
   ) : null
 }
+
+export const IssueFeed = memo(Feed)
