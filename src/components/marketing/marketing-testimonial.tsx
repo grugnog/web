@@ -38,7 +38,7 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   image: {
-    backgroundColor: '#ccc',
+    backgroundColor: '#020202',
     transition: 'background-color 300ms',
   },
   subtitle: {

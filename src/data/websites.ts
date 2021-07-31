@@ -206,13 +206,15 @@ export const websitesData = (
         }
       }
 
-      requestAnimationFrame(() => {
-        AppManager.toggleSnack(
-          true,
-          `Insight found on ${newIssue.pageUrl}`,
-          'success'
-        )
-      })
+      if (newIssue) {
+        requestAnimationFrame(() => {
+          AppManager.toggleSnack(
+            true,
+            `Insight found on ${newIssue.pageUrl}`,
+            'success'
+          )
+        })
+      }
 
       console.log('NEW ISSUE ADDED', newIssue)
     }

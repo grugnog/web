@@ -19,56 +19,57 @@ import { UserManager, AppManager } from '@app/managers'
 import { AppConfig } from '@app/configs'
 import { resolvers } from './resolvers'
 
-const wsLink = process.browser
-  ? new SubscriptionClient(AppConfig.webSocketUrl + '', {
+const createLink = (): ApolloLink => {
+  const httpLink = createHttpLink({
+    uri:
+      AppConfig.dev && typeof window === 'undefined'
+        ? AppConfig.graphQLUrlDocker
+        : AppConfig.graphQLUrl,
+    fetch,
+    credentials: AppConfig.dev ? 'same-origin' : 'include',
+  })
+
+  const authLink = setContext((_: any, { headers }: any) => {
+    return {
+      headers: Object.assign({}, headers, {
+        authorization: UserManager?.token ? `Bearer ${UserManager?.token}` : '',
+      }),
+    }
+  })
+
+  const errorLink = onError(({ graphQLErrors, networkError }: any) => {
+    if (process.browser) {
+      let graphErrors = ''
+      graphQLErrors?.map(({ message }: { message?: string }) => {
+        if (message) {
+          const invalidSignature = message.includes(
+            'Context creation failed: invalid signature'
+          )
+
+          if (message.includes('JWT:') || invalidSignature) {
+            UserManager.clearUser('/')
+          }
+
+          const errorMessage = invalidSignature ? 'Please re-login' : message
+          graphErrors += `${errorMessage} \n`
+        }
+      })
+      graphErrors && AppManager.toggleSnack(true, graphErrors, 'error')
+
+      if (networkError) {
+        console.error(`[Network error]:`, networkError)
+      }
+    }
+  })
+
+  let httpSplit = httpLink
+
+  if (process.browser) {
+    const wsLink = new SubscriptionClient(AppConfig.webSocketUrl + '', {
       reconnect: true,
     })
-  : undefined
 
-const httpLink = createHttpLink({
-  uri:
-    AppConfig.dev && typeof window === 'undefined'
-      ? AppConfig.graphQLUrlDocker
-      : AppConfig.graphQLUrl,
-  fetch,
-  credentials: AppConfig.dev ? 'same-origin' : 'include',
-})
-
-const authLink = setContext((_: any, { headers }: any) => {
-  return {
-    headers: Object.assign({}, headers, {
-      authorization: UserManager?.token ? `Bearer ${UserManager?.token}` : '',
-    }),
-  }
-})
-
-const errorLink = onError(({ graphQLErrors, networkError }: any) => {
-  if (process.browser) {
-    let graphErrors = ''
-    graphQLErrors?.map(({ message }: any) => {
-      if (message) {
-        const invalidSignature = message.includes(
-          'Context creation failed: invalid signature'
-        )
-
-        if (message.includes('JWT:') || invalidSignature) {
-          UserManager.clearUser('/')
-        }
-
-        const errorMessage = invalidSignature ? 'Please re-login' : message
-        graphErrors += `${errorMessage} \n`
-      }
-    })
-    graphErrors && AppManager.toggleSnack(true, graphErrors, 'error')
-
-    if (networkError) {
-      console.error(`[Network error]:`, networkError)
-    }
-  }
-})
-
-const httpSplit = process.browser
-  ? (split(
+    httpSplit = split(
       ({ query }: any) => {
         const definition = getMainDefinition(query)
         return (
@@ -79,12 +80,14 @@ const httpSplit = process.browser
       // @ts-ignore
       wsLink,
       httpLink
-    ) as any)
-  : httpLink
+    )
+  }
 
-const link = ApolloLink.from([errorLink, authLink, httpSplit])
+  return ApolloLink.from([errorLink, authLink, httpSplit])
+}
 
 function createApolloClient(initialState: any = {}) {
+  const link = createLink()
   return new ApolloClient({
     ssrMode: false,
     link,
