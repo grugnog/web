@@ -3,13 +3,11 @@
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
  **/
-import React, { useEffect, memo, useRef } from 'react'
+import React, { useEffect, memo, useRef, useCallback } from 'react'
 import { fixes, row, reccList } from '@app/stylesheets/main.module.css'
 import { IframeManager } from '@app/managers'
-import { Button, ButtonProps } from '@material-ui/core/'
+import { Button } from '@material-ui/core/'
 import { makeStyles } from '@material-ui/core/styles'
-
-let animatOnce = false
 
 const dataSource = [
   0.05,
@@ -43,7 +41,7 @@ const useStyles = makeStyles(() => ({
   },
 }))
 
-const toggleItem = (item: any, source?: any, type: string = 'color') => {
+const toggleItem = (item: any, source?: any, type: string = 'color'): void => {
   if (source) {
     source.style[type] = item
   }
@@ -58,16 +56,17 @@ const ReccomendedItem = memo(
     autoFixType,
     autoFixSource,
     portalID,
-    visible,
   }: any) => {
     const classes = useStyles()
     const onClick = () => {
       toggleItem(item, source, type)
       IframeManager.removePortal(portalID)
     }
-    const listRef = useRef<ButtonProps>(null)
+    const listRef = useRef<
+      HTMLButtonElement & { animate: (a: any, time: number) => void }
+    >(null)
+
     const mouseover = () => {
-      // @ts-ignore
       listRef?.current?.animate(
         {
           opacity: [0.9, 1],
@@ -79,8 +78,8 @@ const ReccomendedItem = memo(
         listRef.current.style.transform = 'scale(1.2)'
       }
     }
-    const mouseout = () => {
-      // @ts-ignore
+
+    const mouseout = useCallback(() => {
       listRef?.current?.animate(
         {
           opacity: [1, 0.9],
@@ -91,14 +90,7 @@ const ReccomendedItem = memo(
       if (listRef?.current?.style?.transform) {
         listRef.current.style.transform = ''
       }
-    }
-
-    useEffect(() => {
-      if (visible && !animatOnce) {
-        setTimeout(mouseout, Math.floor(Math.random() * 500) + 1)
-        animatOnce = true
-      }
-    }, [visible])
+    }, [listRef])
 
     useEffect(() => {
       if (lastItem) {
@@ -108,24 +100,24 @@ const ReccomendedItem = memo(
         })
         IframeManager.addScriptFix({ item, autoFixSource, autoFixType })
       }
-    }, [])
+    }, [item, autoFixSource, autoFixType, lastItem, portalID])
 
     return (
-      <Button
-        className={`${fixes} ${classes.colorItem}`}
-        // @ts-ignore
-        ref={listRef}
-        onMouseOut={mouseout}
-        onMouseOver={mouseover}
-        onClick={onClick}
-        style={{
-          background: item,
-        }}
-        component={'li'}
-        aria-label={`${item} color`}
-      >
-        {''}
-      </Button>
+      <li style={{ flex: 1 }}>
+        <Button
+          ref={listRef}
+          onMouseOut={mouseout}
+          onMouseOver={mouseover}
+          onClick={onClick}
+          style={{
+            background: item,
+          }}
+          className={`${fixes} ${classes.colorItem}`}
+          aria-label={`${item} color`}
+        >
+          {''}
+        </Button>
+      </li>
     )
   }
 )
