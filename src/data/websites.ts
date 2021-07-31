@@ -115,9 +115,7 @@ export const websitesData = (
 
       if (dataSource) {
         if (dataSource.lastScanDate !== lastScanDate) {
-          setTimeout(() => {
-            AppManager.toggleSnack(true, 'Finalizing Scan', 'success')
-          }, 100)
+          AppManager.toggleSnack(true, 'Finalizing Scan', 'success')
         }
 
         if (adaScore) {
@@ -209,6 +207,12 @@ export const websitesData = (
           setTimeout(notification.close.bind(notification), 4000)
         }
       }
+
+      AppManager.toggleSnack(
+        true,
+        `Insight found on ${newIssue.pageUrl}`,
+        'success'
+      )
 
       console.log('NEW ISSUE ADDED', newIssue)
     }
