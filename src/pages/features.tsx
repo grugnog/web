@@ -57,13 +57,9 @@ function Features({ name }: PageProps) {
 
   function Image({ src, alt }: { src: string; alt: string }) {
     return (
-      <NextImage
-        src={src}
-        className={'hide-print px-2'}
-        alt={alt}
-        height={500}
-        width={400}
-      />
+      <div className={'hide-print px-5 py-5 items-center self-center'}>
+        <NextImage src={src} alt={alt} height={300} width={300} />
+      </div>
     )
   }
 

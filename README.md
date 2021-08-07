@@ -2,7 +2,7 @@
 
 [![A11yWatch](https://circleci.com/gh/A11yWatch/web.svg?style=svg)](https://circleci.com/gh/A11yWatch/web)[![Maintainability](https://api.codeclimate.com/v1/badges/702d7d7ce56b7e28bcf4/maintainability)](https://codeclimate.com/github/A11yWatch/web/maintainability)[![codecov](https://codecov.io/gh/A11yWatch/web/branch/main/graph/badge.svg?token=0LZKQ2H848)](https://codecov.io/gh/A11yWatch/web)
 
-a11ywatch web application
+a11ywatch web application built using next.js
 
 ## Installation
 
@@ -26,10 +26,6 @@ all the services needed for the project. View the [compose](https://github.com/A
 ## Environment
 
 check out [ENVIRONMENT CONFIG](./ENVIRONMENT.md) for configuring project specefics like google authentication.
-
-## Credits
-
-logo and theme [Gilbert Bagaoisan](https://twitter.com/gbertb)
 
 ## LICENSE
 

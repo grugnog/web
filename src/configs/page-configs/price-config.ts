@@ -12,21 +12,21 @@ import {
   SentimentSatisfied as FreeIcon,
 } from '@material-ui/icons'
 
-const TRUSTED_CDN = 'Personal secure CDN'
-const VISUAL_PLAYGROUND = 'Visual website playground'
+const TRUSTED_CDN = 'Personal secure CDN.'
+const VISUAL_PLAYGROUND = 'Visual website playground.'
 
 const plans = [
   {
     title: 'Free',
     details: [
-      'Monitor 1 website',
-      'Daily email reports',
-      '2 daily manual page scans',
-      'Root domain scanned daily',
+      'Monitor 1 website.',
+      'Daily email reports.',
+      '2 daily manual page scans.',
+      'Root domain scanned daily.',
       TRUSTED_CDN,
       VISUAL_PLAYGROUND,
-      'Custom editable scripts',
-      '3 Private API request daily',
+      'Custom editable scripts.',
+      '3 Private API request daily.',
       ' ',
     ],
     Icon: FreeIcon,
@@ -36,15 +36,15 @@ const plans = [
   {
     title: 'Basic',
     details: [
-      'Monitor up to 4 websites',
-      'Daily full email reports',
-      '10 daily manual page scans',
-      'All pages scanned daily',
+      'Monitor up to 4 websites.',
+      'Daily full email reports.',
+      '10 daily manual page scans.',
+      'All pages scanned daily.',
       TRUSTED_CDN,
       VISUAL_PLAYGROUND,
-      'Custom editable scripts',
-      '100 Private API request daily',
-      'Premium Support',
+      'Custom editable scripts.',
+      '100 Private API request daily.',
+      'Premium Support.',
     ],
     Icon: PaidIcon,
     cost: '$9.99/month',
@@ -53,15 +53,15 @@ const plans = [
   {
     title: 'Premium',
     details: [
-      'Monitor up to 10 websites',
-      'Daily full email reports',
-      'Unlimited daily manual page scans',
-      'All pages scanned multiple times daily',
+      'Monitor up to 10 websites.',
+      'Daily full email reports.',
+      'Unlimited daily manual page scans.',
+      'All pages scanned multiple times daily.',
       TRUSTED_CDN,
       VISUAL_PLAYGROUND,
-      'Custom editable scripts',
-      '500 Private API request daily',
-      'Premium Support',
+      'Custom editable scripts.',
+      '500 Private API request daily.',
+      'Premium Support.',
     ],
     Icon: WhatsHot,
     cost: '$19.99/month',

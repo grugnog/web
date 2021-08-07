@@ -37,7 +37,7 @@ export const generateStrings = ({
     testimonials: [
       {
         title:
-          'A11yWatch is lightning fast. Build designs that bring accessibility in mind first and not after. Always stay up to date with the latest issues as they arise.',
+          'A11yWatch is lightning fast. Build designs that bring accessibility in mind before and after deployment. Always stay up to date with the latest issues as they arise.',
         who: 'Gilbert Bagaoisan, Head of Design at ZeeMee',
       },
     ],

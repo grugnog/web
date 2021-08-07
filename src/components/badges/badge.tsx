@@ -13,9 +13,9 @@ import type { BadgeProps } from './badge-types'
 const useStyles = makeStyles(({ breakpoints }: Theme) =>
   createStyles({
     text: {
-      paddingLeft: 6,
-      paddingRight: 6,
-      fontSize: '1em',
+      [breakpoints.up('sm')]: {
+        fontSize: '1.28rem',
+      },
       [breakpoints.down('sm')]: {
         display: 'none',
       },
@@ -32,20 +32,23 @@ export const Badge = ({
   label,
   title,
 }: BadgeProps) => {
-  const size = badgeSize === 'small' ? 24 : 32
+  const size = badgeSize === 'small' ? 22 : 32
   const classes = useStyles()
 
   const Anchor = ({
     children,
     style: aStyle,
+    className,
   }: {
     style: any
     children: any
+    className?: string
   }) => {
     return (
       <a
         href={href}
         style={aStyle}
+        className={className}
         target={'_blank'}
         aria-label={label}
         rel='noreferrer'
@@ -59,21 +62,10 @@ export const Badge = ({
 
   if (inline) {
     return (
-      <Anchor
-        style={Object.assign({}, style, {
-          display: 'flex',
-          alignItems: 'center',
-        })}
-      >
+      <Anchor style={style} className={'gap-x-2 flex items-center'}>
         <Fragment>
           <Img />
-          <Typography
-            variant={'subtitle1'}
-            component={'p'}
-            className={classes.text}
-          >
-            {title}
-          </Typography>
+          <Typography className={classes.text}>{title}</Typography>
         </Fragment>
       </Anchor>
     )

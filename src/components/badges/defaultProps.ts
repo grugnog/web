@@ -4,10 +4,8 @@
  * LICENSE file in the root directory of this source tree.
  **/
 
-import { styleSpace } from './style'
-
 export const defaultProps = {
-  style: styleSpace,
+  style: null,
   href: '',
   inline: false,
   size: 'small',
