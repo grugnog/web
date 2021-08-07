@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { memo } from 'react'
 import Image from 'next/image'
 import { Typography } from '@material-ui/core'
 import { SectionHeading } from '../text'
@@ -8,7 +8,7 @@ interface ImageProps {
   alt: string
 }
 
-export function MarketingTrustBy() {
+function TrustBy() {
   const width = '231.68px'
   const height = '56.45px'
 
@@ -60,3 +60,5 @@ export function MarketingTrustBy() {
     </section>
   )
 }
+
+export const MarketingTrustBy = memo(TrustBy)

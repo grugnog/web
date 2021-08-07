@@ -12,7 +12,7 @@ import {
   SentimentSatisfied as FreeIcon,
 } from '@material-ui/icons'
 
-const TRUSTED_CDN = 'Secure custom autofix CDN'
+const TRUSTED_CDN = 'Personal secure CDN'
 const VISUAL_PLAYGROUND = 'Visual website playground'
 
 const plans = [
@@ -25,8 +25,9 @@ const plans = [
       'Root domain scanned daily',
       TRUSTED_CDN,
       VISUAL_PLAYGROUND,
-      'Custom scripts',
-      '3 Private API request per day',
+      'Custom editable scripts',
+      '3 Private API request daily',
+      ' ',
     ],
     Icon: FreeIcon,
     cost: '$0/month',
@@ -36,13 +37,14 @@ const plans = [
     title: 'Basic',
     details: [
       'Monitor up to 4 websites',
-      'Daily email reports',
+      'Daily full email reports',
       '10 daily manual page scans',
       'All pages scanned daily',
       TRUSTED_CDN,
       VISUAL_PLAYGROUND,
       'Custom editable scripts',
-      '100 Private API request per day',
+      '100 Private API request daily',
+      'Premium Support',
     ],
     Icon: PaidIcon,
     cost: '$9.99/month',
@@ -52,13 +54,14 @@ const plans = [
     title: 'Premium',
     details: [
       'Monitor up to 10 websites',
-      'Daily email reports',
+      'Daily full email reports',
       'Unlimited daily manual page scans',
       'All pages scanned multiple times daily',
       TRUSTED_CDN,
       VISUAL_PLAYGROUND,
       'Custom editable scripts',
-      '500 Private API request per day',
+      '500 Private API request daily',
+      'Premium Support',
     ],
     Icon: WhatsHot,
     cost: '$19.99/month',

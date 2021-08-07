@@ -3,14 +3,21 @@
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
  **/
-import React, { Fragment } from 'react'
-import { Typography, Grid, Button, Paper } from '@material-ui/core'
+import React, { Fragment, memo } from 'react'
+import {
+  Typography,
+  Grid,
+  Button,
+  Paper,
+  FormControlLabel,
+  Switch,
+} from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
-import { Toggle } from '@a11ywatch/ui'
 import { Ribbon } from '@app/components/general'
 import { priceConfig } from '@app/configs'
 import { SectionHeading } from '../text'
 import { Link } from './link'
+import { Done } from '@material-ui/icons'
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -19,6 +26,7 @@ const useStyles = makeStyles(() => ({
   },
   container: {
     flexGrow: 1,
+    overflow: 'hidden',
   },
   icon: {
     fontSize: '40px',
@@ -54,7 +62,7 @@ const useStyles = makeStyles(() => ({
   },
 }))
 
-export function Price({
+function PriceWrapper({
   basic = false,
   premium = false,
   onClick,
@@ -82,7 +90,17 @@ export function Price({
           {navigate ? 'Plans' : 'Pricing'}
         </SectionHeading>
       ) : null}
-      <Toggle onClick={() => setYearly((y: boolean) => !y)} active={yearly} />
+      <div className={'py-4'}>
+        <FormControlLabel
+          checked={yearly}
+          value={yearly}
+          control={<Switch color='primary' />}
+          label={<Typography variant='subtitle1'>YEARLY</Typography>}
+          labelPlacement='end'
+          style={{ fontSize: '12px' }}
+          onChange={() => setYearly((y: boolean) => !y)}
+        />
+      </div>
       <Grid container spacing={1} className={!onClick ? classes.container : ''}>
         {priceConfig.plans
           .filter((item: any) => (!blockFree ? item.title !== 'Free' : true))
@@ -111,26 +129,27 @@ export function Price({
                 >
                   {title}
                 </Typography>
-                <ol>
-                  {details?.map((item: any) => (
-                    <Typography variant='subtitle1' component='li' key={item}>
-                      - {item}
-                    </Typography>
+                <ul>
+                  {details?.map((item: string) => (
+                    <li
+                      className={'flex gap-x-3 place-items-center'}
+                      key={item}
+                      aria-hidden={!String(item).trim()}
+                    >
+                      {String(item).trim() ? <Done /> : null}
+                      <Typography>{item}</Typography>
+                    </li>
                   ))}
-                </ol>
+                </ul>
                 {cost ? (
-                  <Typography
-                    variant='h5'
-                    component='span'
-                    style={{ fontWeight: 600, marginTop: 12 }}
-                  >
+                  <Typography variant='h5' className={'py-6'}>
                     {yearly ? costYearly : cost}
                   </Typography>
                 ) : null}
                 {navigate ? (
                   <Button
-                    style={{ marginTop: 10, fontWeight: 600 }}
                     component={Link}
+                    className={'w-full text-bold'}
                     href={`/register?plan=${title}${
                       yearly ? '&yearly=true' : ''
                     }`}
@@ -139,7 +158,8 @@ export function Price({
                 <Typography
                   variant='subtitle2'
                   component='p'
-                  style={{ marginTop: 12, textAlign: 'center' }}
+                  className={'pt-4'}
+                  style={{ textAlign: 'center', fontSize: '0.95em' }}
                 >
                   {title !== 'Free' ? 'Cancel anytime.' : 'Forever Free'}
                 </Typography>
@@ -160,3 +180,5 @@ export function Price({
     </Container>
   )
 }
+
+export const Price = memo(PriceWrapper)
