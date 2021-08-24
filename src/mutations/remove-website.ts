@@ -9,6 +9,7 @@ export const REMOVE_WEBSITE = gql`
       website {
         url
         id
+        userId
       }
     }
   }

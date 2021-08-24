@@ -6,13 +6,13 @@
 
 import gql from 'graphql-tag'
 import { UserManager, AppManager } from '@app/managers'
+import { MutationUpdaterFn } from 'apollo-client'
 
 const GET_WEBSITES = gql`
   query getWebsites($filter: String) {
     user {
       id
       websites {
-        id
         url
         domain
         adaScore
@@ -73,7 +73,9 @@ const GET_WEBSITES = gql`
     }
   }
 `
-export const updateCache = {
+
+export const updateCache: { update?: MutationUpdaterFn<any>; last: any } = {
+  last: [],
   update(cache: any, { data: { addWebsite, removeWebsite } }: any) {
     const variables = { userId: UserManager.getID, filter: '' }
 
@@ -84,7 +86,7 @@ export const updateCache = {
 
     const { websites } = user
 
-    let newWebSites = websites
+    let newWebSites = updateCache.last ?? []
 
     if (addWebsite || removeWebsite) {
       if (addWebsite) {
@@ -92,26 +94,44 @@ export const updateCache = {
       }
       if (removeWebsite) {
         const site = removeWebsite.website
-
         if (removeWebsite.success) {
           if (site) {
-            newWebSites = websites.filter((data: any) => data.id !== site.id)
+            newWebSites = websites.filter((data: any) => data.url !== site.url)
           } else {
             newWebSites = []
             AppManager.toggleSnack(true, removeWebsite.message, 'success')
           }
         }
       }
+
+      const pages = newWebSites
+        .reduce((acc: any, current: any) => {
+          const x = acc.find((item: any) => item.url === current.url)
+          if (!x) {
+            return acc.concat([current])
+          } else {
+            return acc
+          }
+        }, [])
+        .map((item: any, index: number) => {
+          return {
+            ...item,
+            id: index,
+          }
+        })
+
       cache.writeQuery({
         query: GET_WEBSITES,
         variables,
         data: {
           user: {
             ...user,
-            websites: newWebSites,
+            websites: pages,
           },
         },
       })
+
+      updateCache.last = newWebSites
     }
   },
 }

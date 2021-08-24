@@ -6,6 +6,7 @@ export const ADD_WEBSITE = gql`
       website {
         url
         id
+        userId
         domain
         adaScore
         cdnConnected

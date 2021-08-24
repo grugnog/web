@@ -13,6 +13,7 @@ const SCAN_WEBSITE = gql`
         cdnConnected
         htmlIncluded
         cdn
+        userId
         lastScanDate
         screenshot
         screenshotStill

@@ -88,6 +88,7 @@ const getPlanName = (plan: number): string => {
   }
   return tier
 }
+
 function Payments({ hideTitle = false, name }: PaymentProps) {
   const classes = useStyles()
   const router = useRouter()
@@ -140,25 +141,29 @@ function Payments({ hideTitle = false, name }: PaymentProps) {
   }
 
   const onToken = async (token: any) => {
-    if (token) {
-      const res = await addSubscription({
-        variables: {
-          stripeToken: JSON.stringify({
-            ...token,
-            plan: state.premium ? 1 : 0,
-          }),
-          email: token.email,
-          yearly,
-        },
-      })
-      const jwt = res?.data?.addSubscription?.user.jwt
+    try {
+      if (token) {
+        const res = await addSubscription({
+          variables: {
+            stripeToken: JSON.stringify({
+              ...token,
+              plan: state.premium ? 1 : 0,
+            }),
+            email: token.email,
+            yearly,
+          },
+        })
+        const jwt = res?.data?.addSubscription?.user.jwt
 
-      if (jwt) {
-        UserManager.setJwt(jwt)
+        if (jwt) {
+          UserManager.setJwt(jwt)
+        }
+
+        AppManager.toggleSnack(true, 'Payment confirmed!', 'success')
+        router.push('/dashboard')
       }
-
-      AppManager.toggleSnack(true, 'Payment confirmed!', 'success')
-      router.push('/dashboard')
+    } catch (e) {
+      console.error(e)
     }
   }
 

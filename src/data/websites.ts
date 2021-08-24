@@ -45,12 +45,12 @@ export const websitesData = (
 
   const [removeWebsite, { loading: removeLoading }] = useMutation(
     REMOVE_WEBSITE,
-    updateCache as any
+    updateCache
   )
 
   const [addWebsite, { loading: addLoading }] = useMutation(
     ADD_WEBSITE,
-    updateCache as any
+    updateCache
   )
 
   const [updateWebsite, { data: updateData }] = useMutation(UPDATE_WEBSITE, {
@@ -71,6 +71,10 @@ export const websitesData = (
   const { data: websiteUpdated } = useSubscription(WEBSITE_SUBSCRIPTION, {
     variables: { userId: UserManager.getID },
   })
+
+  useEffect(() => {
+    updateCache.last = [...updateCache.last, ...websites]
+  }, [websites])
 
   useEffect(() => {
     if (addLoading) {
@@ -133,8 +137,6 @@ export const websitesData = (
         dataSource.cdnConnected = cdnConnected
         dataSource.htmlIncluded = htmlIncluded
       }
-
-      console.log('SCANNER FINISHED', dataSource)
     }
   }, [websiteUpdated])
 
@@ -149,8 +151,6 @@ export const websitesData = (
         dataSource.adaScore = crawledWebsite.adaScore
         dataSource.cdnConnected = crawledWebsite.cdnConnected
       }
-
-      console.log('CRAWL FINISHED', crawlData?.crawlWebsite?.website)
     }
   }, [crawlData])
 
@@ -168,8 +168,6 @@ export const websitesData = (
           dataSource.subDomains = [newSubDomain]
         }
       }
-
-      console.log('SUBDOMAIN ADDED', newSubDomain)
     }
   }, [subDomainSubData])
 
@@ -215,8 +213,6 @@ export const websitesData = (
           )
         })
       }
-
-      console.log('NEW ISSUE ADDED', newIssue)
     }
   }, [issueSubData, setIssueFeedContent])
 

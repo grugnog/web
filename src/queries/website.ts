@@ -9,8 +9,8 @@ import gql from 'graphql-tag'
 const GET_WEBSITE = gql`
   query getWebsite($url: String) {
     website(url: $url) {
-      id
       url
+      userId
       domain
       adaScore
       cdnConnected

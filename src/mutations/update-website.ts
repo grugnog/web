@@ -12,6 +12,7 @@ export const UPDATE_WEBSITE = gql`
         domain
         htmlIncluded
         html
+        userId
         pageHeaders {
           key
           value
