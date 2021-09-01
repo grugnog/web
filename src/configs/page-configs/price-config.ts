@@ -67,6 +67,23 @@ const plans = [
     cost: '$19.99/month',
     costYearly: '$199.99/year',
   },
+  {
+    title: 'Enterprise',
+    details: [
+      'Monitor unlimited websites.',
+      'Daily full email reports.',
+      'Unlimited daily manual page scans.',
+      'All pages scanned multiple times daily.',
+      TRUSTED_CDN,
+      VISUAL_PLAYGROUND,
+      'Custom editable scripts.',
+      'Unlimited Private API request.',
+      'Enterprise Support.',
+    ],
+    Icon: WhatsHot,
+    cost: ' ',
+    costYearly: ' ',
+  },
 ]
 
 export const priceConfig = {

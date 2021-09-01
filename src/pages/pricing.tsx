@@ -19,7 +19,7 @@ function Pricing({ name }: { name: string }) {
   const [yearly, setYearly] = useState<boolean>(false)
 
   return (
-    <MarketingDrawer title={name}>
+    <MarketingDrawer title={name} maxWidth={'xl'}>
       <Box>
         <PageTitle>Pricing</PageTitle>
         <Typography component='h2' gutterBottom>

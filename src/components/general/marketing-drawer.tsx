@@ -21,7 +21,7 @@ export function MarketingDrawer({
   renderCtaSearch,
   title,
   navPosition,
-  maxWidth,
+  maxWidth = 'xl',
   footerSpacing,
 }: any) {
   const classes = navigationStyles()

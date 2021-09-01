@@ -4,10 +4,7 @@
  * LICENSE file in the root directory of this source tree.
  **/
 import React, { Fragment, useState } from 'react'
-import { InferGetStaticPropsType } from 'next'
-import { MarketingDrawer, Price, Spacer } from '@app/components/general'
-import { WhatsNew } from '@app/components/alerts'
-import type { WhatsNewProps } from '@app/components/alerts'
+import { MarketingDrawer, Price } from '@app/components/general'
 import {
   CtaFeatures,
   CtaIntro,
@@ -23,15 +20,14 @@ import {
   MarketingTestimonial,
   MarketingTrustBy,
 } from '@app/components/marketing'
-import { getAPIRoute } from '@app/configs'
 
-function Index({ whatsNew }: InferGetStaticPropsType<typeof getStaticProps>) {
+function Index() {
   // TODO: MOVE TO PRICE COMPONENT
   const [yearly, setYearly] = useState<boolean>(false)
 
   return (
     <Fragment>
-      <MarketingDrawer navPosition={'relative'}>
+      <MarketingDrawer navPosition={'relative'} maxWidth={'xl'}>
         <MarketingShapesTop />
         <CtaIntro />
         <CtaVideo />
@@ -43,36 +39,9 @@ function Index({ whatsNew }: InferGetStaticPropsType<typeof getStaticProps>) {
         <Price blockFree navigate setYearly={setYearly} yearly={yearly} />
         <CtaSignonForm />
       </MarketingDrawer>
-      {whatsNew ? <Spacer height={73} /> : null}
       <SwipeableTemporaryDrawer />
-      {whatsNew ? <WhatsNew {...whatsNew} /> : null}
     </Fragment>
   )
-}
-
-type IndexResponse = {
-  data: WhatsNewProps
-  message: string
-}
-
-export async function getStaticProps() {
-  let whatsNew: IndexResponse | null = null
-  try {
-    const res = await fetch(`${getAPIRoute()}/whats-new`)
-    const resJson = await res.json()
-
-    if (resJson?.data) {
-      whatsNew = resJson.data
-    }
-  } catch (e) {
-    console.error(e)
-  }
-  return {
-    props: {
-      whatsNew,
-      // websites,
-    },
-  }
 }
 
 export default withApollo(Index)

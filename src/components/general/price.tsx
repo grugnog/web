@@ -45,7 +45,7 @@ const useStyles = makeStyles(() => ({
     alignItems: 'center',
     flexDirection: 'column',
     margin: 4,
-    padding: 20,
+    padding: 12,
     border: 0,
     overflow: 'hidden',
     position: 'relative',
@@ -82,6 +82,26 @@ function PriceWrapper({
     (name === 'Basic' && basic) || (name === 'Premium' && premium)
       ? highLightStyles
       : ''
+
+  function MainButton({ title }: { title?: string }) {
+    if (navigate) {
+      return (
+        <Button
+          component={Link}
+          className={'w-full text-bold'}
+          href={
+            title === 'Enterprise'
+              ? '/contact'
+              : `/register?plan=${title}${yearly ? '&yearly=true' : ''}`
+          }
+        >
+          {title === 'Enterprise' ? 'Contact Support' : `${title} Start`}
+        </Button>
+      )
+    }
+
+    return null
+  }
 
   return (
     <Container className={!onClick && !navigate ? classes.root : ''}>
@@ -120,7 +140,10 @@ function PriceWrapper({
             >
               <Fragment>
                 {title === 'Premium' ? <Ribbon /> : null}
-                <Icon fontSize='large' />
+                <Icon
+                  fontSize='large'
+                  style={title === 'Enterprise' ? { color: '#4c8af0' } : {}}
+                />
                 <Typography
                   variant='h4'
                   component='span'
@@ -146,15 +169,7 @@ function PriceWrapper({
                     {yearly ? costYearly : cost}
                   </Typography>
                 ) : null}
-                {navigate ? (
-                  <Button
-                    component={Link}
-                    className={'w-full text-bold'}
-                    href={`/register?plan=${title}${
-                      yearly ? '&yearly=true' : ''
-                    }`}
-                  >{`${title} Start`}</Button>
-                ) : null}
+                <MainButton title={title} />
                 <Typography
                   variant='subtitle2'
                   component='p'
