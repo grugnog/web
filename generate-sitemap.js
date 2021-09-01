@@ -26,9 +26,6 @@ module.exports = {
       nextConfigPath: __dirname + '/next.config.js',
       ignoredExtensions: ['png', 'jpg'],
       pagesConfig: {
-        '': {
-          priority: '1',
-        },
         '/login': {
           priority: '0.8',
           changefreq: 'daily',
