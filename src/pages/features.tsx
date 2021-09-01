@@ -12,10 +12,8 @@ import {
   PageTitle,
   Heading,
 } from '@app/components/general'
-import { strings } from '@app-strings'
 import { metaSetter } from '@app/utils'
 import type { PageProps } from '@app/types'
-import NextImage from 'next/image'
 
 const useStyles = makeStyles(({ breakpoints, palette }) => ({
   paper: {
@@ -55,17 +53,9 @@ function Features({ name }: PageProps) {
     )
   }
 
-  function Image({ src, alt }: { src: string; alt: string }) {
-    return (
-      <div className={'hide-print px-5 py-5 items-center self-center'}>
-        <NextImage src={src} alt={alt} height={300} width={300} />
-      </div>
-    )
-  }
-
   return (
     <MarketingDrawer title={name} maxWidth='xl' footerSpacing>
-      <PageTitle>{`${strings.appName} Features`}</PageTitle>
+      <PageTitle>{`Features`}</PageTitle>
       <Typography variant='subtitle1' component='h2' gutterBottom>
         Main Features
       </Typography>
@@ -81,10 +71,6 @@ function Features({ name }: PageProps) {
               day.
             </FeatureHeading>
           </Section>
-          <Image
-            src='/static/img/task_list.svg'
-            alt={'women and accessible app'}
-          />
         </Paper>
         <Paper className={paper}>
           <Section>
@@ -98,7 +84,6 @@ function Features({ name }: PageProps) {
               precision.
             </FeatureHeading>
           </Section>
-          <Image src='/static/img/cloud_files.svg' alt={'cloud stored'} />
         </Paper>
       </div>
       <div className={row}>
@@ -111,10 +96,6 @@ function Features({ name }: PageProps) {
               release in real-time.
             </FeatureHeading>
           </Section>
-          <Image
-            src='/static/img/heatmap.svg'
-            alt={'website playground to test fixes'}
-          />
         </Paper>
         <Paper className={paper}>
           <Section>
@@ -126,7 +107,6 @@ function Features({ name }: PageProps) {
               editor.
             </FeatureHeading>
           </Section>
-          <Image src='/static/img/code_snippets.svg' alt={'code snippets'} />
         </Paper>
       </div>
     </MarketingDrawer>

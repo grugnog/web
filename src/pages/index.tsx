@@ -72,7 +72,6 @@ export async function getStaticProps() {
       whatsNew,
       // websites,
     },
-    revalidate: 6 * 60 * 1000,
   }
 }
 
