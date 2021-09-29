@@ -133,7 +133,7 @@ function Payments({ hideTitle = false, name }: PaymentProps) {
     }
   }
 
-  const handleChange = (newState: any) => () => {
+  const handleChange = (newState: any) => {
     setState({
       basic: newState === 'Basic',
       premium: newState === 'Premium',

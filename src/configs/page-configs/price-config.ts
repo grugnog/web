@@ -81,8 +81,8 @@ const plans = [
       'Enterprise Support.',
     ],
     Icon: WhatsHot,
-    cost: ' ',
-    costYearly: ' ',
+    cost: 'Contact Us',
+    costYearly: 'Contact Us',
   },
 ]
 

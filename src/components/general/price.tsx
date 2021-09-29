@@ -124,63 +124,81 @@ function PriceWrapper({
       <Grid container spacing={1} className={!onClick ? classes.container : ''}>
         {priceConfig.plans
           .filter((item: any) => (!blockFree ? item.title !== 'Free' : true))
-          .map(({ title, details, cost, costYearly, Icon }: any) => (
-            <Paper
-              key={title}
-              className={`${classes.paper} ${highLight(
-                title,
-                classes?.highLight,
-                {
-                  premium,
-                  basic,
-                }
-              )}`}
-              onClick={onClick ? onClick(title) : undefined}
-              component={onClick ? 'button' : 'div'}
-            >
-              <Fragment>
-                {title === 'Premium' ? <Ribbon /> : null}
-                <Icon
-                  fontSize='large'
-                  style={title === 'Enterprise' ? { color: '#4c8af0' } : {}}
-                />
-                <Typography
-                  variant='h4'
-                  component='span'
-                  gutterBottom
-                  style={{ fontWeight: 'bold' }}
-                >
-                  {title}
-                </Typography>
-                <ul>
-                  {details?.map((item: string) => (
-                    <li
-                      className={'flex gap-x-3 place-items-center'}
-                      key={item}
-                      aria-hidden={!String(item).trim()}
-                    >
-                      {String(item).trim() ? <Done /> : null}
-                      <Typography>{item}</Typography>
-                    </li>
-                  ))}
-                </ul>
-                {cost ? (
-                  <Typography variant='h5' className={'py-6'}>
-                    {yearly ? costYearly : cost}
+          .map(({ title, details, cost, costYearly, Icon }: any) => {
+            const clickEvent =
+              title === 'Enterprise' && !navigate
+                ? () => {
+                    if (typeof window !== 'undefined') {
+                      const mailLink =
+                        'mailto:support@a11ywatch.com' +
+                        '?subject=' +
+                        encodeURIComponent('Enterprise Plan') +
+                        '&body=' +
+                        'I would like to find out more about the enterprise plan.'
+
+                      window.location.href = mailLink
+                    }
+                  }
+                : onClick
+
+            return (
+              <Paper
+                key={title}
+                className={`${classes.paper} ${highLight(
+                  title,
+                  classes?.highLight,
+                  {
+                    premium,
+                    basic,
+                  }
+                )}`}
+                onClick={clickEvent ? () => clickEvent(title) : undefined}
+                component={clickEvent ? 'button' : 'div'}
+              >
+                <Fragment>
+                  {title === 'Premium' ? <Ribbon /> : null}
+                  <Icon
+                    fontSize='large'
+                    style={title === 'Enterprise' ? { color: '#4c8af0' } : {}}
+                  />
+                  <Typography
+                    variant='h4'
+                    component='span'
+                    gutterBottom
+                    style={{ fontWeight: 'bold' }}
+                  >
+                    {title}
                   </Typography>
-                ) : null}
-                <MainButton title={title} />
-                <Typography
-                  variant='subtitle2'
-                  component='p'
-                  className={'pt-4'}
-                  style={{ textAlign: 'center', fontSize: '0.95em' }}
-                >
-                  {title !== 'Free' ? 'Cancel anytime.' : 'Forever Free'}
-                </Typography>
-              </Fragment>
-            </Paper>
-          ))}
+                  <ul>
+                    {details?.map((item: string) => (
+                      <li
+                        className={'flex gap-x-3 place-items-center'}
+                        key={item}
+                        aria-hidden={!String(item).trim()}
+                      >
+                        {String(item).trim() ? <Done /> : null}
+                        <Typography>{item}</Typography>
+                      </li>
+                    ))}
+                  </ul>
+                  {cost ? (
+                    <Typography variant='h5' className={'py-6'}>
+                      {yearly ? costYearly : cost}
+                    </Typography>
+                  ) : null}
+                  <MainButton title={title} />
+                  <Typography
+                    variant='subtitle2'
+                    component='p'
+                    className={'pt-4'}
+                    style={{ textAlign: 'center', fontSize: '0.95em' }}
+                  >
+                    {title !== 'Free' ? 'Cancel anytime.' : 'Forever Free'}
+                  </Typography>
+                </Fragment>
+              </Paper>
+            )
+          })}
       </Grid>
       <div className={classes.center}>
         <Typography
