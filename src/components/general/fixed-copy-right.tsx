@@ -7,7 +7,7 @@
 import React from 'react'
 import { Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
-import webConfig from '@app-config'
+import { companyName } from '@app-config'
 
 const useStyles = makeStyles((theme) => ({
   sticky: {
@@ -53,7 +53,6 @@ interface Props {
 
 function FixedCopyRight({ sticky }: Props) {
   const classes = useStyles()
-  const { companyName } = webConfig
 
   return (
     <div className={`${classes.stickContainer} ${sticky ? classes.stick : ''}`}>

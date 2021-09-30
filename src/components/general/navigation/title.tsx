@@ -9,18 +9,32 @@ import { Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import { Logo } from './logo'
 import { Link } from '../link'
+import { companyName } from '@app-config'
 
 const useStyles = makeStyles((theme) => ({
   title: {
     color: theme.palette.text.primary,
     letterSpacing: '.12rem',
   },
-  logo: {
-    width: '50px',
-    minHeight: 'auto',
-  },
   flex: {
     flex: 1,
+  },
+  brand: {
+    alignAtems: 'center',
+    justifyContent: 'center',
+    display: 'flex',
+  },
+  logoText: {
+    paddingLeft: '1rem',
+    alignSelf: 'center',
+    [theme.breakpoints.down('sm')]: {
+      display: 'none',
+    },
+  },
+  link: {
+    '&:hover': {
+      textDecoration: 'none',
+    },
   },
 }))
 
@@ -38,8 +52,16 @@ function NavBarTitle({
 
   if (marketing && !notitle) {
     return (
-      <Link href='/' className={classes.logo}>
-        <Logo />
+      <Link href='/' className={classes.link}>
+        <div className={classes.brand}>
+          <Logo />
+          <Typography
+            component={'strong'}
+            className={`${classes.title} ${classes.logoText}`}
+          >
+            {companyName}
+          </Typography>
+        </div>
       </Link>
     )
   }
