@@ -95,7 +95,7 @@ function PriceWrapper({
               : `/register?plan=${title}${yearly ? '&yearly=true' : ''}`
           }
         >
-          {title === 'Enterprise' ? 'Contact Support' : `${title} Start`}
+          {title === 'Enterprise' ? 'Contact Us' : `${title} Start`}
         </Button>
       )
     }
