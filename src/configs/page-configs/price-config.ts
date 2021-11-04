@@ -77,7 +77,7 @@ const plans = [
       TRUSTED_CDN,
       VISUAL_PLAYGROUND,
       'Custom editable scripts.',
-      'Unlimited Private API request.',
+      '1000+ Private API request daily.',
       'Enterprise Support.',
     ],
     Icon: WhatsHot,
