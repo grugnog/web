@@ -12,6 +12,7 @@ import {
   RESET_PASSWORD,
   FORGOT_PASSWORD,
   CONFIRM_EMAIL,
+  FILTER_EMAIL_DATES,
 } from '@app/mutations'
 import { GET_USER, updateCache } from '@app/queries'
 import { AppManager, UserManager } from '@app/managers'
@@ -43,8 +44,13 @@ export const userData = (_?: any, config: any = { query: true }) => {
 
   const [confirmEmail] = useMutation(CONFIRM_EMAIL)
 
-  const sendConfirmEmail = () => {
-    confirmEmail({
+  const [
+    filterEmailDates,
+    { data: filterEmailDatesData, loading: filterEmailDatesLoading },
+  ] = useMutation(FILTER_EMAIL_DATES)
+
+  const sendConfirmEmail = async () => {
+    await confirmEmail({
       variables,
     }).catch((e: any) => {
       console.log(e)
@@ -60,9 +66,19 @@ export const userData = (_?: any, config: any = { query: true }) => {
     variables: { userId: UserManager.getID },
   })
 
+  const onFilterEmailDates = async (dates: number[]) => {
+    await filterEmailDates({
+      variables: {
+        emailFilteredDates: dates,
+      },
+    }).catch((e: any) => {
+      console.log(e)
+    })
+    AppManager.toggleSnack(true, 'Dates for allowed emails updated.', 'success')
+  }
+
   useMemo(() => {
     if (emailVerified) {
-      console.log('sub email verified', emailVerified)
       if (data?.user) {
         data.user.emailConfirmed = true
       }
@@ -83,6 +99,11 @@ export const userData = (_?: any, config: any = { query: true }) => {
     resetPassword,
     resetPasswordData,
     sendConfirmEmail,
+    onFilterEmailDates,
+    filterEmailDatesData:
+      filterEmailDatesData?.filterEmailDates?.emailFilteredDates ??
+      data?.user?.emailFilteredDates,
+    filterEmailDatesLoading,
   })
 
   return model

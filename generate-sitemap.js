@@ -10,6 +10,7 @@ module.exports = {
     sitemap({
       baseUrl: name || process.env.DOMAIN_NAME,
       ignoredPaths: [
+        'alerts',
         'dashboard',
         'analytics',
         'issues',

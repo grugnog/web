@@ -31,8 +31,8 @@ export function AuthedMenu({ route, isMobile, dataSourceMap }: any) {
             events={events}
             isMobile={isMobile}
             setEvents={setEvents}
-            toggleAlert={() => {
-              toggleAlert({
+            toggleAlert={async () => {
+              await toggleAlert({
                 variables: {
                   alertEnabled: !enabledAlerts,
                 },

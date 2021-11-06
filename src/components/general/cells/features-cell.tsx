@@ -48,16 +48,13 @@ const renderIcon = (feature?: string, className?: string) => {
   }
 }
 
-const extraProps = (
-  feature?: string,
-  focused?: boolean,
-  toggleAlert?: any,
-  setEvents?: any
-) => {
+const extraProps = (feature?: string, focused?: boolean, setEvents?: any) => {
   switch (feature) {
     case 'Alerts':
       return {
-        onClick: toggleAlert,
+        href: focused ? '/dashboard' : '/alerts',
+        component: Link,
+        color: 'inherit',
       }
     case 'Scripts':
       return {
@@ -134,7 +131,7 @@ export function FeaturesCell({
   return (
     <ListItem
       button
-      {...extraProps(feature, focused, toggleAlert, setEvents)}
+      {...extraProps(feature, focused, setEvents)}
       className={classes.topList}
     >
       <ListItemIcon>
@@ -153,6 +150,10 @@ export function FeaturesCell({
           label=''
           labelPlacement='start'
           className={classes.toggleAlert}
+          onClick={async (e) => {
+            e?.stopPropagation()
+            await toggleAlert()
+          }}
         />
       ) : null}
       {!isMobile ? renderGuide(index, events) : null}
