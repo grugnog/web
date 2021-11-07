@@ -115,7 +115,11 @@ function PriceWrapper({
           checked={yearly}
           value={yearly}
           control={<Switch color='primary' />}
-          label={<Typography variant='subtitle1'>YEARLY</Typography>}
+          label={
+            <Typography variant='subtitle1' component={'span'}>
+              YEARLY
+            </Typography>
+          }
           labelPlacement='end'
           style={{ fontSize: '12px' }}
           onChange={() => setYearly((y: boolean) => !y)}

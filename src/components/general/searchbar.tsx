@@ -116,17 +116,11 @@ export function SearchBar({ placeholder, noWidth, cta }: any) {
           }
           inputProps={{ 'aria-label': 'search' }}
         />
-        {!!(cta && ctaSearch) ? (
-          <Fade in={true}>
-            <Button
-              type='submit'
-              className={classes.submit}
-              disabled={!!loading}
-            >
-              Submit
-            </Button>
-          </Fade>
-        ) : null}
+        <Fade in={!!(cta && ctaSearch)}>
+          <Button type='submit' className={classes.submit} disabled={!!loading}>
+            Submit
+          </Button>
+        </Fade>
       </div>
     </form>
   )

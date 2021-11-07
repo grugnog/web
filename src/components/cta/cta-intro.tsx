@@ -107,7 +107,7 @@ function CtaIntro({ checker }: any) {
             src={`/static/img/${checker ? 'browser-stats' : 'intro'}.svg`}
             height={500}
             width={500}
-            alt='image of content being controlled'
+            alt='accessibility stats tool'
           />
         </div>
       </section>

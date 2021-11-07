@@ -226,14 +226,13 @@ function CtaSearchBar({ children, checker }: any) {
           />
         </FormControl>
         {children && !search && !searchFocused ? (
-          <div
+          <button
             className={classes.innerInput}
-            tabIndex={0}
             title={'Enter your website to check for accessibility issues'}
             onClick={toggleSearch(true)}
           >
             {children}
-          </div>
+          </button>
         ) : null}
       </div>
       <FadeBlock

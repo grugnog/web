@@ -58,7 +58,9 @@ export const Badge = ({
     )
   }
 
-  const Img = () => <img src={src} height={size} width={size} alt={title} />
+  const Img = () => (
+    <img src={src} height={size} width={size} alt={`${title} logo`} />
+  )
 
   if (inline) {
     return (

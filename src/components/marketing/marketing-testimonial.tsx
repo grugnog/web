@@ -19,6 +19,8 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
   },
   bigAvatar: {
+    backgroundColor: '#020202',
+    color: '#757575',
     display: 'block',
     objectFit: 'contain',
     margin: '0 auto',
@@ -36,10 +38,6 @@ const useStyles = makeStyles((theme) => ({
       fontSize: '1.7em',
       textAlign: 'center',
     },
-  },
-  image: {
-    backgroundColor: '#020202',
-    transition: 'background-color 300ms',
   },
   subtitle: {
     [theme.breakpoints.down('sm')]: {
@@ -63,7 +61,6 @@ export function MarketingTestimonial() {
         <Grid item xs={12} sm={6}>
           <Avatar className={classes.bigAvatar} variant='circular'>
             <Image
-              className={classes.image}
               alt={strings.testimonials[0].who}
               src='/static/img/gilbert.png'
               height={310}
