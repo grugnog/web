@@ -12,6 +12,7 @@ import { logPageView } from '@app/utils'
 import { shutdownIntercom } from 'intercom-next'
 import Router from 'next/router'
 import { AppManager } from '@app/managers'
+import { LOGGIN_ROUTES } from '@app/configs'
 
 const defaultExp = 365
 
@@ -122,6 +123,11 @@ const userModel = {
         pathname: '/dashboard',
       })
       AppManager.toggleSnack(true, 'Redirected to Dashboard')
+    } else if (!this.loggedIn && !this.unauthedRoute) {
+      Router.push({
+        pathname: '/',
+      })
+      AppManager.toggleSnack(true, 'Authentication required for page')
     }
   },
   setJwt: function (jwt: any) {
@@ -139,7 +145,7 @@ const userModel = {
     ) {
       return false
     }
-    return ['/'].includes(String(Router?.router?.pathname))
+    return !LOGGIN_ROUTES.includes(String(Router?.router?.pathname))
   },
   get loggedIn() {
     return !!(getCookie(_AUTHED, '') || this.jwt)
