@@ -33,8 +33,8 @@ export default function MyApp({ Component, pageProps }: MergedApp) {
   useEffect(() => {
     initAppModel()
     userModel.handleRoutes()
-    startIntercom()
     userModel.redirect()
+    startIntercom()
   }, [])
 
   const meta = Component?.meta || strings?.meta

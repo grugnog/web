@@ -9,6 +9,7 @@ import { EnableNotifications } from '@app/components/alerts'
 import { WithHighlight } from '@app/components/adhoc'
 import { makeStyles } from '@material-ui/core/styles'
 import { Onboarding } from '@app/components/alerts/onboarding'
+import { ModalType } from '@app/data/enums'
 
 const useStyles = makeStyles(() => ({
   container: {
@@ -36,18 +37,18 @@ export const GetType = ({ modalType, html }: any) => {
   const classes = useStyles()
 
   switch (modalType) {
-    case 0:
+    case ModalType.empty:
       return null
-    case 1:
+    case ModalType.alerts:
       return <EnableNotifications />
-    case 2: {
+    case ModalType.highlight: {
       return (
         <div className={classes.container}>
           <WithHighlight className={classes.code}>{html}</WithHighlight>
         </div>
       )
     }
-    case 3:
+    case ModalType.onboarding:
       return <Onboarding />
 
     default:

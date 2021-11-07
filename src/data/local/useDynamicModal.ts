@@ -10,6 +10,7 @@ import gql from 'graphql-tag'
 import { isSameDay } from 'date-fns'
 import { checkNotification } from '@app/lib'
 import { dynamicModalHandler } from '@app/data/models/singletons/modalHandler'
+import { ModalType } from '@app/data/enums'
 
 const GET_DYNAMIC_MODAL_STATE = gql`
   query getDynamicModalState {
@@ -24,7 +25,7 @@ const GET_DYNAMIC_MODAL_STATE = gql`
 
 const defaultProps = {
   open: false,
-  modalType: 0,
+  modalType: ModalType.empty,
   url: '',
   html: '',
 }
@@ -40,7 +41,7 @@ const getLastAlertedDate = async (setModal: any) => {
       alertedDate &&
       !isSameDay(alertedDate, new Date())
     ) {
-      setModal({ open: true, modalType: 1 })
+      setModal({ open: true, modalType: ModalType.alerts })
       localStorage.setItem('AlertPromptDate', new Date() + '')
     }
   }
@@ -53,7 +54,7 @@ export function useDynamicModal() {
 
   const setModal = ({
     open = true,
-    modalType = 0,
+    modalType = ModalType.empty,
     onClose,
     url = '',
     html = '',

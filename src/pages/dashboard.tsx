@@ -31,6 +31,7 @@ import { metaSetter } from '@app/utils'
 import type { PageProps } from '@app/types'
 import { setCookie, getCookie } from 'with-cookie'
 import { _ONBOARDED } from '@app/lib/cookies/names'
+import { ModalType } from '@app/data/enums'
 
 const noSSR = {
   ssr: false,
@@ -127,7 +128,11 @@ function Dashboard({ name }: PageProps) {
     const isOnboarded = getCookie(_ONBOARDED, '')
 
     if (!isOnboarded) {
-      setModal({ open: true, modalType: 3, onClose: completeOnboarding })
+      setModal({
+        open: true,
+        modalType: ModalType.onboarding,
+        onClose: completeOnboarding,
+      })
     }
   }, []) // eslint-disable-line
 

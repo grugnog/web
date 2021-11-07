@@ -45,7 +45,7 @@ function About({ name }: PageProps) {
       </Typography>
       <Typography variant='body1' component='p' gutterBottom>
         A big step into making a product usable across multiple devices is to
-        have the program fully assistive through voice. With a11ywatch we are
+        have the program fully assistive through voice. With A11yWatch we are
         taking a step into providing extreme dedication into machine learning
         and AI to generate assistive props, color contrast, alt tags, and much
         more with accuracy.
@@ -54,9 +54,9 @@ function About({ name }: PageProps) {
         Fast
       </Typography>
       <Typography variant='body1' component='p' gutterBottom>
-        Take the process of making a website ada complaint n * pages of your
-        product which can lead to a lengthy timeline. With our tech we can
-        provide a kit to automatically dive into the native assistive
+        Take the process of making a website accessible with <b>n * pages</b> of
+        your product which can lead to a lengthy timeline. With A11yWatch tech
+        we can provide a kit to automatically dive into the native assistive
         technologies to provide an amazing experience for everyone.
       </Typography>
       <Typography variant='h4' component='h2' gutterBottom style={bold}>

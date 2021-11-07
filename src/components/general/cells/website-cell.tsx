@@ -19,6 +19,7 @@ import { AppManager } from '@app/managers'
 import { Link } from '../link'
 import { RenderAvatar, RenderSecondary } from './render'
 import { TopMenu } from '../top-menu'
+import { ModalType } from '@app/data/enums'
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -84,7 +85,7 @@ export function WebsiteCell({
     setAnchorEl(null)
   }
   const modalClick = () => {
-    setModal({ open: true, modalType: 2, html, url })
+    setModal({ open: true, modalType: ModalType.highlight, html, url })
     setAnchorEl(null)
   }
 
