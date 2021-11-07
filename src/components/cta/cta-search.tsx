@@ -114,12 +114,12 @@ function CtaSearch({ checker }: any) {
         {checker ? (
           <Head>Check website for issues</Head>
         ) : (
-          <Head component='p'>
-            <Heading component='p'>{`${strings.title} `}</Heading>
-            <Heading className={roll.g} component='p'>
+          <Head component='span'>
+            <Heading component='span'>{`${strings.title} `}</Heading>
+            <Heading className={roll.g} component='span'>
               {rollStrings.map((item: string, itemIndex: number): any => (
                 <Heading
-                  component='p'
+                  component='span'
                   // @ts-ignore
                   className={`${roll.roll} ${roll[`d${itemIndex}`]} ${
                     roll.gi

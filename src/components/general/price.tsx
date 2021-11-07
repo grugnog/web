@@ -31,12 +31,6 @@ const useStyles = makeStyles(() => ({
   icon: {
     fontSize: '40px',
   },
-  center: {
-    flex: 1,
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
   paper: {
     flexGrow: 1,
     minHeight: '25vh',
@@ -163,11 +157,11 @@ function PriceWrapper({
                   {title === 'Premium' ? <Ribbon /> : null}
                   <Icon
                     fontSize='large'
-                    style={title === 'Enterprise' ? { color: '#4c8af0' } : {}}
+                    style={title === 'Enterprise' ? { color: '#5c6bc0' } : {}}
                   />
                   <Typography
                     variant='h4'
-                    component='span'
+                    component='h4'
                     gutterBottom
                     style={{ fontWeight: 'bold' }}
                   >
@@ -181,19 +175,23 @@ function PriceWrapper({
                         aria-hidden={!String(item).trim()}
                       >
                         {String(item).trim() ? <Done /> : null}
-                        <Typography>{item}</Typography>
+                        <Typography component={'h3'}>{item}</Typography>
                       </li>
                     ))}
                   </ul>
                   {cost ? (
-                    <Typography variant='h5' className={'py-6'}>
+                    <Typography
+                      variant='h5'
+                      className={'py-6'}
+                      component={'h4'}
+                    >
                       {yearly ? costYearly : cost}
                     </Typography>
                   ) : null}
                   <MainButton title={title} />
                   <Typography
                     variant='subtitle2'
-                    component='p'
+                    component='div'
                     className={'pt-4'}
                     style={{ textAlign: 'center', fontSize: '0.95em' }}
                   >
@@ -204,16 +202,14 @@ function PriceWrapper({
             )
           })}
       </Grid>
-      <div className={classes.center}>
-        <Typography
-          variant='subtitle1'
-          component='p'
-          style={{ marginTop: 12, textAlign: 'center' }}
-        >
-          If you need a higher API limit please send us an email at
-          support@a11ywatch.com
-        </Typography>
-      </div>
+      <Typography
+        variant='subtitle1'
+        component='p'
+        className={'py-6 text-center'}
+      >
+        If you need a higher API limit please send us an email at
+        support@a11ywatch.com
+      </Typography>
     </Container>
   )
 }

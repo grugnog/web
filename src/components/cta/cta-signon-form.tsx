@@ -11,7 +11,11 @@ import { SignOnForm } from '../general'
 export function CtaSignonForm() {
   return (
     <VisibilitySensor partialVisibility>
-      {({ isVisible }) => <SignOnForm home isVisible={isVisible} />}
+      {({ isVisible }) => (
+        <section>
+          <SignOnForm home isVisible={isVisible} />
+        </section>
+      )}
     </VisibilitySensor>
   )
 }

@@ -3,6 +3,7 @@
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
  **/
+const tailwindColors = require('tailwindcss/colors')
 
 const fontFamilys = [
   'system-ui',
@@ -19,12 +20,10 @@ const colors = {
   main: 'gray',
   secondary: '#5c6bc0',
   transparent: 'transparent',
+  current: 'currentColor',
   black: '#000',
   white: '#fff',
-  gray: {
-    100: '#f7fafc',
-    900: '#1a202c',
-  },
+  gray: tailwindColors.trueGray,
 }
 
 const theme = {

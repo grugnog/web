@@ -20,7 +20,7 @@ const useStyles = makeStyles((theme) => ({
     flex: 1,
   },
   brand: {
-    alignAtems: 'center',
+    alignItems: 'center',
     justifyContent: 'center',
     display: 'flex',
   },

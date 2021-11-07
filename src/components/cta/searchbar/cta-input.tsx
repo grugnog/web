@@ -5,7 +5,7 @@
  **/
 
 import React, { useState, useRef } from 'react'
-import { InputLabel, InputBase, Button } from '@material-ui/core'
+import { InputLabel, InputBase } from '@material-ui/core'
 import { fade, makeStyles, Theme, createStyles } from '@material-ui/core/styles'
 import { useSearch } from '@app/data'
 import { AppManager } from '@app/managers'
@@ -51,8 +51,12 @@ const useStyles = makeStyles((theme: Theme) =>
       width: 'auto',
       borderTopLeftRadius: 0,
       borderBottomLeftRadius: 0,
+      borderTopRightRadius: theme.shape.borderRadius,
+      borderBottomRightRadius: theme.shape.borderRadius,
       paddingLeft: theme.spacing(5),
       paddingRight: theme.spacing(5),
+      borderColor: 'rgba(255, 255, 255, 0.12) !important',
+      borderWidth: 1,
       minWidth: '187.562px',
       fontWeight: 'bold',
       fontSize: '1.5rem',
@@ -117,19 +121,21 @@ function CtaInput() {
           onFocus={toggleSearch(true)}
           onChange={(event: any) => setSearch({ search: event?.target?.value })}
           inputProps={{
-            minLength: 6,
+            minLength: 4,
             name: 'search',
           }}
         />
       </div>
-      <Button
-        className={classes.submit}
+      <button
+        className={`${classes.submit} ${
+          loading || !search ? 'text-gray-500' : ''
+        } hover:bg-white hover:text-black`}
         type={'submit'}
         disabled={loading || !search}
         aria-label={loading ? 'Scanning website loading' : 'Analyze website'}
       >
         ANALYZE
-      </Button>
+      </button>
     </form>
   )
 }
