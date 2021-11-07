@@ -92,7 +92,11 @@ module.exports = withPWA({
   webpack: (config, { dev: development, webpack }) => {
     generateSiteMap(DOMAIN_NAME)
 
-    config.plugins.push(new webpack.IgnorePlugin(/tests/))
+    config.plugins.push(
+      new webpack.IgnorePlugin({
+        resourceRegExp: /^\.\/tests$/,
+      })
+    )
     config.resolve.alias = Object.assign({}, config.resolve.alias, aliases)
 
     if (!development) {

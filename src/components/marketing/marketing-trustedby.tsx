@@ -52,9 +52,9 @@ function TrustBy() {
           </Typography>
         </div>
         <div className='mt-6 grid grid-cols-2 gap-0.5 md:grid-cols-3 lg:mt-8'>
-          {images.map(({ src, alt }: ImageProps, i: number) => {
-            return <MarketingImage src={src} alt={alt} key={`${i}_${src}`} />
-          })}
+          {images.map(({ src, alt }: ImageProps, i: number) => (
+            <MarketingImage src={src} alt={alt} key={`${i}_${src}`} />
+          ))}
         </div>
       </div>
     </section>
