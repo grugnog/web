@@ -9,6 +9,7 @@ import { useApolloClient, useQuery } from '@apollo/react-hooks'
 import gql from 'graphql-tag'
 import { isSameDay } from 'date-fns'
 import { checkNotification } from '@app/lib'
+import { dynamicModalHandler } from '@app/data/models/singletons/modalHandler'
 
 const GET_DYNAMIC_MODAL_STATE = gql`
   query getDynamicModalState {
@@ -50,26 +51,17 @@ export function useDynamicModal() {
   const { data } = useQuery(GET_DYNAMIC_MODAL_STATE)
   const modelData = data?.modal || defaultProps
 
-  const setModal = async ({
+  const setModal = ({
     open = true,
     modalType = 0,
+    onClose,
     url = '',
     html = '',
   }: any) => {
-    if (url) {
-      client.writeData({
-        data: {
-          modal: {
-            open,
-            modalType,
-            url,
-            html,
-            __typename: 'DynamicModal',
-          },
-        },
-      })
-      return
+    if (dynamicModalHandler) {
+      dynamicModalHandler.bindOnClose(onClose)
     }
+
     client.writeData({
       data: {
         modal: { open, modalType, url, html, __typename: 'DynamicModal' },
@@ -84,5 +76,6 @@ export function useDynamicModal() {
   return {
     modelData,
     setModal,
+    dynamicModalHandler,
   }
 }

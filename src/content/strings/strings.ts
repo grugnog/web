@@ -122,6 +122,12 @@ export const generateStrings = ({
       yes: 'Yes',
       okay: 'Okay',
     },
+    onboarding: {
+      limitEmailsTitle:
+        'Did you know you can limit the amount of emails you get from us?',
+      limitEmailsDetail:
+        'You can modify which days of the week you receive emails by going to the alerts page and making the appropriate selections.',
+    },
     getSupport: 'Get Professional Support',
     trySearch: 'Free website accessibility scan',
     tryOutCdn:

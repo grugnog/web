@@ -9,6 +9,7 @@ import { Fade, Backdrop, Modal } from '@material-ui/core'
 import { useDynamicModal } from '@app/data'
 import { GetType } from './helpers'
 import { makeStyles } from '@material-ui/core/styles'
+import { dynamicModalHandler } from '@app/data/models/singletons/modalHandler'
 
 const useStyles = makeStyles((theme) => ({
   modal: {
@@ -39,6 +40,10 @@ export function DynamicModal() {
       className={classes.modal}
       open={!!open}
       onClose={() => {
+        if (typeof dynamicModalHandler.onClose === 'function') {
+          dynamicModalHandler.onClose()
+        }
+
         setModal({ open: false })
       }}
       closeAfterTransition

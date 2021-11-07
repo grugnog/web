@@ -29,6 +29,8 @@ import { withApollo } from '@app/apollo'
 import { WithHydrate } from '@app/components/adhoc'
 import { metaSetter } from '@app/utils'
 import type { PageProps } from '@app/types'
+import { setCookie, getCookie } from 'with-cookie'
+import { _ONBOARDED } from '@app/lib/cookies/names'
 
 const noSSR = {
   ssr: false,
@@ -69,6 +71,8 @@ const useStyles = makeStyles((theme) => ({
 }))
 
 const MiniPlayerMemo = memo(MiniPlayer)
+
+const completeOnboarding = () => setCookie(_ONBOARDED, true)
 
 function Dashboard({ name }: PageProps) {
   const classes = useStyles()
@@ -118,6 +122,14 @@ function Dashboard({ name }: PageProps) {
       })
     }
   }, [issueSubData, events, setEvents])
+
+  useEffect(() => {
+    const isOnboarded = getCookie(_ONBOARDED, '')
+
+    if (!isOnboarded) {
+      setModal({ open: true, modalType: 3, onClose: completeOnboarding })
+    }
+  }, []) // eslint-disable-line
 
   const blocked = typeof userId === 'number' && isNaN(userId)
 

@@ -8,6 +8,7 @@ import React from 'react'
 import { EnableNotifications } from '@app/components/alerts'
 import { WithHighlight } from '@app/components/adhoc'
 import { makeStyles } from '@material-ui/core/styles'
+import { Onboarding } from '@app/components/alerts/onboarding'
 
 const useStyles = makeStyles(() => ({
   container: {
@@ -46,6 +47,8 @@ export const GetType = ({ modalType, html }: any) => {
         </div>
       )
     }
+    case 3:
+      return <Onboarding />
 
     default:
       return null

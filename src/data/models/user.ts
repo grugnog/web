@@ -6,7 +6,12 @@
 
 import { getCookie, setCookie } from 'with-cookie'
 import { parseCookie } from '@app/lib/cookies'
-import { _AUTHED, _ALERTS_ENABLED, _JWT } from '@app/lib/cookies/names'
+import {
+  _AUTHED,
+  _ALERTS_ENABLED,
+  _JWT,
+  _ONBOARDED,
+} from '@app/lib/cookies/names'
 import { parseJwt } from '@app/lib/auth'
 import { logPageView } from '@app/utils'
 import { shutdownIntercom } from 'intercom-next'
@@ -81,6 +86,7 @@ const userModel = {
     try {
       setCookie(_AUTHED, email, defaultExp)
       setCookie(_JWT, jwt, defaultExp)
+      setCookie(_ONBOARDED, false) // no expiration for now
 
       this.email = email
       this.jwt = jwt

@@ -5,6 +5,8 @@
  **/
 
 import React from 'react'
+import { useRouter } from 'next/router'
+import { setCookie } from 'with-cookie'
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles'
 import {
   Card,
@@ -16,10 +18,10 @@ import {
 import { Notifications as NotificationsIcon } from '@material-ui/icons'
 import { strings } from '@app-strings'
 import { useDynamicModal } from '@app/data'
-import { enableNotifications } from '@app/lib'
 import { ringKeyFrames } from '@app/styles'
+import { _ONBOARDED } from '@app/lib/cookies/names'
 
-const useStyles = makeStyles((theme: Theme) =>
+const useStyles = makeStyles(({ breakpoints }: Theme) =>
   createStyles({
     card: {
       minWidth: '275px',
@@ -28,7 +30,7 @@ const useStyles = makeStyles((theme: Theme) =>
       height: '100%',
       maxWidth: '50vw',
       maxHeight: '50vh',
-      [theme.breakpoints.down('sm')]: {
+      [breakpoints.down('sm')]: {
         maxWidth: '70vw',
         maxHeight: '70vh',
       },
@@ -53,7 +55,7 @@ const useStyles = makeStyles((theme: Theme) =>
       ['&:hover']: {
         textDecoration: 'none',
       },
-      [theme.breakpoints.down('sm')]: {
+      [breakpoints.down('sm')]: {
         minWidth: 80,
       },
     },
@@ -73,14 +75,17 @@ const useStyles = makeStyles((theme: Theme) =>
       'transform-origin': '50% 4px',
     },
     about: {
-      [theme.breakpoints.down('sm')]: {
+      [breakpoints.down('sm')]: {
         fontSize: '12px',
       },
     },
   })
 )
 
-export function EnableNotifications() {
+const completeOnboarding = () => setCookie(_ONBOARDED, true)
+
+export function Onboarding() {
+  const router = useRouter()
   const classes = useStyles()
   const { setModal } = useDynamicModal()
 
@@ -92,7 +97,7 @@ export function EnableNotifications() {
           <NotificationsIcon fontSize='large' className={classes.ringAnimate} />
         </div>
         <Typography variant='h6' component='h3'>
-          {strings.alerts.enableNotificationsTitle}
+          {strings.onboarding.limitEmailsTitle}
         </Typography>
         <Typography
           variant='subtitle1'
@@ -100,25 +105,29 @@ export function EnableNotifications() {
           className={classes.about}
           gutterBottom
         >
-          {strings.alerts.enableNotificationsDetail}
+          {strings.onboarding.limitEmailsDetail}
         </Typography>
       </CardContent>
       <CardActions>
         <Button
           onClick={() => {
-            setModal({ open: false })
-            enableNotifications()
+            setModal({ open: false, onClose: completeOnboarding })
+            router.push('/alerts')
+            completeOnboarding()
           }}
           variant='contained'
           className={classes.normal}
         >
-          {strings.alerts.okay}
+          Take me there
         </Button>
         <Button
           className={classes.see}
-          onClick={() => setModal({ open: false })}
+          onClick={() => {
+            setModal({ open: false, onClose: completeOnboarding })
+            completeOnboarding()
+          }}
         >
-          {strings.alerts.notNow}
+          Close
         </Button>
       </CardActions>
     </Card>
