@@ -59,7 +59,7 @@ const MainFrame = observer(
       try {
         onLoad(null, { iframeRef })
       } catch (e) {
-        console.log(e)
+        console.error(e)
       }
       return () => {
         iframeStore.clearPortals()
@@ -69,7 +69,11 @@ const MainFrame = observer(
 
     useEffect(() => {
       if (issue && frameDom?.dom && !iframeStore.issueInited) {
-        iframeStore.initIssueFix(issue)
+        try {
+          iframeStore.initIssueFix(issue)
+        } catch (e) {
+          console.error(e)
+        }
       }
     }, [iframeStore, issue])
 
@@ -82,7 +86,7 @@ const MainFrame = observer(
           iframeStore.initIssueFix(issue)
         }
       } catch (e) {
-        console.log(e)
+        console.error(e)
       }
     }
 
