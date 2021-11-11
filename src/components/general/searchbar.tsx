@@ -114,7 +114,7 @@ export function SearchBar({ placeholder, noWidth, cta }: any) {
                   setSearch && setSearch({ search: event?.target?.value })
                 }
           }
-          inputProps={{ 'aria-label': 'search' }}
+          inputProps={{ 'aria-label': 'search your websites' }}
         />
         <Fade in={!!(cta && ctaSearch)}>
           <Button type='submit' className={classes.submit} disabled={!!loading}>

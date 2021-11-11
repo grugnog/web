@@ -66,10 +66,7 @@ class UserManager {
   }
 
   @computed get freeAccount() {
-    if (SUPER_MODE) {
-      return false
-    }
-    return this.jwtParsed?.audience === 0
+    return SUPER_MODE === 'true' ? false : this.jwtParsed?.audience === 0
   }
 
   @computed get getID() {
