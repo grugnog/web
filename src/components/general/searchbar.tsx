@@ -93,6 +93,31 @@ export function SearchBar({ placeholder, noWidth, cta }: any) {
     }
   }
 
+  const searchStyles = {
+    root: classes.inputRoot,
+    input: classes.inputInput,
+  }
+
+  if (!cta) {
+    return (
+      <div className={classes.root}>
+        <div className={classes.search}>
+          <div className={classes.searchIcon}>
+            <SearchIcon />
+          </div>
+          <InputBase
+            placeholder={placeholder || 'Search…'}
+            classes={searchStyles}
+            type={'search'}
+            color={'primary'}
+            onChange={setSearchFilter}
+            inputProps={{ 'aria-label': 'Search your websites' }}
+          />
+        </div>
+      </div>
+    )
+  }
+
   return (
     <form className={classes.root} onSubmit={submit} noValidate>
       <div className={classes.search}>
@@ -101,22 +126,15 @@ export function SearchBar({ placeholder, noWidth, cta }: any) {
         </div>
         <InputBase
           placeholder={placeholder || 'Search…'}
-          classes={{
-            root: classes.inputRoot,
-            input: classes.inputInput,
-          }}
+          classes={searchStyles}
           type={'search'}
           color={'primary'}
-          onChange={
-            !cta
-              ? setSearchFilter
-              : (event: any) => {
-                  setSearch && setSearch({ search: event?.target?.value })
-                }
-          }
+          onChange={(event: any) => {
+            setSearch && setSearch({ search: event?.target?.value })
+          }}
           inputProps={{ 'aria-label': 'search your websites' }}
         />
-        <Fade in={!!(cta && ctaSearch)}>
+        <Fade in={!!ctaSearch}>
           <Button type='submit' className={classes.submit} disabled={!!loading}>
             Submit
           </Button>
