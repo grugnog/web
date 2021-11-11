@@ -4,14 +4,7 @@
  * LICENSE file in the root directory of this source tree.
  **/
 import React, { Fragment, memo } from 'react'
-import {
-  Typography,
-  Grid,
-  Button,
-  Paper,
-  FormControlLabel,
-  Switch,
-} from '@material-ui/core'
+import { Typography, Grid, Button, Paper } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import { Ribbon } from '@app/components/general'
 import { priceConfig } from '@app/configs'
@@ -55,6 +48,11 @@ const useStyles = makeStyles(() => ({
     top: '-0.4rem',
   },
 }))
+
+const getStyles = (inactive: boolean) =>
+  inactive
+    ? 'ml-0.5 relative w-1/2 border border-transparent rounded-md py-2 text-sm font-medium text-gray-200 whitespace-nowrap focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:z-10 sm:w-auto sm:px-8'
+    : 'relative w-1/2 bg-white border-gray-200 rounded-md shadow-sm py-2 text-sm font-medium text-gray-900 whitespace-nowrap focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:z-10 sm:w-auto sm:px-8'
 
 function PriceWrapper({
   basic = false,
@@ -105,19 +103,22 @@ function PriceWrapper({
         </SectionHeading>
       ) : null}
       <div className={'py-4'}>
-        <FormControlLabel
-          checked={yearly}
-          value={yearly}
-          control={<Switch color='primary' />}
-          label={
-            <Typography variant='subtitle1' component={'span'}>
-              YEARLY
-            </Typography>
-          }
-          labelPlacement='end'
-          style={{ fontSize: '12px' }}
-          onChange={() => setYearly((y: boolean) => !y)}
-        />
+        <div className='relative self-center mt-6 rounded-lg p-0.5 flex sm:mt-8'>
+          <button
+            type='button'
+            onClick={() => setYearly(false)}
+            className={getStyles(yearly)}
+          >
+            Monthly billing
+          </button>
+          <button
+            type='button'
+            onClick={() => setYearly(true)}
+            className={getStyles(!yearly)}
+          >
+            Yearly billing
+          </button>
+        </div>
       </div>
       <Grid container spacing={1} className={!onClick ? classes.container : ''}>
         {priceConfig.plans
