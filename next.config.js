@@ -66,6 +66,7 @@ const aliases = {
   ['@app-theme']: resolve(__dirname, `./src/theme/${themeType}`),
   ['@app-strings']: resolve(__dirname, `./src/content/strings/${stringType}`),
   ['@app-config']: resolve(__dirname, './web-config.js'),
+  'react-native$': 'react-native-web',
 }
 
 module.exports = withPWA({
@@ -97,6 +98,7 @@ module.exports = withPWA({
         resourceRegExp: /^\.\/tests$/,
       })
     )
+
     config.resolve.alias = Object.assign({}, config.resolve.alias, aliases)
 
     if (!development) {

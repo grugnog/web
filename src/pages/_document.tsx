@@ -12,9 +12,13 @@ import Document, {
 } from 'next/document'
 import { ServerStyleSheets } from '@material-ui/core/styles'
 import { userModel, initAppModel } from '@app/data'
+import { AppRegistry } from 'react-native'
+import config from '../../app.json'
 
 class MyDocument extends Document {
   static async getInitialProps(ctx: DocumentContext) {
+    AppRegistry.registerComponent(config.name, () => Main)
+
     const sheets = new ServerStyleSheets()
     const originalRenderPage = ctx.renderPage
 

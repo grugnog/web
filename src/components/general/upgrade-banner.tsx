@@ -4,39 +4,41 @@
  * LICENSE file in the root directory of this source tree.
  **/
 import React from 'react'
-import { makeStyles } from '@material-ui/core/styles'
-import { Typography } from '@material-ui/core'
+import { StyleSheet, Text, View, Platform } from 'react-native'
 import { UserManager } from '@app/managers'
+import { theme } from '@app-theme'
 import { Link } from './link'
 
-const useStyles = makeStyles((theme) => ({
+const UpgradeBanner = (): any => {
+  return UserManager.freeAccount ? (
+    <View style={styles.container}>
+      <Text style={styles.text}>
+        Upgrade your account to add multiple websites, edit scripts, and more{' '}
+        <Link href={'/payments'} style={{ fontWeight: 600 }}>
+          UPGRADE
+        </Link>
+      </Text>
+    </View>
+  ) : null
+}
+
+const styles = StyleSheet.create({
   container: {
     alignItems: 'center',
     justifyContent: 'center',
     display: 'flex',
     padding: 6,
     backgroundColor: theme.palette.background.default,
-    position: 'fixed',
     bottom: 0,
     width: '100%',
     paddingRight: '28vw',
     zIndex: 1,
+    // @ts-ignore
+    position: Platform.OS === 'web' ? 'fixed' : 'absolute',
   },
-}))
-
-const UpgradeBanner = (): any => {
-  const classes = useStyles()
-
-  return UserManager.freeAccount ? (
-    <div className={classes.container}>
-      <Typography variant={'subtitle2'}>
-        Upgrade your account to add multiple websites, edit scripts, and more{' '}
-        <Link href={'/payments'} style={{ fontWeight: 600 }}>
-          UPGRADE
-        </Link>
-      </Typography>
-    </div>
-  ) : null
-}
+  text: {
+    color: theme.palette.primary.light,
+  },
+})
 
 export { UpgradeBanner }
