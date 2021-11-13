@@ -20,6 +20,8 @@ import { WithSnackBar, WithSkipContent } from '@app/components/adhoc'
 import { initAppModel, userModel } from '@app/data'
 import { DOMAIN_NAME } from '@app/configs'
 import { startIntercom } from '@app/utils'
+import { withApollo } from '@app/apollo'
+import { withWebsite } from '@app/components/providers'
 
 Router.events.on('routeChangeComplete', userModel.handleRoutes)
 
@@ -29,7 +31,7 @@ interface MergedApp extends AppProps {
   }
 }
 
-export default function MyApp({ Component, pageProps }: MergedApp) {
+function MyApp({ Component, pageProps }: MergedApp) {
   useEffect(() => {
     initAppModel()
     userModel.handleRoutes()
@@ -82,3 +84,5 @@ export default function MyApp({ Component, pageProps }: MergedApp) {
     </Fragment>
   )
 }
+
+export default withApollo(withWebsite(MyApp))

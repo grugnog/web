@@ -1,0 +1,1 @@
+export { sharedWebsiteDefaults } from './website'

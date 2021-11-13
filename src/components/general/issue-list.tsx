@@ -7,7 +7,7 @@ import React, { Fragment } from 'react'
 import { List, Button, Typography } from '@material-ui/core'
 import { printElement } from '@app/utils'
 import { issueSort } from '@app/lib'
-import { issueFeedStyles as useStyles } from './styles'
+import { useStyles } from './styles'
 import { RenderIssuesList } from './cells'
 import { getAPIRoute } from '@app/configs'
 
@@ -39,7 +39,7 @@ export function IssueList({ printable, website, className = '' }: any) {
   if (!issue?.length) {
     return (
       <Typography variant='h5' component='p' className={classes.subTitle}>
-        {'No issues found. Great work'}
+        No issues found. Great work
       </Typography>
     )
   }

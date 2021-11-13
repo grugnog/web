@@ -19,18 +19,23 @@ export const logPageView = (route?: string, refer?: boolean) => {
       ? typeof document !== 'undefined' && document.referrer
       : undefined,
   }
-  if (typeof navigator !== 'undefined' && navigator.sendBeacon) {
-    const beaconData = new Blob([JSON.stringify(analyticsData)], {
-      type: 'application/json',
-    })
 
-    navigator.sendBeacon(`${getAPIRoute()}/log/page`, beaconData)
-  } else if (typeof window !== 'undefined' && window.fetch) {
-    fetch(`${getAPIRoute()}/log/page`, {
-      method: 'POST',
-      body: JSON.stringify(analyticsData),
-    }).catch((error) => {
-      console.error(error)
-    })
+  const apiPath = getAPIRoute()
+
+  if (apiPath) {
+    if (typeof navigator !== 'undefined' && navigator.sendBeacon) {
+      const beaconData = new Blob([JSON.stringify(analyticsData)], {
+        type: 'application/json',
+      })
+
+      navigator.sendBeacon(`${getAPIRoute()}/log/page`, beaconData)
+    } else if (typeof window !== 'undefined' && window.fetch) {
+      fetch(`${getAPIRoute()}/log/page`, {
+        method: 'POST',
+        body: JSON.stringify(analyticsData),
+      }).catch((error) => {
+        console.error(error)
+      })
+    }
   }
 }

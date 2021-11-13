@@ -4,7 +4,7 @@
  * LICENSE file in the root directory of this source tree.
  **/
 
-import { useMemo, useEffect } from 'react'
+import { useEffect, useCallback } from 'react'
 import { useQuery, useMutation, useSubscription } from '@apollo/react-hooks'
 import {
   ADD_WEBSITE,
@@ -20,11 +20,10 @@ import {
 } from '@app/subscriptions'
 import { UserManager, AppManager } from '@app/managers'
 import { useIssueFeed } from './local'
-import { checkNotification } from '@app/lib'
+import { sendNotification } from '@app/lib'
+import type { OnSubscriptionDataOptions } from '@apollo/react-common'
 
-// TODO: general filter added, needs to be replaced with per view
-export const websitesData = (
-  query: boolean = true,
+export const useWebsiteData = (
   filter: string = '',
   url: string = '',
   customHeaders: any = null
@@ -34,29 +33,25 @@ export const websitesData = (
     customHeaders,
     url,
   }
-  const { setIssueFeedContent } = useIssueFeed()
-  const { data, loading, refetch, error } = query
-    ? useQuery(GET_WEBSITES, {
-        variables,
-      })
-    : { data: null, loading: null, refetch: null, error: null }
+  const skip = !UserManager.loggedIn
 
-  const websites = data?.user?.websites || []
+  const { issueFeed, setIssueFeedContent } = useIssueFeed()
+  const { data, loading, refetch, error } = useQuery(GET_WEBSITES, {
+    variables,
+    skip,
+  })
 
   const [removeWebsite, { loading: removeLoading }] = useMutation(
     REMOVE_WEBSITE,
     updateCache
   )
-
-  const [addWebsite, { loading: addLoading }] = useMutation(
+  const [addWebsiteMutation, { loading: addLoading }] = useMutation(
     ADD_WEBSITE,
     updateCache
   )
-
   const [updateWebsite, { data: updateData }] = useMutation(UPDATE_WEBSITE, {
     variables,
   })
-
   const [
     crawlWebsite,
     { data: crawlData, loading: crawlLoading },
@@ -64,27 +59,61 @@ export const websitesData = (
 
   const { data: subDomainSubData } = useSubscription(SUBDOMAIN_SUBSCRIPTION, {
     variables: { userId: UserManager.getID },
+    skip,
   })
+
+  const websites = data?.user?.websites || []
+
+  const onIssueSubscription = useCallback(
+    ({ subscriptionData }: OnSubscriptionDataOptions<any>) => {
+      const newIssue = subscriptionData?.data?.issueAdded
+
+      if (newIssue) {
+        const dataSource = websites.find(
+          (source: any) => source.domain === newIssue.domain
+        )
+        const hasIssues = dataSource?.issues?.length
+
+        if (dataSource) {
+          // MUTATION UPDATING WEBSITES
+          if (hasIssues) {
+            const ids = new Set(dataSource.issues.map((d: any) => d.pageUrl))
+            const merged = [
+              ...dataSource.issues,
+              ...[newIssue].filter((d: any) => !ids.has(d.pageUrl)),
+            ]
+            dataSource.issues = merged
+          } else {
+            dataSource.issues = [newIssue]
+          }
+        }
+
+        AppManager.toggleSnack(
+          true,
+          `Insight found on ${newIssue?.pageUrl}`,
+          'success'
+        )
+        setIssueFeedContent(dataSource.issues, true)
+        sendNotification(newIssue?.pageUrl || '', newIssue?.issues?.length || 0)
+      }
+    },
+    [websites]
+  )
+
   const { data: issueSubData } = useSubscription(ISSUE_SUBSCRIPTION, {
     variables: { userId: UserManager.getID },
+    onSubscriptionData: onIssueSubscription,
+    skip,
   })
+
   const { data: websiteUpdated } = useSubscription(WEBSITE_SUBSCRIPTION, {
     variables: { userId: UserManager.getID },
+    skip,
   })
 
   useEffect(() => {
     updateCache.last = [...updateCache.last, ...websites]
   }, [websites])
-
-  useEffect(() => {
-    if (addLoading) {
-      AppManager.toggleSnack(
-        true,
-        'Checking all pages for issues, please wait...',
-        'success'
-      )
-    }
-  }, [addLoading])
 
   useEffect(() => {
     if (updateData?.updateWebsite?.website) {
@@ -101,7 +130,7 @@ export const websitesData = (
     }
   }, [updateData])
 
-  useMemo(() => {
+  useEffect(() => {
     if (websiteUpdated && websites?.length) {
       const {
         adaScore,
@@ -140,7 +169,7 @@ export const websitesData = (
     }
   }, [websiteUpdated])
 
-  useMemo(() => {
+  useEffect(() => {
     if (crawlData && websites?.length) {
       const crawledWebsite = crawlData?.crawlWebsite?.website
       const dataSource = websites.find(
@@ -154,7 +183,7 @@ export const websitesData = (
     }
   }, [crawlData])
 
-  useMemo(() => {
+  useEffect(() => {
     if (subDomainSubData && websites?.length) {
       const newSubDomain = subDomainSubData?.subDomainAdded
       const dataSource = websites.find(
@@ -171,50 +200,22 @@ export const websitesData = (
     }
   }, [subDomainSubData])
 
-  useMemo(() => {
-    if (issueSubData) {
-      const newIssue = issueSubData?.issueAdded
-      const dataSource = websites.find(
-        (source: any) => source.domain === newIssue.domain
+  const addWebsite = useCallback(
+    async (variables: { url?: string; customHeaders?: string[] }) => {
+      AppManager.toggleSnack(
+        true,
+        'Checking all pages for issues, please wait...',
+        'success'
       )
-      if (dataSource) {
-        if (dataSource?.issues?.length) {
-          const ids = new Set(dataSource.issues.map((d: any) => d.pageUrl))
-          const merged = [
-            ...dataSource.issues,
-            ...[newIssue].filter((d: any) => !ids.has(d.pageUrl)),
-          ]
-
-          dataSource.issues = merged
-        } else {
-          dataSource.issues = [newIssue]
-        }
-
-        setIssueFeedContent(newIssue, true)()
-
-        if (checkNotification()) {
-          const isS = newIssue.issues?.length === 1 ? '' : 's'
-          const body = `${newIssue.issues?.length} new issue${isS} occured for ${newIssue.pageUrl}`
-          const notification = new Notification(`New issue${isS} arised`, {
-            body,
-            icon: '/static/img/favicon.png',
-          })
-
-          setTimeout(notification.close.bind(notification), 4000)
-        }
-      }
-
-      if (newIssue) {
-        requestAnimationFrame(() => {
-          AppManager.toggleSnack(
-            true,
-            `Insight found on ${newIssue.pageUrl}`,
-            'success'
-          )
-        })
-      }
-    }
-  }, [issueSubData, setIssueFeedContent])
+      await addWebsiteMutation({
+        variables: {
+          userId: UserManager?.getID,
+          ...variables,
+        },
+      })
+    },
+    [addWebsiteMutation]
+  )
 
   return {
     subscriptionData: {
@@ -229,5 +230,7 @@ export const websitesData = (
     refetch,
     crawlWebsite,
     updateWebsite,
+    setIssueFeedContent,
+    issueFeed,
   }
 }

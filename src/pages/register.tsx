@@ -5,7 +5,6 @@
  **/
 import React from 'react'
 import { SignOnForm, MarketingDrawer } from '@app/components/general'
-import { withApollo } from '@app/apollo'
 import { metaSetter } from '@app/utils'
 import type { PageProps } from '@app/types'
 
@@ -17,4 +16,4 @@ function Register({ name }: PageProps) {
   )
 }
 
-export default withApollo(metaSetter({ Register }))
+export default metaSetter({ Register })

@@ -8,13 +8,13 @@ import { useQuery, useMutation } from '@apollo/react-hooks'
 import { GET_SCRIPTS, GET_SCRIPT } from '@app/queries'
 import { UPDATE_SCRIPT } from '@app/mutations'
 import { SCRIPTS_CDN_URL_HOST } from '@app/configs'
+import { UserManager } from '@app/managers'
 
-export const scriptData = (url?: string | string[], query: boolean = true) => {
-  const { data, loading, refetch } = query
-    ? useQuery(GET_SCRIPT, {
-        variables: { filter: '', url },
-      })
-    : { data: null, loading: null, refetch: null }
+export const scriptData = (url?: string | string[]) => {
+  const { data, loading, refetch } = useQuery(GET_SCRIPT, {
+    variables: { filter: '', url },
+    skip: !(UserManager.loggedIn && url),
+  })
 
   const scriptIncluded = !!data?.user?.script
   const cdnUrl =
@@ -42,12 +42,11 @@ export const scriptData = (url?: string | string[], query: boolean = true) => {
   }
 }
 
-export const scriptsData = (query = true) => {
-  const { data, loading, refetch } = query
-    ? useQuery(GET_SCRIPTS, {
-        variables: { filter: '' },
-      })
-    : { data: null, loading: null, refetch: null }
+export const scriptsData = () => {
+  const { data, loading, refetch } = useQuery(GET_SCRIPTS, {
+    variables: { filter: '' },
+    skip: !UserManager.loggedIn,
+  })
 
   return {
     data: data?.user?.scripts || [],

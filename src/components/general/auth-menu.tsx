@@ -24,6 +24,7 @@ interface Props {
 function AuthMenu({ loginClassName, className, registerClassName }: Props) {
   const router = useRouter()
   const [anchorEl, setAnchorEl] = useState<any>(null)
+
   const handleMenu = (event?: any) => {
     setAnchorEl(event?.currentTarget)
   }

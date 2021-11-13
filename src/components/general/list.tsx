@@ -107,7 +107,7 @@ export function List({
 
   // TODO: MOVE OUTSIDE COMPONENT
   const RenderInner: FC = () => {
-    if (!data.length && loading) {
+    if (!data?.length && loading) {
       // @ts-ignore
       return <ListSkeleton />
     }
@@ -173,9 +173,8 @@ export function List({
         </Grid>
         {errorPage || history || blocked ? null : (
           <BottomButton
-            buttonTitle={'Add Website'}
+            buttonTitle={data?.length ? undefined : 'Lets start!'}
             okPress={addPress}
-            removePress={removePress}
           />
         )}
       </Grid>

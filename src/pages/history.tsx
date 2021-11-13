@@ -4,19 +4,15 @@
  * LICENSE file in the root directory of this source tree.
  **/
 import React from 'react'
-import { Container } from '@material-ui/core'
 import {
   List,
   FormDialog,
-  MiniPlayer,
   PageTitle,
   LinearBottom,
   Drawer,
 } from '@app/components/general'
-import { Box } from '@a11ywatch/ui'
 import { historyData, useSearchFilter } from '@app/data'
 import { filterSort } from '@app/lib'
-import { withApollo } from '@app/apollo'
 import { WithHydrate } from '@app/components/adhoc'
 import { metaSetter } from '@app/utils'
 import type { PageProps } from '@app/types'
@@ -29,26 +25,21 @@ const History = ({ name }: PageProps) => {
   return (
     <WithHydrate>
       <Drawer title={name}>
-        <Container maxWidth='xl'>
-          <Box>
-            <PageTitle title={name} />
-            <List
-              data={listData}
-              loading={loading}
-              refetch={refetch}
-              crawlWebsite={crawlWebsite}
-              BottomButton={FormDialog}
-              history
-              emptyHeaderTitle='No websites found'
-              emptyHeaderSubTitle='Websites will appear here once you remove them from the dashboard'
-            />
-          </Box>
-        </Container>
-        <MiniPlayer />
+        <PageTitle title={name} />
+        <List
+          data={listData}
+          loading={loading}
+          refetch={refetch}
+          crawlWebsite={crawlWebsite}
+          BottomButton={FormDialog}
+          history
+          emptyHeaderTitle='No websites found'
+          emptyHeaderSubTitle='Websites will appear here once you remove them from the dashboard'
+        />
       </Drawer>
       <LinearBottom loading={loading} />
     </WithHydrate>
   )
 }
 
-export default withApollo(metaSetter({ History }))
+export default metaSetter({ History })

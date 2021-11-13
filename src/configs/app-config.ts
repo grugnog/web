@@ -17,7 +17,7 @@ const INTERCOM_APPID = process.env.INTERCOM_APPID
 const APP_TYPE = process.env.APP_TYPE || 'main'
 const GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID
 const API_ENDPOINT =
-  String(process.env.API).replace('/graphql', '/api') ||
+  (process.env.API && String(process.env.API).replace('/graphql', '/api')) ||
   'http://localhost:8080/api'
 const STRIPE_KEY = process.env.STRIPE_KEY
 const SUPER_MODE = process.env.SUPER_MODE
@@ -27,9 +27,8 @@ const API_URI_DOCKER = process.env.API_URI_DOCKER
 const DOMAIN_NAME = process.env.DOMAIN_NAME
 const cdn = process.env.CDN ?? 'localhost:8090'
 
-const getAPIRoute = (type: 'api' | 'graphql' = 'api') => {
-  return `${String(API_ENDPOINT).replace('graphql', type)}`
-}
+const getAPIRoute = (type: 'api' | 'graphql' = 'api') =>
+  API_ENDPOINT ? `${String(API_ENDPOINT).replace('graphql', type)}` : ''
 
 export {
   getAPIRoute,

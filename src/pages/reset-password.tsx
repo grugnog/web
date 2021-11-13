@@ -15,7 +15,6 @@ import {
 import { AppManager, UserManager } from '@app/managers'
 import { userData } from '@app/data'
 import { MarketingDrawer, PageTitle } from '@app/components/general'
-import { withApollo } from '@app/apollo'
 import { useRouter } from 'next/router'
 import { metaSetter } from '@app/utils'
 import type { PageProps } from '@app/types'
@@ -62,9 +61,7 @@ function ResetPassword({ name }: PageProps) {
     forgotPasswordData,
     resetPassword,
     resetPasswordData,
-  } = userData(null, {
-    query: false,
-  })
+  } = userData()
 
   const emailRef = useRef(null)
   const resetRef = useRef(null)
@@ -169,4 +166,4 @@ function ResetPassword({ name }: PageProps) {
   )
 }
 
-export default withApollo(metaSetter({ ResetPassword }))
+export default metaSetter({ ResetPassword })

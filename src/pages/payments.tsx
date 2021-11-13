@@ -23,7 +23,6 @@ import { NavBar, Price, PageTitle } from '@app/components/general'
 import { Box } from '@a11ywatch/ui'
 import { SimpleListItemSkeleton } from '@app/components/placeholders'
 import { STRIPE_KEY } from '@app/configs'
-import { withApollo } from '@app/apollo'
 import { paymentsData } from '@app/data'
 import { getOrdinalSuffix, metaSetter } from '@app/utils'
 import type { PageProps } from '@app/types'
@@ -332,4 +331,4 @@ function Payments({ hideTitle = false, name }: PaymentProps) {
   )
 }
 
-export default withApollo(metaSetter({ Payments }))
+export default metaSetter({ Payments })

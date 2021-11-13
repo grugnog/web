@@ -239,10 +239,7 @@ export function CollaspeList({ dataSource }: any) {
   const classes = useStyles()
   const [open, setOpen] = useState<boolean>(true)
   const entries = Object.entries(dataSource)
-  const { updateScript, updateScriptData, scriptLoading } = scriptData(
-    '',
-    false
-  )
+  const { updateScript, updateScriptData, scriptLoading } = scriptData('')
 
   return (
     <List aria-labelledby='nested-list-subheader' className={classes.root}>

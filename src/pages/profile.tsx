@@ -18,7 +18,6 @@ import { Box } from '@a11ywatch/ui'
 import { TextSkeleton } from '@app/components/placeholders'
 import { AppManager } from '@app/managers'
 import { userData } from '@app/data'
-import { withApollo } from '@app/apollo'
 import { metaSetter } from '@app/utils'
 import { useProfileStyles as useStyles } from '@app/styles/pages/profile'
 import type { PageProps } from '@app/types'
@@ -226,4 +225,4 @@ const Profile: FC<PageProps> = ({ name }) => {
   )
 }
 
-export default withApollo(metaSetter({ Profile }))
+export default metaSetter({ Profile })

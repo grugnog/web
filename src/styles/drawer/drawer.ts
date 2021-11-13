@@ -164,5 +164,11 @@ export const drawerStyles = makeStyles((theme: Theme) => {
         paddingLeft: 15,
       },
     },
+    sidePanelPadding: {
+      paddingRight: '20vw',
+      [theme.breakpoints.down('md')]: {
+        paddingRight: 0,
+      },
+    },
   }
 })

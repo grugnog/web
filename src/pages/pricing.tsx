@@ -12,7 +12,6 @@ import {
   PageTitle,
 } from '@app/components/general'
 import { Box } from '@a11ywatch/ui'
-import { withApollo } from '@app/apollo'
 import { metaSetter } from '@app/utils'
 
 function Pricing({ name }: { name: string }) {
@@ -32,4 +31,4 @@ function Pricing({ name }: { name: string }) {
   )
 }
 
-export default withApollo(metaSetter({ Pricing }))
+export default metaSetter({ Pricing })

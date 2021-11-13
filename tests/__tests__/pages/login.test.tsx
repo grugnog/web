@@ -6,4 +6,4 @@
 
 const name = 'Login'
 
-describePage({ folder: name.toLowerCase(), name })
+describePage({ folder: name.toLowerCase(), name, apollo: true })

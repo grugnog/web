@@ -3,7 +3,7 @@
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
  **/
-import React, { useRef, useState } from 'react'
+import React, { useRef, useState, Fragment } from 'react'
 import {
   Button,
   TextField,
@@ -24,10 +24,15 @@ import { Close as CloseIcon } from '@material-ui/icons'
 import { InputHeaders } from './input-headers'
 import { useInputHeader } from './hooks'
 import { formDialogStyles as useStyles } from './styles'
+import { useWebsiteContext } from '../providers/website'
 
 const domainList = [...dmList, 'none']
 
-export function FormDialog({ buttonTitle = 'Add Website', okPress }: any) {
+export function FormDialog({
+  buttonTitle = 'Subscribe',
+  okPress,
+  buttonStyles = '',
+}: any) {
   const [open, setOpen] = useState<boolean>(false)
   const [websitUrl, setUrl] = useState<string>('')
   const [https, setTransportType] = useState<boolean>(true)
@@ -43,6 +48,8 @@ export function FormDialog({ buttonTitle = 'Add Website', okPress }: any) {
     updateFormField,
     setCustomHeader,
   } = useInputHeader()
+
+  const { addWebsite } = useWebsiteContext()
 
   const handleClickOpen = () => {
     setOpen(true)
@@ -61,40 +68,47 @@ export function FormDialog({ buttonTitle = 'Add Website', okPress }: any) {
     setExtension(event.target.value)
   }
 
-  const submit = (event: any) => {
+  const submit = async (event: any) => {
     event?.preventDefault()
-    if (typeof okPress === 'function') {
-      let cleanUrl = String(websitUrl)
-        .replace(https ? 'https' : 'http', https ? 'http' : 'https')
-        .replace(/^(?:https?:\/\/)?/i, '')
-        .split('/')[0]
+    let cleanUrl = String(websitUrl)
+      .replace(https ? 'https' : 'http', https ? 'http' : 'https')
+      .replace(/^(?:https?:\/\/)?/i, '')
+      .split('/')[0]
 
-      if (cleanUrl[cleanUrl.length - 1] === '/') {
-        cleanUrl = cleanUrl.slice(0, -1)
-      }
-
-      let tpt = 'https'
-      if (websitUrl.includes('http://') || !https) {
-        tpt = 'http'
-      }
-      let urlBase = cleanUrl.includes('://') ? '' : `://`
-      let blockExt = extension === 'none'
-
-      if (cleanUrl.includes('localhost:')) {
-        blockExt = true
-      }
-
-      const ex =
-        blockExt ||
-        domainList.some((element: any) => cleanUrl.includes(element))
-          ? ''
-          : extension
-
-      okPress(
-        `${tpt}${urlBase}${cleanUrl}${ex}`.trim(),
-        customHeader ? customFields : null
-      )
+    if (cleanUrl[cleanUrl.length - 1] === '/') {
+      cleanUrl = cleanUrl.slice(0, -1)
     }
+
+    let tpt = 'https'
+    if (websitUrl.includes('http://') || !https) {
+      tpt = 'http'
+    }
+    let urlBase = cleanUrl.includes('://') ? '' : `://`
+    let blockExt = extension === 'none'
+
+    if (cleanUrl.includes('localhost:')) {
+      blockExt = true
+    }
+
+    const ex =
+      blockExt || domainList.some((element: any) => cleanUrl.includes(element))
+        ? ''
+        : extension
+
+    const websiteUrl = `${tpt}${urlBase}${cleanUrl}${ex}`.trim()
+    const websiteCustomHeaders = customHeader ? customFields : null
+
+    const params = {
+      url: websiteUrl,
+      customHeaders: websiteCustomHeaders,
+    }
+
+    if (okPress && typeof okPress === 'function') {
+      await okPress(params)
+    } else {
+      await addWebsite(params)
+    }
+
     handleClose()
   }
 
@@ -112,11 +126,11 @@ export function FormDialog({ buttonTitle = 'Add Website', okPress }: any) {
   }
 
   return (
-    <>
+    <Fragment>
       <Button
         variant={'outlined'}
         onClick={handleClickOpen}
-        className={classes.buttonAdjust}
+        className={[classes.buttonAdjust, buttonStyles].join(' ')}
       >
         {buttonTitle}
       </Button>
@@ -150,7 +164,6 @@ export function FormDialog({ buttonTitle = 'Add Website', okPress }: any) {
               inputRef={inputRef}
               color='secondary'
               margin='dense'
-              // pattern='url'
               value={websitUrl}
               id='name'
               placeholder='Url'
@@ -219,6 +232,6 @@ export function FormDialog({ buttonTitle = 'Add Website', okPress }: any) {
           </DialogActions>
         </form>
       </Dialog>
-    </>
+    </Fragment>
   )
 }

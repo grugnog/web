@@ -3,117 +3,74 @@
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
  **/
-import React, { memo, useEffect } from 'react'
+import React, { useEffect } from 'react'
 import dynamic from 'next/dynamic'
-import { Button, Container, Fade } from '@material-ui/core'
+import { Button, Fade } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import {
-  List,
-  MiniPlayer,
   PageTitle,
   LinearBottom,
   Drawer,
+  FormDialog,
 } from '@app/components/general'
-import { Box } from '@a11ywatch/ui'
-import { IssueFeed } from '@app/components/feed'
 import { UserManager } from '@app/managers'
-import {
-  websitesData,
-  useIssueFeed,
-  useDynamicModal,
-  useSearchFilter,
-  useEvents,
-} from '@app/data'
+import { useDynamicModal, useSearchFilter, useEvents } from '@app/data'
 import { filterSort } from '@app/lib'
-import { withApollo } from '@app/apollo'
 import { WithHydrate } from '@app/components/adhoc'
 import { metaSetter } from '@app/utils'
 import type { PageProps } from '@app/types'
 import { setCookie, getCookie } from 'with-cookie'
 import { _ONBOARDED } from '@app/lib/cookies/names'
 import { ModalType } from '@app/data/enums'
+import { useWebsiteContext } from '@app/components/providers/website'
+import { ListSkeleton } from '@app/components/placeholders'
 
-const noSSR = {
+export const noSSR = {
   ssr: false,
 }
 
-const DynamicModal = dynamic(
-  () => import('@app/components/modal').then((mod) => mod.DynamicModal) as any,
-  noSSR
-)
+const List = dynamic(
+  () => import('@app/components/general/list').then((mod) => mod.List) as any,
+  // @ts-ignore
+  { loading: () => (<ListSkeleton />) as any, ssr: false }
+) as any
 
-const UpgradeBanner = dynamic(
-  () =>
-    import('@app/components/general/upgrade-banner').then(
-      (mod) => mod.UpgradeBanner
-    ) as any,
-  noSSR
-)
-
-const FormDialog = dynamic(
-  () =>
-    import('@app/components/general/form-dialog').then(
-      (mod) => mod.FormDialog
-    ) as any,
-  noSSR
-)
-
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   clear: {
     background: 'transparent',
     boxShadow: 'none',
   },
-  sidePanelPadding: {
-    paddingRight: '20vw',
-    [theme.breakpoints.down('md')]: {
-      paddingRight: 0,
-    },
-  },
 }))
-
-const MiniPlayerMemo = memo(MiniPlayer)
 
 const completeOnboarding = () => setCookie(_ONBOARDED, true)
 
 function Dashboard({ name }: PageProps) {
   const classes = useStyles()
+  const { search } = useSearchFilter()
+  const { events, setEvents } = useEvents()
+  const { setModal } = useDynamicModal()
   const {
     data,
     error,
     loading,
     mutatationLoading,
     removeWebsite,
-    addWebsite,
     refetch,
     crawlWebsite,
     subscriptionData,
-  } = websitesData()
-  const { search } = useSearchFilter()
-  const { issueFeed, setIssueFeedContent } = useIssueFeed()
-  const { events, setEvents } = useEvents()
-  const { setModal } = useDynamicModal()
+  } = useWebsiteContext()
+
   const { issueSubData } = subscriptionData
   const MAINDATASOURCE = filterSort(data, search)
-  const userId = UserManager?.getID
 
   const removePress = async (url?: string, deleteMany: boolean = false) => {
     await removeWebsite({
       variables: {
         url,
-        userId,
+        userId: UserManager?.getID,
         deleteMany,
       },
-    }).catch((e) => console.error(e))
-  }
-
-  const addPress = async (url: string, customHeaders?: any) => {
-    await addWebsite({
-      variables: {
-        url,
-        userId,
-        customHeaders,
-      },
-    }).catch((e) => console.error(e))
+    })
   }
 
   useEffect(() => {
@@ -136,66 +93,39 @@ function Dashboard({ name }: PageProps) {
     }
   }, []) // eslint-disable-line
 
-  const blocked = typeof userId === 'number' && isNaN(userId)
-
   return (
     <WithHydrate>
-      <Drawer title={name}>
-        <Container maxWidth={'xl'}>
-          <Box
-            className={
-              issueFeed?.data?.length && issueFeed.open
-                ? classes.sidePanelPadding
-                : ''
-            }
-          >
-            <PageTitle
-              title={'Websites'}
-              rightButton={
-                <Fade in={!!data.length}>
-                  <Button
-                    className={classes.clear}
-                    onClick={() => removePress('', true)}
-                  >
-                    Remove All
-                  </Button>
-                </Fade>
-              }
-            />
-            <List
-              data={MAINDATASOURCE}
-              error={error}
-              loading={loading}
-              mutatationLoading={mutatationLoading}
-              removePress={removePress}
-              addPress={addPress}
-              crawlWebsite={crawlWebsite}
-              refetch={refetch}
-              BottomButton={FormDialog}
-              setModal={setModal}
-              blocked={blocked}
-              emptyHeaderTitle={
-                !blocked ? 'No websites set' : 'Please sign in to continue'
-              }
-              emptyHeaderSubTitle={
-                !blocked
-                  ? 'Add a website to monitor below'
-                  : 'go the the login page to continue'
-              }
-            />
-          </Box>
-        </Container>
-        <MiniPlayerMemo />
-        <IssueFeed
-          setIssueFeedContent={setIssueFeedContent}
-          issueFeed={issueFeed}
+      <Drawer title={name} bottomButton={FormDialog}>
+        <PageTitle
+          title={'Websites'}
+          rightButton={
+            <Fade in={!!data?.length}>
+              <Button
+                className={classes.clear}
+                onClick={async () => await removePress('', true)}
+              >
+                Remove All
+              </Button>
+            </Fade>
+          }
         />
-        <DynamicModal />
-        <UpgradeBanner />
+        <List
+          data={MAINDATASOURCE}
+          error={error}
+          loading={loading}
+          mutatationLoading={mutatationLoading}
+          removePress={removePress}
+          crawlWebsite={crawlWebsite}
+          refetch={refetch}
+          BottomButton={FormDialog}
+          setModal={setModal}
+          emptyHeaderTitle={'No websites set'}
+          emptyHeaderSubTitle={'Add a website to monitor below'}
+        />
       </Drawer>
       <LinearBottom loading={mutatationLoading} />
     </WithHydrate>
   )
 }
 
-export default withApollo(metaSetter({ Dashboard }))
+export default metaSetter({ Dashboard })

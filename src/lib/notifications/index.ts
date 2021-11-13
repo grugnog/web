@@ -4,4 +4,8 @@
  * LICENSE file in the root directory of this source tree.
  **/
 
-export { checkNotification, enableNotifications } from './check-notification'
+export {
+  checkNotification,
+  enableNotifications,
+  sendNotification,
+} from './check-notification'

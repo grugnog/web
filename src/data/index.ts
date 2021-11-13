@@ -4,7 +4,7 @@
  * LICENSE file in the root directory of this source tree.
  **/
 
-export { websitesData } from './websites'
+export { useWebsiteData } from './websites'
 export { websiteData, websiteHtmlData } from './website'
 export { issueData } from './issue'
 export { userData } from './user'

@@ -9,7 +9,11 @@ export { styleInject } from './style-inject'
 export { highlightErrors } from './highlight-errors'
 export { DragHandler } from './drag-handler'
 export { issueSort, filterSort } from './sorts'
-export { checkNotification, enableNotifications } from './notifications'
+export {
+  checkNotification,
+  enableNotifications,
+  sendNotification,
+} from './notifications'
 export { parseCookie } from './cookies'
 export { routeTitle, measureCRP } from './meta'
 export { hasWindow } from './layout'

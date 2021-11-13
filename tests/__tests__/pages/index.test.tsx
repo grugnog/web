@@ -8,6 +8,7 @@ describePage(
   {
     folder: 'index',
     name: 'Web Accessibility Automation',
+    apollo: true,
   },
   () => {
     expect(screen.getByRole('button', { name: 'Sign up' })).toBeInTheDocument()

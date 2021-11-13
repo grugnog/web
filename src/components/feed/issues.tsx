@@ -3,74 +3,73 @@
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
  **/
-import React, { memo } from 'react'
+import React, { memo, FC } from 'react'
 import { Typography, IconButton, Fade } from '@material-ui/core'
 import { Close as CloseIcon } from '@material-ui/icons'
 import { issueSort } from '@app/lib'
-import { issueFeedStyles as useStyles } from '../general/styles'
+import { useStyles } from '../general/styles'
 import { WebsitePrimaryCell } from '../general/cells'
+import { useWebsiteContext } from '../providers/website'
 
-interface IssueFeedProps {
-  setIssueFeedContent?: any
-  issueFeed: {
-    data?: any[]
-    open?: boolean
-  }
-}
-
-function Feed({ setIssueFeedContent, issueFeed }: IssueFeedProps) {
+const Feed: FC = () => {
   const classes = useStyles()
+  const { issueFeed, setIssueFeedContent } = useWebsiteContext()
 
-  return issueFeed?.data?.length && issueFeed.open ? (
-    <Fade in>
-      <div className={classes.root}>
-        <div className={`${classes.row} ${classes.titleContainer}`}>
-          <Typography variant='h6' component='p' className={classes.title}>
-            Recent Issues
-          </Typography>
-          <IconButton
-            edge='start'
-            color='inherit'
-            onClick={setIssueFeedContent(false, false)}
-            aria-label='close'
-          >
-            <CloseIcon />
-          </IconButton>
-        </div>
-        {issueFeed?.data?.map((issue: any, issueIndex: number) => {
-          return (
-            <div key={`${issueIndex} ${issue?.pageUrl} ${issue?.domain}`}>
-              <Typography
-                variant='subtitle1'
-                component='p'
-                className={classes.subTitle}
-              >
-                {issue.pageUrl}
-              </Typography>
-              <div className={classes.list}>
-                {issue?.issues
-                  ?.sort(issueSort)
-                  .map((item: any, listIndex: number) => {
-                    return (
-                      <div key={`${listIndex} ${item?.selector} ${item?.code}`}>
-                        <WebsitePrimaryCell
-                          issuesModal
-                          error
-                          item={item}
-                          listIndex={listIndex}
-                          url={issue?.pageUrl}
-                          listTitleMax
-                        />
-                      </div>
-                    )
-                  })}
+  if (issueFeed?.data?.length && issueFeed?.open) {
+    return (
+      <Fade in>
+        <div className={classes.root}>
+          <div className={`${classes.row} ${classes.titleContainer}`}>
+            <Typography variant='h6' component='p' className={classes.title}>
+              Recent Issues
+            </Typography>
+            <IconButton
+              edge='start'
+              color='inherit'
+              onClick={() => setIssueFeedContent([], false)}
+              aria-label='close'
+            >
+              <CloseIcon />
+            </IconButton>
+          </div>
+          {issueFeed?.data?.map((issue: any, issueIndex: number) => {
+            return (
+              <div key={`${issueIndex} ${issue?.pageUrl} ${issue?.domain}`}>
+                <Typography
+                  variant='subtitle1'
+                  component='p'
+                  className={classes.subTitle}
+                >
+                  {issue.pageUrl}
+                </Typography>
+                <div className={classes.list}>
+                  {issue?.issues
+                    ?.sort(issueSort)
+                    .map((item: any, listIndex: number) => {
+                      return (
+                        <div
+                          key={`${listIndex} ${item?.selector} ${item?.code}`}
+                        >
+                          <WebsitePrimaryCell
+                            issuesModal
+                            error
+                            item={item}
+                            listIndex={listIndex}
+                            url={issue?.pageUrl}
+                            listTitleMax
+                          />
+                        </div>
+                      )
+                    })}
+                </div>
               </div>
-            </div>
-          )
-        })}
-      </div>
-    </Fade>
-  ) : null
+            )
+          })}
+        </div>
+      </Fade>
+    )
+  }
+  return null
 }
 
 export const IssueFeed = memo(Feed)

@@ -13,7 +13,6 @@ import { Box } from '@a11ywatch/ui'
 import { TextSkeleton } from '@app/components/placeholders'
 import { AppManager, UserManager } from '@app/managers'
 import { userData } from '@app/data'
-import { withApollo } from '@app/apollo'
 import { metaSetter } from '@app/utils'
 import type { PageProps } from '@app/types'
 
@@ -69,7 +68,7 @@ const useStyles = makeStyles((theme) => ({
 
 function Api({ name }: PageProps) {
   const classes = useStyles()
-  const { data = {}, loading } = userData(null, { query: UserManager?.token })
+  const { data = {}, loading } = userData()
   const [keyVisible, setKey] = useState<boolean>(false)
   const { user } = data
 
@@ -213,4 +212,4 @@ function Api({ name }: PageProps) {
   )
 }
 
-export default withApollo(metaSetter({ Api }))
+export default metaSetter({ Api })

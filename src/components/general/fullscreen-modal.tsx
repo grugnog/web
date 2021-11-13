@@ -26,7 +26,7 @@ import { useInputHeader } from './hooks'
 import { Link } from './link'
 import { WebsitePrimaryCell } from './cells'
 import { InputHeaders } from './input-headers'
-import { websitesData } from '@app/data'
+import { useWebsiteData } from '@app/data'
 
 const useStyles = makeStyles((theme) => ({
   title: {
@@ -91,8 +91,7 @@ function UpperInput({ data, url }: any) {
     updateFormField,
   } = useInputHeader(data)
 
-  const { updateWebsite } = websitesData(
-    false,
+  const { updateWebsite } = useWebsiteData(
     '',
     url,
     customFields?.map((item: any) => {
@@ -118,8 +117,8 @@ function UpperInput({ data, url }: any) {
       </div>
       <Button
         className={classes.submit}
-        onClick={() =>
-          updateWebsite({
+        onClick={async () =>
+          await updateWebsite({
             variables: { url, customHeaders: customFields, filter: '' },
           })
         }

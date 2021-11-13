@@ -4,19 +4,16 @@
  * LICENSE file in the root directory of this source tree.
  **/
 import React from 'react'
-import { Container } from '@material-ui/core'
 import { PageTitle, Drawer, CollaspeListCdn } from '@app/components/general'
-import { Box } from '@a11ywatch/ui'
 import { ScriptsPageSkeleton } from '@app/components/placeholders'
 import { groupBy, metaSetter } from '@app/utils'
 import { scriptsData, useSearchFilter } from '@app/data'
 import { filterSort } from '@app/lib'
-import { withApollo } from '@app/apollo'
 import { WithHydrate } from '@app/components/adhoc'
 import type { PageProps } from '@app/types'
 
 function Cdn({ name }: PageProps) {
-  const { data, loading } = scriptsData(true)
+  const { data, loading } = scriptsData()
   const { search } = useSearchFilter()
   const dataSource = groupBy('domain')(filterSort(data, search))
   const capsName = String(name).toUpperCase()
@@ -24,21 +21,17 @@ function Cdn({ name }: PageProps) {
   return (
     <WithHydrate>
       <Drawer title={capsName}>
-        <Container maxWidth={'xl'}>
-          <Box>
-            <PageTitle title={capsName} />
-            <ScriptsPageSkeleton
-              dataLength={Object.keys(dataSource)?.length}
-              loading={loading}
-              emptyTitle={'No cdn scripts yet'}
-            >
-              <CollaspeListCdn dataSource={dataSource} />
-            </ScriptsPageSkeleton>
-          </Box>
-        </Container>
+        <PageTitle title={capsName} />
+        <ScriptsPageSkeleton
+          dataLength={Object.keys(dataSource)?.length}
+          loading={loading}
+          emptyTitle={'No cdn scripts yet'}
+        >
+          <CollaspeListCdn dataSource={dataSource} />
+        </ScriptsPageSkeleton>
       </Drawer>
     </WithHydrate>
   )
 }
 
-export default withApollo(metaSetter({ Cdn }))
+export default metaSetter({ Cdn })

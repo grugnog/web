@@ -7,7 +7,6 @@ import React, { Fragment } from 'react'
 import { MarketingDrawer, SignOnForm } from '@app/components/general'
 import { CtaIntro } from '@app/components/cta'
 import { WithSwipeModal as SwipeableTemporaryDrawer } from '@app/components/adhoc'
-import { withApollo } from '@app/apollo'
 import { strings } from '@app-strings'
 import { metaSetter } from '@app/utils'
 import type { PageProps } from '@app/types'
@@ -24,11 +23,9 @@ function WebsiteAccessibilityChecker({ name }: PageProps) {
   )
 }
 
-export default withApollo(
-  metaSetter(
-    { WebsiteAccessibilityChecker },
-    {
-      description: `Increase user experience and brand reputation with ${strings.appName}. Check the accessibility of your webpage today. Key Features: Providing Automated Testing, Providing The Accessibility Tools, And Almost Instant Accessibility Fixes.`,
-    }
-  )
+export default metaSetter(
+  { WebsiteAccessibilityChecker },
+  {
+    description: `Increase user experience and brand reputation with ${strings.appName}. Check the accessibility of your webpage today. Features: Providing Automated Testing, Web Accessibility Tools, and Almost Instant Accessibility Fixes.`,
+  }
 )

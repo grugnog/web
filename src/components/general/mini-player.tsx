@@ -30,7 +30,7 @@ const useStyles = makeStyles((theme: MergedTheme) => ({
     position: 'relative',
   },
   title: {
-    marginLeft: theme.spacing(2),
+    marginLeft: theme?.spacing(2),
     flex: 1,
   },
   miniPlayer: {
@@ -52,7 +52,7 @@ const useStyles = makeStyles((theme: MergedTheme) => ({
   },
   subTitle: {
     maxWidth: '25vw',
-    color: theme.color.indigo,
+    color: theme?.color?.indigo,
   },
 }))
 
@@ -62,9 +62,8 @@ export const MiniPlayer: FunctionComponent<MiniPlayerProps> = (_) => {
   const { miniPlayer, setMiniPlayerContent } = useMiniPlayer()
   const classes = useStyles()
   const appBarRef = useRef(null)
-  const { open, data, title } = miniPlayer
   const handler = new DragHandler(appBarRef?.current)
-  const href = `/website-details?websiteUrl=${encodeURIComponent(data)}`
+  const { open, data, title } = miniPlayer
 
   return (
     <Dialog
@@ -107,7 +106,7 @@ export const MiniPlayer: FunctionComponent<MiniPlayerProps> = (_) => {
               className={classes.subTitle}
               component={Link}
               color={'primary'}
-              href={href}
+              href={`/website-details?websiteUrl=${encodeURIComponent(data)}`}
             >
               {data}
             </Typography>

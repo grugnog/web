@@ -18,14 +18,13 @@ import { GET_USER, updateCache } from '@app/queries'
 import { AppManager, UserManager } from '@app/managers'
 import { EMAIL_VERIFIED_SUBSCRIPTION } from '@app/subscriptions'
 
-export const userData = (_?: any, config: any = { query: true }) => {
+export const userData = () => {
   const variables = {}
-  const { data, loading } =
-    (config.query &&
-      useQuery(GET_USER, {
-        variables,
-      })) ||
-    {}
+  const skip = !UserManager.loggedIn
+  const { data, loading } = useQuery(GET_USER, {
+    variables,
+    skip,
+  })
 
   const [
     updateUser,
@@ -49,23 +48,25 @@ export const userData = (_?: any, config: any = { query: true }) => {
     { data: filterEmailDatesData, loading: filterEmailDatesLoading },
   ] = useMutation(FILTER_EMAIL_DATES)
 
-  const sendConfirmEmail = async () => {
-    await confirmEmail({
-      variables,
-    }).catch((e: any) => {
-      console.log(e)
-    })
-    AppManager.toggleSnack(
-      true,
-      'Please check your email for confirmation link',
-      'success'
-    )
-  }
-
   const { data: emailVerified } = useSubscription(EMAIL_VERIFIED_SUBSCRIPTION, {
     variables: { userId: UserManager.getID },
+    skip,
   })
 
+  const sendConfirmEmail = async () => {
+    try {
+      await confirmEmail({
+        variables,
+      })
+      AppManager.toggleSnack(
+        true,
+        'Please check your email for confirmation link',
+        'success'
+      )
+    } catch (e) {
+      console.error(e)
+    }
+  }
   const onFilterEmailDates = async (dates: number[]) => {
     await filterEmailDates({
       variables: {

@@ -4,7 +4,7 @@
  * LICENSE file in the root directory of this source tree.
  **/
 
-import React, { Fragment } from 'react'
+import React, { Fragment, memo } from 'react'
 import { useRouter } from 'next/router'
 import dynamic from 'next/dynamic'
 
@@ -101,7 +101,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
-const NavBar = ({
+const NavBarComponent = ({
   title = strings.appName,
   backButton,
   marketing,
@@ -172,4 +172,4 @@ const NavBar = ({
   )
 }
 
-export { NavBar }
+export const NavBar = memo(NavBarComponent)

@@ -14,7 +14,6 @@ import {
   CtaSignonForm,
 } from '@app/components/cta'
 import { WithSwipeModal as SwipeableTemporaryDrawer } from '@app/components/adhoc'
-import { withApollo } from '@app/apollo'
 import {
   MarketingShapesTop,
   MarketingTestimonial,
@@ -44,4 +43,4 @@ function Index() {
   )
 }
 
-export default withApollo(Index)
+export default Index
