@@ -55,7 +55,7 @@ function MainDrawerContainer({ route, dataSourceMap, classes }: any) {
     <div className={`${classes.drawer} hide-print ${classes.drawerPaper}`}>
       <AuthedMenu dataSourceMap={dataSourceMap} route={route} />
       <div className={classes.flex} />
-      <div className={'p-4'}>
+      <div className={'xl:visible invisible p-4'}>
         <FormDialog />
       </div>
       <FixedCopyRight sticky />

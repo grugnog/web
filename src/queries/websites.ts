@@ -14,6 +14,7 @@ const GET_WEBSITES = gql`
       id
       websites {
         url
+        id
         domain
         adaScore
         cdnConnected

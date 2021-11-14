@@ -54,25 +54,30 @@ const getStyles = (inactive: boolean) =>
     ? 'ml-0.5 relative w-1/2 border border-transparent rounded-md py-2 text-sm font-medium text-gray-200 whitespace-nowrap focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:z-10 sm:w-auto sm:px-8'
     : 'relative w-1/2 bg-white border-gray-200 rounded-md shadow-sm py-2 text-sm font-medium text-gray-900 whitespace-nowrap focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:z-10 sm:w-auto sm:px-8'
 
+const highLight = (
+  name: string = '',
+  highLightStyles: any,
+  { basic, premium }: any
+) =>
+  (basic && name === 'Basic') || (premium && name === 'Premium')
+    ? highLightStyles
+    : ''
+
 function PriceWrapper({
   basic = false,
   premium = false,
   onClick,
   blockFree,
   navigate,
+  yearly: year,
+  setYearly: setYear,
 }: any) {
   const classes = useStyles()
-  const [yearly, setYearly] = useState<boolean>(false)
+  const [yearState, onSetYear] = useState<boolean>(!!year)
   const Container = !onClick ? 'section' : 'div'
 
-  const highLight = (
-    name: string = '',
-    highLightStyles: any,
-    { basic, premium }: any
-  ) =>
-    (name === 'Basic' && basic) || (name === 'Premium' && premium)
-      ? highLightStyles
-      : ''
+  const setYearly = setYear ? setYear : onSetYear
+  const yearly = setYear ? year : yearState
 
   function MainButton({ title }: { title?: string }) {
     if (navigate) {

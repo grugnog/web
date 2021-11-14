@@ -10,6 +10,7 @@ const GET_WEBSITE = gql`
   query getWebsite($url: String) {
     website(url: $url) {
       url
+      id
       userId
       domain
       adaScore

@@ -99,6 +99,7 @@ function Payments({ hideTitle = false, name }: PaymentProps) {
   const [yearly, setYearly] = useState<boolean>(false)
   const [open, setOpen] = useState<boolean>(false)
   const stripRef = useRef<any>()
+
   const plan = String(router?.query?.plan).toLocaleLowerCase() as string
   const yearSet = String(router?.query?.yearly)
 
@@ -232,8 +233,6 @@ function Payments({ hideTitle = false, name }: PaymentProps) {
                   basic={state.basic || data?.role === 1}
                   premium={state.premium || data?.role === 2}
                   onClick={handleChange}
-                  yearly={yearly}
-                  setYearly={setYearly}
                 />
               ) : (
                 <div>
@@ -272,12 +271,10 @@ function Payments({ hideTitle = false, name }: PaymentProps) {
                     name={state.basic ? 'Basic' : 'Premium'}
                     stripeKey={STRIPE_KEY + ''}
                     email={data?.email || ''}
-                    // @ts-ignore
                     disabled={Boolean(!state.basic && !state.premium)}
                     amount={Number(`${price}${priceMultiplyier}`)}
                     zipCode={false}
                     billingAddress={false}
-                    // @ts-ignore
                     panelLabel={`${state.basic ? 'Basic' : 'Premium'}`}
                   >
                     <Button

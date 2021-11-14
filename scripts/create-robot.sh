@@ -10,6 +10,7 @@ if [[ -n "$DOMAIN_NAME" ]]; then
 	echo "Disallow: /website-details/*" >> public/robots.txt
 	echo "Disallow: /iframe/*" >> public/robots.txt
 	echo "Disallow: /dashboard" >> public/robots.txt
+	echo "Disallow: /alerts" >> public/robots.txt
 	echo "Disallow: /profile" >> public/robots.txt
 	echo "Disallow: /cdn-fix" >> public/robots.txt
 	echo "Disallow: /web-issues" >> public/robots.txt

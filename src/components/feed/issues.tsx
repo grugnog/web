@@ -33,6 +33,8 @@ const Feed: FC = () => {
             </IconButton>
           </div>
           {issueFeed?.data?.map((issue: any, issueIndex: number) => {
+            const issues = issue?.issues?.sort(issueSort)
+
             return (
               <div key={`${issueIndex} ${issue?.pageUrl} ${issue?.domain}`}>
                 <Typography
@@ -43,24 +45,22 @@ const Feed: FC = () => {
                   {issue.pageUrl}
                 </Typography>
                 <div className={classes.list}>
-                  {issue?.issues
-                    ?.sort(issueSort)
-                    .map((item: any, listIndex: number) => {
-                      return (
-                        <div
-                          key={`${listIndex} ${item?.selector} ${item?.code}`}
-                        >
-                          <WebsitePrimaryCell
-                            issuesModal
-                            error
-                            item={item}
-                            listIndex={listIndex}
-                            url={issue?.pageUrl}
-                            listTitleMax
-                          />
-                        </div>
-                      )
-                    })}
+                  {issues.map((item: any, listIndex: number) => {
+                    return (
+                      <div
+                        key={`${item?.selector} ${item?.code} ${listIndex} `}
+                      >
+                        <WebsitePrimaryCell
+                          issuesModal
+                          error
+                          item={item}
+                          listIndex={listIndex}
+                          url={issue?.pageUrl}
+                          listTitleMax
+                        />
+                      </div>
+                    )
+                  })}
                 </div>
               </div>
             )

@@ -201,7 +201,7 @@ export function WebsitePrimaryCell({
     <Fragment>
       <ListItem divider {...extraProps}>
         <RenderAvatar {...item} error={error} />
-        <div>
+        <div className={'flex flex-1'}>
           <ListItemText
             primary={mainUrl || item?.selector}
             primaryTypographyProps={{
