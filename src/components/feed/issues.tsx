@@ -47,9 +47,7 @@ const Feed: FC = () => {
                 <div className={classes.list}>
                   {issues.map((item: any, listIndex: number) => {
                     return (
-                      <div
-                        key={`${item?.selector} ${item?.code} ${listIndex} `}
-                      >
+                      <div key={`${item?.selector} ${item?.code} ${listIndex}`}>
                         <WebsitePrimaryCell
                           issuesModal
                           error

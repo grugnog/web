@@ -4,48 +4,30 @@
  * LICENSE file in the root directory of this source tree.
  **/
 import React, { Fragment, memo } from 'react'
-import { userData } from '@app/data'
 import dynamic from 'next/dynamic'
+import { Box } from '@a11ywatch/ui'
+import { Container } from '@material-ui/core'
+import { userData } from '@app/data'
 import { drawerStyles } from '@app/styles/drawer'
 import { NavBarTitle, AuthedMenu } from './navigation'
 import { SearchBar } from './searchbar'
 import { NavBar } from './navbar'
 import { FixedCopyRight } from './fixed-copy-right'
 import { ConfirmEmail } from '../alerts'
-import { Container } from '@material-ui/core'
-import { Box } from '@a11ywatch/ui'
 import { useWebsiteContext } from '../providers/website'
 import { IssueFeed } from '../feed'
+import { FormDialog } from './form-dialog'
+import { DynamicModal } from '../modal'
+import { MiniPlayer } from './mini-player'
 
 const noSSR = {
   ssr: false,
 }
 
-const DynamicModal = dynamic(
-  () => import('@app/components/modal').then((mod) => mod.DynamicModal) as any,
-  noSSR
-)
-
 const UpgradeBanner = dynamic(
   () =>
     import('@app/components/general/upgrade-banner').then(
       (mod) => mod.UpgradeBanner
-    ) as any,
-  noSSR
-)
-
-const FormDialog = dynamic(
-  () =>
-    import('@app/components/general/form-dialog').then(
-      (mod) => mod.FormDialog
-    ) as any,
-  noSSR
-)
-
-const MiniPlayer = dynamic(
-  () =>
-    import('@app/components/general/mini-player').then(
-      (mod) => mod.MiniPlayer
     ) as any,
   noSSR
 )

@@ -29,9 +29,11 @@ export const noSSR = {
   ssr: false,
 }
 
-const List = dynamic(
-  () => import('@app/components/general/list').then((mod) => mod.List) as any,
-  // @ts-ignore
+const WebsiteList = dynamic(
+  () =>
+    import('@app/components/general/website-list').then(
+      (mod) => mod.WebsiteList
+    ) as any,
   { loading: () => (<ListSkeleton />) as any, ssr: false }
 ) as any
 
@@ -109,7 +111,7 @@ function Dashboard({ name }: PageProps) {
             </Fade>
           }
         />
-        <List
+        <WebsiteList
           data={MAINDATASOURCE}
           error={error}
           loading={loading}

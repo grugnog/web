@@ -65,7 +65,7 @@ const defaultModalState = {
   error: '',
 }
 
-export function List({
+export function WebsiteList({
   data,
   error,
   loading,
