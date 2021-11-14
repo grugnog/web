@@ -3,7 +3,7 @@
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
  **/
-import React, { Fragment, memo } from 'react'
+import React, { Fragment, memo, useState } from 'react'
 import { Typography, Grid, Button, Paper } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import { Ribbon } from '@app/components/general'
@@ -60,10 +60,9 @@ function PriceWrapper({
   onClick,
   blockFree,
   navigate,
-  yearly,
-  setYearly,
 }: any) {
   const classes = useStyles()
+  const [yearly, setYearly] = useState<boolean>(false)
   const Container = !onClick ? 'section' : 'div'
 
   const highLight = (

@@ -3,7 +3,7 @@
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
  **/
-import React, { useState } from 'react'
+import React from 'react'
 import { Typography } from '@material-ui/core'
 import {
   MarketingDrawer,
@@ -13,10 +13,9 @@ import {
 } from '@app/components/general'
 import { Box } from '@a11ywatch/ui'
 import { metaSetter } from '@app/utils'
+import type { PageProps } from '@app/types'
 
-function Pricing({ name }: { name: string }) {
-  const [yearly, setYearly] = useState<boolean>(false)
-
+function Pricing({ name }: PageProps) {
   return (
     <MarketingDrawer title={name} maxWidth={'xl'}>
       <Box>
@@ -24,7 +23,7 @@ function Pricing({ name }: { name: string }) {
         <Typography component='h2' gutterBottom>
           Choose a plan that best fits your needs
         </Typography>
-        <Price navigate blockFree yearly={yearly} setYearly={setYearly} />
+        <Price navigate blockFree />
         <SignOnForm home />
       </Box>
     </MarketingDrawer>

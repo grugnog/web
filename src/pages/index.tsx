@@ -3,7 +3,7 @@
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
  **/
-import React, { Fragment, useState } from 'react'
+import React, { Fragment } from 'react'
 import { MarketingDrawer, Price } from '@app/components/general'
 import {
   CtaFeatures,
@@ -21,9 +21,6 @@ import {
 } from '@app/components/marketing'
 
 function Index() {
-  // TODO: MOVE TO PRICE COMPONENT
-  const [yearly, setYearly] = useState<boolean>(false)
-
   return (
     <Fragment>
       <MarketingDrawer navPosition={'relative'} maxWidth={'xl'}>
@@ -35,7 +32,7 @@ function Index() {
         <CtaSearch />
         <MarketingTestimonial />
         <MarketingTrustBy />
-        <Price blockFree navigate setYearly={setYearly} yearly={yearly} />
+        <Price blockFree navigate />
         <CtaSignonForm />
       </MarketingDrawer>
       <SwipeableTemporaryDrawer />
