@@ -6,7 +6,6 @@
 import React, { useEffect } from 'react'
 import dynamic from 'next/dynamic'
 import { Button, Fade } from '@material-ui/core'
-import { makeStyles } from '@material-ui/core/styles'
 import {
   PageTitle,
   LinearBottom,
@@ -37,17 +36,9 @@ const WebsiteList = dynamic(
   { loading: () => (<ListSkeleton />) as any, ssr: false }
 ) as any
 
-const useStyles = makeStyles(() => ({
-  clear: {
-    background: 'transparent',
-    boxShadow: 'none',
-  },
-}))
-
 const completeOnboarding = () => setCookie(_ONBOARDED, true)
 
 function Dashboard({ name }: PageProps) {
-  const classes = useStyles()
   const { search } = useSearchFilter()
   const { events, setEvents } = useEvents()
   const { setModal } = useDynamicModal()
@@ -97,18 +88,35 @@ function Dashboard({ name }: PageProps) {
 
   return (
     <WithHydrate>
-      <Drawer title={name} bottomButton={FormDialog}>
+      <Drawer title={name}>
         <PageTitle
           title={'Websites'}
           rightButton={
-            <Fade in={!!data?.length}>
-              <Button
-                className={classes.clear}
-                onClick={async () => await removePress('', true)}
-              >
-                Remove All
-              </Button>
-            </Fade>
+            <div className={'flex space-x-2'}>
+              <Fade in={!!data?.length}>
+                <Button
+                  onClick={async () => {
+                    if (
+                      window.confirm(
+                        'Are you sure you want to remove all websites?'
+                      )
+                    ) {
+                      await removePress('', true).catch((e: any) => {
+                        console.error(e)
+                      })
+                    }
+                  }}
+                  variant={'outlined'}
+                  color={'primary'}
+                  aria-label={'Remove all websites'}
+                >
+                  Remove All
+                </Button>
+              </Fade>
+              <FormDialog
+                buttonTitle={MAINDATASOURCE?.length ? undefined : 'Lets start!'}
+              />
+            </div>
           }
         />
         <WebsiteList
@@ -119,7 +127,6 @@ function Dashboard({ name }: PageProps) {
           removePress={removePress}
           crawlWebsite={crawlWebsite}
           refetch={refetch}
-          BottomButton={FormDialog}
           setModal={setModal}
           emptyHeaderTitle={'No websites set'}
           emptyHeaderSubTitle={'Add a website to monitor below'}

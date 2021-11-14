@@ -20,16 +20,14 @@ import { FormDialog } from './form-dialog'
 import { DynamicModal } from '../modal'
 import { MiniPlayer } from './mini-player'
 
-const noSSR = {
-  ssr: false,
-}
-
 const UpgradeBanner = dynamic(
   () =>
     import('@app/components/general/upgrade-banner').then(
       (mod) => mod.UpgradeBanner
     ) as any,
-  noSSR
+  {
+    ssr: false,
+  }
 )
 
 function MainDrawerContainer({ route, dataSourceMap, classes }: any) {
@@ -37,7 +35,9 @@ function MainDrawerContainer({ route, dataSourceMap, classes }: any) {
     <div className={`${classes.drawer} hide-print ${classes.drawerPaper}`}>
       <AuthedMenu dataSourceMap={dataSourceMap} route={route} />
       <div className={classes.flex} />
-      <div className={'xl:visible invisible p-4'}>
+      <div
+        className={'xl:visible invisible p-4 place-items-center flex-col flex'}
+      >
         <FormDialog />
       </div>
       <FixedCopyRight sticky />
@@ -86,9 +86,6 @@ export function DrawerComponent({
 
   const user = dataSourceMap?.user as any
 
-  const sidePanelSpaceStyles =
-    issueFeed?.data?.length && issueFeed.open ? classes.sidePanelPadding : ''
-
   return (
     <div className={classes.root}>
       <DrawerWrapper
@@ -100,14 +97,21 @@ export function DrawerComponent({
         dataSourceMap={dataSourceMap}
       />
       <main className={classes.content}>
-        {user?.loggedIn && !user?.emailConfirmed ? (
-          <div className={sidePanelSpaceStyles}>
-            <ConfirmEmail sendEmail={sendConfirmEmail} />
-          </div>
-        ) : null}
         <Container maxWidth={'xl'}>
-          <Box className={sidePanelSpaceStyles}>{children}</Box>
+          <Box
+            className={
+              issueFeed?.data?.length && issueFeed.open
+                ? classes.sidePanelPadding
+                : ''
+            }
+          >
+            {children}
+          </Box>
         </Container>
+        <ConfirmEmail
+          sendEmail={sendConfirmEmail}
+          visible={user?.loggedIn && !user?.emailConfirmed}
+        />
         <IssueFeed />
         <MiniPlayer />
         <DynamicModal />

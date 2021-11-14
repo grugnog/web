@@ -59,16 +59,12 @@ export const formDialogStyles = makeStyles((theme: MergedTheme) => ({
     },
   },
   buttonAdjust: {
-    marginTop: 16,
-    minWidth: 200,
-    paddingTop: 6,
-    paddingBottom: 6,
+    padding: theme.spacing(1),
+    paddingRight: theme.spacing(2),
+    paddingLeft: theme.spacing(2),
     '&:hover': {
       background: '#fff',
       color: theme?.color?.primary,
-    },
-    [theme.breakpoints.down('md')]: {
-      minWidth: 180,
     },
     [theme.breakpoints.down('sm')]: {
       minWidth: '96.5%',

@@ -93,7 +93,9 @@ export const useWebsiteData = (
           `Insight found on ${newIssue?.pageUrl}`,
           'success'
         )
-        setIssueFeedContent(dataSource.issues, true)
+        if (dataSource) {
+          setIssueFeedContent(dataSource.issues, true)
+        }
         sendNotification(newIssue?.pageUrl || '', newIssue?.issues?.length || 0)
       }
     },
@@ -207,12 +209,16 @@ export const useWebsiteData = (
         'Checking all pages for issues, please wait...',
         'success'
       )
-      await addWebsiteMutation({
-        variables: {
-          userId: UserManager?.getID,
-          ...variables,
-        },
-      })
+      try {
+        await addWebsiteMutation({
+          variables: {
+            userId: UserManager?.getID,
+            ...variables,
+          },
+        })
+      } catch (e) {
+        console.error(e)
+      }
     },
     [addWebsiteMutation]
   )

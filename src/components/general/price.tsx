@@ -76,8 +76,14 @@ function PriceWrapper({
   const [yearState, onSetYear] = useState<boolean>(!!year)
   const Container = !onClick ? 'section' : 'div'
 
-  const setYearly = setYear ? setYear : onSetYear
-  const yearly = setYear ? year : yearState
+  const setYearly = (params: any) => {
+    if (typeof setYear === 'function') {
+      setYear(params)
+    }
+    onSetYear(params)
+  }
+
+  const yearly = yearState
 
   function MainButton({ title }: { title?: string }) {
     if (navigate) {

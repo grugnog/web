@@ -3,6 +3,7 @@
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
  **/
+import { Children } from 'react'
 import Document, {
   Html,
   Head,
@@ -13,11 +14,21 @@ import Document, {
 import { ServerStyleSheets } from '@material-ui/core/styles'
 import { userModel, initAppModel } from '@app/data'
 import { AppRegistry } from 'react-native'
-import config from '../../app.json'
+import appConfig from '../../app.json'
+
+const normalizeNextElements = `
+  body > div:first-child,
+  #__next {
+    height: 100%;
+  }
+  input, textarea {
+    outline: none;
+  }
+`
 
 class MyDocument extends Document {
   static async getInitialProps(ctx: DocumentContext) {
-    AppRegistry.registerComponent(config.name, () => Main)
+    AppRegistry.registerComponent(appConfig.name, () => Main)
 
     const sheets = new ServerStyleSheets()
     const originalRenderPage = ctx.renderPage
@@ -37,14 +48,25 @@ class MyDocument extends Document {
       })
 
     const { styles, ...initialProps } = await Document.getInitialProps(ctx)
+    // @ts-ignore
+    const { getStyleElement } = AppRegistry.getApplication(appConfig.name, {
+      initialProps,
+    })
+
+    const stylesSheet = (
+      <>
+        <style
+          key={0}
+          dangerouslySetInnerHTML={{ __html: normalizeNextElements }}
+        />
+        {Children.toArray(getStyleElement())}
+        {styles}
+        {sheets.getStyleElement()}
+      </>
+    )
 
     return Object.assign({}, initialProps, {
-      styles: (
-        <>
-          {styles}
-          {sheets.getStyleElement()}
-        </>
-      ),
+      styles: stylesSheet,
     })
   }
 

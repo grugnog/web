@@ -3,19 +3,21 @@
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
  **/
-import React, { FC, useState, useEffect, useCallback } from 'react'
-import { List as MUList, Grid, Card, CardHeader } from '@material-ui/core'
+import React, { Fragment, FC, useState, useEffect, useCallback } from 'react'
+import { List as MUList, CardHeader } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 
 import { useMiniPlayer } from '@app/data'
 import { ListSkeleton } from '../placeholders'
 import { FullScreenModal } from './fullscreen-modal'
-import { WebsiteCell as RenderWebsite, IssuesCell } from './cells'
+import { WebsiteCellDashboard as RenderWebsite } from './cells'
 
 const useStyles = makeStyles(() => ({
-  root: {
+  center: {
     flexGrow: 1,
-    overflow: 'visible',
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
   },
   empty: {
     minHeight: 88,
@@ -28,17 +30,14 @@ function WebSites({
   handleClickOpen,
   refetch,
   handleClickOpenPlayer,
-  errorPage,
   crawlWebsite,
   setModal,
   mutatationLoading,
   loading,
 }: any) {
-  const source = errorPage ? data?.issues : data
-  const WebComponent = errorPage ? IssuesCell : RenderWebsite
-  return source?.map(
+  return data?.map(
     ({ url, id, pageHeaders, pageUrl, ...domainProps }: any, index: number) => (
-      <WebComponent
+      <RenderWebsite
         handleClickOpen={handleClickOpen}
         url={url || pageUrl}
         key={`${id} ${url} ${pageUrl} ${index}`}
@@ -69,24 +68,17 @@ export function WebsiteList({
   data,
   error,
   loading,
-  addPress,
   removePress,
-  BottomButton,
   emptyHeaderTitle = 'Empty',
   emptyHeaderSubTitle = 'Add your website below',
   refetch,
-  errorPage,
-  history,
   crawlWebsite,
   setModal,
   mutatationLoading,
-  blocked,
 }: any) {
   const classes = useStyles()
   const [modal, setOpen] = useState(defaultModalState)
   const { miniPlayer, setMiniPlayerContent } = useMiniPlayer()
-
-  const findIssues = data?.some((source: any) => source?.issues?.length)
 
   const handleClickOpen = useCallback(
     (data: any, title: any, url: any, error: any) => {
@@ -120,35 +112,21 @@ export function WebsiteList({
       )
     }
 
-    const generalProps = {
-      handleClickOpen,
-      handleClickOpenPlayer: setMiniPlayerContent,
-      removePress,
-      refetch,
-      errorPage,
-      history,
-      crawlWebsite,
-      setModal,
-      mutatationLoading: mutatationLoading,
-    }
-
-    if (
-      (errorPage && data?.length && findIssues) ||
-      (data?.length && !errorPage)
-    ) {
+    if (data?.length) {
       return (
         <MUList>
-          {!errorPage ? (
-            <WebSites data={data} {...generalProps} />
-          ) : (
-            data.map((page: any, i: number) => (
-              <WebSites
-                data={page}
-                key={`${page.pageUrl} ${i}`}
-                {...generalProps}
-              />
-            ))
-          )}
+          <WebSites
+            data={data}
+            {...{
+              handleClickOpen,
+              handleClickOpenPlayer: setMiniPlayerContent,
+              removePress,
+              refetch,
+              crawlWebsite,
+              setModal,
+              mutatationLoading: mutatationLoading,
+            }}
+          />
         </MUList>
       )
     }
@@ -163,20 +141,8 @@ export function WebsiteList({
   }
 
   return (
-    <div className={classes.root}>
-      <Grid container spacing={2} justify='center'>
-        <Grid item xs={12} md={12}>
-          <Card>
-            <RenderInner />
-          </Card>
-        </Grid>
-        {errorPage || history || blocked ? null : (
-          <BottomButton
-            buttonTitle={data?.length ? undefined : 'Lets start!'}
-            okPress={addPress}
-          />
-        )}
-      </Grid>
+    <Fragment>
+      <RenderInner />
       <FullScreenModal
         {...modal}
         handleClose={handleClose}
@@ -184,6 +150,6 @@ export function WebsiteList({
         refetch={refetch}
         handleClickOpenPlayer={setMiniPlayerContent}
       />
-    </div>
+    </Fragment>
   )
 }

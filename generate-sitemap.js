@@ -21,7 +21,7 @@ module.exports = {
         'urgent-issues',
         'website-details',
         'profile',
-        'api/iframe',
+        'api',
         '404',
       ],
       pagesDirectory: __dirname + '/src/' + '/pages',

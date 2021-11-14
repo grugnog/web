@@ -189,6 +189,7 @@ function Payments({ hideTitle = false, name }: PaymentProps) {
   }
 
   const renderPayMentBoxes = data?.role === 0 && !data.activeSubscription
+
   const paymentSubscription = data?.paymentSubscription
   const nextPaymentDay =
     paymentSubscription?.current_period_end &&
@@ -233,6 +234,8 @@ function Payments({ hideTitle = false, name }: PaymentProps) {
                   basic={state.basic || data?.role === 1}
                   premium={state.premium || data?.role === 2}
                   onClick={handleChange}
+                  setYearly={setYearly}
+                  yearly={yearly}
                 />
               ) : (
                 <div>

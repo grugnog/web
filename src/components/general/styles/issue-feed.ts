@@ -20,6 +20,7 @@ export const useStyles = makeStyles(
         width: '20vw',
         minWidth: 260,
         borderLeft: `1px solid ${color?.border || '#ccc'}`,
+        borderTop: `1px solid ${color?.border || '#ccc'}`,
         backgroundColor: palette.background.default,
         overflowY: 'scroll',
         zIndex: 2,

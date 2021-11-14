@@ -63,6 +63,7 @@
     "react-syntax-highlighter": "12.2.1",
     "react-visibility-sensor": "^5.1.1",
     "subscriptions-transport-ws": "0.9.16",
+    "tailwind-rn": "^3.0.1",
     "use-scroll-event": "0.0.19",
     "victory": "34.0.0",
     "with-cookie": "1.2.2"
