@@ -66,9 +66,6 @@ export const formDialogStyles = makeStyles((theme: MergedTheme) => ({
       background: '#fff',
       color: theme?.color?.primary,
     },
-    [theme.breakpoints.down('sm')]: {
-      minWidth: '96.5%',
-    },
   },
   formControl: {
     marginLeft: 4,
