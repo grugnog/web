@@ -13,12 +13,6 @@ import { FullScreenModal } from './fullscreen-modal'
 import { WebsiteCellDashboard as RenderWebsite } from './cells'
 
 const useStyles = makeStyles(() => ({
-  center: {
-    flexGrow: 1,
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-  },
   empty: {
     minHeight: 88,
   },
@@ -97,7 +91,6 @@ export function WebsiteList({
     }
   }, [miniPlayer, handleClose])
 
-  // TODO: MOVE OUTSIDE COMPONENT
   const RenderInner: FC = () => {
     if (!data?.length && loading) {
       return <ListSkeleton />
