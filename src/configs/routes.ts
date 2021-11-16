@@ -109,6 +109,12 @@ export const Routes = [
     type: 'explore',
   },
   {
+    nav: false,
+    href: 'https://a11ywatch.statuspage.io',
+    name: 'Status',
+    type: 'resources',
+  },
+  {
     nav: true,
     href: '/login',
     name: 'Login',

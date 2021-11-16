@@ -4,7 +4,7 @@
  * LICENSE file in the root directory of this source tree.
  **/
 
-import React, { useState } from 'react'
+import React, { useState, FC } from 'react'
 import {
   ListItemSecondaryAction,
   ListItemText,
@@ -46,6 +46,16 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
 })
+
+const InfoBlock: FC<{ title: string }> = ({ children, title }) => {
+  return (
+    <View style={styles.infoContainer}>
+      <Text style={[styles.text, tailwind('font-bold')]}>{title}</Text>
+      <View style={styles.spacing} />
+      {children}
+    </View>
+  )
+}
 
 export function WebsiteCellDashboard({
   url,
@@ -126,36 +136,30 @@ export function WebsiteCellDashboard({
       <View style={styles.spacing} />
 
       <View style={[styles.row, tailwind('flex-wrap')]}>
-        <View style={styles.infoContainer}>
-          <Text style={[styles.text, tailwind('font-bold')]}>
-            Accessibility Score
-          </Text>
-          <View style={styles.spacing} />
+        <InfoBlock title={'Accessibility Score'}>
           <RenderAvatar
             cdnConnected={cdnConnected}
             adaScore={adaScore}
             error={false}
           />
-        </View>
+        </InfoBlock>
 
-        <View style={styles.infoContainer}>
-          <Text style={[styles.text, tailwind('font-bold')]}>
-            CDN Connected
-          </Text>
-          <View style={styles.spacing} />
+        <InfoBlock title={'CDN Connected'}>
           <Text style={styles.text}>{cdnConnected ? 'Yes' : 'No'}</Text>
-        </View>
+        </InfoBlock>
 
-        <View style={styles.infoContainer}>
-          <Text style={[styles.text, tailwind('font-bold')]}>Page Speed</Text>
-          <View style={styles.spacing} />
+        <InfoBlock title={'Pages'}>
+          <Text style={styles.text}>{subDomains?.length}</Text>
+        </InfoBlock>
+
+        <InfoBlock title={'Page Speed'}>
           <Text style={styles.text}>
             {pageLoadTime?.durationFormated} at{' '}
             <Text style={{ color: pageLoadTime?.color }}>
               {pageLoadTime?.duration}ms
             </Text>
           </Text>
-        </View>
+        </InfoBlock>
       </View>
 
       <div className={'flex flex-col w-full place-items-center py-2 my-2'}>
