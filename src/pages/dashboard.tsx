@@ -57,13 +57,17 @@ function Dashboard({ name }: PageProps) {
   const MAINDATASOURCE = filterSort(data, search)
 
   const removePress = async (url?: string, deleteMany: boolean = false) => {
-    await removeWebsite({
-      variables: {
-        url,
-        userId: UserManager?.getID,
-        deleteMany,
-      },
-    })
+    try {
+      await removeWebsite({
+        variables: {
+          url,
+          userId: UserManager?.getID,
+          deleteMany,
+        },
+      })
+    } catch (e) {
+      console.error(e)
+    }
   }
 
   useEffect(() => {
@@ -113,9 +117,9 @@ function Dashboard({ name }: PageProps) {
                   Remove All
                 </Button>
               </Fade>
-              <FormDialog
-                buttonTitle={MAINDATASOURCE?.length ? undefined : 'Lets start!'}
-              />
+              {MAINDATASOURCE?.length ? (
+                <FormDialog buttonTitle={'Subscribe more'} />
+              ) : null}
             </div>
           }
         />

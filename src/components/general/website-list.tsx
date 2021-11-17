@@ -11,6 +11,7 @@ import { useMiniPlayer } from '@app/data'
 import { ListSkeleton } from '../placeholders'
 import { FullScreenModal } from './fullscreen-modal'
 import { WebsiteCellDashboard as RenderWebsite } from './cells'
+import { FormDialog } from '.'
 
 const useStyles = makeStyles(() => ({
   empty: {
@@ -125,11 +126,18 @@ export function WebsiteList({
     }
 
     return (
-      <CardHeader
-        title={emptyHeaderTitle}
-        subheader={emptyHeaderSubTitle}
-        className={classes.empty}
-      />
+      <div
+        className={
+          'flex flex-col w-full place-items-center py-10 my-2 text-center'
+        }
+      >
+        <CardHeader
+          title={emptyHeaderTitle}
+          subheader={emptyHeaderSubTitle}
+          className={classes.empty}
+        />
+        <FormDialog />
+      </div>
     )
   }
 

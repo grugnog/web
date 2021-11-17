@@ -78,17 +78,16 @@ export function MoreOptions({
         {typeof crawlWebsite !== 'undefined' ? (
           <MenuItem
             onClick={async () => {
-              await crawlWebsite({
-                variables: {
-                  url,
-                },
-              }).catch(logGraphErrors)
-              handleClose()
               AppManager.toggleSnack(
                 true,
                 'Scan in progress, if new issues occur you will be alerted',
                 'success'
               )
+              await crawlWebsite({
+                variables: {
+                  url,
+                },
+              }).catch(logGraphErrors)
             }}
           >
             Scan

@@ -153,12 +153,16 @@ export function WebsiteCellDashboard({
         </InfoBlock>
 
         <InfoBlock title={'Page Speed'}>
-          <Text style={styles.text}>
-            {pageLoadTime?.durationFormated} at{' '}
-            <Text style={{ color: pageLoadTime?.color }}>
-              {pageLoadTime?.duration}ms
+          {pageLoadTime?.durationFormated ? (
+            <Text style={styles.text}>
+              {pageLoadTime?.durationFormated} at{' '}
+              <Text style={{ color: pageLoadTime?.color }}>
+                {pageLoadTime?.duration}ms
+              </Text>
             </Text>
-          </Text>
+          ) : (
+            <Text style={styles.text}>0ms</Text>
+          )}
         </InfoBlock>
       </View>
 
