@@ -20,6 +20,11 @@ const GET_WEBSITES = gql`
         cdnConnected
         htmlIncluded
         lastScanDate
+        script {
+          id
+          cdnUrl
+          cdnUrlMinified
+        }
         issuesInfo {
           issuesFixedByCdn
           possibleIssuesFixedByCdn

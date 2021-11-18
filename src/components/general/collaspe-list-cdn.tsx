@@ -136,7 +136,7 @@ export function CollaspeListCdn({ dataSource }: any) {
                       <div className={`${classes.flex} ${classes.row}`}>
                         <div className={`${classes.flex} ${classes.space}`}>
                           <SyntaxHighlighter
-                            language='javascript'
+                            language='html'
                             style={a11yDark}
                             className={`${classes.codeContainer} ${classes.adjust}`}
                           >
@@ -146,7 +146,7 @@ export function CollaspeListCdn({ dataSource }: any) {
                             MINIFIED
                           </Typography>
                           <SyntaxHighlighter
-                            language='javascript'
+                            language='html'
                             style={a11yDark}
                             className={`${classes.codeContainer} ${classes.bottomCdn}`}
                           >

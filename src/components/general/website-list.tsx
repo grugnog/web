@@ -10,7 +10,7 @@ import { makeStyles } from '@material-ui/core/styles'
 import { useMiniPlayer } from '@app/data'
 import { ListSkeleton } from '../placeholders'
 import { FullScreenModal } from './fullscreen-modal'
-import { WebsiteCellDashboard as RenderWebsite } from './cells'
+import { WebsiteCellDashboard } from './cells'
 import { FormDialog } from '.'
 
 const useStyles = makeStyles(() => ({
@@ -31,8 +31,8 @@ function WebSites({
   loading,
 }: any) {
   return data?.map(
-    ({ url, id, pageHeaders, pageUrl, ...domainProps }: any, index: number) => (
-      <RenderWebsite
+    ({ url, id, pageHeaders, pageUrl, ...props }: any, index: number) => (
+      <WebsiteCellDashboard
         handleClickOpen={handleClickOpen}
         url={url || pageUrl}
         key={`${id} ${url} ${pageUrl} ${index}`}
@@ -45,7 +45,7 @@ function WebSites({
         mutatationLoading={mutatationLoading}
         pageHeaders={pageHeaders}
         index={index}
-        {...domainProps}
+        {...props}
       />
     )
   )

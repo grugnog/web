@@ -28,7 +28,12 @@ export { SearchBar } from './searchbar'
 export { Pulse, LinearBottom } from './loaders'
 export { AuthMenu } from './auth-menu'
 export { Spacer } from './spacer'
-export { RenderSecondary, ProfileCell } from './cells'
+export {
+  RenderSecondary,
+  ProfileCell,
+  WebsiteSecondary,
+  WebsiteIssuesCell,
+} from './cells'
 export { ErrorBoundary } from './error-boundary'
 export { CollaspeList } from './collaspe-list'
 export { CollaspeListCdn } from './collaspe-list-cdn'
