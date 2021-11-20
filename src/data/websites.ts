@@ -4,7 +4,7 @@
  * LICENSE file in the root directory of this source tree.
  **/
 
-import { useEffect, useCallback } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { useQuery, useMutation, useSubscription } from '@apollo/react-hooks'
 import {
   ADD_WEBSITE,
@@ -34,7 +34,7 @@ export const useWebsiteData = (
     url,
   }
   const skip = !UserManager.loggedIn
-
+  const [modalOpen, setOpen] = useState<boolean>(false)
   const { issueFeed, setIssueFeedContent } = useIssueFeed()
   const { data, loading, refetch, error } = useQuery(GET_WEBSITES, {
     variables,
@@ -143,6 +143,7 @@ export const useWebsiteData = (
         pageLoadTime,
         lastScanDate,
         issuesInfo,
+        script,
       } = websiteUpdated?.websiteAdded
       const dataSource = websites.find(
         (source: any) => source.domain === domain
@@ -151,6 +152,9 @@ export const useWebsiteData = (
       if (dataSource) {
         if (adaScore) {
           dataSource.adaScore = adaScore
+        }
+        if (script) {
+          dataSource.script = script
         }
         if (lastScanDate) {
           dataSource.lastScanDate = lastScanDate
@@ -210,7 +214,7 @@ export const useWebsiteData = (
         'success'
       )
       try {
-        await addWebsiteMutation({
+        return await addWebsiteMutation({
           variables: {
             userId: UserManager?.getID,
             ...variables,
@@ -223,6 +227,28 @@ export const useWebsiteData = (
     [addWebsiteMutation]
   )
 
+  const removePress = async (url?: string, deleteMany: boolean = false) => {
+    try {
+      await removeWebsite({
+        variables: {
+          url,
+          userId: UserManager?.getID,
+          deleteMany,
+        },
+      })
+    } catch (e) {
+      console.error(e)
+    }
+  }
+
+  const handleClickOpen = () => {
+    setOpen(true)
+  }
+
+  const handleClickClose = () => {
+    setOpen(false)
+  }
+
   return {
     subscriptionData: {
       issueSubData,
@@ -231,12 +257,16 @@ export const useWebsiteData = (
     loading,
     mutatationLoading: removeLoading || addLoading || crawlLoading,
     error,
+    issueFeed,
     removeWebsite,
     addWebsite,
     refetch,
     crawlWebsite,
     updateWebsite,
     setIssueFeedContent,
-    issueFeed,
+    removePress,
+    handleClickOpen,
+    handleClickClose,
+    modalOpen,
   }
 }

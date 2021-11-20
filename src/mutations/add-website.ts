@@ -13,6 +13,10 @@ export const ADD_WEBSITE = gql`
         html
         htmlIncluded
         lastScanDate
+        script {
+          script
+          cdnUrl
+        }
         pageLoadTime {
           duration
           durationFormated

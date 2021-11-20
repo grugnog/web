@@ -12,7 +12,6 @@ import {
   Drawer,
   FormDialog,
 } from '@app/components/general'
-import { UserManager } from '@app/managers'
 import { useDynamicModal, useSearchFilter, useEvents } from '@app/data'
 import { filterSort } from '@app/lib'
 import { WithHydrate } from '@app/components/adhoc'
@@ -47,28 +46,15 @@ function Dashboard({ name }: PageProps) {
     error,
     loading,
     mutatationLoading,
-    removeWebsite,
+    removePress,
     refetch,
     crawlWebsite,
     subscriptionData,
   } = useWebsiteContext()
 
   const { issueSubData } = subscriptionData
-  const MAINDATASOURCE = filterSort(data, search)
 
-  const removePress = async (url?: string, deleteMany: boolean = false) => {
-    try {
-      await removeWebsite({
-        variables: {
-          url,
-          userId: UserManager?.getID,
-          deleteMany,
-        },
-      })
-    } catch (e) {
-      console.error(e)
-    }
-  }
+  const MAINDATASOURCE = filterSort(data, search)
 
   useEffect(() => {
     if (issueSubData && events && !events?.firstAdd) {
@@ -106,9 +92,7 @@ function Dashboard({ name }: PageProps) {
                           'Are you sure you want to remove all websites?'
                         )
                       ) {
-                        await removePress('', true).catch((e: any) => {
-                          console.error(e)
-                        })
+                        await removePress('')
                       }
                     }}
                     variant={'outlined'}
@@ -119,9 +103,7 @@ function Dashboard({ name }: PageProps) {
                   </Button>
                 </div>
               </Fade>
-              {MAINDATASOURCE?.length ? (
-                <FormDialog buttonTitle={'Subscribe more'} />
-              ) : null}
+              <FormDialog buttonTitle={'Subscribe more'} />
             </div>
           }
         />

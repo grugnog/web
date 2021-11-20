@@ -73,9 +73,7 @@ const InfoBlock: FC<{ title: string; titleButton?: React.ReactElement }> = ({
         <Text
           style={[
             styles.text,
-            tailwind(
-              `font-bold place-items-start ${titleButton ? 'mr-3' : ''}`
-            ),
+            tailwind(`font-bold ${titleButton ? 'mr-3' : ''}`),
           ]}
         >
           {title}

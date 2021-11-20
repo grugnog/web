@@ -15,6 +15,10 @@ export const WEBSITE_SUBSCRIPTION = gql`
       html
       htmlIncluded
       lastScanDate
+      script {
+        script
+        cdnUrl
+      }
       pageLoadTime {
         duration
         durationFormated

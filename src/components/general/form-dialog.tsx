@@ -3,7 +3,7 @@
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
  **/
-import React, { useRef, useState, Fragment } from 'react'
+import React, { useRef, useState, useCallback, memo, Fragment } from 'react'
 import {
   Button,
   TextField,
@@ -28,11 +28,17 @@ import { useWebsiteContext } from '../providers/website'
 
 const domainList = [...dmList, 'none']
 
-export function FormDialog({
+interface FormDialogProps {
+  buttonTitle?: string
+  okPress?: (a: any) => void
+  buttonStyles?: string
+}
+
+export function FormDialogWrapper({
   buttonTitle = 'Subscribe',
   okPress,
   buttonStyles = '',
-}: any) {
+}: FormDialogProps) {
   const [open, setOpen] = useState<boolean>(false)
   const [websitUrl, setUrl] = useState<string>('')
   const [https, setTransportType] = useState<boolean>(true)
@@ -68,49 +74,58 @@ export function FormDialog({
     setExtension(event.target.value)
   }
 
-  const submit = async (event: any) => {
-    event?.preventDefault()
-    let cleanUrl = String(websitUrl)
-      .replace(https ? 'https' : 'http', https ? 'http' : 'https')
-      .replace(/^(?:https?:\/\/)?/i, '')
-      .split('/')[0]
+  const submit = useCallback(
+    async (event: any) => {
+      try {
+        event?.preventDefault()
+        let cleanUrl = String(websitUrl)
+          .replace(https ? 'https' : 'http', https ? 'http' : 'https')
+          .replace(/^(?:https?:\/\/)?/i, '')
+          .split('/')[0]
 
-    if (cleanUrl[cleanUrl.length - 1] === '/') {
-      cleanUrl = cleanUrl.slice(0, -1)
-    }
+        if (cleanUrl[cleanUrl.length - 1] === '/') {
+          cleanUrl = cleanUrl.slice(0, -1)
+        }
 
-    let tpt = 'https'
-    if (websitUrl.includes('http://') || !https) {
-      tpt = 'http'
-    }
-    let urlBase = cleanUrl.includes('://') ? '' : `://`
-    let blockExt = extension === 'none'
+        let tpt = 'https'
+        if (websitUrl.includes('http://') || !https) {
+          tpt = 'http'
+        }
+        let urlBase = cleanUrl.includes('://') ? '' : `://`
+        let blockExt = extension === 'none'
 
-    if (cleanUrl.includes('localhost:')) {
-      blockExt = true
-    }
+        if (cleanUrl.includes('localhost:')) {
+          blockExt = true
+        }
 
-    const ex =
-      blockExt || domainList.some((element: any) => cleanUrl.includes(element))
-        ? ''
-        : extension
+        const ex =
+          blockExt ||
+          domainList.some((element: any) => cleanUrl.includes(element))
+            ? ''
+            : extension
 
-    const websiteUrl = `${tpt}${urlBase}${cleanUrl}${ex}`.trim()
-    const websiteCustomHeaders = customHeader ? customFields : null
+        const websiteUrl = `${tpt}${urlBase}${cleanUrl}${ex}`.trim()
+        const websiteCustomHeaders = customHeader ? customFields : null
 
-    const params = {
-      url: websiteUrl,
-      customHeaders: websiteCustomHeaders,
-    }
+        const params = {
+          url: websiteUrl,
+          customHeaders: websiteCustomHeaders,
+        }
 
-    if (okPress && typeof okPress === 'function') {
-      await okPress(params)
-    } else {
-      await addWebsite(params)
-    }
+        // CLOSE pre-optimistic prevent dialog unmount state error
+        handleClose()
 
-    handleClose()
-  }
+        if (okPress && typeof okPress === 'function') {
+          await okPress(params)
+        } else {
+          await addWebsite(params)
+        }
+      } catch (e) {
+        console.error(e)
+      }
+    },
+    [handleClose, addWebsite, okPress, websitUrl]
+  )
 
   const formLabelStyles = {
     root: classes.formLabel,
@@ -235,3 +250,5 @@ export function FormDialog({
     </Fragment>
   )
 }
+
+export const FormDialog = memo(FormDialogWrapper)

@@ -15,6 +15,10 @@ export const CRAWL_WEBSITE = gql`
         htmlIncluded
         lastScanDate
         userId
+        script {
+          script
+          cdnUrl
+        }
         pageLoadTime {
           duration
           durationFormated

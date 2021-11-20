@@ -13,6 +13,9 @@ export const UPDATE_WEBSITE = gql`
         htmlIncluded
         html
         userId
+        script {
+          script
+        }
         pageHeaders {
           key
           value
