@@ -143,7 +143,12 @@ const Footer = ({
       <Container maxWidth='lg'>
         <div className={classes.link}>
           <div className={classes.blockContainer}>
-            <Typography className={classes.logo}>{strings.appName}</Typography>
+            <Typography className={classes.logo} variant={'h4'}>
+              {strings.appName}
+            </Typography>
+            <Typography variant={'subtitle2'} color={'textSecondary'}>
+              Elevating accessibility for every website.
+            </Typography>
             <ul
               className={`${classes.linkContainer} ${classes.socialContainer}`}
             >

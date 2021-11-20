@@ -4,7 +4,7 @@
  * LICENSE file in the root directory of this source tree.
  **/
 
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useRef, Fragment } from 'react'
 import { makeStyles } from '@material-ui/core/styles'
 import VisibilitySensor from 'react-visibility-sensor'
 import Player from '@vimeo/player'
@@ -48,36 +48,55 @@ const useStyles = makeStyles((theme) => ({
 
 function Inner({ isVisible }: { isVisible: boolean }) {
   const classes = useStyles()
-  const [loaded, setLoaded] = useState(false)
-  // const [muted, setMuted] = useState(1)
+  const [loaded, setLoaded] = useState<boolean>(false)
+  const [muted, setMuted] = useState<number>(1)
+  const playerRef = useRef<Player>()
 
   useEffect(() => {
-    const video = document.querySelector('iframe') as HTMLIFrameElement
-
-    if (!loaded && isVisible) {
+    if (!loaded) {
       setLoaded(true)
     }
+  }, [loaded, isVisible])
 
-    const player = loaded ? new Player(video) : null
+  useEffect(() => {
+    if (loaded) {
+      ;(async () => {
+        try {
+          let player = playerRef?.current
+          if (!playerRef?.current) {
+            const video = document.querySelector('iframe') as HTMLIFrameElement
+            player = video && new Player(video)
+            playerRef.current = player
+          }
 
-    if (loaded && video && player) {
-      if (isVisible && player?.play) {
-        player.play().catch((e) => {
+          if (player) {
+            if (isVisible && player?.play) {
+              await player.play()
+            } else if (!isVisible && player?.pause) {
+              await player.pause()
+            }
+          }
+        } catch (e) {
           console.error(e)
-        })
-      } else if (!isVisible && player?.pause) {
-        player.pause().catch((e) => {
-          console.error(e)
-        })
-      }
+        }
+      })()
     }
   }, [isVisible, loaded])
 
   const videoClassName = `${classes.video} ${classes.frame}`
 
-  // const onIframeEvent = () => {
-  //   setMuted((val) => (val ? 0 : 1))
-  // }
+  const onIframeEvent = async () => {
+    setMuted((val: number) => (val ? 0 : 1))
+
+    if (playerRef?.current) {
+      const player = playerRef?.current
+      if (muted) {
+        await player?.play()
+      } else {
+        await player?.pause()
+      }
+    }
+  }
 
   return (
     <div className={classes.root} id='video-section'>
@@ -88,12 +107,29 @@ function Inner({ isVisible }: { isVisible: boolean }) {
         <div className={`${classes.float} ${classes.video}`}>
           <div className={`${classes.video}`}>
             {loaded ? (
-              <iframe
-                src={`https://player.vimeo.com/video/389034032?title=0&byline=0&portrait=0&muted=${1}&autoplay=1&controls=0&loop=1&texttrack=en`}
-                allowFullScreen
-                title='A11yWatch demo video'
-                className={videoClassName}
-              />
+              <Fragment>
+                <iframe
+                  src={`https://player.vimeo.com/video/389034032?title=0&byline=0&portrait=0&muted=${muted}&autoplay=1&controls=0&loop=1&texttrack=en`}
+                  allowFullScreen
+                  title='A11yWatch demo video'
+                  className={videoClassName}
+                  allow='autoplay'
+                />
+                <button
+                  onClick={onIframeEvent}
+                  aria-label={`${
+                    muted ? 'play' : 'pause'
+                  } a11ywatch demo video`}
+                  className={'w-full h-full z-50'}
+                  style={{
+                    position: 'absolute',
+                    top: 0,
+                    left: 0,
+                    right: 0,
+                    bottom: 0,
+                  }}
+                />
+              </Fragment>
             ) : (
               <div className={videoClassName} />
             )}
