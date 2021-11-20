@@ -13,7 +13,7 @@ const useStyles = makeStyles((theme) => ({
   root: {
     paddingTop: '12%',
     paddingBottom: '12%',
-    overflow: 'hidden',
+    overflow: 'visible',
   },
   card: {
     overflow: 'hidden',
@@ -81,9 +81,12 @@ function Inner({ isVisible }: { isVisible: boolean }) {
 
   return (
     <div className={classes.root} id='video-section'>
-      <div className={classes.card}>
+      <div
+        className={classes.card}
+        style={{ boxShadow: '#D1D5DB 0 1px 150px' }}
+      >
         <div className={`${classes.float} ${classes.video}`}>
-          <div className={classes.video}>
+          <div className={`${classes.video}`}>
             {loaded ? (
               <iframe
                 src={`https://player.vimeo.com/video/389034032?title=0&byline=0&portrait=0&muted=${1}&autoplay=1&controls=0&loop=1&texttrack=en`}
