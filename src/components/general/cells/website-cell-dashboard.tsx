@@ -21,9 +21,13 @@ import tailwind from 'tailwind-rn'
 import { SCRIPTS_CDN_URL_HOST } from '@app/configs'
 import { a11yDark } from '@app/styles'
 import SyntaxHighlighter from 'react-syntax-highlighter'
-
+import { Switch } from '@headlessui/react'
 // import { WebsiteIssuesCell, WebsitePrimaryCell } from '.'
 // import { issueSort } from '@app/lib'
+
+function classNames(...classes: string[]) {
+  return classes.filter(Boolean).join(' ')
+}
 
 const useStyles = makeStyles(() => ({
   title: {
@@ -58,10 +62,26 @@ const styles = StyleSheet.create({
   },
 })
 
-const InfoBlock: FC<{ title: string }> = ({ children, title }) => {
+const InfoBlock: FC<{ title: string; titleButton?: React.ReactElement }> = ({
+  children,
+  title,
+  titleButton,
+}) => {
   return (
     <View style={styles.infoContainer}>
-      <Text style={[styles.text, tailwind('font-bold')]}>{title}</Text>
+      <View style={styles.row}>
+        <Text
+          style={[
+            styles.text,
+            tailwind(
+              `font-bold place-items-start ${titleButton ? 'mr-3' : ''}`
+            ),
+          ]}
+        >
+          {title}
+        </Text>
+        {titleButton}
+      </View>
       <View style={styles.spacing} />
       {children}
     </View>
@@ -96,6 +116,7 @@ export function WebsiteCellDashboard({
 }: any) {
   const classes = useStyles()
   const [anchorEl, setAnchorEl] = useState<any>(null)
+  const [isCdnMinified, setMinified] = useState<boolean>(true)
 
   const handleMenu = (event: any) => {
     setAnchorEl(event?.currentTarget)
@@ -172,7 +193,7 @@ export function WebsiteCellDashboard({
           <Text style={styles.text}>{subDomains?.length}</Text>
         </InfoBlock>
 
-        <InfoBlock title={'Page Speed'}>
+        <InfoBlock title={'Page Load Time'}>
           {pageLoadTime?.durationFormated ? (
             <Text style={styles.text}>
               {pageLoadTime?.durationFormated} at{' '}
@@ -185,11 +206,44 @@ export function WebsiteCellDashboard({
           )}
         </InfoBlock>
 
-        <InfoBlock title={'CDN'}>
+        <InfoBlock
+          title={'CDN'}
+          titleButton={
+            <Switch.Group as='div' className='flex'>
+              <Switch
+                checked={isCdnMinified}
+                onChange={() => setMinified((minified: boolean) => !minified)}
+                className={classNames(
+                  isCdnMinified ? 'bg-indigo-600' : 'bg-gray-200',
+                  'relative inline-flex flex-shrink-0 h-5 w-10 border-2 border-transparent rounded-full cursor-pointer transition-colors ease-in-out duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'
+                )}
+              >
+                <span
+                  aria-hidden='true'
+                  className={classNames(
+                    isCdnMinified ? 'translate-x-5' : 'translate-x-0',
+                    'pointer-events-none inline-block h-4 w-4 rounded-full bg-white shadow transform ring-0 transition ease-in-out duration-200'
+                  )}
+                />
+              </Switch>
+              <Switch.Label as='span' className='ml-3'>
+                <span className='text-sm font-medium'>MINIFIED</span>
+              </Switch.Label>
+            </Switch.Group>
+          }
+        >
           {script?.cdnUrl ? (
             <View style={styles.editor}>
-              <SyntaxHighlighter language='html' style={a11yDark}>
-                {`<script src="${cdnUrl}"></script>`}
+              <SyntaxHighlighter
+                language='html'
+                style={{
+                  ...a11yDark,
+                  hljs: { ...a11yDark.hljs, background: '', padding: 0 },
+                }}
+              >
+                {`<script src="${
+                  isCdnMinified ? cdnUrl.replace('.js', '.min.js') : cdnUrl
+                }"></script>`}
               </SyntaxHighlighter>
             </View>
           ) : (
