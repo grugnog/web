@@ -36,7 +36,10 @@ const useStyles = makeStyles((theme) => ({
     flex: 1,
   },
   intro: {
-    lineHeight: '1.15em',
+    lineHeight: '0.92em',
+    backgroundImage: "url('./static/img/sky.jpeg')",
+    marginBottom: 5,
+    color: 'transparent',
   },
   submit: {
     marginTop: 10,
@@ -83,12 +86,21 @@ function CtaIntro({ checker }: any) {
         }`}
       >
         <div className={classes.block}>
-          <Typography variant='h2' component={'h1'} className={classes.intro}>
+          <Typography
+            variant='h1'
+            component={'h1'}
+            className={`${classes.intro} !text-transparent text-6xl md:text-7xl bg-clip-text bg-cover bg-center bg-blue-300 !text-opacity-100`}
+          >
             {checker
               ? 'Check Your Web Accessibility'
               : 'Web Accessibility Automation'}
           </Typography>
-          <Typography variant='subtitle1' component={'h2'} gutterBottom>
+          <Typography
+            variant='subtitle1'
+            component={'h2'}
+            gutterBottom
+            color={'textSecondary'}
+          >
             {checker
               ? 'Test your website accessibility'
               : 'Safeguard to a pleasant inclusive experience'}
