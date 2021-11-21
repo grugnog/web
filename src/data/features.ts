@@ -9,7 +9,7 @@ import { TOGGLE_ALERT, TOGGLE_PROFILE } from '@app/mutations'
 import { useMutation } from '@apollo/react-hooks'
 
 export const featuresData = () => {
-  // const { data, loading } = config.query && useQuery(GET_FEATURES)
+  // const { data, loading } = useQuery(GET_FEATURES)
   const [
     toggleAlert,
     { data: toggleAlertData, loading: toggleAlertLoading },

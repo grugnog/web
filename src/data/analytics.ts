@@ -6,14 +6,12 @@
 
 import { useQuery } from '@apollo/react-hooks'
 import { GET_ANALYTICS } from '@app/queries'
-// import { UserManager } from '@app/managers'
 
 export const analyticsData = (query: boolean = true) => {
-  const { data, loading, refetch } = query
-    ? useQuery(GET_ANALYTICS, {
-        variables: { filter: '' },
-      })
-    : { data: null, loading: null, refetch: null }
+  const { data, loading, refetch } = useQuery(GET_ANALYTICS, {
+    variables: { filter: '' },
+    skip: !query,
+  })
 
   return {
     data: data?.user?.analytics || [],
