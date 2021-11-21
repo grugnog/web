@@ -4,7 +4,7 @@
  * LICENSE file in the root directory of this source tree.
  **/
 
-import { useEffect } from 'react'
+import { useEffect, useCallback } from 'react'
 import { useApolloClient, useQuery } from '@apollo/react-hooks'
 import gql from 'graphql-tag'
 
@@ -25,7 +25,7 @@ export function useEvents() {
   const { data } = useQuery(GET_EVENTS_STATE)
   const events = data?.events || defaultState
 
-  const setEvents = ({ firstAdd }: any) => {
+  const setEvents = useCallback(({ firstAdd }: any) => {
     if (typeof localStorage !== 'undefined' && firstAdd && firstAdd !== 'set') {
       localStorage.setItem('firstWebsiteAdded', '1')
     }
@@ -38,7 +38,7 @@ export function useEvents() {
         },
       },
     })
-  }
+  }, [])
 
   useEffect(() => {
     const firstWebsiteAdded = localStorage.getItem('firstWebsiteAdded')

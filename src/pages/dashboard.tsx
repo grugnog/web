@@ -3,7 +3,7 @@
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
  **/
-import React, { useEffect } from 'react'
+import React, { useEffect, useMemo } from 'react'
 import dynamic from 'next/dynamic'
 import { Button, Fade } from '@material-ui/core'
 import {
@@ -54,16 +54,6 @@ function Dashboard({ name }: PageProps) {
 
   const { issueSubData } = subscriptionData
 
-  const MAINDATASOURCE = filterSort(data, search)
-
-  useEffect(() => {
-    if (issueSubData && events && !events?.firstAdd) {
-      setEvents({
-        firstAdd: true,
-      })
-    }
-  }, [issueSubData, events, setEvents])
-
   useEffect(() => {
     const isOnboarded = getCookie(_ONBOARDED, '')
 
@@ -75,6 +65,16 @@ function Dashboard({ name }: PageProps) {
       })
     }
   }, [setModal])
+
+  useEffect(() => {
+    if (issueSubData && events && !events?.firstAdd) {
+      setEvents({
+        firstAdd: true,
+      })
+    }
+  }, [issueSubData, events, setEvents])
+
+  const MAINDATASOURCE = useMemo(() => filterSort(data, search), [data, search])
 
   return (
     <WithHydrate>

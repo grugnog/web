@@ -4,7 +4,7 @@
  * LICENSE file in the root directory of this source tree.
  **/
 
-import { useEffect } from 'react'
+import { useEffect, useCallback } from 'react'
 import { useApolloClient, useQuery } from '@apollo/react-hooks'
 import gql from 'graphql-tag'
 import { isSameDay } from 'date-fns'
@@ -52,23 +52,24 @@ export function useDynamicModal() {
   const { data } = useQuery(GET_DYNAMIC_MODAL_STATE)
   const modelData = data?.modal || defaultProps
 
-  const setModal = ({
-    open = true,
-    modalType = ModalType.empty,
-    onClose,
-    url = '',
-    html = '',
-  }: any) => {
-    if (dynamicModalHandler) {
+  const setModal = useCallback(
+    ({
+      open = true,
+      modalType = ModalType.empty,
+      onClose,
+      url = '',
+      html = '',
+    }: any) => {
       dynamicModalHandler.bindOnClose(onClose)
-    }
 
-    client.writeData({
-      data: {
-        modal: { open, modalType, url, html, __typename: 'DynamicModal' },
-      },
-    })
-  }
+      client.writeData({
+        data: {
+          modal: { open, modalType, url, html, __typename: 'DynamicModal' },
+        },
+      })
+    },
+    []
+  )
 
   useEffect(() => {
     getLastAlertedDate(setModal)
