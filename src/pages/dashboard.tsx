@@ -100,7 +100,7 @@ function Dashboard({ name }: PageProps) {
           crawlWebsite={crawlWebsite}
           refetch={refetch}
           setModal={setModal}
-          emptyHeaderTitle={'No websites set'}
+          emptyHeaderTitle={'Welcome to A11yWatch'}
           emptyHeaderSubTitle={'Add a website to monitor below'}
         />
       </Drawer>
