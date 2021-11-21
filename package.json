@@ -93,7 +93,6 @@
     "@types/react-syntax-highlighter": "11.0.4",
     "@types/victory": "33.1.4",
     "@types/vimeo__player": "^2.10.0",
-    "@zeit/next-typescript": "1.1.1",
     "autoprefixer": "^10.3.1",
     "babel-eslint": "^7.2.3",
     "babel-jest": "24.9.0",
@@ -120,6 +119,7 @@
     "prettier": "2.4.1",
     "tailwindcss": "^2.2.19",
     "ts-jest": "27.0.7",
+    "ts-node": "10.4.0",
     "typescript": "4.3.2",
     "vercel": "^23.1.2"
   },

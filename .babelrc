@@ -8,8 +8,7 @@
         "styled-jsx": {},
         "class-properties": {}
       }
-    ],
-    "@zeit/next-typescript/babel"
+    ]
   ],
   "plugins": [
     ["react-native-web", { "commonjs": true }],
