@@ -146,6 +146,7 @@ const userModel = {
   },
   get unauthedRoute() {
     if (
+      // TODO: only use on client side
       Router?.router?.asPath === '/?noredirect=true' ||
       Router?.router?.query?.noredirect
     ) {
