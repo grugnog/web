@@ -14,7 +14,6 @@ import ExpandMore from '@material-ui/icons/ExpandMore'
 const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
-    overflow: 'hidden',
     justifyContent: 'center',
     alignItems: 'center',
     paddingTop: '6%',

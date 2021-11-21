@@ -14,6 +14,7 @@ const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
       display: 'flex',
+      width: 'fit-content',
       borderRadius: theme.shape.borderRadius,
       [theme.breakpoints.down('sm')]: {
         position: 'relative',
@@ -77,12 +78,13 @@ const useStyles = makeStyles((theme: Theme) =>
 function CtaInput() {
   const classes = useStyles()
   const [searchFocused, setSearchFocused] = useState<boolean>()
-  const ref = useRef(null)
+  const ref = useRef<HTMLInputElement>(null)
   const { search, setSearch, loading, toggleModal } = useSearch()
 
   const toggleSearch = (open: boolean = false) => () => {
-    // @ts-ignore
-    open && !searchFocused && ref?.current?.focus()
+    if (open && !searchFocused && ref?.current) {
+      ref?.current?.focus()
+    }
     setSearchFocused(!!open)
   }
 
@@ -92,14 +94,19 @@ function CtaInput() {
       AppManager.toggleSnack(true, `Please enter a valid web url`, 'error')
     } else {
       toggleModal(true, search)
-      // @ts-ignore
-      ref.current.value = ''
+      if (ref.current) {
+        ref.current.value = ''
+      }
       return false
     }
   }
 
   return (
-    <form className={classes.root} onSubmit={submitForm} noValidate>
+    <form
+      className={`${classes.root}${searchFocused ? ' ring' : ''}`}
+      onSubmit={submitForm}
+      noValidate
+    >
       <div className={classes.search}>
         <InputLabel
           htmlFor='search-input-c'
