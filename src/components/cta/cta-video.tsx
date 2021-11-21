@@ -53,7 +53,7 @@ function Inner({ isVisible }: { isVisible: boolean }) {
   const playerRef = useRef<Player>()
 
   useEffect(() => {
-    if (!loaded) {
+    if (!loaded && isVisible) {
       setLoaded(true)
     }
   }, [loaded, isVisible])
