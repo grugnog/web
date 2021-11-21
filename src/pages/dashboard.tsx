@@ -17,9 +17,7 @@ import { filterSort } from '@app/lib'
 import { WithHydrate } from '@app/components/adhoc'
 import { metaSetter } from '@app/utils'
 import type { PageProps } from '@app/types'
-import { setCookie, getCookie } from 'with-cookie'
 import { _ONBOARDED } from '@app/lib/cookies/names'
-import { ModalType } from '@app/data/enums'
 import { useWebsiteContext } from '@app/components/providers/website'
 import { ListSkeleton } from '@app/components/placeholders'
 
@@ -34,8 +32,6 @@ const WebsiteList = dynamic(
     ) as any,
   { loading: () => (<ListSkeleton />) as any, ssr: false }
 ) as any
-
-const completeOnboarding = () => setCookie(_ONBOARDED, true)
 
 function Dashboard({ name }: PageProps) {
   const { search } = useSearchFilter()
@@ -55,18 +51,6 @@ function Dashboard({ name }: PageProps) {
   const { issueSubData } = subscriptionData
 
   useEffect(() => {
-    const isOnboarded = getCookie(_ONBOARDED, '')
-
-    if (!isOnboarded) {
-      setModal({
-        open: true,
-        modalType: ModalType.onboarding,
-        onClose: completeOnboarding,
-      })
-    }
-  }, [setModal])
-
-  useEffect(() => {
     if (issueSubData && events && !events?.firstAdd) {
       setEvents({
         firstAdd: true,
@@ -74,7 +58,7 @@ function Dashboard({ name }: PageProps) {
     }
   }, [issueSubData, events, setEvents])
 
-  const MAINDATASOURCE = useMemo(() => filterSort(data, search), [data, search])
+  const websites = useMemo(() => filterSort(data, search), [data, search])
 
   return (
     <WithHydrate>
@@ -108,7 +92,7 @@ function Dashboard({ name }: PageProps) {
           }
         />
         <WebsiteList
-          data={MAINDATASOURCE}
+          data={websites}
           error={error}
           loading={loading}
           mutatationLoading={mutatationLoading}

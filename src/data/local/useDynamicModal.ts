@@ -11,6 +11,7 @@ import { isSameDay } from 'date-fns'
 import { checkNotification } from '@app/lib'
 import { dynamicModalHandler } from '@app/data/models/singletons/modalHandler'
 import { ModalType } from '@app/data/enums'
+import { _ONBOARDED } from '@app/lib/cookies/names'
 
 const GET_DYNAMIC_MODAL_STATE = gql`
   query getDynamicModalState {
@@ -30,9 +31,9 @@ const defaultProps = {
   html: '',
 }
 
-const getLastAlertedDate = async (setModal: any) => {
+const getLastAlertedDate = (setModal: (x: any) => void) => {
   if (typeof localStorage !== 'undefined') {
-    const alertPromptDate = await localStorage.getItem('AlertPromptDate')
+    const alertPromptDate = localStorage.getItem('AlertPromptDate')
     const notificationsEnabled = checkNotification()
     const alertedDate = (alertPromptDate && new Date(alertPromptDate)) || null
 
@@ -41,7 +42,7 @@ const getLastAlertedDate = async (setModal: any) => {
       alertedDate &&
       !isSameDay(alertedDate, new Date())
     ) {
-      setModal({ open: true, modalType: ModalType.alerts })
+      setModal && setModal({ open: true, modalType: ModalType.alerts })
       localStorage.setItem('AlertPromptDate', new Date() + '')
     }
   }
@@ -60,7 +61,12 @@ export function useDynamicModal() {
       url = '',
       html = '',
     }: any) => {
-      dynamicModalHandler.bindOnClose(onClose)
+      if (!open && typeof dynamicModalHandler?.onClose === 'function') {
+        dynamicModalHandler.onClose()
+      }
+      if (onClose) {
+        dynamicModalHandler.bindOnClose(onClose)
+      }
 
       client.writeData({
         data: {
@@ -73,6 +79,20 @@ export function useDynamicModal() {
 
   useEffect(() => {
     getLastAlertedDate(setModal)
+    if (typeof localStorage !== 'undefined') {
+      const isOnboarded = localStorage.getItem(_ONBOARDED)
+
+      if (!isOnboarded) {
+        const completeOnboarding = () =>
+          localStorage.setItem(_ONBOARDED, 'true')
+        // Possible check route for only displaying on dashboard for future links to auth pages
+        setModal({
+          open: true,
+          modalType: ModalType.onboarding,
+          onClose: completeOnboarding,
+        })
+      }
+    }
   }, [])
 
   return {

@@ -4,7 +4,7 @@
  * LICENSE file in the root directory of this source tree.
  **/
 
-import React, { useState, FC } from 'react'
+import React, { useState, memo, FC } from 'react'
 import {
   ListItemSecondaryAction,
   ListItemText,
@@ -20,8 +20,8 @@ import { theme } from '@app-theme'
 import tailwind from 'tailwind-rn'
 import { SCRIPTS_CDN_URL_HOST } from '@app/configs'
 import { a11yDark } from '@app/styles'
-import SyntaxHighlighter from 'react-syntax-highlighter'
 import { Switch } from '@headlessui/react'
+import SyntaxHighlighter from 'react-syntax-highlighter'
 // import { WebsiteIssuesCell, WebsitePrimaryCell } from '.'
 // import { issueSort } from '@app/lib'
 
@@ -92,7 +92,7 @@ const CenterContainer: FC = ({ children }) => (
   </div>
 )
 
-export function WebsiteCellDashboard({
+export function WebsiteCellDashboardComponent({
   url,
   removePress,
   handleClickOpen,
@@ -127,8 +127,6 @@ export function WebsiteCellDashboard({
     removePress(url)
   }
 
-  const href = `/website-details?websiteUrl=${encodeURIComponent(url)}`
-
   const handleMainClick = (
     eventData?: any,
     title?: string,
@@ -149,6 +147,7 @@ export function WebsiteCellDashboard({
   }
 
   const cdnUrl = `${SCRIPTS_CDN_URL_HOST}/${script?.cdnUrl}`
+  const cdnUrlMinifed = `${SCRIPTS_CDN_URL_HOST}/${script?.cdnUrlMinified}`
 
   return (
     <div className={`w-full border p-4 pl-6 pr-6 rounded overflow-hidden`}>
@@ -230,23 +229,25 @@ export function WebsiteCellDashboard({
             </Switch.Group>
           }
         >
-          {script?.cdnUrl ? (
-            <View style={styles.editor}>
-              <SyntaxHighlighter
-                language='html'
-                style={{
-                  ...a11yDark,
-                  hljs: { ...a11yDark.hljs, background: '', padding: 0 },
-                }}
-              >
-                {`<script src="${
-                  isCdnMinified ? cdnUrl.replace('.js', '.min.js') : cdnUrl
-                }"></script>`}
-              </SyntaxHighlighter>
-            </View>
-          ) : (
-            <Text style={styles.text}>N/A</Text>
-          )}
+          <SyntaxHighlighter
+            language='html'
+            style={{
+              ...a11yDark,
+              hljs: {
+                ...a11yDark.hljs,
+                background: '',
+                padding: 0,
+                overflow: 'hidden',
+                maxWidth: '74vw',
+              },
+            }}
+          >
+            {script?.cdnUrl
+              ? `<script src="${
+                  isCdnMinified ? cdnUrlMinifed : cdnUrl
+                }"></script>`
+              : 'N/A'}
+          </SyntaxHighlighter>
         </InfoBlock>
       </View>
 
@@ -276,7 +277,7 @@ export function WebsiteCellDashboard({
       <CenterContainer>
         <Button
           component={Link}
-          href={href}
+          href={`/website-details?websiteUrl=${encodeURIComponent(url)}`}
           color={'inherit'}
           className={'w-40'}
         >
@@ -305,3 +306,5 @@ export function WebsiteCellDashboard({
     </div>
   )
 }
+
+export const WebsiteCellDashboard = memo(WebsiteCellDashboardComponent)

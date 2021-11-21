@@ -40,10 +40,9 @@ export function DynamicModal() {
       className={classes.modal}
       open={!!open}
       onClose={() => {
-        if (typeof dynamicModalHandler.onClose === 'function') {
+        if (typeof dynamicModalHandler?.onClose === 'function') {
           dynamicModalHandler.onClose()
         }
-
         setModal({ open: false })
       }}
       closeAfterTransition

@@ -21,8 +21,6 @@ import { ringKeyFrames } from '@app/styles'
 import { _ONBOARDED } from '@app/lib/cookies/names'
 import { useStyles } from './styles'
 
-const completeOnboarding = () => setCookie(_ONBOARDED, true)
-
 export function Onboarding() {
   const router = useRouter()
   const classes = useStyles()
@@ -50,9 +48,8 @@ export function Onboarding() {
       <CardActions>
         <Button
           onClick={() => {
-            setModal({ open: false, onClose: completeOnboarding })
+            setModal({ open: false })
             router.push('/alerts')
-            completeOnboarding()
           }}
           variant='contained'
           className={classes.normal}
@@ -62,8 +59,7 @@ export function Onboarding() {
         <Button
           className={classes.see}
           onClick={() => {
-            setModal({ open: false, onClose: completeOnboarding })
-            completeOnboarding()
+            setModal({ open: false })
           }}
         >
           Close
