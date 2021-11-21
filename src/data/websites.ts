@@ -4,7 +4,7 @@
  * LICENSE file in the root directory of this source tree.
  **/
 
-import { useState, useEffect, useCallback } from 'react'
+import { useEffect, useCallback } from 'react'
 import { useQuery, useMutation, useSubscription } from '@apollo/react-hooks'
 import {
   ADD_WEBSITE,
@@ -22,6 +22,7 @@ import { UserManager, AppManager } from '@app/managers'
 import { useIssueFeed } from './local'
 import { sendNotification } from '@app/lib'
 import type { OnSubscriptionDataOptions } from '@apollo/react-common'
+import type { Website } from '@app/types'
 
 export const useWebsiteData = (
   filter: string = '',
@@ -34,7 +35,6 @@ export const useWebsiteData = (
     url,
   }
   const skip = !UserManager.loggedIn
-  const [modalOpen, setOpen] = useState<boolean>(false)
   const { issueFeed, setIssueFeedContent } = useIssueFeed()
   const { data, loading, refetch, error } = useQuery(GET_WEBSITES, {
     variables,
@@ -121,7 +121,7 @@ export const useWebsiteData = (
     if (updateData?.updateWebsite?.website) {
       const { pageHeaders, domain } = updateData?.updateWebsite?.website
       const dataSource = websites.find(
-        (source: any) => source.domain === domain
+        (source: Website) => source.domain === domain
       )
 
       if (dataSource) {
@@ -146,7 +146,7 @@ export const useWebsiteData = (
         script,
       } = websiteUpdated?.websiteAdded
       const dataSource = websites.find(
-        (source: any) => source.domain === domain
+        (source: Website) => source.domain === domain
       )
 
       if (dataSource) {
@@ -179,7 +179,7 @@ export const useWebsiteData = (
     if (crawlData && websites?.length) {
       const crawledWebsite = crawlData?.crawlWebsite?.website
       const dataSource = websites.find(
-        (source: any) => source.domain === crawledWebsite?.domain
+        (source: Website) => source.domain === crawledWebsite?.domain
       )
 
       if (dataSource) {
@@ -193,7 +193,7 @@ export const useWebsiteData = (
     if (subDomainSubData && websites?.length) {
       const newSubDomain = subDomainSubData?.subDomainAdded
       const dataSource = websites.find(
-        (source: any) => source.domain === newSubDomain?.domain
+        (source: Website) => source.domain === newSubDomain?.domain
       )
 
       if (dataSource) {
@@ -241,14 +241,6 @@ export const useWebsiteData = (
     }
   }
 
-  const handleClickOpen = () => {
-    setOpen(true)
-  }
-
-  const handleClickClose = () => {
-    setOpen(false)
-  }
-
   return {
     subscriptionData: {
       issueSubData,
@@ -265,8 +257,5 @@ export const useWebsiteData = (
     updateWebsite,
     setIssueFeedContent,
     removePress,
-    handleClickOpen,
-    handleClickClose,
-    modalOpen,
   }
 }

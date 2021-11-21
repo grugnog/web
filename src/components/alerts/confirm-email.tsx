@@ -6,7 +6,7 @@
 
 import React from 'react'
 import { Mail as MailIcon } from '@material-ui/icons'
-import { Pressable, Text, View, StyleSheet } from 'react-native'
+import { Pressable, Text, View, StyleSheet, Platform } from 'react-native'
 import { theme } from '@app-theme'
 import tailwind from 'tailwind-rn'
 
@@ -16,7 +16,7 @@ const classes = StyleSheet.create({
     alignItems: 'center',
     display: 'flex',
     // @ts-ignore
-    position: 'fixed',
+    position: Platform.OS === 'web' ? 'fixed' : 'absolute',
     bottom: theme.mixins.toolbar.minHeight,
     left: 0,
     right: 0,
@@ -57,7 +57,7 @@ function ConfirmEmail({ sendEmail, visible }: Props) {
           tailwind('border items-center flex flex-row rounded bg-gray-800'),
         ]}
       >
-        <Text style={[classes.text, tailwind('mr-2')]}>
+        <Text style={[classes.text, tailwind('text-xl mr-5')]}>
           Please confirm your email to enable alerts and much more
         </Text>
         <Pressable
