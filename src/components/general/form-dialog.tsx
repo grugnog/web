@@ -65,10 +65,10 @@ export function FormDialogWrapper({
     setUrl(event.target.value)
   }
 
-  const handleClose = () => {
+  const handleClose = useCallback(() => {
     setOpen(false)
     setUrl('')
-  }
+  }, [setOpen, setUrl])
 
   const handleChangeExt = (event: any) => {
     setExtension(event.target.value)
@@ -124,7 +124,16 @@ export function FormDialogWrapper({
         console.error(e)
       }
     },
-    [handleClose, addWebsite, okPress, websitUrl]
+    [
+      handleClose,
+      addWebsite,
+      okPress,
+      extension,
+      websitUrl,
+      customFields,
+      customHeader,
+      https,
+    ]
   )
 
   const formLabelStyles = {

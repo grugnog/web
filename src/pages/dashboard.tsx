@@ -74,7 +74,7 @@ function Dashboard({ name }: PageProps) {
         onClose: completeOnboarding,
       })
     }
-  }, []) // eslint-disable-line
+  }, [setModal])
 
   return (
     <WithHydrate>
