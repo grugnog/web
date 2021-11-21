@@ -4,7 +4,7 @@
  * LICENSE file in the root directory of this source tree.
  **/
 
-import { createElement } from 'react'
+import { memo, FC } from 'react'
 import { WithEditor, WithHighlight } from '../adhoc'
 
 type Props = {
@@ -19,8 +19,7 @@ type Props = {
   setScript?(e?: any): any
 }
 
-const EditableMixture = ({ editMode, ...props }: Props) =>
-  // @ts-ignore
-  createElement(editMode ? WithEditor : WithHighlight, props)
+const EditableMixtureComponent: FC<Props> = ({ editMode, ...props }) =>
+  editMode ? <WithEditor {...props} /> : <WithHighlight {...props} />
 
-export { EditableMixture }
+export const EditableMixture = memo(EditableMixtureComponent)

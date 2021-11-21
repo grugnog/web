@@ -4,7 +4,7 @@
  * LICENSE file in the root directory of this source tree.
  **/
 
-import React from 'react'
+import React, { useMemo } from 'react'
 import { makeStyles } from '@material-ui/core/styles'
 import { FakeButtonContainer } from '@app/components/fake'
 import Image from 'next/image'
@@ -46,22 +46,26 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
-export function Screenshot({ src, url, resetMargin, width, height }: any) {
-  const classes = useStyles()
-
-  let baseURL = src
-
-  if (!dev) {
-    baseURL = baseURL
+const getBaseUrl = (baseURL: string) => {
+  let url = baseURL
+  if (!dev && url) {
+    url = url
       .replace('localhost:8090', cdn)
       .replace('127.0.0.1:8090', cdn)
       .replace('--1.png', '-1.png')
-    if (!baseURL.includes('https')) {
-      baseURL = baseURL.replace('http', 'https')
+    if (!url.includes('https')) {
+      url = url.replace('http', 'https')
     }
   } else {
-    baseURL = baseURL.replace('127.0.0.1', 'localhost')
+    url = url.replace('127.0.0.1', 'localhost')
   }
+
+  return url
+}
+
+export function Screenshot({ src, url, resetMargin, width, height }: any) {
+  const classes = useStyles()
+  const imageSource = useMemo(() => getBaseUrl(src), [src])
 
   return (
     <div
@@ -77,7 +81,7 @@ export function Screenshot({ src, url, resetMargin, width, height }: any) {
       >
         <div className={resetMargin ? classes.float : classes.centerAlign}>
           <Image
-            src={baseURL}
+            src={imageSource}
             alt={`screenshot of ${url} tested`}
             width={width ?? 450}
             height={height ?? 500}

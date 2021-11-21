@@ -71,7 +71,7 @@ export function WebsiteTabs({ issues, html, screenshot, playground }: any) {
       >
         <Tab label='Insights' {...a11yProps(0)} />
         <Tab label='HTML' {...a11yProps(1)} />
-        <Tab label='Screenshots' {...a11yProps(2)} />
+        {screenshot ? <Tab label='Screenshots' {...a11yProps(2)} /> : null}
         {playground ? <Tab label='Playground' {...a11yProps(3)} /> : null}
       </Tabs>
       <TabPanel value={value} index={0} className={classes.container}>
@@ -80,9 +80,11 @@ export function WebsiteTabs({ issues, html, screenshot, playground }: any) {
       <TabPanel value={value} index={1} className={classes.container}>
         {html}
       </TabPanel>
-      <TabPanel value={value} index={2} className={classes.container}>
-        {screenshot}
-      </TabPanel>
+      {screenshot ? (
+        <TabPanel value={value} index={2} className={classes.container}>
+          {screenshot}
+        </TabPanel>
+      ) : null}
       {playground ? (
         <TabPanel value={value} index={3} className={classes.container}>
           {playground}

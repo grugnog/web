@@ -88,13 +88,17 @@ function Inner({ isVisible }: { isVisible: boolean }) {
   const onIframeEvent = async () => {
     setMuted((val: number) => (val ? 0 : 1))
 
-    if (playerRef?.current) {
-      const player = playerRef?.current
-      if (muted) {
-        await player?.play()
-      } else {
-        await player?.pause()
+    try {
+      if (playerRef?.current) {
+        const player = playerRef?.current
+        if (muted) {
+          await player?.play()
+        } else {
+          await player?.pause()
+        }
       }
+    } catch (e) {
+      console.error(e)
     }
   }
 

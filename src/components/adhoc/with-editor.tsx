@@ -4,7 +4,7 @@
  * LICENSE file in the root directory of this source tree.
  **/
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, memo } from 'react'
 import dynamic from 'next/dynamic'
 
 const MonacoEditor = dynamic(import('@monaco-editor/react'), {
@@ -14,7 +14,7 @@ const ReactSizeDetector = dynamic(import('react-resize-detector'), {
   ssr: false,
 })
 
-const WithEditor = ({
+const WithEditorComponent = ({
   setScript,
   children = '',
   language = 'javascript',
@@ -22,9 +22,7 @@ const WithEditor = ({
   const [value, setValue] = useState<any>(children || '')
 
   useEffect(() => {
-    if (setScript) {
-      setScript(value)
-    }
+    setScript && setScript(value)
   }, [setScript, value])
 
   return (
@@ -50,4 +48,4 @@ const WithEditor = ({
   )
 }
 
-export { WithEditor }
+export const WithEditor = memo(WithEditorComponent)
