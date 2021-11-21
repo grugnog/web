@@ -4,7 +4,7 @@
  * LICENSE file in the root directory of this source tree.
  **/
 import React, { Fragment, memo, useState } from 'react'
-import { Typography, Grid, Button, Paper } from '@material-ui/core'
+import { Typography, Grid, Button } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import { Ribbon } from '@app/components/general'
 import { priceConfig } from '@app/configs'
@@ -19,7 +19,6 @@ const useStyles = makeStyles(() => ({
   },
   container: {
     flexGrow: 1,
-    overflow: 'hidden',
   },
   icon: {
     fontSize: '40px',
@@ -87,10 +86,12 @@ function PriceWrapper({
 
   function MainButton({ title }: { title?: string }) {
     if (navigate) {
+      const buttonColor = title === 'Premium' ? '#000' : '#fff'
       return (
         <Button
           component={Link}
-          className={'w-full text-bold'}
+          className={`w-full text-bold`}
+          style={{ color: buttonColor, borderColor: buttonColor }}
           href={
             title === 'Enterprise'
               ? '/contact'
@@ -130,7 +131,11 @@ function PriceWrapper({
           </button>
         </div>
       </div>
-      <Grid container spacing={1} className={!onClick ? classes.container : ''}>
+      <Grid
+        container
+        spacing={1}
+        className={`${!onClick ? classes.container : ''} overflow-visible`}
+      >
         {priceConfig.plans
           .filter((item: any) => (!blockFree ? item.title !== 'Free' : true))
           .map(({ title, details, cost, costYearly, Icon }: any) => {
@@ -150,22 +155,28 @@ function PriceWrapper({
                   }
                 : onClick
 
+            const isPremium = title === 'Premium'
+            const Component = clickEvent ? 'button' : 'div'
+
             return (
-              <Paper
+              <Component
                 key={title}
-                className={`${classes.paper} ${highLight(
+                className={`${classes.paper} rounded ${highLight(
                   title,
                   classes?.highLight,
                   {
                     premium,
                     basic,
                   }
-                )}`}
+                )}${
+                  isPremium
+                    ? ' bg-white text-black 2xl:scale-y-110 z-20'
+                    : 'bg-gray-700'
+                }`}
                 onClick={clickEvent ? () => clickEvent(title) : undefined}
-                component={clickEvent ? 'button' : 'div'}
               >
                 <Fragment>
-                  {title === 'Premium' ? <Ribbon /> : null}
+                  {isPremium ? <Ribbon /> : null}
                   <Icon
                     fontSize='large'
                     style={title === 'Enterprise' ? { color: '#5c6bc0' } : {}}
@@ -209,14 +220,14 @@ function PriceWrapper({
                     {title !== 'Free' ? 'Cancel anytime.' : 'Forever Free'}
                   </Typography>
                 </Fragment>
-              </Paper>
+              </Component>
             )
           })}
       </Grid>
       <Typography
         variant='subtitle1'
         component='p'
-        className={'py-6 text-center'}
+        className={'py-12 text-center'}
       >
         If you need a higher API limit please send us an email at
         support@a11ywatch.com
