@@ -6,27 +6,28 @@ import { SectionHeading } from '../text'
 interface ImageProps {
   src: string
   alt: string
+  ext?: 'svg' | 'png' | 'webp' | 'gif'
 }
 
-function TrustBy() {
+function TrustBy({ small }: { small?: boolean }) {
   const width = '231.68px'
   const height = '56.45px'
 
-  function MarketingImage({ src, alt }: ImageProps) {
+  function MarketingImage({ src, alt, ext = 'svg' }: ImageProps) {
     return (
       <div className='col-span-1 flex justify-center py-8 px-8'>
         <Image
           width={width}
           height={height}
           className='max-h-12 filter grayscale hover:grayscale-0'
-          src={`/static/img/${src}.svg`}
+          src={`/static/img/${src}.${ext}`}
           alt={alt}
         />
       </div>
     )
   }
 
-  const images = [
+  const images: ImageProps[] = [
     { src: 'marketing_blockchain', alt: 'BlockChain.com logo' },
     { src: 'marketing_supermajority', alt: 'SuperMajority logo' },
     { src: 'marketing_matchmanao', alt: 'Matchmanao logo' },
@@ -34,6 +35,29 @@ function TrustBy() {
     { src: 'marketing_escape', alt: 'Escapada Rural logo' },
     { src: 'marketing_vivacom', alt: 'Vivacom logo' },
   ]
+
+  if (small) {
+    const images: ImageProps[] = [
+      { src: 'marketing_foxit', alt: 'Foxit logo' },
+      { src: 'marketing_enterprise', alt: 'Enterprise logo', ext: 'webp' },
+      {
+        src: 'marketing_voyager',
+        alt: 'Voyager logo',
+        ext: 'png',
+      },
+      { src: 'marketing_endlabs', alt: 'Endlabs logo' },
+      { src: 'marketing_gameinformer', alt: 'Game Informer logo' },
+      { src: 'marketing_jnj', alt: 'Johnson and Johnson logo', ext: 'png' },
+    ]
+
+    return (
+      <div className='mt-6 grid grid-cols-3 gap-0.5 md:grid-cols-6 lg:mt-8'>
+        {images.map(({ src, alt, ext }: ImageProps, i: number) => (
+          <MarketingImage src={src} ext={ext} alt={alt} key={`${i}_${src}`} />
+        ))}
+      </div>
+    )
+  }
 
   return (
     <section
@@ -52,8 +76,8 @@ function TrustBy() {
           </Typography>
         </div>
         <div className='mt-6 grid grid-cols-2 gap-0.5 md:grid-cols-3 lg:mt-8'>
-          {images.map(({ src, alt }: ImageProps, i: number) => (
-            <MarketingImage src={src} alt={alt} key={`${i}_${src}`} />
+          {images.map(({ src, alt, ext }: ImageProps, i: number) => (
+            <MarketingImage src={src} ext={ext} alt={alt} key={`${i}_${src}`} />
           ))}
         </div>
       </div>

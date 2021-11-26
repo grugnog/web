@@ -10,6 +10,7 @@ import { makeStyles } from '@material-ui/core/styles'
 import { CtaInput } from './searchbar'
 import { Link } from '../general'
 import ExpandMore from '@material-ui/icons/ExpandMore'
+import { MarketingTrustBy } from '../marketing'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -138,6 +139,7 @@ function CtaIntro({ checker }: any) {
           >
             <ExpandMore />
           </a>
+          <MarketingTrustBy small />
         </div>
       )}
     </Fragment>
