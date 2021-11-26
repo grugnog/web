@@ -58,13 +58,14 @@ function Inner({ isVisible }: { isVisible: boolean }) {
     if (loaded) {
       ;(async () => {
         try {
-          let player = playerRef?.current
           if (!playerRef?.current) {
             const video = document.querySelector('iframe') as HTMLIFrameElement
-            player = video && new Player(video)
-            playerRef.current = player
+            playerRef.current = video && new Player(video)
           }
 
+          const player = playerRef?.current
+
+          // TODO: USE ON event to determine when officially playing to pause the video
           if (player) {
             if (isVisible && player?.play) {
               await player.play()
@@ -77,25 +78,32 @@ function Inner({ isVisible }: { isVisible: boolean }) {
         }
       })()
     }
+
+    return () => {
+      if (playerRef.current) {
+        playerRef.current.pause()
+      }
+    }
   }, [isVisible, loaded])
 
   const videoClassName = `${classes.video} ${classes.frame}`
 
-  const onIframeEvent = async () => {
+  const onIframeEvent = () => {
     setMuted((val: number) => (val ? 0 : 1))
-
-    try {
-      if (playerRef?.current) {
+    ;(async () => {
+      try {
         const player = playerRef?.current
-        if (muted) {
-          await player?.play()
-        } else {
-          await player?.pause()
+        if (player) {
+          if (muted) {
+            await player?.play()
+          } else {
+            await player?.pause()
+          }
         }
+      } catch (e) {
+        console.error(e)
       }
-    } catch (e) {
-      console.error(e)
-    }
+    })()
   }
 
   return (

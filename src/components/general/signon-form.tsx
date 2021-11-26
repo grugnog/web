@@ -5,11 +5,9 @@
  **/
 
 import React, {
-  useState,
   useEffect,
   useRef,
   useCallback,
-  useMemo,
   FunctionComponent,
   Fragment,
 } from 'react'
@@ -86,7 +84,6 @@ const SignOnForm: FunctionComponent<SignOnProps> = ({
 }) => {
   const router = useRouter()
   const classes = useStyles()
-  const [stateVisible, setStateVisible] = useState(isVisible)
   const [signOnMutation, { data, error, loading }] = useMutation(
     loginView ? LOGIN : REGISTER
   )
@@ -94,12 +91,6 @@ const SignOnForm: FunctionComponent<SignOnProps> = ({
   const passwordRef = useRef<any>(null)
 
   useEffect(() => {
-    if (!stateVisible && isVisible) {
-      setStateVisible(true)
-    }
-  }, [isVisible, stateVisible])
-
-  useMemo(() => {
     if (data) {
       const user = data[loginView ? 'login' : 'register']
       if (user) {
@@ -116,7 +107,7 @@ const SignOnForm: FunctionComponent<SignOnProps> = ({
     }
   }, [data, router, loginView])
 
-  useMemo(() => {
+  useEffect(() => {
     if (error?.graphQLErrors?.length) {
       AppManager.toggleSnack(true, error?.graphQLErrors, 'error')
     }
