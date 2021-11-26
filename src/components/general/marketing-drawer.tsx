@@ -23,6 +23,7 @@ export function MarketingDrawer({
   navPosition,
   maxWidth = 'xl',
   footerSpacing,
+  index,
 }: any) {
   const classes = navigationStyles()
 
@@ -61,7 +62,10 @@ export function MarketingDrawer({
         {initClosed ? (
           children
         ) : (
-          <Container maxWidth={maxWidth}>
+          <Container
+            maxWidth={maxWidth}
+            style={index ? { paddingLeft: 0, paddingRight: 0 } : undefined}
+          >
             <CtaProfessionalSupportButton home={title === 'Consulting'} />
             {children}
           </Container>

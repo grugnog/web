@@ -47,7 +47,7 @@ export function CtaCustomers() {
   const size = useMediaQuery('(min-width:600px)') ? 78 : 25
 
   return (
-    <SectionContainer>
+    <SectionContainer className={'bg-gray-800'}>
       <SectionHeading>{strings.customers}</SectionHeading>
       <Typography variant='h6' component='h4' gutterBottom>
         {strings.customersWhy}

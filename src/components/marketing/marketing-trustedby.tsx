@@ -61,16 +61,12 @@ function TrustBy({ small }: { small?: boolean }) {
   }
 
   return (
-    <SectionContainer>
-      <div className='max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:py-16 lg:px-8'>
-        <div>
-          <SectionHeading>
-            Trusted by many businesses from all over
-          </SectionHeading>
-          <Typography variant='h6' component='p' gutterBottom>
-            From small companies to Fortune 500
-          </Typography>
-        </div>
+    <SectionContainer className={'bg-gray-800'}>
+      <SectionHeading>Trusted by many businesses from all over</SectionHeading>
+      <Typography variant='h6' component='p' gutterBottom>
+        From small companies to Fortune 500
+      </Typography>
+      <div className='py-12 px-4 sm:px-6 lg:py-16 lg:px-8'>
         <div className='mt-6 grid grid-cols-2 gap-0.5 md:grid-cols-3 lg:mt-8'>
           {images.map(({ src, alt, ext }: ImageProps, i: number) => (
             <MarketingImage src={src} ext={ext} alt={alt} key={`${i}_${src}`} />

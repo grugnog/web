@@ -10,7 +10,7 @@ import {
   CtaIntro,
   CtaVideo,
   CtaCustomers,
-  CtaSearch,
+  // CtaSearch,
   CtaSignonForm,
 } from '@app/components/cta'
 import { WithSwipeModal as SwipeableTemporaryDrawer } from '@app/components/adhoc'
@@ -23,18 +23,18 @@ import {
 function Index() {
   return (
     <Fragment>
-      <MarketingDrawer navPosition={'relative'} maxWidth={'xl'}>
-        <MarketingShapesTop />
+      <MarketingDrawer navPosition={'relative'} maxWidth={'xl'} index>
         <CtaIntro />
         <CtaVideo />
         <CtaFeatures />
         <CtaCustomers />
-        <CtaSearch />
+        {/* <CtaSearch /> */}
         <MarketingTestimonial />
         <MarketingTrustBy />
         <Price blockFree navigate />
         <CtaSignonForm />
       </MarketingDrawer>
+      <MarketingShapesTop />
       <SwipeableTemporaryDrawer />
     </Fragment>
   )

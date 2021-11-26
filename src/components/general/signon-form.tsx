@@ -35,10 +35,6 @@ import { Link } from './link'
 import { LinearBottom } from './loaders'
 
 const useStyles = makeStyles((theme) => ({
-  root: {
-    paddingTop: '12%',
-    paddingBottom: '12%',
-  },
   paper: {
     padding: theme.spacing(3),
     textAlign: 'center',
@@ -161,7 +157,7 @@ const SignOnForm: FunctionComponent<SignOnProps> = ({
 
   return (
     <Fragment>
-      <Container maxWidth='sm' className={classes.root}>
+      <Container maxWidth='sm'>
         <Typography
           variant={home ? 'h4' : 'h2'}
           component={home ? 'h4' : 'h1'}

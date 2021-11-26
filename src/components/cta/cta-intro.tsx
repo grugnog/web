@@ -19,7 +19,6 @@ const useStyles = makeStyles((theme) => ({
     alignItems: 'center',
     paddingBottom: '6%',
     [theme.breakpoints.down('sm')]: {
-      paddingTop: '12%',
       display: 'block',
     },
   },

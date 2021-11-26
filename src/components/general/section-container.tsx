@@ -23,7 +23,7 @@ const SectionContainer: FC<{ className?: string; id?: string }> = ({
   const classes = useStyles()
 
   return (
-    <section className={[classes.root, className].join('')} {...props}>
+    <section className={[className, classes.root, 'px-6'].join(' ')} {...props}>
       {children}
     </section>
   )
