@@ -32,7 +32,6 @@ const useStyles = makeStyles(() => ({
     flexDirection: 'column',
     margin: 4,
     padding: 12,
-    border: 0,
     overflow: 'hidden',
     position: 'relative',
     whiteSpace: 'pre-wrap',
@@ -62,6 +61,20 @@ const highLight = (
     ? highLightStyles
     : ''
 
+const getPrimaryColor = (title: string) => {
+  let textColor = '#fff'
+  if (title === 'Premium') {
+    textColor = '#EC4899'
+  } else if (title === 'Free') {
+    textColor = '#10B981'
+  } else if (title === 'Basic') {
+    textColor = '#3B82F6'
+  } else if (title === 'Enterprise') {
+    textColor = '#fff'
+  }
+  return textColor
+}
+
 function PriceWrapper({
   basic = false,
   premium = false,
@@ -70,6 +83,7 @@ function PriceWrapper({
   navigate,
   yearly: year,
   setYearly: setYear,
+  pricingPage,
 }: any) {
   const classes = useStyles()
   const [yearState, onSetYear] = useState<boolean>(!!year)
@@ -84,14 +98,28 @@ function PriceWrapper({
 
   const yearly = yearState
 
-  function MainButton({ title }: { title?: string }) {
+  function MainButton({ title }: { title: string }) {
+    const buttonColor = getPrimaryColor(title)
+    let textColor = '#fff'
+
+    if (title === 'Premium') {
+    } else if (title === 'Free') {
+    } else if (title === 'Basic') {
+      textColor = '#fff'
+    } else if (title === 'Enterprise') {
+      textColor = '#000'
+    }
+
     if (navigate) {
-      const buttonColor = title === 'Premium' ? '#000' : '#fff'
       return (
         <Button
           component={Link}
-          className={`w-full text-bold`}
-          style={{ color: buttonColor, borderColor: buttonColor }}
+          className={`w-full hover:ring`}
+          style={{
+            backgroundColor: buttonColor,
+            color: textColor,
+            fontWeight: 600,
+          }}
           href={
             title === 'Enterprise'
               ? '/contact'
@@ -108,7 +136,7 @@ function PriceWrapper({
 
   return (
     <Container className={!onClick && !navigate ? classes.root : ''}>
-      {typeof onClick === 'undefined' ? (
+      {typeof onClick === 'undefined' && !pricingPage ? (
         <SectionHeading gutterBottom style={onClick ? { fontWeight: 200 } : {}}>
           {navigate ? 'Plans' : 'Pricing'}
         </SectionHeading>
@@ -158,6 +186,8 @@ function PriceWrapper({
             const isPremium = title === 'Premium'
             const Component = clickEvent ? 'button' : 'div'
 
+            const textColor = getPrimaryColor(title)
+
             return (
               <Component
                 key={title}
@@ -168,31 +198,26 @@ function PriceWrapper({
                     premium,
                     basic,
                   }
-                )}${
-                  isPremium
-                    ? ' bg-white text-black 2xl:scale-y-110 z-20'
-                    : 'bg-gray-700'
-                }`}
+                )} border border-white`}
                 onClick={clickEvent ? () => clickEvent(title) : undefined}
               >
                 <Fragment>
-                  {isPremium ? <Ribbon /> : null}
-                  <Icon
-                    fontSize='large'
-                    style={title === 'Enterprise' ? { color: '#5c6bc0' } : {}}
-                  />
+                  {isPremium ? (
+                    <Ribbon backgroundColor={textColor} color={'#fff'} />
+                  ) : null}
+                  <Icon fontSize='large' style={{ color: textColor }} />
                   <Typography
                     variant='h4'
                     component='h4'
                     gutterBottom
-                    style={{ fontWeight: 'bold' }}
+                    style={{ fontWeight: 'bold', color: textColor }}
                   >
                     {title}
                   </Typography>
                   <ul>
                     {details?.map((item: string) => (
                       <li
-                        className={'flex gap-x-3 place-items-center'}
+                        className={'flex gap-x-3 place-items-center text-white'}
                         key={item}
                         aria-hidden={!String(item).trim()}
                       >

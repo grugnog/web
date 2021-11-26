@@ -15,8 +15,6 @@
   overflow: hidden;
   -webkit-transform: rotate(45deg);
   transform: rotate(45deg);
-  border: 1px dashed;
-  box-shadow: 0 0 0 3px #ccc, 0px 21px 5px -18px rgba(0, 0, 0, 0.6);
   background: #ccc;
   text-align: center;
   color: #000;
