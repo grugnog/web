@@ -6,15 +6,15 @@
 
 import React from 'react'
 import VisibilitySensor from 'react-visibility-sensor'
-import { SignOnForm } from '../general'
+import { SectionContainer, SignOnForm } from '../general'
 
 export function CtaSignonForm() {
   return (
     <VisibilitySensor partialVisibility>
       {({ isVisible }) => (
-        <section>
+        <SectionContainer>
           <SignOnForm home isVisible={isVisible} />
-        </section>
+        </SectionContainer>
       )}
     </VisibilitySensor>
   )

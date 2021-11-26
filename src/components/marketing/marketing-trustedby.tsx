@@ -2,6 +2,7 @@ import React, { memo } from 'react'
 import Image from 'next/image'
 import { Typography } from '@material-ui/core'
 import { SectionHeading } from '../text'
+import { SectionContainer } from '../general'
 
 interface ImageProps {
   src: string
@@ -60,12 +61,7 @@ function TrustBy({ small }: { small?: boolean }) {
   }
 
   return (
-    <section
-      style={{
-        paddingTop: '12%',
-        paddingBottom: '12%',
-      }}
-    >
+    <SectionContainer>
       <div className='max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:py-16 lg:px-8'>
         <div>
           <SectionHeading>
@@ -81,7 +77,7 @@ function TrustBy({ small }: { small?: boolean }) {
           ))}
         </div>
       </div>
-    </section>
+    </SectionContainer>
   )
 }
 

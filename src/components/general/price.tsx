@@ -6,17 +6,13 @@
 import React, { Fragment, memo, useState } from 'react'
 import { Typography, Grid, Button } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
-import { Ribbon } from '@app/components/general'
+import { Ribbon, SectionContainer } from '@app/components/general'
 import { priceConfig } from '@app/configs'
 import { SectionHeading } from '../text'
 import { Link } from './link'
 import { Done } from '@material-ui/icons'
 
 const useStyles = makeStyles(() => ({
-  root: {
-    paddingTop: '12%',
-    paddingBottom: '12%',
-  },
   container: {
     flexGrow: 1,
   },
@@ -135,7 +131,7 @@ function PriceWrapper({
   }
 
   return (
-    <Container className={!onClick && !navigate ? classes.root : ''}>
+    <Container className={!onClick && !navigate ? '' : ''}>
       {typeof onClick === 'undefined' && !pricingPage ? (
         <SectionHeading gutterBottom style={onClick ? { fontWeight: 200 } : {}}>
           {navigate ? 'Plans' : 'Pricing'}
@@ -265,4 +261,14 @@ function PriceWrapper({
   )
 }
 
-export const Price = memo(PriceWrapper)
+export const PriceMemo = memo(PriceWrapper)
+
+export const PriceContainer = (props: any) => {
+  return (
+    <SectionContainer>
+      <PriceMemo {...props} />
+    </SectionContainer>
+  )
+}
+
+export const Price = memo(PriceContainer)

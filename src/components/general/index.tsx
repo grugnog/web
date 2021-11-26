@@ -4,6 +4,7 @@
  * LICENSE file in the root directory of this source tree.
  **/
 export { Link } from './link'
+export { SectionContainer } from './section-container'
 export { Footer } from './footer'
 export { NavBar } from './navbar'
 export { TestView } from './test-view'
@@ -40,7 +41,7 @@ export { CollaspeListCdn } from './collaspe-list-cdn'
 export { UpgradeBanner } from './upgrade-banner'
 export { InputHeaders } from './input-headers'
 export { Mailto } from './mailto'
-export { Price } from './price'
+export { Price, PriceMemo } from './price'
 export { Section } from './section'
 export { Circle } from './circle'
 export { Heading } from './heading'

@@ -7,7 +7,7 @@ import React from 'react'
 import { Typography } from '@material-ui/core'
 import {
   MarketingDrawer,
-  Price,
+  PriceMemo,
   SignOnForm,
   PageTitle,
 } from '@app/components/general'
@@ -25,7 +25,7 @@ function Pricing({ name }: PageProps) {
         <Typography component='h2' gutterBottom className={'sr-only'}>
           Choose a plan that best fits your needs
         </Typography>
-        <Price navigate blockFree pricingPage />
+        <PriceMemo navigate blockFree pricingPage />
         <SignOnForm home />
       </Box>
     </MarketingDrawer>

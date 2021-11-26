@@ -22,11 +22,9 @@ import {
   Web as WebIcon,
   TripOrigin as TripIcon,
 } from '@material-ui/icons'
+import { SectionContainer } from '../general'
 
 const useStyles = makeStyles((theme) => ({
-  root: {
-    paddingBottom: '12%',
-  },
   paper: {
     padding: theme.spacing(3),
     textAlign: 'center',
@@ -61,41 +59,44 @@ const useStyles = makeStyles((theme) => ({
 const RenderIcon = ({ index, ...props }: any): any =>
   React.createElement(
     (() => {
+      let FeatureIcon
+
       switch (index) {
         case 0:
-          return AccessibilityIcon
+          FeatureIcon = AccessibilityIcon
           break
         case 1:
-          return NotificationsIcon
+          FeatureIcon = NotificationsIcon
           break
         case 2:
-          return CodeIcon
+          FeatureIcon = CodeIcon
           break
         case 3:
-          return BuildIcon
+          FeatureIcon = BuildIcon
           break
         case 4:
-          return CloudIcon
+          FeatureIcon = CloudIcon
           break
         case 5:
-          return SpeedIcon
+          FeatureIcon = SpeedIcon
           break
         case 6:
-          return SecurityIcon
+          FeatureIcon = SecurityIcon
           break
         case 7:
-          return CompareIcon
+          FeatureIcon = CompareIcon
           break
         case 8:
-          return WebIcon
+          FeatureIcon = WebIcon
           break
         case 9:
-          return TripIcon
+          FeatureIcon = TripIcon
           break
         default:
-          return SpeedIcon
+          FeatureIcon = SpeedIcon
           break
       }
+      return FeatureIcon
     })(),
     props
   )
@@ -128,10 +129,8 @@ function FeatureItem({ item, index }: { item: any; index: number }) {
 }
 
 const CtaFeatures = () => {
-  const classes = useStyles()
-
   return (
-    <section className={classes.root}>
+    <SectionContainer>
       <div>
         <SectionHeading>{strings.headers[2][0]}</SectionHeading>
         <Typography variant='h6' component='p' gutterBottom>
@@ -143,7 +142,7 @@ const CtaFeatures = () => {
           <FeatureItem item={item} index={index} key={item.id} />
         ))}
       </Grid>
-    </section>
+    </SectionContainer>
   )
 }
 

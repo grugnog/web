@@ -4,11 +4,11 @@
  * LICENSE file in the root directory of this source tree.
  **/
 
-import React, { Fragment } from 'react'
+import React from 'react'
 import { Typography, Button } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import { CtaInput } from './searchbar'
-import { Link } from '../general'
+import { Link, SectionContainer } from '../general'
 import ExpandMore from '@material-ui/icons/ExpandMore'
 import { MarketingTrustBy } from '../marketing'
 
@@ -17,10 +17,9 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    paddingTop: '6%',
     paddingBottom: '6%',
     [theme.breakpoints.down('sm')]: {
-      paddingTop: '18%',
+      paddingTop: '12%',
       display: 'block',
     },
   },
@@ -82,8 +81,8 @@ function CtaIntro({ checker }: any) {
   const classes = useStyles()
 
   return (
-    <Fragment>
-      <section
+    <SectionContainer>
+      <div
         className={`${classes.root}${
           checker ? ` ${classes.detailedContainer}` : ''
         }`}
@@ -125,7 +124,7 @@ function CtaIntro({ checker }: any) {
             alt='accessibility stats tool'
           />
         </div>
-      </section>
+      </div>
       {checker ? null : (
         <div className={classes.join}>
           <Typography variant='subtitle2' component={'p'} gutterBottom>
@@ -142,7 +141,7 @@ function CtaIntro({ checker }: any) {
           <MarketingTrustBy small />
         </div>
       )}
-    </Fragment>
+    </SectionContainer>
   )
 }
 

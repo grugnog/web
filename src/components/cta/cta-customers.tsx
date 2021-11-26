@@ -11,13 +11,9 @@ import { useMediaQuery } from '@material-ui/core'
 import { strings } from '@app-strings'
 import { useSearch } from '@app/data'
 import { SectionHeading } from '../text'
+import { SectionContainer } from '../general'
 
 const useStyles = makeStyles((theme) => ({
-  root: {
-    paddingTop: '12%',
-    paddingBottom: '12%',
-    width: 'calc(100% - 3px)',
-  },
   card: {
     position: 'relative',
     overflow: 'hidden',
@@ -51,7 +47,7 @@ export function CtaCustomers() {
   const size = useMediaQuery('(min-width:600px)') ? 78 : 25
 
   return (
-    <section className={classes.root}>
+    <SectionContainer>
       <SectionHeading>{strings.customers}</SectionHeading>
       <Typography variant='h6' component='h4' gutterBottom>
         {strings.customersWhy}
@@ -74,6 +70,6 @@ export function CtaCustomers() {
           </button>
         ))}
       </div>
-    </section>
+    </SectionContainer>
   )
 }

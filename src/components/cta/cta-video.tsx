@@ -8,13 +8,9 @@ import React, { useEffect, useState, useRef, Fragment } from 'react'
 import { makeStyles } from '@material-ui/core/styles'
 import VisibilitySensor from 'react-visibility-sensor'
 import Player from '@vimeo/player'
+import { SectionContainer } from '../general'
 
 const useStyles = makeStyles((theme) => ({
-  root: {
-    paddingTop: '12%',
-    paddingBottom: '12%',
-    overflow: 'visible',
-  },
   card: {
     overflow: 'hidden',
     width: '100%',
@@ -103,7 +99,7 @@ function Inner({ isVisible }: { isVisible: boolean }) {
   }
 
   return (
-    <div className={classes.root} id='video-section'>
+    <SectionContainer id='video-section'>
       <div
         className={classes.card}
         style={{ boxShadow: '#D1D5DB 0 1px 150px' }}
@@ -140,7 +136,7 @@ function Inner({ isVisible }: { isVisible: boolean }) {
           </div>
         </div>
       </div>
-    </div>
+    </SectionContainer>
   )
 }
 

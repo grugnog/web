@@ -4,28 +4,16 @@
  * LICENSE file in the root directory of this source tree.
  **/
 
-import React from 'react'
+import React, { memo } from 'react'
 import { Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import { strings } from '@app-strings'
 
 import { rollStyles } from '@app/styles'
 import { CtaSearchBar } from './searchbar'
-import { SectionHeading } from '../text'
+import { SectionContainer } from '../general'
 
 const useStyles = makeStyles((theme) => ({
-  root: {
-    paddingTop: '12%',
-    paddingBottom: '12%',
-    display: 'block',
-    overflow: 'hidden',
-    [theme.breakpoints.down('sm')]: {
-      paddingTop: '18%',
-    },
-  },
-  detailedContainer: {
-    paddingTop: '6%',
-  },
   title: {
     width: '100%',
     display: 'flex',
@@ -61,7 +49,7 @@ const rollStrings = [
   strings.productivity,
 ]
 
-function CtaSearch({ checker }: any) {
+const CtaSearchContainer = () => {
   const classes = useStyles()
   const roll = rollStyles()
 
@@ -86,55 +74,30 @@ function CtaSearch({ checker }: any) {
   }
 
   return (
-    <section
-      className={`${classes.root}${
-        checker ? ` ${classes.detailedContainer}` : ''
-      }`}
-    >
-      {checker ? (
-        <div>
-          <Typography variant='h1' component={'h3'}>
-            Web Accessibility Checker
-          </Typography>
-          <Typography variant='h5' component={'span'}>
-            Check your website for accessibility issues for free
-          </Typography>
-        </div>
-      ) : (
-        <div>
-          <SectionHeading>Scan your website free</SectionHeading>
-          <Typography variant='h5' component={'h4'}>
-            A11yWatch is built for websites that have many pages, update
-            frequently, authentication walls, or staying up to date on the
-            latest with accessibility.
-          </Typography>
-        </div>
-      )}
-      <CtaSearchBar checker={checker}>
-        {checker ? (
-          <Head>Check website for issues</Head>
-        ) : (
-          <Head component='span'>
-            <Heading component='span'>{`${strings.title} `}</Heading>
-            <Heading className={roll.g} component='span'>
-              {rollStrings.map((item: string, itemIndex: number): any => (
-                <Heading
-                  component='span'
-                  // @ts-ignore
-                  className={`${roll.roll} ${roll[`d${itemIndex}`]} ${
-                    roll.gi
-                  } ${classes.smallFont}`}
-                  key={item}
-                >
-                  {item}
-                </Heading>
-              ))}
-            </Heading>
-          </Head>
-        )}
+    <SectionContainer>
+      <CtaSearchBar checker={false}>
+        <Head component='span'>
+          <Heading component='span'>{`${strings.title} `}</Heading>
+          <Heading className={roll.g} component='span'>
+            {rollStrings.map((item: string, itemIndex: number): any => (
+              <Heading
+                component='span'
+                // @ts-ignore
+                className={`${roll.roll} ${roll[`d${itemIndex}`]} ${roll.gi} ${
+                  classes.smallFont
+                }`}
+                key={item}
+              >
+                {item}
+              </Heading>
+            ))}
+          </Heading>
+        </Head>
       </CtaSearchBar>
-    </section>
+    </SectionContainer>
   )
 }
+
+const CtaSearch = memo(CtaSearchContainer)
 
 export { CtaSearch }

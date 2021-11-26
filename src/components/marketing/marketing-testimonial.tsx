@@ -8,12 +8,9 @@ import { Avatar, Grid, Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import { strings } from '@app-strings'
 import Image from 'next/image'
+import { SectionContainer } from '../general'
 
 const useStyles = makeStyles((theme) => ({
-  root: {
-    paddingTop: '12%',
-    paddingBottom: '12%',
-  },
   container: {
     alignItems: 'center',
     display: 'flex',
@@ -51,7 +48,7 @@ export function MarketingTestimonial() {
   const classes = useStyles()
 
   return (
-    <section className={classes.root}>
+    <SectionContainer>
       <Grid
         container
         spacing={3}
@@ -89,6 +86,6 @@ export function MarketingTestimonial() {
           </div>
         </Grid>
       </Grid>
-    </section>
+    </SectionContainer>
   )
 }
