@@ -154,7 +154,7 @@ export function ReportView({ website, closeButton, disablePlayground }: any) {
             <div className={classes.center}>
               <Screenshot
                 url={website?.url}
-                src={website?.screenshot ?? website.screenshotStill}
+                src={website?.screenshotStill ?? website.screenshot}
                 height={500}
               />
             </div>
