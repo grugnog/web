@@ -7,9 +7,10 @@
 // import { strings } from '@app-strings'
 
 import {
-  Mood as PaidIcon,
-  WhatshotOutlined as WhatsHot,
+  SentimentSatisfiedAlt as PaidIcon,
   SentimentSatisfied as FreeIcon,
+  SentimentVerySatisfied as PreemiumIcon,
+  WhatshotOutlined as WhatsHot,
 } from '@material-ui/icons'
 
 const TRUSTED_CDN = 'Personal secure CDN.'
@@ -55,7 +56,7 @@ const plans = [
     details: [
       'Monitor up to 10 websites.',
       'Daily full email reports.',
-      'Unlimited daily manual page scans.',
+      '100 daily manual page scans.',
       'All pages scanned multiple times daily.',
       TRUSTED_CDN,
       VISUAL_PLAYGROUND,
@@ -63,7 +64,7 @@ const plans = [
       '500 Private API request daily.',
       'Premium Support.',
     ],
-    Icon: WhatsHot,
+    Icon: PreemiumIcon,
     cost: '$19.99/month',
     costYearly: '$199.99/year',
   },

@@ -141,23 +141,21 @@ function PriceWrapper({
           {navigate ? 'Plans' : 'Pricing'}
         </SectionHeading>
       ) : null}
-      <div className={'py-4'}>
-        <div className='relative self-center mt-6 rounded-lg p-0.5 flex sm:mt-8'>
-          <button
-            type='button'
-            onClick={() => setYearly(false)}
-            className={getStyles(yearly)}
-          >
-            Monthly billing
-          </button>
-          <button
-            type='button'
-            onClick={() => setYearly(true)}
-            className={getStyles(!yearly)}
-          >
-            Yearly billing
-          </button>
-        </div>
+      <div className='flex sm:mt-6 py-4'>
+        <button
+          type='button'
+          onClick={() => setYearly(false)}
+          className={getStyles(yearly)}
+        >
+          Monthly billing
+        </button>
+        <button
+          type='button'
+          onClick={() => setYearly(true)}
+          className={getStyles(!yearly)}
+        >
+          Yearly billing
+        </button>
       </div>
       <Grid
         container
@@ -199,6 +197,12 @@ function PriceWrapper({
                     basic,
                   }
                 )} border border-white`}
+                style={{
+                  borderTopColor: textColor,
+                  borderTopWidth: 3,
+                  borderTopLeftRadius: 5,
+                  borderTopRightRadius: 1,
+                }}
                 onClick={clickEvent ? () => clickEvent(title) : undefined}
               >
                 <Fragment>
