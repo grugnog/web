@@ -14,6 +14,7 @@ import {
 } from '@app/components/general'
 import { metaSetter } from '@app/utils'
 import type { PageProps } from '@app/types'
+import Image from 'next/image'
 
 const useStyles = makeStyles(({ breakpoints, palette }) => ({
   paper: {
@@ -53,6 +54,8 @@ function Features({ name }: PageProps) {
     )
   }
 
+  const paperStyle = 'flex place-content-center bg-gray-800 my-4 rounded'
+
   return (
     <MarketingDrawer title={name} maxWidth='xl' footerSpacing>
       <PageTitle>{`Features`}</PageTitle>
@@ -68,8 +71,17 @@ function Features({ name }: PageProps) {
               that are tuned for your website. Get notified when new issues
               occur with detailed information on what happened. The reporter
               runs on all your pages and you can run the test multiple times a
-              day.
+              day. Control how often you need the reporter to run to get alerted
+              when you want.
             </FeatureHeading>
+            <div className={paperStyle}>
+              <Image
+                src={'/static/img/news.svg'}
+                height={300}
+                width={300}
+                alt={'Issue reporter like news'}
+              />
+            </div>
           </Section>
         </Paper>
         <Paper className={paper}>
@@ -83,6 +95,14 @@ function Features({ name }: PageProps) {
               layers allow us to learn and declare images with extraordinary
               precision.
             </FeatureHeading>
+            <div className={paperStyle}>
+              <Image
+                src={'/static/img/cloud.svg'}
+                height={300}
+                width={300}
+                alt={'Cloud cdn for fixing'}
+              />
+            </div>
           </Section>
         </Paper>
       </div>
@@ -93,8 +113,17 @@ function Features({ name }: PageProps) {
             <FeatureHeading>
               View your website with annotations of the issues on your page.
               Experiment with recommended fixes to validate changes before
-              release in real-time.
+              release in real-time. Test how your website would respond to
+              visual updates on the fly.
             </FeatureHeading>
+            <div className={paperStyle}>
+              <Image
+                src={'/static/img/park.svg'}
+                height={300}
+                width={300}
+                alt={'Amusement park for website creation'}
+              />
+            </div>
           </Section>
         </Paper>
         <Paper className={paper}>
@@ -106,6 +135,14 @@ function Features({ name }: PageProps) {
               you need to make a tweak, edit the script in real time with our
               editor.
             </FeatureHeading>
+            <div className={paperStyle}>
+              <Image
+                src={'/static/img/heal.svg'}
+                height={300}
+                width={300}
+                alt={'Fix issues with custom remedies'}
+              />
+            </div>
           </Section>
         </Paper>
       </div>
