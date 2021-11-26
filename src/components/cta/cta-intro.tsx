@@ -44,6 +44,9 @@ const useStyles = makeStyles((theme) => ({
     marginTop: 10,
     width: 200,
     marginBottom: 20,
+    [theme.breakpoints.down('sm')]: {
+      width: '50%',
+    },
     '&::after': {
       display: 'block',
       position: 'absolute',

@@ -19,6 +19,7 @@ const useStyles = makeStyles((theme: Theme) =>
       [theme.breakpoints.down('sm')]: {
         position: 'relative',
         flexDirection: 'column',
+        width: 'auto',
       },
     },
     search: {
