@@ -50,8 +50,7 @@ function MarketingShapesTop() {
         <Image
           src={'/static/img/shapes/oval-2.svg'}
           height={320}
-          width={380}
-          priority
+          width={360}
           alt=''
         />
       </div>

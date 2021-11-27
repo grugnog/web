@@ -21,6 +21,6 @@ export {
   cdn,
   getAPIRoute,
 } from './app-config'
-export { Routes, LoggedInRoutes, LOGGIN_ROUTES } from './routes'
+export { Routes, LoggedInRoutes, LOGGIN_ROUTES, SHARED_ROUTES } from './routes'
 export { features } from './features'
 export { priceConfig } from './page-configs'

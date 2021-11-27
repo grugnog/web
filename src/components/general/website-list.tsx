@@ -176,6 +176,7 @@ export function WebsiteList({
               src={'/static/img/website_builder.svg'}
               height={540}
               width={660}
+              alt='Website accessibility builder'
             />
           </div>
         </div>

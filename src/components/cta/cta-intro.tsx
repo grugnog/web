@@ -11,6 +11,7 @@ import { CtaInput } from './searchbar'
 import { Link, SectionContainer } from '../general'
 import ExpandMore from '@material-ui/icons/ExpandMore'
 import { MarketingTrustBy } from '../marketing'
+import Image from 'next/image'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -86,7 +87,7 @@ function CtaIntro({ checker }: any) {
           checker ? ` ${classes.detailedContainer}` : ''
         }`}
       >
-        <div className={classes.block}>
+        <div className={`${classes.block} mr-4`}>
           <Typography
             variant='h1'
             component={'h1'}
@@ -116,11 +117,12 @@ function CtaIntro({ checker }: any) {
           <CtaInput />
         </div>
         <div className={`${classes.block} ${classes.mobileHidden}`}>
-          <img
+          <Image
             src={`/static/img/${checker ? 'browser-stats' : 'intro'}.svg`}
             height={500}
             width={500}
             alt='accessibility stats tool'
+            priority
           />
         </div>
       </div>
@@ -129,7 +131,7 @@ function CtaIntro({ checker }: any) {
           <Typography variant='subtitle2' component={'p'} gutterBottom>
             JOIN THOUSANDS OF HIGHLY PRODUCTIVE TEAMS
           </Typography>
-          <img src={'/static/img/wave.svg'} height={8} width={120} alt='' />
+          <Image src={'/static/img/wave.svg'} height={8} width={120} alt='' />
           <a
             className={classes.bottomAnchor}
             href='#video-section'

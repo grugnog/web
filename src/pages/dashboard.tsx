@@ -21,10 +21,6 @@ import { _ONBOARDED } from '@app/lib/cookies/names'
 import { useWebsiteContext } from '@app/components/providers/website'
 import { ListSkeleton } from '@app/components/placeholders'
 
-export const noSSR = {
-  ssr: false,
-}
-
 const WebsiteList = dynamic(
   () =>
     import('@app/components/general/website-list').then(

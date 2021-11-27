@@ -77,6 +77,7 @@ module.exports = withPWA({
     scope: '/src',
     publicExcludes: ['!robots.txt', '!sitemap.xml.gz'],
   },
+  trailingSlash: false,
   swcMinify: false,
   images: {
     domains: domains,

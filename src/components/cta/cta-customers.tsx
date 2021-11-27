@@ -12,6 +12,7 @@ import { strings } from '@app-strings'
 import { useSearch } from '@app/data'
 import { SectionHeading } from '../text'
 import { SectionContainer } from '../general'
+import Image from 'next/image'
 
 const useStyles = makeStyles((theme) => ({
   card: {
@@ -59,11 +60,11 @@ export function CtaCustomers() {
             aria-label={`Scan ${item} for issues`}
             key={item + i}
             style={{ border: 0 }}
+            className={classes.badge}
           >
-            <img
+            <Image
               src={`/static/img/${item}.svg`}
               alt={item}
-              className={classes.badge}
               width={size}
               height={size}
             />

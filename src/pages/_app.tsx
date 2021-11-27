@@ -38,7 +38,6 @@ function MyApp({ Component, pageProps }: MergedApp) {
     initAppModel()
     // log initial page view
     handleRoutes()
-    userModel.redirect()
     startIntercom()
 
     events.on('routeChangeComplete', handleRoutes)
