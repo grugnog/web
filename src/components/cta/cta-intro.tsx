@@ -35,7 +35,7 @@ const useStyles = makeStyles((theme) => ({
   },
   intro: {
     lineHeight: '0.92em',
-    backgroundImage: "url('./static/img/sky.jpeg')",
+    backgroundImage: "url('./static/img/sky.webp')",
     marginBottom: 5,
     color: 'transparent',
   },
@@ -80,7 +80,7 @@ function CtaIntro({ checker }: any) {
   const classes = useStyles()
 
   return (
-    <SectionContainer>
+    <SectionContainer className={'pt-20'}>
       <div
         className={`${classes.root}${
           checker ? ` ${classes.detailedContainer}` : ''

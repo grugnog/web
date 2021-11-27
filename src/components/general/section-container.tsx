@@ -5,25 +5,17 @@
  **/
 
 import React, { FC } from 'react'
-import { makeStyles } from '@material-ui/core/styles'
-
-const useStyles = makeStyles(() => ({
-  root: {
-    paddingTop: '12%',
-    paddingBottom: '12%',
-    overflow: 'visible',
-  },
-}))
 
 const SectionContainer: FC<{ className?: string; id?: string }> = ({
   children,
   className,
   ...props
 }) => {
-  const classes = useStyles()
-
   return (
-    <section className={[className, classes.root, 'px-6'].join(' ')} {...props}>
+    <section
+      className={['overflow-visible', 'py-36', 'px-6', className].join(' ')}
+      {...props}
+    >
       {children}
     </section>
   )
