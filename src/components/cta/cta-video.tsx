@@ -4,10 +4,17 @@
  * LICENSE file in the root directory of this source tree.
  **/
 
-import React, { useEffect, useState, useRef, Fragment } from 'react'
+import React, {
+  useEffect,
+  useCallback,
+  useState,
+  useRef,
+  Fragment,
+} from 'react'
 import { makeStyles } from '@material-ui/core/styles'
 import VisibilitySensor from 'react-visibility-sensor'
 import Player from '@vimeo/player'
+import type { Options } from '@vimeo/player'
 import { SectionContainer } from '../general'
 
 const useStyles = makeStyles((theme) => ({
@@ -42,11 +49,43 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
+class BasePlayer extends Player {
+  public playing: boolean = false
+  constructor(
+    element: HTMLIFrameElement | HTMLElement | string,
+    options?: Options
+  ) {
+    super(element, options)
+    this.setPlaying = this.setPlaying.bind(this)
+  }
+  setPlaying(playing: boolean) {
+    this.playing = playing
+  }
+}
+
 function Inner({ isVisible }: { isVisible: boolean }) {
   const classes = useStyles()
   const [loaded, setLoaded] = useState<boolean>(false)
   const [muted, setMuted] = useState<number>(1)
-  const playerRef = useRef<Player>()
+  const playerRef = useRef<BasePlayer>()
+
+  const playVideo = useCallback(async (play: boolean) => {
+    const player = playerRef?.current
+
+    if (!player) {
+      return
+    }
+
+    if (play) {
+      if (!player.playing) {
+        await player.play()
+      }
+    } else if (!play) {
+      if (player.playing) {
+        await player.pause()
+      }
+    }
+  }, [])
 
   useEffect(() => {
     if (!loaded && isVisible) {
@@ -60,51 +99,45 @@ function Inner({ isVisible }: { isVisible: boolean }) {
         try {
           if (!playerRef?.current) {
             const video = document.querySelector('iframe') as HTMLIFrameElement
-            playerRef.current = video && new Player(video)
-          }
+            playerRef.current = video && new BasePlayer(video)
+            const player = playerRef.current
 
-          const player = playerRef?.current
-
-          // TODO: USE ON event to determine when officially playing to pause the video
-          if (player) {
-            if (isVisible && player?.play) {
-              await player.play()
-            } else if (!isVisible && player?.pause) {
-              await player.pause()
+            if (!player) {
+              return
             }
+
+            player.on('play', () => {
+              player.setPlaying(true)
+            })
+
+            player.on('pause', () => {
+              player.setPlaying(false)
+            })
           }
+
+          await playVideo(isVisible)
         } catch (e) {
           console.error(e)
         }
       })()
     }
-
-    return () => {
-      if (playerRef.current) {
-        playerRef.current.pause()
-      }
-    }
-  }, [isVisible, loaded])
+  }, [isVisible, loaded, playVideo])
 
   const videoClassName = `${classes.video} ${classes.frame}`
 
-  const onIframeEvent = () => {
-    setMuted((val: number) => (val ? 0 : 1))
-    ;(async () => {
-      try {
-        const player = playerRef?.current
-        if (player) {
-          if (muted) {
-            await player?.play()
-          } else {
-            await player?.pause()
-          }
+  const onIframeEvent = useCallback(() => {
+    setMuted((val: number) => {
+      ;(async () => {
+        try {
+          await playVideo(!!val)
+        } catch (e) {
+          console.error(e)
         }
-      } catch (e) {
-        console.error(e)
-      }
-    })()
-  }
+      })()
+
+      return val ? 0 : 1
+    })
+  }, [setMuted, playVideo])
 
   return (
     <SectionContainer id='video-section'>
