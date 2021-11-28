@@ -12,15 +12,14 @@ export {
   INTERCOM_APPID,
   GOOGLE_CLIENT_ID,
   APP_TYPE,
-  API_ENDPOINT,
   STRIPE_KEY,
   SUPER_MODE,
   DONORBOX_URL,
   API_URI_DOCKER,
   dev,
   cdn,
-  getAPIRoute,
 } from './app-config'
+export { getAPIRoute, API_ENDPOINT } from './api-route'
 export { Routes, LoggedInRoutes, LOGGIN_ROUTES, SHARED_ROUTES } from './routes'
 export { features } from './features'
 export { priceConfig } from './page-configs'

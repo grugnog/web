@@ -6,7 +6,6 @@
 import { computed, observable, action } from 'mobx'
 import { create, persist } from 'mobx-persist'
 import { isSameDay } from 'date-fns'
-import Router from 'next/router'
 import { userModel } from '@app/data'
 import { parseJwt } from '@app/lib/auth'
 import { SUPER_MODE } from '@app/configs'
@@ -84,11 +83,8 @@ class UserManager {
   @action clearUser = (pathname: string = '/') => {
     userModel.logOut()
     this.user = USER_DEFAULTS
-    if (pathname) {
-      Router.push({
-        pathname,
-        query: {},
-      })
+    if (pathname && typeof location !== 'undefined') {
+      location.href = pathname
     }
   }
 

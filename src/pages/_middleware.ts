@@ -1,11 +1,37 @@
-import type { NextRequest } from 'next/server'
+import type { NextRequest, NextFetchEvent } from 'next/server'
 import { NextResponse } from 'next/server'
 import { LOGGIN_ROUTES, SHARED_ROUTES } from '@app/configs/routes'
+import { getAPIRoute } from '@app/configs/api-route'
 
-export function middleware(req: NextRequest) {
+export async function middleware(req: NextRequest, event: NextFetchEvent) {
   const noRedirects = req.nextUrl.searchParams.get('noredirect')
-  const staticResource = req.nextUrl.href.includes('static')
+  const staticResource = req.url.includes('/static/')
   const token = req.cookies.jwt
+
+  if (!staticResource && req.page.name) {
+    event.waitUntil(
+      (async () => {
+        const analyticsData = {
+          page: req.page.name,
+          userID: token || crypto.randomUUID!(),
+          screenResolution: undefined,
+          documentReferrer: req.referrer,
+          ip: req.ip,
+        }
+
+        await fetch(`${getAPIRoute()}/log/page`, {
+          method: 'POST',
+          body: JSON.stringify(analyticsData),
+          headers: {
+            // @ts-ignore
+            'user-agent': req?.ua?.ua,
+          },
+        }).catch((e) => {
+          console.error(e)
+        })
+      })()
+    )
+  }
 
   if (
     !staticResource &&

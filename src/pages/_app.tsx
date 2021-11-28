@@ -8,7 +8,6 @@ import '@a11ywatch/ui/css/tailwind.css'
 import '@app/stylesheets/tailwind.css'
 
 import React, { useEffect, Fragment } from 'react'
-import { useRouter } from 'next/router'
 import Head from 'next/head'
 import { AppProps } from 'next/app'
 import { CssBaseline } from '@material-ui/core'
@@ -17,7 +16,7 @@ import { strings } from '@app-strings'
 import { theme } from '@app-theme'
 import { twitterSite } from '@app-config'
 import { WithSnackBar, WithSkipContent } from '@app/components/adhoc'
-import { initAppModel, userModel } from '@app/data'
+import { initAppModel } from '@app/data'
 import { DOMAIN_NAME } from '@app/configs'
 import { startIntercom } from '@app/utils'
 import { withApollo } from '@app/apollo'
@@ -30,22 +29,10 @@ interface MergedApp extends AppProps {
 }
 
 function MyApp({ Component, pageProps }: MergedApp) {
-  const { events } = useRouter()
-
   useEffect(() => {
-    const handleRoutes = (route?: string) => userModel.handleRoutes(route)
-
     initAppModel()
-    // log initial page view
-    handleRoutes()
     startIntercom()
-
-    events.on('routeChangeComplete', handleRoutes)
-
-    return () => {
-      events.off('routeChangeComplete', handleRoutes)
-    }
-  }, [events])
+  }, [])
 
   const meta = Component?.meta || strings?.meta
   const { description, title, name } = meta

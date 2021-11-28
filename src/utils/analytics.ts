@@ -31,7 +31,7 @@ export const logPageView = (route?: string, refer?: boolean) => {
 
       navigator.sendBeacon(`${apiPath}/log/page`, beaconData)
     } else if (browser && window.fetch) {
-      fetch(`${getAPIRoute()}/log/page`, {
+      fetch(`${apiPath}/log/page`, {
         method: 'POST',
         body: JSON.stringify(analyticsData),
       }).catch((error) => {
