@@ -13,7 +13,6 @@ import {
   _ONBOARDED,
 } from '@app/lib/cookies/names'
 import { parseJwt } from '@app/lib/auth'
-import { logPageView } from '@app/utils'
 import { shutdownIntercom } from 'intercom-next'
 
 const defaultExp = 365
@@ -26,7 +25,6 @@ const userModel = {
   alertsEnabled: false,
   initModel: function ({
     deviceType = '',
-    originalUrl = '',
     cookie = '',
   }: {
     deviceType?: string
@@ -34,7 +32,6 @@ const userModel = {
     cookie?: any
   }) {
     try {
-      this.handleRoutes(originalUrl)
       if (typeof document !== 'undefined') {
         const jssStyles = document.querySelector('#jss-server-side')
 
@@ -107,18 +104,6 @@ const userModel = {
     networkCombiner?: boolean
   }) {
     return !!(this.alertsEnabled || toggleCombiner || networkCombiner)
-  },
-  handleRoutes(route?: string) {
-    try {
-      if (route) {
-        userModel.originalUrl = route
-      } else if (typeof window !== 'undefined') {
-        userModel.originalUrl = window.location.pathname
-      }
-      logPageView(userModel.originalUrl, true)
-    } catch (e) {
-      console.error(e)
-    }
   },
   setJwt: function (jwt: any) {
     try {

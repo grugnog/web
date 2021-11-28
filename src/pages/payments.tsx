@@ -19,7 +19,7 @@ import {
 } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import { WithHydrate } from '@app/components/adhoc'
-import { NavBar, Price, PageTitle } from '@app/components/general'
+import { NavBar, PriceMemo, PageTitle } from '@app/components/general'
 import { Box } from '@a11ywatch/ui'
 import { SimpleListItemSkeleton } from '@app/components/placeholders'
 import { STRIPE_KEY } from '@app/configs'
@@ -229,7 +229,7 @@ function Payments({ hideTitle = false, name }: PaymentProps) {
                 {!renderPayMentBoxes ? 'Account Info' : 'Upgrade Account'}
               </Typography>
               {renderPayMentBoxes ? (
-                <Price
+                <PriceMemo
                   priceOnly
                   basic={state.basic || data?.role === 1}
                   premium={state.premium || data?.role === 2}

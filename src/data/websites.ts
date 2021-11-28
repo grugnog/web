@@ -27,14 +27,14 @@ import type { Website } from '@app/types'
 export const useWebsiteData = (
   filter: string = '',
   url: string = '',
-  customHeaders: any = null
+  customHeaders: any = null,
+  skip: boolean = false
 ) => {
   const variables = {
     filter,
     customHeaders,
     url,
   }
-  const skip = !UserManager.loggedIn
   const { issueFeed, setIssueFeedContent } = useIssueFeed()
   const { data, loading, refetch, error } = useQuery(GET_WEBSITES, {
     variables,
@@ -59,7 +59,6 @@ export const useWebsiteData = (
 
   const { data: subDomainSubData } = useSubscription(SUBDOMAIN_SUBSCRIPTION, {
     variables: { userId: UserManager.getID },
-    skip,
   })
 
   const websites = data?.user?.websites || []

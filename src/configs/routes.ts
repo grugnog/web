@@ -184,4 +184,4 @@ export const LOGGIN_ROUTES = [
   '/urgent-issues',
 ]
 
-export const SHARED_ROUTES = ['/api-info', '/pricing']
+export const SHARED_ROUTES = ['/api-info', '/pricing', '/api/iframe']

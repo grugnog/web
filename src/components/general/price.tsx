@@ -32,9 +32,6 @@ const useStyles = makeStyles(() => ({
     position: 'relative',
     whiteSpace: 'pre-wrap',
   },
-  highLight: {
-    boxShadow: 'inset 0px 0px 0px 5px rgba(130,130,130,0.4)',
-  },
   large: {
     minHeight: '40vh',
   },
@@ -187,12 +184,12 @@ function PriceWrapper({
                 key={title}
                 className={`${classes.paper} rounded ${highLight(
                   title,
-                  classes?.highLight,
+                  'bg-gray-100 text-black',
                   {
                     premium,
                     basic,
                   }
-                )} border border-white`}
+                )} border border-white text-white'`}
                 style={{
                   borderTopColor: textColor,
                   borderTopWidth: 3,
@@ -217,7 +214,7 @@ function PriceWrapper({
                   <ul>
                     {details?.map((item: string) => (
                       <li
-                        className={'flex gap-x-3 place-items-center text-white'}
+                        className={'flex gap-x-3 place-items-center'}
                         key={item}
                         aria-hidden={!String(item).trim()}
                       >

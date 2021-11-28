@@ -4,7 +4,6 @@
  * LICENSE file in the root directory of this source tree.
  **/
 import React, { useEffect, useMemo } from 'react'
-import dynamic from 'next/dynamic'
 import { Button, Fade } from '@material-ui/core'
 import {
   PageTitle,
@@ -19,15 +18,7 @@ import { metaSetter } from '@app/utils'
 import type { PageProps } from '@app/types'
 import { _ONBOARDED } from '@app/lib/cookies/names'
 import { useWebsiteContext } from '@app/components/providers/website'
-import { ListSkeleton } from '@app/components/placeholders'
-
-const WebsiteList = dynamic(
-  () =>
-    import('@app/components/general/website-list').then(
-      (mod) => mod.WebsiteList
-    ) as any,
-  { loading: () => (<ListSkeleton />) as any, ssr: false }
-) as any
+import { WebsiteList } from '@app/components/general/website-list'
 
 function Dashboard({ name }: PageProps) {
   const { search } = useSearchFilter()

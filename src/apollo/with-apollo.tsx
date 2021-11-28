@@ -26,7 +26,7 @@ const createLink = (): ApolloLink => {
         ? AppConfig.graphQLUrlDocker
         : AppConfig.graphQLUrl,
     fetch: fetcher,
-    credentials: AppConfig.dev ? 'same-origin' : 'include',
+    credentials: 'include',
   })
 
   const authLink = setContext((_: any, { headers }: any) => {
@@ -67,6 +67,7 @@ const createLink = (): ApolloLink => {
   if (process.browser) {
     const wsLink = new SubscriptionClient(AppConfig.webSocketUrl + '', {
       reconnect: true,
+      timeout: 10000,
     })
 
     httpSplit = split(

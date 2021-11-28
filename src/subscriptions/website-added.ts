@@ -18,6 +18,7 @@ export const WEBSITE_SUBSCRIPTION = gql`
       script {
         script
         cdnUrl
+        cdnUrlMinified
       }
       pageLoadTime {
         duration

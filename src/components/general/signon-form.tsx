@@ -91,6 +91,12 @@ const SignOnForm: FunctionComponent<SignOnProps> = ({
   const passwordRef = useRef<any>(null)
 
   useEffect(() => {
+    if (!home) {
+      router.prefetch('/dashboard')
+    }
+  }, [home, router])
+
+  useEffect(() => {
     if (data) {
       const user = data[loginView ? 'login' : 'register']
       if (user) {

@@ -1,4 +1,4 @@
-import React, { createContext, useContext } from 'react'
+import React, { createContext, useContext, FC } from 'react'
 import { useWebsiteData } from '@app/data'
 import { sharedWebsiteDefaults } from './defaults'
 
@@ -6,8 +6,11 @@ const AppContext = createContext(sharedWebsiteDefaults)
 
 export const WebsiteProvider = AppContext.Provider
 
-export const WebsiteProviderWrapper: React.FC = ({ children }) => {
-  const data = useWebsiteData()
+export const WebsiteProviderWrapper: FC<{ websiteQuery?: boolean }> = ({
+  children,
+  websiteQuery,
+}) => {
+  const data = useWebsiteData('', '', null, websiteQuery)
 
   const sharedState = {
     ...data,

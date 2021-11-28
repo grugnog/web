@@ -6,7 +6,7 @@ import { getAPIRoute } from '@app/configs/api-route'
 export async function middleware(req: NextRequest, event: NextFetchEvent) {
   const noRedirects = req.nextUrl.searchParams.get('noredirect')
   const staticResource = req.url.includes('/static/')
-  const token = req.cookies.jwt
+  const token = req.cookies.jwt || req.headers.get('authorization')
 
   if (!staticResource && req.page.name) {
     event.waitUntil(
@@ -18,13 +18,15 @@ export async function middleware(req: NextRequest, event: NextFetchEvent) {
           documentReferrer: req.referrer,
           ip: req.ip,
         }
-
         await fetch(`${getAPIRoute()}/log/page`, {
           method: 'POST',
           body: JSON.stringify(analyticsData),
           headers: {
-            // @ts-ignore
-            'user-agent': req?.ua?.ua,
+            'user-agent': (req?.ua as NextRequest['ua'] & {
+              ua: string
+            })?.ua,
+            'Content-Type': 'application/json',
+            origin: req.nextUrl.origin || 'https://a11ywatch.com',
           },
         }).catch((e) => {
           console.error(e)
@@ -33,26 +35,25 @@ export async function middleware(req: NextRequest, event: NextFetchEvent) {
     )
   }
 
-  if (
-    !staticResource &&
-    LOGGIN_ROUTES.includes(req.nextUrl.pathname) &&
-    !token
-  ) {
-    // maybe simple redirect
-    return new NextResponse(
-      'Authentication Required. Please make sure cookies are enabled for authentication.'
-    )
+  // Authenticated middleware logic
+  if (token) {
+    if (
+      !staticResource &&
+      !LOGGIN_ROUTES.includes(req.nextUrl.pathname) &&
+      !SHARED_ROUTES.includes(req.nextUrl.pathname) &&
+      !req.nextUrl.pathname.includes('https://a11ywatch.com/src/') &&
+      !noRedirects
+    ) {
+      return NextResponse.redirect('/dashboard')
+    }
+  } else {
+    if (!staticResource && LOGGIN_ROUTES.includes(req.nextUrl.pathname)) {
+      // return new NextResponse(
+      //   'Authentication Required. Please make sure cookies are enabled for authentication.'
+      // )
+      return NextResponse.redirect('/')
+    }
   }
 
-  if (
-    !staticResource &&
-    !LOGGIN_ROUTES.includes(req.nextUrl.pathname) &&
-    !SHARED_ROUTES.includes(req.nextUrl.pathname) &&
-    token &&
-    !noRedirects
-  ) {
-    return NextResponse.redirect('/dashboard')
-  }
-
-  NextResponse.next()
+  return NextResponse.next()
 }

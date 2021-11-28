@@ -17,16 +17,19 @@ import { theme } from '@app-theme'
 import { twitterSite } from '@app-config'
 import { WithSnackBar, WithSkipContent } from '@app/components/adhoc'
 import { initAppModel } from '@app/data'
-import { DOMAIN_NAME } from '@app/configs'
+import { DOMAIN_NAME, LOGGIN_ROUTES } from '@app/configs'
 import { startIntercom } from '@app/utils'
 import { withApollo } from '@app/apollo'
-import { withWebsite } from '@app/components/providers'
+import { WebsiteProviderWrapper } from '@app/components/providers'
+import { ErrorBoundary } from '@app/components/general'
 
 interface MergedApp extends AppProps {
   Component: AppProps['Component'] & {
     meta: any
   }
 }
+
+const authRoutes = LOGGIN_ROUTES.map((route) => route.replace('/', ''))
 
 function MyApp({ Component, pageProps }: MergedApp) {
   useEffect(() => {
@@ -36,6 +39,8 @@ function MyApp({ Component, pageProps }: MergedApp) {
 
   const meta = Component?.meta || strings?.meta
   const { description, title, name } = meta
+
+  const websiteQuery = authRoutes.includes(name && String(name).toLowerCase())
 
   return (
     <Fragment>
@@ -73,11 +78,15 @@ function MyApp({ Component, pageProps }: MergedApp) {
       <ThemeProvider theme={theme}>
         <CssBaseline />
         <WithSkipContent />
-        <Component {...pageProps} name={name} />
+        <ErrorBoundary>
+          <WebsiteProviderWrapper websiteQuery={!websiteQuery}>
+            <Component {...pageProps} name={name} />
+          </WebsiteProviderWrapper>
+        </ErrorBoundary>
         <WithSnackBar />
       </ThemeProvider>
     </Fragment>
   )
 }
 
-export default withApollo(withWebsite(MyApp))
+export default withApollo(MyApp)

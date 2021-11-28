@@ -21,7 +21,16 @@ export class ErrorBoundary extends Component<{}, ErrorBoundaryState> {
 
   render() {
     if (this.state.hasError) {
-      return <p>Error</p>
+      return (
+        <>
+          <div className={'p-10 bg-blue-400 text-white ring'}>
+            <p className={'text-xl font-bold'}>
+              An error occured, please contact support at support@a11ywatch.com
+            </p>
+          </div>
+          {this.props.children}
+        </>
+      )
     }
     return this.props.children
   }
