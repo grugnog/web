@@ -3,17 +3,24 @@ import { NextResponse } from 'next/server'
 import { LOGGIN_ROUTES, SHARED_ROUTES } from '@app/configs/routes'
 import { getAPIRoute } from '@app/configs/api-route'
 
+const ID_COOKIE_NAME = 'uuid'
+
 export async function middleware(req: NextRequest, event: NextFetchEvent) {
   const noRedirects = req.nextUrl.searchParams.get('noredirect')
   const staticResource = req.url.includes('/static/')
-  const token = req.cookies.jwt || req.headers.get('authorization')
+  const token = req.cookies.jwt
+  let uuid = req.cookies[ID_COOKIE_NAME]
+
+  if (!uuid) {
+    uuid = crypto.randomUUID!()
+  }
 
   if (!staticResource && req.page.name) {
     event.waitUntil(
       (async () => {
         const analyticsData = {
           page: req.page.name,
-          userID: token || crypto.randomUUID!(),
+          userID: uuid || token,
           screenResolution: undefined,
           documentReferrer: req.referrer,
           ip: req.ip,
@@ -35,6 +42,8 @@ export async function middleware(req: NextRequest, event: NextFetchEvent) {
     )
   }
 
+  let res = NextResponse.next()
+
   // Authenticated middleware logic
   if (token) {
     if (
@@ -44,16 +53,17 @@ export async function middleware(req: NextRequest, event: NextFetchEvent) {
       !req.nextUrl.pathname.includes('https://a11ywatch.com/src/') &&
       !noRedirects
     ) {
-      return NextResponse.redirect('/dashboard')
+      res = NextResponse.redirect('/dashboard')
     }
   } else {
     if (!staticResource && LOGGIN_ROUTES.includes(req.nextUrl.pathname)) {
-      // return new NextResponse(
-      //   'Authentication Required. Please make sure cookies are enabled for authentication.'
-      // )
-      return NextResponse.redirect('/')
+      res = NextResponse.redirect('/')
     }
   }
 
-  return NextResponse.next()
+  if (!req.cookies[ID_COOKIE_NAME]) {
+    res.cookie(ID_COOKIE_NAME, uuid)
+  }
+
+  return res
 }
