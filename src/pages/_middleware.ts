@@ -20,7 +20,7 @@ export async function middleware(req: NextRequest, event: NextFetchEvent) {
       (async () => {
         const analyticsData = {
           page: req.page.name,
-          userID: uuid || token,
+          userID: uuid,
           screenResolution: undefined,
           documentReferrer: req.referrer,
           ip: req.ip,
