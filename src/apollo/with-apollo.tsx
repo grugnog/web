@@ -5,7 +5,6 @@
  **/
 
 import React from 'react'
-import fetcher from 'isomorphic-unfetch'
 import { split, ApolloLink } from 'apollo-link'
 import { getMainDefinition } from 'apollo-utilities'
 import { ApolloProvider } from '@apollo/react-hooks'
@@ -25,7 +24,6 @@ const createLink = (): ApolloLink => {
       AppConfig.dev && typeof window === 'undefined'
         ? AppConfig.graphQLUrlDocker
         : AppConfig.graphQLUrl,
-    fetch: fetcher,
     credentials: 'include',
   })
 
