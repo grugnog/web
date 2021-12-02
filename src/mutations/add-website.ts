@@ -14,8 +14,10 @@ export const ADD_WEBSITE = gql`
         htmlIncluded
         lastScanDate
         script {
+          id
           script
           cdnUrl
+          cdnUrlMinified
         }
         pageLoadTime {
           duration

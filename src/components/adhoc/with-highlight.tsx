@@ -48,7 +48,7 @@ function WithHighlight({ setScript, children, ...extraProps }: any) {
       style={a11yDark}
       // @ts-ignore
       className={classes.code}
-      language='javascript'
+      language='html'
       {...extraProps}
     >
       {children}

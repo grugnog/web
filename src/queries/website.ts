@@ -19,7 +19,10 @@ const GET_WEBSITE = gql`
       screenshot
       timestamp
       script {
+        id
         script
+        cdnUrl
+        cdnUrlMinified
       }
       pageLoadTime {
         duration

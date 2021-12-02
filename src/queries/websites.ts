@@ -22,6 +22,7 @@ const GET_WEBSITES = gql`
         lastScanDate
         script {
           id
+          script
           cdnUrl
           cdnUrlMinified
         }
