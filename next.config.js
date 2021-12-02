@@ -78,7 +78,7 @@ module.exports = withPWA({
     publicExcludes: ['!robots.txt', '!sitemap.xml.gz'],
   },
   trailingSlash: false,
-  swcMinify: true,
+  swcMinify: false,
   images: {
     domains: domains,
   },

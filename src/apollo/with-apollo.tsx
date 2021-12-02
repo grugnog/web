@@ -70,6 +70,8 @@ const createLink = (): ApolloLink => {
     const wsLink = new SubscriptionClient(AppConfig.webSocketUrl + '', {
       reconnect: true,
       timeout: 10000,
+      inactivityTimeout: 30000,
+      lazy: true,
     })
 
     httpSplit = split(

@@ -9,7 +9,6 @@ import dynamic from 'next/dynamic'
 import { makeStyles } from '@material-ui/core/styles'
 import { TextSkeleton } from '@app/components/placeholders'
 import { a11yDark } from '@app/styles'
-/* eslint-disable */
 
 const useStyles = makeStyles(() => ({
   code: {
