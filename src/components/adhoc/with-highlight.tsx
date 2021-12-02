@@ -26,7 +26,10 @@ const useStyles = makeStyles(() => ({
 }))
 
 const SyntaxHighlighter = dynamic(
-  () => import('react-syntax-highlighter') as any,
+  () =>
+    import('react-syntax-highlighter').then(
+      ({ PrismLight }: { PrismLight: React.ReactNode }) => PrismLight
+    ) as any,
   {
     ssr: false,
     loading: () => (
@@ -37,7 +40,7 @@ const SyntaxHighlighter = dynamic(
       />
     ),
   }
-)
+) as any
 
 function WithHighlight({ setScript, children, ...extraProps }: any) {
   const classes = useStyles()
@@ -45,9 +48,9 @@ function WithHighlight({ setScript, children, ...extraProps }: any) {
   return (
     <SyntaxHighlighter
       style={a11yDark}
-      // @ts-ignore
       className={classes.code}
       language='html'
+      useInlineStyles
       {...extraProps}
     >
       {children}

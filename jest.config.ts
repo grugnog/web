@@ -10,7 +10,7 @@ module.exports = {
   moduleFileExtensions: [...defaults.moduleFileExtensions, 'ts', 'tsx'],
   setupFilesAfterEnv: ['<rootDir>/tests/setupTests.ts'],
   transform: {
-    '^.+\\.(js|jsx|ts|tsx)$': '<rootDir>/node_modules/babel-jest',
+    '^.+\\.(t|j)sx?$': '@swc/jest',
     '.+\\.(css|styl|less|sass|scss|png|jpg|ttf|woff|woff2)$':
       'jest-transform-stub',
   },
@@ -19,9 +19,9 @@ module.exports = {
     '@app-strings': '<rootDir>/src/content/strings/a11y/',
     '@app-theme': '<rootDir>/src/theme/main/',
     '@app-config': '<rootDir>/web-config.js',
+    'react-native$': 'react-native-web',
   },
   verbose: true,
   coverageDirectory: './coverage/',
   collectCoverage: true,
-  preset: 'ts-jest',
 }

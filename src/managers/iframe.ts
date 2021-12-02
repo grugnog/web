@@ -10,14 +10,14 @@ import { frameDom } from './frame-dom'
 
 class IframeManager {
   @observable
-  selectedAnnotation: any = null
+  selectedAnnotation = null
 
   @observable
-  viewMode: boolean = false
+  viewMode = false
 
-  readonly scriptFix = observable<any>([])
-  readonly fixIframe = observable<any>([])
-  readonly portals = observable<any>([])
+  scriptFix = observable<any>([])
+  fixIframe = observable<any>([])
+  portals = observable<any>([])
 
   dom: any = {}
   adaElements: any[] = []

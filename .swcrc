@@ -1,0 +1,26 @@
+{
+  "minify": true,
+  "module": {
+    "type": "commonjs",
+    "ignoreDynamic": true
+  },
+  "jsc": {
+    "loose": true,
+    "target": "es2016",
+    "parser": {
+      "syntax": "typescript",
+      "dynamicImport": true,
+      "decorators": true,
+      "tsx": true
+    },
+    "transform": {
+      "react": {
+        "pragma": "React.createElement",
+        "pragmaFrag": "React.Fragment",
+        "throwIfNamespace": true,
+        "development": false,
+        "useBuiltins": true
+      }
+    }
+  }
+}
