@@ -46,11 +46,13 @@ const createLink = (): ApolloLink => {
             'Context creation failed: invalid signature'
           )
 
+          // todo fire mutation with client for logout
           if (message.includes('JWT:') || invalidSignature) {
-            UserManager.clearUser('/')
+            UserManager.clearUser()
           }
 
           const errorMessage = invalidSignature ? 'Please re-login' : message
+
           graphErrors += `${errorMessage} \n`
         }
       })

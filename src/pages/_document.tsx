@@ -36,7 +36,6 @@ class MyDocument extends Document {
     if (ctx.req) {
       userModel.initModel({
         cookie: ctx.req.headers?.cookie,
-        originalUrl: ctx.req?.url || '',
       })
       initAppModel()
     }

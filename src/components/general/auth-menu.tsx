@@ -14,6 +14,8 @@ import { TranslateBadge } from '../badges'
 import { UserManager } from '@app/managers'
 import { LOGGIN_ROUTES } from '@app/configs'
 import { NavLinks } from './nav-links'
+import { useMutation } from '@apollo/react-hooks'
+import { LOGOUT } from '@app/mutations'
 
 interface Props {
   loginClassName?: string
@@ -24,9 +26,24 @@ interface Props {
 function AuthMenu({ loginClassName, className, registerClassName }: Props) {
   const router = useRouter()
   const [anchorEl, setAnchorEl] = useState<any>(null)
+  const [logoutMutation, { client }] = useMutation(LOGOUT)
 
   const handleMenu = (event?: any) => {
     setAnchorEl(event?.currentTarget)
+  }
+
+  const logout = async () => {
+    try {
+      await logoutMutation()
+    } catch (e) {
+      console.warn(e)
+    }
+    try {
+      await client?.clearStore()
+      await UserManager.clearUser()
+    } catch (e) {
+      console.warn(e)
+    }
   }
 
   if (LOGGIN_ROUTES.includes(router?.pathname)) {
@@ -77,14 +94,7 @@ function AuthMenu({ loginClassName, className, registerClassName }: Props) {
               Payments
             </MenuItem>
           ) : null}
-          <MenuItem
-            onClick={(e) => {
-              e?.preventDefault()
-              UserManager.clearUser()
-            }}
-          >
-            Logout
-          </MenuItem>
+          <MenuItem onClick={logout}>Logout</MenuItem>
         </Menu>
       </div>
     )

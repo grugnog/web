@@ -34,6 +34,9 @@ export const logPageView = (route?: string, refer?: boolean) => {
       fetch(`${apiPath}/log/page`, {
         method: 'POST',
         body: JSON.stringify(analyticsData),
+        headers: {
+          'Content-Type': 'application/json',
+        },
       }).catch((error) => {
         console.error(error)
       })

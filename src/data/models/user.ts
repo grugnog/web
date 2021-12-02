@@ -21,14 +21,12 @@ const userModel = {
   email: '',
   deviceType: '',
   jwt: '',
-  originalUrl: '/',
   alertsEnabled: false,
   initModel: function ({
     deviceType = '',
     cookie = '',
   }: {
     deviceType?: string
-    originalUrl?: string
     cookie?: any
   }) {
     try {
@@ -59,18 +57,11 @@ const userModel = {
       console.error(e)
     }
   },
-  logOut: function () {
+  logOut: async function () {
     try {
       this.jwt = ''
       this.email = ''
-      this.originalUrl = '/'
 
-      setCookie(_AUTHED, '', 1)
-      setCookie(_JWT, '', 1)
-
-      if (typeof localStorage !== 'undefined') {
-        localStorage?.clear()
-      }
       shutdownIntercom()
     } catch (e) {
       console.error(e)
@@ -78,10 +69,6 @@ const userModel = {
   },
   logIn: function ({ email, jwt }: { email: string; jwt: string }): void {
     try {
-      setCookie(_AUTHED, email, defaultExp)
-      setCookie(_JWT, jwt, defaultExp)
-      setCookie(_ONBOARDED, false) // no expiration for now
-
       this.email = email
       this.jwt = jwt
     } catch (e) {

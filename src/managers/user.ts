@@ -9,6 +9,7 @@ import { isSameDay } from 'date-fns'
 import { userModel } from '@app/data'
 import { parseJwt } from '@app/lib/auth'
 import { SUPER_MODE } from '@app/configs'
+import Router from 'next/router'
 
 const USER_DEFAULTS = {
   id: undefined,
@@ -80,12 +81,10 @@ class UserManager {
     return userModel.loggedIn || this.token
   }
 
-  @action clearUser = (pathname: string = '/') => {
-    userModel.logOut()
+  @action clearUser = async () => {
+    await userModel.logOut()
     this.user = USER_DEFAULTS
-    if (pathname && typeof location !== 'undefined') {
-      location.href = pathname
-    }
+    Router.push('/')
   }
 
   @action setJwt = (jwt: string) => {
