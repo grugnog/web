@@ -15,7 +15,7 @@ import {
 } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import { ScriptDownloadButton } from '@app/components/general'
-import SyntaxHighlighter from 'react-syntax-highlighter'
+import { PrismLight } from 'react-syntax-highlighter'
 import { SCRIPTS_CDN_URL_HOST } from '@app/configs'
 import { a11yDark } from '@app/styles'
 import WebIcon from '@material-ui/icons/Web'
@@ -135,23 +135,23 @@ export function CollaspeListCdn({ dataSource }: any) {
                       </ListSubheader>
                       <div className={`${classes.flex} ${classes.row}`}>
                         <div className={`${classes.flex} ${classes.space}`}>
-                          <SyntaxHighlighter
+                          <PrismLight
                             language='html'
                             style={a11yDark}
                             className={`${classes.codeContainer} ${classes.adjust}`}
                           >
                             {`<script src="${cdn_url}"></script>`}
-                          </SyntaxHighlighter>
+                          </PrismLight>
                           <Typography className={classes.minified}>
                             MINIFIED
                           </Typography>
-                          <SyntaxHighlighter
+                          <PrismLight
                             language='html'
                             style={a11yDark}
                             className={`${classes.codeContainer} ${classes.bottomCdn}`}
                           >
                             {`<script src="${cdn_url_min}" crossorigin="anonymous"></script>`}
-                          </SyntaxHighlighter>
+                          </PrismLight>
                         </div>
                         <ScriptDownloadButton
                           cdn_url={cdn_url}

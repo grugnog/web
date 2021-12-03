@@ -21,7 +21,7 @@ import tailwind from 'tailwind-rn'
 import { SCRIPTS_CDN_URL_HOST } from '@app/configs'
 import { a11yDark } from '@app/styles'
 import { Switch } from '@headlessui/react'
-import SyntaxHighlighter from 'react-syntax-highlighter'
+import { PrismLight } from 'react-syntax-highlighter'
 // import { WebsiteIssuesCell, WebsitePrimaryCell } from '.'
 // import { issueSort } from '@app/lib'
 
@@ -229,7 +229,7 @@ export function WebsiteCellDashboardComponent({
             </Switch.Group>
           }
         >
-          <SyntaxHighlighter
+          <PrismLight
             language='html'
             style={{
               ...a11yDark,
@@ -247,7 +247,7 @@ export function WebsiteCellDashboardComponent({
                   isCdnMinified ? cdnUrlMinifed : cdnUrl
                 }"></script>`
               : 'N/A'}
-          </SyntaxHighlighter>
+          </PrismLight>
         </InfoBlock>
       </View>
 
