@@ -61,9 +61,9 @@ export async function middleware(req: NextRequest, event: NextFetchEvent) {
   //   }
   // }
 
-  // if (!req.cookies[ID_COOKIE_NAME]) {
-  //   res.cookie(ID_COOKIE_NAME, uuid)
-  // }
+  if (!req.cookies[ID_COOKIE_NAME]) {
+    res.cookie(ID_COOKIE_NAME, uuid)
+  }
 
   return res
 }

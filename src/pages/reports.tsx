@@ -15,15 +15,15 @@ import { getAPIRoute } from '@app/configs'
 function Reports({ name, website }: PageProps) {
   return (
     <Fragment>
+      <Head>
+        <title>{`Web Accessibility report for ${website?.url} - A11yWatch`}</title>
+        <meta
+          property='description'
+          content={`A detailed WCAG 2.1 report for ${website?.url} that can be used by A11yWatch`}
+          key='description'
+        />
+      </Head>
       <MarketingDrawer title={website?.url || name} maxWidth='xl'>
-        <Head>
-          <title>{`Web Accessibility report for ${website?.url} - A11yWatch`}</title>
-          <meta
-            property='description'
-            content={`A detailed WCAG 2.1 report for ${website?.url} that can be used by A11yWatch`}
-            key='description'
-          />
-        </Head>
         <PageTitle>{`Report: ${website?.domain || 'page'}`}</PageTitle>
         <ReportView website={website} disablePlayground={true} />
       </MarketingDrawer>
