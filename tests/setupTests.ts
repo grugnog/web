@@ -27,6 +27,8 @@ beforeAll(async () => {
 jest.mock('next/router', () => ({
   useRouter() {
     return {
+      pop: () => null,
+      push: () => null,
       prefetch: () => null,
     }
   },
@@ -34,12 +36,10 @@ jest.mock('next/router', () => ({
 
 global.describePage = jest.fn(
   (
-    { component, folder, name: target, apollo = true }: Target,
+    { component, folder, name, apollo = false }: Target,
     callBack?: () => void
   ) => {
-    const name = target || (component && component.displayName)
-
-    describe((folder || name).toUpperCase(), () => {
+    describe(folder.toUpperCase(), () => {
       const Page = component || require(`@app/pages/${folder}`).default
       const Component = apollo
         ? withApollo(withWebsite(Page), { ssr: false })
@@ -51,6 +51,7 @@ global.describePage = jest.fn(
             name,
           })
         )
+
         expect(screen.getByRole('heading', { level: 1 })).toBeInTheDocument()
 
         if (typeof name !== 'undefined') {

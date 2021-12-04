@@ -21,7 +21,7 @@ export const WebsiteProviderWrapper: FC<{ websiteQuery?: boolean }> = ({
 }
 
 export function withWebsite(PageComponent: any) {
-  const WithWebsite = ({ apolloClient, apolloState, ...pageProps }: any) => {
+  const WithWebsite = ({ ...pageProps }: any) => {
     return (
       <WebsiteProviderWrapper>
         <PageComponent {...pageProps} />
