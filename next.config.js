@@ -6,10 +6,10 @@
 
 const { resolve } = require('path')
 const { parsed } = require('dotenv').config()
-const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin')
-const withPWA = require('next-pwa')
 const { domainMap } = require('./domain-map')
 const { generateSiteMap } = require('./generate-sitemap')
+const withPWA = require('next-pwa')
+const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin')
 
 const dev = process.env.NODE_ENV !== 'production'
 const DOMAIN_NAME = process.env.DOMAIN_NAME || 'https://www.a11ywatch.com'
