@@ -4,4 +4,4 @@
  * LICENSE file in the root directory of this source tree.
  **/
 
-describePage({ folder: 'cdn-fix', apollo: true, name: 'CDN' })
+global.describePage({ folder: 'cdn-fix', apollo: true, name: 'CDN' })

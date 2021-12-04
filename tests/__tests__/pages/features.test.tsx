@@ -4,9 +4,6 @@
  * LICENSE file in the root directory of this source tree.
  **/
 
-const pageName = 'Features'
-
-describePage({
-  folder: pageName.toLowerCase(),
-  name: pageName,
+global.describePage({
+  folder: 'features',
 })

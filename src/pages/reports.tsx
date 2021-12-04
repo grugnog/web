@@ -4,7 +4,7 @@
  * LICENSE file in the root directory of this source tree.
  **/
 import type { PageProps } from '@app/types'
-import { GetServerSideProps } from 'next'
+import type { GetServerSideProps } from 'next'
 import React, { Fragment } from 'react'
 import Head from 'next/head'
 import { MarketingDrawer, PageTitle } from '@app/components/general'
@@ -13,57 +13,57 @@ import { metaSetter } from '@app/utils'
 import { getAPIRoute } from '@app/configs'
 
 function Reports({ name, website }: PageProps) {
+  const { url, domain } = website ?? { domain: '', url: 'Not Found' }
+
   return (
     <Fragment>
       <Head>
-        <title>{`Web Accessibility report for ${website?.url} - A11yWatch`}</title>
+        <title>{`Web Accessibility report for ${url} - A11yWatch`}</title>
         <meta
           property='description'
-          content={`A detailed WCAG 2.1 report for ${website?.url} that can be used by A11yWatch`}
+          content={`A detailed WCAG 2.1 report for ${url} that can be used by A11yWatch`}
           key='description'
         />
       </Head>
-      <MarketingDrawer title={website?.url || name} maxWidth='xl'>
-        <PageTitle>{`Report: ${website?.domain || 'page'}`}</PageTitle>
-        <ReportView website={website} disablePlayground={true} />
+      <MarketingDrawer title={url || name} maxWidth='xl'>
+        <PageTitle>{`Report: ${domain || 'page'}`}</PageTitle>
+        {website ? (
+          <ReportView website={website} disablePlayground={true} />
+        ) : null}
       </MarketingDrawer>
     </Fragment>
   )
 }
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  const redirect = {
-    redirect: {
-      destination: '/',
-      permanent: false,
-    },
-  }
+  const { q, timestamp } = context.query
+  let website
 
   try {
-    const { q, timestamp } = context.query
-
-    let website
-
-    if (q) {
-      const res = await fetch(
+    const res =
+      q &&
+      (await fetch(
         `${getAPIRoute()}/get-website?q=${q}${
           timestamp ? `&timestamp=${timestamp}` : ''
         }`
-      )
+      ))
+    if (res && res?.ok) {
       website = await res.json()
-    }
-
-    if (!website) {
-      return redirect
-    }
-
-    return {
-      props: { website },
     }
   } catch (e) {
     console.error(e)
-    return redirect
   }
+
+  return !website
+    ? {
+        redirect: {
+          destination: '/',
+          permanent: false,
+        },
+      }
+    : {
+        props: { website },
+      }
 }
 
 export default metaSetter({ Reports })

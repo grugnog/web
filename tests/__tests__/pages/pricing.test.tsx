@@ -4,4 +4,4 @@
  * LICENSE file in the root directory of this source tree.
  **/
 
-describePage({ folder: 'pricing', apollo: true })
+global.describePage({ folder: 'pricing', apollo: true })

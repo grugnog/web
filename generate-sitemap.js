@@ -23,11 +23,13 @@ module.exports = {
         'profile',
         'api',
         '404',
+        '500',
+        'reports',
       ],
       pagesDirectory: __dirname + '/src/' + '/pages',
       targetDirectory: 'public/',
       nextConfigPath: __dirname + '/next.config.js',
-      ignoredExtensions: ['png', 'jpg'],
+      ignoredExtensions: ['png', 'jpg', 'webp'],
       pagesConfig: {
         '/login': {
           priority: '0.8',

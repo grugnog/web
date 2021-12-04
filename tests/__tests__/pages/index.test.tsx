@@ -4,7 +4,7 @@
  * LICENSE file in the root directory of this source tree.
  **/
 
-describePage(
+global.describePage(
   {
     folder: 'index',
     name: 'Web Accessibility Automation',

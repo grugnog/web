@@ -4,4 +4,4 @@
  * LICENSE file in the root directory of this source tree.
  **/
 
-describePage({ folder: 'contact' })
+global.describePage({ folder: 'contact' })

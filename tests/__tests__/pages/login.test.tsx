@@ -4,6 +4,7 @@
  * LICENSE file in the root directory of this source tree.
  **/
 
-const name = 'Login'
-
-describePage({ folder: name.toLowerCase(), name, apollo: true })
+global.describePage({
+  folder: 'login',
+  apollo: true,
+})

@@ -34,20 +34,20 @@ const useStyles = makeStyles((t: Theme) => ({
   },
 }))
 
+function Image({ src, alt }: { src: string; alt: string }) {
+  return (
+    <NextImage
+      alt={alt}
+      src={src}
+      className='hide-print'
+      height={350}
+      width={400}
+    />
+  )
+}
+
 function RoadMap({ name }: PageProps) {
   const classes = useStyles()
-
-  function Image({ src, alt }: { src: string; alt: string }) {
-    return (
-      <NextImage
-        alt={alt}
-        src={src}
-        className='hide-print'
-        height={350}
-        width={400}
-      />
-    )
-  }
 
   return (
     <MarketingDrawer title={name} footerSpacing maxWidth='xl'>
@@ -96,9 +96,8 @@ function RoadMap({ name }: PageProps) {
             image recognition. This means we need to have a level of accuracy
             for certainty on our fix being correct. If the probability is not
             near 100% we need to allow developers to edit the scripts to the
-            proper label. From our script dashboard panel you should be able to
-            live edit the script so that the changes can be applied on your
-            custom CDN.
+            proper label. Using the script panel you should be able to live edit
+            the script so that the changes can be applied on your live website.
           </Heading>
         </div>
         <Image

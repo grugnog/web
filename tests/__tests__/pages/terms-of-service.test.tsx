@@ -4,4 +4,4 @@
  * LICENSE file in the root directory of this source tree.
  **/
 
-describePage({ folder: 'terms-of-service' })
+global.describePage({ folder: 'terms-of-service' })

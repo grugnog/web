@@ -5,19 +5,19 @@ import { render, screen } from '@testing-library/react'
 import { withApollo } from '../src/apollo'
 import { withWebsite } from '../src/components/providers'
 
-declare global {
-  namespace NodeJS {
-    interface Global {
-      describePage?: any
-    }
-  }
-}
-
 interface Target {
-  component: FC
+  component?: FC
   folder?: string
   name?: string
   apollo?: boolean
+}
+
+declare global {
+  namespace NodeJS {
+    interface Global {
+      describePage?(x?: Target, callback?: () => void): any
+    }
+  }
 }
 
 beforeAll(async () => {
@@ -41,7 +41,9 @@ global.describePage = jest.fn(
 
     describe((folder || name).toUpperCase(), () => {
       const Page = component || require(`@app/pages/${folder}`).default
-      const Component = apollo ? withApollo(withWebsite(Page)) : Page
+      const Component = apollo
+        ? withApollo(withWebsite(Page), { ssr: false })
+        : Page
 
       it('renders without crashing', () => {
         render(
