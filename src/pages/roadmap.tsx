@@ -4,8 +4,6 @@
  * LICENSE file in the root directory of this source tree.
  **/
 import React from 'react'
-import { Typography } from '@material-ui/core'
-import { makeStyles, Theme } from '@material-ui/core/styles'
 import {
   MarketingDrawer,
   Spacer,
@@ -20,20 +18,6 @@ import { metaSetter } from '@app/utils'
 import NextImage from 'next/image'
 import type { PageProps } from '@app/types'
 
-const useStyles = makeStyles((t: Theme) => ({
-  circleRight: {
-    right: 20,
-  },
-  circleLeft: {
-    marginLeft: -20,
-  },
-  circle: {
-    position: 'absolute',
-    marginTop: -42,
-    backgroundColor: t.palette.primary.main,
-  },
-}))
-
 function Image({ src, alt }: { src: string; alt: string }) {
   return (
     <NextImage
@@ -47,15 +31,16 @@ function Image({ src, alt }: { src: string; alt: string }) {
 }
 
 function RoadMap({ name }: PageProps) {
-  const classes = useStyles()
+  const classes = {
+    circleRight: '-right-2',
+    circleLeft: '-left-2',
+    circle: 'absolute z-50 -top-5',
+  }
 
   return (
     <MarketingDrawer title={name} footerSpacing maxWidth='xl'>
       <PageTitle>{`${strings.appName} Technical Roadmap`}</PageTitle>
-      <Typography variant='subtitle1' component='h2' gutterBottom>
-        Outline
-      </Typography>
-      <Circle className={`${classes.circle} ${classes.circleRight}`}>1</Circle>
+      <h2>Project Outline</h2>
       <PaperSection rightMargin={false}>
         <Heading>Web Accessibility Progression</Heading>
         <Heading variant='h6' component='h4' bold={false}>
@@ -70,6 +55,7 @@ function RoadMap({ name }: PageProps) {
       </PaperSection>
       <Spacer height={10} />
       <PaperSection row>
+        <Circle className={`${classes.circle} ${classes.circleLeft}`}>1</Circle>
         <Image
           src='/static/img/server.svg'
           alt={'javascript fixes from a cdn'}
@@ -87,8 +73,10 @@ function RoadMap({ name }: PageProps) {
           </Heading>
         </div>
       </PaperSection>
-      <Circle className={`${classes.circle} ${classes.circleLeft}`}>2</Circle>
       <PaperSection rightMargin={false} row>
+        <Circle className={`${classes.circle} ${classes.circleRight}`}>
+          2
+        </Circle>
         <div>
           <Heading>Editable Scripts</Heading>
           <Heading variant='h6' component='h4' bold={false}>
@@ -105,13 +93,13 @@ function RoadMap({ name }: PageProps) {
           alt={'edit your code with accuracy'}
         />
       </PaperSection>
-      <Circle className={`${classes.circle} ${classes.circleRight}`}>3</Circle>
       <PaperSection
         style={{
           border: `2px solid ${theme.palette.secondary.main}`,
         }}
         row
       >
+        <Circle className={`${classes.circle} ${classes.circleLeft}`}>3</Circle>
         <Image src='/static/img/source_code.svg' alt='source code visual' />
         <div>
           <Heading>Compilation Fixes</Heading>
@@ -124,8 +112,10 @@ function RoadMap({ name }: PageProps) {
           </Heading>
         </div>
       </PaperSection>
-      <Circle className={`${classes.circle} ${classes.circleLeft}`}>4</Circle>
       <PaperSection rightMargin={false} row>
+        <Circle className={`${classes.circle} ${classes.circleRight}`}>
+          4
+        </Circle>
         <div>
           <Heading>Development Code Generation</Heading>
           <Heading variant='h6' component='h4' bold={false}>

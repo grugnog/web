@@ -13,6 +13,7 @@ const useStyles = makeStyles((t) => ({
     flex: 1,
     padding: 12,
     marginTop: 12,
+    position: 'relative',
     [t.breakpoints.down('sm')]: {
       flexDirection: 'column',
     },
