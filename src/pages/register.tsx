@@ -4,13 +4,31 @@
  * LICENSE file in the root directory of this source tree.
  **/
 import React from 'react'
-import { SignOnForm, MarketingDrawer } from '@app/components/general'
+import {
+  SignOnForm,
+  MarketingDrawer,
+  NavBarTitle,
+} from '@app/components/general'
 import { metaSetter } from '@app/utils'
 import type { PageProps } from '@app/types'
 
 function Register({ name }: PageProps) {
   return (
-    <MarketingDrawer title={name} maxWidth='sm' footerSpacing>
+    <MarketingDrawer
+      title={name}
+      maxWidth='sm'
+      footerSpacing
+      emptyFooter
+      emptyNav
+    >
+      <div
+        className={
+          'invisible md:visible py-10 place-items-center flex flex-col'
+        }
+      >
+        <NavBarTitle marketing />
+        <div>Web Accessibility Improvement</div>
+      </div>
       <SignOnForm />
     </MarketingDrawer>
   )

@@ -27,6 +27,7 @@ yarn-error.log
 
 /public/sitemap.xml
 /public/robots.txt
+/public/fallback-*.js
 
 # service workers
 **/public/workbox-*.js

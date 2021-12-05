@@ -99,7 +99,7 @@ module.exports = withPWA({
     transpileOnly: true,
   },
   webpack: (config, { dev: development, webpack }) => {
-    generateSiteMap(DOMAIN_NAME)
+    generateSiteMap(DOMAIN_NAME).catch((e) => console.error(e))
 
     config.plugins.push(
       new webpack.IgnorePlugin({

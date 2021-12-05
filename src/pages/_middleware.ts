@@ -4,6 +4,7 @@ import { NextResponse } from 'next/server'
 import { getAPIRoute } from '@app/configs/api-route'
 
 const ID_COOKIE_NAME = 'uuid'
+const ignoreList = ['/_offline', '/robots.txt', 'fallback', 'workbox']
 
 export async function middleware(req: NextRequest, event: NextFetchEvent) {
   // const noRedirects = req.nextUrl.searchParams.get('noredirect')
@@ -15,7 +16,12 @@ export async function middleware(req: NextRequest, event: NextFetchEvent) {
     uuid = crypto.randomUUID!()
   }
 
-  if (!staticResource && req.page.name) {
+  if (
+    !staticResource &&
+    req.page.name &&
+    !ignoreList.includes(req.url) &&
+    req.page.name !== '/_offline'
+  ) {
     event.waitUntil(
       (async () => {
         const analyticsData = {

@@ -10,10 +10,10 @@ import { navigationStyles } from '@app/styles/navigation'
 import { strings } from '@app-strings'
 import { NavBarTitle, MarketingNavMenu } from './navigation'
 import { SearchBar } from './searchbar'
-import { Link } from './link'
 import { NavBar } from './navbar'
 import { Footer } from './footer'
 import { CtaProfessionalSupportButton } from '../cta'
+import { Link } from './link'
 
 export function MarketingDrawer({
   children,
@@ -24,40 +24,44 @@ export function MarketingDrawer({
   maxWidth = 'xl',
   footerSpacing,
   index,
+  emptyFooter,
+  emptyNav,
 }: any) {
   const classes = navigationStyles()
 
   return (
     <Fragment>
-      <NavBar
-        position={navPosition}
-        marketing
-        className={classes.appBar}
-        marketingLinks={
-          <MarketingNavMenu
-            home={`/${String(title).toLowerCase()}`}
-            className={classes.horizontal}
-            registerClassName={classes.register}
-            classHiddenMobile={classes.classHiddenMobile}
-          />
-        }
-      >
-        <div className={classes.navContainer}>
-          <NavBarTitle
-            title={strings.appName}
-            href='/'
-            component={Link}
-            marketing
-          />
-          {renderCtaSearch ? (
-            <div
-              style={{ display: 'flex', flex: 1, justifyContent: 'flex-end' }}
-            >
-              <SearchBar placeholder={'Enter website url...'} noWidth cta />
-            </div>
-          ) : null}
-        </div>
-      </NavBar>
+      {emptyNav ? null : (
+        <NavBar
+          position={navPosition}
+          marketing
+          className={classes.appBar}
+          marketingLinks={
+            <MarketingNavMenu
+              home={`/${String(title).toLowerCase()}`}
+              className={classes.horizontal}
+              registerClassName={classes.register}
+              classHiddenMobile={classes.classHiddenMobile}
+            />
+          }
+        >
+          <div className={classes.navContainer}>
+            <NavBarTitle
+              title={strings.appName}
+              href='/'
+              component={Link}
+              marketing
+            />
+            {renderCtaSearch ? (
+              <div
+                style={{ display: 'flex', flex: 1, justifyContent: 'flex-end' }}
+              >
+                <SearchBar placeholder={'Enter website url...'} noWidth cta />
+              </div>
+            ) : null}
+          </div>
+        </NavBar>
+      )}
       <main className={initClosed ? '' : classes.content}>
         {initClosed ? (
           children
@@ -66,12 +70,16 @@ export function MarketingDrawer({
             maxWidth={maxWidth}
             style={index ? { paddingLeft: 0, paddingRight: 0 } : undefined}
           >
-            <CtaProfessionalSupportButton home={title === 'Consulting'} />
+            {emptyNav ? null : (
+              <CtaProfessionalSupportButton home={title === 'Consulting'} />
+            )}
             {children}
           </Container>
         )}
       </main>
-      {initClosed ? null : <Footer footerSpacing={footerSpacing} />}
+      {initClosed || emptyFooter ? null : (
+        <Footer footerSpacing={footerSpacing} />
+      )}
     </Fragment>
   )
 }

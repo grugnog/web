@@ -3,48 +3,21 @@
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
  **/
-const sitemap = require('nextjs-sitemap-generator-patch')
+const sitemap = require('nextjs-sitemap-generator')
+const config = require('./sitemap-config')
+
+async function generateSiteMap(extra) {
+  try {
+    return await sitemap({
+      ...config,
+      ...extra,
+      ignoredPaths: [...config.ignoredPaths],
+    })
+  } catch (e) {
+    console.error(e)
+  }
+}
 
 module.exports = {
-  generateSiteMap: function (name) {
-    sitemap({
-      baseUrl: name || process.env.DOMAIN_NAME,
-      ignoredPaths: [
-        'alerts',
-        'dashboard',
-        'analytics',
-        'issues',
-        'cdn-fix',
-        'scripts',
-        'history',
-        'payments',
-        'urgent-issues',
-        'website-details',
-        'profile',
-        'api',
-        '404',
-        '500',
-        'offline',
-      ],
-      pagesDirectory: __dirname + '/src/' + '/pages',
-      targetDirectory: 'public/',
-      nextConfigPath: __dirname + '/next.config.js',
-      ignoredExtensions: ['png', 'jpg', 'webp'],
-      pagesConfig: {
-        '/login': {
-          priority: '0.8',
-          changefreq: 'daily',
-        },
-        '/register': {
-          priority: '0.8',
-        },
-        '/pricing': {
-          priority: '0.8',
-        },
-        '/contact': {
-          priority: '0.5',
-        },
-      },
-    })
-  },
+  generateSiteMap,
 }

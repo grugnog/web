@@ -18,7 +18,7 @@ const NextComposed = forwardRef(
     { as, href, ...other }: NextComposedProps,
     ref: React.Ref<HTMLAnchorElement>
   ) => (
-    <NextLink href={href} as={as}>
+    <NextLink href={href} as={as} passHref>
       <a ref={ref} {...other} />
     </NextLink>
   )

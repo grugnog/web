@@ -10,7 +10,6 @@ import Head from 'next/head'
 import { MarketingDrawer, PageTitle } from '@app/components/general'
 import { ReportView } from '@app/components/ada'
 import { metaSetter } from '@app/utils'
-import { getAPIRoute } from '@app/configs'
 
 function Reports({ name, website }: PageProps) {
   const { url, domain } = website ?? { domain: '', url: 'Not Found' }
@@ -18,10 +17,10 @@ function Reports({ name, website }: PageProps) {
   return (
     <Fragment>
       <Head>
-        <title>{`Web Accessibility report for ${url} - A11yWatch`}</title>
+        <title>{`Web Accessibility Report - ${url} | A11yWatch`}</title>
         <meta
           property='description'
-          content={`A detailed WCAG 2.1 report for ${url} that can be used by A11yWatch`}
+          content={`A detailed website accessibility report for ${url}. The report follows ADA and WCAG specifications.`}
           key='description'
         />
       </Head>
@@ -49,18 +48,20 @@ export const getStaticProps: GetStaticProps = async (context) => {
     }
   }
 
-  const isStatic = slug[0] === 'static'
+  const [websiteUrl, timestamp] = Array.isArray(slug) ? slug : []
 
-  if (isStatic) {
+  let website
+
+  if (websiteUrl === 'static') {
     return {
-      notFound: true,
+      redirect: {
+        destination: '/',
+        permanent: false,
+      },
     }
   }
 
-  const websiteUrl = slug && slug.length ? slug[0] : null
-  const timestamp = slug && slug.length === 2 ? slug[1] : null
-
-  let website
+  const { getAPIRoute } = await import('@app/configs')
 
   try {
     const res = await fetch(
@@ -75,6 +76,17 @@ export const getStaticProps: GetStaticProps = async (context) => {
     console.error(e)
   }
 
+  //   try {
+  //     const { generateSiteMap } = await import('../../../generate-sitemap')
+
+  //     await generateSiteMap({
+  //       pagesDirectory: process.cwd() + '/src/pages',
+  //       nextConfigPath: process.cwd() + '/next.config.js',
+  //     })
+  //   } catch (e) {
+  //     console.error(e)
+  //   }
+
   return !website
     ? {
         redirect: {
@@ -84,7 +96,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
       }
     : {
         props: { website },
-        revalidate: 600,
+        revalidate: timestamp ? false : 86400 * 1,
       }
 }
 

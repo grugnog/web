@@ -6,7 +6,6 @@
 import '@app/stylesheets/main.css'
 import '@a11ywatch/ui/css/tailwind.css'
 import '@app/stylesheets/tailwind.css'
-
 import React, { useEffect, Fragment } from 'react'
 import Head from 'next/head'
 import { AppProps } from 'next/app'
@@ -15,13 +14,13 @@ import { ThemeProvider } from '@material-ui/core/styles'
 import { strings } from '@app-strings'
 import { theme } from '@app-theme'
 import { twitterSite } from '@app-config'
-import { WithSnackBar, WithSkipContent } from '@app/components/adhoc'
+import { WithSnackBar } from '@app/components/adhoc'
 import { initAppModel } from '@app/data'
 import { DOMAIN_NAME, LOGGIN_ROUTES } from '@app/configs'
 import { startIntercom } from '@app/utils'
 import { withApollo } from '@app/apollo'
 import { WebsiteProviderWrapper } from '@app/components/providers'
-import { ErrorBoundary } from '@app/components/general'
+import { ErrorBoundary, SkipContent } from '@app/components/general'
 
 interface MergedApp extends AppProps {
   Component: AppProps['Component'] & {
@@ -46,14 +45,14 @@ function MyApp({ Component, pageProps }: MergedApp) {
     <Fragment>
       <Head>
         <title>{title}</title>
+        <meta name='description' content={description} key='description' />
         <meta
           name='viewport'
           content='minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no'
         />
-        <meta name='description' content={description} />
         <meta name='theme-color' content={theme.palette.primary.main} />
         <meta name='mobile-web-app-capable' content='yes' />
-        <link rel='manifest' href='./static/manifest.json' />
+        <link rel='manifest' href='/static/manifest.json' />
         <meta name='format-detection' content='telephone=no' />
         <meta name='apple-mobile-web-app-capable' content='yes' />
         <meta name='twitter:card' content='summary_large_image' />
@@ -72,12 +71,12 @@ function MyApp({ Component, pageProps }: MergedApp) {
           content={`${DOMAIN_NAME}/static/img/intro-poster.png`}
         />
         <meta property='og:description' content={description} />
-        <link rel='apple-touch-icon' href='./static/img/favicon-small.png' />
-        <link rel='icon' type='image/x-icon' href='./static/img/favicon.png' />
+        <link rel='apple-touch-icon' href='/static/img/favicon-small.png' />
+        <link rel='icon' type='image/x-icon' href='/static/img/favicon.png' />
       </Head>
       <ThemeProvider theme={theme}>
         <CssBaseline />
-        <WithSkipContent />
+        <SkipContent />
         <ErrorBoundary>
           <WebsiteProviderWrapper websiteQuery={!websiteQuery}>
             <Component {...pageProps} name={name} />
