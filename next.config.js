@@ -82,7 +82,6 @@ module.exports = withPWA({
       /_middleware.js.map$/,
     ],
     runtimeCaching,
-    // register: false,
   },
   trailingSlash: false,
   swcMinify: true,
