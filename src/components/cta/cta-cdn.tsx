@@ -108,8 +108,8 @@ function CtaCdn({ website, disablePlayground }: any) {
           {Object.keys(website).length > 1 ? (
             <Button
               component={Link}
-              href={`/reports?q=${encodeURIComponent(website?.url)}&timestamp=${
-                website?.timestamp
+              href={`/reports/${encodeURIComponent(website?.url)}${
+                website?.timestamp ? `/${website?.timestamp}` : ''
               }`}
               color={'secondary'}
               variant={'outlined'}
