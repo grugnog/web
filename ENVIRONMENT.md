@@ -8,7 +8,7 @@ API=http://localhost:8080/graphql
 API_URI_DOCKER=http://api:8080/graphql
 APP_TYPE=main
 IFRAME_URL=http://localhost:8080
-DOMAIN_NAME=https://www.a11ywatch.com
+DOMAIN_NAME=https://a11ywatch.com
 DONORBOX_URL=https://donorbox.org/embed/a11ywatch?default_interval=o&amount=5&show_content=true
 SCRIPTS_CDN_URL_HOST=http://localhost:8090/cdn
 WEB_SOCKET_URL=ws://localhost:8080/graphql

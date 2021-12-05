@@ -24,6 +24,7 @@ export async function middleware(req: NextRequest, event: NextFetchEvent) {
           screenResolution: undefined,
           documentReferrer: req.referrer,
           ip: req.ip,
+          _ga: req.cookies['_ga'],
         }
         await fetch(`${getAPIRoute()}/log/page`, {
           method: 'POST',

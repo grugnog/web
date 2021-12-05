@@ -24,7 +24,7 @@ module.exports = {
         'api',
         '404',
         '500',
-        'reports',
+        'offline',
       ],
       pagesDirectory: __dirname + '/src/' + '/pages',
       targetDirectory: 'public/',

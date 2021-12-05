@@ -9,10 +9,11 @@ const { parsed } = require('dotenv').config()
 const { domainMap } = require('./domain-map')
 const { generateSiteMap } = require('./generate-sitemap')
 const withPWA = require('next-pwa')
+const runtimeCaching = require('next-pwa/cache')
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin')
 
 const dev = process.env.NODE_ENV !== 'production'
-const DOMAIN_NAME = process.env.DOMAIN_NAME || 'https://www.a11ywatch.com'
+const DOMAIN_NAME = process.env.DOMAIN_NAME || 'https://a11ywatch.com'
 
 const env = Object.assign({}, parsed, {
   dev,
@@ -74,8 +75,14 @@ module.exports = withPWA({
     dest: 'public',
     mode: process.env.WORKBOX_MODE || 'production',
     disable: dev,
-    scope: '/src',
     publicExcludes: ['!robots.txt', '!sitemap.xml.gz'],
+    buildExcludes: [
+      /middleware-manifest\.json$/,
+      /_middleware.js$/,
+      /_middleware.js.map$/,
+    ],
+    runtimeCaching,
+    // register: false,
   },
   trailingSlash: false,
   swcMinify: true,

@@ -42,7 +42,7 @@ function Faq({ name }: PageProps) {
               component={'a'}
               target='_blank'
               style={linkStyle}
-              href={'https://www.a11ywatch.com'}
+              href={'https://a11ywatch.com'}
             >
               linking to a11ywatch.com
             </Typography>{' '}
