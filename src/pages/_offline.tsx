@@ -24,4 +24,10 @@ const Offline = ({ name }: PageProps) => {
   )
 }
 
-export default metaSetter({ Offline })
+export default metaSetter(
+  { Offline },
+  {
+    description:
+      'Offline content without network connection. Please check your wifi connection to use the application.',
+  }
+)

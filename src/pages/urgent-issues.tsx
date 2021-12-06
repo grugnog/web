@@ -40,4 +40,10 @@ function Urgent({ name }: PageProps) {
   )
 }
 
-export default metaSetter({ Urgent })
+export default metaSetter(
+  { Urgent },
+  {
+    description:
+      'Urgent issues that should be looked at reguarding accessibility. View the details on how to fix your issues for page.',
+  }
+)

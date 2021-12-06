@@ -90,4 +90,9 @@ function Contact({ name }: PageProps) {
   )
 }
 
-export default metaSetter({ Contact })
+export default metaSetter(
+  { Contact },
+  {
+    description: `Contact us here at ${strings.appName} with any questions you may have. Get the support you need to help your web accessibility efforts.`,
+  }
+)

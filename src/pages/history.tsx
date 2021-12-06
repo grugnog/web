@@ -42,4 +42,9 @@ const History = ({ name }: PageProps) => {
   )
 }
 
-export default metaSetter({ History })
+export default metaSetter(
+  { History },
+  {
+    description: 'Past websites that have been used.',
+  }
+)

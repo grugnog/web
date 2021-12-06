@@ -290,6 +290,17 @@ const SignOnForm: FunctionComponent<SignOnProps> = ({
             </span>
           ) : null}
         </div>
+        <div className={'text-xs text-center'}>
+          By clicking "Create account", I agree to A11yWatch's{' '}
+          <Link href={'/terms-of-service'} prefetch={false}>
+            TOS
+          </Link>{' '}
+          and{' '}
+          <Link href={'/privacy'} prefetch={false}>
+            Privacy Policy
+          </Link>
+          .
+        </div>
       </Container>
       <LinearBottom loading={loading} />
     </Fragment>

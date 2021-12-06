@@ -72,4 +72,9 @@ function About({ name }: PageProps) {
   )
 }
 
-export default metaSetter({ About })
+export default metaSetter(
+  { About },
+  {
+    description: `The story of the web-based accessibility tool built to make a11y available to everyone.`,
+  }
+)

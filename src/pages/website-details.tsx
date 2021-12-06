@@ -40,4 +40,9 @@ function WebsiteDetails() {
   )
 }
 
-export default metaSetter({ WebsiteDetails })
+export default metaSetter(
+  { WebsiteDetails },
+  {
+    description: 'Detailed website reports for any page.',
+  }
+)

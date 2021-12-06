@@ -166,4 +166,10 @@ function ResetPassword({ name }: PageProps) {
   )
 }
 
-export default metaSetter({ ResetPassword })
+export default metaSetter(
+  { ResetPassword },
+  {
+    description:
+      'Reset your password to get back in action with your accessibility toolkit.',
+  }
+)

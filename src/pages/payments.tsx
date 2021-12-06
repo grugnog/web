@@ -331,4 +331,10 @@ function Payments({ hideTitle = false, name }: PaymentProps) {
   )
 }
 
-export default metaSetter({ Payments })
+export default metaSetter(
+  { Payments },
+  {
+    description:
+      'Payment plans that can be adjusted at any time to better your fit you.',
+  }
+)

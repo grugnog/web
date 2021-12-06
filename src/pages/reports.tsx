@@ -14,14 +14,14 @@ import { getAPIRoute } from '@app/configs'
 
 function Reports({ name, website }: PageProps) {
   const { url, domain } = website ?? { domain: '', url: 'Not Found' }
-
+  const cleanUrl = url.replace(/(^\w+:|^)\/\//, '')
   return (
     <Fragment>
       <Head>
-        <title>{`Web Accessibility report for ${url} - A11yWatch`}</title>
+        <title>{`Web accessibility report on ${cleanUrl} - A11yWatch`}</title>
         <meta
           property='description'
-          content={`A detailed WCAG 2.1 report for ${url} that can be used by A11yWatch`}
+          content={`A detailed WCAG report for ${cleanUrl} that can be used by A11yWatch`}
           key='description'
         />
       </Head>

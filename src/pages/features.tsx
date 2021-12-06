@@ -150,4 +150,10 @@ function Features({ name }: PageProps) {
   )
 }
 
-export default metaSetter({ Features })
+export default metaSetter(
+  { Features },
+  {
+    description:
+      'Features that are on the service and useful for building better websites.',
+  }
+)

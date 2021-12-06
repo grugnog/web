@@ -104,4 +104,10 @@ function Faq({ name }: PageProps) {
   )
 }
 
-export default metaSetter({ Faq })
+export default metaSetter(
+  { Faq },
+  {
+    description:
+      'Get answers to frequently asked questions on A11yWatch plans and pricing. Teams use A11yWatch to fix, monitor, and guide web accessibility in one place.',
+  }
+)

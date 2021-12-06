@@ -32,4 +32,10 @@ function Scripts({ name }: PageProps) {
   )
 }
 
-export default metaSetter({ Scripts })
+export default metaSetter(
+  { Scripts },
+  {
+    description:
+      'Custom scripts to fix your web page. All scripts are optimized for your website specifically.',
+  }
+)

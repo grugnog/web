@@ -136,4 +136,10 @@ function RoadMap({ name }: PageProps) {
   )
 }
 
-export default metaSetter({ RoadMap })
+export default metaSetter(
+  { RoadMap },
+  {
+    description:
+      'The path to better and build automated web accessibility certainty.',
+  }
+)

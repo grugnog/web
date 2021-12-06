@@ -150,4 +150,10 @@ function TermsOfService({ name }: PageProps) {
   )
 }
 
-export default metaSetter({ TermsOfService })
+export default metaSetter(
+  { TermsOfService },
+  {
+    description:
+      'Please read these Terms of Service (the “Terms”) carefully because they determine the use of our site and our accessibility tool services through our site.',
+  }
+)

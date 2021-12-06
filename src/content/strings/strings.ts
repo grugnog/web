@@ -46,70 +46,71 @@ export const generateStrings = ({
         id: 0,
         title: 'On-Demand',
         detail:
-          'Target WCAG issues spot on helping to figure out problems at hand',
+          'Target WCAG issues spot on helping to figure out problems at hand. View detailed reports and vitals on your website indefinitely.',
         reason: 'Stop waisting time with figuring out what your ada issues are',
       },
       {
         id: 1,
         title: 'Alerts',
         detail:
-          'Get notified when issues occur so you can take action immediately',
+          'Get notified when issues occur so you can take action immediately. Control the days of the week you want to get alerted for reports.',
         reason: 'Basic',
       },
       {
         id: 2,
         title: 'Recommendations',
         detail:
-          'Get tips on how to improve your app so all users have a great time',
+          'Get tips on how to improve your app so all users have a pleasant experience. Bring accessibility changes into development easily.',
         reason: 'Basic',
       },
       {
         id: 3,
         title: 'Patches',
         detail:
-          'Get code scripts that you can include directly in your app pain free',
+          'Get custom web accessibility fixes that you can include directly in your website pain free tailored to your content with full uptime.',
         reason: 'Basic',
       },
       {
         id: 4,
         title: 'Cloud',
         detail:
-          'Add a cdn script that mitigates drastic issues for your users easily',
+          'Add a cdn script that mitigates drastic issues for your users easily. If you accidently deploy dark text on a dark background, we got your back.',
         reason: 'Basic',
         icon: 'accessibility',
       },
       {
         id: 5,
         title: 'Speed Test',
-        detail: 'Test how your website does with performance and other metrics',
+        detail:
+          'Test how your website does with performance and other metrics. See the comparisons amongst your other pages to see how to improve.',
         reason: 'Basic',
       },
       {
         id: 6,
         title: 'Secure',
         detail:
-          'View your scripts with precision for changes before you include them',
+          'View your scripts with precision for changes before you include them. Control what domains get access to your cdn to bring maximum security.',
         reason: 'Basic',
       },
       {
         id: 7,
         title: 'Simple',
         detail:
-          'Just drop in one line of code and your now all your pages are handled',
+          'Just drop in one line of code and your now all your pages are handled. Works really well with frameworks like React, Angular, and Vue.',
         reason: 'Basic',
       },
       {
         id: 8,
         title: 'Browser',
         detail:
-          'View the issues in the browser and experiment with fixes before realtime',
+          'View the issues in the browser and experiment with fixes before realtime. Adjust colors and a11y properties to leverage productivity.',
         reason: 'Basic',
       },
       {
         id: 9,
         title: 'AI',
         detail:
-          'With AI and machine learning we tailor custom needs for your website rapidly',
+          'With AI and machine learning we tailor custom needs for your website rapidly. Determine missing alts with high proximity ratios and more.',
         reason: 'Basic',
       },
     ],

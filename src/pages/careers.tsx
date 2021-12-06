@@ -82,4 +82,10 @@ function Careers({ name }: PageProps) {
   )
 }
 
-export default metaSetter({ Careers })
+export default metaSetter(
+  { Careers },
+  {
+    description:
+      'Want to improve A11yWatch and build cool a11y things? Open positions for the right person.',
+  }
+)
