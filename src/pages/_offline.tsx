@@ -14,7 +14,7 @@ const Offline = ({ name }: PageProps) => {
     <MarketingDrawer title={name} footerSpacing>
       <PageTitle>Offline</PageTitle>
       <Typography variant='body1' component='p' gutterBottom>
-        It Looks like your offline. Try to refresh the page to re-establish your
+        It looks like your offline. Try to refresh the page to re-establish your
         connection.
       </Typography>
       <Typography variant='subtitle1' component='p' gutterBottom>

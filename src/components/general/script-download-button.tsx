@@ -22,8 +22,6 @@ export function ScriptDownloadButton({ cdn_url, cdn_url_min }: any) {
     toggleMenu(null)
   }
 
-  console.log(cdn_url)
-
   return (
     <div>
       <IconButton

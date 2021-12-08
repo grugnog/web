@@ -6,11 +6,14 @@
 
 import { useState } from 'react'
 
-export function useInputHeader(fields?: any) {
+type Field = { key: string; value: string }
+
+export function useInputHeader(options?: Field[] | { customFields?: Field[] }) {
+  const fields = (Array.isArray(options) ? options : options?.customFields) || [
+    { key: '', value: '' },
+  ]
   const [customHeader, setCustomHeader] = useState(false)
-  const [customFields, setCustomField] = useState(
-    (typeof fields !== 'undefined' && fields) || [{ key: '', value: '' }]
-  )
+  const [customFields, setCustomField] = useState(fields)
 
   const addFormField = () => {
     const newFields = customFields.slice()

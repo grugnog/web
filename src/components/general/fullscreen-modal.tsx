@@ -82,25 +82,21 @@ const Transition = React.forwardRef(function Transition(props: any, ref: any) {
 
 function UpperInput({ data, url }: any) {
   const classes = useStyles()
-
   const {
-    // customHeader,
     customFields,
     removeFormField,
     addFormField,
     updateFormField,
   } = useInputHeader(data)
 
-  const { updateWebsite } = useWebsiteData(
-    '',
-    url,
-    customFields?.map((item: any) => {
-      return {
-        key: item.key,
-        value: item.value,
-      }
-    })
-  )
+  const customHeaders = customFields?.map((item: any) => {
+    return {
+      key: item.key,
+      value: item.value,
+    }
+  })
+
+  const { updateWebsite } = useWebsiteData('', url, customHeaders)
 
   const inputProps = {
     customHeader: true,
@@ -113,15 +109,19 @@ function UpperInput({ data, url }: any) {
   return (
     <>
       <div className={classes.list}>
-        <InputHeaders {...inputProps} noFlex viewMode />
+        <InputHeaders {...inputProps} />
       </div>
       <Button
         className={classes.submit}
-        onClick={async () =>
-          await updateWebsite({
-            variables: { url, customHeaders: customFields, filter: '' },
-          })
-        }
+        onClick={async () => {
+          try {
+            await updateWebsite({
+              variables: { url, customHeaders, filter: '' },
+            })
+          } catch (e) {
+            console.error(e)
+          }
+        }}
       >
         Update
       </Button>

@@ -300,6 +300,7 @@ export function WebsiteCellDashboardComponent({
           removePress={removePress}
           subDomains={subDomains}
           html={html}
+          pageHeaders={pageHeaders}
           index={index}
         />
       </ListItemSecondaryAction>

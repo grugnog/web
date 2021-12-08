@@ -3,9 +3,7 @@
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
  **/
-import React from 'react'
-import { Paper, Typography } from '@material-ui/core'
-import { makeStyles } from '@material-ui/core/styles'
+import React, { FC } from 'react'
 import {
   MarketingDrawer,
   Section,
@@ -16,54 +14,36 @@ import { metaSetter } from '@app/utils'
 import type { PageProps } from '@app/types'
 import Image from 'next/image'
 
-const useStyles = makeStyles(({ breakpoints, palette }) => ({
-  paper: {
-    display: 'flex',
-    flex: 1,
-    padding: 12,
-    margin: 3,
-    border: `2px solid ${palette.secondary.main}`,
-    [breakpoints.down(1100)]: {
-      flexDirection: 'column',
-    },
-  },
-  row: {
-    display: 'flex',
-    [breakpoints.down('sm')]: {
-      display: 'block',
-    },
-  },
-}))
+const FeatureHeading: FC = ({ children }) => {
+  return (
+    <Heading component='h4' bold={false}>
+      {children}
+    </Heading>
+  )
+}
+
+const GeneralHeading: FC = ({ children }) => {
+  return (
+    <Heading variant='h4' component='h3'>
+      {children}
+    </Heading>
+  )
+}
+
+const { paper, row } = {
+  paper: 'w-full p-3 m-2 border flex flex-grow md:flex-row md:w-1/2 rounded',
+  row: 'flex flex-wrap md:flex-nowrap',
+}
+
+const paperStyle = 'flex place-content-center bg-gray-800 my-4 rounded'
 
 function Features({ name }: PageProps) {
-  const { paper, row } = useStyles()
-
-  function FeatureHeading({ children }: { children: string }) {
-    return (
-      <Heading component='h4' bold={false}>
-        {children}
-      </Heading>
-    )
-  }
-
-  function GeneralHeading({ children }: { children: string }) {
-    return (
-      <Heading variant='h4' component='h3'>
-        {children}
-      </Heading>
-    )
-  }
-
-  const paperStyle = 'flex place-content-center bg-gray-800 my-4 rounded'
-
   return (
     <MarketingDrawer title={name} maxWidth='xl' footerSpacing>
       <PageTitle>{`Features`}</PageTitle>
-      <Typography variant='subtitle1' component='h2' gutterBottom>
-        Main Features
-      </Typography>
+      <h2 className={'text-lg mb-2'}>Main Features</h2>
       <div className={row}>
-        <Paper className={paper}>
+        <div className={paper}>
           <Section>
             <GeneralHeading>Issue Reporter</GeneralHeading>
             <FeatureHeading>
@@ -77,14 +57,14 @@ function Features({ name }: PageProps) {
             <div className={paperStyle}>
               <Image
                 src={'/static/img/news.svg'}
-                height={300}
-                width={300}
+                height={250}
+                width={250}
                 alt={'Issue reporter like news'}
               />
             </div>
           </Section>
-        </Paper>
-        <Paper className={paper}>
+        </div>
+        <div className={paper}>
           <Section>
             <GeneralHeading>Auto CDN</GeneralHeading>
             <FeatureHeading>
@@ -98,16 +78,16 @@ function Features({ name }: PageProps) {
             <div className={paperStyle}>
               <Image
                 src={'/static/img/cloud.svg'}
-                height={300}
-                width={300}
+                height={250}
+                width={250}
                 alt={'Cloud cdn for fixing'}
               />
             </div>
           </Section>
-        </Paper>
+        </div>
       </div>
       <div className={row}>
-        <Paper className={paper}>
+        <div className={paper}>
           <Section>
             <GeneralHeading>Website Visual Playground</GeneralHeading>
             <FeatureHeading>
@@ -119,14 +99,14 @@ function Features({ name }: PageProps) {
             <div className={paperStyle}>
               <Image
                 src={'/static/img/park.svg'}
-                height={300}
-                width={300}
+                height={250}
+                width={250}
                 alt={'Amusement park for website creation'}
               />
             </div>
           </Section>
-        </Paper>
-        <Paper className={paper}>
+        </div>
+        <div className={paper}>
           <Section>
             <GeneralHeading>Temporary Script Remedy</GeneralHeading>
             <FeatureHeading>
@@ -138,13 +118,13 @@ function Features({ name }: PageProps) {
             <div className={paperStyle}>
               <Image
                 src={'/static/img/heal.svg'}
-                height={300}
-                width={300}
+                height={250}
+                width={250}
                 alt={'Fix issues with custom remedies'}
               />
             </div>
           </Section>
-        </Paper>
+        </div>
       </div>
     </MarketingDrawer>
   )

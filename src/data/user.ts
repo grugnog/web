@@ -73,7 +73,7 @@ export const userData = () => {
         emailFilteredDates: dates,
       },
     }).catch((e: any) => {
-      console.log(e)
+      console.error(e)
     })
     AppManager.toggleSnack(true, 'Dates for allowed emails updated.', 'success')
   }
