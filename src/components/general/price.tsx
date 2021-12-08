@@ -26,17 +26,11 @@ const useStyles = makeStyles(() => ({
     justifyContent: 'center',
     alignItems: 'center',
     flexDirection: 'column',
-    margin: 4,
-    padding: 12,
+    padding: 8,
     overflow: 'hidden',
     position: 'relative',
     whiteSpace: 'pre-wrap',
-  },
-  large: {
-    minHeight: '40vh',
-  },
-  dot: {
-    top: '-0.4rem',
+    margin: 2,
   },
 }))
 

@@ -291,7 +291,7 @@ const SignOnForm: FunctionComponent<SignOnProps> = ({
           ) : null}
         </div>
         <div className={'text-xs text-center'}>
-          By clicking "Create account", I agree to A11yWatch's{' '}
+          By clicking {`"Create account"`}, I agree to {`A11yWatch's `}
           <Link href={'/terms-of-service'} prefetch={false}>
             TOS
           </Link>{' '}
