@@ -13,7 +13,6 @@ DONORBOX_URL=https://donorbox.org/embed/a11ywatch?default_interval=o&amount=5&sh
 SCRIPTS_CDN_URL_HOST=http://localhost:8090/cdn
 WEB_SOCKET_URL=ws://localhost:8080/graphql
 GOOGLE_CLIENT_ID=
-GOOGLE_SITE_VERICATION=
 INTERCOM_APPID=
 INTERCOM_ENABLED=false
 STRIPE_KEY=

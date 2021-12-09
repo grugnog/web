@@ -5,6 +5,7 @@ import { getAPIRoute } from '@app/configs/api-route'
 
 const ID_COOKIE_NAME = 'uuid'
 const ignoreList = ['/_offline', '/robots.txt', 'fallback', 'workbox']
+const API_ROUTE = getAPIRoute()
 
 export async function middleware(req: NextRequest, event: NextFetchEvent) {
   // const noRedirects = req.nextUrl.searchParams.get('noredirect')
@@ -32,16 +33,21 @@ export async function middleware(req: NextRequest, event: NextFetchEvent) {
           ip: req.ip,
           _ga: req.cookies['_ga'],
         }
-        await fetch(`${getAPIRoute()}/log/page`, {
+
+        const headers = {
+          'Content-Type': 'application/json',
+          'User-Agent': '',
+          Origin: req.nextUrl.origin || 'https://a11ywatch.com',
+        }
+
+        if (req?.ua?.ua) {
+          headers['User-Agent'] = req.ua.ua
+        }
+
+        await fetch(`${API_ROUTE}/log/page`, {
           method: 'POST',
           body: JSON.stringify(analyticsData),
-          headers: {
-            'user-agent': (req?.ua as NextRequest['ua'] & {
-              ua: string
-            })?.ua,
-            'Content-Type': 'application/json',
-            origin: req.nextUrl.origin || 'https://a11ywatch.com',
-          },
+          headers,
         }).catch((e) => {
           console.error(e)
         })

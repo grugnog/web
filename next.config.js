@@ -5,7 +5,6 @@
  **/
 
 const { resolve } = require('path')
-const { parsed } = require('dotenv').config()
 const { domainMap } = require('./domain-map')
 const { generateSiteMap } = require('./generate-sitemap')
 const withPWA = require('next-pwa')
@@ -15,7 +14,7 @@ const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin')
 const dev = process.env.NODE_ENV !== 'production'
 const DOMAIN_NAME = process.env.DOMAIN_NAME || 'https://a11ywatch.com'
 
-const env = Object.assign({}, parsed, {
+const env = {
   dev,
   APP_TYPE: process.env.APP_TYPE || 'main',
   API: process.env.API,
@@ -35,12 +34,13 @@ const env = Object.assign({}, parsed, {
   DONORBOX_URL: process.env.DONORBOX_URL,
   DOMAIN_NAME,
   INTERCOM_ENABLED: process.env.INTERCOM_ENABLED,
+  SUPER_MODE: process.env.SUPER_MODE,
   // single CDN for app assets
   CDN: process.env.CDN,
   // # NEXT.JS REQUIRED EXCLUDES
   NODE_ENV: undefined,
   NODE_MODULES_CACHE: undefined,
-})
+}
 
 let domains = ['images.unsplash.com']
 
