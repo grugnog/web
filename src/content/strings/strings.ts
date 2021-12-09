@@ -133,5 +133,6 @@ export const generateStrings = ({
     trySearch: 'Free website accessibility scan',
     tryOutCdn:
       'after sign in. Get your secure custom cdn script and insert it at the end of your html body',
+    subTitle: 'Elevating accessibility for every website',
   }
 }

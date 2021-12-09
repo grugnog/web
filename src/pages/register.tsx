@@ -4,15 +4,12 @@
  * LICENSE file in the root directory of this source tree.
  **/
 import React from 'react'
-import {
-  SignOnForm,
-  MarketingDrawer,
-  NavBarTitle,
-} from '@app/components/general'
+import { SignOnForm, MarketingDrawer } from '@app/components/general'
 import { metaSetter } from '@app/utils'
 import type { PageProps } from '@app/types'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
+import { MarketingShortTitle } from '@app/components/marketing'
 
 type Plan = 'Free' | 'Basic' | 'Premium' | string
 interface RegisterParams {
@@ -78,14 +75,7 @@ function Register({ name }: PageProps) {
         emptyFooter
         emptyNav
       >
-        <div
-          className={
-            'invisible md:visible py-10 place-items-center flex flex-col'
-          }
-        >
-          <NavBarTitle marketing />
-          <div>Web Accessibility Improvement</div>
-        </div>
+        <MarketingShortTitle />
         <SignOnForm />
       </MarketingDrawer>
     </>

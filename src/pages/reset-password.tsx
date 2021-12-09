@@ -18,6 +18,7 @@ import { MarketingDrawer, PageTitle } from '@app/components/general'
 import { useRouter } from 'next/router'
 import { metaSetter } from '@app/utils'
 import type { PageProps } from '@app/types'
+import { MarketingShortTitle } from '@app/components/marketing'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -121,7 +122,14 @@ function ResetPassword({ name }: PageProps) {
   }
 
   return (
-    <MarketingDrawer title={name} footerSpacing maxWidth='sm'>
+    <MarketingDrawer
+      title={name}
+      footerSpacing
+      maxWidth='sm'
+      emptyFooter
+      emptyNav
+    >
+      <MarketingShortTitle />
       <PageTitle component={resetSent ? 'h3' : 'h1'}>{title}</PageTitle>
       <Paper className={classes.paper}>
         <form autoComplete={resetSent ? 'on' : 'off'} onSubmit={submit}>
