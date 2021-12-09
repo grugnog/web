@@ -11,14 +11,15 @@ import MuiLink from '@material-ui/core/Link'
 interface NextComposedProps {
   as?: string
   href: string
+  prefetch?: boolean
 }
 
 const NextComposed = forwardRef(
   (
-    { as, href, ...other }: NextComposedProps,
+    { as, href, prefetch, ...other }: NextComposedProps,
     ref: React.Ref<HTMLAnchorElement>
   ) => (
-    <NextLink href={href} as={as} passHref>
+    <NextLink href={href} as={as} passHref prefetch={prefetch}>
       <a ref={ref} {...other} />
     </NextLink>
   )

@@ -65,9 +65,9 @@ function ResetPassword({ name }: PageProps) {
 
   const emailRef = useRef(null)
   const resetRef = useRef(null)
+  const savedEmail = useRef(null)
+
   const resetSent = forgotPasswordData?.forgotPassword?.email == 'true'
-  // todo remove and use ref only
-  let savedEmail = ''
 
   const title = resetSent ? 'Enter Reset Code' : 'Reset Password'
 
@@ -95,7 +95,7 @@ function ResetPassword({ name }: PageProps) {
       if (resetSent && resetRef?.current?.value) {
         await resetPassword({
           variables: {
-            email: savedEmail,
+            email: savedEmail.current,
             // @ts-ignore
             resetCode: resetRef.current.value,
           },
@@ -109,9 +109,7 @@ function ResetPassword({ name }: PageProps) {
           },
         })
         // @ts-ignore
-        savedEmail = emailRef.current.value
-      } else {
-        console.error('no value passed in')
+        savedEmail.current = emailRef.current.value
       }
     } catch (e) {
       console.error(e)
