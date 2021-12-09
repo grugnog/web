@@ -32,6 +32,7 @@ export async function middleware(req: NextRequest, event: NextFetchEvent) {
           documentReferrer: req.referrer,
           ip: req.ip,
           _ga: req.cookies['_ga'],
+          geo: req.geo,
         }
 
         const headers = {
