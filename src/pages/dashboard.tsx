@@ -53,29 +53,32 @@ function Dashboard({ name }: PageProps) {
         <PageTitle
           title={'Websites'}
           rightButton={
-            <div className={'flex md:space-x-2'}>
-              <Fade in={!!data?.length}>
-                <div className={'hidden sm:flex'}>
-                  <Button
-                    onClick={async () => {
-                      if (
-                        window.confirm(
-                          'Are you sure you want to remove all websites?'
-                        )
-                      ) {
+            <Fade in={!!data?.length}>
+              <div className={'flex space-x-2'}>
+                <Button
+                  onClick={async () => {
+                    if (
+                      window.confirm(
+                        'Are you sure you want to remove all websites?'
+                      )
+                    ) {
+                      try {
                         await removePress('')
+                      } catch (e) {
+                        console.error(e)
                       }
-                    }}
-                    variant={'outlined'}
-                    color={'primary'}
-                    aria-label={'Remove all websites'}
-                  >
-                    Remove All
-                  </Button>
-                </div>
-              </Fade>
-              <FormDialog buttonTitle={'Subscribe more'} />
-            </div>
+                    }
+                  }}
+                  variant={'outlined'}
+                  color={'primary'}
+                  className={'invisible md:visible'}
+                  aria-label={'Remove all websites'}
+                >
+                  Remove All
+                </Button>
+                <FormDialog buttonTitle={`Subscribe More`} />
+              </div>
+            </Fade>
           }
         />
         <WebsiteList

@@ -215,6 +215,6 @@ function Api({ name }: PageProps) {
 export default metaSetter(
   { Api },
   {
-    description: `Use A11yWatch's API to get the uptime you need when you want. Rates are limited based on your plan.`,
+    description: `Use A11yWatch's API to get the accessibility uptime you need when you want. Rates are limited based on your membership plan.`,
   }
 )

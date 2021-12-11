@@ -84,7 +84,7 @@ const SignOnForm: FunctionComponent<SignOnProps> = ({
 }) => {
   const router = useRouter()
   const classes = useStyles()
-  const [signOnMutation, { data, error, loading }] = useMutation(
+  const [signOnMutation, { data, loading }] = useMutation(
     loginView ? LOGIN : REGISTER
   )
   const emailRef = useRef<any>(null)
@@ -112,12 +112,6 @@ const SignOnForm: FunctionComponent<SignOnProps> = ({
       }
     }
   }, [data, router, loginView])
-
-  useEffect(() => {
-    if (error?.graphQLErrors?.length) {
-      AppManager.toggleSnack(true, error?.graphQLErrors, 'error')
-    }
-  }, [error])
 
   const submit = useCallback(
     async (e: any) => {
@@ -291,7 +285,15 @@ const SignOnForm: FunctionComponent<SignOnProps> = ({
           ) : null}
         </div>
         <div className={'text-xs text-center'}>
-          By clicking {`"Create account"`}, I agree to {`A11yWatch's `}
+          This site is protected by reCAPTCHA and the Google{' '}
+          <Link prefetch={false} href={'https://policies.google.com/privacy'}>
+            Privacy Policy
+          </Link>{' '}
+          and{' '}
+          <Link prefetch={false} href={'https://policies.google.com/terms'}>
+            Terms of Service
+          </Link>{' '}
+          apply. By clicking {`"Create account"`}, I agree to {`A11yWatch's `}
           <Link href={'/terms-of-service'} prefetch={false}>
             TOS
           </Link>{' '}

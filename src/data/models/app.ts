@@ -17,7 +17,7 @@ function setPwaInstalled(event?: Event) {
   }
 }
 
-async function initAppModel() {
+function initAppModel() {
   if (!dev && typeof window !== 'undefined') {
     if (window.matchMedia('(display-mode: standalone)').matches) {
       setPwaInstalled()

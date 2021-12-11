@@ -68,14 +68,20 @@ export const userData = () => {
     }
   }
   const onFilterEmailDates = async (dates: number[]) => {
-    await filterEmailDates({
+    const res = await filterEmailDates({
       variables: {
         emailFilteredDates: dates,
       },
     }).catch((e: any) => {
       console.error(e)
     })
-    AppManager.toggleSnack(true, 'Dates for allowed emails updated.', 'success')
+    if (res) {
+      AppManager.toggleSnack(
+        true,
+        'Dates for allowed emails updated.',
+        'success'
+      )
+    }
   }
 
   useMemo(() => {
