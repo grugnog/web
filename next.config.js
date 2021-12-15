@@ -70,6 +70,17 @@ const aliases = {
   'react-native$': 'react-native-web',
 }
 
+const securityHeaders = [
+  {
+    key: 'X-DNS-Prefetch-Control',
+    value: 'on',
+  },
+  {
+    key: 'X-Frame-Options',
+    value: 'SAMEORIGIN',
+  },
+]
+
 module.exports = withPWA({
   pwa: {
     dest: 'public',
@@ -88,6 +99,14 @@ module.exports = withPWA({
   images: {
     domains: domains,
   },
+  async headers() {
+    return [
+      {
+        source: '/(.*)',
+        headers: securityHeaders,
+      },
+    ]
+  },
   compress: true,
   generateBuildId: async () =>
     process.env.SOURCE_VERSION
@@ -98,6 +117,7 @@ module.exports = withPWA({
   typescriptLoaderOptions: {
     transpileOnly: true,
   },
+  poweredByHeader: false,
   webpack: (config, { dev: development, webpack }) => {
     generateSiteMap(DOMAIN_NAME).catch((e) => console.error(e))
 
