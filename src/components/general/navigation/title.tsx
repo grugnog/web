@@ -52,7 +52,7 @@ function NavBarTitle({
 
   if (marketing && !notitle) {
     return (
-      <Link href='/' className={classes.link} prefetch={false}>
+      <Link href='/' className={classes.link}>
         <div className={classes.brand}>
           <Logo />
           <Typography

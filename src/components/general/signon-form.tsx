@@ -286,22 +286,16 @@ const SignOnForm: FunctionComponent<SignOnProps> = ({
         </div>
         <div className={'text-xs text-center'}>
           This site is protected by reCAPTCHA and the Google{' '}
-          <Link prefetch={false} href={'https://policies.google.com/privacy'}>
+          <Link href={'https://policies.google.com/privacy'}>
             Privacy Policy
           </Link>{' '}
           and{' '}
-          <Link prefetch={false} href={'https://policies.google.com/terms'}>
+          <Link href={'https://policies.google.com/terms'}>
             Terms of Service
           </Link>{' '}
           apply. By clicking {`"Create account"`}, I agree to {`A11yWatch's `}
-          <Link href={'/terms-of-service'} prefetch={false}>
-            TOS
-          </Link>{' '}
-          and{' '}
-          <Link href={'/privacy'} prefetch={false}>
-            Privacy Policy
-          </Link>
-          .
+          <Link href={'/terms-of-service'}>TOS</Link> and{' '}
+          <Link href={'/privacy'}>Privacy Policy</Link>.
         </div>
       </Container>
       <LinearBottom loading={loading} />
