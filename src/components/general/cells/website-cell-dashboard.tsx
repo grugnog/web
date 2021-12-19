@@ -9,7 +9,6 @@ import {
   ListItemSecondaryAction,
   ListItemText,
   Button,
-  // List,
 } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import { Link } from '../link'
@@ -22,8 +21,6 @@ import { SCRIPTS_CDN_URL_HOST } from '@app/configs'
 import { a11yDark } from '@app/styles'
 import { Switch } from '@headlessui/react'
 import { PrismLight } from 'react-syntax-highlighter'
-// import { WebsiteIssuesCell, WebsitePrimaryCell } from '.'
-// import { issueSort } from '@app/lib'
 
 function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(' ')
@@ -173,7 +170,7 @@ export function WebsiteCellDashboardComponent({
       </div>
       <View style={styles.spacing} />
 
-      <View style={[styles.row, tailwind('flex-wrap')]}>
+      <View style={[styles.row, tailwind('flex-wrap py-1')]}>
         <InfoBlock title={'Accessibility Score'}>
           <RenderAvatar
             cdnConnected={cdnConnected}
@@ -250,29 +247,6 @@ export function WebsiteCellDashboardComponent({
           </PrismLight>
         </InfoBlock>
       </View>
-
-      {/* <CenterContainer>
-        <List className={'invisible lg:visible w-1/2 py-4 border my-4 rounded'}>
-          {issues?.length
-            ? issues.sort(issueSort)?.map((item: any, listIndex: number) => {
-                return (
-                  <WebsiteIssuesCell
-                    handleClickOpenPlayer={handleClickOpenPlayer}
-                    handleClickOpen={handleClickOpen}
-                    handleClose={handleClose}
-                    key={`${listIndex} ${item?.selector} ${item?.code}`}
-                    openError
-                    // issuesModal={issuesModal}
-                    // noMaxHeight={data?.length === 1}
-                    error={false}
-                    item={item}
-                    url={url}
-                  />
-                )
-              })
-            : null}
-        </List>
-      </CenterContainer> */}
 
       <CenterContainer>
         <Button

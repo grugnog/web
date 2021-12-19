@@ -4,7 +4,7 @@
  * LICENSE file in the root directory of this source tree.
  **/
 
-import { useMemo } from 'react'
+import { useEffect } from 'react'
 import gql from 'graphql-tag'
 import { useApolloClient, useQuery } from '@apollo/react-hooks'
 import { frameDom } from '@app/managers'
@@ -29,7 +29,7 @@ export function useAutoFix(script: any) {
     })
   }
 
-  useMemo(() => {
+  useEffect(() => {
     if (dom && script?.cdnUrl) {
       let hasCdn = dom?.querySelector(`script[src$="${script.cdnUrlMinified}"]`)
       if (!hasCdn) {
