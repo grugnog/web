@@ -20,15 +20,17 @@ function Reports({ name, website }: PageProps) {
         <title>{`Web Accessibility Report - ${url} | A11yWatch`}</title>
         <meta
           property='description'
-          content={`A detailed website accessibility report for ${url}. The report follows ADA and WCAG specifications.`}
+          content={`A detailed web accessibility report for ${url}. The report follows ADA and WCAG specifications.`}
           key='description'
         />
       </Head>
-      <MarketingDrawer title={url || name} maxWidth='xl'>
-        <PageTitle>{`Report: ${domain || 'page'}`}</PageTitle>
-        {website ? (
-          <ReportView website={website} disablePlayground={true} />
-        ) : null}
+      <MarketingDrawer title={url || name} maxWidth='xl' initClosed={true}>
+        <div className={'py-2 px-4'}>
+          <PageTitle>{`Report: ${domain || 'page'}`}</PageTitle>
+          {website ? (
+            <ReportView website={website} disablePlayground={true} />
+          ) : null}
+        </div>
       </MarketingDrawer>
     </Fragment>
   )
@@ -75,17 +77,6 @@ export const getStaticProps: GetStaticProps = async (context) => {
   } catch (e) {
     console.error(e)
   }
-
-  //   try {
-  //     const { generateSiteMap } = await import('../../../generate-sitemap')
-
-  //     await generateSiteMap({
-  //       pagesDirectory: process.cwd() + '/src/pages',
-  //       nextConfigPath: process.cwd() + '/next.config.js',
-  //     })
-  //   } catch (e) {
-  //     console.error(e)
-  //   }
 
   return !website
     ? {

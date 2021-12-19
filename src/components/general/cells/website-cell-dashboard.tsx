@@ -17,10 +17,11 @@ import { ModalType } from '@app/data/enums'
 import { View, Text, StyleSheet } from 'react-native'
 import { theme } from '@app-theme'
 import tailwind from 'tailwind-rn'
-import { SCRIPTS_CDN_URL_HOST } from '@app/configs'
+import { SCRIPTS_CDN_URL_HOST, AppConfig } from '@app/configs'
 import { a11yDark } from '@app/styles'
 import { Switch } from '@headlessui/react'
 import { PrismLight } from 'react-syntax-highlighter'
+import Image from 'next/image'
 
 function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(' ')
@@ -108,10 +109,12 @@ export function WebsiteCellDashboardComponent({
   pageHeaders,
   index,
   script,
+  domain,
 }: any) {
   const classes = useStyles()
   const [anchorEl, setAnchorEl] = useState<any>(null)
   const [isCdnMinified, setMinified] = useState<boolean>(true)
+  const [isMarkdown, setMarkdown] = useState<boolean>(true)
 
   const handleMenu = (event: any) => {
     setAnchorEl(event?.currentTarget)
@@ -145,6 +148,27 @@ export function WebsiteCellDashboardComponent({
 
   const cdnUrl = `${SCRIPTS_CDN_URL_HOST}/${script?.cdnUrl}`
   const cdnUrlMinifed = `${SCRIPTS_CDN_URL_HOST}/${script?.cdnUrlMinified}`
+
+  const prismStyles = {
+    ...a11yDark,
+    hljs: {
+      ...a11yDark.hljs,
+      background: '',
+      padding: 0,
+      overflow: 'hidden',
+      maxWidth: '74vw',
+    },
+  }
+
+  const statusBadgeUrl = `${AppConfig?.graphQLUrl?.replace(
+    '/graphql',
+    '/status'
+  )}/${domain}`
+
+  const reportsLink = `${AppConfig?.graphQLUrl
+    ?.replace('api.', '')
+    ?.replace('8080', '3000')
+    ?.replace('/graphql', '')}/reports/${domain}`
 
   return (
     <div className={`w-full border p-4 pl-6 pr-6 rounded overflow-hidden`}>
@@ -226,19 +250,7 @@ export function WebsiteCellDashboardComponent({
             </Switch.Group>
           }
         >
-          <PrismLight
-            language='html'
-            style={{
-              ...a11yDark,
-              hljs: {
-                ...a11yDark.hljs,
-                background: '',
-                padding: 0,
-                overflow: 'hidden',
-                maxWidth: '74vw',
-              },
-            }}
-          >
+          <PrismLight language='html' style={prismStyles}>
             {script?.cdnUrl
               ? `<script src="${
                   isCdnMinified ? cdnUrlMinifed : cdnUrl
@@ -246,6 +258,56 @@ export function WebsiteCellDashboardComponent({
               : 'N/A'}
           </PrismLight>
         </InfoBlock>
+
+        {domain ? (
+          <InfoBlock
+            title={'Status Badge'}
+            titleButton={
+              <Switch.Group as='div' className='flex'>
+                <Switch
+                  checked={isMarkdown}
+                  onChange={() => setMarkdown((m: boolean) => !m)}
+                  className={classNames(
+                    isMarkdown ? 'bg-indigo-600' : 'bg-gray-200',
+                    'relative inline-flex flex-shrink-0 h-5 w-10 border-2 border-transparent rounded-full cursor-pointer transition-colors ease-in-out duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'
+                  )}
+                >
+                  <span
+                    aria-hidden='true'
+                    className={classNames(
+                      isMarkdown ? 'translate-x-5' : 'translate-x-0',
+                      'pointer-events-none inline-block h-4 w-4 rounded-full bg-white shadow transform ring-0 transition ease-in-out duration-200'
+                    )}
+                  />
+                </Switch>
+                <Switch.Label as='span' className='ml-3'>
+                  <span className='text-sm font-medium'>MARKDOWN</span>
+                </Switch.Label>
+              </Switch.Group>
+            }
+          >
+            {isMarkdown ? (
+              <PrismLight language='markdown' style={prismStyles}>
+                {`[![A11yWatch](${statusBadgeUrl})](${reportsLink})`}
+              </PrismLight>
+            ) : (
+              <PrismLight language='html' style={prismStyles}>
+                {`<a href="${reportsLink}"><img src="${statusBadgeUrl}"></img></a>`}
+              </PrismLight>
+            )}
+
+            <div className='py-3'>
+              <Link href={reportsLink}>
+                <Image
+                  src={statusBadgeUrl}
+                  alt={`Status badge for ${domain}`}
+                  width={112}
+                  height={20}
+                />
+              </Link>
+            </div>
+          </InfoBlock>
+        ) : null}
       </View>
 
       <CenterContainer>
