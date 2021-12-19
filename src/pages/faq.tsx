@@ -86,6 +86,18 @@ function Faq({ name }: PageProps) {
           </Typography>
         </ListItem>
       </List>
+
+      <Typography variant='h4' component='h3' gutterBottom style={bold}>
+        How can I sign up as a company?
+      </Typography>
+      <Typography variant='body1'>
+        You have two main options for joining on A11yWatch as a company, brand
+        or organization: signup from a regular user account under your
+        organization's email. You can treat the general account as the main
+        account for your company. The safest way to share account access is
+        through the google sign on method.
+      </Typography>
+
       <Typography variant='h4' component='h3' gutterBottom style={bold}>
         Contact Us
       </Typography>

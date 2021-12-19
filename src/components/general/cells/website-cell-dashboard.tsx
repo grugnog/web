@@ -308,10 +308,9 @@ export function WebsiteCellDashboardComponent({
                 onClick={copyClipboard}
                 className={'hover:bg-blue-500 cursor-pointer'}
               >
-                {`<a href="${reportsLink}"><img src="${statusBadgeUrl}"></img></a>`}
+                {`<a href="${reportsLink}"><img src="${statusBadgeUrl}" /></a>`}
               </PrismLight>
             )}
-
             <div className='py-3'>
               <Link href={reportsLink}>
                 <Image
