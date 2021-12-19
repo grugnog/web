@@ -22,6 +22,7 @@ import { a11yDark } from '@app/styles'
 import { Switch } from '@headlessui/react'
 import { PrismLight } from 'react-syntax-highlighter'
 import Image from 'next/image'
+import { copyClipboard } from '@app/lib'
 
 function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(' ')
@@ -250,7 +251,12 @@ export function WebsiteCellDashboardComponent({
             </Switch.Group>
           }
         >
-          <PrismLight language='html' style={prismStyles}>
+          <PrismLight
+            language='html'
+            style={prismStyles}
+            onClick={copyClipboard}
+            className={'hover:bg-blue-500 cursor-pointer'}
+          >
             {script?.cdnUrl
               ? `<script src="${
                   isCdnMinified ? cdnUrlMinifed : cdnUrl
@@ -287,11 +293,21 @@ export function WebsiteCellDashboardComponent({
             }
           >
             {isMarkdown ? (
-              <PrismLight language='markdown' style={prismStyles}>
+              <PrismLight
+                language='markdown'
+                style={prismStyles}
+                onClick={copyClipboard}
+                className={'hover:bg-blue-500 cursor-pointer'}
+              >
                 {`[![A11yWatch](${statusBadgeUrl})](${reportsLink})`}
               </PrismLight>
             ) : (
-              <PrismLight language='html' style={prismStyles}>
+              <PrismLight
+                language='html'
+                style={prismStyles}
+                onClick={copyClipboard}
+                className={'hover:bg-blue-500 cursor-pointer'}
+              >
                 {`<a href="${reportsLink}"><img src="${statusBadgeUrl}"></img></a>`}
               </PrismLight>
             )}

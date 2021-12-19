@@ -49,17 +49,17 @@ const highLight = (
     : ''
 
 const getPrimaryColor = (title: string) => {
-  let textColor = '#fff'
+  let color = '#fff'
   if (title === 'Premium') {
-    textColor = '#EC4899'
+    color = '#ff78a4'
   } else if (title === 'Free') {
-    textColor = '#10B981'
+    color = '#00875b'
   } else if (title === 'Basic') {
-    textColor = '#3B82F6'
+    color = '#2b72e6'
   } else if (title === 'Enterprise') {
-    textColor = '#fff'
+    color = '#fff'
   }
-  return textColor
+  return color
 }
 
 function PriceWrapper({
