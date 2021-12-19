@@ -31,7 +31,6 @@ const env = {
   INTERCOM_APPID: process.env.INTERCOM_APPID,
   IFRAME_URL: process.env.IFRAME_URL,
   GOOGLE_CLIENT_ID: process.env.GOOGLE_CLIENT_ID,
-  DONORBOX_URL: process.env.DONORBOX_URL,
   DOMAIN_NAME,
   INTERCOM_ENABLED: process.env.INTERCOM_ENABLED,
   SUPER_MODE: process.env.SUPER_MODE,
@@ -118,8 +117,8 @@ module.exports = withPWA({
     transpileOnly: true,
   },
   poweredByHeader: false,
-  webpack: (config, { dev: development, webpack }) => {
-    generateSiteMap(DOMAIN_NAME).catch((e) => console.error(e))
+  webpack: async (config, { dev: development, webpack }) => {
+    await generateSiteMap(DOMAIN_NAME).catch((e) => console.error(e))
 
     config.plugins.push(
       new webpack.IgnorePlugin({

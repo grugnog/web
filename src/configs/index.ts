@@ -14,7 +14,6 @@ export {
   APP_TYPE,
   STRIPE_KEY,
   SUPER_MODE,
-  DONORBOX_URL,
   API_URI_DOCKER,
   dev,
   cdn,

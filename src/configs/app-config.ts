@@ -18,7 +18,6 @@ const APP_TYPE = process.env.APP_TYPE || 'main'
 const GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID
 const STRIPE_KEY = process.env.STRIPE_KEY
 const SUPER_MODE = process.env.SUPER_MODE
-const DONORBOX_URL = process.env.DONORBOX_URL
 const INTERCOM_ENABLED = process.env.INTERCOM_ENABLED
 const API_URI_DOCKER = process.env.API_URI_DOCKER
 const DOMAIN_NAME = process.env.DOMAIN_NAME
@@ -35,7 +34,6 @@ export {
   APP_TYPE,
   STRIPE_KEY,
   SUPER_MODE,
-  DONORBOX_URL,
   INTERCOM_ENABLED,
   cdn,
 }

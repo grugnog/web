@@ -93,7 +93,7 @@ function Faq({ name }: PageProps) {
       <Typography variant='body1'>
         You have two main options for joining on A11yWatch as a company, brand
         or organization: signup from a regular user account under your
-        organization's email. You can treat the general account as the main
+        {`organization's`} email. You can treat the general account as the main
         account for your company. The safest way to share account access is
         through the google sign on method.
       </Typography>
