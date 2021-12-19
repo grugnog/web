@@ -34,7 +34,7 @@ export const NavItem: FC<Props> = ({
       as={as}
       component={Link}
       variant={name === 'Register' ? 'outlined' : 'text'}
-      className={`${className} ${registerClassName} ${loginClassName}`}
+      className={`${className} ${registerClassName} ${loginClassName} font-sm`}
     >
       {home ? 'Home' : name}
     </Button>

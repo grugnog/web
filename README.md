@@ -5,7 +5,7 @@
 [![codecov](https://codecov.io/gh/A11yWatch/web/branch/main/graph/badge.svg?token=0LZKQ2H848)](https://codecov.io/gh/A11yWatch/web)
 [![A11yWatch](https://api.a11ywatch.com/status/a11ywatch.com)](https://a11ywatch.com/reports/a11ywatch.com)
 
-a11ywatch web application built using next.js
+a11ywatch website
 
 ## Installation
 
@@ -23,8 +23,7 @@ open [localhost:3000](http://localhost:3000) in your browser.
 
 ## API
 
-In order to use the application you need to make sure you have the [A11yWatch](https://github.com/A11yWatch/a11ywatch) system running locally. This central project starts
-all the services needed for the project. View the [compose](https://github.com/A11yWatch/a11ywatch/blob/master/docker-compose.yml) file to see the micro services used.
+In order to use the application you need to make sure you have the [A11yWatch](https://github.com/A11yWatch/a11ywatch) system running locally. View the [compose](https://github.com/A11yWatch/a11ywatch/blob/master/docker-compose.yml) file to see the micro services used.
 
 ## Environment
 

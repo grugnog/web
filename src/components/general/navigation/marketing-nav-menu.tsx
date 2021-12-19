@@ -56,7 +56,7 @@ function MarketingNavMenu({
               component={Link}
               href={homeRoute ? '/' : href}
               color={'inherit'}
-              variant={'h6'}
+              variant={'subtitle1'}
             >
               {homeRoute ? 'Home' : name}
             </ListItem>
