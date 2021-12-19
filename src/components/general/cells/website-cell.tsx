@@ -136,8 +136,8 @@ export function WebsiteCell({
         </MenuItem>
         {typeof crawlWebsite !== 'undefined' ? (
           <MenuItem
-            onClick={() => {
-              crawlWebsite({
+            onClick={async () => {
+              await crawlWebsite({
                 variables: {
                   url,
                 },

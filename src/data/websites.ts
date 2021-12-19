@@ -45,10 +45,10 @@ export const useWebsiteData = (
     REMOVE_WEBSITE,
     updateCache
   )
-  const [addWebsiteMutation, { loading: addLoading }] = useMutation(
-    ADD_WEBSITE,
-    updateCache
-  )
+  const [
+    addWebsiteMutation,
+    { data: addWebsiteData, loading: addLoading },
+  ] = useMutation(ADD_WEBSITE, updateCache)
   const [updateWebsite, { data: updateData }] = useMutation(UPDATE_WEBSITE, {
     variables,
   })
@@ -173,6 +173,12 @@ export const useWebsiteData = (
       }
     }
   }, [websiteUpdated])
+
+  useEffect(() => {
+    if (addWebsiteData && !addWebsiteData?.addWebsite?.success) {
+      AppManager.toggleSnack(true, addWebsiteData.addWebsite.message, 'warning')
+    }
+  }, [addWebsiteData])
 
   useEffect(() => {
     if (crawlData && websites?.length) {

@@ -42,10 +42,14 @@ const SnackbarContainer = observer(({ store }: any) => {
 
   const tt = store?.snackbar?.title ?? ''
 
+  const lowerCaseText = tt.toLowerCase()
+
   const needsUpgrade =
-    tt.includes('Max websites added') ||
-    tt === 'You need to upgrade your account to edit scripts'
-  const marketingRedirect = tt.includes('Redirected to Dashboard')
+    lowerCaseText.includes('max websites added') ||
+    lowerCaseText.includes('upgrade your account') ||
+    lowerCaseText === 'you need to upgrade your account to edit scripts'
+
+  const marketingRedirect = lowerCaseText.includes('redirected to dashboard')
 
   return (
     <MUISnackbar
