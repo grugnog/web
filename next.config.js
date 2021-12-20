@@ -117,8 +117,8 @@ module.exports = withPWA({
     transpileOnly: true,
   },
   poweredByHeader: false,
-  webpack: async (config, { dev: development, webpack }) => {
-    await generateSiteMap(DOMAIN_NAME).catch((e) => console.error(e))
+  webpack: (config, { dev: development, webpack }) => {
+    generateSiteMap(DOMAIN_NAME).catch((e) => console.error(e))
 
     config.plugins.push(
       new webpack.IgnorePlugin({
