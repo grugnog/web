@@ -13,11 +13,9 @@ const GET_ISSUE = gql`
       issues {
         code
         type
-        url
         selector
         message
         context
-        pageUrl
       }
     }
   }

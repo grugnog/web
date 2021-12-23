@@ -32,24 +32,17 @@ const GET_HISTORY = gql`
             color
           }
           issues(filter: $filter) {
-            code
-            type
-            selector
-            message
-            context
             pageUrl
           }
         }
         issues(filter: $filter) {
           pageUrl
           issues {
-            url
             code
             type
             selector
             message
             context
-            pageUrl
           }
         }
       }

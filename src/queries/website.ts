@@ -39,11 +39,6 @@ const GET_WEBSITE = gql`
         totalIssues
       }
       issues {
-        code
-        type
-        selector
-        message
-        context
         pageUrl
       }
     }

@@ -24,7 +24,7 @@ export const useStyles = makeStyles(
         backgroundColor: palette.background.default,
         overflowY: 'scroll',
         zIndex: 2,
-        [breakpoints.down('md')]: {
+        [breakpoints.down(1280)]: {
           display: 'none',
         },
       },

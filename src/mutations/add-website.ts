@@ -46,7 +46,6 @@ export const ADD_WEBSITE = gql`
             selector
             message
             context
-            pageUrl
           }
         }
         subDomains {

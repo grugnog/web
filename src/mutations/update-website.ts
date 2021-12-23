@@ -36,13 +36,11 @@ export const UPDATE_WEBSITE = gql`
         issues {
           pageUrl
           issues {
-            url
             code
             type
             selector
             message
             context
-            pageUrl
           }
         }
       }

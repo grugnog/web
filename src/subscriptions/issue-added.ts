@@ -17,7 +17,6 @@ export const ISSUE_SUBSCRIPTION = gql`
         selector
         message
         context
-        pageUrl
       }
     }
   }
