@@ -16,6 +16,7 @@ import { LOGGIN_ROUTES } from '@app/configs'
 import { NavLinks } from './nav-links'
 import { useMutation } from '@apollo/react-hooks'
 import { LOGOUT } from '@app/mutations'
+import { useWebsiteContext } from '../providers/website'
 
 interface Props {
   loginClassName?: string
@@ -27,6 +28,7 @@ function AuthMenu({ loginClassName, className, registerClassName }: Props) {
   const router = useRouter()
   const [anchorEl, setAnchorEl] = useState<any>(null)
   const [logoutMutation, { client }] = useMutation(LOGOUT)
+  const {setIssueFeedContent} = useWebsiteContext()
 
   const handleMenu = (event?: any) => {
     setAnchorEl(event?.currentTarget)
@@ -39,7 +41,9 @@ function AuthMenu({ loginClassName, className, registerClassName }: Props) {
       console.warn(e)
     }
     try {
+      setIssueFeedContent(null, false)
       await client?.clearStore()
+      await client?.resetStore()
       await UserManager.clearUser()
     } catch (e) {
       console.warn(e)

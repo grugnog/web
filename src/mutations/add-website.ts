@@ -41,7 +41,6 @@ export const ADD_WEBSITE = gql`
         issues {
           pageUrl
           issues {
-            url
             code
             type
             selector
