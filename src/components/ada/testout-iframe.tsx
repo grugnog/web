@@ -50,7 +50,7 @@ const MainFrame = observer(({ homeStore, iframeStore, url, issue }: any) => {
           src={iframeSrc}
           id='ada-frame'
           className={mainFrame}
-          title='ada fix example view'
+          title={`${iframeSrc} accessibility insight pdf viewer`}
           onLoad={loadFrame}
           ref={iframeRef}
         />
@@ -59,11 +59,12 @@ const MainFrame = observer(({ homeStore, iframeStore, url, issue }: any) => {
           src={iframeSrc}
           id='ada-frame'
           className={mainFrame}
-          title='ada fix example view'
+          title={`${iframeSrc} accessibility insight view`}
           name='ada iframe'
           sandbox={`${sboxType} allow-scripts`}
           onLoad={loadFrame}
           ref={iframeRef}
+          allowFullScreen
         />
       )}
     </div>

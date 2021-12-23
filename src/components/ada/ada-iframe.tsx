@@ -77,7 +77,7 @@ const MainFrame = observer(
       }
     }, [iframeStore, issue])
 
-    const ariaL = `ada view for ${url}`
+    const ariaL = `${url} accessibility insight view`
 
     const loadFrame = (event: any) => {
       try {
