@@ -5,7 +5,7 @@
  **/
 
 global.describePage({
-  folder: 'analytics',
+  folder: 'website-analytics',
   apollo: true,
   name: 'Analytics',
 })

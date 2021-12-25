@@ -18,7 +18,7 @@ export function AuthedMenu({ route, isMobile, dataSourceMap }: any) {
     networkCombiner:
       !toggleAlertData?.toggleAlert && dataSourceMap?.user?.alertEnabled,
   })
-
+    
   return (
     <List>
       {features.map(({ feature }: any, index: number) => (
@@ -32,11 +32,15 @@ export function AuthedMenu({ route, isMobile, dataSourceMap }: any) {
             isMobile={isMobile}
             setEvents={setEvents}
             toggleAlert={async () => {
-              await toggleAlert({
-                variables: {
-                  alertEnabled: !enabledAlerts,
-                },
-              })
+              try {
+                await toggleAlert({
+                  variables: {
+                    alertEnabled: !enabledAlerts,
+                  },
+                })
+              } catch(e) {
+                console.error(e)
+              }
             }}
           />
         </li>

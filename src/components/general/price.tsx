@@ -51,7 +51,7 @@ const highLight = (
 const getPrimaryColor = (title: string) => {
   let color = '#fff'
   if (title === 'Premium') {
-    color = '#ff78a4'
+    color = '#8956ef'
   } else if (title === 'Free') {
     color = '#00875b'
   } else if (title === 'Basic') {

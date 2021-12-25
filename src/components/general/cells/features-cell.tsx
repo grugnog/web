@@ -77,7 +77,7 @@ const extraProps = (feature?: string, focused?: boolean, setEvents?: any) => {
       }
     case 'Analytics':
       return {
-        href: focused ? '/dashboard' : '/analytics',
+        href: focused ? '/dashboard' : '/website-analytics',
         component: Link,
         color: 'inherit',
       }

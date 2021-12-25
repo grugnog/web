@@ -3,7 +3,7 @@ module.exports = {
   ignoredPaths: [
     'alerts',
     'dashboard',
-    'analytics',
+    'website-analytics',
     'issues',
     'cdn-fix',
     'scripts',

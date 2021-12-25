@@ -85,6 +85,7 @@ module.exports = withPWA({
       /middleware-manifest\.json$/,
       /_middleware.js$/,
       /_middleware.js.map$/,
+      /chunks\/images\/.*$/
     ],
     runtimeCaching,
   },
