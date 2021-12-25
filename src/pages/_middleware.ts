@@ -5,7 +5,7 @@ import { getAPIRoute } from '@app/configs/api-route'
 
 const ID_COOKIE_NAME = 'uuid'
 const ignoreList = ['/_offline', '/robots.txt', 'fallback', 'workbox']
-const API_ROUTE = getAPIRoute()
+const API_ROUTE = getAPIRoute("api", true)
 
 export async function middleware(req: NextRequest, event: NextFetchEvent) {
   // const noRedirects = req.nextUrl.searchParams.get('noredirect')
@@ -13,47 +13,50 @@ export async function middleware(req: NextRequest, event: NextFetchEvent) {
   // const token = req.cookies.jwt
   let uuid = req.cookies[ID_COOKIE_NAME]
 
-  if (!uuid) {
-    uuid = crypto.randomUUID!()
-  }
+  const pageRequest = !staticResource &&
+  req.page.name &&
+  !ignoreList.includes(req.url) &&
+  req.page.name !== '/_offline';
 
-  if (
-    !staticResource &&
-    req.page.name &&
-    !ignoreList.includes(req.url) &&
-    req.page.name !== '/_offline'
-  ) {
-    event.waitUntil(
-      (async () => {
-        const analyticsData = {
-          page: req.page.name,
-          userID: uuid,
-          screenResolution: undefined,
-          documentReferrer: req.referrer,
-          ip: req.ip,
-          _ga: req.cookies['_ga'],
-          geo: req.geo,
-        }
+  if (pageRequest) {
+    if(!uuid) {
+      uuid = crypto.randomUUID!()
+    }
 
-        const headers = {
-          'Content-Type': 'application/json',
-          'User-Agent': '',
-          Origin: req.nextUrl.origin || 'https://a11ywatch.com',
-        }
-
-        if (req?.ua?.ua) {
-          headers['User-Agent'] = req.ua.ua
-        }
-
-        await fetch(`${API_ROUTE}/log/page`, {
-          method: 'POST',
-          body: JSON.stringify(analyticsData),
-          headers,
-        }).catch((e) => {
-          console.error(e)
-        })
-      })()
-    )
+    if (pageRequest) {
+      event.waitUntil(
+        (async () => {
+          const analyticsData = {
+            page: req.page.name,
+            userID: uuid,
+            screenResolution: undefined,
+            documentReferrer: req.referrer,
+            ip: req.ip,
+            _ga: req.cookies['_ga'],
+            geo: req.geo,
+          }
+  
+          const headers = {
+            'Content-Type': 'application/json',
+            'User-Agent': '',
+            Origin: req.nextUrl.origin || 'https://a11ywatch.com',
+          }
+  
+          if (req?.ua?.ua) {
+            headers['User-Agent'] = req.ua.ua
+          }
+  
+          await fetch(`${API_ROUTE}/log/page`, {
+            method: 'POST',
+            body: JSON.stringify(analyticsData),
+            headers,
+          }).catch((e) => {
+            console.error(e)
+          })
+        })()
+      )
+    }
+  
   }
 
   let res = NextResponse.next()
