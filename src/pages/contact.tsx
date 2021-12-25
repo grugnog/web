@@ -4,7 +4,8 @@
  * LICENSE file in the root directory of this source tree.
  **/
 import React from 'react'
-import { Typography, Box } from '@material-ui/core'
+import { Typography } from '@material-ui/core'
+import { Box } from '@a11ywatch/ui'
 import { MarketingDrawer, Spacer, PageTitle } from '@app/components/general'
 import { strings } from '@app-strings'
 import { metaSetter } from '@app/utils'
@@ -52,7 +53,7 @@ function Contact({ name }: PageProps) {
             textDecoration: 'none',
           }}
         >
-          <Box bgcolor='secondary.main' style={circleStyle}>
+          <Box style={circleStyle}>
             <Typography
               variant='h5'
               component='span'
@@ -74,7 +75,7 @@ function Contact({ name }: PageProps) {
             textDecoration: 'none',
           }}
         >
-          <Box bgcolor='primary.main' style={circleStyle}>
+          <Box style={circleStyle}>
             <Typography
               variant='h5'
               component='span'
