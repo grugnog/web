@@ -21,6 +21,7 @@ import {
   Compare as CompareIcon,
   Web as WebIcon,
   TripOrigin as TripIcon,
+  GitHub as GitHubIcon
 } from '@material-ui/icons'
 import { SectionContainer } from '../general'
 
@@ -91,6 +92,9 @@ const RenderIcon = ({ index, ...props }: any): any =>
           break
         case 9:
           FeatureIcon = TripIcon
+          break
+        case 10:
+          FeatureIcon = GitHubIcon
           break
         default:
           FeatureIcon = SpeedIcon

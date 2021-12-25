@@ -1,23 +1,19 @@
 {
   "name": "web",
   "version": "0.1.1",
-  "main": "dist/server.ts",
   "private": false,
   "scripts": {
     "dev": "next dev",
     "dev:vercel": "vercel dev",
-    "start": "next start",
+    "start": "next start -p ${PORT:=3000}",
     "build": "next build",
     "lint": "next lint",
     "fix": "prettier --write '**/*.{js,jsx}'",
     "clean": "npm run fix && npm run lint",
-    "preinstall": "bash ./load-env.sh",
-    "prebuild": "bash ./scripts/create-robot.sh",
+    "preinstall": "./load-env.sh",
+    "prebuild": "./scripts/create-robot.sh",
     "test": "jest",
     "test:ci": "jest tests --forceExit --ci -w=2"
-  },
-  "engines": {
-    "node": "14.x"
   },
   "dependencies": {
     "@a11ywatch/ui": "1.12.3",

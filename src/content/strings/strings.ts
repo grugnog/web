@@ -113,6 +113,13 @@ export const generateStrings = ({
           'With AI and machine learning we tailor custom needs for your website rapidly. Determine missing alts with high proximity ratios and more.',
         reason: 'Basic',
       },
+      {
+        id: 10,
+        title: '100% Open-Source',
+        detail:
+          'Every line of code to power this project is fully open-source and available on GitHub. Easily fork the project and run on your own server with docker.',
+        reason: 'Basic',
+      },
     ],
     alerts: {
       enableNotificationsTitle: 'Would you like to enable notifications?',

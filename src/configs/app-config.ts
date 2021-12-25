@@ -7,7 +7,7 @@
 const dev = process.env.NODE_ENV !== 'production'
 const AppConfig = {
   graphQLUrl: process.env.API,
-  graphQLUrlDocker: process.env.API_URI_DOCKER,
+  graphQLUrlDocker: process.env.API_URI_DOCKER || process.env.API,
   webSocketUrl: process.env.WEB_SOCKET_URL,
   dev,
 }

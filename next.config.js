@@ -5,7 +5,6 @@
  **/
 
 const { resolve } = require('path')
-const { domainMap } = require('./domain-map')
 const { generateSiteMap } = require('./generate-sitemap')
 const withPWA = require('next-pwa')
 const runtimeCaching = require('next-pwa/cache')
@@ -18,7 +17,6 @@ const env = {
   dev,
   APP_TYPE: process.env.APP_TYPE || 'main',
   API: process.env.API,
-  API_URI_DOCKER: process.env.API_URI_DOCKER,
   WEB_SOCKET_URL: process.env.WEB_SOCKET_URL,
   STRIPE_KEY:
     process.env.STRIPE_KEY_PROD && !dev
@@ -59,7 +57,8 @@ if (CDN_HOST) {
   }
 }
 
-const { themeType, stringType } = domainMap(process.env.APP_TYPE)
+const themeType  = 'main'
+const stringType = "a11y"
 
 const aliases = {
   ['@app']: resolve(__dirname, './src'),
@@ -73,11 +72,7 @@ const securityHeaders = [
   {
     key: 'X-DNS-Prefetch-Control',
     value: 'on',
-  },
-  {
-    key: 'X-Frame-Options',
-    value: 'SAMEORIGIN',
-  },
+  }
 ]
 
 module.exports = withPWA({

@@ -10,14 +10,14 @@ a11ywatch website
 ## Installation
 
 ```
-npm i
+yarn
 ```
 
 ## Start
 
 You can start the project using docker or local
 
-`docker-compose up` or `npm run dev`
+`docker-compose up` or `yarn run dev`
 
 open [localhost:3000](http://localhost:3000) in your browser.
 

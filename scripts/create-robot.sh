@@ -1,4 +1,6 @@
-#!/bin/bash
+#!/bin/sh
+
+DOMAIN_NAME=https://a11ywatch.com
 
 if [[ -n "$DOMAIN_NAME" ]]; then
 	echo "Sitemap: $DOMAIN_NAME/sitemap.xml" >> public/robots.txt

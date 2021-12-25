@@ -21,7 +21,6 @@ import { SCRIPTS_CDN_URL_HOST, AppConfig } from '@app/configs'
 import { a11yDark } from '@app/styles'
 import { Switch } from '@headlessui/react'
 import { PrismLight } from 'react-syntax-highlighter'
-import Image from 'next/image'
 import { copyClipboard } from '@app/lib'
 
 function classNames(...classes: string[]) {
@@ -313,7 +312,7 @@ export function WebsiteCellDashboardComponent({
             )}
             <div className='py-3'>
               <Link href={reportsLink}>
-                <Image
+                <img
                   src={statusBadgeUrl}
                   alt={`Status badge for ${domain}`}
                   width={112}
