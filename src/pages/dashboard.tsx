@@ -63,7 +63,7 @@ function Dashboard({ name }: PageProps) {
                       )
                     ) {
                       try {
-                        await removePress('')
+                        await removePress('', true)
                       } catch (e) {
                         console.error(e)
                       }

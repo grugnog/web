@@ -18,7 +18,7 @@ export const sharedWebsiteDefaults = {
   removeWebsite: (_: any): Promise<any> => {
     return _
   },
-  removePress: (_: any): Promise<any> => {
+  removePress: (_: any, _removeAll?: boolean): Promise<any> => {
     return _
   },
   crawlWebsite: (_: any): Promise<any> => {
