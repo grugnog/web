@@ -4,7 +4,7 @@
  * LICENSE file in the root directory of this source tree.
  **/
 
-import { getCookie, setCookie } from 'with-cookie'
+import { setCookie } from 'with-cookie'
 import { parseCookie } from '@app/lib/cookies'
 import {
   _AUTHED,
@@ -70,7 +70,7 @@ const userModel = {
       console.error(e)
     }
   },
-  logIn: function ({ email, jwt }: { email: string; jwt: string }): void {
+  logIn: function ({ email, jwt }: { email: string; jwt: string }) {
     this.email = email
     this.jwt = jwt
   },
@@ -87,12 +87,8 @@ const userModel = {
   }) {
     return !!(this.alertsEnabled || toggleCombiner || networkCombiner)
   },
-  setJwt: function (jwt: any) {
-    try {
-      this.jwt = jwt
-    } catch (e) {
-      console.error(e)
-    }
+  setJwt: function (jwt: string) {
+    this.jwt = jwt
   },
   get loggedIn() {
     return this.jwt

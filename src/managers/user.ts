@@ -42,7 +42,11 @@ class UserManager {
       jsonify: true,
     })
 
-    await pour('user', this)
+    try {
+      await pour('user', this)
+    } catch (e) {
+      console.error(e)
+    }
   }
 
   @action setUser = (user: User) => {

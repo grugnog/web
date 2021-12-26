@@ -205,10 +205,6 @@ export function WebsiteCellDashboardComponent({
           />
         </InfoBlock>
 
-        <InfoBlock title={'CDN Connected'}>
-          <Text style={styles.text}>{cdnConnected ? 'Yes' : 'No'}</Text>
-        </InfoBlock>
-
         <InfoBlock title={'Pages'}>
           <Text style={styles.text}>{subDomains?.length}</Text>
         </InfoBlock>
@@ -226,8 +222,20 @@ export function WebsiteCellDashboardComponent({
           )}
         </InfoBlock>
 
+        <InfoBlock title={'CDN Connected'}>
+          <Text style={styles.text}>{cdnConnected ? 'Yes' : 'No'}</Text>
+        </InfoBlock>
+
+        <InfoBlock title={'Headers Included'}>
+          <Text style={styles.text}>{pageHeaders ? 'Yes' : 'No'}</Text>
+        </InfoBlock>
+      </View>
+      <View style={styles.spacing} />
+      <View style={styles.spacing} />
+
+      <View>
         <InfoBlock
-          title={'CDN'}
+          title={'Custom CDN'}
           titleButton={
             <Switch.Group as='div' className='flex'>
               <Switch
