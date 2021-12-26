@@ -12,7 +12,7 @@ import {
 } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import { Link } from '../link'
-import { RenderAvatar, WebsiteSecondary, MoreOptions } from './render'
+import { WebsiteSecondary, MoreOptions } from './render'
 import { ModalType } from '@app/data/enums'
 import { View, Text, StyleSheet } from 'react-native'
 import { theme } from '@app-theme'
@@ -198,11 +198,9 @@ export function WebsiteCellDashboardComponent({
 
       <View style={[styles.row, tailwind('flex-wrap py-1')]}>
         <InfoBlock title={'Accessibility Score'}>
-          <RenderAvatar
-            cdnConnected={cdnConnected}
-            adaScore={adaScore}
-            error={false}
-          />
+          <Text style={styles.text}>
+            {typeof adaScore !== 'undefined' ? `${adaScore}%` : 'N/A'}
+          </Text>
         </InfoBlock>
 
         <InfoBlock title={'Pages'}>
