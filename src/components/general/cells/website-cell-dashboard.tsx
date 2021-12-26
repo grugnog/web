@@ -171,7 +171,9 @@ export function WebsiteCellDashboardComponent({
     ?.replace('/graphql', '')}/reports/${domain}`
 
   return (
-    <div className={`w-full border p-4 pl-6 pr-6 rounded overflow-hidden`}>
+    <div
+      className={`w-full relative border p-4 pl-6 pr-6 rounded overflow-hidden`}
+    >
       <div className={'flex w-full'}>
         <div className={'w-full'}>
           <ListItemText

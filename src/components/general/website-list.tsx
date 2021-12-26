@@ -53,7 +53,7 @@ function WebSites({
       <WebsiteCellDashboard
         handleClickOpen={handleClickOpen}
         url={url || pageUrl}
-        key={`${id} ${url} ${pageUrl} ${index}`}
+        key={`${id}-${url || pageUrl}-${index}`}
         removePress={removePress}
         refetch={refetch}
         handleClickOpenPlayer={handleClickOpenPlayer}
