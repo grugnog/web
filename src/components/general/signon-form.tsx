@@ -284,8 +284,8 @@ const SignOnForm: FunctionComponent<SignOnProps> = ({
             </span>
           ) : null}
         </div>
-        <div className={'text-xs text-center'}>
-          This site is protected by reCAPTCHA and the Google{' '}
+        <div className={'text-xs text-center py-4'}>
+          This site is protected by the Google{' '}
           <Link href={'https://policies.google.com/privacy'}>
             Privacy Policy
           </Link>{' '}
