@@ -67,7 +67,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
 
   try {
     const res = await fetch(
-      `${getAPIRoute()}/get-website?q=${websiteUrl}${
+      `${getAPIRoute('api', true)}/get-website?q=${websiteUrl}${
         timestamp ? `&timestamp=${timestamp}` : ''
       }`
     )

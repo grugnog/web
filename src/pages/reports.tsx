@@ -43,7 +43,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     const res =
       q &&
       (await fetch(
-        `${getAPIRoute()}/get-website?q=${q}${
+        `${getAPIRoute('api', true)}/get-website?q=${q}${
           timestamp ? `&timestamp=${timestamp}` : ''
         }`
       ))
