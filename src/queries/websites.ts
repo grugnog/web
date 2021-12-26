@@ -14,7 +14,6 @@ const GET_WEBSITES = gql`
       id
       websites {
         url
-        id
         domain
         adaScore
         cdnConnected
@@ -113,10 +112,9 @@ export const updateCache: { update?: MutationUpdaterFn<any>; last: any } = {
             return acc
           }
         }, [])
-        .map((item: any, index: number) => {
+        .map((item: any) => {
           return {
             ...item,
-            id: index,
           }
         })
 

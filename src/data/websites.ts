@@ -140,9 +140,7 @@ export const useWebsiteData = (
         htmlIncluded,
         html,
         pageLoadTime,
-        lastScanDate,
         issuesInfo,
-        script,
       } = websiteUpdated?.websiteAdded
       const dataSource = websites.find(
         (source: Website) => source.domain === domain
@@ -151,12 +149,6 @@ export const useWebsiteData = (
       if (dataSource) {
         if (adaScore) {
           dataSource.adaScore = adaScore
-        }
-        if (script) {
-          dataSource.script = script
-        }
-        if (lastScanDate) {
-          dataSource.lastScanDate = lastScanDate
         }
         if (pageLoadTime) {
           dataSource.pageLoadTime = pageLoadTime
@@ -183,13 +175,12 @@ export const useWebsiteData = (
   useEffect(() => {
     if (crawlData && websites?.length) {
       const crawledWebsite = crawlData?.crawlWebsite?.website
-      const dataSource = websites.find(
+      let dataSource = websites.find(
         (source: Website) => source.domain === crawledWebsite?.domain
       )
 
       if (dataSource) {
-        dataSource.adaScore = crawledWebsite.adaScore
-        dataSource.cdnConnected = crawledWebsite.cdnConnected
+        dataSource = crawledWebsite
       }
     }
   }, [crawlData])

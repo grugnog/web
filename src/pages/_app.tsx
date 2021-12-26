@@ -32,6 +32,12 @@ const authRoutes = LOGGIN_ROUTES.map((route) => route.replace('/', ''))
 
 function MyApp({ Component, pageProps }: MergedApp) {
   useEffect(() => {
+    const jssStyles = document.querySelector('#jss-server-side')
+
+    if (jssStyles?.parentNode) {
+      jssStyles.parentNode.removeChild(jssStyles)
+    }
+
     initAppModel()
     startIntercom()
   }, [])

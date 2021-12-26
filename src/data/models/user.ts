@@ -68,20 +68,12 @@ const userModel = {
     }
   },
   logIn: function ({ email, jwt }: { email: string; jwt: string }): void {
-    try {
-      this.email = email
-      this.jwt = jwt
-    } catch (e) {
-      console.error(e)
-    }
+    this.email = email
+    this.jwt = jwt
   },
   toggleAlert: function (alertsEnabled: boolean) {
-    try {
-      setCookie(_ALERTS_ENABLED, alertsEnabled, defaultExp)
-      this.alertsEnabled = !!alertsEnabled
-    } catch (e) {
-      console.error(e)
-    }
+    setCookie(_ALERTS_ENABLED, alertsEnabled, defaultExp)
+    this.alertsEnabled = !!alertsEnabled
   },
   alertEnabled: function ({
     toggleCombiner,
