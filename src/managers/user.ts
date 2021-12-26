@@ -30,10 +30,9 @@ interface User {
 class UserManager {
   @persist('object')
   @observable
-  user: User
+  user: User = USER_DEFAULTS
 
   constructor() {
-    this.user = USER_DEFAULTS
     this.hydrate()
   }
 
@@ -81,8 +80,8 @@ class UserManager {
     return userModel.loggedIn || this.token
   }
 
-  @action clearUser = async () => {
-    await userModel.logOut()
+  @action clearUser = () => {
+    userModel.logOut()
     this.user = USER_DEFAULTS
     Router.push('/')
   }

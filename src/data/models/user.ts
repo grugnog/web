@@ -57,7 +57,7 @@ const userModel = {
       console.error(e)
     }
   },
-  logOut: async function () {
+  logOut: function () {
     try {
       this.jwt = ''
       this.email = ''
@@ -94,7 +94,6 @@ const userModel = {
   },
   setJwt: function (jwt: any) {
     try {
-      setCookie(_JWT, jwt, defaultExp)
       this.jwt = jwt
     } catch (e) {
       console.error(e)

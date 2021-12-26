@@ -153,7 +153,7 @@ function Payments({ hideTitle = false, name }: PaymentProps) {
             yearly,
           },
         })
-        const jwt = res?.data?.addSubscription?.user.jwt
+        const jwt = res?.data?.addPaymentSubscription?.user.jwt
 
         if (jwt) {
           UserManager.setJwt(jwt)
