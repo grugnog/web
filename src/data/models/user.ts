@@ -15,6 +15,7 @@ import {
 import { parseJwt } from '@app/lib/auth'
 import { shutdownIntercom } from 'intercom-next'
 import { UserManager } from '@app/managers'
+import { User } from '@app/types'
 
 const defaultExp = 365
 
@@ -54,8 +55,6 @@ const userModel = {
         this.email = email
         this.jwt = jwt
       }
-
-      await UserManager.hydrate()
     } catch (e) {
       console.error(e)
     }
@@ -70,9 +69,13 @@ const userModel = {
       console.error(e)
     }
   },
-  logIn: function ({ email, jwt }: { email: string; jwt: string }) {
-    this.email = email
-    this.jwt = jwt
+  logIn: function ({ email, jwt }: User) {
+    if (email) {
+      this.email = email
+    }
+    if (jwt) {
+      this.jwt = jwt
+    }
   },
   toggleAlert: function (alertsEnabled: boolean) {
     setCookie(_ALERTS_ENABLED, alertsEnabled, defaultExp)

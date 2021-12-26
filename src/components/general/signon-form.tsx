@@ -96,22 +96,21 @@ const SignOnForm: FunctionComponent<SignOnProps> = ({
     }
   }, [home, router])
 
+  const plan = String(router?.query?.plan).toLocaleLowerCase() as string
+  const urlRoute =
+    typeof plan === 'string' && ['basic', 'premium'].includes(String(plan))
+      ? `/payments?plan=${plan}`
+      : '/dashboard'
+
   useEffect(() => {
     if (data) {
       const user = data[loginView ? 'login' : 'register']
       if (user) {
-        userModel.logIn(user)
         UserManager.setUser(user)
-        const plan = String(router?.query?.plan).toLocaleLowerCase() as string
-        const urlRoute =
-          typeof plan === 'string' &&
-          ['basic', 'premium'].includes(String(plan))
-            ? `/payments?plan=${plan}`
-            : '/dashboard'
         router.push(urlRoute)
       }
     }
-  }, [data, router, loginView])
+  }, [data, router, loginView, urlRoute])
 
   const submit = useCallback(
     async (e: any) => {

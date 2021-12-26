@@ -22,10 +22,7 @@ import { a11yDark } from '@app/styles'
 import { Switch } from '@headlessui/react'
 import { PrismLight } from 'react-syntax-highlighter'
 import { copyClipboard } from '@app/lib'
-
-function classNames(...classes: string[]) {
-  return classes.filter(Boolean).join(' ')
-}
+import { classNames } from '@app/utils'
 
 const useStyles = makeStyles(() => ({
   title: {
@@ -90,6 +87,17 @@ const CenterContainer: FC = ({ children }) => (
   </div>
 )
 
+const prismStyles = {
+  ...a11yDark,
+  hljs: {
+    ...a11yDark.hljs,
+    background: '',
+    padding: 0,
+    overflow: 'hidden',
+    maxWidth: '74vw',
+  },
+}
+
 export function WebsiteCellDashboardComponent({
   url,
   removePress,
@@ -149,17 +157,6 @@ export function WebsiteCellDashboardComponent({
   const cdnUrl = `${SCRIPTS_CDN_URL_HOST}/${script?.cdnUrl}`
   const cdnUrlMinifed = `${SCRIPTS_CDN_URL_HOST}/${script?.cdnUrlMinified}`
 
-  const prismStyles = {
-    ...a11yDark,
-    hljs: {
-      ...a11yDark.hljs,
-      background: '',
-      padding: 0,
-      overflow: 'hidden',
-      maxWidth: '74vw',
-    },
-  }
-
   const statusBadgeUrl = `${AppConfig?.graphQLUrl?.replace(
     '/graphql',
     '/status'
@@ -199,7 +196,7 @@ export function WebsiteCellDashboardComponent({
       <View style={[styles.row, tailwind('flex-wrap py-1')]}>
         <InfoBlock title={'Accessibility Score'}>
           <Text style={styles.text}>
-            {typeof adaScore !== 'undefined' ? `${adaScore}%` : 'N/A'}
+            {adaScore || adaScore === 0 ? `${adaScore}%` : 'N/A'}
           </Text>
         </InfoBlock>
 

@@ -29,7 +29,12 @@ interface User {
 class UserManager {
   @persist('object')
   @observable
-  user: User = USER_DEFAULTS
+  user: User
+
+  constructor() {
+    this.user = USER_DEFAULTS
+    this.hydrate()
+  }
 
   @action
   hydrate = async () => {
@@ -50,9 +55,8 @@ class UserManager {
   }
 
   @action setUser = (user: User) => {
-    if (user) {
-      this.user = user
-    }
+    this.user = user
+    userModel.logIn(user)
   }
 
   @computed get token() {
@@ -76,7 +80,7 @@ class UserManager {
   }
 
   @computed get loggedIn() {
-    return this.token || userModel.loggedIn
+    return userModel.loggedIn || this.token
   }
 
   @action clearUser = () => {
