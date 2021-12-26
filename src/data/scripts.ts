@@ -8,12 +8,11 @@ import { useQuery, useMutation } from '@apollo/react-hooks'
 import { GET_SCRIPTS, GET_SCRIPT } from '@app/queries'
 import { UPDATE_SCRIPT } from '@app/mutations'
 import { SCRIPTS_CDN_URL_HOST } from '@app/configs'
-import { UserManager } from '@app/managers'
 
-export const scriptData = (url?: string | string[]) => {
+export const scriptData = (url?: string | string[], skip?: boolean) => {
   const { data, loading, refetch } = useQuery(GET_SCRIPT, {
     variables: { filter: '', url },
-    skip: !(UserManager.loggedIn && url),
+    skip,
   })
 
   const scriptIncluded = !!data?.user?.script
@@ -42,10 +41,10 @@ export const scriptData = (url?: string | string[]) => {
   }
 }
 
-export const scriptsData = () => {
+export const scriptsData = (skip?: boolean) => {
   const { data, loading, refetch } = useQuery(GET_SCRIPTS, {
     variables: { filter: '' },
-    skip: !UserManager.loggedIn,
+    skip,
   })
 
   return {

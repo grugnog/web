@@ -1,8 +1,12 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 
-const HOST = String(
-  process.env.IFRAME_URL ?? process.env.API ?? 'http://localhost:8010'
+let HOST = String(
+  process.env.IFRAME_URL || process.env.API || 'http://api:8080'
 )
+
+if (process.env.NODE_ENV !== 'production' && process.env.DOCKER_CONTAINER) {
+  HOST.replace('localhost', 'api')
+}
 
 const iframe = async (req: NextApiRequest, res: NextApiResponse<string>) => {
   let url = String(req.query.url)

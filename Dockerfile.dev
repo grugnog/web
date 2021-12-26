@@ -16,6 +16,7 @@ COPY --from=deps /app/create-robot.sh ./scripts/create-robot.sh
 EXPOSE 3000
 
 ENV PORT 3000
+ENV DOCKER_CONTAINER 1
 
 # Next.js collects completely anonymous telemetry data about general usage.
 # Learn more here: https://nextjs.org/telemetry

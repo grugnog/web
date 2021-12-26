@@ -91,7 +91,7 @@ const userModel = {
     this.jwt = jwt
   },
   get loggedIn() {
-    return this.jwt
+    return !!this.jwt
   },
   get isMobile() {
     return this.deviceType === 'mobile'
