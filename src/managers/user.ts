@@ -9,7 +9,6 @@ import { isSameDay } from 'date-fns'
 import { userModel } from '@app/data'
 import { parseJwt } from '@app/lib/auth'
 import { SUPER_MODE } from '@app/configs'
-import Router from 'next/router'
 
 const USER_DEFAULTS = {
   id: undefined,
@@ -31,10 +30,6 @@ class UserManager {
   @persist('object')
   @observable
   user: User = USER_DEFAULTS
-
-  constructor() {
-    this.hydrate()
-  }
 
   @action
   hydrate = async () => {
@@ -77,13 +72,13 @@ class UserManager {
   }
 
   @computed get loggedIn() {
-    return userModel.loggedIn || this.token
+    return this.token || userModel.loggedIn
   }
 
   @action clearUser = () => {
     userModel.logOut()
     this.user = USER_DEFAULTS
-    Router.push('/')
+    window.location.href = '/'
   }
 
   @action setJwt = (jwt: string) => {

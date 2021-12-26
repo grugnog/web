@@ -14,6 +14,7 @@ import {
 } from '@app/lib/cookies/names'
 import { parseJwt } from '@app/lib/auth'
 import { shutdownIntercom } from 'intercom-next'
+import { UserManager } from '@app/managers'
 
 const defaultExp = 365
 
@@ -22,7 +23,7 @@ const userModel = {
   deviceType: '',
   jwt: '',
   alertsEnabled: false,
-  initModel: function ({
+  initModel: async function ({
     deviceType = '',
     cookie = '',
   }: {
@@ -53,6 +54,8 @@ const userModel = {
         this.email = email
         this.jwt = jwt
       }
+
+      await UserManager.hydrate()
     } catch (e) {
       console.error(e)
     }
@@ -92,7 +95,7 @@ const userModel = {
     }
   },
   get loggedIn() {
-    return !!(getCookie(_AUTHED, '') || this.jwt)
+    return this.jwt
   },
   get isMobile() {
     return this.deviceType === 'mobile'

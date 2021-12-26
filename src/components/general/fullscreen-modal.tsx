@@ -96,7 +96,7 @@ function UpperInput({ data, url }: any) {
     }
   })
 
-  const { updateWebsite } = useWebsiteData('', url, customHeaders)
+  const { updateWebsite } = useWebsiteData('', url, customHeaders, true)
 
   const inputProps = {
     customHeader: true,

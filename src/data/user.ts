@@ -18,9 +18,8 @@ import { GET_USER, updateCache } from '@app/queries'
 import { AppManager, UserManager } from '@app/managers'
 import { EMAIL_VERIFIED_SUBSCRIPTION } from '@app/subscriptions'
 
-export const userData = () => {
+export const userData = (skip?: boolean) => {
   const variables = {}
-  const skip = !UserManager.loggedIn
   const { data, loading } = useQuery(GET_USER, {
     variables,
     skip,

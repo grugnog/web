@@ -101,7 +101,7 @@ const Profile: FC<PageProps> = ({ name }) => {
             title={'Account Type'}
             skeletonLoad={!user && loading}
             subTitle={
-              user?.role === 0 ? 'Free' : user?.role === 1 ? 'Basic' : 'Premium'
+              !user?.role ? 'Free' : user?.role === 1 ? 'Basic' : 'Premium'
             }
             className={classes.email}
           />
