@@ -5,7 +5,9 @@
  **/
 import { screen } from '@testing-library/react'
 
-global.describePage(
+import { describePage } from '../../describe-page'
+
+describePage(
   {
     folder: 'index',
     name: 'Web Accessibility Automation',

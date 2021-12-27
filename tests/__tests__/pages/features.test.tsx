@@ -4,6 +4,8 @@
  * LICENSE file in the root directory of this source tree.
  **/
 
-global.describePage({
+import { describePage } from '../../describe-page'
+
+describePage({
   folder: 'features',
 })

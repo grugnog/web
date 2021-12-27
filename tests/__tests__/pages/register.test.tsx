@@ -4,4 +4,6 @@
  * LICENSE file in the root directory of this source tree.
  **/
 
-global.describePage({ folder: 'register', apollo: true })
+import { describePage } from '../../describe-page'
+
+describePage({ folder: 'register', apollo: true })

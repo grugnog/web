@@ -1,3 +1,15 @@
+import { createElement, FC } from 'react'
+import { render, screen } from '@testing-library/react'
+import { withApollo } from '../src/apollo'
+import { withWebsite } from '../src/components/providers'
+
+interface Target {
+  component?: FC
+  folder?: string
+  name?: string
+  apollo?: boolean
+}
+
 export const describePage = jest.fn(
   (
     { component, folder, name, apollo = false }: Target,

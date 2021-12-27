@@ -6,7 +6,9 @@
 
 import { strings } from '@app/content/strings/a11y/en'
 
-global.describePage({
+import { describePage } from '../../describe-page'
+
+describePage({
   folder: 'consulting',
   name: strings.consulting,
 })
