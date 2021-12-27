@@ -19,7 +19,6 @@ import type { PageProps } from '@app/types'
 import { _ONBOARDED } from '@app/lib/cookies/names'
 import { useWebsiteContext } from '@app/components/providers/website'
 import { WebsiteList } from '@app/components/general/website-list'
-import { UserManager } from '@app/managers'
 
 function Dashboard({ name }: PageProps) {
   const { search } = useSearchFilter()
