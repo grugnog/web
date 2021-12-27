@@ -72,6 +72,9 @@ const createLink = (): ApolloLink => {
       timeout: 10000,
       inactivityTimeout: 30000,
       lazy: true,
+      connectionParams: {
+        credentials: 'include',
+      },
     })
 
     httpSplit = split(
