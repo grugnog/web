@@ -28,26 +28,34 @@ function AuthMenu({ loginClassName, className, registerClassName }: Props) {
   const router = useRouter()
   const [anchorEl, setAnchorEl] = useState<any>(null)
   const [logoutMutation, { client }] = useMutation(LOGOUT)
-  const {setIssueFeedContent} = useWebsiteContext()
+  const { setIssueFeedContent } = useWebsiteContext()
 
   const handleMenu = (event?: any) => {
     setAnchorEl(event?.currentTarget)
   }
 
   const logout = async () => {
+    setIssueFeedContent(null, false)
+
     try {
       await logoutMutation()
     } catch (e) {
-      console.warn(e)
+      console.error(e)
     }
+
     try {
-      setIssueFeedContent(null, false)
       await client?.clearStore()
-      await client?.resetStore()
-      await UserManager.clearUser()
     } catch (e) {
-      console.warn(e)
+      console.error(e)
     }
+
+    try {
+      await client?.resetStore()
+    } catch (e) {
+      console.error(e)
+    }
+
+    UserManager.clearUser()
   }
 
   if (LOGGIN_ROUTES.includes(router?.pathname)) {
