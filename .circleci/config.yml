@@ -13,11 +13,13 @@ jobs:
             - node-v1-{{ .Branch }}-
             - node-v1-
       - run:
-          command: yarn install --frozen-lockfile && yarn run test:ci
+          command: yarn install --frozen-lockfile
       - save_cache:
           paths:
             - ~/usr/local/lib/node_modules
           key: node-v1-{{ .Branch }}-{{ checksum "yarn.lock" }}
+      - run:
+          command: yarn run test:ci
       - codecov/upload:
           file: './coverage/clover.xml'
           conf: './codecov.yml'
