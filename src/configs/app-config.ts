@@ -12,7 +12,8 @@ const AppConfig = {
   dev,
 }
 
-const SCRIPTS_CDN_URL_HOST = process.env.SCRIPTS_CDN_URL_HOST
+const SCRIPTS_CDN_URL_HOST =
+  process.env.SCRIPTS_CDN_URL_HOST || 'http://localhost:8090'
 const INTERCOM_APPID = process.env.INTERCOM_APPID
 const APP_TYPE = process.env.APP_TYPE || 'main'
 const GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID
