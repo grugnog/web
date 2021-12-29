@@ -137,7 +137,7 @@ function Api({ name }: PageProps) {
           <SectionTitle variant='subtitle1'>
             Add authorization header with the jwt format <i>Bearer TOKEN</i> for
             more information check{' '}
-            <Link href={'https://a11ywatch.github.io/docs/documentation/api'}>
+            <Link href={'https://docs.a11ywatch.com/documentation/api'}>
               Documentation
             </Link>
           </SectionTitle>
