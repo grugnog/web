@@ -87,7 +87,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
       }
     : {
         props: { website },
-        revalidate: timestamp ? false : 86400 * 1,
+        revalidate: timestamp ? false : 86400,
       }
 }
 

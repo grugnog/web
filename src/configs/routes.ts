@@ -189,4 +189,18 @@ export const SHARED_ROUTES = [
   '/pricing',
   '/api/iframe',
   '/reports',
+  '/test-out',
+  '/test',
+]
+
+export const GQL_ROUTES = [
+  ...LOGGIN_ROUTES,
+  ...SHARED_ROUTES,
+  '/',
+  '/login',
+  '/register',
+  '/api',
+  '/website-details',
+  '/cdn',
+  '/test',
 ]

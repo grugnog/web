@@ -12,7 +12,7 @@ import { filterSort } from '@app/lib'
 import { WithHydrate } from '@app/components/adhoc'
 import type { PageProps } from '@app/types'
 
-function Cdn({ name }: PageProps) {
+function CdnFix({ name }: PageProps) {
   const { data, loading } = scriptsData()
   const { search } = useSearchFilter()
   const dataSource = groupBy('domain')(filterSort(data, search))
@@ -34,4 +34,4 @@ function Cdn({ name }: PageProps) {
   )
 }
 
-export default metaSetter({ Cdn })
+export default metaSetter({ CdnFix })

@@ -6,7 +6,7 @@
 import '@app/stylesheets/main.css'
 import '@a11ywatch/ui/css/tailwind.css'
 import '@app/stylesheets/tailwind.css'
-import React, { useEffect, Fragment } from 'react'
+import React, { useEffect, Fragment, memo } from 'react'
 import Head from 'next/head'
 import { AppProps } from 'next/app'
 import { CssBaseline } from '@material-ui/core'
@@ -16,19 +16,49 @@ import { theme } from '@app-theme'
 import { twitterSite } from '@app-config'
 import { WithSnackBar } from '@app/components/adhoc'
 import { initAppModel } from '@app/data'
-import { DOMAIN_NAME, LOGGIN_ROUTES } from '@app/configs'
+import { DOMAIN_NAME, GQL_ROUTES, LOGGIN_ROUTES } from '@app/configs'
 import { startIntercom } from '@app/utils'
-import { withApollo } from '@app/apollo'
 import { WebsiteProviderWrapper } from '@app/components/providers'
 import { ErrorBoundary, SkipContent } from '@app/components/general'
 
+type AppComponent = AppProps['Component'] & {
+  meta: any
+}
+
 interface MergedApp extends AppProps {
-  Component: AppProps['Component'] & {
-    meta: any
-  }
+  Component: AppComponent
 }
 
 const authRoutes = LOGGIN_ROUTES.map((route) => route.replace('/', ''))
+const gqlRoutes = GQL_ROUTES.map((route) =>
+  route.replaceAll('/', '').replaceAll('-', ' ')
+)
+
+const App = ({
+  Component,
+  pageProps,
+  name,
+}: {
+  Component: AppComponent
+  name: string
+  pageProps?: any
+}) => {
+  const nameLowerCased = (name && String(name).toLowerCase()) || ''
+  const gqlQuery = gqlRoutes.includes(nameLowerCased)
+
+  if (gqlQuery) {
+    const websiteQuery = authRoutes.includes(nameLowerCased)
+    return (
+      <WebsiteProviderWrapper websiteQuery={!websiteQuery}>
+        <Component {...pageProps} name={name} />
+      </WebsiteProviderWrapper>
+    )
+  }
+
+  return <Component {...pageProps} name={name} />
+}
+
+const MemoApp = memo(App)
 
 function MyApp({ Component, pageProps }: MergedApp) {
   useEffect(() => {
@@ -44,8 +74,6 @@ function MyApp({ Component, pageProps }: MergedApp) {
 
   const meta = Component?.meta || strings?.meta
   const { description, title, name } = meta
-
-  const websiteQuery = authRoutes.includes(name && String(name).toLowerCase())
 
   return (
     <Fragment>
@@ -84,9 +112,7 @@ function MyApp({ Component, pageProps }: MergedApp) {
         <CssBaseline />
         <SkipContent />
         <ErrorBoundary>
-          <WebsiteProviderWrapper websiteQuery={!websiteQuery}>
-            <Component {...pageProps} name={name} />
-          </WebsiteProviderWrapper>
+          <MemoApp Component={Component} pageProps={pageProps} name={name} />
         </ErrorBoundary>
         <WithSnackBar />
       </ThemeProvider>
@@ -94,4 +120,4 @@ function MyApp({ Component, pageProps }: MergedApp) {
   )
 }
 
-export default withApollo(MyApp)
+export default MyApp
