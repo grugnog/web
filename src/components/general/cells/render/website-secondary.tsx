@@ -4,7 +4,7 @@
  * LICENSE file in the root directory of this source tree.
  **/
 
-import React from 'react'
+import React, { memo, useMemo } from 'react'
 import { useMediaQuery, Chip, Typography, Tooltip } from '@material-ui/core'
 import {
   Update as CalendarIcon,
@@ -56,7 +56,7 @@ const useStyles = makeStyles(({ palette, color, breakpoints }: MergedTheme) =>
   })
 )
 
-export function WebsiteSecondary({
+export function WebsiteSecondaryComponent({
   adaScore,
   // cdnConnected,
   // error,
@@ -77,14 +77,15 @@ export function WebsiteSecondary({
   const totalIssuesOnPage = issuesInfo?.totalIssues
   const issuesFixedByCdn = issuesInfo?.issuesFixedByCdn
   const lastScan = (lastScanDate && new Date(lastScanDate)) || new Date()
-  let allPageIssues = 0
 
-  if (issues?.length) {
-    allPageIssues = issues
-      .map((item: any) => item?.issues?.length)
-      .flat()
-      .reduce((a: number, b: number) => Number(a || 0) + Number(b || 0))
-  }
+  const allPageIssues = useMemo(
+    () =>
+      issues
+        .map((item: any) => item?.issues?.length)
+        .flat()
+        .reduce((a: number, b: number) => Number(a || 0) + Number(b || 0)),
+    [issues]
+  )
 
   const mainIssues =
     totalIssuesOnPage > allPageIssues ? totalIssuesOnPage : allPageIssues
@@ -173,3 +174,5 @@ export function WebsiteSecondary({
     </div>
   )
 }
+
+export const WebsiteSecondary = memo(WebsiteSecondaryComponent)

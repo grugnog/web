@@ -5,12 +5,7 @@
  **/
 
 import React, { useState, memo, FC } from 'react'
-import {
-  ListItemSecondaryAction,
-  ListItemText,
-  Button,
-} from '@material-ui/core'
-import { makeStyles } from '@material-ui/core/styles'
+import { ListItemSecondaryAction, Button } from '@material-ui/core'
 import { Link } from '../link'
 import { WebsiteSecondary, MoreOptions } from './render'
 import { ModalType } from '@app/data/enums'
@@ -24,18 +19,16 @@ import { PrismLight } from 'react-syntax-highlighter'
 import { copyClipboard } from '@app/lib'
 import { classNames } from '@app/utils'
 
-const useStyles = makeStyles(() => ({
+const styles = StyleSheet.create({
   title: {
     maxWidth: '80vw',
     overflow: 'hidden',
     textOverflow: 'ellipsis',
     flex: 1,
-    fontSize: '1.9rem',
-    fontWeight: 500,
+    fontSize: '1.9rem' as any,
+    fontWeight: 'bold',
+    color: theme.palette.text.primary,
   },
-}))
-
-const styles = StyleSheet.create({
   infoContainer: {
     paddingVertical: theme.spacing(1),
     paddingRight: theme.spacing(2),
@@ -54,6 +47,12 @@ const styles = StyleSheet.create({
   row: {
     flex: 1,
     flexDirection: 'row',
+  },
+  metaBlock: {
+    borderWidth: 1,
+    borderColor: theme.palette.divider,
+    paddingHorizontal: theme.spacing(2),
+    paddingVertical: theme.spacing(1),
   },
 })
 
@@ -119,7 +118,6 @@ export function WebsiteCellDashboardComponent({
   script,
   domain,
 }: any) {
-  const classes = useStyles()
   const [anchorEl, setAnchorEl] = useState<any>(null)
   const [isCdnMinified, setMinified] = useState<boolean>(true)
   const [isMarkdown, setMarkdown] = useState<boolean>(true)
@@ -149,6 +147,7 @@ export function WebsiteCellDashboardComponent({
 
     setAnchorEl(null)
   }
+
   const modalClick = () => {
     setModal({ open: true, modalType: ModalType.highlight, html, url })
     setAnchorEl(null)
@@ -169,16 +168,11 @@ export function WebsiteCellDashboardComponent({
 
   return (
     <div
-      className={`w-full relative border p-4 pl-6 pr-6 rounded overflow-hidden`}
+      className={`w-full relative border p-4 pl-6 pr-20 rounded overflow-hidden`}
     >
       <div className={'flex w-full'}>
-        <div className={'w-full'}>
-          <ListItemText
-            primary={url}
-            primaryTypographyProps={{
-              className: classes.title,
-            }}
-          />
+        <div className={'w-full space-y-2'}>
+          <Text style={styles.title}>{url}</Text>
           <WebsiteSecondary
             issuesInfo={issuesInfo}
             cdnConnected={cdnConnected}
@@ -228,7 +222,7 @@ export function WebsiteCellDashboardComponent({
       <View style={styles.spacing} />
       <View style={styles.spacing} />
 
-      <View>
+      <View style={styles.metaBlock}>
         <InfoBlock
           title={'Custom CDN'}
           titleButton={
