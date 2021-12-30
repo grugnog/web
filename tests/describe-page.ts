@@ -1,7 +1,6 @@
 import { createElement, FC } from 'react'
 import { render, screen } from '@testing-library/react'
-import { withApollo } from '../src/apollo'
-import { withWebsite } from '../src/components/providers'
+import { MyApp } from '../src/components/general/app'
 
 interface Target {
   component?: FC
@@ -11,20 +10,15 @@ interface Target {
 }
 
 export const describePage = jest.fn(
-  (
-    { component, folder, name, apollo = false }: Target,
-    callBack?: () => void
-  ) => {
+  ({ component, folder, name }: Target, callBack?: () => void) => {
     describe(folder.toUpperCase(), () => {
-      const Page = component || require(`@app/pages/${folder}`).default
-      const Component = apollo
-        ? withApollo(withWebsite(Page), { ssr: false })
-        : Page
+      const Component = component || require(`@app/pages/${folder}`).default
 
       it('renders without crashing', () => {
         render(
-          createElement(Component, {
+          createElement(MyApp, {
             name,
+            Component,
           })
         )
 
