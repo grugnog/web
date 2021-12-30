@@ -182,5 +182,6 @@ export default metaSetter(
   {
     description:
       'Reset your password to get back in action with your accessibility toolkit.',
+    gql: true,
   }
 )

@@ -38,6 +38,7 @@ function PageTitle({
   rightButton = false,
   children,
   component = 'h1',
+  className = '',
 }: any) {
   const classes = useStyles()
   const renderTitle = title || children
@@ -48,7 +49,11 @@ function PageTitle({
 
   if (rightButton) {
     return (
-      <div className={`${classes.row} ${classes.topBlock}`}>
+      <div
+        className={`${className ? `${className} ` : ''}${classes.row} ${
+          classes.topBlock
+        }`}
+      >
         <Typography
           variant='h4'
           component={component}
@@ -64,7 +69,9 @@ function PageTitle({
     <Typography
       variant='h4'
       component={component}
-      className={`${classes.title} ${classes.topBlock}`}
+      className={`${className ? `${className} ` : ''}${classes.title} ${
+        classes.topBlock
+      }`}
     >
       {renderTitle}
     </Typography>

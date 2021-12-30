@@ -16,13 +16,14 @@ import { theme } from '@app-theme'
 import { twitterSite } from '@app-config'
 import { WithSnackBar } from '@app/components/adhoc'
 import { initAppModel } from '@app/data'
-import { DOMAIN_NAME, GQL_ROUTES, LOGGIN_ROUTES } from '@app/configs'
+import { DOMAIN_NAME, LOGGIN_ROUTES } from '@app/configs'
 import { startIntercom } from '@app/utils'
 import { WebsiteProviderWrapper } from '@app/components/providers'
 import { ErrorBoundary, SkipContent } from '@app/components/general'
 
 type AppComponent = AppProps['Component'] & {
   meta: any
+  gql?: boolean
 }
 
 interface MergedApp extends AppProps {
@@ -30,23 +31,21 @@ interface MergedApp extends AppProps {
 }
 
 const authRoutes = LOGGIN_ROUTES.map((route) => route.replace('/', ''))
-const gqlRoutes = GQL_ROUTES.map((route) =>
-  route.replaceAll('/', '').replaceAll('-', ' ')
-)
 
 const App = ({
   Component,
   pageProps,
   name,
+  gql,
 }: {
   Component: AppComponent
   name: string
   pageProps?: any
+  gql?: boolean
 }) => {
   const nameLowerCased = (name && String(name).toLowerCase()) || ''
-  const gqlQuery = gqlRoutes.includes(nameLowerCased)
 
-  if (gqlQuery) {
+  if (gql) {
     const websiteQuery = authRoutes.includes(nameLowerCased)
     return (
       <WebsiteProviderWrapper websiteQuery={!websiteQuery}>
@@ -73,6 +72,8 @@ function MyApp({ Component, pageProps }: MergedApp) {
   }, [])
 
   const meta = Component?.meta || strings?.meta
+  const gql = Component?.gql
+
   const { description, title, name } = meta
 
   return (
@@ -112,7 +113,12 @@ function MyApp({ Component, pageProps }: MergedApp) {
         <CssBaseline />
         <SkipContent />
         <ErrorBoundary>
-          <MemoApp Component={Component} pageProps={pageProps} name={name} />
+          <MemoApp
+            Component={Component}
+            pageProps={pageProps}
+            name={name}
+            gql={gql}
+          />
         </ErrorBoundary>
         <WithSnackBar />
       </ThemeProvider>

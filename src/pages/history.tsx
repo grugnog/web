@@ -46,5 +46,6 @@ export default metaSetter(
   { History },
   {
     description: 'Past websites that have been used.',
+    gql: true,
   }
 )

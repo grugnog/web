@@ -216,5 +216,6 @@ export default metaSetter(
   { Api },
   {
     description: `Use A11yWatch's API to get the accessibility uptime you need when you want. Rates are limited based on your membership plan.`,
+    gql: true,
   }
 )

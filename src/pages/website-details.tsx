@@ -44,5 +44,6 @@ export default metaSetter(
   { WebsiteDetails },
   {
     description: 'Detailed website reports for any page.',
+    gql: true,
   }
 )

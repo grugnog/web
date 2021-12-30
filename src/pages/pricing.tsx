@@ -5,29 +5,20 @@
  **/
 import React from 'react'
 import { Typography } from '@material-ui/core'
-import {
-  MarketingDrawer,
-  PriceMemo,
-  SignOnForm,
-  PageTitle,
-} from '@app/components/general'
-import { Box } from '@a11ywatch/ui'
+import { MarketingDrawer, PriceMemo, PageTitle } from '@app/components/general'
 import { metaSetter } from '@app/utils'
 import type { PageProps } from '@app/types'
 
 function Pricing({ name }: PageProps) {
   return (
     <MarketingDrawer title={name} maxWidth={'xl'}>
-      <Box>
-        <PageTitle>
-          The simplest accessibility solution, for the simplest price.
-        </PageTitle>
-        <Typography component='h2' gutterBottom className={'sr-only'}>
-          Choose a plan that best fits your needs
-        </Typography>
-        <PriceMemo navigate blockFree pricingPage />
-        <SignOnForm home />
-      </Box>
+      <PageTitle className={'w-3/4'}>
+        The simplest accessibility solution, for the simplest price.
+      </PageTitle>
+      <Typography component='h2' gutterBottom className={'sr-only'}>
+        Choose a plan that best fits your needs
+      </Typography>
+      <PriceMemo navigate blockFree pricingPage />
     </MarketingDrawer>
   )
 }

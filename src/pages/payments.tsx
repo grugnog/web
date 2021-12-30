@@ -336,5 +336,6 @@ export default metaSetter(
   {
     description:
       'Payment plans that can be adjusted at any time to better your fit you.',
+    gql: true,
   }
 )

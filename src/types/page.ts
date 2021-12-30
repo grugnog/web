@@ -5,8 +5,13 @@
  **/
 
 export interface MetaData {
+  /** Meta data page title */
   title?: string
+  /** Meta data page description */
   description?: string
+  /** Enable apollo gql */
+  gql?: boolean
+  /** ID: Component name or page name used in meta information */
   name?: string
 }
 

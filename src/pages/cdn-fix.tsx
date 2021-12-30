@@ -34,4 +34,9 @@ function CdnFix({ name }: PageProps) {
   )
 }
 
-export default metaSetter({ CdnFix })
+export default metaSetter(
+  { CdnFix },
+  {
+    gql: true,
+  }
+)

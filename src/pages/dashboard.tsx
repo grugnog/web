@@ -99,4 +99,9 @@ function Dashboard({ name }: PageProps) {
   )
 }
 
-export default metaSetter({ Dashboard })
+export default metaSetter(
+  { Dashboard },
+  {
+    gql: true,
+  }
+)

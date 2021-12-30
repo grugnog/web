@@ -27,5 +27,6 @@ export default metaSetter(
   { WebsiteAccessibilityChecker },
   {
     description: `Increase user experience and brand reputation with ${strings.appName}. Check the accessibility of your webpage today. Features provided include Automated Testing, Web Accessibility Tools, Monitoring, and Instant Accessibility Fixes.`,
+    gql: true,
   }
 )

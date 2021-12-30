@@ -177,4 +177,9 @@ function Analytics({ name }: PageProps) {
   )
 }
 
-export default metaSetter({ Analytics })
+export default metaSetter(
+  { Analytics },
+  {
+    gql: true,
+  }
+)

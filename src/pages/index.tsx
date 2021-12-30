@@ -18,6 +18,8 @@ import {
   MarketingTestimonial,
   MarketingTrustBy,
 } from '@app/components/marketing'
+import { metaSetter } from '@app/utils'
+import { strings } from '@app-strings'
 
 function Index() {
   return (
@@ -38,4 +40,11 @@ function Index() {
   )
 }
 
-export default Index
+export default metaSetter(
+  { Index },
+  {
+    gql: true,
+    title: `${strings.appName}: the all around web accessibility tool.`,
+    description: `Build accessible websites with tools that monitor, fix, and guide web accessibility efficiency with ${strings.appName}`,
+  }
+)

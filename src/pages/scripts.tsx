@@ -37,5 +37,6 @@ export default metaSetter(
   {
     description:
       'Custom scripts to fix your web page. All scripts are optimized for your website specifically.',
+    gql: true,
   }
 )

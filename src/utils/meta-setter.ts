@@ -8,6 +8,7 @@ import type { MetaData } from '@app/types'
 
 interface MetaFunction extends Function {
   meta?: MetaData
+  gql?: boolean
 }
 
 interface Meta {
@@ -16,7 +17,7 @@ interface Meta {
 
 export const metaSetter = (
   Component: Meta,
-  { title, description }: MetaData = {}
+  { title, description, gql }: MetaData = {}
 ): MetaFunction => {
   const keyName = String(Object.keys(Component)[0])
   const value = Component[keyName]
@@ -32,6 +33,8 @@ export const metaSetter = (
     description,
     name,
   }
+
+  value.gql = gql
 
   return value
 }

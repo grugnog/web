@@ -38,4 +38,4 @@ function Alerts({ name }: PageProps) {
   )
 }
 
-export default metaSetter({ Alerts })
+export default metaSetter({ Alerts }, { gql: true })

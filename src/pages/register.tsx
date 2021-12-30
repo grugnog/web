@@ -82,4 +82,9 @@ function Register({ name }: PageProps) {
   )
 }
 
-export default metaSetter({ Register })
+export default metaSetter(
+  { Register },
+  {
+    gql: true,
+  }
+)

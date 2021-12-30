@@ -41,4 +41,9 @@ function Issues({ name }: PageProps) {
   )
 }
 
-export default metaSetter({ Issues })
+export default metaSetter(
+  { Issues },
+  {
+    gql: true,
+  }
+)

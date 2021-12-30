@@ -225,4 +225,9 @@ const Profile: FC<PageProps> = ({ name }) => {
   )
 }
 
-export default metaSetter({ Profile })
+export default metaSetter(
+  { Profile },
+  {
+    gql: true,
+  }
+)

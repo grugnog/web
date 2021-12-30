@@ -91,4 +91,9 @@ export const getStaticProps: GetStaticProps = async (context) => {
       }
 }
 
-export default metaSetter({ Reports })
+export default metaSetter(
+  { Reports },
+  {
+    gql: true,
+  }
+)
