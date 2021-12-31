@@ -80,10 +80,12 @@ export function WebsiteSecondaryComponent({
 
   const allPageIssues = useMemo(
     () =>
-      issues
-        .map((item: any) => item?.issues?.length)
-        .flat()
-        .reduce((a: number, b: number) => Number(a || 0) + Number(b || 0)),
+      issues?.length
+        ? issues
+            ?.map((item: any) => item?.issues?.length)
+            ?.flat()
+            ?.reduce((a: number, b: number) => Number(a || 0) + Number(b || 0))
+        : [],
     [issues]
   )
 
