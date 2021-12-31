@@ -6,7 +6,6 @@
 
 import React, { useEffect, Fragment, memo } from 'react'
 import Head from 'next/head'
-import { AppProps } from 'next/app'
 import { CssBaseline } from '@material-ui/core'
 import { ThemeProvider } from '@material-ui/core/styles'
 import { strings } from '@app-strings'
