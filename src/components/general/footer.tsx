@@ -121,7 +121,11 @@ const Footer = ({
   const SectionLinks = ({ title }: { title: string }) => {
     return (
       <div className={classes.blockContainer}>
-        <Typography variant={'h4'} className={classes.linkHeading}>
+        <Typography
+          variant={'h4'}
+          className={classes.linkHeading}
+          color={'textSecondary'}
+        >
           {title}
         </Typography>
         <ul className={classes.linkContainer}>
@@ -143,7 +147,11 @@ const Footer = ({
       <Container maxWidth='lg'>
         <div className={classes.link}>
           <div className={classes.blockContainer}>
-            <Typography className={classes.logo} variant={'h4'}>
+            <Typography
+              className={classes.logo}
+              variant={'h4'}
+              color={'textSecondary'}
+            >
               {strings.appName}
             </Typography>
             <Typography variant={'subtitle2'} color={'textSecondary'}>

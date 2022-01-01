@@ -9,6 +9,8 @@ import React, { Fragment } from 'react'
 import Head from 'next/head'
 import { metaSetter } from '@app/utils'
 import { getBlogPage } from '@app/lib'
+import { Footer } from '@app/components/general'
+import { NavBar } from '@app/components/blog'
 
 function Blog({ website, title, links }: PageProps) {
   return (
@@ -28,7 +30,9 @@ function Blog({ website, title, links }: PageProps) {
           <link key={linkIndex} {...link} />
         ))}
       </Head>
+      <NavBar title={'The A11yWatch Blog'} />
       <div dangerouslySetInnerHTML={{ __html: website }} />
+      <Footer />
     </Fragment>
   )
 }

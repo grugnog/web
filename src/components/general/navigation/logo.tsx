@@ -16,3 +16,15 @@ export const Logo = () => {
     />
   )
 }
+
+export const SmallLogo = ({ className }: any) => {
+  return (
+    <img
+      src='/static/img/logo.svg'
+      alt='A11yWatch logo'
+      width={'25.5'}
+      height={'15'}
+      className={className}
+    />
+  )
+}

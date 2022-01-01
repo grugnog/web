@@ -27,9 +27,10 @@ export const getBlogPage = async (
         )
 
         const adminBar = htmlRoot.querySelector('#wpadminbar')
-
         const blogAnchors = htmlRoot.querySelectorAll(`a[href^="${BLOG_URL}"]`)
         const blogLinks = htmlRoot.querySelectorAll(`link`)
+        const footer = htmlRoot.querySelector('.footer-wrap')
+        const navMenu = htmlRoot.querySelector('.menu-area')
 
         // const externalScripts = htmlRoot.querySelectorAll(`script[src]`)
 
@@ -39,6 +40,7 @@ export const getBlogPage = async (
         // const links = htmlRoot.querySelectorAll(`links`)
 
         adminBar?.remove()
+        footer?.remove()
 
         blogAnchors.forEach((link) => {
           const url = link.getAttribute('href') || ''
@@ -64,8 +66,7 @@ export const getBlogPage = async (
 
         titleElement?.remove()
         siteNavigationAnchor?.remove()
-
-        htmlRoot.removeWhitespace()
+        navMenu?.remove()
 
         links = blogLinks.map((link) => {
           const newLink = { ...link.attributes }
@@ -80,6 +81,13 @@ export const getBlogPage = async (
         htmlRoot.insertAdjacentHTML(
           'beforeend',
           `<style>
+
+        #content, #comments {
+          padding-top: 20px;
+          padding-bottom: 20px;
+          overflow: hidden;
+         }
+
         .light-background {
           background-color: #fff;
         }
@@ -89,11 +97,10 @@ export const getBlogPage = async (
         </style>`
         )
 
+        htmlRoot.removeWhitespace()
+
         // TODO: use theme variable classname
         html = `<div class="light-background">
-          <div style="padding: 12px; background: #24292e;">
-            <a href="https://a11ywatch.com">Back to A11ywatch.com</a>
-          </div>
           ${htmlRoot.toString()}</div>`
       }
     }
