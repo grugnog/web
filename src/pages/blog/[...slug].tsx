@@ -10,7 +10,7 @@ import Head from 'next/head'
 import { metaSetter } from '@app/utils'
 import { getBlogPage } from '@app/lib'
 
-function Blogs({ website, websiteUrl, title }: PageProps) {
+function Blogs({ website, websiteUrl, title, links }: PageProps) {
   return (
     <Fragment>
       <Head>
@@ -24,8 +24,11 @@ function Blogs({ website, websiteUrl, title }: PageProps) {
           content={`A blog page for a11ywatch. The blog follows ADA and WCAG specifications.`}
           key='description'
         />
+        {links?.map((link, linkIndex) => (
+          <link key={linkIndex} {...link} />
+        ))}
       </Head>
-      {website ? <div dangerouslySetInnerHTML={{ __html: website }} /> : null}
+      <div dangerouslySetInnerHTML={{ __html: website }} />
     </Fragment>
   )
 }
@@ -39,18 +42,24 @@ export const getStaticProps: GetStaticProps = async (context) => {
   const websiteUrl = Array.isArray(slug) ? slug : []
   let website: string | undefined = ''
   let title = ''
+  let links: any[] = []
 
   try {
-    const { html, title: pageTitle } = await getBlogPage(websiteUrl.join('/'))
+    const {
+      html: pageHtml,
+      title: pageTitle,
+      links: pageLinks,
+    } = await getBlogPage(websiteUrl.join('/'))
 
-    website = html
+    website = pageHtml
     title = pageTitle
+    links = pageLinks
   } catch (e) {
     console.error(e)
   }
 
   return {
-    props: { website, websiteUrl, title },
+    props: { website, websiteUrl, title, links },
     revalidate: 60 * 12 * 2,
   }
 }

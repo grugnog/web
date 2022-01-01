@@ -10,39 +10,53 @@ import Head from 'next/head'
 import { metaSetter } from '@app/utils'
 import { getBlogPage } from '@app/lib'
 
-function Blog({ website }: PageProps) {
+function Blog({ website, title, links }: PageProps) {
   return (
     <Fragment>
       <Head>
-        <title>{`Web Accessibility Blog | A11yWatch`}</title>
+        {title ? (
+          <title key='title'>{title}</title>
+        ) : (
+          <title key='title'>{`Web Accessibility Blog | A11yWatch`}</title>
+        )}
         <meta
           property='description'
           content={`A blog page for a11ywatch. The blog follows ADA and WCAG specifications.`}
           key='description'
         />
+        {links?.map((link, linkIndex) => (
+          <link key={linkIndex} {...link} />
+        ))}
       </Head>
-      {website ? <div dangerouslySetInnerHTML={{ __html: website }} /> : null}
+      <div dangerouslySetInnerHTML={{ __html: website }} />
     </Fragment>
   )
 }
 
 export const getStaticProps: GetStaticProps = async () => {
   let website: string | undefined = ''
+  let title = ''
+  let links: any[] = []
 
   try {
-    const { html } = await getBlogPage('')
+    const {
+      html: pageHtml,
+      title: pageTitle,
+      links: pageLinks,
+    } = await getBlogPage('')
 
-    website = html
+    website = pageHtml
+    title = pageTitle
+    links = pageLinks
   } catch (e) {
     console.error(e)
   }
 
   return {
-    props: { website },
+    props: { website, websiteUrl: '', title, links },
     revalidate: 60 * 12 * 2,
   }
 }
-
 export default metaSetter(
   { Blog },
   {
