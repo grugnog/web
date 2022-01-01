@@ -39,6 +39,8 @@ const Application = ({ Component, pageProps, name }: InnerApp) => {
 const MemoApp = memo(Application)
 
 export function MyApp({ Component, pageProps }: InnerApp) {
+  const { description, title, name } = Component?.meta || strings?.meta
+
   useEffect(() => {
     const jssStyles = document.querySelector('#jss-server-side')
 
@@ -47,12 +49,11 @@ export function MyApp({ Component, pageProps }: InnerApp) {
     }
 
     initAppModel()
-    startIntercom()
+
+    if (Component.intercom !== false) {
+      startIntercom()
+    }
   }, [])
-
-  const meta = Component?.meta || strings?.meta
-
-  const { description, title, name } = meta
 
   return (
     <Fragment>
@@ -89,7 +90,7 @@ export function MyApp({ Component, pageProps }: InnerApp) {
       </Head>
       <ThemeProvider theme={theme}>
         <CssBaseline />
-        <SkipContent />
+        {Component.intercom === false ? null : <SkipContent />}
         <ErrorBoundary>
           <MemoApp Component={Component} pageProps={pageProps} name={name} />
         </ErrorBoundary>

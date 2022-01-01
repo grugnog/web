@@ -11,12 +11,14 @@ export const getBlogPage = async (
   title: string
   links: string[]
   stylesheets: string[]
+  metas: string[]
 }> => {
   const BLOG_URL = process.env.BLOG_URL || 'https://a11ywatch.wpcomstaging.com'
   let html = ''
   let title = ''
   let links: any[] = []
   let stylesheets: any[] = []
+  let metas: any[] = []
 
   try {
     const res = await fetch(`${BLOG_URL}${websiteUrl ? `/${websiteUrl}` : ''}`)
@@ -37,6 +39,9 @@ export const getBlogPage = async (
         const blogLinks = htmlRoot.querySelectorAll(`link`)
         const footer = htmlRoot.querySelector('.footer-wrap')
         const navMenu = htmlRoot.querySelector('.menu-area')
+        const statsScript = htmlRoot.querySelector(
+          `script[src^="https://stats.wp.com"]`
+        )
 
         // const externalScripts = htmlRoot.querySelectorAll(`script[src]`)
 
@@ -47,6 +52,7 @@ export const getBlogPage = async (
 
         adminBar?.remove()
         footer?.remove()
+        statsScript?.remove()
 
         blogAnchors.forEach((link) => {
           const url = link.getAttribute('href') || ''
@@ -70,6 +76,7 @@ export const getBlogPage = async (
         })
 
         metaTags?.forEach((tag) => {
+          metas.push(tag.attributes)
           tag.remove()
         })
 
@@ -81,13 +88,8 @@ export const getBlogPage = async (
         siteNavigationAnchor?.remove()
         navMenu?.remove()
 
-        links = blogLinks?.map((link) => {
-          const newLink = { ...link.attributes }
-
-          return newLink
-        })
-
         blogLinks.forEach((link) => {
+          links.push({ ...link.attributes })
           link.remove()
         })
 
@@ -112,12 +114,11 @@ export const getBlogPage = async (
 
         const cssSheets = htmlRoot.querySelectorAll('style')
 
-        stylesheets = cssSheets?.map((link) => ({
-          ...link.attributes,
-          children: link.innerText,
-        }))
-
         cssSheets.forEach((sheet) => {
+          stylesheets.push({
+            ...sheet.attributes,
+            children: sheet.innerText,
+          })
           sheet.remove()
         })
 
@@ -132,5 +133,5 @@ export const getBlogPage = async (
     console.error(e)
   }
 
-  return { html, title, links, stylesheets }
+  return { html, title, links, stylesheets, metas }
 }

@@ -8,6 +8,7 @@ import { AppProps } from 'next/app'
 export type AppComponent = AppProps['Component'] & {
   meta: any
   gql?: boolean
+  intercom?: boolean
 }
 
 export interface InnerApp {
@@ -29,6 +30,8 @@ export interface MetaData {
   gql?: boolean
   /** ID: Component name or page name used in meta information */
   name?: string
+  /** Enable intercom composer */
+  intercom?: boolean
 }
 
 export type PageProps = {
@@ -38,4 +41,5 @@ export type PageProps = {
   title?: string
   links?: any[]
   stylesheets?: any[]
+  metas?: any[]
 }

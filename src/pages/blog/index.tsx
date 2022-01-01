@@ -12,7 +12,8 @@ import { getBlogPage } from '@app/lib'
 import { Footer } from '@app/components/general'
 import { NavBar } from '@app/components/blog'
 
-function Blog({ website, title, links, stylesheets }: PageProps) {
+function Blog({ website, title, links, stylesheets, metas }: PageProps) {
+  console.log(metas)
   return (
     <Fragment>
       <Head>
@@ -21,22 +22,31 @@ function Blog({ website, title, links, stylesheets }: PageProps) {
         ) : (
           <title key='title'>{`Web Accessibility Blog | A11yWatch`}</title>
         )}
-        <meta
-          property='description'
-          content={`A blog page for a11ywatch. The blog follows ADA and WCAG specifications.`}
-          key='description'
-        />
         {links?.map((node, index) => (
           <link key={index} {...node} />
         ))}
-        {stylesheets?.map((node, index) => (
-          <style
-            key={index}
-            {...node}
-            children={undefined}
-            dangerouslySetInnerHTML={{ __html: node.children }}
-          />
-        ))}
+        {stylesheets?.map((node, index) => {
+          const childNode = node.children
+          const styleProps = {
+            ...node,
+          }
+          delete styleProps.children
+
+          return (
+            <style
+              key={index}
+              dangerouslySetInnerHTML={{ __html: childNode }}
+              {...styleProps}
+            />
+          )
+        })}
+        {metas?.map((node, index) => {
+          return (
+            <Fragment key={`${node?.name}-${index}`}>
+              <meta key={node?.name} {...node} />
+            </Fragment>
+          )
+        })}
       </Head>
       <NavBar title={'The A11yWatch Blog'} />
       <div dangerouslySetInnerHTML={{ __html: website }} />
@@ -53,16 +63,17 @@ export const getStaticProps: GetStaticProps = async () => {
   } catch (e) {
     console.error(e)
   }
-  const { html: website, title, links, stylesheets } = page ?? {}
+  const { html: website, title, links, stylesheets, metas } = page ?? {}
 
   return {
-    props: { website, websiteUrl: '', title, links, stylesheets },
-    revalidate: 60 * 12 * 2,
+    props: { website, websiteUrl: '', title, links, stylesheets, metas },
+    revalidate: 60 * 12,
   }
 }
 export default metaSetter(
   { Blog },
   {
     gql: false,
+    intercom: false,
   }
 )
