@@ -57,7 +57,7 @@ export function MyApp({ Component, pageProps }: InnerApp) {
   return (
     <Fragment>
       <Head>
-        <title>{title}</title>
+        <title key='title'>{title}</title>
         <meta name='description' content={description} key='description' />
         <meta
           name='viewport'

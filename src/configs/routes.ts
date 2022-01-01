@@ -13,8 +13,8 @@ export const Routes = [
   },
   {
     nav: false,
-    href: '/faq',
-    name: 'FAQ',
+    href: '/blog',
+    name: 'Blog',
     type: 'resources',
   },
   {
@@ -115,6 +115,12 @@ export const Routes = [
     type: 'resources',
   },
   {
+    nav: false,
+    href: '/faq',
+    name: 'FAQ',
+    type: 'resources',
+  },
+  {
     nav: true,
     href: '/login',
     name: 'Login',
@@ -190,4 +196,5 @@ export const SHARED_ROUTES = [
   '/api/iframe',
   '/reports',
   '/test-out',
+  '/blog',
 ]
