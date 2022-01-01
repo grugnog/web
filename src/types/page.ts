@@ -37,4 +37,5 @@ export type PageProps = {
   websiteUrl?: string
   title?: string
   links?: any[]
+  stylesheets?: any[]
 }

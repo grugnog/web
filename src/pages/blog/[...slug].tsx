@@ -11,8 +11,8 @@ import { metaSetter } from '@app/utils'
 import { getBlogPage } from '@app/lib'
 import { Footer } from '@app/components/general'
 import { NavBar } from '@app/components/blog'
-//
-function Blogs({ website, websiteUrl, title, links }: PageProps) {
+
+function Blogs({ website, websiteUrl, title, links, stylesheets }: PageProps) {
   return (
     <Fragment>
       <Head>
@@ -26,8 +26,16 @@ function Blogs({ website, websiteUrl, title, links }: PageProps) {
           content={`A blog page for a11ywatch. The blog follows ADA and WCAG specifications.`}
           key='description'
         />
-        {links?.map((link, linkIndex) => (
-          <link key={linkIndex} {...link} />
+        {links?.map((node, index) => (
+          <link key={index} {...node} />
+        ))}
+        {stylesheets?.map((node, index) => (
+          <style
+            key={index}
+            {...node}
+            children={undefined}
+            dangerouslySetInnerHTML={{ __html: node.children }}
+          />
         ))}
       </Head>
       <NavBar title={'The A11yWatch Blog'} />
@@ -44,26 +52,18 @@ export async function getStaticPaths() {
 export const getStaticProps: GetStaticProps = async (context) => {
   const { slug } = context.params ?? {}
   const websiteUrl = Array.isArray(slug) ? slug : []
-  let website: string | undefined = ''
-  let title = ''
-  let links: any[] = []
+
+  let page
 
   try {
-    const {
-      html: pageHtml,
-      title: pageTitle,
-      links: pageLinks,
-    } = await getBlogPage(websiteUrl.join('/'))
-
-    website = pageHtml
-    title = pageTitle
-    links = pageLinks
+    page = await getBlogPage(websiteUrl.join('/'))
   } catch (e) {
     console.error(e)
   }
+  const { html: website, title, links, stylesheets } = page ?? {}
 
   return {
-    props: { website, websiteUrl, title, links },
+    props: { website, websiteUrl, title, links, stylesheets },
     revalidate: 60 * 12 * 2,
   }
 }

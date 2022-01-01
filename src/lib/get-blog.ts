@@ -6,11 +6,17 @@
 
 export const getBlogPage = async (
   websiteUrl: string
-): Promise<{ html?: string; title: string; links: string[] }> => {
+): Promise<{
+  html?: string
+  title: string
+  links: string[]
+  stylesheets: string[]
+}> => {
   const BLOG_URL = process.env.BLOG_URL || 'https://a11ywatch.wpcomstaging.com'
   let html = ''
   let title = ''
   let links: any[] = []
+  let stylesheets: any[] = []
 
   try {
     const res = await fetch(`${BLOG_URL}${websiteUrl ? `/${websiteUrl}` : ''}`)
@@ -45,7 +51,14 @@ export const getBlogPage = async (
         blogAnchors.forEach((link) => {
           const url = link.getAttribute('href') || ''
 
-          url && link.setAttribute('href', url.replace(BLOG_URL, '/blog'))
+          url &&
+            link.setAttribute(
+              'href',
+              url.replace(
+                BLOG_URL,
+                process.env.NODE_ENV === 'development' ? '/blog' : ''
+              )
+            )
         })
 
         // externalScripts?.forEach((tag) => {
@@ -68,7 +81,7 @@ export const getBlogPage = async (
         siteNavigationAnchor?.remove()
         navMenu?.remove()
 
-        links = blogLinks.map((link) => {
+        links = blogLinks?.map((link) => {
           const newLink = { ...link.attributes }
 
           return newLink
@@ -80,7 +93,7 @@ export const getBlogPage = async (
 
         htmlRoot.insertAdjacentHTML(
           'beforeend',
-          `<style>
+          `<style type="text/css">
 
         #content, #comments {
           padding-top: 20px;
@@ -97,6 +110,17 @@ export const getBlogPage = async (
         </style>`
         )
 
+        const cssSheets = htmlRoot.querySelectorAll('style')
+
+        stylesheets = cssSheets?.map((link) => ({
+          ...link.attributes,
+          children: link.innerText,
+        }))
+
+        cssSheets.forEach((sheet) => {
+          sheet.remove()
+        })
+
         htmlRoot.removeWhitespace()
 
         // TODO: use theme variable classname
@@ -108,5 +132,5 @@ export const getBlogPage = async (
     console.error(e)
   }
 
-  return { html, title, links }
+  return { html, title, links, stylesheets }
 }

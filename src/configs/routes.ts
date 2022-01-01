@@ -13,7 +13,7 @@ export const Routes = [
   },
   {
     nav: false,
-    href: '/blog',
+    href: 'https://a11ywatch.blog',
     name: 'Blog',
     type: 'resources',
   },

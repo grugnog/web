@@ -9,15 +9,34 @@ const API_ROUTE = getAPIRoute('api', true)
 
 export async function middleware(req: NextRequest, event: NextFetchEvent) {
   // const noRedirects = req.nextUrl.searchParams.get('noredirect')
-  const staticResource = req.url.includes('/static/')
+  const { pathname } = req.nextUrl
+  const staticResource =
+    req.url.includes('/static/') ||
+    pathname.includes('.') ||
+    pathname.includes('/workbox-')
+  pathname.includes('/sw.js')
+
+  let res = NextResponse.next()
+
+  if (staticResource) {
+    return res
+  }
+
   // const token = req.cookies.jwt
   let uuid = req.cookies[ID_COOKIE_NAME]
 
+  const hostname = req.headers.get('host')
+
+  const currentHost =
+    process.env.NODE_ENV == 'production'
+      ? hostname?.replace(`.${process.env.ROOT_URL}`, '')
+      : process.env.CURR_HOST
+
   const pageRequest =
-    !staticResource &&
     req.page.name &&
     !ignoreList.includes(req.url) &&
-    req.page.name !== '/_offline'
+    req.page.name !== '/_offline' &&
+    !pathname.startsWith('/api')
 
   if (!uuid) {
     uuid = crypto.randomUUID!()
@@ -57,7 +76,13 @@ export async function middleware(req: NextRequest, event: NextFetchEvent) {
     )
   }
 
-  let res = NextResponse.next()
+  if (!req.cookies[ID_COOKIE_NAME]) {
+    res.cookie(ID_COOKIE_NAME, uuid)
+  }
+
+  if (currentHost === 'a11ywatch.blog') {
+    return NextResponse.rewrite(`/blog${pathname}`)
+  }
 
   // // Authenticated middleware logic
   // if (token) {
@@ -75,10 +100,6 @@ export async function middleware(req: NextRequest, event: NextFetchEvent) {
   //     res = NextResponse.redirect('/')
   //   }
   // }
-
-  if (!req.cookies[ID_COOKIE_NAME]) {
-    res.cookie(ID_COOKIE_NAME, uuid)
-  }
 
   return res
 }

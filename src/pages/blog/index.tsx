@@ -12,7 +12,7 @@ import { getBlogPage } from '@app/lib'
 import { Footer } from '@app/components/general'
 import { NavBar } from '@app/components/blog'
 
-function Blog({ website, title, links }: PageProps) {
+function Blog({ website, title, links, stylesheets }: PageProps) {
   return (
     <Fragment>
       <Head>
@@ -26,8 +26,16 @@ function Blog({ website, title, links }: PageProps) {
           content={`A blog page for a11ywatch. The blog follows ADA and WCAG specifications.`}
           key='description'
         />
-        {links?.map((link, linkIndex) => (
-          <link key={linkIndex} {...link} />
+        {links?.map((node, index) => (
+          <link key={index} {...node} />
+        ))}
+        {stylesheets?.map((node, index) => (
+          <style
+            key={index}
+            {...node}
+            children={undefined}
+            dangerouslySetInnerHTML={{ __html: node.children }}
+          />
         ))}
       </Head>
       <NavBar title={'The A11yWatch Blog'} />
@@ -38,26 +46,17 @@ function Blog({ website, title, links }: PageProps) {
 }
 
 export const getStaticProps: GetStaticProps = async () => {
-  let website: string | undefined = ''
-  let title = ''
-  let links: any[] = []
+  let page
 
   try {
-    const {
-      html: pageHtml,
-      title: pageTitle,
-      links: pageLinks,
-    } = await getBlogPage('')
-
-    website = pageHtml
-    title = pageTitle
-    links = pageLinks
+    page = await getBlogPage('')
   } catch (e) {
     console.error(e)
   }
+  const { html: website, title, links, stylesheets } = page ?? {}
 
   return {
-    props: { website, websiteUrl: '', title, links },
+    props: { website, websiteUrl: '', title, links, stylesheets },
     revalidate: 60 * 12 * 2,
   }
 }
