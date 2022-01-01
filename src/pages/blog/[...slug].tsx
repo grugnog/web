@@ -11,7 +11,7 @@ import { metaSetter } from '@app/utils'
 import { getBlogPage } from '@app/lib'
 import { Footer } from '@app/components/general'
 import { NavBar } from '@app/components/blog'
-
+//
 function Blogs({ website, websiteUrl, title, links }: PageProps) {
   return (
     <Fragment>
