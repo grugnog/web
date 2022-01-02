@@ -4,7 +4,7 @@
  * LICENSE file in the root directory of this source tree.
  **/
 
-import { createMuiTheme } from '@material-ui/core/styles'
+import { createTheme } from '@material-ui/core/styles'
 
 import {
   red,
@@ -24,7 +24,7 @@ export const theme = (function () {
     color: '#fff',
     border: 0,
   }
-  return createMuiTheme({
+  return createTheme({
     typography: {
       fontFamily: [
         'Arial',

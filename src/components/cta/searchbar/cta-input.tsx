@@ -6,7 +6,12 @@
 
 import React, { useState, useRef } from 'react'
 import { InputLabel, InputBase } from '@material-ui/core'
-import { fade, makeStyles, Theme, createStyles } from '@material-ui/core/styles'
+import {
+  alpha,
+  makeStyles,
+  Theme,
+  createStyles,
+} from '@material-ui/core/styles'
 import { useSearch } from '@app/data'
 import { AppManager } from '@app/managers'
 
@@ -28,9 +33,9 @@ const useStyles = makeStyles((theme: Theme) =>
       overflow: 'hidden',
       padding: 4,
       paddingLeft: 12,
-      backgroundColor: fade(theme.palette.common.white, 0.15),
+      backgroundColor: alpha(theme.palette.common.white, 0.15),
       '&:hover': {
-        backgroundColor: fade(theme.palette.common.white, 0.25),
+        backgroundColor: alpha(theme.palette.common.white, 0.25),
       },
       borderTopLeftRadius: theme.shape.borderRadius,
       borderBottomLeftRadius: theme.shape.borderRadius,

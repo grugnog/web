@@ -38,8 +38,14 @@ export type PageProps = {
   name: string
   website?: any
   websiteUrl?: string
+}
+
+export interface BlogPageProps extends PageProps {
+  html: string
   title?: string
-  links?: any[]
-  stylesheets?: any[]
-  metas?: any[]
+  links: any[]
+  stylesheets: any[]
+  metas: any[]
+  headScripts: any[]
+  bodyScripts: any[]
 }

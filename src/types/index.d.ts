@@ -484,4 +484,4 @@ export type WebsiteIssuesArgs = {
   filter?: Maybe<Scalars['String']>
 }
 
-export type { PageProps, MetaData } from './page'
+export type { PageProps, BlogPageProps, MetaData } from './page'

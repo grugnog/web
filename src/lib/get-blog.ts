@@ -4,21 +4,21 @@
  * LICENSE file in the root directory of this source tree.
  **/
 
+import type { BlogPageProps } from '@app/types'
+
+const BLOG_URL = process.env.BLOG_URL || 'https://a11ywatch.wpcomstaging.com'
+
+// get wordpress page and parse content by themes
 export const getBlogPage = async (
   websiteUrl: string
-): Promise<{
-  html?: string
-  title: string
-  links: string[]
-  stylesheets: string[]
-  metas: string[]
-}> => {
-  const BLOG_URL = process.env.BLOG_URL || 'https://a11ywatch.wpcomstaging.com'
+): Promise<BlogPageProps> => {
+  const links: BlogPageProps['links'] = []
+  const stylesheets: BlogPageProps['stylesheets'] = []
+  const metas: BlogPageProps['metas'] = []
+  const headScripts: BlogPageProps['headScripts'] = []
+  const bodyScripts: BlogPageProps['bodyScripts'] = []
   let html = ''
   let title = ''
-  let links: any[] = []
-  let stylesheets: any[] = []
-  let metas: any[] = []
 
   try {
     const res = await fetch(`${BLOG_URL}${websiteUrl ? `/${websiteUrl}` : ''}`)
@@ -33,7 +33,7 @@ export const getBlogPage = async (
         const siteNavigationAnchor = htmlRoot.querySelector(
           '#site-navigation a'
         )
-
+        const titleElement = htmlRoot.querySelector('title')
         const adminBar = htmlRoot.querySelector('#wpadminbar')
         const blogAnchors = htmlRoot.querySelectorAll(`a[href^="${BLOG_URL}"]`)
         const blogLinks = htmlRoot.querySelectorAll(`link`)
@@ -42,22 +42,34 @@ export const getBlogPage = async (
         const statsScript = htmlRoot.querySelector(
           `script[src^="https://stats.wp.com"]`
         )
-
-        // const externalScripts = htmlRoot.querySelectorAll(`script[src]`)
-
         const metaTags = htmlRoot.querySelectorAll(`meta`)
         const shareSection = htmlRoot.querySelectorAll(`.sharedaddy`)
+        const cssSheets = htmlRoot.querySelectorAll('style')
 
-        // const links = htmlRoot.querySelectorAll(`links`)
-
-        adminBar?.remove()
-        footer?.remove()
+        // wordpress stats - disable for app analytics
         statsScript?.remove()
 
+        // IMPORTANT: scripts that belong in the head
+        const startScripts = htmlRoot.querySelectorAll(`head script`)
+
+        // quickly remove top level head scripts
+        startScripts?.forEach((tag) => {
+          headScripts.push({ ...tag.attributes, children: tag.innerText })
+          tag.remove()
+        })
+
+        // all other scripts after - step required since no body target
+        const endingScripts = htmlRoot.querySelectorAll(`script`)
+
+        endingScripts?.forEach((tag) => {
+          bodyScripts.push({ ...tag.attributes, children: tag.innerText })
+          tag.remove()
+        })
+
+        // manipulate links that are blog pages relativeness
         blogAnchors.forEach((link) => {
           const url = link.getAttribute('href') || ''
-
-          url &&
+          if (url) {
             link.setAttribute(
               'href',
               url.replace(
@@ -65,11 +77,8 @@ export const getBlogPage = async (
                 process.env.NODE_ENV === 'development' ? '/blog' : ''
               )
             )
+          }
         })
-
-        // externalScripts?.forEach((tag) => {
-        //   tag.remove()
-        // })
 
         shareSection?.forEach((tag) => {
           tag.remove()
@@ -80,18 +89,18 @@ export const getBlogPage = async (
           tag.remove()
         })
 
-        const titleElement = htmlRoot.querySelector('title')
+        blogLinks.forEach((link) => {
+          links.push(link.attributes)
+          link.remove()
+        })
 
         title = titleElement?.structuredText || ''
 
+        adminBar?.remove()
+        footer?.remove()
         titleElement?.remove()
         siteNavigationAnchor?.remove()
         navMenu?.remove()
-
-        blogLinks.forEach((link) => {
-          links.push({ ...link.attributes })
-          link.remove()
-        })
 
         htmlRoot.insertAdjacentHTML(
           'beforeend',
@@ -112,8 +121,6 @@ export const getBlogPage = async (
         </style>`
         )
 
-        const cssSheets = htmlRoot.querySelectorAll('style')
-
         cssSheets.forEach((sheet) => {
           stylesheets.push({
             ...sheet.attributes,
@@ -125,13 +132,21 @@ export const getBlogPage = async (
         htmlRoot.removeWhitespace()
 
         // TODO: use theme variable classname
-        html = `<div class="light-background">
-          ${htmlRoot.toString()}</div>`
+        html = htmlRoot.toString()
       }
     }
   } catch (e) {
     console.error(e)
   }
 
-  return { html, title, links, stylesheets, metas }
+  return {
+    name: '',
+    html,
+    title,
+    links,
+    stylesheets,
+    metas,
+    bodyScripts,
+    headScripts,
+  }
 }

@@ -6,7 +6,12 @@
 
 import React, { useState, useRef } from 'react'
 import { FormControl, InputLabel, InputBase, Button } from '@material-ui/core'
-import { fade, makeStyles, Theme, createStyles } from '@material-ui/core/styles'
+import {
+  alpha,
+  makeStyles,
+  Theme,
+  createStyles,
+} from '@material-ui/core/styles'
 import { Search as SearchIcon } from '@material-ui/icons'
 import { useSearch } from '@app/data'
 import { AppManager } from '@app/managers'
@@ -18,10 +23,10 @@ const useStyles = makeStyles((theme: Theme) =>
       flex: 1,
       marginTop: '12px',
       borderRadius: theme.shape.borderRadius,
-      backgroundColor: fade(theme.palette.common.white, 0.15),
+      backgroundColor: alpha(theme.palette.common.white, 0.15),
       minHeight: '8.3rem',
       '&:hover': {
-        backgroundColor: fade(theme.palette.common.white, 0.25),
+        backgroundColor: alpha(theme.palette.common.white, 0.25),
       },
       [theme.breakpoints.down(920)]: {
         flexDirection: 'column',
