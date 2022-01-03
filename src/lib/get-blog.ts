@@ -129,9 +129,6 @@ export const getBlogPage = async (
           sheet.remove()
         })
 
-        htmlRoot.removeWhitespace()
-
-        // TODO: use theme variable classname
         html = htmlRoot.toString()
       }
     }
