@@ -20,7 +20,13 @@ const NextComposed = forwardRef(
     ref: React.Ref<HTMLAnchorElement>
   ) => (
     <NextLink href={href} as={as} passHref prefetch={prefetch}>
-      <a ref={ref} {...other} />
+      <a
+        ref={ref}
+        hrefLang={
+          href?.includes('https://docs.a11ywatch.com') ? 'en' : undefined
+        }
+        {...other}
+      />
     </NextLink>
   )
 )

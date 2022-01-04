@@ -14,7 +14,9 @@ export async function middleware(req: NextRequest, event: NextFetchEvent) {
     req.url.includes('/static/') ||
     pathname.includes('.') ||
     pathname.includes('/workbox-')
-  pathname.includes('/sw.js')
+  pathname.includes('/sw.js') ||
+    req.page.name === '/_offline' ||
+    req.page.name === '/robots.txt'
 
   let res = NextResponse.next()
 
@@ -35,7 +37,6 @@ export async function middleware(req: NextRequest, event: NextFetchEvent) {
   const pageRequest =
     req.page.name &&
     !ignoreList.includes(req.url) &&
-    req.page.name !== '/_offline' &&
     !pathname.startsWith('/api')
 
   if (!uuid) {
