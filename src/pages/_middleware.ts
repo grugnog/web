@@ -94,11 +94,11 @@ export async function middleware(req: NextRequest, event: NextFetchEvent) {
       !req.nextUrl.pathname.includes('https://a11ywatch.com/src/') &&
       !noRedirects
     ) {
-      res = NextResponse.redirect('/dashboard')
+      res = NextResponse.rewrite('/dashboard')
     }
   } else {
     if (!staticResource && LOGGIN_ROUTES.includes(req.nextUrl.pathname)) {
-      res = NextResponse.redirect('/')
+      res = NextResponse.rewrite('/')
     }
   }
 
