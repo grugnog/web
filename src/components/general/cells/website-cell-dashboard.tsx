@@ -14,7 +14,6 @@ import { theme } from '@app-theme'
 import tailwind from 'tailwind-rn'
 import { SCRIPTS_CDN_URL_HOST, AppConfig } from '@app/configs'
 import { a11yDark } from '@app/styles'
-import { Switch } from '@headlessui/react'
 import { PrismLight } from 'react-syntax-highlighter'
 import { copyClipboard } from '@app/lib'
 import { classNames } from '@app/utils'
@@ -67,7 +66,7 @@ const InfoBlock: FC<{ title: string; titleButton?: React.ReactElement }> = ({
         <Text
           style={[
             styles.text,
-            tailwind(`font-bold ${titleButton ? 'mr-3' : ''}`),
+            tailwind(`font-bold w-28 ${titleButton ? 'mr-3' : ''}`),
           ]}
         >
           {title}
@@ -226,27 +225,17 @@ export function WebsiteCellDashboardComponent({
         <InfoBlock
           title={'Custom CDN'}
           titleButton={
-            <Switch.Group as='div' className='flex'>
-              <Switch
+            <div className='flex'>
+              <input
                 checked={isCdnMinified}
+                type='checkbox'
                 onChange={() => setMinified((minified: boolean) => !minified)}
                 className={classNames(
-                  isCdnMinified ? 'bg-indigo-600' : 'bg-gray-200',
-                  'relative inline-flex flex-shrink-0 h-5 w-10 border-2 border-transparent rounded-full cursor-pointer transition-colors ease-in-out duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'
+                  'outline-none relative inline-flex flex-shrink-0 h-5 w-10 rounded-full cursor-pointer transition-colors ease-in-out duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'
                 )}
-              >
-                <span
-                  aria-hidden='true'
-                  className={classNames(
-                    isCdnMinified ? 'translate-x-5' : 'translate-x-0',
-                    'pointer-events-none inline-block h-4 w-4 rounded-full bg-white shadow transform ring-0 transition ease-in-out duration-200'
-                  )}
-                />
-              </Switch>
-              <Switch.Label as='span' className='ml-3'>
-                <span className='text-sm font-medium'>MINIFIED</span>
-              </Switch.Label>
-            </Switch.Group>
+              ></input>
+              <span className='text-sm font-medium ml-3'>MINIFIED</span>
+            </div>
           }
         >
           <PrismLight
@@ -267,27 +256,17 @@ export function WebsiteCellDashboardComponent({
           <InfoBlock
             title={'Status Badge'}
             titleButton={
-              <Switch.Group as='div' className='flex'>
-                <Switch
+              <div className='flex'>
+                <input
                   checked={isMarkdown}
-                  onChange={() => setMarkdown((m: boolean) => !m)}
+                  type='checkbox'
+                  onChange={() => setMarkdown((minified: boolean) => !minified)}
                   className={classNames(
-                    isMarkdown ? 'bg-indigo-600' : 'bg-gray-200',
-                    'relative inline-flex flex-shrink-0 h-5 w-10 border-2 border-transparent rounded-full cursor-pointer transition-colors ease-in-out duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'
+                    'outline-none relative inline-flex flex-shrink-0 h-5 w-10 rounded-full cursor-pointer transition-colors ease-in-out duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'
                   )}
-                >
-                  <span
-                    aria-hidden='true'
-                    className={classNames(
-                      isMarkdown ? 'translate-x-5' : 'translate-x-0',
-                      'pointer-events-none inline-block h-4 w-4 rounded-full bg-white shadow transform ring-0 transition ease-in-out duration-200'
-                    )}
-                  />
-                </Switch>
-                <Switch.Label as='span' className='ml-3'>
-                  <span className='text-sm font-medium'>MARKDOWN</span>
-                </Switch.Label>
-              </Switch.Group>
+                ></input>
+                <span className='text-sm font-medium ml-3'>MARKDOWN</span>
+              </div>
             }
           >
             {isMarkdown ? (

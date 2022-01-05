@@ -35,10 +35,6 @@ a {
   min-height: 42px;
 }
 
-input[type='checkbox'] {
-  outline: auto;
-}
-
 @media print {
   .hide-print {
     display: none;
