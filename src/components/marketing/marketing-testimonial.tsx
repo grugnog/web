@@ -52,7 +52,7 @@ export function MarketingTestimonial() {
       <Grid
         container
         spacing={3}
-        justify='center'
+        justifyContent='center'
         className={classes.container}
       >
         <Grid item xs={12} sm={6}>

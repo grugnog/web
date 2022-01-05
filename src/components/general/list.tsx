@@ -164,7 +164,7 @@ export function List({
 
   return (
     <div className={classes.root}>
-      <Grid container spacing={2} justify='center'>
+      <Grid container spacing={2} justifyContent='center'>
         <Grid item xs={12} md={12}>
           <Card>
             <RenderInner />

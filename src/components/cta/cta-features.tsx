@@ -21,7 +21,7 @@ import {
   Compare as CompareIcon,
   Web as WebIcon,
   TripOrigin as TripIcon,
-  GitHub as GitHubIcon
+  GitHub as GitHubIcon,
 } from '@material-ui/icons'
 import { SectionContainer } from '../general'
 
@@ -141,7 +141,7 @@ const CtaFeatures = () => {
           {strings.headers[2][1]}
         </Typography>
       </div>
-      <Grid container alignItems={'center'} justify={'center'}>
+      <Grid container alignItems={'center'} justifyContent={'center'}>
         {strings.features.map((item: any, index: number) => (
           <FeatureItem item={item} index={index} key={item.id} />
         ))}
