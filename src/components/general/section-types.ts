@@ -13,7 +13,7 @@ export type SectionProps = {
     | 'left'
     | 'center'
     | 'right'
-    | 'justifyContent'
+    | 'justify'
     | 'initial'
     | 'end'
     | 'start'

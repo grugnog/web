@@ -86,7 +86,7 @@ const NavBarComponent = ({
           <div className={classes.toolbarInnerContainer}>
             <Link
               className={`${classes.menu} space-x-2 align-items-center text-normal text-black`}
-              href={'/blog'}
+              href={process.env.NODE_ENV === 'production' ? '/' : '/blog'}
             >
               <SmallLogo className={'invert'} />
               <h1

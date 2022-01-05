@@ -5,7 +5,7 @@
  **/
 
 import React, { useState, memo, FC } from 'react'
-import { ListItemSecondaryAction, Button } from '@material-ui/core'
+import { ListItemSecondaryAction, Button, Avatar } from '@material-ui/core'
 import { Link } from '../link'
 import { WebsiteSecondary, MoreOptions } from './render'
 import { ModalType } from '@app/data/enums'
@@ -171,7 +171,17 @@ export function WebsiteCellDashboardComponent({
     >
       <div className={'flex w-full'}>
         <div className={'w-full space-y-2'}>
-          <Text style={styles.title}>{url}</Text>
+          <div className='flex space-x-2'>
+            <Avatar>
+              <img
+                src={`https://s2.googleusercontent.com/s2/favicons?domain=${url}`}
+                height={50}
+                width={50}
+                alt={`logo of ${url}`}
+              />
+            </Avatar>
+            <Text style={styles.title}>{url}</Text>
+          </div>
           <WebsiteSecondary
             issuesInfo={issuesInfo}
             cdnConnected={cdnConnected}
