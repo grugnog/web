@@ -91,7 +91,6 @@ export function IssueModal({ issue }: any) {
       open={open}
       onClose={setMiniPlayerContent(false)}
       TransitionComponent={GrowTransition as any}
-      disableBackdropClick={true}
       hideBackdrop={true}
       disablePortal={true}
       disableEnforceFocus={true}

@@ -10,7 +10,7 @@ import { CssBaseline } from '@material-ui/core'
 import { ThemeProvider } from '@material-ui/core/styles'
 import { strings } from '@app-strings'
 import { theme } from '@app-theme'
-import { twitterSite } from '@app-config'
+import { twitterSite, SUPER_MODE } from '@app-config'
 import { WithSnackBar } from '@app/components/adhoc'
 import { initAppModel } from '@app/data'
 import { DOMAIN_NAME, LOGGIN_ROUTES } from '@app/configs'
@@ -93,6 +93,7 @@ export function MyApp({ Component, pageProps }: InnerApp) {
         {Component.intercom === false ? null : <SkipContent />}
         <ErrorBoundary>
           <MemoApp Component={Component} pageProps={pageProps} name={name} />
+          {SUPER_MODE ? <div className='px-2'>SUPER MODE</div> : null}
         </ErrorBoundary>
         <WithSnackBar />
       </ThemeProvider>

@@ -75,7 +75,6 @@ export const MiniPlayer: FunctionComponent<MiniPlayerProps> = (_) => {
       open={open}
       onClose={setMiniPlayerContent(false)}
       TransitionComponent={GrowTransition as React.ComponentType}
-      disableBackdropClick={true}
       hideBackdrop={true}
       disablePortal={true}
       disableEnforceFocus={true}
