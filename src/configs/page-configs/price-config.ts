@@ -21,12 +21,12 @@ const plans = [
     title: 'Free',
     details: [
       'Monitor 1 website.',
-      'Web Accessibility Email reports.',
+      'Web accessibility email reports.',
       '2 manual page scans a day.',
       'Root domain checked once per day.',
       TRUSTED_CDN,
       VISUAL_PLAYGROUND,
-      'Custom editable scripts.',
+      'Custom viewable scripts.',
       '3 Private API request a day.',
       'Chat Support.',
     ],
@@ -38,7 +38,7 @@ const plans = [
     title: 'Basic',
     details: [
       'Monitor up to 4 websites.',
-      'Web Accessibility full email reports.',
+      'Web accessibility full email reports.',
       '10 manual page scans a day.',
       'All pages checked frequently.',
       TRUSTED_CDN,
@@ -55,7 +55,7 @@ const plans = [
     title: 'Premium',
     details: [
       'Monitor up to 10 websites.',
-      'Web Accessibility full email reports.',
+      'Web accessibility full email reports.',
       '100 manual page scans a day.',
       'All pages and subdomains checked often.',
       TRUSTED_CDN,
@@ -72,7 +72,7 @@ const plans = [
     title: 'Enterprise',
     details: [
       'Monitor unlimited websites.',
-      'Web Accessibility advanced email reports.',
+      'Web accessibility advanced email reports.',
       '1k+ manual page scans a day.',
       'All pages checked at your rate.',
       TRUSTED_CDN,

@@ -42,12 +42,17 @@ export const getBlogPage = async (
         const statsScript = htmlRoot.querySelector(
           `script[src^="https://stats.wp.com"]`
         )
+        const blurScript = htmlRoot.querySelector(
+          `script[src^="https://s0.wp.com/wp-content/js/bilmur.min.js"]`
+        )
+
         const metaTags = htmlRoot.querySelectorAll(`meta`)
         const shareSection = htmlRoot.querySelectorAll(`.sharedaddy`)
         const cssSheets = htmlRoot.querySelectorAll('style')
 
-        // wordpress stats - disable for app analytics
+        // wordpress theme scripts - disable for app analytics & bluring
         statsScript?.remove()
+        blurScript?.remove()
 
         // IMPORTANT: scripts that belong in the head
         const startScripts = htmlRoot.querySelectorAll(`head script`)
