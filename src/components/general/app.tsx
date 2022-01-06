@@ -93,7 +93,9 @@ export function MyApp({ Component, pageProps }: InnerApp) {
         {Component.intercom === false ? null : <SkipContent />}
         <ErrorBoundary>
           <MemoApp Component={Component} pageProps={pageProps} name={name} />
-          {SUPER_MODE ? <div className='px-2'>SUPER MODE</div> : null}
+          {SUPER_MODE === 'true' ? (
+            <div className='px-2'>SUPER MODE</div>
+          ) : null}
         </ErrorBoundary>
         <WithSnackBar />
       </ThemeProvider>
