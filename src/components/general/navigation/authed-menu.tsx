@@ -18,7 +18,7 @@ export function AuthedMenu({ route, isMobile, dataSourceMap }: any) {
     networkCombiner:
       !toggleAlertData?.toggleAlert && dataSourceMap?.user?.alertEnabled,
   })
-    
+
   return (
     <List>
       {features.map(({ feature }: any, index: number) => (
@@ -38,7 +38,7 @@ export function AuthedMenu({ route, isMobile, dataSourceMap }: any) {
                     alertEnabled: !enabledAlerts,
                   },
                 })
-              } catch(e) {
+              } catch (e) {
                 console.error(e)
               }
             }}

@@ -31,7 +31,7 @@ const renderIcon = (feature?: string, className?: string) => {
       return <NotificationsIcon className={className} />
     case 'Scripts':
       return <CodeIcon />
-    case 'CDN':
+    case 'CDN FIX':
       return <CloudDownloadOutlinedIcon />
     case 'Analytics':
       return <DataUsageIcon />
@@ -62,7 +62,7 @@ const extraProps = (feature?: string, focused?: boolean, setEvents?: any) => {
         component: Link,
         color: 'inherit',
       }
-    case 'CDN':
+    case 'CDN FIX':
       return {
         href: focused ? '/dashboard' : '/cdn-fix',
         onClick: setEvents ? () => setEvents({ firstAdd: 'set' }) : undefined,
