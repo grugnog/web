@@ -43,3 +43,23 @@ export const logPageView = (route?: string, refer?: boolean) => {
     }
   }
 }
+
+export const ping = () => {
+  const browser = hasWindow()
+  const apiPath = getAPIRoute()
+
+  if (apiPath) {
+    if (typeof navigator !== 'undefined' && navigator.sendBeacon) {
+      navigator.sendBeacon(`${apiPath}/ping`)
+    } else if (browser && window.fetch) {
+      fetch(`${apiPath}/ping`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      }).catch((error) => {
+        console.error(error)
+      })
+    }
+  }
+}

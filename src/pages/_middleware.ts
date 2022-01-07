@@ -16,8 +16,8 @@ export async function middleware(req: NextRequest, event: NextFetchEvent) {
     pathname.includes('/src/') ||
     pathname.includes('/workbox-')
   pathname.includes('/sw.js') ||
-    req.page.name === '/_offline' ||
-    req.page.name === '/robots.txt'
+    req.url.includes('/_offline') ||
+    req.url.includes('/robots.txt')
 
   let res = NextResponse.next()
 
@@ -25,7 +25,8 @@ export async function middleware(req: NextRequest, event: NextFetchEvent) {
     return res
   }
 
-  // const token = req.cookies.jwt
+  const token = req.cookies.jwt
+  console.log(token)
   let uuid = req.cookies[ID_COOKIE_NAME]
 
   const hostname = req.headers.get('host')
