@@ -4,8 +4,11 @@ import { NextResponse } from 'next/server'
 import { getAPIRoute } from '@app/configs/api-route'
 
 const ID_COOKIE_NAME = 'uuid'
+const JWT_COOKIE_NAME = 'jwt'
+
 const ignoreList = ['/_offline', '/robots.txt', 'fallback', 'workbox']
 const API_ROUTE = getAPIRoute('api', true)
+const VERCEL_COOKIE = `_vercel_`
 
 export async function middleware(req: NextRequest, event: NextFetchEvent) {
   // const noRedirects = req.nextUrl.searchParams.get('noredirect')
@@ -15,18 +18,20 @@ export async function middleware(req: NextRequest, event: NextFetchEvent) {
     pathname.includes('.') ||
     pathname.includes('/src/') ||
     pathname.includes('/workbox-')
-  pathname.includes('/sw.js') ||
+  pathname === '/_offline' ||
     req.page.name === '/_offline' ||
-    req.page.name === '/robots.txt'
+    pathname.includes('/sw.js') ||
+    pathname === '/robots.txt'
 
   let res = NextResponse.next()
 
-  if (staticResource) {
+  if (staticResource || req.cookies[`${VERCEL_COOKIE}${JWT_COOKIE_NAME}`]) {
     return res
   }
 
-  // const token = req.cookies.jwt
-  console.log([pathname, req.cookies])
+  // const token = req.cookies[JWT_COOKIE_NAME]
+
+  console.log([req.cookies])
 
   let uuid = req.cookies[ID_COOKIE_NAME]
 
