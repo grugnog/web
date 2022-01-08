@@ -31,8 +31,6 @@ export async function middleware(req: NextRequest, event: NextFetchEvent) {
 
   // const token = req.cookies[JWT_COOKIE_NAME]
 
-  console.log([req.cookies])
-
   let uuid = req.cookies[ID_COOKIE_NAME]
 
   const hostname = req.headers.get('host')
