@@ -24,6 +24,9 @@ const API_URI_DOCKER = process.env.API_URI_DOCKER
 const DOMAIN_NAME = process.env.DOMAIN_NAME
 const cdn = process.env.CDN || 'localhost:8090'
 
+const companyName = process.env.COMPANY_NAME || 'A11yWatch'
+const twitterSite = process.env.TWITTER_SITE || '@a11ywatcher'
+
 export {
   DOMAIN_NAME,
   dev,
@@ -37,4 +40,6 @@ export {
   SUPER_MODE,
   INTERCOM_ENABLED,
   cdn,
+  companyName,
+  twitterSite,
 }

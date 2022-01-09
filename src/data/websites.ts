@@ -57,11 +57,35 @@ export const useWebsiteData = (
     { data: crawlData, loading: crawlLoading },
   ] = useMutation(CRAWL_WEBSITE)
 
-  const { data: subDomainSubData } = useSubscription(SUBDOMAIN_SUBSCRIPTION, {
-    variables: { userId: UserManager.getID },
-  })
-
   const websites = data?.user?.websites || []
+
+  const updateSubDomain = useCallback(
+    ({ subscriptionData }: OnSubscriptionDataOptions<any>) => {
+      const newSubDomain = subscriptionData?.data?.subDomainAdded
+
+      if (newSubDomain && websites?.length) {
+        const dataSource = websites.find(
+          (source: Website) => source.domain === newSubDomain?.domain
+        )
+
+        if (dataSource) {
+          if (dataSource?.subDomains.length) {
+            dataSource.subDomains.push(newSubDomain)
+          } else {
+            dataSource.subDomains = [newSubDomain]
+          }
+        }
+      }
+    },
+    [websites]
+  )
+
+  const subscriptionVars = { userId: UserManager.getID }
+
+  useSubscription(SUBDOMAIN_SUBSCRIPTION, {
+    variables: subscriptionVars,
+    onSubscriptionData: updateSubDomain,
+  })
 
   const onIssueSubscription = useCallback(
     ({ subscriptionData }: OnSubscriptionDataOptions<any>) => {
@@ -85,30 +109,34 @@ export const useWebsiteData = (
           } else {
             dataSource.issues = [newIssue]
           }
-        }
 
-        AppManager.toggleSnack(
-          true,
-          `Insight found on ${newIssue?.pageUrl}`,
-          'success'
-        )
-        if (dataSource) {
-          setIssueFeedContent(dataSource.issues, true)
+          requestAnimationFrame(() => {
+            AppManager.toggleSnack(
+              true,
+              `Insight found on ${newIssue?.pageUrl}`,
+              'success'
+            )
+
+            setIssueFeedContent(dataSource.issues, true)
+            sendNotification(
+              newIssue?.pageUrl || '',
+              newIssue?.issues?.length || 0
+            )
+          })
         }
-        sendNotification(newIssue?.pageUrl || '', newIssue?.issues?.length || 0)
       }
     },
     [websites]
   )
 
   const { data: issueSubData } = useSubscription(ISSUE_SUBSCRIPTION, {
-    variables: { userId: UserManager.getID },
+    variables: subscriptionVars,
     onSubscriptionData: onIssueSubscription,
     skip,
   })
 
   const { data: websiteUpdated } = useSubscription(WEBSITE_SUBSCRIPTION, {
-    variables: { userId: UserManager.getID },
+    variables: subscriptionVars,
     skip,
   })
 
@@ -118,16 +146,15 @@ export const useWebsiteData = (
 
   useEffect(() => {
     if (updateData?.updateWebsite?.website) {
-      const { pageHeaders, domain } = updateData?.updateWebsite?.website
       const dataSource = websites.find(
-        (source: Website) => source.domain === domain
+        (source: Website) =>
+          source.domain === updateData?.updateWebsite?.website?.domain
       )
 
       if (dataSource) {
-        dataSource.pageHeaders = pageHeaders
+        dataSource.pageHeaders = updateData?.updateWebsite?.website?.pageHeaders
+        AppManager.toggleSnack(true, 'Success: updated website', 'success')
       }
-
-      AppManager.toggleSnack(true, 'Success: updated website', 'success')
     }
   }, [updateData])
 
@@ -184,23 +211,6 @@ export const useWebsiteData = (
       }
     }
   }, [crawlData])
-
-  useEffect(() => {
-    if (subDomainSubData && websites?.length) {
-      const newSubDomain = subDomainSubData?.subDomainAdded
-      const dataSource = websites.find(
-        (source: Website) => source.domain === newSubDomain?.domain
-      )
-
-      if (dataSource) {
-        if (dataSource?.subDomains.length) {
-          dataSource.subDomains.push(newSubDomain)
-        } else {
-          dataSource.subDomains = [newSubDomain]
-        }
-      }
-    }
-  }, [subDomainSubData])
 
   const addWebsite = useCallback(
     async (variables: { url?: string; customHeaders?: string[] }) => {

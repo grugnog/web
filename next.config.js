@@ -57,14 +57,13 @@ if (CDN_HOST) {
   }
 }
 
-const themeType  = 'main'
-const stringType = "a11y"
+const themeType = 'main'
+const stringType = 'a11y'
 
 const aliases = {
   ['@app']: resolve(__dirname, './src'),
   ['@app-theme']: resolve(__dirname, `./src/theme/${themeType}`),
   ['@app-strings']: resolve(__dirname, `./src/content/strings/${stringType}`),
-  ['@app-config']: resolve(__dirname, './web-config.js'),
   'react-native$': 'react-native-web',
 }
 
@@ -72,7 +71,7 @@ const securityHeaders = [
   {
     key: 'X-DNS-Prefetch-Control',
     value: 'on',
-  }
+  },
 ]
 
 module.exports = withPWA({
@@ -85,7 +84,7 @@ module.exports = withPWA({
       /middleware-manifest\.json$/,
       /_middleware.js$/,
       /_middleware.js.map$/,
-      /chunks\/images\/.*$/
+      /chunks\/images\/.*$/,
     ],
     runtimeCaching,
   },

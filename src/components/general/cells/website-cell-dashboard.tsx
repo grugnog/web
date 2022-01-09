@@ -96,6 +96,13 @@ const prismStyles = {
   },
 }
 
+const BASE_GQL_URL = `${AppConfig?.graphQLUrl
+  ?.replace('api.', '')
+  ?.replace('8080', '3000')
+  ?.replace('/graphql', '')}/reports`
+
+const STATUS_URL = `${AppConfig?.graphQLUrl?.replace('/graphql', '/status')}`
+
 export function WebsiteCellDashboardComponent({
   url,
   removePress,
@@ -152,25 +159,18 @@ export function WebsiteCellDashboardComponent({
     setAnchorEl(null)
   }
 
+  // TODO: REMOVE ALL URL CLIENT APPENDING
   const cdnUrl = `${SCRIPTS_CDN_URL_HOST}/${script?.cdnUrl}`
   const cdnUrlMinifed = `${SCRIPTS_CDN_URL_HOST}/${script?.cdnUrlMinified}`
-
-  const statusBadgeUrl = `${AppConfig?.graphQLUrl?.replace(
-    '/graphql',
-    '/status'
-  )}/${domain}`
-
-  const reportsLink = `${AppConfig?.graphQLUrl
-    ?.replace('api.', '')
-    ?.replace('8080', '3000')
-    ?.replace('/graphql', '')}/reports/${domain}`
+  const statusBadgeUrl = `${STATUS_URL}/${domain}`
+  const reportsLink = `${BASE_GQL_URL}/${domain}`
 
   return (
     <div
       className={`w-full relative border p-4 pl-6 pr-20 rounded overflow-hidden`}
     >
       <div className={'flex w-full'}>
-        <div className={'w-full space-y-2'}>
+        <div className={'w-full space-y-3'}>
           <div className='flex space-x-2'>
             <Avatar>
               <img

@@ -9,7 +9,7 @@ import { Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import { Logo } from './logo'
 import { Link } from '../link'
-import { companyName } from '@app-config'
+import { companyName } from '@app/configs'
 
 const useStyles = makeStyles((theme) => ({
   title: {

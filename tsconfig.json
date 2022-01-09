@@ -24,8 +24,7 @@
       "@app/*": ["./src/*"],
       "@app-strings": ["./src/content/strings/a11y"],
       "@app-theme": ["./src/theme/main/index.ts"],
-      "ui": ["./node_modules/@a11ywatch/ui/main"],
-      "@app-config": ["./web-config.js"]
+      "ui": ["./node_modules/@a11ywatch/ui/main"]
     },
     "incremental": true
   },

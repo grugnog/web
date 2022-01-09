@@ -17,6 +17,8 @@ export {
   API_URI_DOCKER,
   dev,
   cdn,
+  companyName,
+  twitterSite,
 } from './app-config'
 export { getAPIRoute, API_ENDPOINT } from './api-route'
 export { Routes, LoggedInRoutes, LOGGIN_ROUTES, SHARED_ROUTES } from './routes'
