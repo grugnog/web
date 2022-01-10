@@ -3,7 +3,7 @@
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
  **/
-import React, { useState } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import {
   Typography,
   ListSubheader,
@@ -94,7 +94,13 @@ const handleClick = (item: any, open: boolean | string, cb?: any) => {
 export function CollaspeListCdn({ dataSource }: any) {
   const classes = useStyles()
   const [open, setOpen] = useState<boolean | string>(true)
-  const entries = Object.entries(dataSource)
+  const entries = useMemo(() => Object.entries(dataSource), [dataSource])
+
+  useEffect(() => {
+    if (entries?.length) {
+      setOpen(entries[0][0])
+    }
+  }, [entries, setOpen])
 
   return (
     <List

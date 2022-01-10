@@ -13,7 +13,6 @@ export const SUBDOMAIN_SUBSCRIPTION = gql`
       domain
       adaScore
       cdnConnected
-      html
       htmlIncluded
       pageLoadTime {
         duration
