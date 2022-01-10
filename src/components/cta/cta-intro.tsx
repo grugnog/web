@@ -11,6 +11,8 @@ import { CtaInput } from './searchbar'
 import { Link, SectionContainer } from '../general'
 import ExpandMore from '@material-ui/icons/ExpandMore'
 import Image from 'next/image'
+import BrowserStats from 'public/static/img/browser-stats.svg'
+import Intro from 'public/static/img/intro.svg'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -23,7 +25,7 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   mobileHidden: {
-    [theme.breakpoints.down('sm')]: {
+    [theme.breakpoints.down('md')]: {
       display: 'none',
     },
   },
@@ -79,6 +81,8 @@ const useStyles = makeStyles((theme) => ({
 function CtaIntro({ checker }: any) {
   const classes = useStyles()
 
+  const ImageComponent = checker ? BrowserStats : Intro
+
   return (
     <SectionContainer className={'pt-20'}>
       <div
@@ -116,12 +120,8 @@ function CtaIntro({ checker }: any) {
           <CtaInput />
         </div>
         <div className={`${classes.block} ${classes.mobileHidden}`}>
-          <Image
-            src={`/static/img/${checker ? 'browser-stats' : 'intro'}.svg`}
-            height={500}
-            width={500}
-            alt='accessibility stats tool'
-            priority
+          <ImageComponent
+            title={'Built to improve all website accessibility'}
           />
         </div>
       </div>

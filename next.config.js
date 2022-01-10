@@ -115,6 +115,11 @@ module.exports = withPWA({
   webpack: (config, { dev: development, webpack }) => {
     generateSiteMap(DOMAIN_NAME).catch((e) => console.error(e))
 
+    config.module.rules.push({
+      test: /\.svg$/,
+      use: [{ loader: '@svgr/webpack', options: { titleProp: true } }],
+    })
+
     config.plugins.push(
       new webpack.IgnorePlugin({
         resourceRegExp: /^\.\/tests$/,
