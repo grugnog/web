@@ -62,7 +62,7 @@ const useStyles = makeStyles((theme: MergedTheme) => ({
   subTitle: {
     maxWidth: '75vw',
     textOverflow: 'ellipsis',
-    color: theme.color.indigo,
+    color: theme.palette.secondary.main,
     [theme.breakpoints.down('sm')]: {
       maxWidth: '20vw',
       marginLeft: 2,

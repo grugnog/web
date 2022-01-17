@@ -13,6 +13,7 @@ module.exports = {
     '^.+\\.(t|j)sx?$': '@swc/jest',
     '.+\\.(css|styl|less|sass|scss|png|jpg|ttf|woff|woff2)$':
       'jest-transform-stub',
+    '^.+\\.svg$': 'jest-svg-transformer',
   },
   moduleNameMapper: {
     '^@app/(.*)$': '<rootDir>/src/$1',

@@ -7,7 +7,7 @@ import { makeStyles, createStyles } from '@material-ui/core/styles'
 import type { MergedTheme } from '@app/theme'
 
 export const collaspeListStyles = makeStyles(
-  ({ palette, spacing, color }: MergedTheme) =>
+  ({ palette, spacing }: MergedTheme) =>
     createStyles({
       root: {
         width: '100%',
@@ -19,7 +19,7 @@ export const collaspeListStyles = makeStyles(
         paddingRight: spacing(4),
       },
       info: {
-        borderTop: `1px solid ${color.border}`,
+        borderTop: `1px solid ${palette.divider}`,
         paddingLeft: spacing(2),
         paddingRight: spacing(2),
         paddingBottom: spacing(1),

@@ -17,7 +17,7 @@ import { format } from 'date-fns'
 import { PageLoad } from './page-load'
 import type { MergedTheme } from '@app/theme'
 
-const useStyles = makeStyles(({ palette, color, breakpoints }: MergedTheme) =>
+const useStyles = makeStyles(({ palette, breakpoints }: MergedTheme) =>
   createStyles({
     adaScore: {
       fontSize: '12px',
@@ -49,8 +49,7 @@ const useStyles = makeStyles(({ palette, color, breakpoints }: MergedTheme) =>
       },
     },
     warning: {
-      // @ts-ignore
-      background: color.orange,
+      background: palette.warning.main,
       color: palette.text.secondary,
     },
   })

@@ -12,6 +12,7 @@ import { Link } from '../general/link'
 import { TranslateBadge } from '../badges'
 import { SmallLogo } from '../general'
 import { theme as appTheme } from '@app/theme/main'
+import { companyName } from '@app/configs'
 
 const useStyles = makeStyles((theme) => ({
   flex: {
@@ -75,7 +76,7 @@ const NavBarComponent = ({
         style={{ background: appTheme.palette.background.default }}
         className='p-4'
       >
-        <a href='https://a11ywatch.com'>Back to A11ywatch.com</a>
+        <a href='https://a11ywatch.com'>Back to {companyName}.com</a>
       </div>
       <AppBar
         position={position}

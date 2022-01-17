@@ -3,25 +3,32 @@
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
  **/
-
 import type { BlogPageProps } from '@app/types'
-import React, { Fragment } from 'react'
+import React, { Fragment, useMemo } from 'react'
 import Head from 'next/head'
 import { Footer } from '@app/components/general'
 import { NavBar } from '@app/components/blog'
-import Script from 'next/script'
+import { companyName } from '@app/configs'
+import NextScript from 'next/script'
 
-const getProps = (props: any) => {
-  return {
-    ...props,
-    dangerouslySetInnerHTML: props.children
+const getProps = (props: any = {}) => {
+  const mainProps = Object.assign({}, props, {
+    dangerouslySetInnerHTML: props?.children
       ? {
-          __html: props.children,
+          __html: props?.children,
         }
       : undefined,
     children: undefined,
+  })
+
+  if (!mainProps?.dangerouslySetInnerHTML?.__html) {
+    delete mainProps.dangerouslySetInnerHTML
   }
+  delete mainProps.children
+
+  return mainProps
 }
+
 export function WordPressPage({
   html,
   websiteUrl,
@@ -32,6 +39,34 @@ export function WordPressPage({
   headScripts,
   bodyScripts,
 }: BlogPageProps) {
+  const memoHeadScripts = useMemo(
+    () =>
+      headScripts?.map((node, index) => {
+        const scriptProps = getProps(node)
+        const scriptID = scriptProps?.id ?? `head-script-${index}`
+
+        return (
+          <Fragment key={scriptID}>
+            <script {...scriptProps} key={scriptID} async />
+          </Fragment>
+        )
+      }),
+    [headScripts]
+  )
+  const memoBodyScripts = useMemo(
+    () =>
+      bodyScripts?.map((node, index) => {
+        const bodyScriptProps = getProps(node)
+        const keyID = bodyScriptProps?.id ?? `body-script-${index}`
+
+        return (
+          <Fragment key={bodyScriptProps?.id ?? `body-script-${index}`}>
+            <NextScript {...bodyScriptProps} id={keyID} />
+          </Fragment>
+        )
+      }),
+    [bodyScripts]
+  )
   return (
     <Fragment>
       <Head>
@@ -57,31 +92,15 @@ export function WordPressPage({
             </Fragment>
           )
         })}
-        {headScripts?.map((node, index) => {
-          const scriptProps = getProps(node)
-
-          return (
-            <Fragment key={`${node?.id}-${index}`}>
-              <script {...scriptProps} key={node?.id} />
-            </Fragment>
-          )
-        })}
+        {memoHeadScripts}
       </Head>
-      <NavBar title={'The A11yWatch Blog'} />
+      <NavBar title={`The ${companyName} Blog`} />
       <div
         dangerouslySetInnerHTML={{ __html: html }}
         className='light-background'
       />
       <Footer />
-      {bodyScripts?.map((node, index) => {
-        const scriptProps = getProps(node)
-
-        return (
-          <Fragment key={`${node?.id}-${index}`}>
-            <Script {...scriptProps} />
-          </Fragment>
-        )
-      })}
+      {memoBodyScripts}
     </Fragment>
   )
 }

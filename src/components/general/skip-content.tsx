@@ -17,8 +17,7 @@ const useStyles = makeStyles((theme) => ({
       zIndex: 99999,
     },
     '&:hover': {
-      // @ts-ignore
-      color: theme.color.primary,
+      color: theme.palette.primary.main,
     },
   },
 }))

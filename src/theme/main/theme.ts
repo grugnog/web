@@ -6,14 +6,7 @@
 
 import { createTheme } from '@material-ui/core/styles'
 
-import {
-  red,
-  blue,
-  indigo,
-  grey,
-  orange,
-  yellow,
-} from '@material-ui/core/colors'
+import { red, indigo, grey, orange } from '@material-ui/core/colors'
 import { h1, h2, h6, subtitle1 } from '../common'
 
 export const theme = (function () {
@@ -51,27 +44,12 @@ export const theme = (function () {
     palette: {
       type: 'dark',
       primary: grey,
-      secondary: {
-        main: indigo[400],
-      },
+      secondary: indigo,
       warning: orange,
       error: red,
       background: {
         default: '#1a1a1a',
       },
-    },
-    // @ts-ignore
-    color: {
-      mainLight: 'rgb(66, 66, 66)',
-      blue: blue[200],
-      indigo: indigo[400],
-      primary: grey[900],
-      black: '#121212',
-      grey: grey[400],
-      yellow: yellow[400],
-      red: red[400],
-      orange: orange[600],
-      border: 'rgba(255, 255, 255, 0.12)',
     },
   })
 })()

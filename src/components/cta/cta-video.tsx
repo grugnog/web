@@ -145,6 +145,7 @@ function Inner({ isVisible }: { isVisible: boolean }) {
         className={classes.card}
         style={{ boxShadow: '#D1D5DB 0 1px 150px' }}
       >
+        <h3 className='sr-only'>Multiple tools for a11y improvement</h3>
         <div className={`${classes.float} ${classes.video}`}>
           <div className={`${classes.video}`}>
             {loaded ? (

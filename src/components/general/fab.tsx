@@ -39,10 +39,10 @@ const useStyles = makeStyles((theme: MergedTheme) => ({
     justifyContent: 'center',
     alignItems: 'center',
     background: 'rgba(20,20,20,0.3)',
-    border: `4px solid ${theme.color.indigo}`,
+    border: `4px solid ${theme.palette.secondary.main}`,
   },
   icon: {
-    color: theme.color.indigo,
+    color: theme.palette.secondary.main,
   },
 }))
 

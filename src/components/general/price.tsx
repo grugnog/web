@@ -124,9 +124,14 @@ function PriceWrapper({
   return (
     <Container className={!onClick && !navigate ? '' : ''}>
       {typeof onClick === 'undefined' && !pricingPage ? (
-        <SectionHeading gutterBottom style={onClick ? { fontWeight: 200 } : {}}>
-          {navigate ? 'Plans' : 'Pricing'}
-        </SectionHeading>
+        <>
+          <SectionHeading style={onClick ? { fontWeight: 200 } : {}}>
+            {navigate ? 'Plans for everyone' : 'Pricing'}
+          </SectionHeading>
+          <Typography variant='h6' component='p' gutterBottom>
+            Flexible plans that can be adjusted anytime
+          </Typography>
+        </>
       ) : null}
       <div className='flex sm:mt-6 py-4'>
         <button
@@ -213,7 +218,9 @@ function PriceWrapper({
                         aria-hidden={!String(item).trim()}
                       >
                         {String(item).trim() ? <Done /> : null}
-                        <Typography component={'h3'}>{item}</Typography>
+                        <Typography component={pricingPage ? 'h3' : 'h5'}>
+                          {item}
+                        </Typography>
                       </li>
                     ))}
                   </ul>

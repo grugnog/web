@@ -51,8 +51,7 @@ const useStyles = makeStyles((theme) => ({
     paddingRight: '14px',
     paddingTop: '6px',
     paddingBottom: '6px',
-    // @ts-ignore
-    borderBottom: `1px solid ${theme.color.border}`,
+    borderBottom: `1px solid ${theme.palette.divider}`,
   },
   list: {
     maxHeight: '50vh',

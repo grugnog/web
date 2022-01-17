@@ -127,13 +127,14 @@ export const getBlogPage = async (
         )
 
         cssSheets.forEach((sheet) => {
+          sheet.removeWhitespace()
+
           stylesheets.push({
             ...sheet.attributes,
             children: sheet.innerText,
           })
           sheet.remove()
         })
-
         html = htmlRoot.toString()
       }
     }
