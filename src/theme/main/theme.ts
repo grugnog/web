@@ -48,7 +48,7 @@ export const theme = (function () {
       warning: orange,
       error: red,
       background: {
-        default: '#1a1a1a',
+        default: 'rgb(0, 0, 0)',
       },
     },
   })

@@ -10,8 +10,8 @@ import React from 'react'
 import { MyApp } from '../components/general/app'
 import type { MergedApp } from '../types/page'
 
-function App({ Component, pageProps }: MergedApp) {
-  return <MyApp Component={Component} pageProps={pageProps} />
-}
+const App = ({ Component, pageProps }: MergedApp) => (
+  <MyApp Component={Component} pageProps={pageProps} />
+)
 
 export default App

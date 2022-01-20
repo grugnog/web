@@ -53,6 +53,10 @@ export function MyApp({ Component, pageProps }: InnerApp) {
     if (Component.intercom !== false) {
       startIntercom()
     }
+
+    if (SUPER_MODE === 'true') {
+      console.info('SUPER MODE ESTABLISHED: ALL PERMISSIONS SET')
+    }
   }, [])
 
   return (
@@ -93,9 +97,6 @@ export function MyApp({ Component, pageProps }: InnerApp) {
         {Component.intercom === false ? null : <SkipContent />}
         <ErrorBoundary>
           <MemoApp Component={Component} pageProps={pageProps} name={name} />
-          {SUPER_MODE === 'true' ? (
-            <div className='px-2'>SUPER MODE</div>
-          ) : null}
         </ErrorBoundary>
         <WithSnackBar />
       </ThemeProvider>
