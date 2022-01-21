@@ -71,7 +71,6 @@ function Dashboard({ name }: PageProps) {
                   }}
                   variant={'outlined'}
                   color={'primary'}
-                  className={'invisible md:visible'}
                   aria-label={'Remove all websites'}
                 >
                   Remove All

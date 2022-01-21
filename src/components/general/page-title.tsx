@@ -14,7 +14,6 @@ const useStyles = makeStyles((theme) => ({
     fontSize: '3.4rem',
     fontWeight: 800,
     textOverflow: 'ellipsis',
-    overflow: 'hidden',
     [theme.breakpoints.down('md')]: {
       fontSize: '2.6rem',
     },
@@ -29,7 +28,8 @@ const useStyles = makeStyles((theme) => ({
     alignItems: 'center',
   },
   topBlock: {
-    marginBottom: 30,
+    overflow: 'hidden',
+    marginBottom: 15,
   },
 }))
 
@@ -52,7 +52,7 @@ function PageTitle({
       <div
         className={`${className ? `${className} ` : ''}${classes.row} ${
           classes.topBlock
-        }`}
+        } flex-wrap`}
       >
         <Typography
           variant='h4'
