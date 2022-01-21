@@ -188,6 +188,7 @@ export const LOGGIN_ROUTES = [
   '/web-issues',
   '/payments',
   '/urgent-issues',
+  '/website-analytics',
 ]
 
 export const SHARED_ROUTES = [
@@ -197,4 +198,6 @@ export const SHARED_ROUTES = [
   '/reports',
   '/test-out',
   '/blog',
+  '/login',
+  '/register',
 ]

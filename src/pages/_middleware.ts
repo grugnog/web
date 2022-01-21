@@ -1,6 +1,6 @@
 import type { NextRequest, NextFetchEvent } from 'next/server'
 import { NextResponse } from 'next/server'
-// import { LOGGIN_ROUTES, SHARED_ROUTES } from '@app/configs/routes'
+import { LOGGIN_ROUTES, SHARED_ROUTES } from '@app/configs/routes'
 import { getAPIRoute } from '@app/configs/api-route'
 
 const ID_COOKIE_NAME = 'uuid'
@@ -29,8 +29,7 @@ export async function middleware(req: NextRequest, event: NextFetchEvent) {
     return res
   }
 
-  // const token = req.cookies[JWT_COOKIE_NAME]
-
+  const token = req.cookies[JWT_COOKIE_NAME]
   let uuid = req.cookies[ID_COOKIE_NAME]
 
   const hostname = req.headers.get('host')
@@ -91,20 +90,17 @@ export async function middleware(req: NextRequest, event: NextFetchEvent) {
     return NextResponse.rewrite(`/blog${pathname}`)
   }
 
-  // // Authenticated middleware logic
-  // if (token) {
-  //   if (
-  //     !LOGGIN_ROUTES.includes(req.nextUrl.pathname) &&
-  //     !SHARED_ROUTES.includes(req.nextUrl.pathname) &&
-  //     !noRedirects
-  //   ) {
-  //     res = NextResponse.redirect('/dashboard')
-  //   }
-  // } else {
-  //   if (LOGGIN_ROUTES.includes(req.nextUrl.pathname)) {
-  //     res = NextResponse.redirect('/')
-  //   }
-  // }
+  if (!SHARED_ROUTES.includes(req.nextUrl.pathname)) {
+    if (token) {
+      if (!LOGGIN_ROUTES.includes(req.nextUrl.pathname)) {
+        res = NextResponse.redirect('/dashboard')
+      }
+    } else {
+      if (LOGGIN_ROUTES.includes(req.nextUrl.pathname)) {
+        res = NextResponse.redirect('/')
+      }
+    }
+  }
 
   return res
 }
