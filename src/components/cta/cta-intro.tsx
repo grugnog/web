@@ -53,7 +53,6 @@ const useStyles = makeStyles((theme) => ({
       position: 'absolute',
       left: '100%',
       content: '"FREE forever."',
-      font: '700 12px/17px Axiforma,Arial,serif',
       textAlign: 'left',
       letterSpacing: 1,
       textTransform: 'uppercase',
@@ -120,9 +119,7 @@ function CtaIntro({ checker }: any) {
           <CtaInput />
         </div>
         <div className={`${classes.block} ${classes.mobileHidden}`}>
-          <ImageComponent
-            title={'Built to improve all website accessibility'}
-          />
+          <ImageComponent title={'Built to improve website accessibility'} />
         </div>
       </div>
       {checker ? null : (

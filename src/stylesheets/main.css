@@ -36,9 +36,6 @@ a {
 }
 
 @media print {
-  .hide-print {
-    display: none;
-  }
   .hide-print-shift {
     margin-left: -0px !important;
   }

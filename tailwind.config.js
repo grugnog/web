@@ -17,14 +17,14 @@ const fontFamilys = [
 ]
 
 const colors = {
+  ...tailwindColors,
   main: 'gray',
   secondary: '#5c6bc0',
   transparent: 'transparent',
   current: 'currentColor',
+  gray: tailwindColors.neutral,
   black: '#000',
   white: '#fff',
-  gray: tailwindColors.trueGray,
-  ...tailwindColors,
 }
 
 const theme = {
@@ -51,13 +51,8 @@ const theme = {
 }
 
 module.exports = {
-  mode: 'jit',
   theme,
-  varients: {
-    borderRadius: ['responsive', 'hover', 'focus'],
-    fontSize: ['hover', 'focus'],
-  },
-  purge: [
+  content: [
     './src/**/*.html',
     './src/**/*.{js,jsx,ts,tsx,vue}',
     './src/**/**/*.{js,jsx,ts,tsx,vue}',

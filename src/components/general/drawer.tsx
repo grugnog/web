@@ -32,7 +32,7 @@ const UpgradeBanner = dynamic(
 
 function MainDrawerContainer({ route, dataSourceMap, classes }: any) {
   return (
-    <div className={`${classes.drawer} hide-print ${classes.drawerPaper}`}>
+    <div className={`${classes.drawer} ${classes.drawerPaper} print:hidden`}>
       <AuthedMenu dataSourceMap={dataSourceMap} route={route} />
       <div className={classes.flex} />
       <div

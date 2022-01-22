@@ -23,7 +23,7 @@ function Image({ src, alt }: { src: string; alt: string }) {
     <NextImage
       alt={alt}
       src={src}
-      className='hide-print'
+      className='print:hidden'
       height={350}
       width={400}
     />

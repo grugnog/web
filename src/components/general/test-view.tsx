@@ -16,7 +16,7 @@ const TestViewContainer = observer(
   ({ url: currentUrl, store, marketing }: any) => {
     const url = encodeURIComponent(currentUrl ?? store?.getTestFrameUrl)
     const { issue } = issueData(url)
-    const { script } = scriptData(url)
+    const { script } = scriptData(url, marketing)
 
     return (
       <Fragment>
