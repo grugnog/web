@@ -5,7 +5,12 @@
  **/
 
 import React, { useState, memo, FC } from 'react'
-import { ListItemSecondaryAction, Button, Avatar } from '@material-ui/core'
+import {
+  Badge,
+  ListItemSecondaryAction,
+  Button,
+  Avatar,
+} from '@material-ui/core'
 import { Link } from '../link'
 import { WebsiteSecondary, MoreOptions } from './render'
 import { ModalType } from '@app/data/enums'
@@ -17,6 +22,36 @@ import { a11yDark } from '@app/styles'
 import { PrismLight } from 'react-syntax-highlighter'
 import { copyClipboard } from '@app/lib'
 import { classNames } from '@app/utils'
+import { withStyles } from '@material-ui/core/styles'
+
+const StyledBadge = withStyles((theme) => ({
+  badge: {
+    backgroundColor: ({ color }: any) => color || '#44b700',
+    color: ({ color }: any) => color || '#44b700',
+    boxShadow: `0 0 0 2px ${theme.palette.background.paper}`,
+    '&::after': {
+      position: 'absolute',
+      top: 0,
+      left: 0,
+      width: '100%',
+      height: '100%',
+      borderRadius: '50%',
+      animation: '$ripple 3.2s infinite ease-in-out',
+      border: '1px solid currentColor',
+      content: '""',
+    },
+  },
+  '@keyframes ripple': {
+    '0%': {
+      transform: 'scale(.8)',
+      opacity: 1,
+    },
+    '100%': {
+      transform: 'scale(2.4)',
+      opacity: 0,
+    },
+  },
+}))(Badge)
 
 const styles = StyleSheet.create({
   title: {
@@ -123,6 +158,7 @@ export function WebsiteCellDashboardComponent({
   index,
   script,
   domain,
+  online,
 }: any) {
   const [anchorEl, setAnchorEl] = useState<any>(null)
   const [isCdnMinified, setMinified] = useState<boolean>(true)
@@ -172,14 +208,25 @@ export function WebsiteCellDashboardComponent({
       <div className={'flex w-full'}>
         <div className={'w-full space-y-3'}>
           <div className='flex space-x-2'>
-            <Avatar>
-              <img
+            <StyledBadge
+              overlap='circular'
+              anchorOrigin={{
+                vertical: 'bottom',
+                horizontal: 'right',
+              }}
+              variant='dot'
+              color={online ? undefined : 'primary'}
+            >
+              <Avatar
+                className='ring'
                 src={`https://s2.googleusercontent.com/s2/favicons?domain=${url}`}
-                height={50}
-                width={50}
+                imgProps={{
+                  height: 50,
+                  width: 50,
+                }}
                 alt={`logo of ${url}`}
               />
-            </Avatar>
+            </StyledBadge>
             <Text style={styles.title}>{url}</Text>
           </div>
           <WebsiteSecondary

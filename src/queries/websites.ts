@@ -19,6 +19,7 @@ const GET_WEBSITES = gql`
         cdnConnected
         htmlIncluded
         lastScanDate
+        online
         script {
           id
           script

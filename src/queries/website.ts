@@ -17,6 +17,7 @@ const GET_WEBSITE = gql`
       htmlIncluded
       screenshot
       timestamp
+      online
       script {
         id
         script
