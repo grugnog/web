@@ -85,7 +85,11 @@ export async function middleware(req: NextRequest, event: NextFetchEvent) {
   }
 
   if (!req.cookies[ID_COOKIE_NAME]) {
-    res.cookie(ID_COOKIE_NAME, uuid)
+    res.cookie(ID_COOKIE_NAME, uuid, {
+      sameSite: 'lax',
+      httpOnly: true,
+      secure: process.env.NODE_ENV !== 'development',
+    })
   }
 
   if (currentHost === 'a11ywatch.blog') {
