@@ -81,7 +81,7 @@ export function MyApp({ Component, pageProps }: InnerApp) {
         />
         <meta
           property='og:title'
-          content={`Web Accessibility | ${strings.appName}`}
+          content={`Web Accessibility Service | ${strings.appName}`}
         />
         <meta property='og:url' content={DOMAIN_NAME} />
         <meta

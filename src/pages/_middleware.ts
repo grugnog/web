@@ -8,7 +8,7 @@ const JWT_COOKIE_NAME = 'jwt'
 
 const ignoreList = ['/_offline', '/robots.txt', 'fallback', 'workbox']
 const API_ROUTE = getAPIRoute('api', true)
-const VERCEL_COOKIE = `_vercel_`
+const VERCEL_PREFIX = `_vercel_`
 
 export async function middleware(req: NextRequest, event: NextFetchEvent) {
   // const noRedirects = req.nextUrl.searchParams.get('noredirect')
@@ -25,7 +25,7 @@ export async function middleware(req: NextRequest, event: NextFetchEvent) {
 
   let res = NextResponse.next()
 
-  if (staticResource || req.cookies[`${VERCEL_COOKIE}${JWT_COOKIE_NAME}`]) {
+  if (staticResource || req.cookies[`${VERCEL_PREFIX}${JWT_COOKIE_NAME}`]) {
     return res
   }
 
@@ -34,9 +34,11 @@ export async function middleware(req: NextRequest, event: NextFetchEvent) {
 
   const hostname = req.headers.get('host')
 
+  const rootDomainHandle = `.${process.env.ROOT_URL}`
+
   const currentHost =
     process.env.NODE_ENV == 'production'
-      ? hostname?.replace(`.${process.env.ROOT_URL}`, '')
+      ? hostname?.replace(rootDomainHandle, '')
       : process.env.CURR_HOST
 
   const pageRequest =
@@ -83,7 +85,10 @@ export async function middleware(req: NextRequest, event: NextFetchEvent) {
   }
 
   if (!req.cookies[ID_COOKIE_NAME]) {
-    res.cookie(ID_COOKIE_NAME, uuid)
+    res.cookie(ID_COOKIE_NAME, uuid, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV !== 'development',
+    })
   }
 
   if (currentHost === 'a11ywatch.blog') {
