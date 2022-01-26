@@ -24,6 +24,7 @@ function Test({ name }: PageProps) {
 export default metaSetter(
   { Test },
   {
+    title: 'WCAG web accessibility playground test',
     description: 'Free website accessibility testing with A11yWatch',
     gql: true,
   }
