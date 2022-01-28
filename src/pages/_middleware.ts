@@ -92,7 +92,7 @@ export async function middleware(req: NextRequest, event: NextFetchEvent) {
     })
   }
 
-  if (currentHost === 'a11ywatch.blog') {
+  if (currentHost === 'a11ywatch.blog' || currentHost === 'a11ywatch.blog') {
     return NextResponse.rewrite(`/blog${pathname}`)
   }
 
