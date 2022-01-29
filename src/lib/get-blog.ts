@@ -49,6 +49,15 @@ export const getBlogPage = async (
         const metaTags = htmlRoot.querySelectorAll(`meta`)
         const shareSection = htmlRoot.querySelectorAll(`.sharedaddy`)
         const cssSheets = htmlRoot.querySelectorAll('style')
+        const followHeading = htmlRoot.querySelector('#follow-our-blog')
+
+        if (followHeading) {
+          const followHeadingSubtitle = followHeading?.nextElementSibling
+          // remove jetpack custom follow sections trail
+          followHeadingSubtitle?.nextElementSibling?.remove()
+          followHeadingSubtitle?.remove()
+          followHeading?.remove()
+        }
 
         // wordpress theme scripts - disable for app analytics & bluring
         statsScript?.remove()

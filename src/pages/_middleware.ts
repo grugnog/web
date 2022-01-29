@@ -1,30 +1,22 @@
 import type { NextRequest, NextFetchEvent } from 'next/server'
 import { NextResponse } from 'next/server'
 import { LOGGIN_ROUTES, SHARED_ROUTES } from '@app/configs/routes'
-import { getAPIRoute } from '@app/configs/api-route'
+import { getAPIRoute, getRouteType } from '@app/configs/api-route'
 
 const ID_COOKIE_NAME = 'uuid'
 const JWT_COOKIE_NAME = 'jwt'
 
-const ignoreList = ['/_offline', '/robots.txt', 'fallback', 'workbox']
 const API_ROUTE = getAPIRoute('api', true)
 const VERCEL_PREFIX = `_vercel_`
 
 export async function middleware(req: NextRequest, event: NextFetchEvent) {
-  // const noRedirects = req.nextUrl.searchParams.get('noredirect')
+  const noRedirects = req.nextUrl.searchParams.get('noredirect')
   const { pathname } = req.nextUrl
-  const staticResource =
-    req.url.includes('/static/') ||
-    pathname.includes('.') ||
-    pathname.includes('/src/') ||
-    pathname.includes('/workbox-')
-  pathname === '/_offline' ||
-    req.page.name === '/_offline' ||
-    pathname.includes('/sw.js') ||
-    pathname === '/robots.txt'
+  const { staticResource, pageRequest } = getRouteType(req)
 
   let res = NextResponse.next()
 
+  // vercel build or static resource ignore middleware
   if (staticResource || req.cookies[`${VERCEL_PREFIX}${JWT_COOKIE_NAME}`]) {
     return res
   }
@@ -33,18 +25,12 @@ export async function middleware(req: NextRequest, event: NextFetchEvent) {
   let uuid = req.cookies[ID_COOKIE_NAME]
 
   const hostname = req.headers.get('host')
-
   const rootDomainHandle = `.${process.env.ROOT_URL}`
 
   const currentHost =
     process.env.NODE_ENV == 'production'
       ? hostname?.replace(rootDomainHandle, '')
       : process.env.CURR_HOST
-
-  const pageRequest =
-    req.page.name &&
-    !ignoreList.includes(req.url) &&
-    !pathname.startsWith('/api')
 
   if (!uuid) {
     uuid = crypto.randomUUID!()
@@ -96,15 +82,14 @@ export async function middleware(req: NextRequest, event: NextFetchEvent) {
     return NextResponse.rewrite(`/blog${pathname}`)
   }
 
+  // shared routes that should be accessed between auth & non auth
   if (!SHARED_ROUTES.includes(req.nextUrl.pathname)) {
     if (token) {
-      if (!LOGGIN_ROUTES.includes(req.nextUrl.pathname)) {
+      if (!LOGGIN_ROUTES.includes(req.nextUrl.pathname) && !noRedirects) {
         res = NextResponse.redirect('/dashboard')
       }
-    } else {
-      if (LOGGIN_ROUTES.includes(req.nextUrl.pathname)) {
-        res = NextResponse.redirect('/')
-      }
+    } else if (LOGGIN_ROUTES.includes(req.nextUrl.pathname) && !noRedirects) {
+      res = NextResponse.redirect('/')
     }
   }
 
