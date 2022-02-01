@@ -8,7 +8,7 @@ import { Container, Typography, Button, IconButton } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import CopyIcon from '@material-ui/icons/FileCopy'
 import { API_ENDPOINT } from '@app/configs'
-import { NavBar, PageTitle, Link } from '@app/components/general'
+import { NavBar, PageTitle } from '@app/components/general'
 import { Box } from '@a11ywatch/ui'
 import { TextSkeleton } from '@app/components/placeholders'
 import { AppManager, UserManager } from '@app/managers'
@@ -137,9 +137,12 @@ function Api({ name }: PageProps) {
           <SectionTitle variant='subtitle1'>
             Add authorization header with the jwt format <i>Bearer TOKEN</i> for
             more information check{' '}
-            <Link href={'https://docs.a11ywatch.com/documentation/api'}>
+            <a
+              href={'https://docs.a11ywatch.com/documentation/api'}
+              target='_blank'
+            >
               Documentation
-            </Link>
+            </a>
           </SectionTitle>
           {!data?.user && loading ? (
             <TextSkeleton className={classes.email} />
