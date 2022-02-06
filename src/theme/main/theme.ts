@@ -42,12 +42,16 @@ export const theme = (function () {
       },
     },
     palette: {
+      type: 'light',
       primary: grey,
       secondary: {
         main: '#3f3d56',
       },
       warning: orange,
       error: red,
+      background: {
+        paper: '#ccc',
+      },
     },
   })
 })()

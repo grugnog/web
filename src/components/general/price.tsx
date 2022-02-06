@@ -188,7 +188,7 @@ function PriceWrapper({
                     premium,
                     basic,
                   }
-                )} border border-white text-white'`}
+                )} border border-gray-300 text-white'`}
                 style={{
                   borderTopColor: textColor,
                   borderTopWidth: 3,

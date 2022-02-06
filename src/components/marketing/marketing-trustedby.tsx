@@ -10,7 +10,7 @@ interface ImageProps {
   ext?: 'svg' | 'png' | 'webp' | 'gif'
 }
 
-function TrustBy({ small }: { small?: boolean }) {
+function TrustBy() {
   const width = '231.68px'
   const height = '56.45px'
 
@@ -37,37 +37,14 @@ function TrustBy({ small }: { small?: boolean }) {
     { src: 'marketing_vivacom', alt: 'Vivacom logo' },
   ]
 
-  if (small) {
-    const images: ImageProps[] = [
-      { src: 'marketing_foxit', alt: 'Foxit logo' },
-      { src: 'marketing_enterprise', alt: 'Enterprise logo', ext: 'webp' },
-      {
-        src: 'marketing_voyager',
-        alt: 'Voyager logo',
-        ext: 'png',
-      },
-      { src: 'marketing_endlabs', alt: 'Endlabs logo' },
-      { src: 'marketing_gameinformer', alt: 'Game Informer logo' },
-      { src: 'marketing_jnj', alt: 'Johnson and Johnson logo', ext: 'png' },
-    ]
-
-    return (
-      <div className='mt-6 grid grid-cols-3 gap-0.5 md:grid-cols-6 lg:mt-8'>
-        {images.map(({ src, alt, ext }: ImageProps, i: number) => (
-          <MarketingImage src={src} ext={ext} alt={alt} key={`${i}_${src}`} />
-        ))}
-      </div>
-    )
-  }
-
   return (
     <SectionContainer className={'bg-gray-100'}>
       <SectionHeading>Trusted by many businesses from all over</SectionHeading>
       <Typography variant='h6' component='p' gutterBottom>
         From small companies to Fortune 500
       </Typography>
-      <div className='py-12 px-4 sm:px-6 lg:py-16 lg:px-8'>
-        <div className='mt-6 grid grid-cols-2 gap-0.5 md:grid-cols-3 lg:mt-8'>
+      <div className='px-4 sm:px-6 lg:px-8 bg-gray-800'>
+        <div className='grid grid-cols-2 gap-0.5 md:grid-cols-3'>
           {images.map(({ src, alt, ext }: ImageProps, i: number) => (
             <MarketingImage src={src} ext={ext} alt={alt} key={`${i}_${src}`} />
           ))}

@@ -4,7 +4,6 @@
  * LICENSE file in the root directory of this source tree.
  **/
 
-export { MarketingWebsites } from './marketing-websites'
 export { MarketingTestimonial } from './marketing-testimonial'
 export { MarketingShapesTop } from './marketing-shapes-top'
 export { MarketingTrustBy } from './marketing-trustedby'
