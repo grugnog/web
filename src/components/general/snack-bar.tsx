@@ -23,7 +23,7 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: theme.palette.error.dark,
   },
   errorMessage: {
-    color: '#fff',
+    color: '#000',
   },
   message: {
     color: '#000',

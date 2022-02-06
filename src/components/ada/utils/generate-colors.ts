@@ -38,7 +38,7 @@ export function generateFixColors({
     ? getComputedStyle(elementParent, null).getPropertyValue('background-color')
     : getComputedStyle(source, null).getPropertyValue('color')
 
-  const primaryColor = Color(elementColor || '#fff')
+  const primaryColor = Color(elementColor || '#000')
   const primaryColorLight = getValidatedColor({
     colorToChange: primaryColor,
     mixingColor: Color('white'),

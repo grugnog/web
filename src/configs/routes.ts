@@ -200,4 +200,5 @@ export const SHARED_ROUTES = [
   '/blog',
   '/login',
   '/register',
+  '/logout',
 ]

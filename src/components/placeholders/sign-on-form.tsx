@@ -50,7 +50,7 @@ const useStyles = makeStyles((theme) => ({
   loginLink: {
     fontWeight: 'bolder',
     marginLeft: 6,
-    color: '#fff',
+    color: '#000',
   },
   or: {
     marginTop: 7,

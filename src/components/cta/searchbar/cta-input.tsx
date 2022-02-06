@@ -33,9 +33,9 @@ const useStyles = makeStyles((theme: Theme) =>
       overflow: 'hidden',
       padding: 4,
       paddingLeft: 12,
-      backgroundColor: alpha(theme.palette.common.white, 0.15),
+      backgroundColor: alpha(theme.palette.common.black, 0.15),
       '&:hover': {
-        backgroundColor: alpha(theme.palette.common.white, 0.25),
+        backgroundColor: alpha(theme.palette.common.black, 0.25),
       },
       borderTopLeftRadius: theme.shape.borderRadius,
       borderBottomLeftRadius: theme.shape.borderRadius,
@@ -62,7 +62,7 @@ const useStyles = makeStyles((theme: Theme) =>
       borderBottomRightRadius: theme.shape.borderRadius,
       paddingLeft: theme.spacing(5),
       paddingRight: theme.spacing(5),
-      borderColor: 'rgba(255, 255, 255, 0.12) !important',
+      borderColor: 'rgba(0, 0, 0, 0.12) !important',
       borderWidth: 1,
       minWidth: '187.562px',
       fontWeight: 'bold',
@@ -142,7 +142,7 @@ function CtaInput() {
       <button
         className={`${classes.submit} ${
           loading || !search ? 'text-gray-500' : ''
-        } hover:bg-white hover:text-black`}
+        } hover:bg-black hover:text-white`}
         type={'submit'}
         disabled={loading || !search}
         aria-label={loading ? 'Scanning website loading' : 'Analyze website'}

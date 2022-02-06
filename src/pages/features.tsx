@@ -35,7 +35,7 @@ const { paper, row } = {
   row: 'flex flex-wrap md:flex-nowrap',
 }
 
-const paperStyle = 'flex place-content-center bg-gray-800 my-4 rounded'
+const paperStyle = 'flex place-content-center bg-gray-100 my-4 rounded'
 
 function Features({ name }: PageProps) {
   return (

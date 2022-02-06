@@ -61,7 +61,6 @@ const styles = StyleSheet.create({
     flex: 1,
     fontSize: '1.9rem' as any,
     fontWeight: 'bold',
-    color: theme.palette.text.primary,
   },
   infoContainer: {
     paddingVertical: theme.spacing(1),
@@ -72,7 +71,7 @@ const styles = StyleSheet.create({
     maxWidth: '70vw',
   },
   text: {
-    color: '#fff',
+    color: '#000',
     fontSize: 16,
   },
   spacing: {
@@ -101,7 +100,7 @@ const InfoBlock: FC<{ title: string; titleButton?: React.ReactElement }> = ({
         <Text
           style={[
             styles.text,
-            tailwind(`font-bold w-28 ${titleButton ? 'mr-3' : ''}`),
+            tailwind(`text-black font-bold w-28 ${titleButton ? 'mr-3' : ''}`),
           ]}
         >
           {title}
@@ -125,6 +124,7 @@ const prismStyles = {
   hljs: {
     ...a11yDark.hljs,
     background: '',
+    color: '',
     padding: 0,
     overflow: 'hidden',
     maxWidth: '74vw',
@@ -299,7 +299,7 @@ export function WebsiteCellDashboardComponent({
             language='html'
             style={prismStyles}
             onClick={copyClipboard}
-            className={'hover:bg-blue-500 cursor-pointer'}
+            className={'hover:bg-blue-500 color-black cursor-pointer'}
           >
             {script?.cdnUrl
               ? `<script src="${

@@ -26,7 +26,7 @@ const useStyles = makeStyles(({ palette, breakpoints }: MergedTheme) =>
     },
     toolTip: {
       background: palette.secondary.main,
-      color: '#fff',
+      color: '#000',
       fontWeight: 600,
       fontSize: '0.85em',
     },

@@ -56,7 +56,7 @@ export function Annotations({
           errorType === 'error'
             ? 'linear-gradient(20deg, #EF6C00 10%, #E65100 95%)'
             : 'linear-gradient(20deg, #9E9D24 10%, #827717 95%)',
-        color: '#fff',
+        color: '#000',
       }}
     >
       {contrastRatio?.includes('.00') ? contrastRatio[0] : ''}

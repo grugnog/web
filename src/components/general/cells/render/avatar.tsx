@@ -26,7 +26,7 @@ const useStyles = makeStyles((theme) => ({
   },
   toolTip: {
     background: theme.palette.secondary.main,
-    color: '#fff',
+    color: '#000',
   },
   cdnText: {
     color: theme.palette.secondary.main,

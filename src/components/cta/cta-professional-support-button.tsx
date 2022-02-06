@@ -12,7 +12,7 @@ import { makeStyles } from '@material-ui/core/styles'
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    color: '#fff',
+    color: '#000',
     right: 0,
     padding: '8px 16px 8px 16px',
     maxHeight: '40px',

@@ -10,21 +10,6 @@ html {
   font-size: 16px;
 }
 
-body::-webkit-scrollbar,
-::-webkit-scrollbar {
-  width: 12px;
-  padding-left: 2px;
-  padding-right: 2px;
-  background: #1a1a1a !important;
-}
-
-::-webkit-scrollbar-thumb,
-body::-webkit-scrollbar-thumb,
-pre::-webkit-scrollbar-thumb {
-  background: #424242 !important;
-  max-width: 5px !important;
-}
-
 .goog-te-banner-frame {
   bottom: 0 !important;
   top: unset !important;

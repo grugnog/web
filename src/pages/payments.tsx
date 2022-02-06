@@ -44,7 +44,7 @@ const useStyles = makeStyles(() => ({
   cancel: {
     marginTop: 60,
     marginBottom: 30,
-    background: '#fff',
+    background: '#000',
     color: '#000',
     minWidth: '148.906px',
   },

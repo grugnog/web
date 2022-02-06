@@ -19,7 +19,7 @@ const useStyles = makeStyles((theme) => ({
     flex: 1,
   },
   container: {
-    backgroundColor: '#fff',
+    backgroundColor: '#000',
     color: theme.palette.background.default,
     overflow: 'hidden',
     zIndex: 1,
@@ -50,7 +50,7 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    color: '#fff',
+    color: '#000',
     [theme.breakpoints.down('sm')]: {
       display: 'none',
     },

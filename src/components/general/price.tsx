@@ -36,8 +36,8 @@ const useStyles = makeStyles(() => ({
 
 const getStyles = (inactive: boolean) =>
   inactive
-    ? 'ml-0.5 relative w-1/2 border border-transparent rounded-md py-2 text-sm font-medium text-gray-200 whitespace-nowrap focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:z-10 sm:w-auto sm:px-8'
-    : 'relative w-1/2 bg-white border-gray-200 rounded-md shadow-sm py-2 text-sm font-medium text-gray-900 whitespace-nowrap focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:z-10 sm:w-auto sm:px-8'
+    ? 'ml-0.5 relative w-1/2 border border-transparent rounded-md py-2 text-sm font-medium text-gray-400 whitespace-nowrap focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:z-10 sm:w-auto sm:px-8'
+    : 'relative w-1/2 bg-gray-100 border-gray-200 rounded-md shadow-sm py-2 text-sm font-medium text-gray-900 whitespace-nowrap focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:z-10 sm:w-auto sm:px-8'
 
 const highLight = (
   name: string = '',
@@ -49,7 +49,7 @@ const highLight = (
     : ''
 
 const getPrimaryColor = (title: string) => {
-  let color = '#fff'
+  let color = '#000'
   if (title === 'Premium') {
     color = '#8956ef'
   } else if (title === 'Free') {
@@ -57,7 +57,7 @@ const getPrimaryColor = (title: string) => {
   } else if (title === 'Basic') {
     color = '#2b72e6'
   } else if (title === 'Enterprise') {
-    color = '#fff'
+    color = '#000'
   }
   return color
 }
@@ -87,12 +87,12 @@ function PriceWrapper({
 
   function MainButton({ title }: { title: string }) {
     const buttonColor = getPrimaryColor(title)
-    let textColor = '#fff'
+    let textColor = '#000'
 
     if (title === 'Premium') {
     } else if (title === 'Free') {
     } else if (title === 'Basic') {
-      textColor = '#fff'
+      textColor = '#000'
     } else if (title === 'Enterprise') {
       textColor = '#000'
     }
@@ -199,7 +199,7 @@ function PriceWrapper({
               >
                 <Fragment>
                   {isPremium ? (
-                    <Ribbon backgroundColor={textColor} color={'#fff'} />
+                    <Ribbon backgroundColor={textColor} color={'#000'} />
                   ) : null}
                   <Icon fontSize='large' style={{ color: textColor }} />
                   <Typography

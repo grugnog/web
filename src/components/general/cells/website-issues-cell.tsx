@@ -32,7 +32,7 @@ const useStyles = makeStyles((theme) => ({
     maxWidth: '50vw',
     overflow: 'hidden',
     textOverflow: 'ellipsis',
-    color: '#fff',
+    color: '#000',
     flex: 1,
     fontSize: '1.1em',
     fontWeight: 600,

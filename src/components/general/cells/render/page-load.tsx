@@ -12,7 +12,7 @@ import { makeStyles } from '@material-ui/core/styles'
 const useStyles = makeStyles((theme) => ({
   toolTip: {
     background: theme.palette.secondary.main,
-    color: '#fff',
+    color: '#000',
     fontWeight: 600,
     fontSize: '0.85em',
   },

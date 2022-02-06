@@ -23,8 +23,7 @@ export const useProfileStyles = makeStyles(() => ({
   },
   payments: {
     minWidth: 170,
-    background: '#fff',
-    color: '#000',
+    background: '#ccc',
     marginBottom: 10.5,
   },
   form: {

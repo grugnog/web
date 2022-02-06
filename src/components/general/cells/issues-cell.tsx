@@ -25,7 +25,7 @@ const useStyles = makeStyles(() => ({
     maxWidth: '50vw',
     overflow: 'hidden',
     textOverflow: 'ellipsis',
-    color: '#fff',
+    color: '#000',
     flex: 1,
   },
 }))

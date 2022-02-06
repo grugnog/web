@@ -23,10 +23,10 @@ const useStyles = makeStyles((theme: Theme) =>
       flex: 1,
       marginTop: '12px',
       borderRadius: theme.shape.borderRadius,
-      backgroundColor: alpha(theme.palette.common.white, 0.15),
+      backgroundColor: alpha(theme.palette.common.black, 0.15),
       minHeight: '8.3rem',
       '&:hover': {
-        backgroundColor: alpha(theme.palette.common.white, 0.25),
+        backgroundColor: alpha(theme.palette.common.black, 0.25),
       },
       [theme.breakpoints.down(920)]: {
         flexDirection: 'column',

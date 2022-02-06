@@ -54,7 +54,7 @@ function ConfirmEmail({ sendEmail, visible }: Props) {
       <View
         style={[
           classes.container,
-          tailwind('border items-center flex flex-row rounded bg-gray-800'),
+          tailwind('border items-center flex flex-row rounded bg-gray-100'),
         ]}
       >
         <Text style={[classes.text, tailwind('text-xl mr-5')]}>

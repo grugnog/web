@@ -34,7 +34,7 @@ export const theme = (function () {
         borderRadius: '2px',
         border: '1px solid rgba(255, 255, 255, 0.12)',
         padding: '0px 30px',
-        color: '#fff',
+        color: '#000',
         fontWeight: 600,
       },
       h3: {
@@ -42,14 +42,10 @@ export const theme = (function () {
       },
     },
     palette: {
-      type: 'dark',
       primary: grey,
       secondary: indigo,
       warning: orange,
       error: red,
-      background: {
-        default: 'rgb(0, 0, 0)',
-      },
     },
   })
 })()

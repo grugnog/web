@@ -13,7 +13,9 @@ const SectionContainer: FC<{ className?: string; id?: string }> = ({
 }) => {
   return (
     <section
-      className={['overflow-visible', 'py-36', 'px-6', className].join(' ')}
+      className={['overflow-visible', 'py-36', 'px-6', className]
+        .join(' ')
+        .trim()}
       {...props}
     >
       {children}

@@ -61,7 +61,7 @@ function TrustBy({ small }: { small?: boolean }) {
   }
 
   return (
-    <SectionContainer className={'bg-gray-800'}>
+    <SectionContainer className={'bg-gray-100'}>
       <SectionHeading>Trusted by many businesses from all over</SectionHeading>
       <Typography variant='h6' component='p' gutterBottom>
         From small companies to Fortune 500

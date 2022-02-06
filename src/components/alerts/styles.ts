@@ -30,7 +30,7 @@ export const useStyles = makeStyles(({ breakpoints }: Theme) =>
     see: {
       background: 'none',
       boxShadow: 'none',
-      color: '#fff',
+      color: '#000',
       textTransform: 'none',
     },
     normal: {

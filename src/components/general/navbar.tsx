@@ -88,7 +88,7 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    color: '#fff',
+    color: '#000',
     [theme.breakpoints.down('sm')]: {
       display: 'none',
     },

@@ -12,7 +12,7 @@ export function CtaSignonForm() {
   return (
     <VisibilitySensor partialVisibility>
       {({ isVisible }) => (
-        <SectionContainer className={'bg-gray-800'}>
+        <SectionContainer className={'bg-gray-100'}>
           <SignOnForm home isVisible={isVisible} />
         </SectionContainer>
       )}

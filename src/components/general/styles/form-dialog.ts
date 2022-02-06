@@ -63,7 +63,7 @@ export const formDialogStyles = makeStyles((theme: MergedTheme) => ({
     paddingRight: theme.spacing(2),
     paddingLeft: theme.spacing(2),
     '&:hover': {
-      background: '#fff',
+      background: '#ccc',
       color: theme?.color?.primary,
     },
   },

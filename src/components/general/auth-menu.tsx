@@ -34,7 +34,8 @@ function AuthMenu({ loginClassName, className, registerClassName }: Props) {
     setAnchorEl(event?.currentTarget)
   }
 
-  const logout = async () => {
+  const logout = async (e: any) => {
+    e?.preventDefault()
     setIssueFeedContent(null, false)
 
     try {
