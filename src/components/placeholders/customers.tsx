@@ -16,7 +16,7 @@ const useStyles = makeStyles((theme) => ({
     display: 'block',
   },
   card: {
-    border: `3px solid ${theme.palette.background.paper}`,
+    border: `3px solid ${theme.palette.divider}`,
     borderRadius: 8,
     width: '100%',
     minHeight: '25vh',

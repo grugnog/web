@@ -128,10 +128,13 @@ export const getBlogPage = async (
 
         .light-background {
           background-color: #fff;
+          font-family: system-ui;
         }
         .dark-background {
           background-color: rgb(26, 26, 26);
+          font-family: system-ui;
         }
+
         </style>`
         )
 

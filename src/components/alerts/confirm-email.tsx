@@ -32,7 +32,6 @@ const classes = StyleSheet.create({
     fontWeight: 'bold',
   },
   btn: {
-    backgroundColor: theme.palette.secondary.main,
     minWidth: 'auto',
     flex: 1,
     flexDirection: 'row',

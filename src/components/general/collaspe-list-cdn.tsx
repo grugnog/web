@@ -25,7 +25,7 @@ import ExpandMore from '@material-ui/icons/ExpandMore'
 const useStyles = makeStyles((theme) => ({
   root: {
     width: '100%',
-    backgroundColor: theme.palette.background.paper,
+    backgroundColor: theme.palette.divider,
     marginTop: '60px',
   },
   nested: {
@@ -70,7 +70,7 @@ const useStyles = makeStyles((theme) => ({
     fontSize: '0.60rem',
     letterSpacing: 1.2,
     fontWeight: 800,
-    background: theme.palette.background.paper,
+    background: theme.palette.divider,
     paddingLeft: 12,
     paddingTop: 3,
     paddingBottom: 2,

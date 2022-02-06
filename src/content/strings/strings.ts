@@ -60,7 +60,7 @@ export const generateStrings = ({
         id: 2,
         title: 'Recommendations',
         detail:
-          'Get tips on how to improve your app so all users have a pleasant experience. Bring accessibility changes into development easily.',
+          'Get tips on how to improve your app so all users have a pleasant experience. Bring accessibility changes into production safer.',
         reason: 'Basic',
       },
       {
@@ -74,7 +74,7 @@ export const generateStrings = ({
         id: 4,
         title: 'Cloud',
         detail:
-          'Add a cdn script that mitigates drastic issues for your users easily. If you accidently deploy dark text on a dark background, we got your back.',
+          'Add a cdn script that mitigates drastic issues for your users easily. If you accidently deploy dark text on a dark background and etc.',
         reason: 'Basic',
         icon: 'accessibility',
       },
@@ -89,7 +89,7 @@ export const generateStrings = ({
         id: 6,
         title: 'Secure',
         detail:
-          'View your scripts with precision for changes before you include them. Control what domains get access to your cdn to bring maximum security.',
+          'View your scripts with precision before you include them. Control what domains get access to your CDN to bring security in at will.',
         reason: 'Basic',
       },
       {
@@ -110,7 +110,7 @@ export const generateStrings = ({
         id: 9,
         title: 'AI',
         detail:
-          'With AI and machine learning we tailor custom needs for your website rapidly. Determine missing alts with high proximity ratios and more.',
+          'With AI and machine learning we tailor custom needs for your website rapidly. Determine missing alts with high proximity ratios, safeguard cdn, and more.',
         reason: 'Basic',
       },
       {

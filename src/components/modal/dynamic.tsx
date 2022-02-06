@@ -23,7 +23,7 @@ const useStyles = makeStyles((theme) => ({
     boxShadow: theme.shadows[5],
     padding: 0,
     [theme.breakpoints.down('sm')]: {
-      backgroundColor: theme.palette.background.paper,
+      backgroundColor: theme.palette.divider,
     },
   },
 }))

@@ -27,6 +27,12 @@ function CdnFix({ name }: PageProps) {
           loading={loading}
           emptyTitle={'No cdn scripts yet'}
         >
+          <h2 className='font-bold text-xl'>Built for SP or MP Applications</h2>
+          <p className='text-lg'>
+            If your application is in nextjs, vue, or any SPA framework simply
+            add the root domain script and it will automatically apply the
+            appropriate script per page.
+          </p>
           <CollaspeListCdn dataSource={dataSource} />
         </ScriptsPageSkeleton>
       </Drawer>

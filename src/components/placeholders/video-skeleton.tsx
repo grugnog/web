@@ -15,7 +15,7 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: 4,
     minHeight: '55vh',
     paddingBottom: '44.818182%',
-    backgroundColor: theme.palette.background.paper,
+    backgroundColor: theme.palette.divider,
     [theme.breakpoints.down('sm')]: {
       minHeight: '45vh',
       marginTop: '-9vh',

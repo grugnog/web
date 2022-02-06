@@ -24,7 +24,7 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: '4px',
     paddingBottom: '44.818182%',
     position: 'relative',
-    backgroundColor: theme.palette.background.paper,
+    backgroundColor: theme.palette.divider,
     [theme.breakpoints.down('sm')]: {
       height: '23vh',
       minHeight: 'auto',

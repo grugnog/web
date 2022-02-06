@@ -21,7 +21,7 @@ const useStyles = makeStyles((theme) => ({
     maxHeight: '60vh',
     position: 'absolute',
     width: 'auto',
-    backgroundColor: theme.palette.background.paper,
+    backgroundColor: theme.palette.divider,
     border: '2px solid #000',
     boxShadow: theme.shadows[5],
     padding: theme.spacing(2, 4, 3),

@@ -15,7 +15,7 @@ const useStyles = makeStyles(({ palette, spacing, shadows }: Theme) =>
     paper: {
       position: 'absolute',
       width: '400px',
-      backgroundColor: palette.background.paper,
+      backgroundColor: palette.divider,
       border: '2px solid #000',
       boxShadow: shadows[5],
       overflow: 'hidden',

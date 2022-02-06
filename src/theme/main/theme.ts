@@ -49,9 +49,6 @@ export const theme = (function () {
       },
       warning: orange,
       error: red,
-      background: {
-        paper: '#ccc',
-      },
     },
   })
 })()

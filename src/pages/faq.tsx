@@ -37,7 +37,7 @@ function Faq({ name }: PageProps) {
       <List aria-label={`support ${strings.appName}`} dense>
         <ListItem>
           <Typography variant='subtitle1' component='p'>
-            Spread the word. Evangelize {strings.appName}{' '}
+            Spread the word and evangelize {strings.appName}{' '}
             <Typography
               component={'a'}
               target='_blank'
@@ -92,8 +92,8 @@ function Faq({ name }: PageProps) {
       </Typography>
       <Typography variant='body1'>
         You have two main options for joining on A11yWatch as a company, brand
-        or organization: signup from a regular user account under your
-        {`organization's`} email. You can treat the general account as the main
+        or organization. Sign up from a regular user account under your
+        organization{`'s`} email. You can treat the general account as the main
         account for your company. The safest way to share account access is
         through the google sign on method.
       </Typography>

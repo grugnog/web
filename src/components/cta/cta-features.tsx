@@ -36,7 +36,7 @@ const useStyles = makeStyles((theme) => ({
     alignItems: 'center',
     overflow: 'hidden',
     minWidth: '23vw',
-    border: `1px solid ${theme.palette.background.paper}`,
+    border: `1px solid ${theme.palette.divider}`,
     [theme.breakpoints.down('sm')]: {
       flex: 'none',
       marginLeft: 0,

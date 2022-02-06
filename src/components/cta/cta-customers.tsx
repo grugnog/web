@@ -18,7 +18,7 @@ const useStyles = makeStyles((theme) => ({
   card: {
     position: 'relative',
     overflow: 'hidden',
-    border: `1px solid ${theme.palette.background.paper}`,
+    border: `1px solid ${theme.palette.divider}`,
     borderRadius: 8,
     width: '100%',
     justifyContent: 'space-around',
