@@ -1,6 +1,6 @@
 import type { NextRequest, NextFetchEvent } from 'next/server'
 import { NextResponse } from 'next/server'
-import { LOGGIN_ROUTES, SHARED_ROUTES } from '@app/configs/routes'
+// import { LOGGIN_ROUTES, SHARED_ROUTES } from '@app/configs/routes'
 import { getAPIRoute, getRouteType } from '@app/configs/api-route'
 
 const ID_COOKIE_NAME = 'uuid'
@@ -10,7 +10,7 @@ const API_ROUTE = getAPIRoute('api', true)
 const VERCEL_PREFIX = `_vercel_`
 
 export async function middleware(req: NextRequest, event: NextFetchEvent) {
-  const noRedirects = req.nextUrl.searchParams.get('noredirect')
+  // const noRedirects = req.nextUrl.searchParams.get('noredirect')
   const { pathname } = req.nextUrl
   const { staticResource, pageRequest } = getRouteType(req)
 
@@ -21,7 +21,7 @@ export async function middleware(req: NextRequest, event: NextFetchEvent) {
     return res
   }
 
-  const token = req.cookies[JWT_COOKIE_NAME]
+  // const token = req.cookies[JWT_COOKIE_NAME]
   let uuid = req.cookies[ID_COOKIE_NAME]
 
   const hostname = req.headers.get('host')
@@ -85,16 +85,16 @@ export async function middleware(req: NextRequest, event: NextFetchEvent) {
     return NextResponse.rewrite(`/blog${pathname}`)
   }
 
-  // shared routes that should be accessed between auth & non auth
-  if (!SHARED_ROUTES.includes(req.nextUrl.pathname)) {
-    if (token) {
-      if (!LOGGIN_ROUTES.includes(req.nextUrl.pathname) && !noRedirects) {
-        res = NextResponse.redirect('/dashboard')
-      }
-    } else if (LOGGIN_ROUTES.includes(req.nextUrl.pathname) && !noRedirects) {
-      res = NextResponse.redirect('/')
-    }
-  }
+  // // shared routes that should be accessed between auth & non auth
+  // if (!SHARED_ROUTES.includes(req.nextUrl.pathname)) {
+  //   if (token) {
+  //     if (!LOGGIN_ROUTES.includes(req.nextUrl.pathname) && !noRedirects) {
+  //       res = NextResponse.redirect('/dashboard')
+  //     }
+  //   } else if (LOGGIN_ROUTES.includes(req.nextUrl.pathname) && !noRedirects) {
+  //     res = NextResponse.redirect('/')
+  //   }
+  // }
 
   return res
 }

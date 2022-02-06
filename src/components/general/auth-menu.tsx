@@ -57,6 +57,7 @@ function AuthMenu({ loginClassName, className, registerClassName }: Props) {
     }
 
     UserManager.clearUser()
+    router.push('/')
   }
 
   if (LOGGIN_ROUTES.includes(router?.pathname)) {

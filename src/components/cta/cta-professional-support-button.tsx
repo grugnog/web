@@ -12,7 +12,7 @@ import { makeStyles } from '@material-ui/core/styles'
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    color: '#000',
+    color: '#fff',
     right: 0,
     padding: '8px 16px 8px 16px',
     maxHeight: '40px',
@@ -25,6 +25,10 @@ const useStyles = makeStyles((theme) => ({
     borderTopRightRadius: 0,
     borderBottomRightRadius: 0,
     textTransform: 'none',
+    '&:hover': {
+      color: '#000',
+      border: '1px solid #ccc',
+    },
     [theme.breakpoints.down('sm')]: {
       display: 'none',
     },

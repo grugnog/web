@@ -26,7 +26,7 @@ const useStyles = makeStyles((theme) => ({
     color: '#000',
   },
   message: {
-    color: '#000',
+    color: '#fff',
     maxWidth: '70vw',
   },
 }))
@@ -61,7 +61,7 @@ const SnackbarContainer = observer(({ store }: any) => {
       }}
     >
       <SnackbarContent
-        color='secondary'
+        color='primary'
         message={
           <Fragment>
             <Typography

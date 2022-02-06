@@ -6,7 +6,7 @@
 
 import { createTheme } from '@material-ui/core/styles'
 
-import { red, indigo, grey, orange } from '@material-ui/core/colors'
+import { red, grey, orange } from '@material-ui/core/colors'
 import { h1, h2, h6, subtitle1 } from '../common'
 
 export const theme = (function () {
@@ -43,7 +43,9 @@ export const theme = (function () {
     },
     palette: {
       primary: grey,
-      secondary: indigo,
+      secondary: {
+        main: '#3f3d56',
+      },
       warning: orange,
       error: red,
     },

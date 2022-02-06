@@ -5,6 +5,8 @@
  **/
 const tailwindColors = require('tailwindcss/colors')
 
+delete tailwindColors['lightBlue']
+
 const fontFamilys = [
   'system-ui',
   '-apple-system',

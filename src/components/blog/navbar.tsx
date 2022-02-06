@@ -89,11 +89,14 @@ const NavBarComponent = ({
               className={`${classes.menu} space-x-2 align-items-center text-normal text-black`}
               href={process.env.NODE_ENV === 'production' ? '/' : '/blog'}
             >
-              <SmallLogo className={'invert'} />
+              <div className='invert'>
+                <SmallLogo />
+              </div>
               <h1
                 style={{
                   fontSize: 16,
                   fontFamily: appTheme.typography.fontFamily,
+                  color: '#fff',
                 }}
               >
                 {title}

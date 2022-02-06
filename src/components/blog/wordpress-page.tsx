@@ -4,12 +4,12 @@
  * LICENSE file in the root directory of this source tree.
  **/
 import type { BlogPageProps } from '@app/types'
-import React, { Fragment, useMemo } from 'react'
+import React, { FC, Fragment, useMemo, memo } from 'react'
 import Head from 'next/head'
+import NextScript from 'next/script'
 import { Footer } from '@app/components/general'
 import { NavBar } from '@app/components/blog'
 import { companyName } from '@app/configs'
-import NextScript from 'next/script'
 
 const getProps = (props: any = {}) => {
   const mainProps = Object.assign({}, props, {
@@ -29,7 +29,7 @@ const getProps = (props: any = {}) => {
   return mainProps
 }
 
-export function WordPressPage({
+export const Page: FC<BlogPageProps> = ({
   html,
   websiteUrl,
   title,
@@ -38,7 +38,7 @@ export function WordPressPage({
   metas,
   headScripts,
   bodyScripts,
-}: BlogPageProps) {
+}) => {
   const memoHeadScripts = useMemo(
     () =>
       headScripts?.map((node, index) => {
@@ -68,7 +68,7 @@ export function WordPressPage({
     [bodyScripts]
   )
   return (
-    <Fragment>
+    <>
       <Head>
         <title key='title'>{title || `Blog - ${websiteUrl}`}</title>
         {links?.map((node, index) => (
@@ -101,6 +101,8 @@ export function WordPressPage({
       />
       <Footer />
       {memoBodyScripts}
-    </Fragment>
+    </>
   )
 }
+
+export const WordPressPage = memo(Page)

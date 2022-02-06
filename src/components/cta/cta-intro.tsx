@@ -37,9 +37,6 @@ const useStyles = makeStyles((theme) => ({
   },
   intro: {
     lineHeight: '0.92em',
-    backgroundImage: "url('./static/img/sky.webp')",
-    marginBottom: 5,
-    color: 'transparent',
   },
   submit: {
     marginTop: 10,
@@ -93,7 +90,7 @@ function CtaIntro({ checker }: any) {
           <Typography
             variant='h1'
             component={'h1'}
-            className={`${classes.intro} !text-transparent text-6xl md:text-7xl bg-clip-text bg-cover bg-center bg-blue-300 !text-opacity-100`}
+            className={`${classes.intro} text-6xl md:text-7xl bg-cover bg-center`}
           >
             {checker
               ? 'Check Your Web Accessibility'

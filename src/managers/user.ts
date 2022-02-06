@@ -84,9 +84,8 @@ class UserManager {
   }
 
   @action clearUser = () => {
-    userModel.logOut()
     this.user = USER_DEFAULTS
-    window.location.href = '/'
+    userModel.logOut()
   }
 
   @action setJwt = (jwt: string) => {

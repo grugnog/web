@@ -3,12 +3,12 @@
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
  **/
-import type { BlogPageProps } from '@app/types'
-import type { GetStaticProps } from 'next'
 import React from 'react'
 import { metaSetter } from '@app/utils'
 import { getBlogPage } from '@app/lib'
-import { WordPressPage } from '@app/components/blog'
+import { WordPressPage } from '@app/components/blog/wordpress-page'
+import type { BlogPageProps } from '@app/types'
+import type { GetStaticProps } from 'next'
 
 function Blogs(props: BlogPageProps) {
   return <WordPressPage {...props} />
@@ -31,7 +31,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
 
   return {
     props,
-    revalidate: 3600 * 12,
+    revalidate: 3600,
   }
 }
 

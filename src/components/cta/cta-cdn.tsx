@@ -22,12 +22,11 @@ const useStyles = makeStyles((theme: Theme) =>
       alignItems: 'center',
     },
     register: {
-      background: theme.palette.text.primary,
+      color: theme.palette.secondary.main,
+      borderColor: theme.palette.secondary.main,
     },
     report: {
-      background: 'transparent',
-      color: theme.palette.text.primary,
-      borderColor: theme.palette.text.primary,
+      color: theme.palette.primary.main,
     },
     text: {
       fontWeight: 'bold',

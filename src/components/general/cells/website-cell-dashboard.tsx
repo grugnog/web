@@ -5,12 +5,7 @@
  **/
 
 import React, { useState, memo, FC } from 'react'
-import {
-  Badge,
-  ListItemSecondaryAction,
-  Button,
-  Avatar,
-} from '@material-ui/core'
+import { ListItemSecondaryAction, Button } from '@material-ui/core'
 import { Link } from '../link'
 import { WebsiteSecondary, MoreOptions } from './render'
 import { ModalType } from '@app/data/enums'
@@ -22,36 +17,6 @@ import { a11yDark } from '@app/styles'
 import { PrismLight } from 'react-syntax-highlighter'
 import { copyClipboard } from '@app/lib'
 import { classNames } from '@app/utils'
-import { withStyles } from '@material-ui/core/styles'
-
-const StyledBadge = withStyles((theme) => ({
-  badge: {
-    backgroundColor: ({ color }: any) => color || '#44b700',
-    color: ({ color }: any) => color || '#44b700',
-    boxShadow: `0 0 0 2px ${theme.palette.background.paper}`,
-    '&::after': {
-      position: 'absolute',
-      top: 0,
-      left: 0,
-      width: '100%',
-      height: '100%',
-      borderRadius: '50%',
-      animation: '$ripple 3.2s infinite ease-in-out',
-      border: '1px solid currentColor',
-      content: '""',
-    },
-  },
-  '@keyframes ripple': {
-    '0%': {
-      transform: 'scale(.8)',
-      opacity: 1,
-    },
-    '100%': {
-      transform: 'scale(2.4)',
-      opacity: 0,
-    },
-  },
-}))(Badge)
 
 const styles = StyleSheet.create({
   title: {
@@ -208,25 +173,6 @@ export function WebsiteCellDashboardComponent({
       <div className={'flex w-full'}>
         <div className={'w-full space-y-3'}>
           <div className='flex space-x-2'>
-            <StyledBadge
-              overlap='circular'
-              anchorOrigin={{
-                vertical: 'bottom',
-                horizontal: 'right',
-              }}
-              variant='dot'
-              color={online ? undefined : 'primary'}
-            >
-              <Avatar
-                className='ring'
-                src={`https://s2.googleusercontent.com/s2/favicons?domain=${url}`}
-                imgProps={{
-                  height: 50,
-                  width: 50,
-                }}
-                alt={`logo of ${url}`}
-              />
-            </StyledBadge>
             <Text style={styles.title}>{url}</Text>
           </div>
           <WebsiteSecondary
@@ -258,7 +204,7 @@ export function WebsiteCellDashboardComponent({
           {pageLoadTime?.durationFormated ? (
             <Text style={styles.text}>
               {pageLoadTime?.durationFormated} at{' '}
-              <Text style={{ color: pageLoadTime?.color }}>
+              <Text style={{ color: pageLoadTime?.color, fontWeight: 'bold' }}>
                 {pageLoadTime?.duration}ms
               </Text>
             </Text>
@@ -273,6 +219,9 @@ export function WebsiteCellDashboardComponent({
 
         <InfoBlock title={'Headers Included'}>
           <Text style={styles.text}>{pageHeaders ? 'Yes' : 'No'}</Text>
+        </InfoBlock>
+        <InfoBlock title={'Website Online'}>
+          <Text style={styles.text}>{online ? 'Yes' : 'No'}</Text>
         </InfoBlock>
       </View>
       <View style={styles.spacing} />

@@ -64,6 +64,7 @@ const useStyles = makeStyles((theme) => ({
   google: {
     width: 200,
     minHeight: 40,
+    border: `1px solid rgba(0, 0, 0, 0.3)`,
   },
   iconColor: {
     color: theme.palette.secondary.main,

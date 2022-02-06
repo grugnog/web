@@ -94,7 +94,7 @@ function PriceWrapper({
     } else if (title === 'Basic') {
       textColor = '#000'
     } else if (title === 'Enterprise') {
-      textColor = '#000'
+      textColor = '#fff'
     }
 
     if (navigate) {
