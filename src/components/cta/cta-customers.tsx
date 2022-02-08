@@ -7,7 +7,6 @@
 import React, { useCallback } from 'react'
 import { Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
-import { useMediaQuery } from '@material-ui/core'
 import { strings } from '@app-strings'
 import { useSearch } from '@app/data'
 import { SectionHeading } from '../text'
@@ -45,7 +44,6 @@ export function CtaCustomers() {
     },
     [toggleModal]
   )
-  const size = useMediaQuery('(min-width:600px)') ? 78 : 25
 
   return (
     <SectionContainer className={'bg-gray-100'}>
@@ -65,8 +63,8 @@ export function CtaCustomers() {
             <Image
               src={`/static/img/${item}.svg`}
               alt={item}
-              width={size}
-              height={size}
+              width={78}
+              height={78}
             />
           </button>
         ))}

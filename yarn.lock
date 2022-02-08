@@ -2895,18 +2895,7 @@
   resolved "https://registry.yarnpkg.com/@types/atob/-/atob-2.1.2.tgz#157eb0cc46264a8c55f2273a836c7a1a644fb820"
   integrity sha512-8GAYQ1jDRUQkSpHzJUqXwAkYFOxuWAOGLhIR4aPd/Y/yL12Q/9m7LsKpHKlfKdNE/362Hc9wPI1Yh6opDfxVJg==
 
-"@types/babel__core@^7.0.0":
-  version "7.1.17"
-  resolved "https://registry.yarnpkg.com/@types/babel__core/-/babel__core-7.1.17.tgz#f50ac9d20d64153b510578d84f9643f9a3afbe64"
-  integrity sha512-6zzkezS9QEIL8yCBvXWxPTJPNuMeECJVxSOhxNY/jfq9LxOTHivaYTqr37n9LknWWRTIkzqH2UilS5QFvfa90A==
-  dependencies:
-    "@babel/parser" "^7.1.0"
-    "@babel/types" "^7.0.0"
-    "@types/babel__generator" "*"
-    "@types/babel__template" "*"
-    "@types/babel__traverse" "*"
-
-"@types/babel__core@^7.1.14":
+"@types/babel__core@^7.0.0", "@types/babel__core@^7.1.14":
   version "7.1.18"
   resolved "https://registry.yarnpkg.com/@types/babel__core/-/babel__core-7.1.18.tgz#1a29abcc411a9c05e2094c98f9a1b7da6cdf49f8"
   integrity sha512-S7unDjm/C7z2A2R9NzfKCK1I+BAALDtxEmsJBwlB3EzNfb929ykjL++1CK9LO++EIp2fQrC8O+BwjKvz6UeDyQ==
@@ -3370,10 +3359,10 @@
   resolved "https://registry.yarnpkg.com/@vercel/ruby/-/ruby-1.2.7.tgz#516d1c45f4961619338f3d3bb518ee43b863a5da"
   integrity sha512-ZG2VxMHHSKocL57UWsfNc9UsblwYGm55/ujqGIBnkNUURnRgtUrwtWlEts1eJ4VHD754Lc/0/R1pfJXoN5SbRw==
 
-"@vimeo/player@^2.16.2":
-  version "2.16.2"
-  resolved "https://registry.yarnpkg.com/@vimeo/player/-/player-2.16.2.tgz#f5f45af66579164f3807a6388eca672fdd12d873"
-  integrity sha512-7nXMZWyrmomX6eVQr7i4iEpKDpES6hnqR5D3dHNl+WZv8chYfdqCl+zVYUAwSZpbW4oL0C/lGlZW1hrC7fM7iQ==
+"@vimeo/player@^2.16.3":
+  version "2.16.3"
+  resolved "https://registry.yarnpkg.com/@vimeo/player/-/player-2.16.3.tgz#6ae24b583231eeeefaff33415fcb30d01f8c74e4"
+  integrity sha512-B9WX3dzPvLLhbrqDpHQS1xMUhCZ1iUUvmQubOAp5WBN9RFkNfDC41kv14nYnr0TdSvNV+d6KiG5sDOAbo7tDCg==
   dependencies:
     native-promise-only "0.8.1"
     weakmap-polyfill "2.0.4"
@@ -3435,12 +3424,7 @@ acorn@^7.0.0, acorn@^7.1.1:
   resolved "https://registry.yarnpkg.com/acorn/-/acorn-7.4.1.tgz#feaed255973d2e77555b83dbc08851a6c63520fa"
   integrity sha512-nQyp0o1/mNdbTO1PO6kHkwSrmgZ0MT/jCCpNiwbUjGoRN4dlBhqJtoQuCnEOKzgTVwg0ZWiCoQy6SxMebQVh8A==
 
-acorn@^8.2.4:
-  version "8.6.0"
-  resolved "https://registry.yarnpkg.com/acorn/-/acorn-8.6.0.tgz#e3692ba0eb1a0c83eaa4f37f5fa7368dd7142895"
-  integrity sha512-U1riIR+lBSNi3IbxtaHOIKdH8sLFv3NYfNv8sg7ZsNhcfl4HF2++BfqqrNAxoCLQW1iiylOj76ecnaUxz+z9yw==
-
-acorn@^8.7.0:
+acorn@^8.2.4, acorn@^8.7.0:
   version "8.7.0"
   resolved "https://registry.yarnpkg.com/acorn/-/acorn-8.7.0.tgz#90951fde0f8f09df93549481e5fc141445b791cf"
   integrity sha512-V/LGr1APy+PXIwKebEWrkZPwoeoF+w1jiOBUmuxuiUIaOHtob8Qc9BTrYo7VuI5fR8tqsy+buA2WFooR5olqvQ==
@@ -7206,11 +7190,6 @@ jest-mock@^27.5.1:
     "@jest/types" "^27.5.1"
     "@types/node" "*"
 
-jest-next-dynamic@1.0.1:
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/jest-next-dynamic/-/jest-next-dynamic-1.0.1.tgz#b8af62babeda3cff0cf0a6e0af6de3a9dfc8d6cd"
-  integrity sha512-peo9yRvUn8u6PZro9AzzjxpgUc+1NZhZMan+1xzk7Bz1vA0d5IC2Iw8E7bkC2cwl9AG3XxTaqPVAXbC3aMbVkw==
-
 jest-pnp-resolver@^1.2.2:
   version "1.2.2"
   resolved "https://registry.yarnpkg.com/jest-pnp-resolver/-/jest-pnp-resolver-1.2.2.tgz#b704ac0ae028a89108a4d040b3f919dfddc8e33c"
@@ -7337,11 +7316,6 @@ jest-snapshot@^27.5.1:
     pretty-format "^27.5.1"
     semver "^7.3.2"
 
-jest-svg-transformer@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/jest-svg-transformer/-/jest-svg-transformer-1.0.0.tgz#e38884ca4cd8b2295cdfa2a0b24667920c3a8a6d"
-  integrity sha1-44iEykzYsilc36KgskZnkgw6im0=
-
 jest-transform-stub@2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/jest-transform-stub/-/jest-transform-stub-2.0.0.tgz#19018b0851f7568972147a5d60074b55f0225a7d"
@@ -7420,7 +7394,7 @@ jest-worker@^27.4.1:
     merge-stream "^2.0.0"
     supports-color "^8.0.0"
 
-jest@^27.5.1:
+jest@^27.0.0:
   version "27.5.1"
   resolved "https://registry.yarnpkg.com/jest/-/jest-27.5.1.tgz#dadf33ba70a779be7a6fc33015843b51494f63fc"
   integrity sha512-Yn0mADZB89zTtjkPJEXwrac3LHudkQMR+Paqa8uxJHCBr9agxztUifWCyiYrjhMPBoUVBjyny0I7XH6ozDr7QQ==
@@ -11736,9 +11710,9 @@ ws@^5.2.0:
     async-limiter "~1.0.0"
 
 ws@^7.4.6:
-  version "7.5.6"
-  resolved "https://registry.yarnpkg.com/ws/-/ws-7.5.6.tgz#e59fc509fb15ddfb65487ee9765c5a51dec5fe7b"
-  integrity sha512-6GLgCqo2cy2A2rjCNFlxQS6ZljG/coZfZXclldI8FB/1G3CCI36Zd8xy2HrFVACi8tfk5XrgLQEk+P0Tnz9UcA==
+  version "7.5.7"
+  resolved "https://registry.yarnpkg.com/ws/-/ws-7.5.7.tgz#9e0ac77ee50af70d58326ecff7e85eb3fa375e67"
+  integrity sha512-KMvVuFzpKBuiIXW3E4u3mySRO2/mCHSyZDJQM5NQ9Q9KHWHWh0NHgfbRMLLrceUK5qAL4ytALJbpRMjixFZh8A==
 
 xdg-basedir@^4.0.0:
   version "4.0.0"

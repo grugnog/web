@@ -20,7 +20,8 @@ export const metaSetter = (
   Component: Meta,
   { title, description, gql, intercom }: MetaData = {}
 ): MetaFunction => {
-  const keyName = String(Object.keys(Component)[0])
+  const componentKeys = Object.keys(Component)
+  const keyName = componentKeys?.length ? String(componentKeys[0]) : ''
   const value = Component[keyName]
   const nameStripped = keyName.replace(/([A-Z])/g, ' $1')
   const name = nameStripped.replace(' ', '')

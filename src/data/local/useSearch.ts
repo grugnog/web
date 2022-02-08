@@ -90,7 +90,7 @@ export function useSearch() {
   }
 
   const toggleModal = (bottom: boolean, text: string) => {
-    const txt = text  || ""
+    const txt = text || ''
     const hasPriorCom = txt?.includes('www') && txt?.includes('.')
 
     if (txt && !isUrl(txt) && !hasPriorCom) {

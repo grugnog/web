@@ -13,7 +13,7 @@ module.exports = {
     '^.+\\.(t|j)sx?$': '@swc/jest',
     '.+\\.(css|styl|less|sass|scss|png|jpg|ttf|woff|woff2)$':
       'jest-transform-stub',
-    '^.+\\.svg$': 'jest-svg-transformer',
+    '\\.svg$': '<rootDir>/jest-svg-transformer.js',
   },
   moduleNameMapper: {
     '^@app/(.*)$': '<rootDir>/src/$1',
@@ -24,4 +24,5 @@ module.exports = {
   verbose: true,
   coverageDirectory: './coverage/',
   collectCoverage: true,
+  testEnvironment: 'jsdom',
 }

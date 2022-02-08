@@ -48,16 +48,19 @@ const useStyles = makeStyles((theme) => ({
 
 const getBaseUrl = (baseURL: string) => {
   let url = baseURL
-  if (!dev && url) {
-    url = url
-      .replace('localhost:8090', cdn)
-      .replace('127.0.0.1:8090', cdn)
-      .replace('--1.png', '-1.png')
-    if (!url.includes('https')) {
-      url = url.replace('http', 'https')
+
+  if (url) {
+    if (!dev) {
+      url = url
+        .replace('localhost:8090', cdn)
+        .replace('127.0.0.1:8090', cdn)
+        .replace('--1.png', '-1.png')
+      if (!url.includes('https')) {
+        url = url.replace('http', 'https')
+      }
+    } else {
+      url = url.replace('127.0.0.1', 'localhost')
     }
-  } else {
-    url = url.replace('127.0.0.1', 'localhost')
   }
 
   return url

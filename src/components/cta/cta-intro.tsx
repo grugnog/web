@@ -11,8 +11,8 @@ import { CtaInput } from './searchbar'
 import { Link, SectionContainer } from '../general'
 import ExpandMore from '@material-ui/icons/ExpandMore'
 import Image from 'next/image'
-import BrowserStats from '../../../public/static/img/browser-stats.svg'
-import Intro from '../../../public/static/img/intro.svg'
+import BrowserStats from '@app/content/svgs/browser-stats.svg'
+import Intro from '@app/content/svgs/intro.svg'
 
 const useStyles = makeStyles((theme) => ({
   root: {
