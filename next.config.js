@@ -7,7 +7,6 @@
 const { resolve } = require('path')
 const { generateSiteMap } = require('./generate-sitemap')
 const withPWA = require('next-pwa')
-const runtimeCaching = require('next-pwa/cache')
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin')
 
 const dev = process.env.NODE_ENV !== 'production'
@@ -86,11 +85,11 @@ module.exports = withPWA({
     publicExcludes: ['!robots.txt', '!sitemap.xml.gz'],
     buildExcludes: [
       /middleware-manifest\.json$/,
+      /middleware-runtime.js$/,
       /_middleware.js$/,
       /_middleware.js.map$/,
       /chunks\/images\/.*$/,
     ],
-    runtimeCaching,
   },
   trailingSlash: false,
   swcMinify: true,

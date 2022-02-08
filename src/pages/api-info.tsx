@@ -140,6 +140,7 @@ function Api({ name }: PageProps) {
             <a
               href={'https://docs.a11ywatch.com/documentation/api'}
               target='_blank'
+              rel='noreferrer'
             >
               Documentation
             </a>

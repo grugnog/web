@@ -1,50 +1,40 @@
 import type { NextRequest, NextFetchEvent } from 'next/server'
 import { NextResponse } from 'next/server'
-import { getRouteType } from '@app/configs/next/next-route'
-import { logPage } from './api/_log-page'
+import { isWhitelisted } from '@app/configs/next/is-static-resource'
+import { logPage } from '@app/lib/_log-page'
 
 const ID_COOKIE_NAME = 'uuid'
 const JWT_COOKIE_NAME = 'jwt'
 // coming from vercel
 const VERCEL_PREFIX = `_vercel_`
 
+const ROOT_URL = `.${process.env.ROOT_URL}`
+
 export async function middleware(req: NextRequest, event: NextFetchEvent) {
-  const { staticResource, pageRequest } = getRouteType(req)
+  const whiteListed = isWhitelisted(req)
 
   let res = NextResponse.next()
 
   // vercel build or static resource ignore middleware
-  if (staticResource || req.cookies[`${VERCEL_PREFIX}${JWT_COOKIE_NAME}`]) {
+  if (whiteListed || req.cookies[`${VERCEL_PREFIX}${JWT_COOKIE_NAME}`]) {
     return res
   }
 
   let uuid = req.cookies[ID_COOKIE_NAME]
 
-  const hostname = req.headers.get('host')
-  const rootDomainHandle = `.${process.env.ROOT_URL}`
-  const currentHost = hostname?.replace(rootDomainHandle, '')
-
   if (!uuid) {
     uuid = crypto.randomUUID!()
   }
 
-  if (pageRequest) {
-    event.waitUntil(
-      (async () => {
-        try {
-          await logPage(req, uuid)
-        } catch (e) {
-          console.error(e)
-        }
-      })()
-    )
-  }
+  const currentHost = req.headers?.get('host')?.replace(ROOT_URL, '')
 
   if (
     currentHost === 'a11ywatch.blog' ||
     currentHost === 'www.a11ywatch.blog'
   ) {
-    res = NextResponse.rewrite(`/blog${req.nextUrl.pathname}`)
+    const url = req.nextUrl.clone()
+    url.pathname = `/blog${req.nextUrl.pathname}`
+    res = NextResponse.rewrite(url)
   }
 
   if (!req.cookies[ID_COOKIE_NAME]) {
@@ -54,6 +44,16 @@ export async function middleware(req: NextRequest, event: NextFetchEvent) {
       secure: process.env.NODE_ENV !== 'development',
     })
   }
+
+  event.waitUntil(
+    (async () => {
+      try {
+        await logPage(req, uuid)
+      } catch (e) {
+        console.error(e)
+      }
+    })()
+  )
 
   return res
 }

@@ -7,29 +7,25 @@ import type { BlogPageProps } from '@app/types'
 import React, { FC, Fragment, useMemo, memo } from 'react'
 import Head from 'next/head'
 import NextScript from 'next/script'
-import { Footer } from '@app/components/general'
-import { NavBar } from '@app/components/blog'
-import { companyName } from '@app/configs'
+import { Footer } from '@app/components/general/footer'
+import { NavBar } from '@app/components/blog/navbar'
+import { companyName } from '@app/configs/app-config'
 
 const getProps = (props: any = {}) => {
-  const mainProps = Object.assign({}, props, {
-    dangerouslySetInnerHTML: props?.children
-      ? {
-          __html: props?.children,
-        }
-      : undefined,
-    children: undefined,
-  })
+  const mainProps = props?.children
+    ? Object.assign({}, props, {
+        dangerouslySetInnerHTML: {
+          __html: props.children,
+        },
+      })
+    : props
 
-  if (!mainProps?.dangerouslySetInnerHTML?.__html) {
-    delete mainProps.dangerouslySetInnerHTML
-  }
   delete mainProps.children
 
   return mainProps
 }
 
-export const Page: FC<BlogPageProps> = ({
+const Page: FC<BlogPageProps> = ({
   html,
   websiteUrl,
   title,
@@ -56,12 +52,16 @@ export const Page: FC<BlogPageProps> = ({
   const memoBodyScripts = useMemo(
     () =>
       bodyScripts?.map((node, index) => {
-        const bodyScriptProps = getProps(node)
-        const keyID = bodyScriptProps?.id ?? `body-script-${index}`
+        const keyID = (node && node?.id) || `body-script-${index}`
 
         return (
-          <Fragment key={bodyScriptProps?.id ?? `body-script-${index}`}>
-            <NextScript {...bodyScriptProps} id={keyID} />
+          <Fragment key={keyID}>
+            <NextScript
+              id={keyID}
+              type={node?.type}
+              src={node?.src}
+              dangerouslySetInnerHTML={{ __html: node?.children }}
+            />
           </Fragment>
         )
       }),
@@ -77,9 +77,11 @@ export const Page: FC<BlogPageProps> = ({
           </Fragment>
         ))}
         {metas?.map((node, index) => {
+          const nodeName = node && node?.name
+
           return (
-            <Fragment key={`${node?.name}-${index}`}>
-              <meta key={node?.name} {...node} />
+            <Fragment key={`${nodeName}-${index}`}>
+              <meta key={nodeName} {...node} />
             </Fragment>
           )
         })}
@@ -87,7 +89,7 @@ export const Page: FC<BlogPageProps> = ({
           const styleProps = getProps(node)
 
           return (
-            <Fragment key={`${node?.id}-${index}`}>
+            <Fragment key={`${node && node?.id}-${index}`}>
               <style {...styleProps} />
             </Fragment>
           )

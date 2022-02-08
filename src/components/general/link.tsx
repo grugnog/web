@@ -11,14 +11,14 @@ import MuiLink from '@material-ui/core/Link'
 interface NextComposedProps {
   as?: string
   href: string
-  prefetch?: boolean
+  prefetch: boolean
 }
 
-const NextComposed = forwardRef(
-  (
-    { as, href, prefetch, ...other }: NextComposedProps,
-    ref: React.Ref<HTMLAnchorElement>
-  ) => (
+const NextComposed = forwardRef(function Link(
+  { as, href, prefetch = false, ...other }: NextComposedProps,
+  ref: React.Ref<HTMLAnchorElement>
+) {
+  return (
     <NextLink href={href} as={as} passHref prefetch={prefetch}>
       <a
         ref={ref}
@@ -29,9 +29,7 @@ const NextComposed = forwardRef(
       />
     </NextLink>
   )
-)
-
-NextComposed.displayName = 'NextComposed'
+})
 
 function MNLink({
   activeClassName = 'active',
@@ -73,10 +71,8 @@ function MNLink({
   )
 }
 
-const Link = forwardRef((props: any, ref: any) => (
-  <MNLink {...props} innerRef={ref} />
-))
-
-Link.displayName = 'Link'
+const Link = forwardRef(function Link(props: any, ref: any) {
+  return <MNLink {...props} innerRef={ref} />
+})
 
 export { Link }
