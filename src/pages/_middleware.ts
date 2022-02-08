@@ -1,7 +1,7 @@
 import type { NextRequest, NextFetchEvent } from 'next/server'
 import { NextResponse } from 'next/server'
 import { isWhitelisted } from '@app/configs/next/is-static-resource'
-import { logPage } from '@app/lib/_log-page'
+import { logPage } from '@app/lib/log-page'
 
 const ID_COOKIE_NAME = 'uuid'
 const JWT_COOKIE_NAME = 'jwt'
@@ -11,7 +11,12 @@ const VERCEL_PREFIX = `_vercel_`
 const ROOT_URL = `.${process.env.ROOT_URL}`
 
 export async function middleware(req: NextRequest, event: NextFetchEvent) {
-  const whiteListed = isWhitelisted(req)
+  const { pathname } = req.nextUrl
+  const whiteListed = isWhitelisted({
+    pathname,
+    pageName: req?.page?.name,
+    url: req.url,
+  })
 
   let res = NextResponse.next()
 

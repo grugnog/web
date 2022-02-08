@@ -7,7 +7,7 @@
 const { resolve } = require('path')
 const { generateSiteMap } = require('./generate-sitemap')
 const withPWA = require('next-pwa')
-const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin')
+const CssMinimizerPlugin = require('css-minimizer-webpack-plugin')
 
 const dev = process.env.NODE_ENV !== 'production'
 const DOMAIN_NAME = process.env.DOMAIN_NAME || 'https://a11ywatch.com'
@@ -136,7 +136,7 @@ module.exports = withPWA({
         config.optimization.minimizer = []
       }
       config.optimization.minimize = true
-      config.optimization.minimizer.push(new OptimizeCSSAssetsPlugin())
+      config.optimization.minimizer.push(new CssMinimizerPlugin())
     }
 
     return config

@@ -1,11 +1,12 @@
-import type { NextRequest } from 'next/server'
+type ExcludeProps = {
+  pathname: string
+  pageName?: string
+  url: string
+}
 
-const isWhitelisted = (req: NextRequest) => {
-  const { pathname } = req.nextUrl
-  const pageName = req?.page?.name
-
+const isWhitelisted = ({ pathname, pageName, url }: ExcludeProps) => {
   return (
-    req.url.includes('/static/') ||
+    url.includes('/static/') ||
     pathname.includes('.') ||
     pathname.startsWith('/src/') ||
     pathname.startsWith('/workbox-') ||

@@ -1,9 +1,8 @@
-import type { NextRequest } from 'next/server'
-import { getAPIRoute } from '@app/configs/api-route'
+import { getAPIRoute } from '@app/configs'
 
 const API_ROUTE = getAPIRoute('api', true)
 
-export const logPage = async (req: NextRequest, uuid: string) => {
+export const logPage = async (req: any, uuid: string) => {
   const headers = {
     'Content-Type': 'application/json',
     'User-Agent': '',
@@ -19,7 +18,7 @@ export const logPage = async (req: NextRequest, uuid: string) => {
     userID: uuid,
     screenResolution: undefined,
     documentReferrer: req.referrer,
-    ip: req.ip,
+    ip: req?.ip,
     _ga: req?.cookies['_ga'],
     geo: req.geo,
   })
