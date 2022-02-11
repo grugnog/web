@@ -13,7 +13,7 @@
     "preinstall": "./load-env.sh",
     "prebuild": "./scripts/create-robot.sh",
     "test": "jest",
-    "test:ci": "jest --forceExit --ci"
+    "test:ci": "jest --forceExit --ci --detectOpenHandles"
   },
   "dependencies": {
     "@a11ywatch/ui": "1.12.3",

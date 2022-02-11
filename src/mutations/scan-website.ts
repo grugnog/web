@@ -19,6 +19,7 @@ const SCAN_WEBSITE = gql`
         screenshotStill
         html
         timestamp
+        online
         script {
           script
         }

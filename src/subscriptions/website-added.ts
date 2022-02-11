@@ -15,6 +15,7 @@ export const WEBSITE_SUBSCRIPTION = gql`
       html
       htmlIncluded
       lastScanDate
+      online
       script {
         script
         cdnUrl

@@ -13,6 +13,7 @@ export const ADD_WEBSITE = gql`
         html
         htmlIncluded
         lastScanDate
+        online
         script {
           id
           script
