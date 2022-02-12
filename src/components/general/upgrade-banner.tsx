@@ -38,7 +38,7 @@ const styles = StyleSheet.create({
     position: Platform.OS === 'web' ? 'fixed' : 'absolute',
   },
   text: {
-    color: theme.palette.primary.light,
+    color: theme.palette.primary.main,
   },
 })
 
