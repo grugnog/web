@@ -54,11 +54,10 @@ const styles = StyleSheet.create({
   },
 })
 
-const InfoBlock: FC<{ title: string; titleButton?: React.ReactElement }> = ({
-  children,
-  title,
-  titleButton,
-}) => {
+const InfoBlock: FC<{
+  title: string
+  titleButton?: React.ReactElement
+}> = ({ children, title, titleButton }) => {
   return (
     <View style={styles.infoContainer}>
       <View style={styles.row}>
@@ -146,9 +145,9 @@ export function WebsiteCellDashboardComponent({
     mini?: boolean,
     url?: string
   ) => () => {
-    if (mini) {
+    if (mini && handleClickOpenPlayer) {
       handleClickOpenPlayer(true, eventData, title)()
-    } else {
+    } else if (handleClickOpen) {
       handleClickOpen(eventData, title, url)
     }
 

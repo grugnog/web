@@ -5,7 +5,6 @@
  **/
 import React, { Fragment, memo } from 'react'
 import dynamic from 'next/dynamic'
-import { Box } from '@a11ywatch/ui'
 import { Container } from '@material-ui/core'
 import { userData } from '@app/data'
 import { drawerStyles } from '@app/styles/drawer'
@@ -30,7 +29,7 @@ const UpgradeBanner = dynamic(
   }
 )
 
-function MainDrawerContainer({ route, dataSourceMap, classes }: any) {
+function MainDrawerContainerComponent({ route, dataSourceMap, classes }: any) {
   return (
     <div className={`${classes.drawer} ${classes.drawerPaper} print:hidden`}>
       <AuthedMenu dataSourceMap={dataSourceMap} route={route} />
@@ -45,7 +44,9 @@ function MainDrawerContainer({ route, dataSourceMap, classes }: any) {
   )
 }
 
-export function DrawerWrapper({
+const MainDrawerContainer = memo(MainDrawerContainerComponent)
+
+export function DrawerWrapperComponent({
   route: routePath,
   title = '',
   classes,
@@ -73,6 +74,8 @@ export function DrawerWrapper({
   )
 }
 
+const DrawerWrapper = memo(DrawerWrapperComponent)
+
 export function DrawerComponent({
   children,
   route,
@@ -98,7 +101,7 @@ export function DrawerComponent({
       />
       <main className={classes.content}>
         <Container maxWidth={'xl'}>
-          <Box
+          <div
             className={
               issueFeed?.data?.length && issueFeed.open
                 ? classes.sidePanelPadding
@@ -106,7 +109,7 @@ export function DrawerComponent({
             }
           >
             {children}
-          </Box>
+          </div>
         </Container>
         <ConfirmEmail
           sendEmail={sendConfirmEmail}

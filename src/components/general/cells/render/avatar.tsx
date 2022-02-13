@@ -24,10 +24,6 @@ const useStyles = makeStyles((theme) => ({
     boxShadow: `2px 1.5px ${theme.palette.secondary.main}`,
     background: 'rgb(211,211,211)',
   },
-  toolTip: {
-    background: theme.palette.secondary.main,
-    color: '#000',
-  },
   cdnText: {
     color: theme.palette.secondary.main,
     fontWeight: 800,
@@ -66,9 +62,6 @@ export function RenderAvatar({ adaScore, cdnConnected, error }: any) {
     <Tooltip
       title={`${ADASCORE} ${cdnConnected ? '- A11y CDN Connected' : ''}`}
       placement={'left'}
-      classes={{
-        tooltip: classes.toolTip,
-      }}
     >
       <ListItemAvatar>
         <Avatar {...avatarProps}>{inner}</Avatar>

@@ -4,7 +4,7 @@
  * LICENSE file in the root directory of this source tree.
  **/
 
-import React from 'react'
+import React, { memo } from 'react'
 import {
   FormControlLabel,
   Switch,
@@ -116,7 +116,7 @@ function renderGuide(index: number, events: any) {
   return null
 }
 
-export function FeaturesCell({
+export function FeaturesCellComponent({
   feature,
   alertEnabled = false,
   index,
@@ -160,3 +160,5 @@ export function FeaturesCell({
     </ListItem>
   )
 }
+
+export const FeaturesCell = memo(FeaturesCellComponent)

@@ -4,7 +4,7 @@
  * LICENSE file in the root directory of this source tree.
  **/
 
-import React, { Fragment } from 'react'
+import React, { Fragment, memo } from 'react'
 import { IconButton, MenuItem } from '@material-ui/core'
 import { logGraphErrors } from '@app/lib/log'
 import { MoreVert as MoreIcon } from '@material-ui/icons'
@@ -12,7 +12,7 @@ import { AppManager } from '@app/managers'
 import { Link } from '../../link'
 import { TopMenu } from '../../top-menu'
 
-export function MoreOptions({
+export function MoreOptionsComponent({
   url,
   removePress,
   removeWebsite,
@@ -102,3 +102,5 @@ export function MoreOptions({
     </Fragment>
   )
 }
+
+export const MoreOptions = memo(MoreOptionsComponent)
