@@ -6,41 +6,13 @@
 
 import React from 'react'
 import { Mail as MailIcon } from '@material-ui/icons'
-import { Pressable, Text, View, StyleSheet, Platform } from 'react-native'
-import { theme } from '@app-theme'
-import tailwind from 'tailwind-rn'
 
-const classes = StyleSheet.create({
-  sticky: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    display: 'flex',
-    // @ts-ignore
-    position: Platform.OS === 'web' ? 'fixed' : 'absolute',
-    bottom: theme.mixins.toolbar.minHeight,
-    left: 0,
-    right: 0,
-  },
-  container: {
-    padding: theme.spacing(3),
-    borderColor: theme.palette.primary.main,
-  },
-  text: {
-    color: theme.palette.text.primary,
-    // TODO: platform parseint
-    fontSize: theme.typography.body1.fontSize as number,
-    fontWeight: 'bold',
-  },
-  btn: {
-    minWidth: 'auto',
-    flex: 1,
-    flexDirection: 'row',
-    borderRadius: 4,
-    alignItems: 'center',
-    paddingHorizontal: theme.spacing(2),
-    paddingVertical: theme.spacing(1),
-  },
-})
+const classes = {
+  sticky: 'fixed flex justify-center bottom-11 left-0 right-0',
+  container: 'border p-3',
+  text: 'font-bold text-xl',
+  btn: 'flex rounded place-items-center px-2 py-1',
+}
 
 interface Props {
   sendEmail(): any
@@ -49,26 +21,28 @@ interface Props {
 
 function ConfirmEmail({ sendEmail, visible }: Props) {
   return !!visible ? (
-    <View style={classes.sticky}>
-      <View
-        style={[
+    <div className={classes.sticky}>
+      <div
+        className={[
           classes.container,
-          tailwind('border items-center flex flex-row rounded bg-gray-100'),
-        ]}
+          'border items-center flex flex-row rounded bg-gray-100',
+        ]
+          .join(' ')
+          .trim()}
       >
-        <Text style={[classes.text, tailwind('text-xl mr-5')]}>
+        <p className={[classes.text, 'text-xl mr-5'].join(' ').trim()}>
           Please confirm your email to enable alerts
-        </Text>
-        <Pressable
-          onPress={sendEmail}
-          accessibilityLabel={'Resend email confirmation'}
-          style={classes.btn}
+        </p>
+        <button
+          onClick={sendEmail}
+          title={'Resend email confirmation'}
+          className={classes.btn}
         >
           <MailIcon />
-          <Text style={[classes.text, tailwind('ml-2')]}>Resend</Text>
-        </Pressable>
-      </View>
-    </View>
+          <p className={[classes.text, 'ml-2'].join(' ').trim()}>Resend</p>
+        </button>
+      </div>
+    </div>
   ) : null
 }
 

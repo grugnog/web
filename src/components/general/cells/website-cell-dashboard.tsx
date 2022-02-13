@@ -5,7 +5,7 @@
  **/
 
 import React, { useState, memo, FC } from 'react'
-import { ListItemSecondaryAction, Button } from '@material-ui/core'
+import { Button } from '@material-ui/core'
 import { Link } from '../link'
 import { WebsiteSecondary, MoreOptions } from './render'
 import { ModalType } from '@app/data/enums'
@@ -166,13 +166,28 @@ export function WebsiteCellDashboardComponent({
   const reportsLink = `${BASE_GQL_URL}/${domain}`
 
   return (
-    <div
-      className={`w-full relative border p-4 pl-6 pr-20 rounded overflow-hidden`}
-    >
+    <div className={`w-full relative border p-4 pl-6 rounded overflow-hidden`}>
       <div className={'flex w-full'}>
         <div className={'w-full space-y-3'}>
           <div className='flex space-x-2'>
             <Text style={styles.title}>{url}</Text>
+            <MoreOptions
+              url={url}
+              issues={issues}
+              removeWebsite={removeWebsite}
+              crawlWebsite={crawlWebsite}
+              handleClose={handleClose}
+              handleMenu={handleMenu}
+              handleMainClick={handleMainClick}
+              modalClick={modalClick}
+              anchorEl={anchorEl}
+              setAnchorEl={setAnchorEl}
+              removePress={removePress}
+              subDomains={subDomains}
+              html={html}
+              pageHeaders={pageHeaders}
+              index={index}
+            />
           </div>
           <WebsiteSecondary
             issuesInfo={issuesInfo}
@@ -317,26 +332,6 @@ export function WebsiteCellDashboardComponent({
           View Details
         </Button>
       </CenterContainer>
-
-      <ListItemSecondaryAction>
-        <MoreOptions
-          url={url}
-          issues={issues}
-          removeWebsite={removeWebsite}
-          crawlWebsite={crawlWebsite}
-          handleClose={handleClose}
-          handleMenu={handleMenu}
-          handleMainClick={handleMainClick}
-          modalClick={modalClick}
-          anchorEl={anchorEl}
-          setAnchorEl={setAnchorEl}
-          removePress={removePress}
-          subDomains={subDomains}
-          html={html}
-          pageHeaders={pageHeaders}
-          index={index}
-        />
-      </ListItemSecondaryAction>
     </div>
   )
 }

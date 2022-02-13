@@ -4,10 +4,10 @@
  * LICENSE file in the root directory of this source tree.
  **/
 
-import React from 'react'
+import React, { memo } from 'react'
 import { ListItemSkeleton, ListItemIssuesSkeleton } from './list-item'
 
-export function ListSkeleton({
+export function ListSkeletonComponent({
   count = 3,
   subTitle = true,
   smallCircle = false,
@@ -25,3 +25,4 @@ export function ListSkeleton({
     />
   ))
 }
+export const ListSkeleton = memo(ListSkeletonComponent)

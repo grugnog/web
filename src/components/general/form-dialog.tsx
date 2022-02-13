@@ -154,7 +154,7 @@ export function FormDialogWrapper({
       <Button
         variant={'outlined'}
         onClick={handleClickOpen}
-        className={[classes.buttonAdjust, buttonStyles].join(' ')}
+        className={[classes.buttonAdjust, buttonStyles].join(' ').trim()}
       >
         {buttonTitle}
       </Button>

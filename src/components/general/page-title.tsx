@@ -29,7 +29,7 @@ const useStyles = makeStyles((theme) => ({
   },
   topBlock: {
     overflow: 'hidden',
-    marginBottom: 15,
+    paddingTop: 8,
   },
 }))
 

@@ -18,8 +18,7 @@ import { useMiniPlayer } from '@app/data'
 import { ListSkeleton } from '../placeholders'
 import { FullScreenModal } from './fullscreen-modal'
 import { WebsiteCellDashboard } from './cells'
-import { FormDialog } from '.'
-import Image from 'next/image'
+import { EmptyWebsiteForm } from './website/empty-form'
 
 const useStyles = makeStyles(() => ({
   empty: {
@@ -55,25 +54,22 @@ function WebSites({
   mutatationLoading,
   loading,
 }: any) {
-  return data?.map(
-    ({ url, id, pageHeaders, pageUrl, ...props }: any, index: number) => (
-      <WebsiteCellDashboard
-        handleClickOpen={handleClickOpen}
-        url={url || pageUrl}
-        key={`${id}-${url || pageUrl}-${index}`}
-        removePress={removePress}
-        refetch={refetch}
-        handleClickOpenPlayer={handleClickOpenPlayer}
-        crawlWebsite={crawlWebsite}
-        setModal={setModal}
-        loading={loading}
-        mutatationLoading={mutatationLoading}
-        pageHeaders={pageHeaders}
-        index={index}
-        {...props}
-      />
-    )
-  )
+  return data?.map(({ url, id, pageUrl, ...props }: any, index: number) => (
+    <WebsiteCellDashboard
+      handleClickOpen={handleClickOpen}
+      url={url || pageUrl}
+      key={`${id}-${url || pageUrl}`}
+      removePress={removePress}
+      refetch={refetch}
+      handleClickOpenPlayer={handleClickOpenPlayer}
+      crawlWebsite={crawlWebsite}
+      setModal={setModal}
+      loading={loading}
+      mutatationLoading={mutatationLoading}
+      index={index}
+      {...props}
+    />
+  ))
 }
 
 const defaultModalState = {
@@ -100,74 +96,43 @@ const RenderInnerComponent: FC<any> = ({
 }) => {
   const classes = useStyles()
 
-  if (!data?.length && loading) {
-    return <ListSkeleton />
-  }
-  if (!data.length && !loading && error) {
-    return (
-      <CardHeader
-        title='Error'
-        subheader='An Issue occured. Please try again. If issue persist please contact support.'
-        className={classes.empty}
-      />
-    )
-  }
-
-  if (data?.length) {
-    return (
-      <MUList>
-        <WebSites
-          data={data}
-          {...{
-            handleClickOpen,
-            handleClickOpenPlayer: setMiniPlayerContent,
-            removePress,
-            refetch,
-            crawlWebsite,
-            setModal,
-            mutatationLoading: mutatationLoading,
-          }}
+  if (!data.length) {
+    if (loading) {
+      return <ListSkeleton />
+    }
+    if (!loading && error) {
+      return (
+        <CardHeader
+          title='Error'
+          subheader='An Issue occured. Please try again. If issue persist please contact support.'
+          className={classes.empty}
         />
-      </MUList>
+      )
+    }
+    return (
+      <EmptyWebsiteForm
+        title={emptyHeaderTitle}
+        subheader={emptyHeaderSubTitle}
+        infoDetails={infoDetails}
+      />
     )
   }
 
   return (
-    <div
-      className={
-        'flex flex-col w-full place-items-center py-10 my-2 text-center'
-      }
-    >
-      <CardHeader
-        title={emptyHeaderTitle}
-        subheader={emptyHeaderSubTitle}
-        className={classes.empty}
-        titleTypographyProps={{ style: { fontSize: '3.1rem' } }}
+    <MUList>
+      <WebSites
+        data={data}
+        {...{
+          handleClickOpen,
+          handleClickOpenPlayer: setMiniPlayerContent,
+          removePress,
+          refetch,
+          crawlWebsite,
+          setModal,
+          mutatationLoading: mutatationLoading,
+        }}
       />
-      <FormDialog />
-      <div className={'flex space-items-center space-x-10 py-10'}>
-        <ul className={'w-full text-left space-y-2 md:w-1/2 md:pr-20'}>
-          {infoDetails.map(
-            (detail: { title: string; subTitle: string }, i: number) => {
-              return (
-                <li key={i}>
-                  <div className={'text-3xl font-semibold'}>{detail.title}</div>
-                  <div className={'text-xl'}>{detail.subTitle}</div>
-                </li>
-              )
-            }
-          )}
-        </ul>
-        <div className={'hidden md:block'}>
-          <Image
-            src={'/static/img/website_builder.svg'}
-            height={540}
-            width={660}
-            alt='Website accessibility builder'
-          />
-        </div>
-      </div>
-    </div>
+    </MUList>
   )
 }
 

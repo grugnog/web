@@ -44,6 +44,7 @@ const useStyles = makeStyles((theme) => ({
   submit: {
     marginTop: 10,
     width: 200,
+    border: `1px solid ${theme.palette.divider}`,
   },
   textCenter: {
     textAlign: 'center',

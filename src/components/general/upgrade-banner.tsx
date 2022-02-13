@@ -4,42 +4,26 @@
  * LICENSE file in the root directory of this source tree.
  **/
 import React from 'react'
-import { StyleSheet, Text, View, Platform } from 'react-native'
 import { UserManager } from '@app/managers'
-import { theme } from '@app-theme'
 import { Link } from './link'
+
+const styles = {
+  container:
+    'fixed bottom-0 left-0 right-0 p-2 z-1 w-full flex place-content-center',
+  text: 'text-black font-semibold',
+}
 
 const UpgradeBanner = (): any => {
   return UserManager.freeAccount ? (
-    <View style={styles.container}>
-      <Text style={styles.text}>
+    <div className={styles.container}>
+      <div className={styles.text}>
         Upgrade your account to add multiple websites, edit scripts, and more{' '}
         <Link href={'/payments'} style={{ fontWeight: 600 }}>
           UPGRADE
         </Link>
-      </Text>
-    </View>
+      </div>
+    </div>
   ) : null
 }
-
-const styles = StyleSheet.create({
-  container: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    display: 'flex',
-    padding: theme.spacing(1) + 3,
-    backgroundColor: theme.palette.background.default,
-    bottom: 0,
-    left: 0,
-    right: 0,
-    width: '100%',
-    zIndex: 1,
-    // @ts-ignore
-    position: Platform.OS === 'web' ? 'fixed' : 'absolute',
-  },
-  text: {
-    color: theme.palette.primary.main,
-  },
-})
 
 export { UpgradeBanner }

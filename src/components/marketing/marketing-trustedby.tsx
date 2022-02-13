@@ -15,7 +15,7 @@ const height = '56.45px'
 
 function MarketingImage({ src, alt, ext = 'svg' }: ImageProps) {
   return (
-    <div className='invert col-span-1 flex justify-center py-8 px-8 grayscale hover:grayscale-0'>
+    <div className='invert col-span-1 flex justify-center py-8 px-8 grayscale hover:grayscale-0 hover:invert-0 hover:bg-black'>
       <Image
         width={width}
         height={height}
