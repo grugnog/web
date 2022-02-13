@@ -195,7 +195,6 @@ const SignOnForm: FunctionComponent<SignOnProps> = ({
             />
           ) : (
             <Button
-              onClick={() => {}}
               className={classes.google}
               disabled={true}
               variant='text'

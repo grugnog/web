@@ -5,24 +5,19 @@
  **/
 
 import React from 'react'
-import { Typography } from '@material-ui/core'
 import { Box } from '@a11ywatch/ui'
 
 export function Failure({
-  title = 'Website failed to load',
-  subTitle = 'Please check your url and try again',
+  title = 'Website not found',
+  subTitle = 'Please check your url and try again.',
 }: {
   title?: string
   subTitle?: string
 }) {
   return (
     <Box>
-      <Typography variant='h5' component='h2'>
-        {title}
-      </Typography>
-      <Typography variant='subtitle1' component='p'>
-        {subTitle}
-      </Typography>
+      <h2 className='text-3xl font-semibold'>{title}</h2>
+      <div className='text-xl'>{subTitle}</div>
     </Box>
   )
 }

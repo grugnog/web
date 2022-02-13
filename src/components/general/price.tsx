@@ -36,7 +36,7 @@ const useStyles = makeStyles(() => ({
 
 const getStyles = (inactive: boolean) =>
   inactive
-    ? 'ml-0.5 relative w-1/2 border border-transparent rounded-md py-2 text-sm font-medium text-gray-400 whitespace-nowrap focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:z-10 sm:w-auto sm:px-8'
+    ? 'ml-0.5 relative w-1/2 border border-transparent rounded-md py-2 text-sm font-medium text-gray-500 whitespace-nowrap focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:z-10 sm:w-auto sm:px-8'
     : 'relative w-1/2 bg-gray-100 border-gray-200 rounded-md shadow-sm py-2 text-sm font-medium text-gray-900 whitespace-nowrap focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:z-10 sm:w-auto sm:px-8'
 
 const highLight = (
@@ -87,12 +87,12 @@ function PriceWrapper({
 
   function MainButton({ title }: { title: string }) {
     const buttonColor = getPrimaryColor(title)
-    let textColor = '#000'
+    let textColor = '#fff'
 
     if (title === 'Premium') {
     } else if (title === 'Free') {
     } else if (title === 'Basic') {
-      textColor = '#000'
+      textColor = '#fff'
     } else if (title === 'Enterprise') {
       textColor = '#fff'
     }
@@ -105,7 +105,7 @@ function PriceWrapper({
           style={{
             backgroundColor: buttonColor,
             color: textColor,
-            fontWeight: 600,
+            fontWeight: 800,
           }}
           href={
             title === 'Enterprise'
@@ -136,14 +136,18 @@ function PriceWrapper({
       <div className='flex sm:mt-6 py-4'>
         <button
           type='button'
-          onClick={() => setYearly(false)}
+          onClick={() => {
+            setYearly(false)
+          }}
           className={getStyles(yearly)}
         >
           Monthly billing
         </button>
         <button
           type='button'
-          onClick={() => setYearly(true)}
+          onClick={() => {
+            setYearly(true)
+          }}
           className={getStyles(!yearly)}
         >
           Yearly billing

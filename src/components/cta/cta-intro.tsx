@@ -42,6 +42,7 @@ const useStyles = makeStyles((theme) => ({
     marginTop: 10,
     width: 200,
     marginBottom: 20,
+    border: `1px solid ${theme.palette.divider}`,
     [theme.breakpoints.down('sm')]: {
       width: '50%',
     },
@@ -67,7 +68,7 @@ const useStyles = makeStyles((theme) => ({
     alignItems: 'center',
     display: 'flex',
     flexDirection: 'column',
-    color: '#7c828d',
+    color: '#6e747f',
   },
   bottomAnchor: {
     display: 'block',
@@ -121,9 +122,7 @@ function CtaIntro({ checker }: any) {
       </div>
       {checker ? null : (
         <div className={classes.join}>
-          <Typography variant='subtitle2' component={'p'} gutterBottom>
-            JOIN THOUSANDS OF HIGHLY PRODUCTIVE TEAMS
-          </Typography>
+          <p className='py-2'>JOIN THOUSANDS OF HIGHLY PRODUCTIVE TEAMS</p>
           <Image src={'/static/img/wave.svg'} height={8} width={120} alt='' />
           <a
             className={classes.bottomAnchor}

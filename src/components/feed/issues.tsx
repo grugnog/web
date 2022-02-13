@@ -26,7 +26,9 @@ const Feed: FC = () => {
             <IconButton
               edge='start'
               color='inherit'
-              onClick={() => setIssueFeedContent([], false)}
+              onClick={() => {
+                setIssueFeedContent([], false)
+              }}
               aria-label='close'
             >
               <CloseIcon />

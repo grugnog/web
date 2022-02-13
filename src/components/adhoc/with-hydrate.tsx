@@ -10,7 +10,11 @@ import { userModel } from '@app/data'
 export function WithHydrate({ children }: { children?: any }): any {
   useEffect(() => {
     userModel.initModel({
-      cookie: document.cookie,
+      cookie:
+        typeof navigator !== 'undefined' &&
+        typeof document !== 'undefined' &&
+        navigator.cookieEnabled &&
+        document.cookie,
     })
   }, [])
   return children

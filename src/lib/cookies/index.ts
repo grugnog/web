@@ -21,8 +21,7 @@ const parseCookie = (ck: string): any => {
         return Object.assign(res, {
           [key]: allNumbers(val) ? val : JSON.parse(val),
         })
-      } catch (e) {
-        // console.error('issue with parse' + e)
+      } catch (_) {
         return Object.assign(res, { [key]: val })
       }
     }, {})

@@ -72,7 +72,6 @@ function Careers({ name }: PageProps) {
         <Button
           component='a'
           href={'https://forms.gle/SE9vErBoUwNDk91q7'}
-          style={{ color: '#ccc' }}
           variant={'outlined'}
         >
           Apply Now

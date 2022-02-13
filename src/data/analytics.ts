@@ -8,7 +8,7 @@ import { useQuery } from '@apollo/react-hooks'
 import { GET_ANALYTICS } from '@app/queries'
 
 export const analyticsData = (query: boolean = true) => {
-  const { data, loading, refetch } = useQuery(GET_ANALYTICS, {
+  const { data, loading, refetch, error } = useQuery(GET_ANALYTICS, {
     variables: { filter: '' },
     skip: !query,
   })
@@ -17,5 +17,6 @@ export const analyticsData = (query: boolean = true) => {
     data: data?.user?.analytics || [],
     loading: loading,
     refetch,
+    error,
   }
 }

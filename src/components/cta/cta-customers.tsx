@@ -54,7 +54,9 @@ export function CtaCustomers() {
       <div className={classes.card}>
         {['twitter', 'github', 'dropbox'].map((item, i) => (
           <button
-            onClick={() => clickItem(`https://${item}.com`)}
+            onClick={() => {
+              clickItem(`https://${item}.com`)
+            }}
             aria-label={`Scan ${item} for issues`}
             key={item + i}
             style={{ border: 0 }}

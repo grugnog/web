@@ -20,7 +20,7 @@ import {
 } from '@app/subscriptions'
 import { UserManager, AppManager } from '@app/managers'
 import { useIssueFeed } from './local'
-import { sendNotification } from '@app/lib'
+// import { sendNotification } from '@app/lib'
 import type { OnSubscriptionDataOptions } from '@apollo/react-common'
 import type { Website } from '@app/types'
 
@@ -35,6 +35,8 @@ export const useWebsiteData = (
     customHeaders,
     url,
   }
+  const subscriptionVars = { userId: UserManager.getID }
+
   const { issueFeed, setIssueFeedContent } = useIssueFeed()
   const { data, loading, refetch, error } = useQuery(GET_WEBSITES, {
     variables,
@@ -80,8 +82,6 @@ export const useWebsiteData = (
     [websites]
   )
 
-  const subscriptionVars = { userId: UserManager.getID }
-
   useSubscription(SUBDOMAIN_SUBSCRIPTION, {
     variables: subscriptionVars,
     onSubscriptionData: updateSubDomain,
@@ -110,19 +110,17 @@ export const useWebsiteData = (
             dataSource.issues = [newIssue]
           }
 
-          requestAnimationFrame(() => {
-            AppManager.toggleSnack(
-              true,
-              `Insight found on ${newIssue?.pageUrl}`,
-              'success'
-            )
+          AppManager.toggleSnack(
+            true,
+            `Insight found on ${newIssue?.pageUrl}`,
+            'success'
+          )
 
-            setIssueFeedContent(dataSource.issues, true)
-            sendNotification(
-              newIssue?.pageUrl || '',
-              newIssue?.issues?.length || 0
-            )
-          })
+          setIssueFeedContent(dataSource.issues, true)
+          // sendNotification(
+          //   newIssue?.pageUrl || '',
+          //   newIssue?.issues?.length || 0
+          // )
         }
       }
     },

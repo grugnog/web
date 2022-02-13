@@ -45,7 +45,7 @@ const useStyles = makeStyles(() => ({
 
 function Analytics({ name }: PageProps) {
   const classes = useStyles()
-  const { data, loading } = analyticsData(true)
+  const { data, loading, error } = analyticsData(true)
   const { search } = useSearchFilter()
   const dataSource = filterSort(data, search)
 
@@ -73,7 +73,11 @@ function Analytics({ name }: PageProps) {
             </Box>
           </List>
         ) : !loading && !dataSource.length ? (
-          <Failure />
+          <Failure
+            subTitle={
+              error ? 'Issue occured with network' : 'Please add a website.'
+            }
+          />
         ) : (
           <List>
             {dataSource?.map((source: any, i: number) => {

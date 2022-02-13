@@ -37,6 +37,8 @@ function Dashboard({ name }: PageProps) {
 
   const { issueSubData } = subscriptionData
 
+  const websites = useMemo(() => filterSort(data, search), [data, search])
+
   useEffect(() => {
     if (issueSubData && events && !events?.firstAdd) {
       setEvents({
@@ -44,8 +46,6 @@ function Dashboard({ name }: PageProps) {
       })
     }
   }, [issueSubData, events, setEvents])
-
-  const websites = useMemo(() => filterSort(data, search), [data, search])
 
   return (
     <WithHydrate>

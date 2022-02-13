@@ -57,7 +57,7 @@ function ConfirmEmail({ sendEmail, visible }: Props) {
         ]}
       >
         <Text style={[classes.text, tailwind('text-xl mr-5')]}>
-          Please confirm your email to enable alerts and much more
+          Please confirm your email to enable alerts
         </Text>
         <Pressable
           onPress={sendEmail}

@@ -5,7 +5,6 @@
  **/
 
 import React from 'react'
-
 import { InputBase, Fade, Button } from '@material-ui/core'
 import { alpha, makeStyles } from '@material-ui/core/styles'
 import { Search as SearchIcon } from '@material-ui/icons'
@@ -49,9 +48,6 @@ const useStyles = makeStyles((theme) => ({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  inputRoot: {
-    color: 'inherit',
-  },
   inputInput: ({ noWidth }: any) => ({
     padding: theme.spacing(1, 1, 1, 7),
     transition: theme.transitions.create('width'),
@@ -94,7 +90,6 @@ export function SearchBar({ placeholder, noWidth, cta }: any) {
   }
 
   const searchStyles = {
-    root: classes.inputRoot,
     input: classes.inputInput,
   }
 
@@ -109,7 +104,6 @@ export function SearchBar({ placeholder, noWidth, cta }: any) {
             placeholder={placeholder || 'Search…'}
             classes={searchStyles}
             type={'search'}
-            color={'primary'}
             onChange={setSearchFilter}
             inputProps={{ 'aria-label': 'Search your websites' }}
           />

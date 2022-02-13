@@ -43,7 +43,7 @@ export const theme = (function () {
     },
     palette: {
       type: 'light',
-      primary: grey,
+      primary: { ...grey, main: '#707070' },
       secondary: {
         main: '#3f3d56',
       },

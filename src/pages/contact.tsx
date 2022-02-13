@@ -48,19 +48,16 @@ function Contact({ name }: PageProps) {
       <div style={center}>
         <a
           href={'mailto:support@a11ywatch.com'}
+          className={'text-blue-500'}
           style={{
-            color: '#ccc',
             textDecoration: 'none',
           }}
         >
-          <Box style={circleStyle}>
-            <Typography
-              variant='h5'
-              component='span'
-              style={{ fontWeight: 600 }}
-            >
-              Drop us an email
-            </Typography>
+          <Box
+            style={circleStyle}
+            className={'bg-blue-500 text-white font-bold text-xl'}
+          >
+            <span>Drop us an email</span>
           </Box>
         </a>
         <Spacer height={22} />
@@ -70,20 +67,16 @@ function Contact({ name }: PageProps) {
         <Spacer height={22} />
         <a
           href={'tel:(863) 225-3695‬'}
+          className={'text-blue-500'}
           style={{
-            color: '#ccc',
             textDecoration: 'none',
           }}
         >
-          <Box style={circleStyle}>
-            <Typography
-              variant='h5'
-              component='span'
-              color={'secondary'}
-              style={{ fontWeight: 600 }}
-            >
-              Call Us
-            </Typography>
+          <Box
+            style={circleStyle}
+            className={'bg-purple-500 text-white font-bold text-xl'}
+          >
+            <span>Call Us</span>
           </Box>
         </a>
       </div>

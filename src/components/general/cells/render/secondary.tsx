@@ -98,7 +98,6 @@ export function RenderSecondary({
             issues?.length === 1 || !issues.length ? '' : 's'
           }`}
           placement={'right'}
-          classes={{ tooltip: `${classes.toolTip} ${classes.warning}` }}
         >
           <Chip
             className={classes.adjust}
@@ -120,7 +119,6 @@ export function RenderSecondary({
               : `${possibleIssuesFixedByCdn} out of ${totalIssuesOnPage} issues on the current page can be fixed instantly with our custom cdn ( register or login to get all your url pages across your domains at once and access to a custom cdn fix script )`
           }
           placement={'right'}
-          classes={{ tooltip: classes.toolTip }}
         >
           <Chip
             variant='outlined'
@@ -139,7 +137,6 @@ export function RenderSecondary({
         <Tooltip
           title={`Last scan was at ${format(lastScan, 'MMMM d, yyyy hh:mm a')}`}
           placement={'right'}
-          classes={{ tooltip: classes.toolTip }}
         >
           <Chip
             variant='outlined'
@@ -156,7 +153,6 @@ export function RenderSecondary({
             pageHeaders.map((item: any) => ({ [item.key]: item.value }))
           )}`}
           placement={'right'}
-          classes={{ tooltip: classes.toolTip }}
         >
           <Chip
             variant='outlined'

@@ -14,7 +14,9 @@ const OverlayContainer = observer(({ store }: any) =>
   store.overlay ? (
     <button
       className={overlay}
-      onClick={() => store.toggleOverlay()}
+      onClick={() => {
+        store.toggleOverlay()
+      }}
       type='button'
     />
   ) : null

@@ -19,16 +19,6 @@ const useStyles = makeStyles((theme) => ({
   icon: {
     marginRight: '8px',
   },
-  red: {
-    background: '#ff3d00',
-  },
-  yellow: {
-    background: '#ffea00',
-    color: '#000',
-  },
-  green: {
-    background: '#00a152',
-  },
 }))
 
 export function PageLoad({
@@ -48,15 +38,6 @@ export function PageLoad({
         pageLoadTime?.durationFormated
       } at ${durationToSeconds.toFixed(fixedLength)} seconds`}
       placement={'right'}
-      classes={{
-        tooltip: `${classes.toolTip} ${
-          pageLoadTime?.duration > 5000
-            ? classes.red
-            : pageLoadTime?.duration > 1500
-            ? classes.yellow
-            : classes.green
-        }`,
-      }}
     >
       <Chip
         className={classes.icon}

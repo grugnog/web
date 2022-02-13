@@ -55,7 +55,9 @@ export function EnableNotifications() {
         </Button>
         <Button
           className={classes.see}
-          onClick={() => setModal({ open: false })}
+          onClick={() => {
+            setModal({ open: false })
+          }}
         >
           {strings.alerts.notNow}
         </Button>
