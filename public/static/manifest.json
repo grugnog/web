@@ -3,7 +3,7 @@
   "name": "A11yWatch",
   "icons": [
     {
-      "src": "/static/img/favicon-small.png",
+      "src": "/static/img/favicon-small.ico",
       "sizes": "192x192",
       "type": "image/png"
     },

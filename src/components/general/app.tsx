@@ -89,7 +89,7 @@ export function MyApp({ Component, pageProps }: InnerApp) {
           content={`${DOMAIN_NAME}/static/img/intro-poster.png`}
         />
         <meta property='og:description' content={description} />
-        <link rel='apple-touch-icon' href='/static/img/favicon-small.png' />
+        <link rel='apple-touch-icon' href='/static/img/favicon-small.ico' />
         <link rel='icon' type='image/x-icon' href='/static/img/favicon.png' />
       </Head>
       <ThemeProvider theme={theme}>

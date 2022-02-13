@@ -110,17 +110,12 @@ export const useWebsiteData = (
             dataSource.issues = [newIssue]
           }
 
+          setIssueFeedContent(dataSource.issues, true)
           AppManager.toggleSnack(
             true,
             `Insight found on ${newIssue?.pageUrl}`,
             'success'
           )
-
-          setIssueFeedContent(dataSource.issues, true)
-          // sendNotification(
-          //   newIssue?.pageUrl || '',
-          //   newIssue?.issues?.length || 0
-          // )
         }
       }
     },

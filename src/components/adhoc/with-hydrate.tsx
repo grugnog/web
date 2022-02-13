@@ -4,10 +4,10 @@
  * LICENSE file in the root directory of this source tree.
  **/
 
-import { useEffect } from 'react'
+import { useEffect, memo } from 'react'
 import { userModel } from '@app/data'
 
-export function WithHydrate({ children }: { children?: any }): any {
+function WithHydrateComponent({ children }: { children?: any }): any {
   useEffect(() => {
     userModel.initModel({
       cookie:
@@ -19,3 +19,5 @@ export function WithHydrate({ children }: { children?: any }): any {
   }, [])
   return children
 }
+
+export const WithHydrate = memo(WithHydrateComponent)
