@@ -1,11 +1,12 @@
 import type { IssueData } from '@app/data/local/useIssueFeed'
+import { ApolloError } from 'apollo-client'
 
 export const sharedWebsiteDefaults = {
   issueFeed: { data: [] as IssueData[], open: false },
   loading: false,
   mutatationLoading: false,
   data: [],
-  error: undefined,
+  error: undefined as ApolloError | undefined,
   subscriptionData: {
     issueSubData: null,
   },

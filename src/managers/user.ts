@@ -60,7 +60,9 @@ class UserManager {
   }
 
   @computed get token() {
-    return userModel?.jwt || this?.user?.jwt
+    return (
+      (typeof userModel !== 'undefined' && userModel?.jwt) || this?.user?.jwt
+    )
   }
 
   @computed get jwtParsed() {

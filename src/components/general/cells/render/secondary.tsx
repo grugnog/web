@@ -5,6 +5,7 @@
  **/
 
 import React from 'react'
+import { format } from 'date-fns'
 import { useMediaQuery, Chip, Typography, Tooltip } from '@material-ui/core'
 import {
   Update as CalendarIcon,
@@ -13,23 +14,11 @@ import {
   Policy as PolicyIcon,
 } from '@material-ui/icons'
 import { makeStyles, createStyles } from '@material-ui/core/styles'
-import { format } from 'date-fns'
-import { PageLoad } from './page-load'
 import type { MergedTheme } from '@app/theme'
+import { PageLoad } from './page-load'
 
-const useStyles = makeStyles(({ palette, breakpoints }: MergedTheme) =>
+const useStyles = makeStyles(({ breakpoints }: MergedTheme) =>
   createStyles({
-    adaScore: {
-      fontSize: '12px',
-      fontWeight: 800,
-      position: 'relative',
-    },
-    toolTip: {
-      background: palette.secondary.main,
-      color: '#000',
-      fontWeight: 600,
-      fontSize: '0.85em',
-    },
     row: {
       display: 'flex',
       alignItems: 'center',
@@ -48,24 +37,15 @@ const useStyles = makeStyles(({ palette, breakpoints }: MergedTheme) =>
         marginRight: '5px',
       },
     },
-    warning: {
-      background: palette.warning.main,
-      color: palette.text.secondary,
-    },
   })
 )
 
 export function RenderSecondary({
   adaScore,
-  // cdnConnected,
-  // error,
   pageLoadTime = {
     duration: 0,
   },
   issues = [],
-  // issue = [],
-  // secondaryText,
-  // mutatationLoading,
   lastScanDate,
   issuesInfo,
   pageHeaders,
@@ -76,6 +56,7 @@ export function RenderSecondary({
   const totalIssuesOnPage = issuesInfo?.totalIssues
   const issuesFixedByCdn = issuesInfo?.issuesFixedByCdn
   const lastScan = (lastScanDate && new Date(lastScanDate)) || new Date()
+
   let allPageIssues = 0
 
   if (issues?.length) {

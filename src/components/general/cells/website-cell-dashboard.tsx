@@ -11,7 +11,7 @@ import { WebsiteSecondary, MoreOptions } from './render'
 import { ModalType } from '@app/data/enums'
 import { InfoCenterContainer } from './info-center-container'
 import { SCRIPTS_CDN_URL_HOST, AppConfig } from '@app/configs'
-import { a11yDark } from '@app/styles'
+import { prismStyles } from '@app/styles'
 import { PrismLight } from 'react-syntax-highlighter'
 import { copyClipboard } from '@app/lib'
 import { classNames } from '@app/utils'
@@ -22,18 +22,6 @@ const styles = {
   spacing: 'py-2',
   row: 'flex flex-1',
   metaBlock: 'px-2 py-1 border',
-}
-
-const prismStyles = {
-  ...a11yDark,
-  hljs: {
-    ...a11yDark.hljs,
-    background: '',
-    color: '',
-    padding: 0,
-    overflow: 'hidden',
-    maxWidth: '74vw',
-  },
 }
 
 const BASE_GQL_URL = `${AppConfig?.graphQLUrl
@@ -75,8 +63,7 @@ export function WebsiteCellDashboardComponent({
   const handleClose = () => {
     setAnchorEl(null)
   }
-  const removeWebsite = (e: any) => {
-    e?.preventDefault()
+  const removeWebsite = () => {
     removePress(url)
   }
 
@@ -105,6 +92,8 @@ export function WebsiteCellDashboardComponent({
   const cdnUrlMinifed = `${SCRIPTS_CDN_URL_HOST}/${script?.cdnUrlMinified}`
   const statusBadgeUrl = `${STATUS_URL}/${domain}`
   const reportsLink = `${BASE_GQL_URL}/${domain}`
+
+  const statusBadgeLanguage = isMarkdown ? 'markdown' : 'html'
 
   return (
     <div className={`w-full relative border p-4 pl-6 rounded overflow-hidden`}>
@@ -218,25 +207,17 @@ export function WebsiteCellDashboardComponent({
               </div>
             }
           >
-            {isMarkdown ? (
-              <PrismLight
-                language='markdown'
-                style={prismStyles}
-                onClick={copyClipboard}
-                className={'hover:bg-blue-500 cursor-pointer'}
-              >
-                {`[![A11yWatch](${statusBadgeUrl})](${reportsLink})`}
-              </PrismLight>
-            ) : (
-              <PrismLight
-                language='html'
-                style={prismStyles}
-                onClick={copyClipboard}
-                className={'hover:bg-blue-500 cursor-pointer'}
-              >
-                {`<a href="${reportsLink}"><img src="${statusBadgeUrl}" /></a>`}
-              </PrismLight>
-            )}
+            <PrismLight
+              language={statusBadgeLanguage}
+              style={prismStyles}
+              onClick={copyClipboard}
+              className={'hover:bg-blue-500 cursor-pointer'}
+            >
+              {statusBadgeLanguage === 'markdown'
+                ? `[![A11yWatch](${statusBadgeUrl})](${reportsLink})`
+                : `<a href="${reportsLink}"><img src="${statusBadgeUrl}" /></a>`}
+            </PrismLight>
+
             <div className='py-3'>
               <Link href={reportsLink}>
                 <img

@@ -4,5 +4,5 @@
  * LICENSE file in the root directory of this source tree.
  **/
 
-export { a11yDark } from './editor'
+export { a11yDark, prismStyles } from './editor'
 export { ringKeyFrames, pulseStyles, rollStyles } from './keyframes'

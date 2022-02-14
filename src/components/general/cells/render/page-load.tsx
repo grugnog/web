@@ -25,7 +25,6 @@ export function PageLoad({
   pageLoadTime = {
     duration: 0,
   },
-  mobile,
 }: any) {
   const classes = useStyles()
   const durationToSeconds = pageLoadTime?.duration / 1000
@@ -34,9 +33,9 @@ export function PageLoad({
 
   return pageLoadTime?.duration ? (
     <Tooltip
-      title={`Page load time is ${
-        pageLoadTime?.durationFormated
-      } at ${durationToSeconds.toFixed(fixedLength)} seconds`}
+      title={`Page load time is ${pageLoadTime?.durationFormated ?? 'N/A'} at ${
+        durationToSeconds.toFixed(fixedLength) || 0
+      } seconds`}
       placement={'right'}
     >
       <Chip
@@ -44,7 +43,7 @@ export function PageLoad({
         variant='outlined'
         size='small'
         avatar={<SpeedIcon style={{ color: pageLoadTime.color }} />}
-        label={mobile ? 'spd' : 'Speed'}
+        label={'Speed'}
       />
     </Tooltip>
   ) : null

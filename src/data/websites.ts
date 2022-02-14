@@ -20,7 +20,6 @@ import {
 } from '@app/subscriptions'
 import { UserManager, AppManager } from '@app/managers'
 import { useIssueFeed } from './local'
-// import { sendNotification } from '@app/lib'
 import type { OnSubscriptionDataOptions } from '@apollo/react-common'
 import type { Website } from '@app/types'
 
@@ -30,12 +29,12 @@ export const useWebsiteData = (
   customHeaders: any = null,
   skip: boolean = false
 ) => {
+  const subscriptionVars = { userId: UserManager.getID }
   const variables = {
     filter,
     customHeaders,
     url,
   }
-  const subscriptionVars = { userId: UserManager.getID }
 
   const { issueFeed, setIssueFeedContent } = useIssueFeed()
   const { data, loading, refetch, error } = useQuery(GET_WEBSITES, {
@@ -54,10 +53,7 @@ export const useWebsiteData = (
   const [updateWebsite, { data: updateData }] = useMutation(UPDATE_WEBSITE, {
     variables,
   })
-  const [
-    crawlWebsite,
-    { data: crawlData, loading: crawlLoading },
-  ] = useMutation(CRAWL_WEBSITE)
+  const [crawlWebsite, { loading: crawlLoading }] = useMutation(CRAWL_WEBSITE)
 
   const websites = data?.user?.websites || []
 
@@ -92,6 +88,7 @@ export const useWebsiteData = (
       const newIssue = subscriptionData?.data?.issueAdded
 
       if (newIssue) {
+        // use apollo cache instead
         const dataSource = websites.find(
           (source: any) => source.domain === newIssue.domain
         )
@@ -162,6 +159,7 @@ export const useWebsiteData = (
         pageLoadTime,
         issuesInfo,
       } = websiteUpdated?.websiteAdded
+
       const dataSource = websites.find(
         (source: Website) => source.domain === domain
       )
@@ -191,19 +189,6 @@ export const useWebsiteData = (
       AppManager.toggleSnack(true, addWebsiteData.addWebsite.message, 'warning')
     }
   }, [addWebsiteData])
-
-  useEffect(() => {
-    if (crawlData && websites?.length) {
-      const crawledWebsite = crawlData?.crawlWebsite?.website
-      let dataSource = websites.find(
-        (source: Website) => source.domain === crawledWebsite?.domain
-      )
-
-      if (dataSource) {
-        dataSource = crawledWebsite
-      }
-    }
-  }, [crawlData])
 
   const addWebsite = useCallback(
     async (variables: { url?: string; customHeaders?: string[] }) => {

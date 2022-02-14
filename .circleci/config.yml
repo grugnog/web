@@ -3,7 +3,6 @@ orbs:
   codecov: codecov/codecov@1.0.2
 jobs:
   web:
-    resource_class: xlarge
     docker:
       - image: cimg/node:14.17.0
     steps:

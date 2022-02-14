@@ -11,12 +11,7 @@ export const WebsiteProviderComponent: FC<{ websiteQuery?: boolean }> = ({
   children,
   websiteQuery,
 }) => {
-  const data = useWebsiteData('', '', null, websiteQuery)
-
-  const sharedState = {
-    ...data,
-    error: data?.error as any,
-  }
+  const sharedState = useWebsiteData('', '', null, websiteQuery)
 
   return <WebsiteProvider value={sharedState}>{children}</WebsiteProvider>
 }
