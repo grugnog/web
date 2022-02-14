@@ -63,7 +63,6 @@ const aliases = {
   ['@app']: resolve(__dirname, './src'),
   ['@app-theme']: resolve(__dirname, `./src/theme/${themeType}`),
   ['@app-strings']: resolve(__dirname, `./src/content/strings/${stringType}`),
-  'react-native$': 'react-native-web',
 }
 
 const securityHeaders = [
@@ -120,6 +119,7 @@ module.exports = withPWA({
 
     config.module.rules.push({
       test: /\.svg$/,
+      // NOTE: remove svgr webpack due to extra rn deps
       use: [{ loader: '@svgr/webpack', options: { titleProp: true } }],
     })
 

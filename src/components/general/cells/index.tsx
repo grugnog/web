@@ -17,3 +17,5 @@ export {
 } from './render'
 export { ProfileCell } from './profile-cell'
 export { WebsiteIssuesCell } from './website-issues-cell'
+export { InfoBlock } from './info-block'
+export { InfoCenterContainer } from './info-center-container'

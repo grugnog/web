@@ -19,7 +19,6 @@ module.exports = {
     '^@app/(.*)$': '<rootDir>/src/$1',
     '@app-strings': '<rootDir>/src/content/strings/a11y/',
     '@app-theme': '<rootDir>/src/theme/main/',
-    'react-native$': 'react-native-web',
   },
   verbose: true,
   coverageDirectory: './coverage/',

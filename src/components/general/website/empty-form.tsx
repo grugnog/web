@@ -32,7 +32,12 @@ const infoDetails = [
   },
 ]
 
-const EmptyWebsiteFormComponent: FC<any> = ({
+interface EmptyWebsiteProps {
+  emptyHeaderTitle?: string
+  emptyHeaderSubTitle?: string
+}
+
+const EmptyWebsiteFormComponent: FC<EmptyWebsiteProps> = ({
   emptyHeaderTitle = 'Empty',
   emptyHeaderSubTitle = 'Add your website below',
 }) => {

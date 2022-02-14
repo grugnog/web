@@ -4,84 +4,25 @@
  * LICENSE file in the root directory of this source tree.
  **/
 
-import React, { useState, memo, FC } from 'react'
+import React, { useState, memo } from 'react'
 import { Button } from '@material-ui/core'
 import { Link } from '../link'
 import { WebsiteSecondary, MoreOptions } from './render'
 import { ModalType } from '@app/data/enums'
-import { View, Text, StyleSheet } from 'react-native'
-import { theme } from '@app-theme'
-import tailwind from 'tailwind-rn'
+import { InfoCenterContainer } from './info-center-container'
 import { SCRIPTS_CDN_URL_HOST, AppConfig } from '@app/configs'
 import { a11yDark } from '@app/styles'
 import { PrismLight } from 'react-syntax-highlighter'
 import { copyClipboard } from '@app/lib'
 import { classNames } from '@app/utils'
+import { InfoBlock } from './info-block'
 
-const styles = StyleSheet.create({
-  title: {
-    maxWidth: '80vw',
-    overflow: 'hidden',
-    textOverflow: 'ellipsis',
-    flex: 1,
-    fontSize: '1.9rem' as any,
-    fontWeight: 'bold',
-  },
-  infoContainer: {
-    paddingVertical: theme.spacing(1),
-    paddingRight: theme.spacing(2),
-  },
-  editor: {
-    overflow: 'hidden',
-    maxWidth: '70vw',
-  },
-  text: {
-    color: '#000',
-    fontSize: 16,
-  },
-  spacing: {
-    marginTop: theme.spacing(2),
-  },
-  row: {
-    flex: 1,
-    flexDirection: 'row',
-  },
-  metaBlock: {
-    borderWidth: 1,
-    borderColor: theme.palette.divider,
-    paddingHorizontal: theme.spacing(2),
-    paddingVertical: theme.spacing(1),
-  },
-})
-
-const InfoBlock: FC<{
-  title: string
-  titleButton?: React.ReactElement
-}> = ({ children, title, titleButton }) => {
-  return (
-    <View style={styles.infoContainer}>
-      <View style={styles.row}>
-        <Text
-          style={[
-            styles.text,
-            tailwind(`text-black font-bold w-28 ${titleButton ? 'mr-3' : ''}`),
-          ]}
-        >
-          {title}
-        </Text>
-        {titleButton}
-      </View>
-      <View style={styles.spacing} />
-      {children}
-    </View>
-  )
+const styles = {
+  title: 'flex flex-1 text-3xl font-bold text-ellipsis overflow-hidden',
+  spacing: 'py-2',
+  row: 'flex flex-1',
+  metaBlock: 'px-2 py-1 border',
 }
-
-const CenterContainer: FC = ({ children }) => (
-  <div className={'flex flex-col w-full place-items-center py-2 my-2'}>
-    {children}
-  </div>
-)
 
 const prismStyles = {
   ...a11yDark,
@@ -170,7 +111,7 @@ export function WebsiteCellDashboardComponent({
       <div className={'flex w-full'}>
         <div className={'w-full space-y-3'}>
           <div className='flex space-x-2'>
-            <Text style={styles.title}>{url}</Text>
+            <p className={styles.title}>{url}</p>
             <MoreOptions
               url={url}
               issues={issues}
@@ -201,47 +142,35 @@ export function WebsiteCellDashboardComponent({
           />
         </div>
       </div>
-      <View style={styles.spacing} />
 
-      <View style={[styles.row, tailwind('flex-wrap py-1')]}>
+      <div className={styles.spacing} />
+
+      <div className={[styles.row, 'flex-wrap py-1'].join(' ')}>
         <InfoBlock title={'Accessibility Score'}>
-          <Text style={styles.text}>
-            {adaScore || adaScore === 0 ? `${adaScore}%` : 'N/A'}
-          </Text>
+          {adaScore || adaScore === 0 ? `${adaScore}%` : 'N/A'}
         </InfoBlock>
-
         <InfoBlock title={'Pages'}>
-          <Text style={styles.text}>{subDomains?.length}</Text>
+          <p>{subDomains?.length}</p>
         </InfoBlock>
-
         <InfoBlock title={'Page Load Time'}>
-          {pageLoadTime?.durationFormated ? (
-            <Text style={styles.text}>
-              {pageLoadTime?.durationFormated} at{' '}
-              <Text style={{ color: pageLoadTime?.color, fontWeight: 'bold' }}>
-                {pageLoadTime?.duration}ms
-              </Text>
-            </Text>
-          ) : (
-            <Text style={styles.text}>0ms</Text>
-          )}
+          <span>
+            {pageLoadTime?.durationFormated ?? 'N/A'} at{' '}
+            <b>{pageLoadTime?.duration ?? 0}ms</b>
+          </span>
         </InfoBlock>
-
         <InfoBlock title={'CDN Connected'}>
-          <Text style={styles.text}>{cdnConnected ? 'Yes' : 'No'}</Text>
+          <p>{cdnConnected ? 'Yes' : 'No'}</p>
         </InfoBlock>
-
         <InfoBlock title={'Headers Included'}>
-          <Text style={styles.text}>{pageHeaders ? 'Yes' : 'No'}</Text>
+          <p>{pageHeaders ? 'Yes' : 'No'}</p>
         </InfoBlock>
         <InfoBlock title={'Website Online'}>
-          <Text style={styles.text}>{online ? 'Yes' : 'No'}</Text>
+          <p>{online ? 'Yes' : 'No'}</p>
         </InfoBlock>
-      </View>
-      <View style={styles.spacing} />
-      <View style={styles.spacing} />
-
-      <View style={styles.metaBlock}>
+      </div>
+      <div className={styles.spacing} />
+      <div className={styles.spacing} />
+      <div className={styles.metaBlock}>
         <InfoBlock
           title={'Custom CDN'}
           titleButton={
@@ -320,18 +249,18 @@ export function WebsiteCellDashboardComponent({
             </div>
           </InfoBlock>
         ) : null}
-      </View>
+      </div>
 
-      <CenterContainer>
+      <InfoCenterContainer>
         <Button
           component={Link}
           href={`/website-details?websiteUrl=${encodeURIComponent(url)}`}
           color={'inherit'}
           className={'w-40'}
         >
-          View Details
+          View Website
         </Button>
-      </CenterContainer>
+      </InfoCenterContainer>
     </div>
   )
 }

@@ -26,23 +26,6 @@ const useStyles = makeStyles(() => ({
   },
 }))
 
-const infoDetails = [
-  {
-    title: 'Detailed information',
-    subTitle:
-      'Get spot on details on how to improve your website in various areas. Stay up to date on the latest guidelines and more as they come out.',
-  },
-  {
-    title: 'Safe Guard',
-    subTitle: `Include your custom CDN at no cost and make sure issues are fixed upfront. Sometimes accidents happens thats why we got your back.`,
-  },
-  {
-    title: 'Alerts',
-    subTitle:
-      'Get alerted when your page encounters new issues at any frequency.',
-  },
-]
-
 function WebSites({
   data,
   removePress,
@@ -85,7 +68,7 @@ const RenderInnerComponent: FC<any> = ({
   error,
   loading,
   removePress,
-  emptyHeaderTitle = 'Empty',
+  emptyHeaderTitle,
   emptyHeaderSubTitle = 'Add your website below',
   refetch,
   crawlWebsite,
@@ -111,9 +94,8 @@ const RenderInnerComponent: FC<any> = ({
     }
     return (
       <EmptyWebsiteForm
-        title={emptyHeaderTitle}
-        subheader={emptyHeaderSubTitle}
-        infoDetails={infoDetails}
+        emptyHeaderTitle={emptyHeaderTitle}
+        emptyHeaderSubTitle={emptyHeaderSubTitle}
       />
     )
   }
