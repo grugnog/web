@@ -192,41 +192,6 @@ export const useWebsiteData = (
     }
   }, [addWebsiteData])
 
-  const addWebsite = async (variables: {
-    url?: string
-    customHeaders?: string[]
-  }) => {
-    AppManager.toggleSnack(
-      true,
-      'Checking all pages for issues, please wait...',
-      'success'
-    )
-    try {
-      return await addWebsiteMutation({
-        variables: {
-          userId: UserManager?.getID,
-          ...variables,
-        },
-      })
-    } catch (e) {
-      console.error(e)
-    }
-  }
-
-  const removePress = async (url?: string, deleteMany: boolean = false) => {
-    try {
-      await removeWebsite({
-        variables: {
-          url,
-          userId: UserManager?.getID,
-          deleteMany,
-        },
-      })
-    } catch (e) {
-      console.error(e)
-    }
-  }
-
   return {
     subscriptionData: {
       issueSubData,
@@ -237,11 +202,10 @@ export const useWebsiteData = (
     error,
     issueFeed,
     removeWebsite,
-    addWebsite,
+    addWebsite: addWebsiteMutation,
     refetch,
     crawlWebsite,
     updateWebsite,
     setIssueFeedContent,
-    removePress,
   }
 }

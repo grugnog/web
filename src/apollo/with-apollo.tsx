@@ -38,7 +38,7 @@ const createLink = (): ApolloLink => {
   })
 
   const errorLink = onError(({ graphQLErrors, networkError }: any) => {
-    if (process.browser) {
+    if (typeof window !== 'undefined') {
       let graphErrors = ''
       graphQLErrors?.map(({ message }: { message?: string }) => {
         if (message) {
@@ -66,7 +66,7 @@ const createLink = (): ApolloLink => {
 
   let httpSplit = httpLink
 
-  if (process.browser) {
+  if (typeof window !== 'undefined') {
     const wsLink = new SubscriptionClient(AppConfig.webSocketUrl + '', {
       reconnect: true,
       timeout: 10000,

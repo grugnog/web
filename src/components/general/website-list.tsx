@@ -3,14 +3,7 @@
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
  **/
-import React, {
-  memo,
-  Fragment,
-  FC,
-  useState,
-  useEffect,
-  useCallback,
-} from 'react'
+import React, { Fragment, FC, useState, useEffect, useCallback } from 'react'
 import { List as MUList, CardHeader } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 
@@ -63,7 +56,7 @@ const defaultModalState = {
   error: '',
 }
 
-const RenderInnerComponent: FC<any> = ({
+const RenderInner: FC<any> = ({
   data,
   error,
   loading,
@@ -118,9 +111,7 @@ const RenderInnerComponent: FC<any> = ({
   )
 }
 
-const RenderInner = memo(RenderInnerComponent)
-
-export function WebsiteListComponent({
+export function WebsiteList({
   data,
   error,
   loading,
@@ -178,5 +169,3 @@ export function WebsiteListComponent({
     </Fragment>
   )
 }
-
-export const WebsiteList = memo(WebsiteListComponent)

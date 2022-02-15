@@ -28,7 +28,7 @@ function Dashboard({ name }: PageProps) {
     error,
     loading,
     mutatationLoading,
-    removePress,
+    removeWebsite,
     refetch,
     crawlWebsite,
     subscriptionData,
@@ -62,7 +62,12 @@ function Dashboard({ name }: PageProps) {
                       )
                     ) {
                       try {
-                        await removePress('', true)
+                        await removeWebsite({
+                          variables: {
+                            url: '',
+                            deleteMany: true,
+                          },
+                        })
                       } catch (e) {
                         console.error(e)
                       }
@@ -84,7 +89,7 @@ function Dashboard({ name }: PageProps) {
           error={error}
           loading={loading}
           mutatationLoading={mutatationLoading}
-          removePress={removePress}
+          removePress={removeWebsite}
           crawlWebsite={crawlWebsite}
           refetch={refetch}
           setModal={setModal}

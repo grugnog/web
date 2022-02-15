@@ -25,6 +25,7 @@ import { InputHeaders } from './input-headers'
 import { useInputHeader } from './hooks'
 import { formDialogStyles as useStyles } from './styles'
 import { useWebsiteContext } from '../providers/website'
+import { AppManager } from '@app/managers'
 
 const domainList = [...dmList, 'none']
 
@@ -57,68 +58,81 @@ export function FormDialogWrapper({
 
   const { addWebsite } = useWebsiteContext()
 
-  const handleClickOpen = () => {
+  const handleClickOpen = useCallback(() => {
     setOpen(true)
-  }
+  }, [setOpen])
 
-  const onChangeText = (event: any) => {
-    setUrl(event.target.value)
-  }
+  const onChangeText = useCallback(
+    (event: any) => {
+      setUrl(event.target.value)
+    },
+    [setUrl]
+  )
 
   const handleClose = useCallback(() => {
     setOpen(false)
     setUrl('')
   }, [setOpen, setUrl])
 
-  const handleChangeExt = (event: any) => {
-    setExtension(event.target.value)
-  }
+  const handleChangeExt = useCallback(
+    () => (event: any) => {
+      setExtension(event.target.value)
+    },
+    [setExtension]
+  )
 
   const submit = useCallback(
     async (event: any) => {
+      event?.preventDefault()
+      let cleanUrl = String(websitUrl)
+        .replace(https ? 'https' : 'http', https ? 'http' : 'https')
+        .replace(/^(?:https?:\/\/)?/i, '')
+        .split('/')[0]
+
+      if (cleanUrl[cleanUrl.length - 1] === '/') {
+        cleanUrl = cleanUrl.slice(0, -1)
+      }
+
+      let tpt = 'https'
+      if (websitUrl.includes('http://') || !https) {
+        tpt = 'http'
+      }
+      let urlBase = cleanUrl.includes('://') ? '' : `://`
+      let blockExt = extension === 'none'
+
+      if (cleanUrl.includes('localhost:')) {
+        blockExt = true
+      }
+
+      const ex =
+        blockExt ||
+        domainList.some((element: any) => cleanUrl.includes(element))
+          ? ''
+          : extension
+
+      const websiteUrl = `${tpt}${urlBase}${cleanUrl}${ex}`.trim()
+      const websiteCustomHeaders = customHeader ? customFields : null
+
+      const params = {
+        url: websiteUrl,
+        customHeaders: websiteCustomHeaders,
+      }
+
+      // CLOSE pre-optimistic prevent dialog unmount state error
+      handleClose()
+
       try {
-        event?.preventDefault()
-        let cleanUrl = String(websitUrl)
-          .replace(https ? 'https' : 'http', https ? 'http' : 'https')
-          .replace(/^(?:https?:\/\/)?/i, '')
-          .split('/')[0]
-
-        if (cleanUrl[cleanUrl.length - 1] === '/') {
-          cleanUrl = cleanUrl.slice(0, -1)
-        }
-
-        let tpt = 'https'
-        if (websitUrl.includes('http://') || !https) {
-          tpt = 'http'
-        }
-        let urlBase = cleanUrl.includes('://') ? '' : `://`
-        let blockExt = extension === 'none'
-
-        if (cleanUrl.includes('localhost:')) {
-          blockExt = true
-        }
-
-        const ex =
-          blockExt ||
-          domainList.some((element: any) => cleanUrl.includes(element))
-            ? ''
-            : extension
-
-        const websiteUrl = `${tpt}${urlBase}${cleanUrl}${ex}`.trim()
-        const websiteCustomHeaders = customHeader ? customFields : null
-
-        const params = {
-          url: websiteUrl,
-          customHeaders: websiteCustomHeaders,
-        }
-
-        // CLOSE pre-optimistic prevent dialog unmount state error
-        handleClose()
-
         if (okPress && typeof okPress === 'function') {
           await okPress(params)
         } else {
-          await addWebsite(params)
+          AppManager.toggleSnack(
+            true,
+            'Checking all pages for issues, please wait...',
+            'success'
+          )
+          await addWebsite({
+            variables: params,
+          })
         }
       } catch (e) {
         console.error(e)

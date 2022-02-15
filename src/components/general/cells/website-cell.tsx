@@ -66,9 +66,12 @@ export function WebsiteCell({
   const handleClose = () => {
     setAnchorEl(null)
   }
-  const removeWebsite = (e: any) => {
-    e?.preventDefault()
-    removePress(url)
+  const removeWebsite = () => {
+    removePress({
+      variables: {
+        url,
+      },
+    })
   }
 
   const href = `/website-details?websiteUrl=${encodeURIComponent(url)}`

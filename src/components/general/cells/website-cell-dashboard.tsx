@@ -31,7 +31,7 @@ const BASE_GQL_URL = `${AppConfig?.graphQLUrl
 
 const STATUS_URL = `${AppConfig?.graphQLUrl?.replace('/graphql', '/status')}`
 
-export function WebsiteCellDashboardComponent({
+export function WebsiteCellDashboard({
   url,
   removePress,
   handleClickOpen,
@@ -64,7 +64,11 @@ export function WebsiteCellDashboardComponent({
     setAnchorEl(null)
   }
   const removeWebsite = () => {
-    removePress(url)
+    removePress({
+      variables: {
+        url,
+      },
+    })
   }
 
   const handleMainClick = (
@@ -245,5 +249,3 @@ export function WebsiteCellDashboardComponent({
     </div>
   )
 }
-
-export const WebsiteCellDashboard = memo(WebsiteCellDashboardComponent)
