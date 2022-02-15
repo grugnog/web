@@ -211,19 +211,22 @@ export const useWebsiteData = (
     [addWebsiteMutation]
   )
 
-  const removePress = async (url?: string, deleteMany: boolean = false) => {
-    try {
-      await removeWebsite({
-        variables: {
-          url,
-          userId: UserManager?.getID,
-          deleteMany,
-        },
-      })
-    } catch (e) {
-      console.error(e)
-    }
-  }
+  const removePress = useCallback(
+    async (url?: string, deleteMany: boolean = false) => {
+      try {
+        await removeWebsite({
+          variables: {
+            url,
+            userId: UserManager?.getID,
+            deleteMany,
+          },
+        })
+      } catch (e) {
+        console.error(e)
+      }
+    },
+    [removeWebsite]
+  )
 
   return {
     subscriptionData: {

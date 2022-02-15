@@ -36,6 +36,6 @@ export default metaSetter(
   { Privacy },
   {
     description:
-      'This Privacy Policy applies to personal information processed by us in our business, including on our websites (e.g., a11ywatch.com and any other website part of the A11yWatch group.',
+      'This Privacy Policy applies to personal information processed by us in our business, including (e.g., a11ywatch.com and any other website part of the A11yWatch group.',
   }
 )

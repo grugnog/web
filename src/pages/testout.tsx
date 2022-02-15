@@ -14,6 +14,7 @@ function Test({ name }: PageProps) {
   return (
     <Fragment>
       <MarketingDrawer initClosed={true} renderCtaSearch title={name}>
+        <h1 className='sr-only'>Test out A11yWatch</h1>
         <TestView marketing />
       </MarketingDrawer>
       <SwipeableTemporaryDrawer />
