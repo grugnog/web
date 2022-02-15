@@ -35,7 +35,6 @@ export const useWebsiteData = (
     customHeaders,
     url,
   }
-
   const { issueFeed, setIssueFeedContent } = useIssueFeed()
   const { data, loading, refetch, error } = useQuery(GET_WEBSITES, {
     variables,
@@ -135,14 +134,17 @@ export const useWebsiteData = (
   }, [websites])
 
   useEffect(() => {
-    if (updateData?.updateWebsite?.website) {
+    const updatedWebsite = updateData && updateData?.updateWebsite?.website
+
+    if (updatedWebsite) {
       const dataSource = websites.find(
-        (source: Website) =>
-          source.domain === updateData?.updateWebsite?.website?.domain
+        (source: Website) => source.domain === updatedWebsite?.domain
       )
 
       if (dataSource) {
-        dataSource.pageHeaders = updateData?.updateWebsite?.website?.pageHeaders
+        if (updatedWebsite?.pageHeaders) {
+          dataSource.pageHeaders = updatedWebsite.pageHeaders
+        }
         AppManager.toggleSnack(true, 'Success: updated website', 'success')
       }
     }

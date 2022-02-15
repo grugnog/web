@@ -14,7 +14,6 @@ import {
 } from '@app/components/cta'
 import { WithSwipeModal as SwipeableTemporaryDrawer } from '@app/components/adhoc'
 import {
-  MarketingShapesTop,
   MarketingTestimonial,
   MarketingTrustBy,
 } from '@app/components/marketing'
@@ -34,7 +33,6 @@ function Index() {
         <Price blockFree navigate />
         <CtaSignonForm />
       </MarketingDrawer>
-      <MarketingShapesTop />
       <SwipeableTemporaryDrawer />
     </Fragment>
   )
