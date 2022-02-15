@@ -13,7 +13,6 @@ import {
 } from '@app/components/general'
 import { useWebsiteData, useSearchFilter } from '@app/data'
 import { filterSort } from '@app/lib'
-import { WithHydrate } from '@app/components/adhoc'
 import { metaSetter } from '@app/utils'
 import type { PageProps } from '@app/types'
 
@@ -23,7 +22,7 @@ function Issues({ name }: PageProps) {
   const MAINDATASOURCE = filterSort(data, search)
 
   return (
-    <WithHydrate>
+    <>
       <Drawer title={name}>
         <PageTitle title={name} />
         <List
@@ -37,7 +36,7 @@ function Issues({ name }: PageProps) {
         />
       </Drawer>
       <LinearBottom loading={!!loading} />
-    </WithHydrate>
+    </>
   )
 }
 

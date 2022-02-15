@@ -9,13 +9,8 @@ import { PageTitle, LinearBottom, Drawer } from '@app/components/general'
 
 import { WeekSelect } from '@app/components/alerts'
 import { userData } from '@app/data'
-import { WithHydrate } from '@app/components/adhoc'
 import { metaSetter } from '@app/utils'
 import type { PageProps } from '@app/types'
-
-export const noSSR = {
-  ssr: false,
-}
 
 function Alerts({ name }: PageProps) {
   const {
@@ -25,7 +20,7 @@ function Alerts({ name }: PageProps) {
   } = userData()
 
   return (
-    <WithHydrate>
+    <>
       <Drawer title={name}>
         <PageTitle title={'Alerts'} />
         <WeekSelect
@@ -34,7 +29,7 @@ function Alerts({ name }: PageProps) {
         />
       </Drawer>
       <LinearBottom loading={filterEmailDatesLoading} />
-    </WithHydrate>
+    </>
   )
 }
 

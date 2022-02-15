@@ -33,15 +33,13 @@ class MyDocument extends Document {
 
     const { styles, ...initialProps } = await Document.getInitialProps(ctx)
 
-    const stylesSheet = (
-      <>
-        {styles}
-        {sheets.getStyleElement()}
-      </>
-    )
-
     return Object.assign({}, initialProps, {
-      styles: stylesSheet,
+      styles: (
+        <>
+          {styles}
+          {sheets.getStyleElement()}
+        </>
+      ),
     })
   }
 

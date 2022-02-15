@@ -143,7 +143,7 @@ export function WebsiteCellDashboardComponent({
         </InfoBlock>
         <InfoBlock title={'Page Load Time'}>
           <span>
-            {pageLoadTime?.durationFormated ?? 'N/A'} at{' '}
+            {pageLoadTime?.durationFormated || 'N/A'} at{' '}
             <b>{pageLoadTime?.duration ?? 0}ms</b>
           </span>
         </InfoBlock>

@@ -13,7 +13,6 @@ import {
 } from '@app/components/general'
 import { useDynamicModal, useSearchFilter, useEvents } from '@app/data'
 import { filterSort } from '@app/lib'
-import { WithHydrate } from '@app/components/adhoc'
 import { metaSetter } from '@app/utils'
 import type { PageProps } from '@app/types'
 import { _ONBOARDED } from '@app/lib/cookies/names'
@@ -48,7 +47,7 @@ function Dashboard({ name }: PageProps) {
   }, [issueSubData, events, setEvents])
 
   return (
-    <WithHydrate>
+    <>
       <Drawer title={name}>
         <PageTitle
           title={'Websites'}
@@ -94,7 +93,7 @@ function Dashboard({ name }: PageProps) {
         />
       </Drawer>
       <LinearBottom loading={mutatationLoading} />
-    </WithHydrate>
+    </>
   )
 }
 

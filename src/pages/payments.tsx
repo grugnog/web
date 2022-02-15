@@ -18,7 +18,6 @@ import {
   DialogTitle,
 } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
-import { WithHydrate } from '@app/components/adhoc'
 import { NavBar, PriceMemo, PageTitle } from '@app/components/general'
 import { Box } from '@a11ywatch/ui'
 import { SimpleListItemSkeleton } from '@app/components/placeholders'
@@ -208,7 +207,7 @@ function Payments({ hideTitle = false, name }: PaymentProps) {
   }`
 
   return (
-    <WithHydrate>
+    <>
       <NavBar title={name} backButton notitle />
       <Container maxWidth='xl'>
         <Box>
@@ -327,7 +326,7 @@ function Payments({ hideTitle = false, name }: PaymentProps) {
           )}
         </Box>
       </Container>
-    </WithHydrate>
+    </>
   )
 }
 

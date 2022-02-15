@@ -9,7 +9,6 @@ import { ScriptsPageSkeleton } from '@app/components/placeholders'
 import { scriptsData, useSearchFilter } from '@app/data'
 import { filterSort } from '@app/lib'
 import { groupBy, metaSetter } from '@app/utils'
-import { WithHydrate } from '@app/components/adhoc'
 import type { PageProps } from '@app/types'
 
 function Scripts({ name }: PageProps) {
@@ -18,7 +17,7 @@ function Scripts({ name }: PageProps) {
   const dataSource = groupBy('domain')(filterSort(data, search))
 
   return (
-    <WithHydrate>
+    <>
       <Drawer title={name}>
         <PageTitle title={name} />
         <ScriptsPageSkeleton
@@ -28,7 +27,7 @@ function Scripts({ name }: PageProps) {
           <CollaspeList dataSource={dataSource} />
         </ScriptsPageSkeleton>
       </Drawer>
-    </WithHydrate>
+    </>
   )
 }
 

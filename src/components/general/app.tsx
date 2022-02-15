@@ -12,7 +12,7 @@ import { strings } from '@app-strings'
 import { theme } from '@app-theme'
 import { twitterSite } from '@app/configs'
 import { WithSnackBar } from '@app/components/adhoc'
-import { initAppModel } from '@app/data'
+import { initAppModel, userModel } from '@app/data'
 import { DOMAIN_NAME, LOGGIN_ROUTES, SUPER_MODE } from '@app/configs'
 import { startIntercom } from '@app/utils'
 import { WebsiteProviderWrapper } from '@app/components/providers'
@@ -49,7 +49,13 @@ export function MyApp({ Component, pageProps }: InnerApp) {
     }
 
     initAppModel()
-
+    userModel.initModel({
+      cookie:
+        typeof navigator !== 'undefined' &&
+        typeof document !== 'undefined' &&
+        navigator.cookieEnabled &&
+        document.cookie,
+    })
     if (Component.intercom !== false) {
       startIntercom()
     }

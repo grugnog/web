@@ -9,7 +9,6 @@ import { ScriptsPageSkeleton } from '@app/components/placeholders'
 import { groupBy, metaSetter } from '@app/utils'
 import { scriptsData, useSearchFilter } from '@app/data'
 import { filterSort } from '@app/lib'
-import { WithHydrate } from '@app/components/adhoc'
 import type { PageProps } from '@app/types'
 
 function CdnFix({ name }: PageProps) {
@@ -19,7 +18,7 @@ function CdnFix({ name }: PageProps) {
   const capsName = String(name).toUpperCase()
 
   return (
-    <WithHydrate>
+    <>
       <Drawer title={capsName}>
         <PageTitle title={capsName} />
         <ScriptsPageSkeleton
@@ -36,7 +35,7 @@ function CdnFix({ name }: PageProps) {
           <CollaspeListCdn dataSource={dataSource} />
         </ScriptsPageSkeleton>
       </Drawer>
-    </WithHydrate>
+    </>
   )
 }
 

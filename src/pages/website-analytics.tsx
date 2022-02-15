@@ -16,7 +16,6 @@ import { Failure } from '@app/components/empty'
 import { analyticsData, useSearchFilter } from '@app/data'
 import { filterSort } from '@app/lib'
 import { theme } from '@app-theme'
-import { WithHydrate } from '@app/components/adhoc'
 import { metaSetter } from '@app/utils'
 import type { PageProps } from '@app/types'
 
@@ -50,7 +49,7 @@ function Analytics({ name }: PageProps) {
   const dataSource = filterSort(data, search)
 
   return (
-    <WithHydrate>
+    <>
       <Drawer title={name}>
         <PageTitle title={'Analytics'} />
         {loading && !dataSource.length ? (
@@ -177,7 +176,7 @@ function Analytics({ name }: PageProps) {
           </List>
         )}
       </Drawer>
-    </WithHydrate>
+    </>
   )
 }
 
