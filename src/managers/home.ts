@@ -23,10 +23,10 @@ class HomeManager {
   }
 
   getIframeSource = (url: string = '', rp: boolean): string => {
-    const src = this.iframeSrc ? this.iframeSrc : `/api/iframe/?url=${url}`
+    const src = this.iframeSrc ? this.iframeSrc : `/api/iframe?url=${url}`
 
     if (rp && src) {
-      return src.replace('/api/iframe/?url=', '')
+      return src.replace('/api/iframe?url=', '')
     }
     return src
   }
