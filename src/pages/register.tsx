@@ -67,6 +67,7 @@ function Register({ name }: PageProps) {
           content={getDescription(router?.query)}
           key='description'
         />
+        {router?.query ? <meta name='robots' content='noindex' /> : null}
       </Head>
       <MarketingDrawer
         title={name}

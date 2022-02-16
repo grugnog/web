@@ -88,7 +88,15 @@ module.exports = withPWA({
       /_middleware.js$/,
       /_middleware.js.map$/,
       /chunks\/images\/.*$/,
+      /_next\/server\/middleware-manifest\.json$/,
+      /_next\/server\/middleware-runtime.js$/,
+      /_next\/server\/_middleware.js$/,
+      /_next\/server\/_middleware.js.map$/,
+      /_next\/server\/chunks\/images\/.*$/,
     ],
+  },
+  experimental: {
+    styledComponents: true,
   },
   trailingSlash: false,
   swcMinify: true,
@@ -114,8 +122,10 @@ module.exports = withPWA({
     transpileOnly: true,
   },
   poweredByHeader: false,
-  webpack: (config, { dev: development, webpack }) => {
-    generateSiteMap(DOMAIN_NAME).catch((e) => console.error(e))
+  webpack: (config, { dev: development, webpack, isServer }) => {
+    if (isServer) {
+      generateSiteMap(DOMAIN_NAME).catch((e) => console.error(e))
+    }
 
     config.module.rules.push({
       test: /\.svg$/,
