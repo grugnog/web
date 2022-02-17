@@ -1,4 +1,4 @@
-import { getAPIRoute } from '@app/configs'
+import { getAPIRoute } from '@app/configs/api-route'
 
 const API_ROUTE = getAPIRoute('api', true)
 

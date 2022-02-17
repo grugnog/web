@@ -56,14 +56,17 @@ export function MyApp({ Component, pageProps }: InnerApp) {
         navigator.cookieEnabled &&
         document.cookie,
     })
-    if (Component.intercom !== false) {
-      startIntercom()
-    }
 
     if (SUPER_MODE === 'true') {
       console.info('SUPER MODE ESTABLISHED: ALL PERMISSIONS SET')
     }
   }, [])
+
+  useEffect(() => {
+    if (Component.intercom) {
+      startIntercom()
+    }
+  }, [Component.intercom])
 
   return (
     <Fragment>

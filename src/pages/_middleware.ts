@@ -1,7 +1,7 @@
 import type { NextRequest, NextFetchEvent } from 'next/server'
 import { NextResponse } from 'next/server'
 import { isWhitelisted } from '@app/configs/next/is-static-resource'
-import { logPage } from '@app/lib/log-page'
+import { logPage } from '@app/request/log-page'
 
 const ID_COOKIE_NAME = 'uuid'
 const JWT_COOKIE_NAME = 'jwt'

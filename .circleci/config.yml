@@ -22,7 +22,7 @@ jobs:
           command: yarn run test:ci
           no_output_timeout: 60m
       - run:
-          command: npx playwright test
+          command: npx playwright install && sudo npx playwright install-deps && npx playwright test
       - codecov/upload:
           file: './coverage/clover.xml'
           conf: './codecov.yml'

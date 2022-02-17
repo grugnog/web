@@ -20,10 +20,6 @@ const GET_WEBSITES = gql`
         htmlIncluded
         lastScanDate
         online
-        pageInsights
-        insight {
-          json
-        }
         script {
           id
           script
@@ -49,10 +45,6 @@ const GET_WEBSITES = gql`
           url
           adaScore
           htmlIncluded
-          pageInsights
-          insight {
-            json
-          }
           pageLoadTime {
             duration
             durationFormated

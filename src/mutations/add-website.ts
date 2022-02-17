@@ -1,16 +1,8 @@
 import gql from 'graphql-tag'
 
 export const ADD_WEBSITE = gql`
-  mutation AddWebsite(
-    $url: String!
-    $customHeaders: [CreatePageHeaders]
-    $pageInsights: Boolean
-  ) {
-    addWebsite(
-      url: $url
-      customHeaders: $customHeaders
-      pageInsights: $pageInsights
-    ) {
+  mutation AddWebsite($url: String!, $customHeaders: [CreatePageHeaders]) {
+    addWebsite(url: $url, customHeaders: $customHeaders) {
       website {
         url
         id
@@ -22,10 +14,6 @@ export const ADD_WEBSITE = gql`
         htmlIncluded
         lastScanDate
         online
-        pageInsights
-        insight {
-          json
-        }
         script {
           id
           script
@@ -68,10 +56,6 @@ export const ADD_WEBSITE = gql`
           cdnConnected
           html
           htmlIncluded
-          pageInsights
-          insight {
-            json
-          }
           pageLoadTime {
             duration
             durationFormated
