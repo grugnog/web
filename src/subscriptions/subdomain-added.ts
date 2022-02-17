@@ -14,6 +14,10 @@ export const SUBDOMAIN_SUBSCRIPTION = gql`
       adaScore
       cdnConnected
       htmlIncluded
+      pageInsights
+      insight {
+        json
+      }
       pageLoadTime {
         duration
         durationFormated
