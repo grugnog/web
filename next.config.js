@@ -95,9 +95,6 @@ module.exports = withPWA({
       /_next\/server\/chunks\/images\/.*$/,
     ],
   },
-  experimental: {
-    styledComponents: true,
-  },
   trailingSlash: false,
   swcMinify: true,
   images: {

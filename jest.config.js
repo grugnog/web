@@ -1,27 +1,21 @@
-const { defaults } = require('jest-config')
+const nextJest = require('next/jest')
 
-module.exports = {
-  testPathIgnorePatterns: [
-    '<rootDir>/.next/',
-    '<rootDir>/dist/',
-    '<rootDir>/coverage/',
-    '<rootDir>/node_modules/(?!(monaco-editor)/)',
-  ],
-  moduleFileExtensions: [...defaults.moduleFileExtensions, 'ts', 'tsx'],
+const createJestConfig = nextJest({
+  dir: './',
+})
+
+const customJestConfig = {
+  testPathIgnorePatterns: ['<rootDir>/tests/e2e'],
   setupFilesAfterEnv: ['<rootDir>/tests/setupTests.ts'],
-  transform: {
-    '^.+\\.(t|j)sx?$': '@swc/jest',
-    '.+\\.(css|styl|less|sass|scss|png|jpg|ttf|woff|woff2)$':
-      'jest-transform-stub',
-    '\\.svg$': '<rootDir>/jest-svg-transformer.js',
-  },
   moduleNameMapper: {
     '^@app/(.*)$': '<rootDir>/src/$1',
     '@app-strings': '<rootDir>/src/content/strings/a11y/',
     '@app-theme': '<rootDir>/src/theme/main/',
   },
-  verbose: true,
   coverageDirectory: './coverage/',
   collectCoverage: true,
-  testEnvironment: 'jsdom',
+  moduleDirectories: ['node_modules', '<rootDir>'],
+  testEnvironment: 'jest-environment-jsdom',
 }
+
+module.exports = createJestConfig(customJestConfig)

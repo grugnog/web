@@ -21,10 +21,11 @@ jobs:
       - run:
           command: yarn run test:ci
           no_output_timeout: 60m
+      - run:
+          command: npx playwright test
       - codecov/upload:
           file: './coverage/clover.xml'
           conf: './codecov.yml'
-
 workflows:
   build_and_test:
     jobs:
