@@ -14,6 +14,9 @@ export const ADD_WEBSITE = gql`
         htmlIncluded
         lastScanDate
         online
+        insight {
+          json
+        }
         script {
           id
           script
@@ -56,6 +59,9 @@ export const ADD_WEBSITE = gql`
           cdnConnected
           html
           htmlIncluded
+          insight {
+            json
+          }
           pageLoadTime {
             duration
             durationFormated

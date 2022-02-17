@@ -17,6 +17,9 @@ const GET_HISTORY = gql`
         cdnConnected
         html
         htmlIncluded
+        insight {
+          json
+        }
         pageLoadTime {
           duration
           durationFormated
@@ -26,6 +29,9 @@ const GET_HISTORY = gql`
           domain
           url
           adaScore
+          insight {
+            json
+          }
           pageLoadTime {
             duration
             durationFormated

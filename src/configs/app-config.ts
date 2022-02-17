@@ -27,7 +27,16 @@ const cdn = process.env.CDN || 'localhost:8090'
 const companyName = process.env.COMPANY_NAME || 'A11yWatch'
 const twitterSite = process.env.TWITTER_SITE || '@a11ywatcher'
 
+const BASE_GQL_URL = `${AppConfig?.graphQLUrl
+  ?.replace('api.', '')
+  ?.replace('8080', '3000')
+  ?.replace('/graphql', '')}/reports`
+
+const STATUS_URL = `${AppConfig?.graphQLUrl?.replace('/graphql', '/status')}`
+
 export {
+  BASE_GQL_URL,
+  STATUS_URL,
   DOMAIN_NAME,
   dev,
   API_URI_DOCKER,

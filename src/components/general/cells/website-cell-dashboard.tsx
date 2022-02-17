@@ -4,18 +4,20 @@
  * LICENSE file in the root directory of this source tree.
  **/
 
-import React, { useState } from 'react'
+import React, { useState, useMemo, useCallback } from 'react'
 import { Button } from '@material-ui/core'
 import { Link } from '../link'
 import { WebsiteSecondary, MoreOptions } from './render'
 import { ModalType } from '@app/data/enums'
 import { InfoCenterContainer } from './info-center-container'
-import { SCRIPTS_CDN_URL_HOST, AppConfig } from '@app/configs'
+import { SCRIPTS_CDN_URL_HOST, BASE_GQL_URL, STATUS_URL } from '@app/configs'
 import { prismStyles } from '@app/styles'
 import { PrismLight } from 'react-syntax-highlighter'
 import { copyClipboard } from '@app/lib'
 import { classNames } from '@app/utils'
 import { InfoBlock } from './info-block'
+// @ts-ignore
+import ReportViewer from 'react-lighthouse-viewer'
 
 const styles = {
   title: 'flex flex-1 text-3xl font-bold text-ellipsis overflow-hidden',
@@ -23,13 +25,6 @@ const styles = {
   row: 'flex flex-1',
   metaBlock: 'px-2 py-1 border',
 }
-
-const BASE_GQL_URL = `${AppConfig?.graphQLUrl
-  ?.replace('api.', '')
-  ?.replace('8080', '3000')
-  ?.replace('/graphql', '')}/reports`
-
-const STATUS_URL = `${AppConfig?.graphQLUrl?.replace('/graphql', '/status')}`
 
 export function WebsiteCellDashboard({
   url,
@@ -52,24 +47,30 @@ export function WebsiteCellDashboard({
   script,
   domain,
   online,
+  insight,
 }: any) {
   const [anchorEl, setAnchorEl] = useState<any>(null)
   const [isCdnMinified, setMinified] = useState<boolean>(true)
   const [isMarkdown, setMarkdown] = useState<boolean>(true)
 
-  const handleMenu = (event: any) => {
-    setAnchorEl(event?.currentTarget)
-  }
-  const handleClose = () => {
+  const handleMenu = useCallback(
+    (event: any) => {
+      setAnchorEl(event?.currentTarget)
+    },
+    [setAnchorEl]
+  )
+
+  const handleClose = useCallback(() => {
     setAnchorEl(null)
-  }
-  const removeWebsite = () => {
+  }, [setAnchorEl])
+
+  const removeWebsite = useCallback(() => {
     removePress({
       variables: {
         url,
       },
     })
-  }
+  }, [url, removePress])
 
   const handleMainClick = (
     eventData?: any,
@@ -98,6 +99,12 @@ export function WebsiteCellDashboard({
   const reportsLink = `${BASE_GQL_URL}/${domain}`
 
   const statusBadgeLanguage = isMarkdown ? 'markdown' : 'html'
+
+  const parsedInsight = useMemo(() => {
+    if (insight?.json) {
+      return JSON.parse(insight?.json)
+    }
+  }, [insight])
 
   return (
     <div className={`w-full relative border p-4 pl-6 rounded overflow-hidden`}>
@@ -235,7 +242,19 @@ export function WebsiteCellDashboard({
           </InfoBlock>
         ) : null}
       </div>
-
+      {parsedInsight ? (
+        <div className='py-2'>
+          {/* @ts-ignore */}
+          <style>
+            {`
+            .lh-topbar__url, .report-icon--download {
+              display: none !important;
+            }
+            `}
+          </style>
+          <ReportViewer json={parsedInsight} />
+        </div>
+      ) : null}
       <InfoCenterContainer>
         <Button
           component={Link}

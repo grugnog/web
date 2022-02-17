@@ -53,6 +53,7 @@
     "react-google-login": "5.1.21",
     "react-google-translate-lazy": "^1.0.6",
     "react-is": "17.0.1",
+    "react-lighthouse-viewer": "^6.0.2",
     "react-resize-detector": "5.0.6",
     "react-stripe-checkout": "2.6.3",
     "react-syntax-highlighter": "12.2.1",

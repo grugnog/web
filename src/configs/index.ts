@@ -19,6 +19,8 @@ export {
   cdn,
   companyName,
   twitterSite,
+  BASE_GQL_URL,
+  STATUS_URL,
 } from './app-config'
 export { getAPIRoute, API_ENDPOINT } from './api-route'
 export { Routes, LoggedInRoutes, LOGGIN_ROUTES, SHARED_ROUTES } from './routes'

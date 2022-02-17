@@ -3,50 +3,10 @@
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
  **/
-import React, { Fragment, FC, useState, useEffect, useCallback } from 'react'
-import { List as MUList, CardHeader } from '@material-ui/core'
-import { makeStyles } from '@material-ui/core/styles'
-
+import React, { Fragment, useState, useEffect, useCallback } from 'react'
 import { useMiniPlayer } from '@app/data'
-import { ListSkeleton } from '../placeholders'
+import { RenderInner } from '@app/components/general/cells/render/website-inner'
 import { FullScreenModal } from './fullscreen-modal'
-import { WebsiteCellDashboard } from './cells'
-import { EmptyWebsiteForm } from './website/empty-form'
-
-const useStyles = makeStyles(() => ({
-  empty: {
-    minHeight: 88,
-  },
-}))
-
-function WebSites({
-  data,
-  removePress,
-  handleClickOpen,
-  refetch,
-  handleClickOpenPlayer,
-  crawlWebsite,
-  setModal,
-  mutatationLoading,
-  loading,
-}: any) {
-  return data?.map(({ url, id, pageUrl, ...props }: any, index: number) => (
-    <WebsiteCellDashboard
-      handleClickOpen={handleClickOpen}
-      url={url || pageUrl}
-      key={`${id}-${url || pageUrl}`}
-      removePress={removePress}
-      refetch={refetch}
-      handleClickOpenPlayer={handleClickOpenPlayer}
-      crawlWebsite={crawlWebsite}
-      setModal={setModal}
-      loading={loading}
-      mutatationLoading={mutatationLoading}
-      index={index}
-      {...props}
-    />
-  ))
-}
 
 const defaultModalState = {
   open: false,
@@ -54,61 +14,6 @@ const defaultModalState = {
   title: '',
   url: '',
   error: '',
-}
-
-const RenderInner: FC<any> = ({
-  data,
-  error,
-  loading,
-  removePress,
-  emptyHeaderTitle,
-  emptyHeaderSubTitle = 'Add your website below',
-  refetch,
-  crawlWebsite,
-  setModal,
-  mutatationLoading,
-  handleClickOpen,
-  setMiniPlayerContent,
-}) => {
-  const classes = useStyles()
-
-  if (!data.length) {
-    if (loading) {
-      return <ListSkeleton />
-    }
-    if (!loading && error) {
-      return (
-        <CardHeader
-          title='Error'
-          subheader='An Issue occured. Please try again. If issue persist please contact support.'
-          className={classes.empty}
-        />
-      )
-    }
-    return (
-      <EmptyWebsiteForm
-        emptyHeaderTitle={emptyHeaderTitle}
-        emptyHeaderSubTitle={emptyHeaderSubTitle}
-      />
-    )
-  }
-
-  return (
-    <MUList>
-      <WebSites
-        data={data}
-        {...{
-          handleClickOpen,
-          handleClickOpenPlayer: setMiniPlayerContent,
-          removePress,
-          refetch,
-          crawlWebsite,
-          setModal,
-          mutatationLoading: mutatationLoading,
-        }}
-      />
-    </MUList>
-  )
 }
 
 export function WebsiteList({

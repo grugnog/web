@@ -18,6 +18,9 @@ const GET_WEBSITE = gql`
       screenshot
       timestamp
       online
+      insight {
+        json
+      }
       script {
         id
         script

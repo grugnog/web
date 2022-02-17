@@ -16,6 +16,9 @@ export const CRAWL_WEBSITE = gql`
         lastScanDate
         userId
         online
+        insight {
+          json
+        }
         script {
           script
           cdnUrl
