@@ -43,6 +43,7 @@ export function FormDialogWrapper({
   const [open, setOpen] = useState<boolean>(false)
   const [websitUrl, setUrl] = useState<string>('')
   const [https, setTransportType] = useState<boolean>(true)
+  const [pageInsights, setPageInsights] = useState<boolean>(false)
   const [extension, setExtension] = useState<string>('.com')
   const inputRef = useRef(null)
   const classes = useStyles()
@@ -116,6 +117,7 @@ export function FormDialogWrapper({
       const params = {
         url: websiteUrl,
         customHeaders: websiteCustomHeaders,
+        pageInsights,
       }
 
       // CLOSE pre-optimistic prevent dialog unmount state error
@@ -147,6 +149,7 @@ export function FormDialogWrapper({
       customFields,
       customHeader,
       https,
+      pageInsights,
     ]
   )
 
@@ -243,6 +246,20 @@ export function FormDialogWrapper({
                   />
                 }
                 label='HTTPS'
+              />
+              <FormControlLabel
+                classes={formLabelStyles}
+                control={
+                  <Checkbox
+                    checked={pageInsights}
+                    onChange={() => {
+                      setPageInsights(!pageInsights)
+                    }}
+                    value={pageInsights}
+                    color='primary'
+                  />
+                }
+                label='PageSpeed'
               />
               <FormControlLabel
                 classes={formLabelStyles}

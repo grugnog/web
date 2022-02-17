@@ -48,6 +48,7 @@ export function WebsiteCellDashboard({
   domain,
   online,
   insight,
+  pageInsights,
 }: any) {
   const [anchorEl, setAnchorEl] = useState<any>(null)
   const [isCdnMinified, setMinified] = useState<boolean>(true)
@@ -164,6 +165,9 @@ export function WebsiteCellDashboard({
         <InfoBlock title={'Headers Included'}>
           <p>{pageHeaders ? 'Yes' : 'No'}</p>
         </InfoBlock>
+        <InfoBlock title={'PageSpeed Enabled'}>
+          <p>{pageInsights ? 'Yes' : 'No'}</p>
+        </InfoBlock>
         <InfoBlock title={'Website Online'}>
           <p>{online ? 'Yes' : 'No'}</p>
         </InfoBlock>
@@ -191,7 +195,9 @@ export function WebsiteCellDashboard({
             language='html'
             style={prismStyles}
             onClick={copyClipboard}
-            className={'hover:bg-blue-500 color-black cursor-pointer'}
+            className={
+              'hover:bg-blue-500 hover:text-white color-black cursor-pointer'
+            }
           >
             {script?.cdnUrl
               ? `<script src="${
@@ -222,7 +228,7 @@ export function WebsiteCellDashboard({
               language={statusBadgeLanguage}
               style={prismStyles}
               onClick={copyClipboard}
-              className={'hover:bg-blue-500 cursor-pointer'}
+              className={'hover:bg-blue-500 hover:text-white cursor-pointer'}
             >
               {statusBadgeLanguage === 'markdown'
                 ? `[![A11yWatch](${statusBadgeUrl})](${reportsLink})`

@@ -20,6 +20,7 @@ const GET_WEBSITES = gql`
         htmlIncluded
         lastScanDate
         online
+        pageInsights
         insight {
           json
         }
@@ -48,6 +49,7 @@ const GET_WEBSITES = gql`
           url
           adaScore
           htmlIncluded
+          pageInsights
           insight {
             json
           }

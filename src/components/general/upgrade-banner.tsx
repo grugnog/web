@@ -9,7 +9,7 @@ import { Link } from './link'
 
 const styles = {
   container:
-    'fixed bottom-0 left-0 right-0 p-2 z-1 w-full flex place-content-center',
+    'fixed bottom-0 left-0 right-0 p-2 z-1 w-full flex place-content-center bg-white',
   text: 'text-black font-semibold',
 }
 

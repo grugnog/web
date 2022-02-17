@@ -1,8 +1,16 @@
 import gql from 'graphql-tag'
 
 export const UPDATE_WEBSITE = gql`
-  mutation UpdateWebsite($url: String, $customHeaders: [CreatePageHeaders]) {
-    updateWebsite(url: $url, customHeaders: $customHeaders) {
+  mutation UpdateWebsite(
+    $url: String
+    $customHeaders: [CreatePageHeaders]
+    $pageInsights: Boolean
+  ) {
+    updateWebsite(
+      url: $url
+      customHeaders: $customHeaders
+      pageInsights: $pageInsights
+    ) {
       code
       success
       message
@@ -16,6 +24,10 @@ export const UPDATE_WEBSITE = gql`
         script {
           script
         }
+        pageInsights
+        insight {
+          json
+        }
         pageHeaders {
           key
           value
@@ -23,6 +35,10 @@ export const UPDATE_WEBSITE = gql`
         subDomains {
           domain
           url
+          pageInsights
+          insight {
+            json
+          }
           issues {
             url
             code

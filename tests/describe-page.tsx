@@ -1,5 +1,5 @@
-import { createElement, FC } from 'react'
-import { render, screen } from '@testing-library/react'
+import React, { FC } from 'react'
+import { render, screen, act } from '@testing-library/react'
 import { MyApp } from '../src/components/general/app'
 
 interface Target {
@@ -15,12 +15,9 @@ export const describePage = jest.fn(
       const Component = component || require(`@app/pages/${folder}`).default
 
       it('renders without crashing', () => {
-        render(
-          createElement(MyApp, {
-            name,
-            Component,
-          })
-        )
+        act(() => {
+          render(<MyApp name={name} Component={Component} />)
+        })
 
         expect(screen.getByRole('heading', { level: 1 })).toBeInTheDocument()
 

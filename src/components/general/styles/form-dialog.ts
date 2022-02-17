@@ -35,23 +35,25 @@ export const formDialogStyles = makeStyles((theme: MergedTheme) => ({
     marginLeft: 4,
   },
   formLabel: {
-    marginLeft: 10,
+    paddingLeft: 2,
+    paddingRight: 2,
     [theme.breakpoints.down('md')]: {
       marginLeft: 'auto',
-      marginRight: 14,
+      marginRight: 6,
+    },
+  },
+  formLabelText: {
+    fontSize: '1.25rem',
+    [theme.breakpoints.down('md')]: {
+      fontSize: '0.8rem',
     },
   },
   inputSelect: {
     [theme.breakpoints.down('md')]: {
       fontSize: 13,
-      paddingRight: 0,
+      paddingRight: 2,
     },
     maxHeight: '50vh',
-  },
-  formLabelText: {
-    [theme.breakpoints.down('md')]: {
-      fontSize: 13,
-    },
   },
   textInput: {
     [theme.breakpoints.down('md')]: {

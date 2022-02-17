@@ -18,6 +18,7 @@ const GET_WEBSITE = gql`
       screenshot
       timestamp
       online
+      pageInsights
       insight {
         json
       }
