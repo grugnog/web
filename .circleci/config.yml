@@ -21,12 +21,27 @@ jobs:
       - run:
           command: yarn run test:ci
           no_output_timeout: 60m
-      - run:
-          command: npx playwright install && sudo npx playwright install-deps && npx playwright test
       - codecov/upload:
           file: './coverage/clover.xml'
           conf: './codecov.yml'
+  web-e2e:
+    docker:
+      - image: mcr.microsoft.com/playwright:focal
+    environment:
+      NODE_ENV: development
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - node-v1-{{ .Branch }}-{{ checksum "yarn.lock" }}
+            - node-v1-{{ .Branch }}-
+            - node-v1-
+      - run:
+          command: yarn install --frozen-lockfile
+      - run:
+          command: npx playwright test
 workflows:
   build_and_test:
     jobs:
       - web
+      - web-e2e
