@@ -10,6 +10,7 @@ import Head from 'next/head'
 import { MarketingDrawer, PageTitle } from '@app/components/general'
 import { ReportView } from '@app/components/ada'
 import { metaSetter } from '@app/utils'
+import { getAPIRoute } from '@app/configs/api-route'
 
 function Reports({ name, website }: PageProps) {
   const { url, domain } = website ?? { domain: '', url: 'Not Found' }
@@ -37,7 +38,7 @@ function Reports({ name, website }: PageProps) {
 }
 
 export async function getStaticPaths() {
-  // Maybe pre-render top domains
+  // TODO: pre-render top domains
   return { paths: [], fallback: 'blocking' }
 }
 
@@ -63,8 +64,6 @@ export const getStaticProps: GetStaticProps = async (context) => {
     }
   }
 
-  const { getAPIRoute } = await import('@app/configs')
-
   try {
     const res = await fetch(
       `${getAPIRoute('api', true)}/get-website?q=${websiteUrl}${
@@ -78,17 +77,19 @@ export const getStaticProps: GetStaticProps = async (context) => {
     console.error(e)
   }
 
-  return !website
-    ? {
-        redirect: {
-          destination: '/',
-          permanent: false,
-        },
-      }
-    : {
-        props: { website },
-        revalidate: timestamp ? false : 86400,
-      }
+  if (!website) {
+    return {
+      redirect: {
+        destination: '/',
+        permanent: false,
+      },
+    }
+  }
+
+  return {
+    props: { website },
+    revalidate: 6400,
+  }
 }
 
 export default metaSetter(

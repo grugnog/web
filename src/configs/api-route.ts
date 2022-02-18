@@ -10,6 +10,7 @@ const getAPIRoute = (type: 'api' | 'graphql' = 'api', middleware?: boolean) => {
     process.env.DOCKER_CONTAINER &&
     middleware
   ) {
+    // replace with container name
     return endpoint.replace('localhost', 'api')
   }
 
