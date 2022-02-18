@@ -13,7 +13,9 @@ const isWhitelisted = ({ pathname, pageName, url }: ExcludeProps) => {
     pathname.startsWith('/api/') ||
     pathname.includes('/sw.js') ||
     pathname === '/robots.txt' ||
-    pageName === '/_offline'
+    pageName === '/_offline' ||
+    url.endsWith('.svg') ||
+    url.endsWith('.wasm')
   )
 }
 

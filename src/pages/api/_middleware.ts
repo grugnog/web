@@ -1,15 +1,25 @@
-import type { NextRequest } from 'next/server'
 import { NextResponse } from 'next/server'
 import { ipRateLimit } from '@app/lib/limiter/ip-rate-limit'
+import { iframe } from '@app/lib/iframe'
+import type { NextRequest } from 'next/server'
 
 export async function middleware(req: NextRequest) {
   if (req.nextUrl.pathname === '/api/iframe') {
-    const res = await ipRateLimit(req)
+    if (process.env.NODE_ENV !== 'development') {
+      const res = await ipRateLimit(req)
 
-    if (res.status !== 200) {
-      return res
+      if (res.status !== 200) {
+        return res
+      }
     }
 
-    return NextResponse.next()
+    const iframeSource = await iframe(
+      req.nextUrl.searchParams.get('url') || '',
+      req.nextUrl.searchParams.get('baseHref') || ''
+    )
+
+    return new NextResponse(iframeSource, {
+      headers: { 'Content-Type': 'text/html' },
+    })
   }
 }
