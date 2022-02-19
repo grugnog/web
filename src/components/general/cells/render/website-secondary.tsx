@@ -91,14 +91,16 @@ export function WebsiteSecondaryComponent({
   const mainIssues =
     totalIssuesOnPage > allPageIssues ? totalIssuesOnPage : allPageIssues
 
+  const pageIssueCount = issues?.length || 0
+
   return (
     <div className={classes.row}>
-      {mainIssues ? (
+      {pageIssueCount ? (
         <Tooltip
           title={`${mainIssues} issue${
             totalIssuesOnPage === 1 ? '' : 's'
-          } across ${issues?.length || 1} page${
-            issues?.length === 1 || !issues.length ? '' : 's'
+          } across ${pageIssueCount} page${
+            pageIssueCount === 1 || !pageIssueCount ? '' : 's'
           }`}
           placement={'right'}
         >
