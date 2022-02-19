@@ -10,10 +10,9 @@ import { CssBaseline } from '@material-ui/core'
 import { ThemeProvider } from '@material-ui/core/styles'
 import { strings } from '@app-strings'
 import { theme } from '@app-theme'
-import { twitterSite } from '@app/configs'
 import { WithSnackBar } from '@app/components/adhoc'
 import { initAppModel, userModel } from '@app/data'
-import { DOMAIN_NAME, LOGGIN_ROUTES, SUPER_MODE } from '@app/configs'
+import { twitterSite, DOMAIN_NAME, LOGGIN_ROUTES } from '@app/configs'
 import { startIntercom } from '@app/utils'
 import { WebsiteProviderWrapper } from '@app/components/providers'
 import { ErrorBoundary, SkipContent } from '@app/components/general'
@@ -56,10 +55,6 @@ export function MyApp({ Component, pageProps }: InnerApp) {
         navigator.cookieEnabled &&
         document.cookie,
     })
-
-    if (SUPER_MODE === 'true') {
-      console.info('SUPER MODE ESTABLISHED: ALL PERMISSIONS SET')
-    }
   }, [])
 
   useEffect(() => {

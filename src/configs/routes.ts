@@ -173,7 +173,6 @@ export const LoggedInRoutes = [
 
 /*
  * Determine what routes make the auth profile menu appear
- *
  */
 export const LOGGIN_ROUTES = [
   '/alerts',

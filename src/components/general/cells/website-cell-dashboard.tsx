@@ -10,7 +10,11 @@ import { Link } from '../link'
 import { WebsiteSecondary, MoreOptions } from './render'
 import { ModalType } from '@app/data/enums'
 import { InfoCenterContainer } from './info-center-container'
-import { SCRIPTS_CDN_URL_HOST, BASE_GQL_URL, STATUS_URL } from '@app/configs'
+import {
+  SCRIPTS_CDN_URL_HOST,
+  BASE_GQL_URL,
+  STATUS_URL,
+} from '@app/configs/app-config'
 import { prismStyles } from '@app/styles'
 import { PrismLight } from 'react-syntax-highlighter'
 import { copyClipboard } from '@app/lib'

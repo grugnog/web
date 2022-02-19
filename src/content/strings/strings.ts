@@ -82,7 +82,7 @@ export const generateStrings = ({
         id: 5,
         title: 'Speed Test',
         detail:
-          'Test how your website does with performance and other metrics. See the comparisons amongst your other pages to see how to improve.',
+          'Test how your website does with performance and other metrics. See the comparisons against your other pages to see how to improve.',
         reason: 'Basic',
       },
       {
@@ -96,7 +96,7 @@ export const generateStrings = ({
         id: 7,
         title: 'Simple',
         detail:
-          'Just drop in one line of code and your now all your pages are handled. Works really well with frameworks like React, Angular, and Vue.',
+          'Just drop in one line of code and your now all your pages are handled. Works really well with frameworks like React, Angular, Svelte, and Vue.',
         reason: 'Basic',
       },
       {
@@ -110,11 +110,18 @@ export const generateStrings = ({
         id: 9,
         title: 'AI',
         detail:
-          'With AI and machine learning we tailor custom needs for your website rapidly. Determine missing alts with high proximity ratios, safeguard cdn, and more.',
+          'With AI and machine learning we tailor custom needs for your website rapidly. Determine missing alts with high proximity ratios, safeguard, and more.',
         reason: 'Basic',
       },
       {
         id: 10,
+        title: 'PageSpeed',
+        detail:
+          'Get PageSpeed metrics by google lighthouse on all of your pages at once without having to manually run all of your domains url paths.',
+        reason: 'Basic',
+      },
+      {
+        id: 11,
         title: '100% Open-Source',
         detail:
           'Every line of code to power this project is fully open-source and available on GitHub. Easily fork the project and run on your own server with docker.',

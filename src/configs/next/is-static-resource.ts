@@ -6,16 +6,17 @@ type ExcludeProps = {
 
 const isWhitelisted = ({ pathname, pageName, url }: ExcludeProps) => {
   return (
-    url.includes('/static/') ||
     pathname.includes('.') ||
+    url.startsWith('/static/') ||
     pathname.startsWith('/src/') ||
     pathname.startsWith('/workbox-') ||
     pathname.startsWith('/api/') ||
-    pathname.includes('/sw.js') ||
-    pathname === '/robots.txt' ||
-    pageName === '/_offline' ||
+    pathname.endsWith('/sw.js') ||
     url.endsWith('.svg') ||
-    url.endsWith('.wasm')
+    url.endsWith('.webp') ||
+    url.endsWith('.wasm') ||
+    pathname === '/robots.txt' ||
+    pageName === '/_offline'
   )
 }
 

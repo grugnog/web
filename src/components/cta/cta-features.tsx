@@ -17,6 +17,7 @@ import {
   Build as BuildIcon,
   Cloud as CloudIcon,
   Speed as SpeedIcon,
+  NetworkCheck as NetworkIcon,
   Security as SecurityIcon,
   Compare as CompareIcon,
   Web as WebIcon,
@@ -79,7 +80,7 @@ const RenderIcon = ({ index, ...props }: any): any =>
           FeatureIcon = CloudIcon
           break
         case 5:
-          FeatureIcon = SpeedIcon
+          FeatureIcon = NetworkIcon
           break
         case 6:
           FeatureIcon = SecurityIcon
@@ -94,6 +95,9 @@ const RenderIcon = ({ index, ...props }: any): any =>
           FeatureIcon = TripIcon
           break
         case 10:
+          FeatureIcon = SpeedIcon
+          break
+        case 11:
           FeatureIcon = GitHubIcon
           break
         default:

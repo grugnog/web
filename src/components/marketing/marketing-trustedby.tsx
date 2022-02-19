@@ -10,15 +10,12 @@ interface ImageProps {
   ext?: 'svg' | 'png' | 'webp' | 'gif'
 }
 
-const width = '231.68px'
-const height = '56.45px'
-
 function MarketingImage({ src, alt, ext = 'svg' }: ImageProps) {
   return (
     <div className='invert col-span-1 flex justify-center py-8 px-8 grayscale hover:grayscale-0 hover:invert-0 hover:bg-black'>
       <Image
-        width={width}
-        height={height}
+        width={'231.68px'}
+        height={'56.45px'}
         className='max-h-12'
         src={`/static/img/${src}.${ext}`}
         alt={alt}
@@ -32,7 +29,7 @@ const images: ImageProps[] = [
   { src: 'marketing_matchmanao', alt: 'Matchmanao logo' },
   { src: 'marketing_arrow', alt: 'Arrow Electronics logo' },
   { src: 'marketing_escape', alt: 'Escapada Rural logo' },
-  { src: 'marketing_vivacom', alt: 'Vivacom logo' },
+  { src: 'marketing_foxit', alt: 'Foxit logo' },
 ]
 
 function TrustBy() {

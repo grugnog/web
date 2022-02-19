@@ -71,8 +71,10 @@ function MNLink({
   )
 }
 
-const Link = forwardRef(function Link(props: any, ref: any) {
+export const Link = forwardRef(function Link(props: any, ref: any) {
   return <MNLink {...props} innerRef={ref} />
 })
 
-export { Link }
+export const LinkPrefetch = forwardRef(function Link(props: any, ref: any) {
+  return <MNLink {...props} innerRef={ref} prefetch />
+})
