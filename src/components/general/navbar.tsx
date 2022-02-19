@@ -8,7 +8,7 @@ import React, { Fragment, memo } from 'react'
 import { useRouter } from 'next/router'
 import dynamic from 'next/dynamic'
 
-import { AppBar, Toolbar, IconButton } from '@material-ui/core'
+import { IconButton } from '@material-ui/core'
 import { Public as AppIcon, ArrowBack as BackIcon } from '@material-ui/icons'
 import { makeStyles } from '@material-ui/core/styles'
 import { strings } from '@app-strings'
@@ -109,7 +109,6 @@ const NavBarComponent = ({
   className,
   position = 'static',
   children,
-  component = 'nav',
   marketingLinks,
   notitle,
 }: any) => {
@@ -129,16 +128,14 @@ const NavBarComponent = ({
         },
       }
 
-  const Container = position === 'fixed' ? 'div' : Fragment
-
   return (
-    <Container>
-      <AppBar
-        position={position}
-        className={`${className} ${classes.container} ${classes.hideShadow}`}
-        component={component}
+    <Fragment>
+      <nav
+        className={`${className} ${classes.container} ${classes.hideShadow} ${
+          position === 'fixed' ? 'fixed left-0 right-0' : ''
+        }`}
       >
-        <Toolbar>
+        <div className='relative flex items-center pl-5 pr-5 min-h-[inherit]'>
           {toolbar || children ? (
             toolbar || children
           ) : (
@@ -165,10 +162,10 @@ const NavBarComponent = ({
             />
           )}
           {marketing ? <TranslateBadge className={classes.ghIcon} /> : null}
-        </Toolbar>
-      </AppBar>
+        </div>
+      </nav>
       {position === 'fixed' ? <WrapShadow /> : null}
-    </Container>
+    </Fragment>
   )
 }
 

@@ -21,8 +21,8 @@ export const getBlogPage = async (
   let title = ''
 
   try {
-    const res = await fetch(`${BLOG_URL}${websiteUrl ? `/${websiteUrl}` : ''}`)
     const { parse } = await import('node-html-parser')
+    const res = await fetch(`${BLOG_URL}${websiteUrl ? `/${websiteUrl}` : ''}`)
 
     if (res && res?.ok) {
       const response = await res?.text()
@@ -45,6 +45,7 @@ export const getBlogPage = async (
         const blurScript = htmlRoot.querySelector(
           `script[src^="https://s0.wp.com/wp-content/js/bilmur.min.js"]`
         )
+        const h1Tags = htmlRoot.querySelectorAll(`h1`)
 
         const metaTags = htmlRoot.querySelectorAll(`meta`)
         const shareSection = htmlRoot.querySelectorAll(`.sharedaddy`)
@@ -78,6 +79,13 @@ export const getBlogPage = async (
         endingScripts?.forEach((tag) => {
           bodyScripts.push({ ...tag.attributes, children: tag.innerText })
           tag.remove()
+        })
+
+        h1Tags?.forEach((h1, index) => {
+          // todo replace instead
+          if (index > 0) {
+            h1.remove()
+          }
         })
 
         // manipulate links that are blog pages relativeness

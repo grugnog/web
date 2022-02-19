@@ -50,6 +50,11 @@ const theme = {
     '7xl': '5rem',
   },
   textColor: (theme) => theme('colors'),
+  extend: {
+    minHeight: {
+      inherit: 'inherit',
+    },
+  },
 }
 
 module.exports = {

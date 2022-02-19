@@ -12,15 +12,13 @@ import { NavBar } from '@app/components/blog/navbar'
 import { companyName } from '@app/configs/app-config'
 
 const getProps = (props: any = {}) => {
-  const mainProps = props?.children
+  const { children, ...mainProps } = props?.children
     ? Object.assign({}, props, {
         dangerouslySetInnerHTML: {
           __html: props.children,
         },
       })
     : props
-
-  delete mainProps.children
 
   return mainProps
 }
@@ -53,15 +51,11 @@ const Page: FC<BlogPageProps> = ({
     () =>
       bodyScripts?.map((node, index) => {
         const keyID = (node && node?.id) || `body-script-${index}`
+        const scriptProps = getProps(node)
 
         return (
           <Fragment key={keyID}>
-            <NextScript
-              id={keyID}
-              type={node?.type}
-              src={node?.src}
-              dangerouslySetInnerHTML={{ __html: node?.children }}
-            />
+            <NextScript id={keyID} {...scriptProps} />
           </Fragment>
         )
       }),

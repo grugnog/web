@@ -92,15 +92,7 @@ const NavBarComponent = ({
               <div className='invert'>
                 <SmallLogo />
               </div>
-              <h1
-                style={{
-                  fontSize: 16,
-                  fontFamily: appTheme.typography.fontFamily,
-                  color: '#fff',
-                }}
-              >
-                {title}
-              </h1>
+              <div className='pl-1 text-white'>{title}</div>
             </Link>
           </div>
           <TranslateBadge className={classes.ghIcon} />{' '}

@@ -4,7 +4,6 @@
  * LICENSE file in the root directory of this source tree.
  **/
 import React, { forwardRef } from 'react'
-import { useRouter } from 'next/router'
 import NextLink from 'next/link'
 import MuiLink from '@material-ui/core/Link'
 
@@ -15,48 +14,41 @@ interface NextComposedProps {
 }
 
 const NextComposed = forwardRef(function Link(
-  { as, href, prefetch = false, ...other }: NextComposedProps,
+  { as, href, ...other }: NextComposedProps,
   ref: React.Ref<HTMLAnchorElement>
 ) {
   return (
-    <NextLink href={href} as={as} passHref prefetch={prefetch}>
-      <a
-        ref={ref}
-        hrefLang={
-          href?.includes('https://docs.a11ywatch.com') ? 'en' : undefined
-        }
-        {...other}
-      />
+    <NextLink href={href} as={as} passHref prefetch={false}>
+      <a ref={ref} {...other} />
     </NextLink>
   )
 })
 
+const NextComposedPreFetch = forwardRef(function Link(
+  { as, href, ...other }: NextComposedProps,
+  ref: React.Ref<HTMLAnchorElement>
+) {
+  return (
+    <NextLink href={href} as={as} passHref>
+      <a ref={ref} {...other} />
+    </NextLink>
+  )
+})
 function MNLink({
   activeClassName = 'active',
   innerRef,
   className,
-  naked,
   as: asValue,
   href,
+  shouldPrefetch,
   ...props
 }: any) {
-  const router = useRouter()
   const external = String(href).includes('http')
-  const component = external ? 'a' : NextComposed
   const as = external ? undefined : href
+  let component = external ? 'a' : NextComposed
 
-  if (naked) {
-    return (
-      <NextComposed
-        {...props}
-        className={`${className} ${
-          router?.pathname === href ? activeClassName : ''
-        }`}
-        as={as}
-        href={href}
-        ref={innerRef}
-      />
-    )
+  if (shouldPrefetch) {
+    component = NextComposedPreFetch
   }
 
   return (
@@ -76,5 +68,5 @@ export const Link = forwardRef(function Link(props: any, ref: any) {
 })
 
 export const LinkPrefetch = forwardRef(function Link(props: any, ref: any) {
-  return <MNLink {...props} innerRef={ref} prefetch />
+  return <MNLink {...props} innerRef={ref} shouldPrefetch />
 })

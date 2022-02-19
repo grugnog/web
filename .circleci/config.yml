@@ -39,7 +39,7 @@ jobs:
       - run:
           command: yarn install --frozen-lockfile
       - run:
-          command: npx playwright test
+          command: npm run test:e2e
 workflows:
   build_and_test:
     jobs:

@@ -7,7 +7,8 @@
 dist
 # testing
 /coverage
-
+state.json
+test-results
 # next.js
 /.next/
 /out/

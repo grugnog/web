@@ -32,6 +32,7 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   link: {
+    paddingTop: 4,
     '&:hover': {
       textDecoration: 'none',
     },

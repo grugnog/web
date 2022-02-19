@@ -4,14 +4,22 @@
  * LICENSE file in the root directory of this source tree.
  **/
 import React from 'react'
-import { metaSetter } from '@app/utils'
-import { getBlogPage } from '@app/lib'
+import Head from 'next/head'
+import { metaSetter } from '@app/utils/meta-setter'
+import { getBlogPage } from '@app/lib/get-blog'
 import { WordPressPage } from '@app/components/blog/wordpress-page'
 import type { BlogPageProps } from '@app/types'
 import type { GetStaticProps } from 'next'
 
 function Blogs(props: BlogPageProps) {
-  return <WordPressPage {...props} />
+  return (
+    <>
+      <Head>
+        <link rel='alternate' hrefLang='en' />
+      </Head>
+      <WordPressPage {...props} />
+    </>
+  )
 }
 
 export async function getStaticPaths() {
