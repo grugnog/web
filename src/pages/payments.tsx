@@ -41,11 +41,7 @@ const useStyles = makeStyles(() => ({
     minWidth: 170,
   },
   cancel: {
-    marginTop: 60,
-    marginBottom: 30,
-    background: '#000',
-    color: '#000',
-    minWidth: '148.906px',
+    border: '1px solid #000',
   },
   pay: {
     marginTop: 60,
@@ -300,17 +296,17 @@ function Payments({ hideTitle = false, name }: PaymentProps) {
                 </DialogTitle>
                 <DialogContent>
                   <DialogContentText id='alert-dialog-description'>
-                    Cancel {data?.role === 1 ? 'basic' : 'premium'} subscription
+                    Confirm cancel for {data?.role === 1 ? 'basic' : 'premium'}{' '}
+                    subscription.
                   </DialogContentText>
                 </DialogContent>
                 <DialogActions>
                   <Button
                     onClick={handleModal(false)}
-                    color='primary'
                     variant='contained'
                     className={classes.cancelBtn}
                   >
-                    Cancel
+                    No
                   </Button>
                   <Button
                     onClick={cancelConfirm}
@@ -318,7 +314,7 @@ function Payments({ hideTitle = false, name }: PaymentProps) {
                     variant='contained'
                     type='submit'
                   >
-                    Agree
+                    Confirm Cancel
                   </Button>
                 </DialogActions>
               </Dialog>

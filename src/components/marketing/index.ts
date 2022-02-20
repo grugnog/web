@@ -5,6 +5,5 @@
  **/
 
 export { MarketingTestimonial } from './marketing-testimonial'
-export { MarketingShapesTop } from './marketing-shapes-top'
 export { MarketingTrustBy } from './marketing-trustedby'
 export { MarketingShortTitle } from './marketing-short-title'

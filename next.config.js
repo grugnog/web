@@ -7,9 +7,11 @@
 const { resolve } = require('path')
 const { generateSiteMap } = require('./generate-sitemap')
 const withPWA = require('next-pwa')
+const runtimeCaching = require('next-pwa/cache')
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin')
 
 const dev = process.env.NODE_ENV !== 'production'
+// replace with only exact domain name without protocol
 const DOMAIN_NAME = process.env.DOMAIN_NAME || 'https://a11ywatch.com'
 
 const env = {
@@ -74,10 +76,25 @@ const securityHeaders = [
     key: 'Strict-Transport-Security',
     value: 'max-age=63072000; includeSubDomains; preload',
   },
+  {
+    key: 'X-XSS-Protection',
+    value: '1; mode=block',
+  },
 ]
+
+if (DOMAIN_NAME.includes('a11ywatch')) {
+  const ContentSecurityPolicy = `
+    frame-ancestors 'self' https://*.a11ywatch.com https://*.a11ywatch.blog;
+  `
+  securityHeaders.push({
+    key: 'Content-Security-Policy',
+    value: ContentSecurityPolicy.replace(/\s{2,}/g, ' ').trim(),
+  })
+}
 
 module.exports = withPWA({
   pwa: {
+    runtimeCaching,
     dest: 'public',
     mode: process.env.WORKBOX_MODE || 'production',
     disable: dev,
@@ -88,6 +105,7 @@ module.exports = withPWA({
       /_middleware.js$/,
       /_middleware.js.map$/,
       /chunks\/images\/.*$/,
+      /_next\/server\/middleware-chunks$/,
       /_next\/server\/middleware-manifest\.json$/,
       /_next\/server\/middleware-runtime.js$/,
       /_next\/server\/_middleware.js$/,
