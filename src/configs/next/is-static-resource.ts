@@ -11,7 +11,7 @@ const isWhitelisted = ({ pathname, pageName, url }: ExcludeProps) => {
     pathname.startsWith('/src/') ||
     pathname.startsWith('/workbox-') ||
     pathname.startsWith('/api/') ||
-    pathname.endsWith('/sw.js') ||
+    url.endsWith('.js') ||
     url.endsWith('.svg') ||
     url.endsWith('.webp') ||
     url.endsWith('.wasm') ||
