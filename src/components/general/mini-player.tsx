@@ -4,7 +4,7 @@
  * LICENSE file in the root directory of this source tree.
  **/
 
-import React, { useRef, FunctionComponent } from 'react'
+import React, { useRef, FunctionComponent, useMemo } from 'react'
 import {
   AppBar,
   Dialog,
@@ -21,6 +21,8 @@ import { AdaIframe } from '../ada/ada-iframe'
 import { Link } from './link'
 import type { MergedTheme } from '@app/theme'
 import { GrowTransition } from './grow'
+// @ts-ignore
+import ReportViewer from 'react-lighthouse-viewer'
 
 const useStyles = makeStyles((theme: MergedTheme) => ({
   root: {
@@ -37,8 +39,8 @@ const useStyles = makeStyles((theme: MergedTheme) => ({
     overflow: 'hidden',
     right: 'auto !important',
     left: 'auto',
-    minWidth: '40vw',
-    maxHeight: '50vh',
+    minWidth: '45vw',
+    maxHeight: '65vh',
     margin: '0px !important',
   },
   transparent: {
@@ -63,7 +65,13 @@ export const MiniPlayer: FunctionComponent<MiniPlayerProps> = (_) => {
   const classes = useStyles()
   const appBarRef = useRef(null)
   const handler = new DragHandler(appBarRef?.current)
-  const { open, data, title } = miniPlayer
+
+  const { open, data, title } = useMemo(() => {
+    if (miniPlayer?.title === 'PageSpeed') {
+      return { ...miniPlayer, data: JSON.parse(miniPlayer?.data) }
+    }
+    return miniPlayer
+  }, [miniPlayer])
 
   return (
     <Dialog
@@ -75,11 +83,11 @@ export const MiniPlayer: FunctionComponent<MiniPlayerProps> = (_) => {
       open={open}
       onClose={setMiniPlayerContent(false)}
       TransitionComponent={GrowTransition as React.ComponentType}
-      hideBackdrop={true}
-      disablePortal={true}
-      disableEnforceFocus={true}
-      disableAutoFocus={true}
-      scroll={'body'}
+      hideBackdrop
+      disablePortal
+      disableEnforceFocus
+      disableAutoFocus
+      scroll={'paper'}
       BackdropProps={{
         classes: {
           root: classes.transparent,
@@ -100,22 +108,38 @@ export const MiniPlayer: FunctionComponent<MiniPlayerProps> = (_) => {
             <Typography variant='h6' className={classes.title}>
               {title}
             </Typography>
-            <Typography
-              variant='subtitle1'
-              className={classes.subTitle}
-              component={Link}
-              color={'primary'}
-              href={`/website-details?websiteUrl=${encodeURIComponent(data)}`}
-            >
-              {data}
-            </Typography>
+            {title !== 'PageSpeed' ? (
+              <Typography
+                variant='subtitle1'
+                className={classes.subTitle}
+                component={Link}
+                color={'primary'}
+                href={`/website-details?websiteUrl=${encodeURIComponent(data)}`}
+              >
+                {data}
+              </Typography>
+            ) : null}
           </div>
         </Toolbar>
       </AppBar>
-      <div>
-        <AdaIframe url={data} miniPlayer />
-        <Fab autoFix />
-      </div>
+      {title === 'PageSpeed' ? (
+        <div>
+          {/* @ts-ignore */}
+          <style>
+            {`
+            .lh-topbar__url, .report-icon--download {
+              display: none !important;
+            }
+            `}
+          </style>
+          <ReportViewer json={data} id='fullscreen-lighthouse-report' />
+        </div>
+      ) : (
+        <div>
+          <AdaIframe url={data} miniPlayer />
+          <Fab autoFix />
+        </div>
+      )}
     </Dialog>
   )
 }

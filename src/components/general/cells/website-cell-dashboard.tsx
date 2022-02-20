@@ -83,7 +83,7 @@ export function WebsiteCellDashboard({
     mini?: boolean,
     url?: string
   ) => () => {
-    if (mini && handleClickOpenPlayer) {
+    if (mini) {
       handleClickOpenPlayer(true, eventData, title)()
     } else if (handleClickOpen) {
       handleClickOpen(eventData, title, url)

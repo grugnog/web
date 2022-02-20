@@ -29,7 +29,7 @@ export const RenderInner: FC<any> = ({
   setModal,
   mutatationLoading,
   handleClickOpen,
-  setMiniPlayerContent,
+  handleClickOpenPlayer,
 }) => {
   const classes = useStyles()
 
@@ -60,7 +60,7 @@ export const RenderInner: FC<any> = ({
         data={data}
         {...{
           handleClickOpen,
-          handleClickOpenPlayer: setMiniPlayerContent,
+          handleClickOpenPlayer,
           removePress,
           refetch,
           crawlWebsite,

@@ -52,6 +52,7 @@ export function WebsiteList({
       <RenderInner
         {...{
           handleClickOpen: handleClickOpen,
+          handleClickOpenPlayer: setMiniPlayerContent,
           data,
           error,
           loading,

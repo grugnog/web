@@ -64,7 +64,7 @@ export function MoreOptionsComponent({
             View Pages
           </MenuItem>
         ) : null}
-        <MenuItem onClick={handleMainClick(url, '', true)}>
+        <MenuItem onClick={handleMainClick(url, 'Mini Player', true)}>
           View Website (Mini Player)
         </MenuItem>
         {typeof setModal !== 'undefined' && html ? (

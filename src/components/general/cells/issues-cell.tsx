@@ -52,8 +52,8 @@ export function IssuesCell({
       : handleClickOpen(eventData, title, url, true)
     setAnchorEl(null)
   }
-  const href = `/website-details?websiteUrl=${url}`
 
+  const href = `/website-details?websiteUrl=${url}`
   const menuId = `issues-appbar${index}`
 
   const authForm = (

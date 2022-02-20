@@ -49,6 +49,10 @@ const GET_WEBSITES = gql`
           url
           adaScore
           htmlIncluded
+          pageInsights
+          insight {
+            json
+          }
           pageLoadTime {
             duration
             durationFormated
