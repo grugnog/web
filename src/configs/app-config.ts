@@ -17,7 +17,8 @@ const SCRIPTS_CDN_URL_HOST =
 const INTERCOM_APPID = process.env.INTERCOM_APPID
 const APP_TYPE = process.env.APP_TYPE || 'main'
 const GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID
-const STRIPE_KEY = process.env.STRIPE_KEY
+const STRIPE_KEY =
+  process.env.STRIPE_KEY || 'pk_test_enc1gdton1T8NXa7dP5VOlHM00EyC4zqsX' // stripe.com default test key
 const SUPER_MODE = process.env.SUPER_MODE
 const INTERCOM_ENABLED = process.env.INTERCOM_ENABLED
 const API_URI_DOCKER = process.env.API_URI_DOCKER

@@ -229,36 +229,22 @@ function PriceWrapper({
                     ))}
                   </ul>
                   {cost ? (
-                    <Typography
-                      variant='h5'
-                      className={'py-6'}
-                      component={'h4'}
-                    >
+                    <h4 className={'py-6 text-3xl font-bold'}>
                       {yearly ? costYearly : cost}
-                    </Typography>
+                    </h4>
                   ) : null}
                   <MainButton title={title} />
-                  <Typography
-                    variant='subtitle2'
-                    component='div'
-                    className={'pt-4'}
+                  <div
+                    className='pt-1'
                     style={{ textAlign: 'center', fontSize: '0.95em' }}
                   >
                     {title !== 'Free' ? 'Cancel anytime.' : 'Forever Free'}
-                  </Typography>
+                  </div>
                 </Fragment>
               </Component>
             )
           })}
       </Grid>
-      <Typography
-        variant='subtitle1'
-        component='p'
-        className={'py-12 text-center'}
-      >
-        If you need a higher API limit please send us an email at
-        support@a11ywatch.com
-      </Typography>
     </Container>
   )
 }

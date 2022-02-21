@@ -117,7 +117,7 @@ export const generateStrings = ({
         id: 10,
         title: 'PageSpeed',
         detail:
-          'Get PageSpeed metrics by google lighthouse on all of your pages at once without having to manually run all of your domains url paths.',
+          'Get PageSpeed metrics by google lighthouse on all of your pages at once. Get rapid results utilizing the power of our lightning fast crawler.',
         reason: 'Basic',
       },
       {

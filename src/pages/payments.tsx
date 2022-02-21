@@ -3,12 +3,10 @@
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
  **/
-import React, { useEffect, useState, useRef } from 'react'
-import StripeCheckout from 'react-stripe-checkout'
+import React, { useEffect, useState } from 'react'
 import { getDate, format } from 'date-fns'
 import {
   Container,
-  Typography,
   Button,
   List,
   Dialog,
@@ -21,12 +19,17 @@ import { makeStyles } from '@material-ui/core/styles'
 import { NavBar, PriceMemo, PageTitle } from '@app/components/general'
 import { Box } from '@a11ywatch/ui'
 import { SimpleListItemSkeleton } from '@app/components/placeholders'
-import { STRIPE_KEY } from '@app/configs'
 import { paymentsData } from '@app/data'
 import { getOrdinalSuffix, metaSetter } from '@app/utils'
 import type { PageProps } from '@app/types'
 import { useRouter } from 'next/router'
 import { UserManager, AppManager } from '@app/managers'
+import { CheckoutForm } from '@app/components/stripe/checkout'
+import { Elements } from '@stripe/react-stripe-js'
+import { loadStripe } from '@stripe/stripe-js'
+import { STRIPE_KEY } from '@app/configs/app-config'
+
+const stripePromise = loadStripe(STRIPE_KEY)
 
 const useStyles = makeStyles(() => ({
   row: {
@@ -34,32 +37,12 @@ const useStyles = makeStyles(() => ({
     flexDirection: 'row',
     alignItems: 'center',
   },
-  email: {
-    marginBottom: 10.5,
-  },
-  submit: {
-    minWidth: 170,
-  },
   cancel: {
     border: '1px solid #000',
-  },
-  pay: {
-    marginTop: 60,
-    marginBottom: 30,
-    minWidth: '148.906px',
   },
   cancelBtn: {
     background: 'transparent',
     boxShadow: 'none',
-  },
-  center: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    flexDirection: 'column',
-  },
-  dot: {
-    top: '-0.4rem',
   },
 }))
 
@@ -93,7 +76,6 @@ function Payments({ hideTitle = false, name }: PaymentProps) {
   })
   const [yearly, setYearly] = useState<boolean>(false)
   const [open, setOpen] = useState<boolean>(false)
-  const stripRef = useRef<any>()
 
   const plan = String(router?.query?.plan).toLocaleLowerCase() as string
   const yearSet = String(router?.query?.yearly)
@@ -110,24 +92,6 @@ function Payments({ hideTitle = false, name }: PaymentProps) {
     }
   }, [setState, plan])
 
-  const loadEvent = () => {
-    if (plan && plan !== 'undefined') {
-      // @ts-ignore
-      const cb = window?.requestIdleCallback ?? setTimeout
-
-      if (typeof cb === 'function') {
-        cb(() => {
-          if (
-            stripRef?.current &&
-            typeof stripRef?.current?.onClick === 'function'
-          ) {
-            stripRef.current.onClick()
-          }
-        })
-      }
-    }
-  }
-
   const handleChange = (newState: any) => {
     setState({
       basic: newState === 'Basic',
@@ -138,6 +102,8 @@ function Payments({ hideTitle = false, name }: PaymentProps) {
   const onToken = async (token: any) => {
     try {
       if (token) {
+        AppManager.toggleSnack(true, 'Processing payment...', 'success')
+
         const res = await addSubscription({
           variables: {
             stripeToken: JSON.stringify({
@@ -203,16 +169,16 @@ function Payments({ hideTitle = false, name }: PaymentProps) {
   }`
 
   return (
-    <>
+    <Elements stripe={stripePromise}>
       <NavBar title={name} backButton notitle />
       <Container maxWidth='xl'>
         <Box>
           {hideTitle ? null : <PageTitle>{name}</PageTitle>}
           {loading && !data ? (
             <div>
-              <Typography variant='subtitle1' component='p'>
+              <p className='text-2xl font-bold'>
                 {!renderPayMentBoxes ? 'Account Info' : 'Upgrade Account'}
-              </Typography>
+              </p>
               <List>
                 <SimpleListItemSkeleton />
                 <SimpleListItemSkeleton />
@@ -220,9 +186,9 @@ function Payments({ hideTitle = false, name }: PaymentProps) {
             </div>
           ) : (
             <div>
-              <Typography variant='body1' component='p' gutterBottom>
+              <p className='text-2xl font-bold'>
                 {!renderPayMentBoxes ? 'Account Info' : 'Upgrade Account'}
-              </Typography>
+              </p>
               {renderPayMentBoxes ? (
                 <PriceMemo
                   priceOnly
@@ -235,22 +201,18 @@ function Payments({ hideTitle = false, name }: PaymentProps) {
               ) : (
                 <div>
                   {nextPaymentDay ? (
-                    <Typography variant='subtitle1' component='p'>
-                      {paymentDate}
-                    </Typography>
+                    <p className='text-xl'> {paymentDate}</p>
                   ) : null}
-                  <Typography variant='body1' component='p' gutterBottom>
-                    Account Type
-                  </Typography>
-                  <Typography variant='body2' component='p'>
+                  <p className='text-2xl font-bold'>Account Type</p>
+                  <p className='text-xl'>
                     {`${
                       paymentSubscription?.plan?.nickname ||
                       getPlanName(paymentSubscription?.plan?.amount)
                     } - $${paymentSubscription?.plan?.amount / 100 || ''}`}
-                  </Typography>
+                  </p>
                 </div>
               )}
-              <div className={classes.center}>
+              <div className='py-10'>
                 {!renderPayMentBoxes ? (
                   <Button
                     title={'Cancel Subscription'}
@@ -261,28 +223,12 @@ function Payments({ hideTitle = false, name }: PaymentProps) {
                     Cancel Subscription
                   </Button>
                 ) : (
-                  <StripeCheckout
-                    ref={stripRef}
-                    token={onToken}
-                    // @ts-ignore
-                    onScriptTagCreated={loadEvent}
-                    name={state.basic ? 'Basic' : 'Premium'}
-                    stripeKey={STRIPE_KEY + ''}
-                    email={data?.email || ''}
+                  <CheckoutForm
+                    onToken={onToken}
+                    basic={state.basic}
+                    price={Number(`${price}${priceMultiplyier}`)}
                     disabled={Boolean(!state.basic && !state.premium)}
-                    amount={Number(`${price}${priceMultiplyier}`)}
-                    zipCode={false}
-                    billingAddress={false}
-                    panelLabel={`${state.basic ? 'Basic' : 'Premium'}`}
-                  >
-                    <Button
-                      color='secondary'
-                      variant='contained'
-                      className={classes.pay}
-                    >
-                      Start {state.basic ? 'Basic' : 'Premium'}
-                    </Button>
-                  </StripeCheckout>
+                  />
                 )}
               </div>
               <Dialog
@@ -322,7 +268,7 @@ function Payments({ hideTitle = false, name }: PaymentProps) {
           )}
         </Box>
       </Container>
-    </>
+    </Elements>
   )
 }
 

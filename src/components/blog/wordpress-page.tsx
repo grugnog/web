@@ -6,7 +6,6 @@
 import type { BlogPageProps } from '@app/types'
 import React, { FC, Fragment, useMemo, memo } from 'react'
 import Head from 'next/head'
-import NextScript from 'next/script'
 import { Footer } from '@app/components/general/footer'
 import { NavBar } from '@app/components/blog/navbar'
 import { companyName } from '@app/configs/app-config'
@@ -39,28 +38,27 @@ const Page: FC<BlogPageProps> = ({
         const scriptProps = getProps(node)
         const scriptID = scriptProps?.id ?? `head-script-${index}`
 
-        return (
-          <Fragment key={scriptID}>
-            <script {...scriptProps} key={scriptID} async />
-          </Fragment>
-        )
+        return <script {...scriptProps} key={scriptID} async />
       }),
     [headScripts]
   )
   const memoBodyScripts = useMemo(
     () =>
-      bodyScripts?.map((node, index) => {
-        const keyID = (node && node?.id) || `body-script-${index}`
-        const scriptProps = getProps(node)
+      bodyScripts?.length
+        ? bodyScripts.map((node, index) => {
+            const keyID = node?.id || `body-script-${index}`
+            const scriptProps = getProps(node)
 
-        return (
-          <Fragment key={keyID}>
-            <NextScript id={keyID} {...scriptProps} />
-          </Fragment>
-        )
-      }),
+            if (!node) {
+              return null
+            }
+
+            return <script key={keyID} {...scriptProps} />
+          })
+        : [],
     [bodyScripts]
   )
+
   return (
     <>
       <Head>
