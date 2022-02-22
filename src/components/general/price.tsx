@@ -73,7 +73,7 @@ function PriceWrapper({
   pricingPage,
 }: any) {
   const classes = useStyles()
-  const [yearState, onSetYear] = useState<boolean>(!!year)
+  const [yearly, onSetYear] = useState<boolean>(!!year)
   const Container = !onClick ? 'section' : 'div'
 
   const setYearly = (params: any) => {
@@ -82,8 +82,6 @@ function PriceWrapper({
     }
     onSetYear(params)
   }
-
-  const yearly = yearState
 
   function MainButton({ title }: { title: string }) {
     const buttonColor = getPrimaryColor(title)
@@ -217,7 +215,7 @@ function PriceWrapper({
                   <ul>
                     {details?.map((item: string) => (
                       <li
-                        className={'flex gap-x-3 place-items-center'}
+                        className={'flex gap-x-3 place-items-center text-left'}
                         key={item}
                         aria-hidden={!String(item).trim()}
                       >

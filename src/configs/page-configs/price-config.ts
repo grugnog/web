@@ -39,7 +39,7 @@ const plans = [
     title: 'Basic',
     details: [
       'Monitor up to 4 websites.',
-      'Web accessibility email reports with PageSpeed.',
+      'Web accessibility email reports.',
       '10 manual page scans a day.',
       'All pages checked frequently.',
       TRUSTED_CDN,

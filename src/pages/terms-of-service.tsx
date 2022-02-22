@@ -62,7 +62,7 @@ function TermsOfService({ name }: PageProps) {
       <Typography>
         {strings.appName} has no control over, and assumes no responsibility
         for, the content, privacy policies, or practices of any third party web
-        sites or services. You further acknowledge and agree that
+        sites or services. You further acknowledge and agree that{' '}
         {strings.appName} shall not be responsible or liable, directly or
         indirectly, for any damage or loss caused or alleged to be caused by or
         in connection with use of or reliance on any such content, goods or

@@ -1,3 +1,5 @@
+import React from 'react'
+import { theme } from '@app/theme'
 import { Button } from '@material-ui/core'
 import { useStripe, useElements, CardElement } from '@stripe/react-stripe-js'
 
@@ -12,7 +14,7 @@ const style = {
   base: {
     iconColor: '#000',
     fontWeight: '500',
-    fontFamily: 'system-ui',
+    fontFamily: theme.typography.fontFamily,
     fontSize: '20px',
     fontSmoothing: 'antialiased',
   },
@@ -22,7 +24,7 @@ export const CheckoutForm = ({ onToken, basic, price, disabled }: Props) => {
   const stripe = useStripe()
   const elements = useElements()
 
-  const handleSubmit = async (event: any) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
 
     if (!stripe || !elements) {
@@ -46,7 +48,7 @@ export const CheckoutForm = ({ onToken, basic, price, disabled }: Props) => {
     <div className='flex place-content-center flex-1'>
       <form
         onSubmit={handleSubmit}
-        className={'h-42 space-y-6 bg-gray-200 p-5 rounded lg:w-1/2 '}
+        className={'h-42 space-y-6 bg-gray-200 p-5 rounded sm:w-full lg:w-1/2 '}
       >
         <div className='text-2xl font-bold'>
           Total{' '}

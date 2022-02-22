@@ -33,7 +33,7 @@ export const generateStrings = ({
     customers: 'Get accessibility, performance, and UX insights on demand',
     usersUsing: 'Used on here',
     customersWhy:
-      'See live results on a well known website like twitter, github, and dropbox below.',
+      'See live results on a well known website like Twitter, Github, and Dropbox below.',
     testimonials: [
       {
         title:
