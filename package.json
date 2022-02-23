@@ -57,7 +57,7 @@
     "react-google-translate-lazy": "^1.0.6",
     "react-is": "17.0.1",
     "react-lighthouse-viewer": "^6.0.2",
-    "react-resize-detector": "5.0.6",
+    "react-resize-detector": "5.2.0",
     "react-syntax-highlighter": "12.2.1",
     "react-visibility-sensor": "^5.1.1",
     "sharp": "^0.30.1",
