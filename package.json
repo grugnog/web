@@ -53,7 +53,7 @@
     "node-html-parser": "^5.2.0",
     "react": "17.0.2",
     "react-dom": "17.0.2",
-    "react-google-login": "5.1.21",
+    "react-google-login": "5.2.2",
     "react-google-translate-lazy": "^1.0.6",
     "react-is": "17.0.1",
     "react-lighthouse-viewer": "^6.0.2",
