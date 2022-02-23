@@ -6557,11 +6557,6 @@ ini@~1.3.0:
   resolved "https://registry.yarnpkg.com/ini/-/ini-1.3.8.tgz#a29da425b48806f34767a4efce397269af28432c"
   integrity sha512-JV/yugV2uzW5iMRSiZAyDtQd+nxtUnjeLt0acNdw98kKLrvuRVyB80tsREOE7yvGVgalhZ6RNXCmEHkUKBKxew==
 
-intercom-next@1.3.5:
-  version "1.3.5"
-  resolved "https://registry.yarnpkg.com/intercom-next/-/intercom-next-1.3.5.tgz#f06d6cd9af6c35b42b0a6ea24bf7ab5eeb0825f4"
-  integrity sha512-vUsN195QWNL3ls8ra8bpgG8ysc11ODeHjiKeXN/EhxwWcMDVqeQEPYxdHpXufu+/q8JH8rECFcOmEAjYC5B12g==
-
 internal-slot@^1.0.3:
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/internal-slot/-/internal-slot-1.0.3.tgz#7347e307deeea2faac2ac6205d4bc7d34967f59c"
@@ -8028,6 +8023,11 @@ natural-compare@^1.4.0:
   version "1.4.0"
   resolved "https://registry.yarnpkg.com/natural-compare/-/natural-compare-1.4.0.tgz#4abebfeed7541f2c27acfb29bdbbd15c8d5ba4f7"
   integrity sha1-Sr6/7tdUHywnrPspvbvRXI1bpPc=
+
+next-intercom@0.1.4:
+  version "0.1.4"
+  resolved "https://registry.yarnpkg.com/next-intercom/-/next-intercom-0.1.4.tgz#95f3fbca87490b0edd0261e64a06d9a941623f3c"
+  integrity sha512-B71WlnXu9jpthtTpJNt9c/hIYoxnBz7G3xtta2ke3Pb4wDz4WZBlScmZaKkmSuH1U5S4szsisOTZr3f2iB0y/w==
 
 next-pwa@5.4.4:
   version "5.4.4"

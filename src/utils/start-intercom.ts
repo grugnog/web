@@ -4,7 +4,7 @@
  * LICENSE file in the root directory of this source tree.
  **/
 
-import { loadIntercom } from 'intercom-next'
+import { loadIntercom } from 'next-intercom'
 import { userModel } from '@app/data'
 import { INTERCOM_APPID, INTERCOM_ENABLED } from '@app/configs'
 import { domInteractive } from './dom-load-time'
