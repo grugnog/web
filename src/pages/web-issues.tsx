@@ -10,6 +10,7 @@ import {
   PageTitle,
   LinearBottom,
   Drawer,
+  Spacer,
 } from '@app/components/general'
 import { useWebsiteData, useSearchFilter } from '@app/data'
 import { filterSort } from '@app/lib'
@@ -25,6 +26,7 @@ function Issues({ name }: PageProps) {
     <>
       <Drawer title={name}>
         <PageTitle title={name} />
+        <Spacer />
         <List
           data={MAINDATASOURCE}
           loading={loading}

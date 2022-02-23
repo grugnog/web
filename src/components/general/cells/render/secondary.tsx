@@ -97,7 +97,7 @@ export function RenderSecondary({
           title={
             issuesFixedByCdn
               ? `${issuesFixedByCdn} issues fixed from CDN out of ${totalIssuesOnPage} for current page`
-              : `${possibleIssuesFixedByCdn} out of ${totalIssuesOnPage} issues on the current page can be fixed instantly with our custom cdn ( register or login to get all your url pages across your domains at once and access to a custom cdn fix script )`
+              : `${possibleIssuesFixedByCdn} out of ${totalIssuesOnPage} issues on the current page can be fixed instantly with our custom CDN.`
           }
           placement={'right'}
         >

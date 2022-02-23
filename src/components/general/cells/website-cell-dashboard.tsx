@@ -154,7 +154,7 @@ export function WebsiteCellDashboard({
         <InfoBlock title={'Accessibility Score'}>
           {adaScore || adaScore === 0 ? `${adaScore}%` : 'N/A'}
         </InfoBlock>
-        <InfoBlock title={'Pages'}>
+        <InfoBlock title={'Page Count'}>
           <p>{subDomains?.length}</p>
         </InfoBlock>
         <InfoBlock title={'Page Load Time'}>
