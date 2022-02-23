@@ -61,7 +61,7 @@
     "react-syntax-highlighter": "12.2.1",
     "react-visibility-sensor": "^5.1.1",
     "sharp": "^0.30.1",
-    "subscriptions-transport-ws": "0.9.16",
+    "subscriptions-transport-ws": "0.11.0",
     "use-scroll-event": "0.0.19",
     "victory": "34.3.12",
     "with-cookie": "1.5.7"
