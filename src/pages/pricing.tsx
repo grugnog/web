@@ -20,7 +20,7 @@ function Pricing({ name }: PageProps) {
       </Typography>
       <PriceMemo navigate blockFree pricingPage />
       <div className='p-5 bg-gray-200 my-5 space-y-3 rounded'>
-        <h5 className='text-xl'>For Partners</h5>
+        <h5 className='text-xl font-bold'>For Partners</h5>
         <div className='text-lg'>
           Apply to become partners as an approved agency, technology, or
           professional services.

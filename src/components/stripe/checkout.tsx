@@ -48,7 +48,9 @@ export const CheckoutForm = ({ onToken, basic, price, disabled }: Props) => {
     <div className='flex place-content-center flex-1'>
       <form
         onSubmit={handleSubmit}
-        className={'h-42 space-y-6 bg-gray-200 p-5 rounded sm:w-full lg:w-1/2 '}
+        className={
+          'h-42 space-y-6 bg-gray-200 p-5 rounded sm:w-full lg:w-1/3 md:1/2'
+        }
       >
         <div className='text-2xl font-bold'>
           Total{' '}
@@ -69,6 +71,7 @@ export const CheckoutForm = ({ onToken, basic, price, disabled }: Props) => {
         >
           Start {basic ? 'Basic' : 'Premium'}
         </Button>
+        <div className='text-sm'>14 days money back guarantee.</div>
       </form>
     </div>
   )

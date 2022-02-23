@@ -74,7 +74,7 @@ export const generateStrings = ({
         id: 4,
         title: 'Cloud',
         detail:
-          'Add a cdn script that mitigates drastic issues for your users easily. If you accidently deploy dark text on a dark background and etc.',
+          'Add a CDN script that mitigates drastic issues for your users easily. If you accidently deploy dark text on a dark background and etc.',
         reason: 'Basic',
         icon: 'accessibility',
       },
