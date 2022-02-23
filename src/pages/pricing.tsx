@@ -4,7 +4,7 @@
  * LICENSE file in the root directory of this source tree.
  **/
 import React from 'react'
-import { Typography } from '@material-ui/core'
+import { Button, Typography } from '@material-ui/core'
 import { MarketingDrawer, PriceMemo, PageTitle } from '@app/components/general'
 import { metaSetter } from '@app/utils'
 import type { PageProps } from '@app/types'
@@ -15,10 +15,30 @@ function Pricing({ name }: PageProps) {
       <PageTitle className={'w-3/4'}>
         The simplest accessibility solution, for the simplest price.
       </PageTitle>
-      <Typography component='h2' gutterBottom className={'sr-only'}>
+      <Typography component='h2' gutterBottom className={'text-lg'}>
         Choose a plan that best fits your needs
       </Typography>
       <PriceMemo navigate blockFree pricingPage />
+      <div className='p-5 bg-gray-200 my-5 space-y-3 rounded'>
+        <h5 className='text-xl'>For Partners</h5>
+        <div className='text-lg'>
+          Apply to become partners as an approved agency, technology, or
+          professional services.
+        </div>
+        <Button
+          variant='outlined'
+          component={'a'}
+          href={
+            'mailto:support@a11ywatch.com' +
+            '?subject=' +
+            encodeURIComponent('Partner') +
+            '&body=' +
+            'I would like to find out more about your partnership.'
+          }
+        >
+          Contact Us
+        </Button>
+      </div>
     </MarketingDrawer>
   )
 }
