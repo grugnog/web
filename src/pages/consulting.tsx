@@ -99,6 +99,7 @@ function Consulting({ name }: PageProps) {
 export default metaSetter(
   { Consulting },
   {
+    intercom: true,
     description:
       'Need a web accessibility expert fast? Get audits using manual and automated testing that save time and effort on ADA & WCAG for any project.',
   }

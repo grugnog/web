@@ -41,6 +41,7 @@ function Index() {
 export default metaSetter(
   { Index },
   {
+    intercom: true,
     gql: true,
     title: `${strings.appName}: the all around web accessibility tool.`,
     description: `Build accessible websites with tools that monitor, fix, and guide web accessibility efficiency with ${strings.appName}`,

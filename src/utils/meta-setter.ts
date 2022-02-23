@@ -26,6 +26,7 @@ export const metaSetter = (
   const nameStripped = keyName.replace(/([A-Z])/g, ' $1')
   const name = nameStripped.replace(' ', '')
 
+  // html meta data
   value.meta = {
     title:
       title ??
@@ -36,6 +37,7 @@ export const metaSetter = (
     name,
   }
 
+  // component meta data for enhancements or features
   value.gql = gql
   value.intercom = intercom
 
