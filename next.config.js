@@ -5,10 +5,8 @@
  **/
 
 const { resolve } = require('path')
-const { generateSiteMap } = require('./generate-sitemap')
 const withPWA = require('next-pwa')
 const runtimeCaching = require('next-pwa/cache')
-const CssMinimizerPlugin = require('css-minimizer-webpack-plugin')
 
 const dev = process.env.NODE_ENV !== 'production'
 // replace with only exact domain name without protocol
@@ -35,9 +33,6 @@ const env = {
   SUPER_MODE: process.env.SUPER_MODE,
   // single CDN for app assets
   CDN: process.env.CDN,
-  // # NEXT.JS REQUIRED EXCLUDES
-  NODE_ENV: undefined,
-  NODE_MODULES_CACHE: undefined,
 }
 
 let domains = ['images.unsplash.com']
@@ -58,13 +53,10 @@ if (CDN_HOST) {
   }
 }
 
-const themeType = 'main'
-const stringType = 'a11y'
-
 const aliases = {
   ['@app']: resolve(__dirname, './src'),
-  ['@app-theme']: resolve(__dirname, `./src/theme/${themeType}`),
-  ['@app-strings']: resolve(__dirname, `./src/content/strings/${stringType}`),
+  ['@app-theme']: resolve(__dirname, './src/theme/main'),
+  ['@app-strings']: resolve(__dirname, './src/content/strings/a11y'),
 }
 
 const securityHeaders = [
@@ -82,6 +74,7 @@ const securityHeaders = [
   },
 ]
 
+// TODO: Replace with env variable for frame-ancestors rules
 if (DOMAIN_NAME.includes('a11ywatch')) {
   const ContentSecurityPolicy = `
     frame-ancestors 'self' https://*.a11ywatch.com https://*.a11ywatch.blog;
@@ -108,7 +101,6 @@ module.exports = withPWA({
       /_next\/server\/middleware-runtime.js$/,
     ],
   },
-  trailingSlash: false,
   swcMinify: true,
   images: {
     domains: domains,
@@ -132,32 +124,14 @@ module.exports = withPWA({
     transpileOnly: true,
   },
   poweredByHeader: false,
-  webpack: (config, { dev: development, webpack, isServer }) => {
-    if (isServer) {
-      generateSiteMap(DOMAIN_NAME).catch((e) => console.error(e))
-    }
-
+  webpack: (config) => {
     config.module.rules.push({
       test: /\.svg$/,
       // NOTE: remove svgr webpack due to extra rn deps
       use: [{ loader: '@svgr/webpack', options: { titleProp: true } }],
     })
 
-    config.plugins.push(
-      new webpack.IgnorePlugin({
-        resourceRegExp: /^\.\/tests$/,
-      })
-    )
-
     config.resolve.alias = Object.assign({}, config.resolve.alias, aliases)
-
-    if (!development) {
-      if (!Array.isArray(config.optimization.minimizer)) {
-        config.optimization.minimizer = []
-      }
-      config.optimization.minimize = true
-      config.optimization.minimizer.push(new CssMinimizerPlugin())
-    }
 
     return config
   },

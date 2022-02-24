@@ -4,7 +4,7 @@ orbs:
 jobs:
   web:
     docker:
-      - image: cimg/node:14.17.0
+      - image: cimg/node:14.18.3
     steps:
       - checkout
       - restore_cache:
