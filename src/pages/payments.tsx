@@ -8,7 +8,6 @@ import { getDate, format } from 'date-fns'
 import {
   Container,
   Button,
-  List,
   Dialog,
   DialogActions,
   DialogContent,
@@ -18,7 +17,6 @@ import {
 import { makeStyles } from '@material-ui/core/styles'
 import { NavBar, PriceMemo, PageTitle } from '@app/components/general'
 import { Box } from '@a11ywatch/ui'
-import { SimpleListItemSkeleton } from '@app/components/placeholders'
 import { paymentsData } from '@app/data'
 import { getOrdinalSuffix, metaSetter } from '@app/utils'
 import type { PageProps } from '@app/types'
@@ -28,6 +26,7 @@ import { CheckoutForm } from '@app/components/stripe/checkout'
 import { Elements } from '@stripe/react-stripe-js'
 import { loadStripe } from '@stripe/stripe-js'
 import { STRIPE_KEY } from '@app/configs/app-config'
+import { EmptyPayments } from '@app/components/empty'
 
 const stripePromise = loadStripe(STRIPE_KEY)
 
@@ -168,6 +167,10 @@ function Payments({ hideTitle = false, name }: PaymentProps) {
     paymentSubscription?.plan?.interval ?? 'month'
   }`
 
+  const subTitle = !renderPayMentBoxes
+    ? 'Account Info'
+    : 'Select an option to get started upgrading your account.'
+
   return (
     <Elements stripe={stripePromise}>
       <NavBar title={name} backButton notitle />
@@ -175,20 +178,10 @@ function Payments({ hideTitle = false, name }: PaymentProps) {
         <Box>
           {hideTitle ? null : <PageTitle>{name}</PageTitle>}
           {loading && !data ? (
-            <div>
-              <p className='text-2xl font-bold'>
-                {!renderPayMentBoxes ? 'Account Info' : 'Upgrade Account'}
-              </p>
-              <List>
-                <SimpleListItemSkeleton />
-                <SimpleListItemSkeleton />
-              </List>
-            </div>
+            <EmptyPayments subTitle={subTitle} />
           ) : (
             <div>
-              <p className='text-2xl font-bold'>
-                {!renderPayMentBoxes ? 'Account Info' : 'Upgrade Account'}
-              </p>
+              <p className='text-xl font-bold'>{subTitle}</p>
               {renderPayMentBoxes ? (
                 <PriceMemo
                   priceOnly

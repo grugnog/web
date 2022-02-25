@@ -36,8 +36,8 @@ const useStyles = makeStyles(() => ({
 
 const getStyles = (inactive: boolean) =>
   inactive
-    ? 'ml-0.5 relative w-1/2 border border-transparent rounded-md py-2 text-sm font-medium text-gray-500 whitespace-nowrap focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:z-10 sm:w-auto sm:px-8'
-    : 'relative w-1/2 bg-gray-100 border border-gray-200 rounded-md shadow-sm py-2 text-sm font-medium text-gray-900 whitespace-nowrap focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:z-10 sm:w-auto sm:px-8'
+    ? 'ml-0.5 relative w-1/2 border border-transparent rounded-md py-2 text-sm font-medium text-gray-500 whitespace-nowrap focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:z-10 sm:w-auto sm:px-8 hover:bg-gray-200'
+    : 'relative w-1/2 bg-gray-100 border border-gray-200 rounded-md shadow-sm py-2 text-sm font-medium text-white bg-black whitespace-nowrap focus:outline-none focus:ring-2 focus:ring-gray-500 focus:z-10 sm:w-auto sm:px-8'
 
 const highLight = (
   name: string = '',
@@ -190,7 +190,9 @@ function PriceWrapper({
                     premium,
                     basic,
                   }
-                )} border border-gray-300 text-white'`}
+                )} border border-gray-300 ${
+                  clickEvent ? `hover:bg-blue-100` : ''
+                }`}
                 style={{
                   borderTopColor: textColor,
                   borderTopWidth: 3,
@@ -201,7 +203,7 @@ function PriceWrapper({
               >
                 <Fragment>
                   {isPremium ? (
-                    <Ribbon backgroundColor={textColor} color={'#000'} />
+                    <Ribbon backgroundColor={textColor} color={'#fff'} />
                   ) : null}
                   <Icon fontSize='large' style={{ color: textColor }} />
                   <Typography
@@ -227,7 +229,7 @@ function PriceWrapper({
                     ))}
                   </ul>
                   {cost ? (
-                    <h4 className={'py-6 text-3xl font-bold'}>
+                    <h4 className={'py-2 text-3xl font-bold'}>
                       {yearly ? costYearly : cost}
                     </h4>
                   ) : null}
