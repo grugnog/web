@@ -11,8 +11,6 @@ import { CtaInput } from './searchbar'
 import { Link, SectionContainer } from '../general'
 import ExpandMore from '@material-ui/icons/ExpandMore'
 import Image from 'next/image'
-import BrowserStats from '@app/content/svgs/browser-stats.svg'
-import Intro from '@app/content/svgs/intro.svg'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -78,8 +76,6 @@ const useStyles = makeStyles((theme) => ({
 function CtaIntro({ checker }: any) {
   const classes = useStyles()
 
-  const ImageComponent = checker ? BrowserStats : Intro
-
   return (
     <SectionContainer className={'pt-20'}>
       <div
@@ -117,13 +113,19 @@ function CtaIntro({ checker }: any) {
           <CtaInput />
         </div>
         <div className={`${classes.block} ${classes.mobileHidden}`}>
-          <ImageComponent title={'Built to improve website accessibility'} />
+          <Image
+            src={`/img/${checker ? 'browser-stats' : 'intro'}.svg`}
+            height={500}
+            width={500}
+            alt='Built to improve website accessibility'
+            priority
+          />
         </div>
       </div>
       {checker ? null : (
         <div className={classes.join}>
           <p className='py-2'>JOIN THOUSANDS OF HIGHLY PRODUCTIVE TEAMS</p>
-          <Image src={'/static/img/wave.svg'} height={8} width={120} alt='' />
+          <Image src={'/img/wave.svg'} height={8} width={120} alt='' />
           <a
             className={classes.bottomAnchor}
             href='#video-section'

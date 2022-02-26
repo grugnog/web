@@ -17,7 +17,7 @@ function MarketingImage({ src, alt, ext = 'svg' }: ImageProps) {
         width={'231.68px'}
         height={'56.45px'}
         className='max-h-12'
-        src={`/static/img/${src}.${ext}`}
+        src={`/img/${src}.${ext}`}
         alt={alt}
       />
     </div>

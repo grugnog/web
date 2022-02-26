@@ -56,7 +56,7 @@ function Features({ name }: PageProps) {
             </FeatureHeading>
             <div className={paperStyle}>
               <Image
-                src={'/static/img/news.svg'}
+                src={'/img/news.svg'}
                 height={250}
                 width={250}
                 alt={'Issue reporter like news'}
@@ -77,7 +77,7 @@ function Features({ name }: PageProps) {
             </FeatureHeading>
             <div className={paperStyle}>
               <Image
-                src={'/static/img/cloud.svg'}
+                src={'/img/cloud.svg'}
                 height={250}
                 width={250}
                 alt={'Cloud cdn for fixing'}
@@ -98,7 +98,7 @@ function Features({ name }: PageProps) {
             </FeatureHeading>
             <div className={paperStyle}>
               <Image
-                src={'/static/img/park.svg'}
+                src={'/img/park.svg'}
                 height={250}
                 width={250}
                 alt={'Amusement park for website creation'}
@@ -117,7 +117,7 @@ function Features({ name }: PageProps) {
             </FeatureHeading>
             <div className={paperStyle}>
               <Image
-                src={'/static/img/heal.svg'}
+                src={'/img/heal.svg'}
                 height={250}
                 width={250}
                 alt={'Fix issues with custom remedies'}

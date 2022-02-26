@@ -74,14 +74,14 @@ export function MyApp({ Component, pageProps }: InnerApp) {
         />
         <meta name='theme-color' content={theme.palette.primary.main} />
         <meta name='mobile-web-app-capable' content='yes' />
-        <link rel='manifest' href='/static/manifest.json' />
+        <link rel='manifest' href='/manifest.json' />
         <meta name='format-detection' content='telephone=no' />
         <meta name='apple-mobile-web-app-capable' content='yes' />
         <meta name='twitter:card' content='summary_large_image' />
         <meta name='twitter:site' content={twitterSite} />
         <meta
           property='twitter:image'
-          content={`${DOMAIN_NAME}/static/img/intro-poster.png`}
+          content={`${DOMAIN_NAME}/img/intro-poster.png`}
         />
         <meta
           property='og:title'
@@ -90,11 +90,11 @@ export function MyApp({ Component, pageProps }: InnerApp) {
         <meta property='og:url' content={DOMAIN_NAME} />
         <meta
           property='og:image'
-          content={`${DOMAIN_NAME}/static/img/intro-poster.png`}
+          content={`${DOMAIN_NAME}/img/intro-poster.png`}
         />
         <meta property='og:description' content={description} />
-        <link rel='apple-touch-icon' href='/static/img/favicon-small.ico' />
-        <link rel='icon' type='image/x-icon' href='/static/img/favicon.png' />
+        <link rel='apple-touch-icon' href='/img/favicon-small.ico' />
+        <link rel='icon' type='image/x-icon' href='/img/favicon.png' />
       </Head>
       <ThemeProvider theme={theme}>
         <CssBaseline />

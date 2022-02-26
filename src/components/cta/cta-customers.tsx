@@ -62,12 +62,7 @@ export function CtaCustomers() {
             style={{ border: 0 }}
             className={classes.badge}
           >
-            <Image
-              src={`/static/img/${item}.svg`}
-              alt={item}
-              width={78}
-              height={78}
-            />
+            <Image src={`/img/${item}.svg`} alt={item} width={78} height={78} />
           </button>
         ))}
       </div>

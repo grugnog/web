@@ -20,7 +20,7 @@ export const styleInject = (iframeDOM?: Document) => {
       link.setAttribute('type', 'text/css')
       link.setAttribute(
         'href',
-        `${window.location.origin}/_next/static/css/styles.chunk.css`
+        `${window.location.origin}/_next/css/styles.chunk.css`
       )
       if (head?.appendChild) {
         head.appendChild(link)

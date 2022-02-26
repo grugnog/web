@@ -7,7 +7,7 @@ type ExcludeProps = {
 const isWhitelisted = ({ pathname, pageName, url }: ExcludeProps) => {
   return (
     pathname.includes('.') ||
-    url.startsWith('/static/') ||
+    url.startsWith('/img/') ||
     pathname.startsWith('/src/') ||
     pathname.startsWith('/workbox-') ||
     pathname.startsWith('/api/') ||

@@ -59,7 +59,7 @@ export function MarketingTestimonial() {
           <Avatar className={classes.bigAvatar} variant='circular'>
             <Image
               alt={strings.testimonials[0].who}
-              src='/static/img/gilbert.png'
+              src='/img/gilbert.png'
               height={310}
               width={310}
             />

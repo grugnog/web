@@ -15,6 +15,6 @@ export const LinkedinBadge = (props: BadgeProps) => <Badge {...props} />
 LinkedinBadge.defaultProps = Object.assign({}, defaultProps, {
   title: 'Linkedin',
   label: `${strings.appName} on Linkedin`,
-  src: `/static/img/linkedin.svg`,
+  src: `/img/linkedin.svg`,
   href: 'https://www.linkedin.com/company/a11ywatch',
 })

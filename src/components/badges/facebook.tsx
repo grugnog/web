@@ -15,6 +15,6 @@ export const FacebookBadge = (props: BadgeProps) => <Badge {...props} />
 FacebookBadge.defaultProps = Object.assign({}, defaultProps, {
   title: 'Facebook',
   label: `${strings.appName} on Facebook`,
-  src: `/static/img/facebook.svg`,
+  src: `/img/facebook.svg`,
   href: 'https://www.facebook.com/A11ywatch-114828426730553',
 })

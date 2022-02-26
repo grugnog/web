@@ -32,7 +32,7 @@ export function sendNotification(url: string, issueCount: number = 0) {
     const body = `${issueCount} new issue${isS} occured for ${url}`
     const notification = new Notification(`New issue${isS} arised`, {
       body,
-      icon: '/static/img/favicon.png',
+      icon: '/img/favicon.png',
     })
 
     setTimeout(notification.close.bind(notification), 4000)

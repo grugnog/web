@@ -16,6 +16,6 @@ SpectrumBadge.defaultProps = {
   ...defaultProps,
   title: 'Spectrum',
   label: `${strings.appName} on Spectrum`,
-  src: `/static/img/spectrum.svg`,
+  src: `/img/spectrum.svg`,
   href: 'https://spectrum.chat/a11ywatch',
 }

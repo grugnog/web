@@ -71,7 +71,7 @@ const EmptyWebsiteFormComponent: FC<EmptyWebsiteProps> = ({
         </ul>
         <div className={'hidden md:block'}>
           <Image
-            src={'/static/img/website_builder.svg'}
+            src={'/img/website_builder.svg'}
             height={540}
             width={660}
             alt='Website accessibility builder'

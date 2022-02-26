@@ -56,10 +56,7 @@ function RoadMap({ name }: PageProps) {
       <Spacer height={10} />
       <PaperSection row>
         <Circle className={`${classes.circle} ${classes.circleLeft}`}>1</Circle>
-        <Image
-          src='/static/img/server.svg'
-          alt={'javascript fixes from a cdn'}
-        />
+        <Image src='/img/server.svg' alt={'javascript fixes from a cdn'} />
         <div>
           <Heading>JS execution fixes</Heading>
           <Heading variant='h6' component='h4' bold={false}>
@@ -88,10 +85,7 @@ function RoadMap({ name }: PageProps) {
             the script so that the changes can be applied on your live website.
           </Heading>
         </div>
-        <Image
-          src='/static/img/type_code.svg'
-          alt={'edit your code with accuracy'}
-        />
+        <Image src='/img/type_code.svg' alt={'edit your code with accuracy'} />
       </PaperSection>
       <PaperSection
         style={{
@@ -100,7 +94,7 @@ function RoadMap({ name }: PageProps) {
         row
       >
         <Circle className={`${classes.circle} ${classes.circleLeft}`}>3</Circle>
-        <Image src='/static/img/source_code.svg' alt='source code visual' />
+        <Image src='/img/source_code.svg' alt='source code visual' />
         <div>
           <Heading>Compilation Fixes</Heading>
           <Heading variant='h6' component='h4' bold={false}>
@@ -128,7 +122,7 @@ function RoadMap({ name }: PageProps) {
           </Heading>
         </div>
         <Image
-          src='/static/img/js_frameworks.svg'
+          src='/img/js_frameworks.svg'
           alt={'languages supported a variation'}
         />
       </PaperSection>

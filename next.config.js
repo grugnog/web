@@ -125,12 +125,6 @@ module.exports = withPWA({
   },
   poweredByHeader: false,
   webpack: (config) => {
-    config.module.rules.push({
-      test: /\.svg$/,
-      // NOTE: remove svgr webpack due to extra rn deps
-      use: [{ loader: '@svgr/webpack', options: { titleProp: true } }],
-    })
-
     config.resolve.alias = Object.assign({}, config.resolve.alias, aliases)
 
     return config
