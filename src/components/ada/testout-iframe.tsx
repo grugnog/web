@@ -72,9 +72,12 @@ const MainFrame = observer(({ homeStore, iframeStore, url, issue }: any) => {
 })
 
 const Portals = observer(({ store }: any) => toJS(store.Portals))
-const Container = observer(({ store }: any) => (
-  <AnnotationContainer store={store} {...store.selectedAnnotation} />
-))
+
+const Container = observer(({ store }: { store: typeof IframeManager }) => {
+  return store.portals?.length ? (
+    <AnnotationContainer store={store} {...store.selectedAnnotation} />
+  ) : null
+})
 
 export const TestOutIframe = ({ url, issue }: any) => {
   return (

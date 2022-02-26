@@ -11,6 +11,7 @@ import {
   CtaVideo,
   CtaCustomers,
   CtaSignonForm,
+  CtaProfessionalSupportButton,
 } from '@app/components/cta'
 import { WithSwipeModal as SwipeableTemporaryDrawer } from '@app/components/adhoc'
 import {
@@ -24,6 +25,7 @@ function Index() {
   return (
     <Fragment>
       <MarketingDrawer navPosition={'relative'} maxWidth={'xl'} index>
+        <CtaProfessionalSupportButton />
         <CtaIntro />
         <CtaVideo />
         <CtaFeatures />

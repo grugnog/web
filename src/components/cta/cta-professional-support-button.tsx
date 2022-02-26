@@ -35,16 +35,12 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
-function CtaProfessionalSupportButton({ home }: { home?: boolean }) {
+function CtaProfessionalSupportButton() {
   const classes = useStyles()
 
   return (
-    <Button
-      className={classes.root}
-      component={Link}
-      href={home ? '/' : '/consulting'}
-    >
-      {home ? 'Home' : strings.getSupport}
+    <Button className={classes.root} component={Link} href={'/consulting'}>
+      {strings.getSupport}
     </Button>
   )
 }

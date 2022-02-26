@@ -15,6 +15,7 @@ const isWhitelisted = ({ pathname, pageName, url }: ExcludeProps) => {
     url.endsWith('.svg') ||
     url.endsWith('.webp') ||
     url.endsWith('.wasm') ||
+    pathname === '/manifest.json' ||
     pathname === '/robots.txt' ||
     pageName === '/_offline'
   )

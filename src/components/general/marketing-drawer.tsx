@@ -12,7 +12,6 @@ import { NavBarTitle, MarketingNavMenu } from './navigation'
 import { SearchBar } from './searchbar'
 import { NavBar } from './navbar'
 import { Footer } from './footer'
-import { CtaProfessionalSupportButton } from '../cta'
 import { Link } from './link'
 
 export function MarketingDrawer({
@@ -70,9 +69,6 @@ export function MarketingDrawer({
             maxWidth={maxWidth}
             style={index ? { paddingLeft: 0, paddingRight: 0 } : undefined}
           >
-            {emptyNav ? null : (
-              <CtaProfessionalSupportButton home={title === 'Consulting'} />
-            )}
             {children}
           </Container>
         )}

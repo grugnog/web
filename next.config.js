@@ -74,16 +74,16 @@ const securityHeaders = [
   },
 ]
 
-// TODO: Replace with env variable for frame-ancestors rules
-if (DOMAIN_NAME.includes('a11ywatch')) {
-  const ContentSecurityPolicy = `
-    frame-ancestors 'self' https://*.a11ywatch.com https://*.a11ywatch.blog;
-  `
-  securityHeaders.push({
-    key: 'Content-Security-Policy',
-    value: ContentSecurityPolicy.replace(/\s{2,}/g, ' ').trim(),
-  })
-}
+// // TODO: Replace with env variable for frame-ancestors rules
+// if (DOMAIN_NAME.includes('a11ywatch')) {
+//   const ContentSecurityPolicy = `
+//     frame-ancestors 'self' https://*.a11ywatch.com https://*.a11ywatch.blog;
+//   `
+//   securityHeaders.push({
+//     key: 'Content-Security-Policy',
+//     value: ContentSecurityPolicy.replace(/\s{2,}/g, ' ').trim(),
+//   })
+// }
 
 module.exports = withPWA({
   pwa: {

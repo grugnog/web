@@ -46,11 +46,8 @@ export const navigationStyles = makeStyles((theme: Theme) => {
       },
     },
     content: {
-      paddingTop: '8%',
+      paddingTop: '4.5%',
       overflow: 'hidden',
-      [theme.breakpoints.down('sm')]: {
-        paddingTop: '4%',
-      },
     },
     classHiddenMobile: {
       minWidth: 116,
