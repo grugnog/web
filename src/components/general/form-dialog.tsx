@@ -18,6 +18,7 @@ import {
   Select,
   MenuItem,
   IconButton,
+  Tooltip,
 } from '@material-ui/core'
 import { domainList as dmList } from '@app/utils'
 import { Close as CloseIcon } from '@material-ui/icons'
@@ -26,6 +27,7 @@ import { useInputHeader } from './hooks'
 import { formDialogStyles as useStyles } from './styles'
 import { useWebsiteContext } from '../providers/website'
 import { AppManager } from '@app/managers'
+import { theme } from '@app/theme'
 
 const domainList = [...dmList, 'none']
 
@@ -43,7 +45,7 @@ export function FormDialogWrapper({
   const [open, setOpen] = useState<boolean>(false)
   const [websitUrl, setUrl] = useState<string>('')
   const [https, setTransportType] = useState<boolean>(true)
-  const [pageInsights, setPageInsights] = useState<boolean>(false)
+  const [pageInsights, setPageInsights] = useState<boolean>(true)
   const [extension, setExtension] = useState<string>('.com')
   const inputRef = useRef(null)
   const classes = useStyles()
@@ -233,46 +235,60 @@ export function FormDialogWrapper({
                   ))}
                 </Select>
               </FormControl>
-              <FormControlLabel
-                classes={formLabelStyles}
-                control={
-                  <Checkbox
-                    checked={https}
-                    onChange={() => {
-                      setTransportType(!https)
-                    }}
-                    value={https}
-                    color='primary'
-                  />
+              <Tooltip title={'Use http or https for protocol on scans'}>
+                <FormControlLabel
+                  classes={formLabelStyles}
+                  control={
+                    <Checkbox
+                      checked={https}
+                      onChange={() => {
+                        setTransportType(!https)
+                      }}
+                      value={https}
+                      color='primary'
+                    />
+                  }
+                  label='HTTPS'
+                />
+              </Tooltip>
+              <Tooltip
+                title={
+                  'Run Google PageSpeed across page(s). (Deselecting will greatly increase performance.)'
                 }
-                label='HTTPS'
-              />
-              <FormControlLabel
-                classes={formLabelStyles}
-                control={
-                  <Checkbox
-                    checked={pageInsights}
-                    onChange={() => {
-                      setPageInsights(!pageInsights)
-                    }}
-                    value={pageInsights}
-                    color='primary'
-                  />
+              >
+                <FormControlLabel
+                  classes={formLabelStyles}
+                  control={
+                    <Checkbox
+                      checked={pageInsights}
+                      onChange={() => {
+                        setPageInsights(!pageInsights)
+                      }}
+                      value={pageInsights}
+                      color='primary'
+                    />
+                  }
+                  label='PageSpeed'
+                />
+              </Tooltip>
+              <Tooltip
+                title={
+                  'Add custom headers to use for authenticated pages or etc.'
                 }
-                label='PageSpeed'
-              />
-              <FormControlLabel
-                classes={formLabelStyles}
-                control={
-                  <Checkbox
-                    color='primary'
-                    checked={customHeader}
-                    value={customHeader}
-                    onChange={() => setCustomHeader(!customHeader)}
-                  />
-                }
-                label='Headers'
-              />
+              >
+                <FormControlLabel
+                  classes={formLabelStyles}
+                  control={
+                    <Checkbox
+                      color='primary'
+                      checked={customHeader}
+                      value={customHeader}
+                      onChange={() => setCustomHeader(!customHeader)}
+                    />
+                  }
+                  label='Headers'
+                />
+              </Tooltip>
             </div>
             {customHeader ? <InputHeaders {...inputProps} /> : null}
           </DialogContent>
@@ -280,7 +296,11 @@ export function FormDialogWrapper({
             <Button
               disabled={!websitUrl}
               type='submit'
-              style={{ width: '100%', borderRadius: 0 }}
+              style={{
+                width: '100%',
+                borderRadius: 0,
+                borderTop: `1px solid ${theme.palette.divider}`,
+              }}
             >
               Subscribe
             </Button>
