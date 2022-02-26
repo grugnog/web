@@ -16,7 +16,7 @@ function Pricing({ name }: PageProps) {
         The simplest accessibility solution, for the simplest price.
       </PageTitle>
       <Typography component='h2' gutterBottom className={'text-lg'}>
-        Choose a plan that best fits your needs
+        Choose a plan that best fits your needs.
       </Typography>
       <PriceMemo navigate blockFree pricingPage />
       <div className='p-5 bg-gray-200 my-5 space-y-3 rounded'>

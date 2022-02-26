@@ -101,9 +101,9 @@ export const generateStrings = ({
       },
       {
         id: 8,
-        title: 'Browser',
+        title: 'Live Viewer',
         detail:
-          'View the issues in the browser and experiment with fixes before realtime. Adjust colors and a11y properties to leverage productivity.',
+          'View the issues in the browser and experiment with fixes in real time. Adjust colors and a11y properties to leverage productivity.',
         reason: 'Basic',
       },
       {

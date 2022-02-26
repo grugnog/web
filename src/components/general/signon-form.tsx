@@ -154,6 +154,7 @@ const SignOnForm: FunctionComponent<SignOnProps> = ({
           component={home ? 'h4' : 'h1'}
           gutterBottom
           align='center'
+          style={{ fontWeight: 'bold' }}
         >
           {(loginView && 'Login') || (home && 'Sign up for free') || 'Register'}
         </Typography>
