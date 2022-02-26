@@ -134,7 +134,7 @@ export function WebsitePrimaryCell({
   const mainUrl = item?.url || item?.pageUrl
   const href = `/website-details?websiteUrl=${encodeURIComponent(mainUrl)}`
 
-  const pageSpeed = item?.insight?.json
+  const Lighthouse = item?.insight?.json
 
   const authForm = (
     <div>
@@ -170,9 +170,9 @@ export function WebsitePrimaryCell({
             {issueView ? 'Hide' : 'View'} Issues
           </MenuItem>
         ) : null}
-        {pageSpeed ? (
-          <MenuItem onClick={handleMainClick(pageSpeed, 'PageSpeed', true)}>
-            View PageSpeed
+        {Lighthouse ? (
+          <MenuItem onClick={handleMainClick(Lighthouse, 'Lighthouse', true)}>
+            View Lighthouse
           </MenuItem>
         ) : null}
         <MenuItem onClick={handleMainClick(mainUrl, 'Mini Player', true)}>

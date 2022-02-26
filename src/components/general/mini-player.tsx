@@ -67,7 +67,7 @@ export const MiniPlayer: FunctionComponent<MiniPlayerProps> = (_) => {
   const handler = new DragHandler(appBarRef?.current)
 
   const { open, data, title } = useMemo(() => {
-    if (miniPlayer?.title === 'PageSpeed') {
+    if (miniPlayer?.title === 'Lighthouse') {
       return { ...miniPlayer, data: JSON.parse(miniPlayer?.data) }
     }
     return miniPlayer
@@ -108,7 +108,7 @@ export const MiniPlayer: FunctionComponent<MiniPlayerProps> = (_) => {
             <Typography variant='h6' className={classes.title}>
               {title}
             </Typography>
-            {title !== 'PageSpeed' ? (
+            {title !== 'Lighthouse' ? (
               <Typography
                 variant='subtitle1'
                 className={classes.subTitle}
@@ -122,7 +122,7 @@ export const MiniPlayer: FunctionComponent<MiniPlayerProps> = (_) => {
           </div>
         </Toolbar>
       </AppBar>
-      {title === 'PageSpeed' ? (
+      {title === 'Lighthouse' ? (
         <div>
           {/* @ts-ignore */}
           <style>

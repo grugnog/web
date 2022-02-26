@@ -88,6 +88,7 @@ export function MoreOptionsComponent({
                   url,
                 },
               }).catch(logGraphErrors)
+              handleClose()
             }}
           >
             Scan

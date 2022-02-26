@@ -253,7 +253,7 @@ export function FormDialogWrapper({
               </Tooltip>
               <Tooltip
                 title={
-                  'Run Google PageSpeed across page(s). (Deselecting will greatly increase performance.)'
+                  'Run Google Lighthouse across page(s). (Deselecting will greatly increase performance.)'
                 }
               >
                 <FormControlLabel
@@ -268,7 +268,7 @@ export function FormDialogWrapper({
                       color='primary'
                     />
                   }
-                  label='PageSpeed'
+                  label='Lighthouse'
                 />
               </Tooltip>
               <Tooltip

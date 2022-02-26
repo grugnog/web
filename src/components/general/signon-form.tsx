@@ -91,12 +91,6 @@ const SignOnForm: FunctionComponent<SignOnProps> = ({
   const emailRef = useRef<any>(null)
   const passwordRef = useRef<any>(null)
 
-  useEffect(() => {
-    if (!home) {
-      router.prefetch('/dashboard')
-    }
-  }, [home, router])
-
   const plan = String(router?.query?.plan).toLocaleLowerCase() as string
   const urlRoute =
     typeof plan === 'string' && ['basic', 'premium'].includes(String(plan))

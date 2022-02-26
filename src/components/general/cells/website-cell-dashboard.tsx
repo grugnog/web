@@ -169,7 +169,7 @@ export function WebsiteCellDashboard({
         <InfoBlock title={'Headers Included'}>
           <p>{pageHeaders ? 'Yes' : 'No'}</p>
         </InfoBlock>
-        <InfoBlock title={'PageSpeed Enabled'}>
+        <InfoBlock title={'Lighthouse Enabled'}>
           <p>{pageInsights ? 'Yes' : 'No'}</p>
         </InfoBlock>
         <InfoBlock title={'Website Online'}>
