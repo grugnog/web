@@ -41,6 +41,7 @@ export const theme = (function () {
       secondary: {
         main: '#3f3d56',
       },
+      background: { default: '#fff' },
       warning: orange,
       error: red,
     },

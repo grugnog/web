@@ -16,6 +16,7 @@ export const navigationStyles = makeStyles((theme: Theme) => {
       }),
     },
     nav: {
+      zIndex: 1001,
       backgroundColor: theme.palette.background.default,
     },
     navContainer: {
