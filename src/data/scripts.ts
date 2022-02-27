@@ -1,9 +1,3 @@
-/*
- * Copyright (c) A11yWatch, LLC. and its affiliates.
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
- **/
-
 import { useQuery, useMutation } from '@apollo/react-hooks'
 import { GET_SCRIPTS, GET_SCRIPT } from '@app/queries'
 import { UPDATE_SCRIPT } from '@app/mutations'

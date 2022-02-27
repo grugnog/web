@@ -1,8 +1,3 @@
-/*
- * Copyright (c) A11yWatch, LLC. and its affiliates.
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
- **/
 import React, { useEffect, memo, useRef, useCallback } from 'react'
 import { fixes, row, reccList } from '@app/stylesheets/main.module.css'
 import { IframeManager } from '@app/managers'

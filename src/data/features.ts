@@ -1,9 +1,3 @@
-/*
- * Copyright (c) A11yWatch, LLC. and its affiliates.
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
- **/
-
 import { userModel } from '@app/data'
 import { TOGGLE_ALERT, TOGGLE_PROFILE } from '@app/mutations'
 import { useMutation } from '@apollo/react-hooks'
