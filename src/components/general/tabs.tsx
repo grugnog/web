@@ -64,7 +64,7 @@ export function WebsiteTabs({ issues, html, screenshot, playground }: any) {
         variant={'fullWidth'}
       >
         <Tab label='Insights' {...a11yProps(0)} />
-        <Tab label='HTML' {...a11yProps(1)} />
+        {html ? <Tab label='HTML' {...a11yProps(1)} /> : null}
         {screenshot ? <Tab label='Screenshots' {...a11yProps(2)} /> : null}
         {playground ? <Tab label='Playground' {...a11yProps(3)} /> : null}
       </Tabs>

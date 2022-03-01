@@ -132,18 +132,6 @@ export function ReportView({ website, closeButton, disablePlayground }: any) {
       ) : (
         <WebsiteTabs
           issues={<IssueList website={website} printable />}
-          html={
-            <EditableMixture
-              language='html'
-              style={a11yDark}
-              lineProps={() => ({
-                style: { display: 'block', cursor: 'pointer' },
-              })}
-              editMode
-            >
-              {website?.html || ''}
-            </EditableMixture>
-          }
           screenshot={
             <div className={classes.center}>
               <Screenshot
