@@ -92,6 +92,7 @@ export function WebsitePrimaryCell({
   listIndex,
   openError,
   listTitleMax,
+  pagesModal,
 }: any) {
   const classes = useStyles()
   const [anchorEl, setAnchorEl] = useState<any>(null)
@@ -131,6 +132,7 @@ export function WebsitePrimaryCell({
 
   const Lighthouse = item?.insight?.json
 
+  // TODO: move to more options
   const authForm = (
     <div>
       <IconButton
@@ -160,7 +162,7 @@ export function WebsitePrimaryCell({
         <MenuItem component={Link} href={href} color='inherit'>
           View Website
         </MenuItem>
-        {pageIssues?.length || error ? (
+        {!pagesModal && (pageIssues?.length || error) ? (
           <MenuItem onClick={viewIssue}>
             {issueView ? 'Hide' : 'View'} Issues
           </MenuItem>

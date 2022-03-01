@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react'
+import React, { useCallback, useMemo, useState } from 'react'
 import {
   ListItem,
   ListItemSecondaryAction,
@@ -8,7 +8,7 @@ import { makeStyles } from '@material-ui/core/styles'
 import { Link } from '../link'
 import { RenderAvatar, RenderSecondary } from './render'
 import { ModalType } from '@app/data/enums'
-import { MenuForm } from './menu/menu-form'
+import { MoreOptions } from '@app/components/general/cells/menu/more'
 import type { Website } from '@app/types'
 
 const useStyles = makeStyles(() => ({
@@ -40,8 +40,8 @@ export function WebsiteCell(props: WebsiteCellProps) {
   const [anchorEl, setAnchorEl] = useState<any>(null)
 
   const {
-    url,
     removePress,
+    url,
     handleClickOpen,
     handleClickOpenPlayer,
     issues,
@@ -56,13 +56,21 @@ export function WebsiteCell(props: WebsiteCellProps) {
     pageHeaders,
   } = props ?? {}
 
-  const removeWebsite = () => {
+  const handleMenu = (event: any) => {
+    setAnchorEl(event?.currentTarget)
+  }
+
+  const handleClose = () => {
+    setAnchorEl(null)
+  }
+
+  const onRemovePress = useCallback(() => {
     removePress({
       variables: {
         url,
       },
     })
-  }
+  }, [url, removePress])
 
   const href = useMemo(
     () => (url ? `/website-details?websiteUrl=${encodeURIComponent(url)}` : ''),
@@ -117,13 +125,14 @@ export function WebsiteCell(props: WebsiteCellProps) {
         />
       </div>
       <ListItemSecondaryAction>
-        <MenuForm
+        <MoreOptions
           modalClick={modalClick}
           handleMainClick={handleMainClick}
-          removeWebsite={removeWebsite}
-          setAnchorEl={setAnchorEl}
           anchorEl={anchorEl}
+          handleClose={handleClose}
+          handleMenu={handleMenu}
           {...props}
+          removePress={onRemovePress}
         />
       </ListItemSecondaryAction>
     </ListItem>

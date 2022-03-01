@@ -1,43 +1,56 @@
-import React from 'react'
+import React, { memo, useMemo } from 'react'
 import { IconButton, MenuItem } from '@material-ui/core'
 import { logGraphErrors } from '@app/lib/log'
 import { MoreVert as MoreIcon } from '@material-ui/icons'
 import { AppManager } from '@app/managers'
 import { Link } from '../../link'
 import { TopMenu } from '../../top-menu'
+import { Website } from '@app/types'
 
-export function MenuForm({
+interface MoreOptionsProps extends Partial<Website> {
+  removePress(): void
+  modalClick?(data: any): void
+  handleClose(): void
+  handleMainClick: (
+    data: any,
+    title: string,
+    navigate?: boolean,
+    url?: string
+  ) => () => void
+  crawlWebsite?(data: any): Promise<void>
+  index?: number
+  pageHeaders?: any
+  history?: boolean
+  anchorEl?: any
+  handleMenu?: any
+}
+
+function MoreOptionsComponent({
   url,
   removePress,
   subDomains,
   issues,
   history,
   crawlWebsite,
-  setModal,
   html,
   pageHeaders,
   index,
   // top props
   handleMainClick,
-  removeWebsite,
   modalClick,
   // TODO: use STATE to manage
-  setAnchorEl,
   anchorEl,
-}: any) {
-  const handleMenu = (event: any) => {
-    setAnchorEl(event?.currentTarget)
-  }
-
-  const handleClose = () => {
-    setAnchorEl(null)
-  }
-
-  const href = `/website-details?websiteUrl=${encodeURIComponent(url)}`
+  handleClose,
+  handleMenu,
+}: MoreOptionsProps) {
+  const href = useMemo(
+    () => (url ? `/website-details?websiteUrl=${encodeURIComponent(url)}` : ''),
+    [url]
+  )
   const menuId = `menu-appbar${index}`
 
   return (
-    <div>
+    <>
       <IconButton
         aria-label='account of current user'
         aria-controls={menuId}
@@ -57,13 +70,20 @@ export function MenuForm({
           View Website
         </MenuItem>
         {issues?.length ? (
-          <MenuItem onClick={handleMainClick(issues, 'Issues', false, url)}>
+          <MenuItem
+            onClick={handleMainClick(issues, 'Issues', false, url as string)}
+          >
             View Issues
           </MenuItem>
         ) : null}
         {subDomains?.length ? (
           <MenuItem
-            onClick={handleMainClick(subDomains, 'All Pages', false, url)}
+            onClick={handleMainClick(
+              subDomains,
+              'All Pages',
+              false,
+              url as string
+            )}
           >
             View Pages
           </MenuItem>
@@ -71,17 +91,22 @@ export function MenuForm({
         <MenuItem onClick={handleMainClick(url, 'Mini Player', true)}>
           View Website (Mini Player)
         </MenuItem>
-        {typeof setModal !== 'undefined' && html ? (
+        {typeof modalClick === 'function' && html ? (
           <MenuItem onClick={modalClick}>View Source</MenuItem>
         ) : null}
         {!history ? (
           <MenuItem
-            onClick={handleMainClick(pageHeaders, 'Custom Headers', false, url)}
+            onClick={handleMainClick(
+              pageHeaders,
+              'Custom Headers',
+              false,
+              url as string
+            )}
           >
             Update Headers
           </MenuItem>
         ) : null}
-        {typeof crawlWebsite !== 'undefined' ? (
+        {typeof crawlWebsite === 'function' ? (
           <MenuItem
             onClick={async () => {
               await crawlWebsite({
@@ -100,12 +125,14 @@ export function MenuForm({
             Scan
           </MenuItem>
         ) : null}
-        {removePress && !history ? (
-          <MenuItem onClick={removeWebsite} style={{ color: 'red' }}>
+        {!!removePress && !history ? (
+          <MenuItem onClick={removePress} style={{ color: 'red' }}>
             Delete
           </MenuItem>
         ) : null}
       </TopMenu>
-    </div>
+    </>
   )
 }
+
+export const MoreOptions = memo(MoreOptionsComponent)

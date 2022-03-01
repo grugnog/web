@@ -114,9 +114,11 @@ const MainFrame = observer(
 )
 
 const FixPortals = observer(({ store }: { store: any }) => toJS(store.Portals))
-const Container = observer(({ store }: { store: any }) => (
-  <AnnotationContainer store={store} {...store.selectedAnnotation} />
-))
+const Container = observer(({ store }: { store: any }) =>
+  store.selectedAnnotation ? (
+    <AnnotationContainer store={store} {...store.selectedAnnotation} />
+  ) : null
+)
 
 export const AdaIframe = ({ url, miniPlayer, issue }: any) => {
   return (

@@ -1,7 +1,8 @@
 import React, { useState, useMemo, useCallback } from 'react'
 import { Button } from '@material-ui/core'
+import { MoreOptions } from '@app/components/general/cells/menu/more'
 import { Link } from '../link'
-import { WebsiteSecondary, MoreOptions } from './render'
+import { WebsiteSecondary } from './render'
 import { ModalType } from '@app/data/enums'
 import { InfoCenterContainer } from './info-center-container'
 import {
@@ -63,7 +64,7 @@ export function WebsiteCellDashboard({
     setAnchorEl(null)
   }, [setAnchorEl])
 
-  const removeWebsite = useCallback(() => {
+  const onRemovePress = useCallback(() => {
     removePress({
       variables: {
         url,
@@ -114,15 +115,13 @@ export function WebsiteCellDashboard({
             <MoreOptions
               url={url}
               issues={issues}
-              removeWebsite={removeWebsite}
               crawlWebsite={crawlWebsite}
               handleClose={handleClose}
               handleMenu={handleMenu}
               handleMainClick={handleMainClick}
               modalClick={modalClick}
               anchorEl={anchorEl}
-              setAnchorEl={setAnchorEl}
-              removePress={removePress}
+              removePress={onRemovePress}
               subDomains={subDomains}
               html={html}
               pageHeaders={pageHeaders}

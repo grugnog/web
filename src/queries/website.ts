@@ -8,6 +8,7 @@ const GET_WEBSITE = gql`
       domain
       adaScore
       cdnConnected
+      html
       htmlIncluded
       screenshot
       timestamp

@@ -139,6 +139,7 @@ export function FullScreenModal({
   const classes = useStyles()
   const issuesModal = title === 'Issues'
   const headerModal = title === 'Custom Headers'
+  const pagesModal = title === 'All Pages'
 
   return (
     <Dialog
@@ -202,6 +203,7 @@ export function FullScreenModal({
                   error={error}
                   item={item}
                   url={url}
+                  pagesModal={pagesModal}
                 />
               )
             })

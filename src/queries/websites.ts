@@ -11,6 +11,7 @@ const GET_WEBSITES = gql`
         domain
         adaScore
         cdnConnected
+        html
         htmlIncluded
         lastScanDate
         online

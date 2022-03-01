@@ -1,1 +1,1 @@
-export { MenuForm } from './menu-form'
+export { MoreOptions } from './more'
