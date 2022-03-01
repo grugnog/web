@@ -19,7 +19,7 @@ module.exports = {
     '/404',
     '/500',
     '/offline',
-    '/reports/[...slug]',
+    '/reports',
   ],
   generateRobotsTxt: true,
   robotsTxtOptions: {
@@ -44,6 +44,7 @@ module.exports = {
           '/history',
           '/urgent-issues',
           '/payments',
+          '/reports/*',
         ],
       },
     ],
