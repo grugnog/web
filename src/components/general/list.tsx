@@ -1,4 +1,4 @@
-import React, { FC, useState, useEffect, useCallback } from 'react'
+import React, { FC, useState, useEffect, useCallback, useMemo } from 'react'
 import { List as MUList, Grid, Card, CardHeader } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 
@@ -30,7 +30,10 @@ function WebSites({
   loading,
 }: any) {
   const source = errorPage ? data?.issues : data
-  const WebComponent = errorPage ? IssuesCell : RenderWebsite
+  const WebComponent = useMemo(() => (errorPage ? IssuesCell : RenderWebsite), [
+    errorPage,
+  ])
+
   return source?.map(
     ({ url, id, pageHeaders, pageUrl, ...domainProps }: any, index: number) => (
       <WebComponent

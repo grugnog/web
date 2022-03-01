@@ -6,8 +6,8 @@
     "node": ">=14.18.3"
   },
   "scripts": {
-    "dev": "next dev",
-    "dev:vercel": "vercel dev",
+    "dev": "NODE_OPTIONS='--inspect' next dev",
+    "dev:vercel": "NODE_OPTIONS='--inspect' vercel dev",
     "start": "next start -p ${PORT:=3000}",
     "build": "next build",
     "lint": "next lint",

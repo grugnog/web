@@ -1,19 +1,15 @@
-import React, { useState } from 'react'
+import React, { useMemo, useState } from 'react'
 import {
   ListItem,
   ListItemSecondaryAction,
   ListItemText,
-  IconButton,
-  MenuItem,
 } from '@material-ui/core'
-import { logGraphErrors } from '@app/lib/log'
-import { MoreVert as MoreIcon } from '@material-ui/icons'
 import { makeStyles } from '@material-ui/core/styles'
-import { AppManager } from '@app/managers'
 import { Link } from '../link'
 import { RenderAvatar, RenderSecondary } from './render'
-import { TopMenu } from '../top-menu'
 import { ModalType } from '@app/data/enums'
+import { MenuForm } from './menu/menu-form'
+import type { Website } from '@app/types'
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -31,35 +27,35 @@ const useStyles = makeStyles(() => ({
   },
 }))
 
-export function WebsiteCell({
-  url,
-  removePress,
-  handleClickOpen,
-  subDomains,
-  handleClickOpenPlayer,
-  issues,
-  issuesInfo,
-  history,
-  adaScore,
-  cdnConnected,
-  crawlWebsite,
-  setModal,
-  html,
-  pageLoadTime,
-  mutatationLoading,
-  lastScanDate,
-  pageHeaders,
-  index,
-}: any) {
+interface WebsiteCellProps extends Partial<Website> {
+  removePress(props: { variables: { url?: string | null } }): void
+  handleClickOpen(a: any, b: any, c?: string): void
+  handleClickOpenPlayer: (a: boolean, b: any, c?: string) => () => void
+  setModal(data: any): void
+  mutatationLoading: boolean
+}
+
+export function WebsiteCell(props: WebsiteCellProps) {
   const classes = useStyles()
   const [anchorEl, setAnchorEl] = useState<any>(null)
 
-  const handleMenu = (event: any) => {
-    setAnchorEl(event?.currentTarget)
-  }
-  const handleClose = () => {
-    setAnchorEl(null)
-  }
+  const {
+    url,
+    removePress,
+    handleClickOpen,
+    handleClickOpenPlayer,
+    issues,
+    issuesInfo,
+    adaScore,
+    cdnConnected,
+    setModal,
+    html,
+    pageLoadTime,
+    mutatationLoading,
+    lastScanDate,
+    pageHeaders,
+  } = props ?? {}
+
   const removeWebsite = () => {
     removePress({
       variables: {
@@ -68,7 +64,10 @@ export function WebsiteCell({
     })
   }
 
-  const href = `/website-details?websiteUrl=${encodeURIComponent(url)}`
+  const href = useMemo(
+    () => (url ? `/website-details?websiteUrl=${encodeURIComponent(url)}` : ''),
+    [url]
+  )
 
   const handleMainClick = (
     eventData?: any,
@@ -85,79 +84,6 @@ export function WebsiteCell({
     setModal({ open: true, modalType: ModalType.highlight, html, url })
     setAnchorEl(null)
   }
-
-  const menuId = `menu-appbar${index}`
-
-  const authForm = (
-    <div>
-      <IconButton
-        aria-label='account of current user'
-        aria-controls={menuId}
-        aria-haspopup='true'
-        onClick={handleMenu}
-        color='inherit'
-      >
-        <MoreIcon />
-      </IconButton>
-      <TopMenu
-        id={menuId}
-        anchorEl={anchorEl}
-        open={!!anchorEl}
-        onClose={handleClose}
-      >
-        <MenuItem component={Link} href={href} color='inherit'>
-          View Website
-        </MenuItem>
-        {issues?.length ? (
-          <MenuItem onClick={handleMainClick(issues, 'Issues', false, url)}>
-            View Issues
-          </MenuItem>
-        ) : null}
-        {subDomains?.length ? (
-          <MenuItem
-            onClick={handleMainClick(subDomains, 'All Pages', false, url)}
-          >
-            View Pages
-          </MenuItem>
-        ) : null}
-        <MenuItem onClick={handleMainClick(url, 'Mini Player', true)}>
-          View Website (Mini Player)
-        </MenuItem>
-        {typeof setModal !== 'undefined' && html ? (
-          <MenuItem onClick={modalClick}>View Source</MenuItem>
-        ) : null}
-        <MenuItem
-          onClick={handleMainClick(pageHeaders, 'Custom Headers', false, url)}
-        >
-          Update Headers
-        </MenuItem>
-        {typeof crawlWebsite !== 'undefined' ? (
-          <MenuItem
-            onClick={async () => {
-              await crawlWebsite({
-                variables: {
-                  url,
-                },
-              }).catch(logGraphErrors)
-              handleClose()
-              AppManager.toggleSnack(
-                true,
-                'Scan in progress, if new issues occur you will be alerted',
-                'success'
-              )
-            }}
-          >
-            Scan
-          </MenuItem>
-        ) : null}
-        {removePress && !history ? (
-          <MenuItem onClick={removeWebsite} style={{ color: 'red' }}>
-            Delete
-          </MenuItem>
-        ) : null}
-      </TopMenu>
-    </div>
-  )
 
   return (
     <ListItem
@@ -190,7 +116,16 @@ export function WebsiteCell({
           pageHeaders={pageHeaders}
         />
       </div>
-      <ListItemSecondaryAction>{authForm}</ListItemSecondaryAction>
+      <ListItemSecondaryAction>
+        <MenuForm
+          modalClick={modalClick}
+          handleMainClick={handleMainClick}
+          removeWebsite={removeWebsite}
+          setAnchorEl={setAnchorEl}
+          anchorEl={anchorEl}
+          {...props}
+        />
+      </ListItemSecondaryAction>
     </ListItem>
   )
 }

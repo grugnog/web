@@ -13,59 +13,6 @@ export type Scalars = {
   Boolean: boolean
   Int: number
   Float: number
-  Date: any
-  Time: any
-  DateTime: any
-  Timestamp: any
-  UtcOffset: any
-  Duration: any
-  ISO8601Duration: any
-  LocalDate: any
-  LocalTime: any
-  LocalEndTime: any
-  EmailAddress: any
-  NegativeFloat: any
-  NegativeInt: any
-  NonEmptyString: any
-  NonNegativeFloat: any
-  NonNegativeInt: any
-  NonPositiveFloat: any
-  NonPositiveInt: any
-  PhoneNumber: any
-  PositiveFloat: any
-  PositiveInt: any
-  PostalCode: any
-  UnsignedFloat: any
-  UnsignedInt: any
-  URL: any
-  BigInt: any
-  Long: any
-  Byte: any
-  UUID: any
-  GUID: any
-  Hexadecimal: any
-  HexColorCode: any
-  HSL: any
-  HSLA: any
-  IPv4: any
-  IPv6: any
-  ISBN: any
-  JWT: any
-  Latitude: any
-  Longitude: any
-  MAC: any
-  Port: any
-  RGB: any
-  RGBA: any
-  SafeInt: any
-  USCurrency: any
-  Currency: any
-  JSON: any
-  JSONObject: any
-  IBAN: any
-  ObjectID: any
-  Void: any
-  DID: any
 }
 
 export type Analytic = {
@@ -123,6 +70,8 @@ export type History = {
   cdnConnected?: Maybe<Scalars['Boolean']>
   pageLoadTime?: Maybe<PageLoadTimeMeta>
   issuesInfo?: Maybe<IssueMeta>
+  pageInsights?: Maybe<Scalars['Boolean']>
+  insight?: Maybe<PageInsights>
 }
 
 export type HistoryIssuesArgs = {
@@ -491,6 +440,7 @@ export type User = {
   email?: Maybe<Scalars['String']>
   password?: Maybe<Scalars['String']>
   jwt?: Maybe<Scalars['String']>
+  salt?: Maybe<Scalars['String']>
   loggedIn?: Maybe<Scalars['Boolean']>
   passwordRequired?: Maybe<Scalars['Boolean']>
   alertEnabled?: Maybe<Scalars['Boolean']>
@@ -509,6 +459,12 @@ export type User = {
   script?: Maybe<Script>
   paymentSubscription?: Maybe<PaymentSubScription>
   apiUsage?: Maybe<ApiUsage>
+  websiteLimit?: Maybe<Scalars['Int']>
+  downAlerts?: Maybe<Array<Maybe<Website>>>
+  googleId?: Maybe<Scalars['String']>
+  emailExpDate?: Maybe<Scalars['String']>
+  resetCode?: Maybe<Scalars['String']>
+  stripeID?: Maybe<Scalars['String']>
 }
 
 export type UserAnalyticsArgs = {
@@ -557,4 +513,4 @@ export type WebsiteIssuesArgs = {
   filter?: Maybe<Scalars['String']>
 }
 
-export type { PageProps, BlogPageProps, MetaData } from './page'
+export type { BlogPageProps, MetaData, MergedApp, PageProps } from './page'

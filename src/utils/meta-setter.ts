@@ -1,5 +1,5 @@
 import { strings } from '@app-strings'
-import type { MetaData } from '@app/types'
+import type { MetaData } from '@app/types/page'
 
 interface MetaFunction extends Function {
   meta?: MetaData

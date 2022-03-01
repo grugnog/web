@@ -1,4 +1,4 @@
-import type { BlogPageProps } from '@app/types'
+import type { BlogPageProps } from '@app/types/page'
 import React, { FC, Fragment, useMemo, memo } from 'react'
 import Head from 'next/head'
 import { Footer } from '@app/components/general/footer'
