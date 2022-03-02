@@ -248,7 +248,7 @@ export function FormDialogWrapper({
               </Tooltip>
               <Tooltip
                 title={
-                  'Run Google Lighthouse across page(s). (Deselecting will greatly increase performance.)'
+                  'Run Google Lighthouse across page(s. Remove to greatly increase performance.'
                 }
               >
                 <FormControlLabel
