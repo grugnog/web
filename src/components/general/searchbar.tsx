@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { SyntheticEvent } from 'react'
 import { InputBase, Fade, Button } from '@material-ui/core'
 import { alpha, makeStyles } from '@material-ui/core/styles'
 import { Search as SearchIcon } from '@material-ui/icons'
@@ -67,7 +67,7 @@ export function SearchBar({ placeholder, noWidth, cta }: any) {
     toggleModal = null,
   } = useSearch()
 
-  const submit = (e: any) => {
+  const submit = (e: SyntheticEvent<HTMLFormElement>) => {
     e?.preventDefault()
 
     if (cta && ctaSearch) {
@@ -117,12 +117,12 @@ export function SearchBar({ placeholder, noWidth, cta }: any) {
           classes={searchStyles}
           type={'search'}
           color={'primary'}
-          onChange={(event: any) => {
+          onChange={(event) => {
             setSearch && setSearch({ search: event?.target?.value })
           }}
           inputProps={{ 'aria-label': 'search your websites' }}
         />
-        <Fade in={!!ctaSearch}>
+        <Fade in={!!ctaSearch} unmountOnExit>
           <Button type='submit' className={classes.submit} disabled={!!loading}>
             Submit
           </Button>

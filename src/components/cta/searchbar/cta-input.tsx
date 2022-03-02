@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react'
+import React, { useState, useRef, SyntheticEvent } from 'react'
 import { InputLabel, InputBase } from '@material-ui/core'
 import {
   alpha,
@@ -88,16 +88,18 @@ function CtaInput() {
     setSearchFocused(!!open)
   }
 
-  const submitForm = (e: any) => {
+  const submitForm = (e: SyntheticEvent<HTMLFormElement>) => {
     e?.preventDefault()
     if (!search) {
-      AppManager.toggleSnack(true, `Please enter a valid web url`, 'error')
-    } else {
-      toggleModal(true, search)
-      if (ref.current) {
-        ref.current.value = ''
-      }
-      return false
+      return AppManager.toggleSnack(
+        true,
+        `Please enter a valid web url`,
+        'error'
+      )
+    }
+    toggleModal(true, search)
+    if (ref.current) {
+      ref.current.value = ''
     }
   }
 
