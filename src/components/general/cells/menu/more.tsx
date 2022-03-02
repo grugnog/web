@@ -6,6 +6,7 @@ import { AppManager } from '@app/managers'
 import { Link } from '../../link'
 import { TopMenu } from '../../top-menu'
 import { Website } from '@app/types'
+import { useWebsiteContext } from '@app/components/providers/website'
 
 interface MoreOptionsProps extends Partial<Website> {
   removePress(): void
@@ -42,11 +43,22 @@ function MoreOptionsComponent({
   anchorEl,
   handleClose,
   handleMenu,
+  pageInsights,
 }: MoreOptionsProps) {
   const href = useMemo(
     () => (url ? `/website-details?websiteUrl=${encodeURIComponent(url)}` : ''),
     [url]
   )
+  const { updateWebsite } = useWebsiteContext()
+
+  const toggleLighthouse = async () => {
+    try {
+      await updateWebsite({ variables: { url, pageInsights: !pageInsights } })
+    } catch (e) {
+      console.error(e)
+    }
+  }
+
   const menuId = `menu-appbar${index}`
 
   return (
@@ -93,6 +105,11 @@ function MoreOptionsComponent({
         </MenuItem>
         {typeof modalClick === 'function' && html ? (
           <MenuItem onClick={modalClick}>View Source</MenuItem>
+        ) : null}
+        {!history ? (
+          <MenuItem onClick={toggleLighthouse}>
+            Toggle Lighthouse {pageInsights ? 'Off' : 'On'}
+          </MenuItem>
         ) : null}
         {!history ? (
           <MenuItem

@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useCallback } from 'react'
+import React, { useState, useMemo, useCallback, memo } from 'react'
 import { Button } from '@material-ui/core'
 import { MoreOptions } from '@app/components/general/cells/menu/more'
 import { Link } from '../link'
@@ -25,7 +25,7 @@ const styles = {
   metaBlock: 'px-2 py-1 border',
 }
 
-export function WebsiteCellDashboard({
+export function WebsiteCellDashboardComponent({
   url,
   removePress,
   handleClickOpen,
@@ -126,6 +126,7 @@ export function WebsiteCellDashboard({
               html={html}
               pageHeaders={pageHeaders}
               index={index}
+              pageInsights={pageInsights}
             />
           </div>
           <WebsiteSecondary
@@ -271,3 +272,5 @@ export function WebsiteCellDashboard({
     </div>
   )
 }
+
+export const WebsiteCellDashboard = memo(WebsiteCellDashboardComponent)

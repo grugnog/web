@@ -1,4 +1,4 @@
-import { useEffect, useCallback } from 'react'
+import { useEffect, useCallback, useReducer } from 'react'
 import { useQuery, useMutation, useSubscription } from '@apollo/react-hooks'
 import {
   ADD_WEBSITE,
@@ -23,6 +23,7 @@ export const useWebsiteData = (
   customHeaders: any = null,
   skip: boolean = false
 ) => {
+  const [_, forceUpdate] = useReducer((x) => x + 1, 0)
   const subscriptionVars = { userId: UserManager.getID }
   const variables = {
     filter,
@@ -146,10 +147,15 @@ export const useWebsiteData = (
         if (updatedWebsite?.pageHeaders) {
           dataSource.pageHeaders = updatedWebsite.pageHeaders
         }
+
+        dataSource.pageInsights = updatedWebsite.pageInsights
+
         AppManager.toggleSnack(true, 'Success: updated website', 'success')
+        // TODO: MOVE STATE MANAGE OUT OF APOLLO CACHE
+        forceUpdate()
       }
     }
-  }, [updateData])
+  }, [updateData, forceUpdate])
 
   useEffect(() => {
     if (websiteUpdated && websites?.length) {
@@ -161,6 +167,7 @@ export const useWebsiteData = (
         html,
         pageLoadTime,
         issuesInfo,
+        pageInsights,
       } = websiteUpdated?.websiteAdded
 
       const dataSource = websites.find(
@@ -173,6 +180,9 @@ export const useWebsiteData = (
         }
         if (pageLoadTime) {
           dataSource.pageLoadTime = pageLoadTime
+        }
+        if (typeof pageInsights !== 'undefined') {
+          dataSource.pageInsights = pageInsights
         }
         if (issuesInfo) {
           dataSource.issuesInfo = issuesInfo
