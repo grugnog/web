@@ -1,12 +1,15 @@
-export { useWebsiteData } from './websites'
-export { websiteData, websiteHtmlData } from './website'
-export { issueData } from './issue'
-export { userData } from './user'
-export { historyData } from './history'
-export { featuresData } from './features'
-export { analyticsData } from './analytics'
-export { scriptsData, scriptData } from './scripts'
-export { paymentsData } from './payments'
+export {
+  websiteData,
+  websiteHtmlData,
+  useWebsiteData,
+} from './external/website'
+export { issueData } from './external/issues/issue'
+export { userData } from './external/user/user'
+export { historyData } from './external/history/history'
+export { featuresData } from './external/user/features'
+export { analyticsData } from './external/analytics/analytics'
+export { scriptsData, scriptData } from './external/scripts/scripts'
+export { paymentsData } from './external/payments/payments'
 
 export {
   useMiniPlayer,

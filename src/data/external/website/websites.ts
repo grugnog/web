@@ -13,7 +13,7 @@ import {
   WEBSITE_SUBSCRIPTION,
 } from '@app/subscriptions'
 import { UserManager, AppManager } from '@app/managers'
-import { useIssueFeed } from './local'
+import { useIssueFeed } from '../../local'
 import type { OnSubscriptionDataOptions } from '@apollo/react-common'
 import type { Website } from '@app/types'
 
