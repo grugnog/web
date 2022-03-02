@@ -57,7 +57,6 @@ const useStyles = makeStyles((theme: MergedTheme) => ({
   subTitle: {
     maxWidth: '75vw',
     textOverflow: 'ellipsis',
-    color: theme.palette.secondary.main,
     [theme.breakpoints.down('sm')]: {
       maxWidth: '20vw',
       marginLeft: 2,
@@ -114,11 +113,7 @@ export function IssueModal({ issue }: any) {
           <div className={classes.row}>
             <NavBarTitle title={title} flex />
             {issue?.pageUrl ? (
-              <Typography
-                variant='subtitle1'
-                className={classes.subTitle}
-                color={'primary'}
-              >
+              <Typography variant='subtitle1' className={classes.subTitle}>
                 {issue?.pageUrl}
               </Typography>
             ) : null}
