@@ -1,18 +1,18 @@
-import React, { Fragment } from 'react'
+import React, { Fragment, memo } from 'react'
 import { List, Button, Typography } from '@material-ui/core'
 import { printElement } from '@app/utils'
-import { issueSort } from '@app/lib'
 import { useStyles } from './styles'
 import { RenderIssuesList } from './cells'
 import { getAPIRoute } from '@app/configs'
 
+// TODO: REMOVE AND SPLIT COMPONENT
 const getIssue = (website: any) => {
   let issue
   if (website?.issue) {
     issue = website.issue
   } else if (
-    website?.issues?.length &&
     Array.isArray(website?.issues) &&
+    website?.issues?.length &&
     website?.issues[0]?.issues
   ) {
     issue = website?.issues[0]?.issues
@@ -22,14 +22,14 @@ const getIssue = (website: any) => {
   return issue
 }
 
-export function IssueList({ printable, website, className = '' }: any) {
+export function IssueListComponent({
+  printable,
+  website,
+  className = '',
+}: any) {
   const classes = useStyles()
   const CTA_LIST_ID = 'cta-issue-list'
   const issue = getIssue(website) ?? []
-
-  if (!printable) {
-    issue.sort(issueSort)
-  }
 
   if (!issue?.length) {
     return (
@@ -78,3 +78,5 @@ export function IssueList({ printable, website, className = '' }: any) {
     </Fragment>
   )
 }
+
+export const IssueList = memo(IssueListComponent)
