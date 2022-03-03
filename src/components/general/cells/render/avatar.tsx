@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { memo } from 'react'
 import { Typography, Tooltip, ListItemAvatar, Avatar } from '@material-ui/core'
 import {
   Folder as FolderIcon,
@@ -14,17 +14,21 @@ const useStyles = makeStyles((theme) => ({
     left: '1.5px',
     position: 'relative',
   },
-  pulse: {
-    boxShadow: `2px 1.5px ${theme.palette.secondary.main}`,
-    background: 'rgb(211,211,211)',
-  },
   cdnText: {
     color: theme.palette.secondary.main,
     fontWeight: 800,
   },
+  avatar: {
+    backgroundColor: theme.palette.common.black,
+  },
+  pulse: {
+    boxShadow: `2px 1.5px ${theme.palette.secondary.main}`,
+    backgroundColor: 'rgb(211,211,211)',
+    color: theme.palette.common.black,
+  },
 }))
 
-export function RenderAvatar({ adaScore, cdnConnected, error }: any) {
+export function RenderAvatarComponent({ adaScore, cdnConnected, error }: any) {
   const classes = useStyles()
 
   const newScore = adaScore && `${Math.max(0, adaScore.toFixed(0))}%`
@@ -32,11 +36,9 @@ export function RenderAvatar({ adaScore, cdnConnected, error }: any) {
     ? `Accessibility score ${newScore}`
     : 'Accessibility score not generated yet'
 
-  const avatarProps = cdnConnected
-    ? {
-        className: classes.pulse,
-      }
-    : {}
+  const className = `${classes.avatar}${
+    cdnConnected ? ` ${classes.pulse}` : ''
+  }`
 
   let inner = <FolderIcon />
   if (adaScore) {
@@ -58,8 +60,10 @@ export function RenderAvatar({ adaScore, cdnConnected, error }: any) {
       placement={'left'}
     >
       <ListItemAvatar>
-        <Avatar {...avatarProps}>{inner}</Avatar>
+        <Avatar className={className}>{inner}</Avatar>
       </ListItemAvatar>
     </Tooltip>
   )
 }
+
+export const RenderAvatar = memo(RenderAvatarComponent)

@@ -55,13 +55,13 @@ export const useWebsiteData = (
     ({ subscriptionData }: OnSubscriptionDataOptions<any>) => {
       const newSubDomain = subscriptionData?.data?.subDomainAdded
 
-      const newSubUrl = new URL(newSubDomain?.url)
+      const newSubUrl = newSubDomain?.url && new URL(newSubDomain.url)
 
       if (newSubDomain && websites?.length) {
         const dataSource = websites.find(
           (source: Website) => source.domain === newSubDomain?.domain
         )
-        const dataSourceUrl = new URL(dataSource?.url)
+        const dataSourceUrl = dataSource?.url && new URL(dataSource.url)
 
         if (newSubUrl?.pathname === dataSourceUrl?.pathname) {
           dataSource.insight = newSubDomain.insight
