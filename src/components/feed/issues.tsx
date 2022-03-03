@@ -1,10 +1,24 @@
 import React, { memo, FC } from 'react'
 import { Typography, IconButton, Fade } from '@material-ui/core'
 import { Close as CloseIcon } from '@material-ui/icons'
-import { issueSort } from '@app/lib'
 import { useStyles } from '../general/styles'
 import { WebsitePrimaryCell } from '../general/cells'
 import { useWebsiteContext } from '../providers/website'
+
+const IssueRow = ({ index, style, item, url }: any) => (
+  <div style={style} key={`${item?.selector} ${item?.code} ${index}`}>
+    <WebsitePrimaryCell
+      issuesModal
+      error
+      item={item}
+      listIndex={index}
+      url={url}
+      listTitleMax
+    />
+  </div>
+)
+
+const IssueMemo = memo(IssueRow)
 
 const Feed: FC = () => {
   const classes = useStyles()
@@ -29,8 +43,9 @@ const Feed: FC = () => {
               <CloseIcon />
             </IconButton>
           </div>
+
           {issueFeed?.data?.map((issue: any, issueIndex: number) => {
-            const issues = issue?.issues?.sort(issueSort)
+            const issues = issue?.issues
 
             return (
               <div key={`${issueIndex} ${issue?.pageUrl} ${issue?.domain}`}>
@@ -42,20 +57,11 @@ const Feed: FC = () => {
                   {issue.pageUrl}
                 </Typography>
                 <div className={classes.list}>
-                  {issues.map((item: any, listIndex: number) => {
-                    return (
-                      <div key={`${item?.selector} ${item?.code} ${listIndex}`}>
-                        <WebsitePrimaryCell
-                          issuesModal
-                          error
-                          item={item}
-                          listIndex={listIndex}
-                          url={issue?.pageUrl}
-                          listTitleMax
-                        />
-                      </div>
-                    )
-                  })}
+                  <IssueMemo
+                    index={issueIndex}
+                    url={issue.pageUrl}
+                    item={issues[issueIndex]}
+                  />
                 </div>
               </div>
             )

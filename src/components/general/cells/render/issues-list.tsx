@@ -1,8 +1,12 @@
-import React from 'react'
+import React, { memo } from 'react'
 import { issueSort } from '@app/lib'
 import { RenderIssue } from './issues'
 
-export function RenderIssuesList({ pageIssues = [], item, ...props }: any) {
+export function RenderIssuesListComponent({
+  pageIssues = [],
+  item,
+  ...props
+}: any) {
   return props?.error ? (
     <RenderIssue {...item} {...props} />
   ) : (
@@ -13,3 +17,5 @@ export function RenderIssuesList({ pageIssues = [], item, ...props }: any) {
     })
   )
 }
+
+export const RenderIssuesList = memo(RenderIssuesListComponent)

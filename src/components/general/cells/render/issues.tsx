@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { memo } from 'react'
 import { ListItem, ListItemIcon, Typography, Checkbox } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import { WithHighlight } from '@app/components/adhoc'
@@ -40,7 +40,7 @@ const useStyles = makeStyles(() => ({
   },
 }))
 
-export function RenderIssue({
+export function RenderIssueComponent({
   message,
   code,
   context,
@@ -49,24 +49,31 @@ export function RenderIssue({
   checked,
   handleToggle,
   listIndex,
+  ...extraProps
 }: any) {
   const classes = useStyles()
   const labelId = `checkbox-list-label-${listIndex}`
-  const checkListProps = checkList
-    ? {
-        role: undefined,
-        dense: true,
-        component: 'button',
-        onClick: () => handleToggle(listIndex),
-      }
-    : {}
+  const checkListProps = Object.assign(
+    {},
+    checkList
+      ? {
+          role: undefined,
+          dense: true,
+          component: 'button',
+          onClick: () => handleToggle(listIndex),
+        }
+      : {},
+    extraProps
+  )
+
+  const { error, openError, ...props } = checkListProps
 
   return (
     <ListItem
       // @ts-ignore
       className={`${classes.mainItemContainer} ${classes[type]}`}
       divider
-      {...checkListProps}
+      {...props}
     >
       {checkList ? (
         <ListItemIcon>
@@ -93,3 +100,5 @@ export function RenderIssue({
     </ListItem>
   )
 }
+
+export const RenderIssue = memo(RenderIssueComponent)
