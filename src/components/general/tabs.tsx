@@ -55,6 +55,9 @@ export function WebsiteTabs({ issues, html, screenshot, playground }: any) {
     setValue(newValue)
   }, [])
 
+  const screenshotIndex = !html ? 1 : 2
+  const playgroundIndex = !html ? 2 : 3
+
   return (
     <div className={classes.wrapper}>
       <Tabs
@@ -65,22 +68,36 @@ export function WebsiteTabs({ issues, html, screenshot, playground }: any) {
       >
         <Tab label='Insights' {...a11yProps(0)} />
         {html ? <Tab label='HTML' {...a11yProps(1)} /> : null}
-        {screenshot ? <Tab label='Screenshots' {...a11yProps(2)} /> : null}
-        {playground ? <Tab label='Playground' {...a11yProps(3)} /> : null}
+        {screenshot ? (
+          <Tab label='Screenshots' {...a11yProps(screenshotIndex)} />
+        ) : null}
+        {playground ? (
+          <Tab label='Playground' {...a11yProps(playgroundIndex)} />
+        ) : null}
       </Tabs>
       <TabPanel value={value} index={0} className={classes.container}>
         {issues}
       </TabPanel>
-      <TabPanel value={value} index={1} className={classes.container}>
-        {html}
-      </TabPanel>
+      {html ? (
+        <TabPanel value={value} index={1} className={classes.container}>
+          {html}
+        </TabPanel>
+      ) : null}
       {screenshot ? (
-        <TabPanel value={value} index={2} className={classes.container}>
+        <TabPanel
+          value={value}
+          index={screenshotIndex}
+          className={classes.container}
+        >
           {screenshot}
         </TabPanel>
       ) : null}
       {playground ? (
-        <TabPanel value={value} index={3} className={classes.container}>
+        <TabPanel
+          value={value}
+          index={playgroundIndex}
+          className={classes.container}
+        >
           {playground}
         </TabPanel>
       ) : null}

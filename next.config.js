@@ -27,6 +27,8 @@ const env = {
   SUPER_MODE: process.env.SUPER_MODE,
   // single CDN for app assets
   CDN: process.env.CDN,
+  DOCKER_CONTAINER: process.env.DOCKER_CONTAINER,
+  DISABLE_SEO: process.env.DISABLE_SEO,
 }
 
 let domains = ['images.unsplash.com']

@@ -62,6 +62,9 @@ export function MyApp({ Component, pageProps }: InnerApp) {
       <Head>
         <title key='title'>{title}</title>
         <meta name='description' content={description} key='description' />
+        {process.env.DISABLE_SEO ? (
+          <meta name='robots' content='noindex' />
+        ) : null}
         <meta
           name='viewport'
           content='minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no'

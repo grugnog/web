@@ -11,11 +11,6 @@
     styled-components "^5.1.0"
     tailwindcss "2.0.0"
 
-"@a11ywatch/website-source-builder@^0.0.11":
-  version "0.0.11"
-  resolved "https://registry.yarnpkg.com/@a11ywatch/website-source-builder/-/website-source-builder-0.0.11.tgz#af6320a3d9d908811dde0772218009f61bc16909"
-  integrity sha512-8kh8xYdkkyD34BdGHGk35UPlr/74U7aZQXuwgroR5fE7WHytkQSUhH+EVtYz8b2jJUPkvKtxanCKlZoqL29GmA==
-
 "@ampproject/remapping@^2.0.0":
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/@ampproject/remapping/-/remapping-2.1.0.tgz#72becdf17ee44b2d1ac5651fb12f1952c336fe23"
@@ -7315,10 +7310,10 @@ next-intercom@0.1.4:
   resolved "https://registry.yarnpkg.com/next-intercom/-/next-intercom-0.1.4.tgz#95f3fbca87490b0edd0261e64a06d9a941623f3c"
   integrity sha512-B71WlnXu9jpthtTpJNt9c/hIYoxnBz7G3xtta2ke3Pb4wDz4WZBlScmZaKkmSuH1U5S4szsisOTZr3f2iB0y/w==
 
-next-pwa@5.4.4:
-  version "5.4.4"
-  resolved "https://registry.yarnpkg.com/next-pwa/-/next-pwa-5.4.4.tgz#00f1678091f05662e54c25106664e79c26c337ef"
-  integrity sha512-Wo7DctXO9ZZzMCuRK/q2U3x5k49LBRv7p31woJIUfiR6tJChSMoojHUvvgeCY72gSo4mtovS5KRm6iHIs/kxeg==
+next-pwa@5.4.5:
+  version "5.4.5"
+  resolved "https://registry.yarnpkg.com/next-pwa/-/next-pwa-5.4.5.tgz#542412ae74c0363db6bcb3cd8ea5494d8003e3a5"
+  integrity sha512-XmMbUDoBYdo4Ib2vOau4p42+6+ClZqUCFEGuVj4iuyM2C+JCqcVa2BYXcyFitjsKVBfECeIwaUqKgMB8Qm9cDQ==
   dependencies:
     babel-loader "^8.2.3"
     clean-webpack-plugin "^4.0.0"
