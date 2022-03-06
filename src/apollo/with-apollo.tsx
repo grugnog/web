@@ -63,9 +63,8 @@ const createLink = (): ApolloLink => {
   if (typeof window !== 'undefined') {
     const wsLink = new SubscriptionClient(AppConfig.webSocketUrl + '', {
       reconnect: true,
-      timeout: 10000,
       inactivityTimeout: 30000,
-      lazy: true,
+      minTimeout: 10000,
       connectionParams: {
         credentials: 'include',
       },
