@@ -5,12 +5,10 @@ import type { NextRequest } from 'next/server'
 
 export async function middleware(req: NextRequest) {
   if (req.nextUrl.pathname === '/api/iframe') {
-    if (process.env.NODE_ENV !== 'development') {
-      const res = await ipRateLimit(req)
+    const res = await ipRateLimit(req)
 
-      if (res.status !== 200) {
-        return res
-      }
+    if (res.status !== 200) {
+      return res
     }
 
     const iframeSource = await iframe(

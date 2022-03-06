@@ -31,15 +31,20 @@ export async function upstashRest(
   options?: { pipeline: boolean }
 ) {
   const domain = process.env.UPSTASH_REST_API_DOMAIN
-  const token = process.env.UPSTASH_REST_API_TOKEN
+  const token = process.env.UPSTASH_REST_API_TOKEN || ''
+
+  let url: string
 
   if (!domain || !token) {
-    throw new Error('Missing required Upstash credentials of the REST API')
+    // use local redis network
+    url = 'redis://127.0.0.1:6379'
+  } else {
+    url = `https://${domain}${options?.pipeline ? '/pipeline' : ''}`
   }
 
   return upstash({
     token,
-    url: `https://${domain}${options?.pipeline ? '/pipeline' : ''}`,
+    url,
     method: 'POST',
     body: JSON.stringify(args),
   })

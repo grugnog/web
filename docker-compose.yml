@@ -12,6 +12,19 @@ services:
       - /usr/src/app/.next
     ports:
       - '3000:3000'
+    networks:
+      - front-net
+
+  redis:
+    container_name: redis
+    image: bitnami/redis:6.0
+    environment:
+      - ALLOW_EMPTY_PASSWORD=yes
+    networks:
+      - front-net
+
+networks:
+  - front-net
 
 volumes:
   web:
