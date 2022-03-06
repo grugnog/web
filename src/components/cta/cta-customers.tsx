@@ -40,7 +40,7 @@ export function CtaCustomers() {
   )
 
   return (
-    <SectionContainer className={'bg-gray-100'}>
+    <SectionContainer>
       <SectionHeading>{strings.customers}</SectionHeading>
       <Typography variant='h6' component='h4' gutterBottom>
         {strings.customersWhy}

@@ -12,6 +12,7 @@ import { WithSwipeModal as SwipeableTemporaryDrawer } from '@app/components/adho
 import {
   MarketingTestimonial,
   MarketingTrustBy,
+  MarketingCli,
 } from '@app/components/marketing'
 import { metaSetter } from '@app/utils'
 import { strings } from '@app-strings'
@@ -25,6 +26,7 @@ function Index() {
         <CtaVideo />
         <CtaFeatures />
         <CtaCustomers />
+        <MarketingCli />
         <MarketingTestimonial />
         <MarketingTrustBy />
         <Price blockFree navigate />

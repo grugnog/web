@@ -29,15 +29,20 @@ const useStyles = makeStyles(() =>
   })
 )
 
-function FakeButtonContainer() {
+function FakeButtonContainer({ title }: { title?: string }) {
   const { container, close, zoom, minimize } = useStyles()
 
   return (
-    <span className={container}>
-      <span className={close} />
-      <span className={minimize} />
-      <span className={zoom} />
-    </span>
+    <div className='flex flex-1 place-items-center shadow'>
+      <span className={container}>
+        <span className={close} />
+        <span className={minimize} />
+        <span className={zoom} />
+      </span>
+      {title ? (
+        <div className='flex flex-1 place-content-center'>{title}</div>
+      ) : null}
+    </div>
   )
 }
 

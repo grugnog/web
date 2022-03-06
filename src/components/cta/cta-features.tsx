@@ -132,7 +132,7 @@ function FeatureItem({ item, index }: { item: any; index: number }) {
 
 const CtaFeatures = () => {
   return (
-    <SectionContainer>
+    <SectionContainer className={'bg-gray-100'}>
       <div>
         <SectionHeading>{strings.headers[2][0]}</SectionHeading>
         <Typography variant='h6' component='p' gutterBottom>
