@@ -73,7 +73,7 @@ export function FormDialogWrapper({
   }, [setOpen, setUrl])
 
   const handleChangeExt = useCallback(
-    () => (event: any) => {
+    (event: any) => {
       setExtension(event.target.value)
     },
     [setExtension]
@@ -96,6 +96,7 @@ export function FormDialogWrapper({
         tpt = 'http'
       }
       let urlBase = cleanUrl.includes('://') ? '' : `://`
+
       let blockExt = extension === 'none'
 
       if (cleanUrl.includes('localhost:')) {
