@@ -10,13 +10,13 @@ import { setContext } from 'apollo-link-context'
 import { onError } from 'apollo-link-error'
 import { SubscriptionClient } from 'subscriptions-transport-ws'
 import { UserManager, AppManager } from '@app/managers'
-import { AppConfig } from '@app/configs/app-config'
+import { AppConfig, dev } from '@app/configs/app-config'
 import { resolvers } from './resolvers'
 
 const createLink = (): ApolloLink => {
   const httpLink = createHttpLink({
     uri:
-      AppConfig.dev && typeof window === 'undefined'
+      dev && typeof window === 'undefined'
         ? AppConfig.graphQLUrlDocker
         : AppConfig.graphQLUrl,
     fetch: fetcher,

@@ -1,12 +1,13 @@
 const dev = process.env.NODE_ENV !== 'production'
 
-const api = process.env.API || 'http://api:8080/graphql'
+const DEFAULT_API_URL = '127.0.0.1:3280'
+
+const api = process.env.API || `http://${DEFAULT_API_URL}/graphql`
 
 const AppConfig = {
   graphQLUrl: api,
   graphQLUrlDocker: process.env.API_URI_DOCKER || api,
-  webSocketUrl: process.env.WEB_SOCKET_URL || 'ws://api:8080/graphql',
-  dev,
+  webSocketUrl: process.env.WEB_SOCKET_URL || `ws://${DEFAULT_API_URL}/graphql`,
 }
 
 // INTERCOM MESSAGER
@@ -32,6 +33,7 @@ const DOMAIN_NAME = process.env.DOMAIN_NAME
 const companyName = process.env.COMPANY_NAME || 'A11yWatch'
 const twitterSite = process.env.TWITTER_SITE || '@a11ywatcher'
 
+// USED FOR REPORTS ( TODO REVISIT URL )
 const BASE_GQL_URL = `${AppConfig?.graphQLUrl
   ?.replace('api.', '')
   ?.replace('8080', '3000')

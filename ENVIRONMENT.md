@@ -18,5 +18,4 @@ STRIPE_KEY=
 CDN_URL_HOST=
 WORKBOX_MODE=production
 SUPER_MODE=false
-TS_NODE_IGNORE=/__mocks__/
 ```
