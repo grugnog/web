@@ -2,7 +2,7 @@ const { resolve } = require('path')
 const withPWA = require('next-pwa')
 const runtimeCaching = require('next-pwa/cache')
 
-const dev = process.env.NODE_ENV !== 'production'
+const dev = process.env.NODE_ENV === 'development'
 // replace with only exact domain name without protocol
 const DOMAIN_NAME = process.env.DOMAIN_NAME || 'https://a11ywatch.com'
 
@@ -11,24 +11,18 @@ const env = {
   APP_TYPE: process.env.APP_TYPE || 'main',
   API: process.env.API,
   WEB_SOCKET_URL: process.env.WEB_SOCKET_URL,
-  STRIPE_KEY:
-    process.env.STRIPE_KEY_PROD && !dev
-      ? process.env.STRIPE_KEY_PROD
-      : process.env.STRIPE_KEY,
-  SCRIPTS_CDN_URL_HOST:
-    process.env.SCRIPTS_CDN_URL_HOST_PROD && !dev
-      ? process.env.SCRIPTS_CDN_URL_HOST_PROD
-      : process.env.SCRIPTS_CDN_URL_HOST,
+  STRIPE_KEY: process.env.STRIPE_KEY,
+  SCRIPTS_CDN_URL_HOST: process.env.SCRIPTS_CDN_URL_HOST,
   INTERCOM_APPID: process.env.INTERCOM_APPID,
   IFRAME_URL: process.env.IFRAME_URL,
   GOOGLE_CLIENT_ID: process.env.GOOGLE_CLIENT_ID,
   DOMAIN_NAME,
   INTERCOM_ENABLED: process.env.INTERCOM_ENABLED,
   SUPER_MODE: process.env.SUPER_MODE,
+  DOCKER_CONTAINER: process.env.DOCKER_CONTAINER, // app is using docker runtime
+  DISABLE_SEO: process.env.DISABLE_SEO,
   // single CDN for app assets
   CDN: process.env.CDN,
-  DOCKER_CONTAINER: process.env.DOCKER_CONTAINER,
-  DISABLE_SEO: process.env.DISABLE_SEO,
 }
 
 let domains = ['images.unsplash.com']
@@ -99,7 +93,7 @@ module.exports = withPWA({
   },
   swcMinify: true,
   images: {
-    domains: domains,
+    domains,
   },
   async headers() {
     return [
