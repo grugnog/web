@@ -69,7 +69,6 @@ function PriceWrapper({
 }: any) {
   const classes = useStyles()
   const [yearly, onSetYear] = useState<boolean>(!!year)
-  const Container = !onClick ? 'section' : 'div'
 
   const setYearly = (params: any) => {
     if (typeof setYear === 'function') {
@@ -115,7 +114,7 @@ function PriceWrapper({
   }
 
   return (
-    <Container className={!onClick && !navigate ? '' : ''}>
+    <div className={!onClick && !navigate ? '' : ''} id='plans-section'>
       {typeof onClick === 'undefined' && !pricingPage ? (
         <>
           <SectionHeading style={onClick ? { fontWeight: 200 } : {}}>
@@ -240,7 +239,7 @@ function PriceWrapper({
             )
           })}
       </Grid>
-    </Container>
+    </div>
   )
 }
 

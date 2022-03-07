@@ -33,7 +33,7 @@ const useStyles = makeStyles((theme) => ({
     fontWeight: 600,
   },
   listTitleMax: {
-    maxWidth: '70%',
+    maxWidth: '60%',
   },
   flex: {
     flex: 1,

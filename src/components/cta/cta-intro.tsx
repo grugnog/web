@@ -11,7 +11,7 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    paddingBottom: '6%',
+    paddingBottom: '0%',
     [theme.breakpoints.down('sm')]: {
       display: 'block',
     },
@@ -55,7 +55,7 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   join: {
-    marginBottom: '12%',
+    marginBottom: '5%',
     textAlign: 'center',
     alignItems: 'center',
     display: 'flex',
@@ -71,7 +71,7 @@ function CtaIntro({ checker }: any) {
   const classes = useStyles()
 
   return (
-    <SectionContainer className={'pt-20'}>
+    <SectionContainer className={'pt-20 pb-0'}>
       <div
         className={`${classes.root}${
           checker ? ` ${classes.detailedContainer}` : ''
@@ -122,7 +122,7 @@ function CtaIntro({ checker }: any) {
           <Image src={'/img/wave.svg'} height={8} width={120} alt='' />
           <a
             className={classes.bottomAnchor}
-            href='#video-section'
+            href='#plans-section'
             aria-label='Scroll to introduction video'
           >
             <ExpandMore />

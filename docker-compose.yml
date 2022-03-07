@@ -24,7 +24,7 @@ services:
       - front-net
 
 networks:
-  - front-net
+  front-net:
 
 volumes:
   web:

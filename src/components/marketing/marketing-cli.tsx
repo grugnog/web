@@ -17,11 +17,11 @@ export function MarketingCli() {
     {
       title: 'Local',
       subTitle:
-        'Want to host A11yWatch on your own? In one command start the project with docker or directly on the machine. It takes less than 4gb to handle the entire suite.',
+        'Want to host A11yWatch on your own? In one command start the project with docker or directly on the machine. It takes less than 2gb to handle the entire suite.',
     },
     {
       title: 'Remote Deployment',
-      subTitle: `Run anywhere, with the CLI you can target AWS, GCP, or Azure to host the application via terraform. Quickly bring up or down a full a11ywatch suite in one command.`,
+      subTitle: `Run anywhere, with the CLI you can target AWS, GCP, or Azure to host the application via terraform. Quickly bring up or down a full A11yWatch suite in one command.`,
     },
     {
       title: 'CI',
@@ -32,12 +32,30 @@ export function MarketingCli() {
 
   return (
     <SectionContainer className={'bg-gray-100'}>
-      <SectionHeading>
-        Accessibility Portability and Extensibility
-      </SectionHeading>
+      <SectionHeading>Accessibility Portability CLI</SectionHeading>
       <p className='text-lg pb-4'>
-        Run A11yWatch on any machine with the Command Line Interface. All you
-        need is Rust and Docker installed.
+        Run A11yWatch on any machine with the Rust Command Line Interface. Make
+        sure{' '}
+        <a
+          href='https://www.rust-lang.org/tools/install'
+          target={'_blank'}
+          rel='noreferrer'
+          aria-label='rust install link'
+          className='text-blue-400'
+        >
+          Rust
+        </a>{' '}
+        and{' '}
+        <a
+          href='https://www.docker.com/products/docker-desktop'
+          target={'_blank'}
+          rel='noreferrer'
+          aria-label='docker install link'
+          className='text-blue-400'
+        >
+          Docker
+        </a>{' '}
+        is installed first to get started.
       </p>
       <div className='space-y-4'>
         <pre className='p-4 bg-white rounded'>cargo install a11ywatch_cli</pre>
@@ -47,7 +65,8 @@ export function MarketingCli() {
             <div className='border-b' />
             <div className='bg-white'>
               <div className='py-4 px-4 text-gray-800 text-lg'>
-                <span className='text-gray-400'>~ </span> a11ywatch start
+                <span className='text-gray-400'>~ </span> a11ywatch start -f{' '}
+                <i className='text-gray-400'># view browser localhost:3270</i>
                 <span style={previewStyles}></span>
               </div>
             </div>

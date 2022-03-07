@@ -3,7 +3,6 @@ import { MarketingDrawer, Price } from '@app/components/general'
 import {
   CtaFeatures,
   CtaIntro,
-  CtaVideo,
   CtaCustomers,
   CtaSignonForm,
   CtaProfessionalSupportButton,
@@ -13,6 +12,7 @@ import {
   MarketingTestimonial,
   MarketingTrustBy,
   MarketingCli,
+  MarketingProductIntro,
 } from '@app/components/marketing'
 import { metaSetter } from '@app/utils'
 import { strings } from '@app-strings'
@@ -23,7 +23,7 @@ function Index() {
       <MarketingDrawer navPosition={'relative'} maxWidth={'xl'} index>
         <CtaProfessionalSupportButton />
         <CtaIntro />
-        <CtaVideo />
+        <MarketingProductIntro />
         <CtaFeatures />
         <CtaCustomers />
         <MarketingCli />
