@@ -1,6 +1,5 @@
 export { CtaFeatures } from './cta-features'
 export { CtaCustomers } from './cta-customers'
-export { CtaVideo } from './cta-video'
 export { CtaIntro } from './cta-intro'
 export { CtaProfessionalSupportButton } from './cta-professional-support-button'
 export { CtaCdn } from './cta-cdn'

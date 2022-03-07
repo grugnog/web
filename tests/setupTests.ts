@@ -9,7 +9,3 @@ jest.mock('next/router', () => ({
     }
   },
 }))
-
-jest.mock('@vimeo/player', () => {
-  return class Player {}
-})

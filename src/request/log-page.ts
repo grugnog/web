@@ -1,8 +1,8 @@
 import { getAPIRoute } from '@app/configs/api-route'
 
-const API_ROUTE = getAPIRoute('api', true)
-
+// REMOVE SPECIFIC NEXT REQUEST PASSING FOR PROPS
 export const logPage = async (req: any, uuid: string) => {
+  const API_ROUTE = getAPIRoute('api', true)
   const headers = {
     'Content-Type': 'application/json',
     'User-Agent': '',

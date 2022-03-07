@@ -1,4 +1,4 @@
-import { IFRAME_ENDPOINT } from '../configs/next/iframe'
+import { IFRAME_ENDPOINT } from '@app/configs/next/iframe'
 
 export const iframe = async (
   url: string,
