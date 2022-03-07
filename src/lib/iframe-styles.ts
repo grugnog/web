@@ -4,7 +4,7 @@ export const iframeStyles = `
     height: 60px !important;
     width: 60px !important;
     padding: 0px !important;
-    font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto,
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, Roboto,
         Helvetica Neue, sans-serif !important;
     font-size: 16px !important;
     font-weight: 800 !important;

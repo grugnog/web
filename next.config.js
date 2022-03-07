@@ -20,7 +20,6 @@ const env = {
   INTERCOM_ENABLED: process.env.INTERCOM_ENABLED,
   SUPER_MODE: process.env.SUPER_MODE,
   DOCKER_CONTAINER: process.env.DOCKER_CONTAINER, // app is using docker runtime
-  DISABLE_SEO: process.env.DISABLE_SEO,
   // single CDN for app assets
   CDN: process.env.CDN,
 }

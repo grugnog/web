@@ -33,14 +33,7 @@ export async function upstashRest(
   const domain = process.env.UPSTASH_REST_API_DOMAIN
   const token = process.env.UPSTASH_REST_API_TOKEN || ''
 
-  let url: string
-
-  if (!domain || !token) {
-    // use local redis network
-    url = 'redis://127.0.0.1:6379'
-  } else {
-    url = `https://${domain}${options?.pipeline ? '/pipeline' : ''}`
-  }
+  const url = `https://${domain}${options?.pipeline ? '/pipeline' : ''}`
 
   return upstash({
     token,

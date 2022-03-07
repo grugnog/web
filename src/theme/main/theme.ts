@@ -16,7 +16,6 @@ export const theme = (function () {
         'Noto Sans',
         'sans-serif',
         'BlinkMacSystemFont',
-        'Roboto',
         'Helvetica Neue',
         'Arial',
         'Apple Color Emoji',

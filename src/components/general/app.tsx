@@ -62,7 +62,7 @@ export function MyApp({ Component, pageProps }: InnerApp) {
       <Head>
         <title key='title'>{title}</title>
         <meta name='description' content={description} key='description' />
-        {process.env.DISABLE_SEO ? (
+        {process.env.NEXT_PUBLIC_DISABLE_SEO === '1' ? (
           <meta name='robots' content='noindex' />
         ) : null}
         <meta

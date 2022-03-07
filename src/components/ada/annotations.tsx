@@ -8,7 +8,7 @@ const inlineButtonStyle = {
   maxWidth: 60,
   maxHeight: 60,
   padding: 0,
-  fontFamily: `Roboto, Helvetica Neue, BlinkMacSystemFont, sans-serif`,
+  fontFamily: `system-ui, Roboto, Helvetica Neue, BlinkMacSystemFont, sans-serif`,
   fontSize: 22,
   fontWeight: 800,
   borderRadius: 30,
