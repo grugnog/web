@@ -19,7 +19,7 @@ export const Timer = ({ stop }: { stop?: boolean }) => {
       gutterBottom
       variant={'subtitle1'}
       style={{
-        color: seconds > 20 ? 'red' : seconds > 10 ? 'yellow' : 'inherit',
+        color: seconds > 20 ? '#FF0000' : seconds > 10 ? '#FFFF00' : 'inherit',
       }}
     >
       Scan time: {seconds}s
