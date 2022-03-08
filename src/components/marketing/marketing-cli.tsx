@@ -17,7 +17,7 @@ export function MarketingCli() {
     {
       title: 'Local',
       subTitle:
-        'Want to host A11yWatch on your own? In one command start the project with docker or directly on the machine. It takes less than 2gb to handle the entire suite.',
+        'Want to host A11yWatch on your own? In one command start the project with docker or directly on the machine. Tear up or down the project in seconds with our slim multi-staged binary builds.',
     },
     {
       title: 'Remote Deployment',
@@ -33,9 +33,8 @@ export function MarketingCli() {
   return (
     <SectionContainer className={'bg-gray-100'}>
       <SectionHeading>Accessibility Portability CLI</SectionHeading>
-      <p className='text-lg pb-4'>
-        Run A11yWatch on any machine with the Rust Command Line Interface. Make
-        sure{' '}
+      <p className='text-lg pb-4 leading-10'>
+        Run A11yWatch on any machine with the Rust Command Line Interface. With{' '}
         <a
           href='https://www.rust-lang.org/tools/install'
           target={'_blank'}
@@ -55,10 +54,14 @@ export function MarketingCli() {
         >
           Docker
         </a>{' '}
-        is installed first to get started.
+        build the suite on your own server to handle everything. Get the CLI in
+        shell via{' '}
+        <code className='text-gray-700 bg-gray-300 p-1'>
+          cargo install a11ywatch_cli
+        </code>
+        .
       </p>
       <div className='space-y-4'>
-        <pre className='p-4 bg-white rounded'>cargo install a11ywatch_cli</pre>
         <div className='flex flex-wrap space-x-5 space-y-4'>
           <div className='flex-1 bg-white rounded sm:w-1/3'>
             <FakeButtonContainer title='Bash' />
