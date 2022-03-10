@@ -9,9 +9,11 @@ import type { PageProps } from '@app/types'
 function WebsiteAccessibilityChecker({ name }: PageProps) {
   return (
     <Fragment>
-      <MarketingDrawer title={name}>
-        <CtaIntro checker />
-        <SignOnForm home />
+      <MarketingDrawer title={name} navPosition={'relative'}>
+        <div className='space-y-16 sm:space-y-32'>
+          <CtaIntro checker />
+          <SignOnForm home />
+        </div>
       </MarketingDrawer>
       <SwipeableTemporaryDrawer />
     </Fragment>

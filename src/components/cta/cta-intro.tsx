@@ -67,11 +67,14 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
-function CtaIntro({ checker }: any) {
+interface CtaIntro {
+  checker?: boolean
+}
+function CtaIntro({ checker }: CtaIntro) {
   const classes = useStyles()
 
   return (
-    <SectionContainer className={'pt-20 pb-0'}>
+    <SectionContainer className={`${checker ? 'py-0 ' : 'pt-20 '}pb-0`}>
       <div
         className={`${classes.root}${
           checker ? ` ${classes.detailedContainer}` : ''
@@ -94,7 +97,7 @@ function CtaIntro({ checker }: any) {
             color={'textSecondary'}
           >
             {checker
-              ? 'Test your website accessibility'
+              ? 'Test your website inclusion and vitals'
               : 'Safeguard to a pleasant inclusive experience'}
           </Typography>
           <Button

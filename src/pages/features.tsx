@@ -40,14 +40,19 @@ function Features({ name }: PageProps) {
       <div className={row}>
         <div className={paper}>
           <Section>
-            <GeneralHeading>Issue Reporter</GeneralHeading>
+            <GeneralHeading>
+              Accessibility Insights and Web Vitals
+            </GeneralHeading>
             <FeatureHeading>
-              Our issue reporter scans for problems with recommended solutions
-              that are tuned for your website. Get notified when new issues
-              occur with detailed information on what happened. The reporter
-              runs on all your pages and you can run the test multiple times a
-              day. Control how often you need the reporter to run to get alerted
-              when you want.
+              Our inclusion insight reporter and monitor scans for problems with
+              recommended solutions that are tuned for your website including
+              WCAG 2.0 and beyond. Get notified when new issues occur with
+              detailed information on what happened with recommendations. The
+              reporter runs on all your pages and you can run the test multiple
+              times a day. Control how often you need the reporter to run to get
+              alerted along your schedule. Get Google Lighthouse reports on all
+              of your pages at once to elevate web vitals and other metrics that
+              help make a website inclusive.
             </FeatureHeading>
             <div className={paperStyle}>
               <Image
@@ -61,14 +66,16 @@ function Features({ name }: PageProps) {
         </div>
         <div className={paper}>
           <Section>
-            <GeneralHeading>Auto CDN</GeneralHeading>
+            <GeneralHeading>Accessibility CDN</GeneralHeading>
             <FeatureHeading>
-              Include a custom cdn that fixes most of your issues at runtime.
-              Our cdn uses a neural network that is composed of a couple of open
-              nets like GoogleNet, ImageNet, and MobileNet. We also use common
+              Include a personal custom CDN that fixes critical issues at
+              runtime that would drastically hurt a users experience. Our cdn
+              uses a neural network that is composed of a couple of open nets
+              like GoogleNet, ImageNet, and MobileNet. We also use common
               learning into the mixture to have a generic model. The networks in
               layers allow us to learn and declare images with extraordinary
-              precision.
+              precision. View your CDN at any time and even edit it as needed
+              with the live script editor.
             </FeatureHeading>
             <div className={paperStyle}>
               <Image
@@ -105,10 +112,11 @@ function Features({ name }: PageProps) {
           <Section>
             <GeneralHeading>Temporary Script Remedy</GeneralHeading>
             <FeatureHeading>
-              View your scripts that come from the scripts page. Verifiy exactly
-              what goes into production with notes on whats being changed. If
-              you need to make a tweak, edit the script in real time with our
-              editor.
+              View your website javascript remedies that come from the scripts
+              page. Verifiy exactly what goes into production with notes on
+              whats being changed. If you need to make a tweak, edit the script
+              in real time with our editor. This is suppose to be a temporary
+              solution so you can get to the fixes with a dedicated check list.
             </FeatureHeading>
             <div className={paperStyle}>
               <Image
