@@ -1,16 +1,14 @@
 import React, { useState } from 'react'
 import { Menu, MenuItem, IconButton } from '@material-ui/core'
 import { MoreVert as MoreIcon } from '@material-ui/icons'
-import { REST_API } from '@app/configs/app-config'
 
-const convertDownloadPath = (cdn: string) => {
-  if (REST_API.indexOf('localhost') != -1) {
-    return cdn
-      ?.replace('/cdn/cdn/', '/cdn/download/')
-      .replace('scripts/', 'download/')
-  }
-
-  return cdn
+const download = (path: string, filename: string) => {
+  const anchor = document.createElement('a')
+  anchor.href = path
+  anchor.download = filename
+  document.body.appendChild(anchor)
+  anchor.click()
+  document.body.removeChild(anchor)
 }
 
 export function ScriptDownloadButton({ cdn_url, cdn_url_min }: any) {
@@ -22,6 +20,22 @@ export function ScriptDownloadButton({ cdn_url, cdn_url_min }: any) {
 
   const handleClose = () => {
     toggleMenu(null)
+  }
+
+  const downloadFile = (file: string) => {
+    fetch(file)
+      .then((res) => res.text())
+      .then((data) => {
+        const blob = new Blob([data], { type: 'application/javascript' })
+        const url = URL.createObjectURL(blob)
+        const urlTarget = new URL(file)
+
+        download(url, urlTarget.pathname.substring(1))
+
+        URL.revokeObjectURL(url)
+      })
+      .catch((err) => console.error(err))
+    handleClose()
   }
 
   return (
@@ -50,18 +64,8 @@ export function ScriptDownloadButton({ cdn_url, cdn_url_min }: any) {
         open={!!menuOpen}
         onClose={handleClose}
       >
-        <MenuItem
-          href={convertDownloadPath(cdn_url)}
-          component={'a'}
-          onClick={handleClose}
-        >
-          Download
-        </MenuItem>
-        <MenuItem
-          href={convertDownloadPath(cdn_url_min)}
-          component={'a'}
-          onClick={handleClose}
-        >
+        <MenuItem onClick={() => downloadFile(cdn_url)}>Download</MenuItem>
+        <MenuItem onClick={() => downloadFile(cdn_url_min)}>
           Download Minified
         </MenuItem>
       </Menu>
