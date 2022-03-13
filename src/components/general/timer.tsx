@@ -15,14 +15,8 @@ export const Timer = ({ stop }: { stop?: boolean }) => {
   }, [stop])
 
   return (
-    <Typography
-      gutterBottom
-      variant={'subtitle1'}
-      style={{
-        color: seconds > 20 ? '#FF0000' : seconds > 10 ? '#FFFF00' : 'inherit',
-      }}
-    >
-      Scan time: {seconds}s
+    <Typography gutterBottom variant={'subtitle1'}>
+      Scan duration: {seconds}s
     </Typography>
   )
 }
