@@ -22,9 +22,8 @@ const STRIPE_KEY =
 const APP_TYPE = process.env.APP_TYPE || 'main'
 
 // browser facing
-const cdn = process.env.CDN || 'localhost:8090'
-const SCRIPTS_CDN_URL_HOST =
-  process.env.SCRIPTS_CDN_URL_HOST || 'http://localhost:8090'
+const cdn = process.env.CDN || 'http://localhost:8080/cdn'
+const SCRIPTS_CDN_URL_HOST = `${cdn}/cdn`
 
 const SUPER_MODE = process.env.SUPER_MODE
 const API_URI_DOCKER = process.env.API_URI_DOCKER
@@ -40,6 +39,8 @@ const BASE_GQL_URL = `${AppConfig?.graphQLUrl
   ?.replace('/graphql', '')}/reports`
 
 const STATUS_URL = AppConfig?.graphQLUrl?.replace('/graphql', '/status')
+
+export const REST_API = api.replace('/graphql', '')
 
 export {
   BASE_GQL_URL,

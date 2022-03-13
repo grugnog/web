@@ -1,10 +1,17 @@
 import React, { useState } from 'react'
 import { Menu, MenuItem, IconButton } from '@material-ui/core'
 import { MoreVert as MoreIcon } from '@material-ui/icons'
-import { dev } from '@app/configs'
+import { REST_API } from '@app/configs/app-config'
 
-const convertDownloadPath = (cdn: string) =>
-  dev ? cdn?.replace('cdn/', 'download/').replace('scripts/', 'download/') : cdn
+const convertDownloadPath = (cdn: string) => {
+  if (REST_API.indexOf('localhost') != -1) {
+    return cdn
+      ?.replace('/cdn/cdn/', '/cdn/download/')
+      .replace('scripts/', 'download/')
+  }
+
+  return cdn
+}
 
 export function ScriptDownloadButton({ cdn_url, cdn_url_min }: any) {
   const [menuOpen, toggleMenu] = useState<any>(null)

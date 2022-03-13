@@ -11,7 +11,7 @@ import {
 import { makeStyles } from '@material-ui/core/styles'
 import { ScriptDownloadButton } from '@app/components/general'
 import { PrismLight } from 'react-syntax-highlighter'
-import { SCRIPTS_CDN_URL_HOST } from '@app/configs'
+import { SCRIPTS_CDN_URL_HOST } from '@app/configs/app-config'
 import { a11yDark } from '@app/styles'
 import WebIcon from '@material-ui/icons/Web'
 import ExpandLess from '@material-ui/icons/ExpandLess'
