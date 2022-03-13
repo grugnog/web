@@ -1,15 +1,7 @@
-import React, { useState } from 'react'
+import React, { useState, useMemo } from 'react'
 import { Menu, MenuItem, IconButton } from '@material-ui/core'
 import { MoreVert as MoreIcon } from '@material-ui/icons'
-
-const download = (path: string, filename: string) => {
-  const anchor = document.createElement('a')
-  anchor.href = path
-  anchor.download = filename
-  document.body.appendChild(anchor)
-  anchor.click()
-  document.body.removeChild(anchor)
-}
+import { isA11yWatch } from '@app/configs/app-config'
 
 export function ScriptDownloadButton({ cdn_url, cdn_url_min }: any) {
   const [menuOpen, toggleMenu] = useState<any>(null)
@@ -22,21 +14,23 @@ export function ScriptDownloadButton({ cdn_url, cdn_url_min }: any) {
     toggleMenu(null)
   }
 
-  const downloadFile = (file: string) => {
-    fetch(file)
-      .then((res) => res.text())
-      .then((data) => {
-        const blob = new Blob([data], { type: 'application/javascript' })
-        const url = URL.createObjectURL(blob)
-        const urlTarget = new URL(file)
+  const [downLoadCdnLink, downLoadCdnMinLink] = useMemo(() => {
+    let mainjs = cdn_url.replace(
+      'http://localhost:8090/cdn',
+      'http://localhost:8080/scripts'
+    )
+    let minjs = cdn_url_min.replace(
+      'http://localhost:8090/cdn',
+      'http://localhost:8080/scripts'
+    )
+    // remove .cdn with .api since only exposed endpoint
+    if (isA11yWatch) {
+      mainjs = mainjs.replace('cdn', 'api')
+      minjs = minjs.replace('cdn', 'api')
+    }
 
-        download(url, urlTarget.pathname.substring(1))
-
-        URL.revokeObjectURL(url)
-      })
-      .catch((err) => console.error(err))
-    handleClose()
-  }
+    return [mainjs, minjs]
+  }, [cdn_url, cdn_url_min])
 
   return (
     <div>
@@ -64,8 +58,20 @@ export function ScriptDownloadButton({ cdn_url, cdn_url_min }: any) {
         open={!!menuOpen}
         onClose={handleClose}
       >
-        <MenuItem onClick={() => downloadFile(cdn_url)}>Download</MenuItem>
-        <MenuItem onClick={() => downloadFile(cdn_url_min)}>
+        <MenuItem
+          href={downLoadCdnLink}
+          download
+          component={'a'}
+          onClick={handleClose}
+        >
+          Download
+        </MenuItem>
+        <MenuItem
+          href={downLoadCdnMinLink}
+          download
+          component={'a'}
+          onClick={handleClose}
+        >
           Download Minified
         </MenuItem>
       </Menu>

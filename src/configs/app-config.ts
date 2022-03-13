@@ -21,9 +21,12 @@ const STRIPE_KEY =
 
 const APP_TYPE = process.env.APP_TYPE || 'main'
 
-// browser facing
-const cdn = process.env.CDN || 'http://localhost:8080/cdn'
-const SCRIPTS_CDN_URL_HOST = `${cdn}/cdn`
+// browser facing (proxy access from central api)
+const cdn = process.env.CDN || 'http://localhost:8090'
+
+const SCRIPTS_CDN_URL_HOST = /localhost/.test(cdn)
+  ? `${cdn}/cdn`
+  : `${cdn}/scripts`
 
 const SUPER_MODE = process.env.SUPER_MODE
 const API_URI_DOCKER = process.env.API_URI_DOCKER
@@ -41,6 +44,8 @@ const BASE_GQL_URL = `${AppConfig?.graphQLUrl
 const STATUS_URL = AppConfig?.graphQLUrl?.replace('/graphql', '/status')
 
 export const REST_API = api.replace('/graphql', '')
+
+export const isA11yWatch = /a11ywatch/.test(REST_API)
 
 export {
   BASE_GQL_URL,

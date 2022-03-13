@@ -12,7 +12,6 @@ const env = {
   API: process.env.API,
   WEB_SOCKET_URL: process.env.WEB_SOCKET_URL,
   STRIPE_KEY: process.env.STRIPE_KEY,
-  SCRIPTS_CDN_URL_HOST: process.env.SCRIPTS_CDN_URL_HOST,
   INTERCOM_APPID: process.env.INTERCOM_APPID,
   IFRAME_URL: process.env.IFRAME_URL,
   GOOGLE_CLIENT_ID: process.env.GOOGLE_CLIENT_ID,

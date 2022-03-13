@@ -13,7 +13,7 @@ const UpgradeBanner = (): any => {
     <div className={styles.container}>
       <div className={styles.text}>
         Upgrade your account to add multiple websites, edit scripts, and more{' '}
-        <Link href={'/payments'} style={{ fontWeight: 600 }}>
+        <Link href={'/payments'} style={{ fontWeight: 600, color: '#3b82f6' }}>
           UPGRADE
         </Link>
       </div>

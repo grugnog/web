@@ -71,7 +71,13 @@ const SnackbarContainer = observer(({ store }: any) => {
               {store.snackbar.title}
             </Typography>
             {needsUpgrade ? (
-              <Link href='/payments' style={{ fontWeight: 'bold' }}>
+              <Link
+                href='/payments'
+                style={{
+                  fontWeight: 'bold',
+                  color: '#3b82f6',
+                }}
+              >
                 UPGRADE ACCOUNT
               </Link>
             ) : null}
