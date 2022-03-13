@@ -19,16 +19,3 @@ export function enableNotifications():
     return false
   }
 }
-
-export function sendNotification(url: string, issueCount: number = 0) {
-  if (checkNotification()) {
-    const isS = issueCount === 1 ? '' : 's'
-    const body = `${issueCount} new issue${isS} occured for ${url}`
-    const notification = new Notification(`New issue${isS} arised`, {
-      body,
-      icon: '/img/favicon.png',
-    })
-
-    setTimeout(notification.close.bind(notification), 4000)
-  }
-}

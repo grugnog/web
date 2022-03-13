@@ -1,5 +1,1 @@
-export {
-  checkNotification,
-  enableNotifications,
-  sendNotification,
-} from './check-notification'
+export { checkNotification, enableNotifications } from './check-notification'

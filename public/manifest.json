@@ -3,12 +3,12 @@
   "name": "A11yWatch",
   "icons": [
     {
-      "src": "/img/favicon-small.ico",
+      "src": "/img/android-chrome-192x192.png",
       "sizes": "192x192",
       "type": "image/png"
     },
     {
-      "src": "/img/icon.png",
+      "src": "/img/android-chrome-512x512.png",
       "sizes": "512x512",
       "type": "image/png"
     },
