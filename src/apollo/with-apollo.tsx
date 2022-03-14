@@ -50,7 +50,10 @@ const createLink = (): ApolloLink => {
           graphErrors += `${errorMessage} \n`
         }
       })
-      graphErrors && AppManager.toggleSnack(true, graphErrors, 'error')
+
+      if (graphErrors) {
+        AppManager.toggleSnack(true, graphErrors, 'error')
+      }
 
       if (networkError) {
         console.error(`[Network error]:`, networkError)

@@ -32,7 +32,7 @@ export function MarketingCli() {
 
   return (
     <SectionContainer className={'bg-gray-100'}>
-      <SectionHeading>Accessibility Portability CLI</SectionHeading>
+      <SectionHeading>Accessibility CLI</SectionHeading>
       <p className='text-lg pb-4 leading-10'>
         Run A11yWatch on any machine with the Rust Command Line Interface. With{' '}
         <a

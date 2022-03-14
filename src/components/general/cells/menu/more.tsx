@@ -1,6 +1,5 @@
-import React, { memo, useMemo } from 'react'
+import React, { memo, useCallback, useMemo } from 'react'
 import { IconButton, MenuItem } from '@material-ui/core'
-import { logGraphErrors } from '@app/lib/log'
 import { MoreVert as MoreIcon } from '@material-ui/icons'
 import { AppManager } from '@app/managers'
 import { Link } from '../../link'
@@ -60,6 +59,26 @@ function MoreOptionsComponent({
   }
 
   const menuId = `menu-appbar${index}`
+
+  const onWebsiteCrawl = useCallback(async () => {
+    AppManager.toggleSnack(
+      true,
+      'Scan in progress, if new issues occur you will be alerted',
+      'success'
+    )
+
+    if (crawlWebsite) {
+      try {
+        await crawlWebsite({
+          variables: {
+            url,
+          },
+        })
+      } catch (e) {}
+    }
+
+    handleClose()
+  }, [url, handleClose, crawlWebsite])
 
   return (
     <>
@@ -124,23 +143,7 @@ function MoreOptionsComponent({
           </MenuItem>
         ) : null}
         {typeof crawlWebsite === 'function' ? (
-          <MenuItem
-            onClick={async () => {
-              await crawlWebsite({
-                variables: {
-                  url,
-                },
-              }).catch(logGraphErrors)
-              handleClose()
-              AppManager.toggleSnack(
-                true,
-                'Scan in progress, if new issues occur you will be alerted',
-                'success'
-              )
-            }}
-          >
-            Scan
-          </MenuItem>
+          <MenuItem onClick={onWebsiteCrawl}>Scan</MenuItem>
         ) : null}
         {!!removePress && !history ? (
           <MenuItem onClick={removePress} style={{ color: 'red' }}>
