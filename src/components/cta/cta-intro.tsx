@@ -74,12 +74,8 @@ function CtaIntro({ checker }: CtaIntro) {
   const classes = useStyles()
 
   return (
-    <SectionContainer className={`${checker ? 'py-0 ' : 'pt-20 '}pb-0`}>
-      <div
-        className={`${classes.root}${
-          checker ? ` ${classes.detailedContainer}` : ''
-        }`}
-      >
+    <SectionContainer>
+      <div className={`${classes.root}`}>
         <div className={`${classes.block} mr-4`}>
           <Typography
             variant='h1'
@@ -87,7 +83,7 @@ function CtaIntro({ checker }: CtaIntro) {
             className={`${classes.intro} text-6xl md:text-7xl bg-cover bg-center`}
           >
             {checker
-              ? 'Check Your Web Accessibility'
+              ? 'Website Accessibility Checker'
               : 'Web Accessibility Automation'}
           </Typography>
           <Typography

@@ -61,6 +61,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
+// TODO: GENERATE DOCS FROM API
 function Api({ name }: PageProps) {
   const classes = useStyles()
   const { data = {}, loading } = userData()
@@ -82,7 +83,7 @@ function Api({ name }: PageProps) {
   )
 
   const toggleKey = useCallback(() => {
-    setKey(!keyVisible)
+    setKey((c) => !c)
   }, [keyVisible])
 
   const CopyRow = ({ copy = false, text = '' }: any) => {
@@ -140,6 +141,10 @@ function Api({ name }: PageProps) {
               Documentation
             </a>
           </SectionTitle>
+          <p>
+            This document is going to be refactored soon as we restructure and
+            expose more of the main API.
+          </p>
           {!data?.user && loading ? (
             <TextSkeleton className={classes.email} />
           ) : UserManager?.token ? (
@@ -187,7 +192,7 @@ function Api({ name }: PageProps) {
             <div>
               <Box>
                 <SectionTitle variant={'h6'} component={'h3'}>
-                  Page Issues : GET/POST
+                  Page Issues : POST
                 </SectionTitle>
                 <SectionTitle
                   bold

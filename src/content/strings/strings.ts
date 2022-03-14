@@ -104,14 +104,14 @@ export const generateStrings = ({
         id: 9,
         title: 'AI',
         detail:
-          'With AI and machine learning we tailor custom needs for your website rapidly. Determine missing alts with high proximity ratios, safeguard, and more.',
+          'With AI and machine learning we tailor custom needs for your website rapidly. Determine missing alts with high proximity ratios, css style issues, and more.',
         reason: 'Basic',
       },
       {
         id: 10,
         title: 'Lighthouse',
         detail:
-          'Get Lighthouse metrics by google lighthouse on all of your pages at once. Get rapid results utilizing the power of our lightning fast crawler.',
+          'Get Lighthouse metrics by google on all of your pages at once. Get rapid results utilizing the power of our lightning fast crawler.',
         reason: 'Basic',
       },
       {
