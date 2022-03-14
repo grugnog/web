@@ -32,7 +32,10 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   subtitle: {
+    fontSize: '1.7em',
+    color: '#5f6368',
     [theme.breakpoints.down('sm')]: {
+      fontSize: '1.3em',
       textAlign: 'center',
       flex: 1,
     },

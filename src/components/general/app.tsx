@@ -18,9 +18,13 @@ const Application = ({ Component, pageProps, name }: InnerApp) => {
   const nameLowerCased = (name && String(name).toLowerCase()) || ''
 
   if (Component.gql) {
-    const websiteQuery = authRoutes.includes(nameLowerCased)
+    // DETERMINE WHETHER TO SKIP THE INITIAL QUERY TO GET A WEBSITES
+    const skip =
+      authRoutes.includes(nameLowerCased) ||
+      authRoutes.includes(nameLowerCased.replace(/ /g, '-'))
+
     return (
-      <WebsiteProviderWrapper websiteQuery={!websiteQuery}>
+      <WebsiteProviderWrapper skip={!skip}>
         <Component {...pageProps} name={name} />
       </WebsiteProviderWrapper>
     )

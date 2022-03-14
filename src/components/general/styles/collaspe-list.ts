@@ -7,7 +7,6 @@ export const collaspeListStyles = makeStyles(
       root: {
         width: '100%',
         backgroundColor: palette.divider,
-        marginTop: '60px',
       },
       nested: {
         paddingLeft: spacing(4),

@@ -21,7 +21,6 @@ const useStyles = makeStyles((theme) => ({
   root: {
     width: '100%',
     backgroundColor: theme.palette.divider,
-    marginTop: '60px',
   },
   nested: {
     paddingLeft: theme.spacing(4),

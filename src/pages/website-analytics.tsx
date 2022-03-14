@@ -1,17 +1,16 @@
-import React from 'react'
+import React, { useMemo } from 'react'
 import { red, grey, yellow } from '@material-ui/core/colors'
-import { Skeleton } from '@material-ui/lab'
 import { List } from '@material-ui/core'
-import { Box } from '@a11ywatch/ui'
 import { makeStyles } from '@material-ui/core/styles'
 import { VictoryLabel, VictoryTheme, VictoryBar, VictoryChart } from 'victory'
 import { PageTitle, Drawer } from '@app/components/general'
-import { Failure } from '@app/components/empty'
 import { analyticsData, useSearchFilter } from '@app/data'
 import { filterSort } from '@app/lib'
 import { theme } from '@app-theme'
 import { metaSetter } from '@app/utils'
 import type { PageProps } from '@app/types'
+import { PageLoader } from '@app/components/placeholders'
+import { useWebsiteContext } from '@app/components/providers/website'
 
 const useStyles = makeStyles(() => ({
   alignCenter: {
@@ -38,40 +37,25 @@ const useStyles = makeStyles(() => ({
 
 function Analytics({ name }: PageProps) {
   const classes = useStyles()
-  const { data, loading, error } = analyticsData(true)
+  const { data: websiteData, loading: websiteLoading } = useWebsiteContext()
+  const { data, error } = analyticsData(true)
   const { search } = useSearchFilter()
-  const dataSource = filterSort(data, search)
+
+  const dataSource = useMemo(() => {
+    return filterSort(data, search)
+  }, [data, search])
 
   return (
     <>
       <Drawer title={name}>
         <PageTitle title={'Analytics'} />
-        {loading && !dataSource.length ? (
-          <List className={classes.center}>
-            <Box key={0} className={`${classes.center} ${classes.box}`}>
-              <Skeleton
-                variant='text'
-                width={100}
-                className={classes.textLoader}
-              />
-              <Skeleton variant='rect' width={'100%'} height={240} />
-            </Box>
-            <Box key={1} className={`${classes.center} ${classes.box}`}>
-              <Skeleton
-                variant='text'
-                width={100}
-                className={classes.textLoader}
-              />
-              <Skeleton variant='circle' width={300} height={240} />
-            </Box>
-          </List>
-        ) : !loading && !dataSource.length ? (
-          <Failure
-            subTitle={
-              error ? 'Issue occured with network' : 'Please add a website.'
-            }
-          />
-        ) : (
+        <PageLoader
+          loading={websiteLoading}
+          hasWebsite={!!websiteData?.length}
+          emptyTitle={'No Websites Added'}
+          empty={dataSource?.length === 0}
+          error={error}
+        >
           <List>
             {dataSource?.map((source: any, i: number) => {
               return (
@@ -168,7 +152,7 @@ function Analytics({ name }: PageProps) {
               )
             })}
           </List>
-        )}
+        </PageLoader>
       </Drawer>
     </>
   )

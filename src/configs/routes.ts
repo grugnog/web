@@ -160,22 +160,24 @@ export const LoggedInRoutes = [
 ]
 
 /*
- * Determine what routes make the auth profile menu appear
+ * Determine what routes make the auth profile menu appear by component name
  */
 export const LOGGIN_ROUTES = [
+  '/analytics',
   '/alerts',
   '/dashboard',
   '/website-details',
   '/profile',
+  '/cdn',
   '/cdn-fix',
-  '/analytics',
   '/scripts',
-  '/urgent',
   '/history',
-  '/web-issues',
   '/payments',
-  '/urgent-issues',
   '/website-analytics',
+  '/urgent',
+  '/issues',
+  '/web-issues',
+  '/urgent-issues',
 ]
 
 export const SHARED_ROUTES = [

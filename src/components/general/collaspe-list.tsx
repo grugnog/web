@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useMemo } from 'react'
 import {
   List,
   ListItem,
@@ -233,8 +233,15 @@ function CollaspeListEntry({
 export function CollaspeList({ dataSource }: any) {
   const classes = useStyles()
   const [open, setOpen] = useState<boolean>(true)
-  const entries = Object.entries(dataSource)
   const { updateScript, updateScriptData, scriptLoading } = scriptData('')
+
+  const entries = useMemo(() => {
+    return Object.entries(dataSource)
+  }, [dataSource])
+
+  if (!entries.length) {
+    return <div>No Scripts added yet</div>
+  }
 
   return (
     <List aria-labelledby='nested-list-subheader' className={classes.root}>

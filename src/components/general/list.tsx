@@ -130,6 +130,7 @@ export function List({
       mutatationLoading: mutatationLoading,
     }
 
+    // ERROR PAGE to display errors ( not actual network error )
     if (
       (errorPage && data?.length && findIssues) ||
       (data?.length && !errorPage)

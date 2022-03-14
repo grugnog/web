@@ -1,14 +1,7 @@
 import React, { memo, FC } from 'react'
-import { CardHeader } from '@material-ui/core'
-import { makeStyles } from '@material-ui/core/styles'
-import { FormDialog } from '..'
+import { Button, CardHeader } from '@material-ui/core'
+import { FormDialog } from '../form-dialog'
 import Image from 'next/image'
-
-const useStyles = makeStyles(() => ({
-  empty: {
-    minHeight: 88,
-  },
-}))
 
 const infoDetails = [
   {
@@ -30,14 +23,14 @@ const infoDetails = [
 interface EmptyWebsiteProps {
   emptyHeaderTitle?: string
   emptyHeaderSubTitle?: string
+  hasWebsite?: boolean
 }
 
 const EmptyWebsiteFormComponent: FC<EmptyWebsiteProps> = ({
   emptyHeaderTitle = 'Empty',
   emptyHeaderSubTitle = 'Add your website below',
+  hasWebsite = false,
 }) => {
-  const classes = useStyles()
-
   return (
     <div
       className={
@@ -47,10 +40,15 @@ const EmptyWebsiteFormComponent: FC<EmptyWebsiteProps> = ({
       <CardHeader
         title={emptyHeaderTitle}
         subheader={emptyHeaderSubTitle}
-        className={classes.empty}
         titleTypographyProps={{ style: { fontSize: '3.1rem' } }}
       />
-      <FormDialog />
+      {hasWebsite ? (
+        <Button href={'/dashboard'} type='a' variant={'outlined'}>
+          Go to Dashboard
+        </Button>
+      ) : (
+        <FormDialog />
+      )}
       <div className={'flex space-items-center space-x-10 py-10'}>
         <ul className={'w-full text-left space-y-2 md:w-1/2 md:pr-20'}>
           {infoDetails.map(
