@@ -150,7 +150,13 @@ export const useWebsiteData = (
 
         dataSource.pageInsights = updatedWebsite.pageInsights
 
-        AppManager.toggleSnack(true, 'Success: updated website', 'success')
+        AppManager.toggleSnack(
+          true,
+          `Success lighthouse ${
+            dataSource.pageInsights ? 'enabled' : 'disabled'
+          }`,
+          'success'
+        )
         // TODO: MOVE STATE MANAGE OUT OF APOLLO CACHE
         forceUpdate()
       }

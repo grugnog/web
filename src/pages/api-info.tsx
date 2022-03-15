@@ -1,12 +1,10 @@
 import React, { Fragment, useState, useCallback } from 'react'
-import { Container, Typography, Button, IconButton } from '@material-ui/core'
+import { Container, Typography, Button } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
-import CopyIcon from '@material-ui/icons/FileCopy'
-import { API_ENDPOINT } from '@app/configs'
 import { NavBar, PageTitle } from '@app/components/general'
 import { Box } from '@a11ywatch/ui'
 import { TextSkeleton } from '@app/components/placeholders'
-import { AppManager, UserManager } from '@app/managers'
+import { UserManager } from '@app/managers'
 import { userData } from '@app/data'
 import { metaSetter } from '@app/utils'
 import type { PageProps } from '@app/types'
@@ -68,36 +66,9 @@ function Api({ name }: PageProps) {
   const [keyVisible, setKey] = useState<boolean>(false)
   const { user } = data
 
-  const copyText = useCallback(
-    (mav: boolean) => (
-      e: React.MouseEvent<HTMLButtonElement, MouseEvent>
-    ): void => {
-      e?.preventDefault()
-      const textString = `${API_ENDPOINT}/${
-        !mav ? `website-check` : 'getImage'
-      }`
-      navigator.clipboard.writeText(textString)
-      AppManager.toggleSnack(true, `Copied: ${textString}`, 'success')
-    },
-    []
-  )
-
   const toggleKey = useCallback(() => {
     setKey((c) => !c)
   }, [keyVisible])
-
-  const CopyRow = ({ copy = false, text = '' }: any) => {
-    return (
-      <div className={classes.row}>
-        <IconButton style={{ marginRight: 12 }} onClick={copyText(copy)}>
-          <CopyIcon />
-        </IconButton>
-        <Typography variant='subtitle1' component='p'>
-          {text}
-        </Typography>
-      </div>
-    )
-  }
 
   const SectionTitle = ({
     children,
