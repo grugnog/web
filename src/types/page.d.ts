@@ -1,10 +1,11 @@
 import { AppProps } from 'next/app'
 
-export type AppComponent = AppProps['Component'] & {
-  meta: any
-  gql?: boolean
-  intercom?: boolean
-}
+export type AppComponent = AppProps['Component'] &
+  Partial<MetaData> & {
+    meta: any
+    gql?: boolean
+    intercom?: boolean
+  }
 
 export interface InnerApp {
   Component: AppComponent
@@ -27,6 +28,8 @@ export interface MetaData {
   name?: string
   /** Enable intercom composer */
   intercom?: boolean
+  /** Params for initial gql queries [todo update generic] */
+  params?: any
 }
 
 export type PageProps = {

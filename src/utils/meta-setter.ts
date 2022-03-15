@@ -5,6 +5,7 @@ interface MetaFunction extends Function {
   meta?: MetaData
   gql?: boolean
   intercom?: boolean
+  params?: any
 }
 
 interface Meta {
@@ -13,7 +14,7 @@ interface Meta {
 
 export const metaSetter = (
   Component: Meta,
-  { title, description, gql, intercom }: MetaData = {}
+  { title, description, gql, intercom, params }: MetaData = {}
 ): MetaFunction => {
   const componentKeys = Object.keys(Component)
   const keyName = componentKeys?.length ? String(componentKeys[0]) : ''
@@ -34,6 +35,8 @@ export const metaSetter = (
 
   // component meta data for enhancements or features
   value.gql = gql
+  value.params = params
+  // determine to show intercom on page
   value.intercom = intercom
 
   return value

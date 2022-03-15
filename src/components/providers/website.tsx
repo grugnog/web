@@ -8,11 +8,11 @@ const AppContext = createContext(sharedWebsiteDefaults)
 export const WebsiteProvider = AppContext.Provider
 
 // skip fetching the website query
-export const WebsiteProviderComponent: FC<{ skip?: boolean }> = ({
-  children,
-  skip,
-}) => {
-  const sharedState = useWebsiteData('', '', null, skip)
+export const WebsiteProviderComponent: FC<{
+  skip?: boolean
+  gqlFilter?: any
+}> = ({ children, skip, gqlFilter = '' }) => {
+  const sharedState = useWebsiteData(gqlFilter, '', null, skip)
 
   return <WebsiteProvider value={sharedState}>{children}</WebsiteProvider>
 }

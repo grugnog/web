@@ -24,7 +24,10 @@ const Application = ({ Component, pageProps, name }: InnerApp) => {
       authRoutes.includes(nameLowerCased.replace(/ /g, '-'))
 
     return (
-      <WebsiteProviderWrapper skip={!skip}>
+      <WebsiteProviderWrapper
+        skip={!skip}
+        gqlFilter={Component?.params?.filter}
+      >
         <Component {...pageProps} name={name} />
       </WebsiteProviderWrapper>
     )
