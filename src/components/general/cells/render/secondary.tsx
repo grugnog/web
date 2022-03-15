@@ -132,7 +132,7 @@ export function RenderSecondary({
             variant='outlined'
             size='small'
             className={classes.adjust}
-            avatar={<PolicyIcon color={'primary'} />}
+            avatar={<PolicyIcon />}
             label={`${pageHeaders?.length} custom header${
               pageHeaders?.length === 1 ? '' : 's'
             }`}

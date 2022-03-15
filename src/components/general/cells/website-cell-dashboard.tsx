@@ -111,23 +111,37 @@ export function WebsiteCellDashboardComponent({
       <div className={'flex w-full'}>
         <div className={'w-full space-y-3'}>
           <div className='flex space-x-2'>
-            <p className={styles.title}>{url}</p>
-            <MoreOptions
-              url={url}
-              issues={issues}
-              crawlWebsite={crawlWebsite}
-              handleClose={handleClose}
-              handleMenu={handleMenu}
-              handleMainClick={handleMainClick}
-              modalClick={modalClick}
-              anchorEl={anchorEl}
-              removePress={onRemovePress}
-              subDomains={subDomains}
-              html={html}
-              pageHeaders={pageHeaders}
-              index={index}
-              pageInsights={pageInsights}
-            />
+            <div className='flex-wrap flex space-x-4'>
+              <p className={styles.title} style={{ maxWidth: '65vw' }}>
+                {url}
+              </p>
+              <Button
+                component={Link}
+                href={`/website-details?websiteUrl=${encodeURIComponent(url)}`}
+                color={'inherit'}
+                className={'w-40'}
+              >
+                View Website
+              </Button>
+            </div>
+            <div className='flex flex-1 place-content-end'>
+              <MoreOptions
+                url={url}
+                issues={issues}
+                crawlWebsite={crawlWebsite}
+                handleClose={handleClose}
+                handleMenu={handleMenu}
+                handleMainClick={handleMainClick}
+                modalClick={modalClick}
+                anchorEl={anchorEl}
+                removePress={onRemovePress}
+                subDomains={subDomains}
+                html={html}
+                pageHeaders={pageHeaders}
+                index={index}
+                pageInsights={pageInsights}
+              />
+            </div>
           </div>
           <WebsiteSecondary
             issuesInfo={issuesInfo}
@@ -259,16 +273,6 @@ export function WebsiteCellDashboardComponent({
           <ReportViewer json={parsedInsight} />
         </div>
       ) : null}
-      <InfoCenterContainer>
-        <Button
-          component={Link}
-          href={`/website-details?websiteUrl=${encodeURIComponent(url)}`}
-          color={'inherit'}
-          className={'w-40'}
-        >
-          View Website
-        </Button>
-      </InfoCenterContainer>
     </div>
   )
 }

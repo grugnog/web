@@ -8,7 +8,6 @@ import {
 } from '@material-ui/icons'
 import { makeStyles, createStyles } from '@material-ui/core/styles'
 import { format } from 'date-fns'
-import { PageLoad } from './page-load'
 import type { MergedTheme } from '@app/theme'
 
 const useStyles = makeStyles(({ palette, breakpoints }: MergedTheme) =>
@@ -51,12 +50,8 @@ const useStyles = makeStyles(({ palette, breakpoints }: MergedTheme) =>
 
 // TODO: REFACTOR WITH Secondary (BASE)
 export function WebsiteSecondaryComponent({
-  adaScore,
   // cdnConnected,
   // error,
-  pageLoadTime = {
-    duration: 0,
-  },
   issues = [],
   // issue = [],
   // secondaryText,
@@ -103,15 +98,13 @@ export function WebsiteSecondaryComponent({
         >
           <Chip
             className={classes.adjust}
-            style={{ borderColor: '#EF9A9A' }}
             variant='outlined'
             size='small'
-            avatar={<IssuesIcon style={{ color: '#EF9A9A' }} />}
+            avatar={<IssuesIcon />}
             label={`${mainIssues} issue${totalIssuesOnPage === 1 ? '' : 's'}`}
           />
         </Tooltip>
       ) : null}
-      <PageLoad pageLoadTime={pageLoadTime} mobile={!matches} />
       {possibleIssuesFixedByCdn && totalIssuesOnPage ? (
         <Tooltip
           title={
@@ -125,8 +118,7 @@ export function WebsiteSecondaryComponent({
             variant='outlined'
             size='small'
             className={classes.adjust}
-            style={{ borderColor: '#F48FB1' }}
-            avatar={<HealingIcon style={{ color: '#F48FB1' }} />}
+            avatar={<HealingIcon />}
             label={
               issuesFixedByCdn
                 ? `${issuesFixedByCdn}/${totalIssuesOnPage}`
@@ -143,9 +135,8 @@ export function WebsiteSecondaryComponent({
           <Chip
             variant='outlined'
             size='small'
-            style={{ borderColor: '#90CAF9' }}
             className={classes.adjust}
-            avatar={<CalendarIcon style={{ color: '#90CAF9' }} />}
+            avatar={<CalendarIcon />}
             label={format(lastScan, 'MM/dd/yyyy')}
           />
         </Tooltip>
