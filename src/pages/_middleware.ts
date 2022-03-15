@@ -25,18 +25,12 @@ export async function middleware(req: NextRequest, event: NextFetchEvent) {
     return res
   }
 
-  let uuid = req.cookies[ID_COOKIE_NAME]
-
-  if (!uuid) {
-    uuid = crypto.randomUUID!()
-  }
+  const uuid = req.cookies[ID_COOKIE_NAME] || crypto.randomUUID!()
 
   const currentHost = req.headers?.get('host')?.replace(ROOT_URL, '')
 
-  if (
-    currentHost === 'a11ywatch.blog' ||
-    currentHost === 'www.a11ywatch.blog'
-  ) {
+  // TODO: REWRITE APP
+  if (/.blog/.test(currentHost + '')) {
     const url = req.nextUrl.clone()
     url.pathname = `/blog${req.nextUrl.pathname}`
     res = NextResponse.rewrite(url)
