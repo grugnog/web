@@ -89,7 +89,7 @@ function AuthMenu({ loginClassName, className, registerClassName }: Props) {
             </MenuItem>
           ) : null}
           {router?.pathname !== '/dashboard' ? (
-            <MenuItem component={Link} href={'/dashboard'} color={'inherit'}>
+            <MenuItem component={Link} href={'/'} color={'inherit'}>
               Dashboard
             </MenuItem>
           ) : null}

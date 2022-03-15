@@ -18,14 +18,14 @@ const Application = ({ Component, pageProps, name }: InnerApp) => {
   const nameLowerCased = (name && String(name).toLowerCase()) || ''
 
   if (Component.gql) {
-    // DETERMINE WHETHER TO SKIP THE INITIAL QUERY TO GET A WEBSITES
-    const skip =
+    // TODO: USE META TO DETERMINE PROVIDER PULLING
+    const initialQuery =
       authRoutes.includes(nameLowerCased) ||
       authRoutes.includes(nameLowerCased.replace(/ /g, '-'))
 
     return (
       <WebsiteProviderWrapper
-        skip={!skip}
+        skip={!initialQuery}
         gqlFilter={Component?.params?.filter}
       >
         <Component {...pageProps} name={name} />

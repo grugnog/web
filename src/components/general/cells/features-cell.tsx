@@ -46,50 +46,50 @@ const extraProps = (feature?: string, focused?: boolean, setEvents?: any) => {
   switch (feature) {
     case 'Alerts':
       return {
-        href: focused ? '/dashboard' : '/alerts',
+        href: focused ? '/' : '/alerts',
         component: Link,
         color: 'inherit',
       }
     case 'Scripts':
       return {
-        href: focused ? '/dashboard' : '/scripts',
+        href: focused ? '/' : '/scripts',
         component: Link,
         color: 'inherit',
       }
     case 'CDN FIX':
       return {
-        href: focused ? '/dashboard' : '/cdn-fix',
+        href: focused ? '/' : '/cdn-fix',
         onClick: setEvents ? () => setEvents({ firstAdd: 'set' }) : undefined,
         component: Link,
         color: 'inherit',
       }
     case 'Issues':
       return {
-        href: focused ? '/dashboard' : '/web-issues',
+        href: focused ? '/' : '/web-issues',
         component: Link,
         color: 'inherit',
       }
     case 'Analytics':
       return {
-        href: focused ? '/dashboard' : '/website-analytics',
+        href: focused ? '/' : '/website-analytics',
         component: Link,
         color: 'inherit',
       }
     case 'Dashboard':
       return {
-        href: '/dashboard',
+        href: '/',
         component: Link,
         color: 'inherit',
       }
     case 'Urgent':
       return {
-        href: focused ? '/dashboard' : '/urgent-issues',
+        href: focused ? '/' : '/urgent-issues',
         component: Link,
         color: 'inherit',
       }
     case 'History':
       return {
-        href: focused ? '/dashboard' : '/history',
+        href: focused ? '/' : '/history',
         component: Link,
         color: 'inherit',
       }

@@ -43,7 +43,7 @@ const EmptyWebsiteFormComponent: FC<EmptyWebsiteProps> = ({
         titleTypographyProps={{ style: { fontSize: '3.1rem' } }}
       />
       {hasWebsite ? (
-        <Button href={'/dashboard'} type='a' variant={'outlined'}>
+        <Button href={'/'} type='a' variant={'outlined'}>
           Go to Dashboard
         </Button>
       ) : (

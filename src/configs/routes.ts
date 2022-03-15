@@ -179,15 +179,3 @@ export const LOGGIN_ROUTES = [
   '/web-issues',
   '/urgent-issues',
 ]
-
-export const SHARED_ROUTES = [
-  '/api-info',
-  '/pricing',
-  '/api/iframe',
-  '/reports',
-  '/test-out',
-  '/blog',
-  '/login',
-  '/register',
-  '/logout',
-]

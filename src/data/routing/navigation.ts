@@ -5,7 +5,7 @@ export const useAuthedRedirect = () => {
   useEffect(() => {
     process.nextTick(() => {
       if (UserManager.loggedIn) {
-        window.location.href = '/dashboard'
+        window.location.href = '/'
       }
     })
   }, [])

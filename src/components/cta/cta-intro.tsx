@@ -83,7 +83,7 @@ function CtaIntro({ checker }: CtaIntro) {
             className={`${classes.intro} text-6xl md:text-7xl bg-cover bg-center`}
           >
             {checker
-              ? 'Website Accessibility Checker'
+              ? 'Check Your Web Accessibility'
               : 'Web Accessibility Automation'}
           </Typography>
           <Typography

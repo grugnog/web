@@ -17,6 +17,7 @@ export async function middleware(req: NextRequest, event: NextFetchEvent) {
     pageName: req?.page?.name,
     url: req.url,
   })
+  const token = req.cookies[JWT_COOKIE_NAME]
 
   let res = NextResponse.next()
 
@@ -33,6 +34,13 @@ export async function middleware(req: NextRequest, event: NextFetchEvent) {
   if (/.blog/.test(currentHost + '')) {
     const url = req.nextUrl.clone()
     url.pathname = `/blog${req.nextUrl.pathname}`
+    res = NextResponse.rewrite(url)
+  }
+
+  // TODO: REWRITE APP
+  if (token && req.nextUrl.pathname === '/') {
+    const url = req.nextUrl.clone()
+    url.pathname = `/dashboard${req.nextUrl.pathname}`
     res = NextResponse.rewrite(url)
   }
 

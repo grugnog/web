@@ -183,33 +183,6 @@ function Api({ name }: PageProps) {
                 : 100}
             </SectionTitle>
           )}
-          <SectionTitle variant='h4' component={'h2'} bold>
-            Endpoints
-          </SectionTitle>
-          {!data?.user && loading ? (
-            <TextSkeleton className={classes.email} />
-          ) : (
-            <div>
-              <Box>
-                <SectionTitle variant={'h6'} component={'h3'}>
-                  Page Issues : POST
-                </SectionTitle>
-                <SectionTitle
-                  bold
-                >{`Params|Body: { url: String }`}</SectionTitle>
-                <CopyRow text={`${API_ENDPOINT}/website-check`} />
-              </Box>
-              <Box>
-                <SectionTitle variant={'h6'} component={'h3'}>
-                  Image Name : POST
-                </SectionTitle>
-                <SectionTitle bold>
-                  {'Body: { imageBase64: Base64 }'}
-                </SectionTitle>
-                <CopyRow text={`${API_ENDPOINT}/getImage`} copy={true} />
-              </Box>
-            </div>
-          )}
         </Box>
       </Container>
     </Fragment>

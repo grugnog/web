@@ -89,7 +89,7 @@ const SignOnForm: FunctionComponent<SignOnProps> = ({
   const urlRoute =
     typeof plan === 'string' && ['basic', 'premium'].includes(String(plan))
       ? `/payments?plan=${plan}`
-      : '/dashboard'
+      : '/'
 
   useEffect(() => {
     if (data) {

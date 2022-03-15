@@ -44,11 +44,11 @@ function MoreOptionsComponent({
   handleMenu,
   pageInsights,
 }: MoreOptionsProps) {
+  const { updateWebsite } = useWebsiteContext()
   const href = useMemo(
     () => (url ? `/website-details?websiteUrl=${encodeURIComponent(url)}` : ''),
     [url]
   )
-  const { updateWebsite } = useWebsiteContext()
 
   const toggleLighthouse = async () => {
     try {

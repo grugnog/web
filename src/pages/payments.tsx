@@ -115,7 +115,7 @@ function Payments({ hideTitle = false, name }: PaymentProps) {
         }
 
         AppManager.toggleSnack(true, 'Payment confirmed!', 'success')
-        router.push('/dashboard')
+        router.push('/')
       }
     } catch (e) {
       console.error(e)
@@ -140,7 +140,7 @@ function Payments({ hideTitle = false, name }: PaymentProps) {
       UserManager.setJwt(jwt)
     }
 
-    router.push('/dashboard')
+    router.push('/')
   }
 
   const renderPayMentBoxes = data?.role === 0 && !data.activeSubscription

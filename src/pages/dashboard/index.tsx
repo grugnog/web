@@ -29,9 +29,9 @@ function Dashboard({ name }: PageProps) {
     subscriptionData,
   } = useWebsiteContext()
 
-  const { issueSubData } = subscriptionData
-
   const websites = useMemo(() => filterSort(data, search), [data, search])
+
+  const { issueSubData } = subscriptionData
 
   useEffect(() => {
     if (issueSubData && events && !events?.firstAdd) {
