@@ -34,6 +34,7 @@ export function PageLoad({
     >
       <Chip
         className={classes.icon}
+        style={{ borderColor: pageLoadTime.color }}
         variant='outlined'
         size='small'
         avatar={<SpeedIcon style={{ color: pageLoadTime.color }} />}

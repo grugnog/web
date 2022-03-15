@@ -1,6 +1,6 @@
-import React from 'react'
+import React, { useMemo } from 'react'
 import { format } from 'date-fns'
-import { useMediaQuery, Chip, Typography, Tooltip } from '@material-ui/core'
+import { useMediaQuery, Chip, Tooltip } from '@material-ui/core'
 import {
   Update as CalendarIcon,
   Error as IssuesIcon,
@@ -49,23 +49,24 @@ export function RenderSecondary({
   const possibleIssuesFixedByCdn = issuesInfo?.possibleIssuesFixedByCdn
   const totalIssuesOnPage = issuesInfo?.totalIssues
   const issuesFixedByCdn = issuesInfo?.issuesFixedByCdn
-  const lastScan = (lastScanDate && new Date(lastScanDate)) || new Date()
+  const lastScan = new Date(lastScanDate ? lastScanDate : undefined)
 
-  let allPageIssues = 0
-
-  if (issues?.length) {
-    allPageIssues = issues
-      .map((item: any) => item?.issues?.length)
-      .flat()
-      .reduce((a: number, b: number) => Number(a || 0) + Number(b || 0))
-  }
+  const allPageIssues = useMemo(() => {
+    if (issues?.length) {
+      return issues.reduceRight(
+        (a: number, item: any) => a + item?.issues?.length || 0,
+        0
+      )
+    }
+    return 0
+  }, [issues])
 
   const mainIssues =
     totalIssuesOnPage > allPageIssues ? totalIssuesOnPage : allPageIssues
 
   return (
     <div className={classes.row}>
-      {mainIssues ? (
+      {mainIssues && adaScore !== 100 ? (
         <Tooltip
           title={`${mainIssues} issue${
             totalIssuesOnPage === 1 ? '' : 's'
@@ -82,8 +83,6 @@ export function RenderSecondary({
             label={`${mainIssues} issue${totalIssuesOnPage === 1 ? '' : 's'}`}
           />
         </Tooltip>
-      ) : adaScore === 100 ? (
-        <Typography className={classes.issuesText}>Passes tests</Typography>
       ) : null}
       <PageLoad pageLoadTime={pageLoadTime} mobile={!matches} />
       {possibleIssuesFixedByCdn && totalIssuesOnPage ? (
@@ -99,7 +98,7 @@ export function RenderSecondary({
             variant='outlined'
             size='small'
             className={classes.adjust}
-            avatar={<HealingIcon color={'primary'} />}
+            avatar={<HealingIcon color={'primary'} style={{ color: 'blue' }} />}
             label={
               issuesFixedByCdn
                 ? `${issuesFixedByCdn}/${totalIssuesOnPage}`
@@ -117,7 +116,7 @@ export function RenderSecondary({
             variant='outlined'
             size='small'
             className={classes.adjust}
-            avatar={<CalendarIcon color={'primary'} />}
+            avatar={<CalendarIcon />}
             label={format(lastScan, 'MM/dd/yyyy')}
           />
         </Tooltip>

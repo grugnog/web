@@ -1,5 +1,5 @@
 import React, { memo, useMemo } from 'react'
-import { useMediaQuery, Chip, Typography, Tooltip } from '@material-ui/core'
+import { useMediaQuery, Chip, Tooltip } from '@material-ui/core'
 import {
   Update as CalendarIcon,
   Error as IssuesIcon,
@@ -49,6 +49,7 @@ const useStyles = makeStyles(({ palette, breakpoints }: MergedTheme) =>
   })
 )
 
+// TODO: REFACTOR WITH Secondary (BASE)
 export function WebsiteSecondaryComponent({
   adaScore,
   // cdnConnected,
@@ -66,21 +67,23 @@ export function WebsiteSecondaryComponent({
 }: any) {
   const classes = useStyles()
   const matches = useMediaQuery('(min-width:600px)')
-  const possibleIssuesFixedByCdn = issuesInfo?.possibleIssuesFixedByCdn
-  const totalIssuesOnPage = issuesInfo?.totalIssues
-  const issuesFixedByCdn = issuesInfo?.issuesFixedByCdn
-  const lastScan = (lastScanDate && new Date(lastScanDate)) || new Date()
 
-  const allPageIssues = useMemo(
-    () =>
-      issues?.length
-        ? issues
-            ?.map((item: any) => item?.issues?.length)
-            ?.flat()
-            ?.reduce((a: number, b: number) => Number(a || 0) + Number(b || 0))
-        : [],
-    [issues]
-  )
+  const allPageIssues = useMemo(() => {
+    if (issues?.length) {
+      return issues.reduceRight(
+        (a: number, item: any) => a + item?.issues?.length || 0,
+        0
+      )
+    }
+    return 0
+  }, [issues])
+
+  const lastScan = new Date(lastScanDate ? lastScanDate : undefined)
+  const {
+    possibleIssuesFixedByCdn,
+    issuesFixedByCdn,
+    totalIssues: totalIssuesOnPage,
+  } = issuesInfo ?? {}
 
   const mainIssues =
     totalIssuesOnPage > allPageIssues ? totalIssuesOnPage : allPageIssues
@@ -100,14 +103,13 @@ export function WebsiteSecondaryComponent({
         >
           <Chip
             className={classes.adjust}
+            style={{ borderColor: '#EF9A9A' }}
             variant='outlined'
             size='small'
-            avatar={<IssuesIcon />}
+            avatar={<IssuesIcon style={{ color: '#EF9A9A' }} />}
             label={`${mainIssues} issue${totalIssuesOnPage === 1 ? '' : 's'}`}
           />
         </Tooltip>
-      ) : adaScore === 100 ? (
-        <Typography className={classes.issuesText}>Passes tests</Typography>
       ) : null}
       <PageLoad pageLoadTime={pageLoadTime} mobile={!matches} />
       {possibleIssuesFixedByCdn && totalIssuesOnPage ? (
@@ -123,7 +125,8 @@ export function WebsiteSecondaryComponent({
             variant='outlined'
             size='small'
             className={classes.adjust}
-            avatar={<HealingIcon color={'primary'} />}
+            style={{ borderColor: '#F48FB1' }}
+            avatar={<HealingIcon style={{ color: '#F48FB1' }} />}
             label={
               issuesFixedByCdn
                 ? `${issuesFixedByCdn}/${totalIssuesOnPage}`
@@ -140,8 +143,9 @@ export function WebsiteSecondaryComponent({
           <Chip
             variant='outlined'
             size='small'
+            style={{ borderColor: '#90CAF9' }}
             className={classes.adjust}
-            avatar={<CalendarIcon color={'primary'} />}
+            avatar={<CalendarIcon style={{ color: '#90CAF9' }} />}
             label={format(lastScan, 'MM/dd/yyyy')}
           />
         </Tooltip>
