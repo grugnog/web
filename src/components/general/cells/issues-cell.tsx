@@ -69,7 +69,7 @@ export function IssuesCell({
         onClose={handleClose}
       >
         <MenuItem component={Link} href={href} color={'inherit'}>
-          View Website
+          View Sandbox
         </MenuItem>
         {issues?.length ? (
           <MenuItem onClick={handleMainClick(issues, 'Issues', false)}>
@@ -77,7 +77,7 @@ export function IssuesCell({
           </MenuItem>
         ) : null}
         <MenuItem onClick={handleMainClick(url, 'Mini Player', true)}>
-          View Website (Mini Player)
+          View Sandbox (Mini Player)
         </MenuItem>
       </TopMenu>
     </div>

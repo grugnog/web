@@ -98,7 +98,7 @@ function MoreOptionsComponent({
         onClose={handleClose}
       >
         <MenuItem component={Link} href={href} color='inherit'>
-          View Website
+          View Sandbox
         </MenuItem>
         {issues?.length ? (
           <MenuItem
@@ -120,7 +120,7 @@ function MoreOptionsComponent({
           </MenuItem>
         ) : null}
         <MenuItem onClick={handleMainClick(url, 'Mini Player', true)}>
-          View Website (Mini Player)
+          View Sandbox (Mini Player)
         </MenuItem>
         {typeof modalClick === 'function' && html ? (
           <MenuItem onClick={modalClick}>View Source</MenuItem>

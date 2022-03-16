@@ -6,61 +6,15 @@ import {
   Healing as HealingIcon,
   Policy as PolicyIcon,
 } from '@material-ui/icons'
-import { makeStyles, createStyles } from '@material-ui/core/styles'
 import { format } from 'date-fns'
-import type { MergedTheme } from '@app/theme'
-
-const useStyles = makeStyles(({ palette, breakpoints }: MergedTheme) =>
-  createStyles({
-    adaScore: {
-      fontSize: '12px',
-      fontWeight: 800,
-      position: 'relative',
-    },
-    toolTip: {
-      background: palette.secondary.main,
-      color: '#000',
-      fontWeight: 600,
-      fontSize: '0.85em',
-    },
-    row: {
-      display: 'flex',
-      alignItems: 'center',
-    },
-    issuesText: {
-      marginRight: '7px',
-      fontSize: '15px',
-      fontWeight: 400,
-      [breakpoints.down('sm')]: {
-        fontSize: '12px',
-      },
-    },
-    adjust: {
-      marginRight: '8px',
-      [breakpoints.down('sm')]: {
-        marginRight: '5px',
-      },
-    },
-    warning: {
-      background: palette.warning.main,
-      color: palette.text.secondary,
-    },
-  })
-)
 
 // TODO: REFACTOR WITH Secondary (BASE)
 export function WebsiteSecondaryComponent({
-  // cdnConnected,
-  // error,
   issues = [],
-  // issue = [],
-  // secondaryText,
-  // mutatationLoading,
   lastScanDate,
   issuesInfo,
   pageHeaders,
 }: any) {
-  const classes = useStyles()
   const matches = useMediaQuery('(min-width:600px)')
 
   const allPageIssues = useMemo(() => {
@@ -73,7 +27,7 @@ export function WebsiteSecondaryComponent({
     return 0
   }, [issues])
 
-  const lastScan = new Date(lastScanDate ? lastScanDate : undefined)
+  const lastScan = new Date(lastScanDate ? lastScanDate : null)
   const {
     possibleIssuesFixedByCdn,
     issuesFixedByCdn,
@@ -86,7 +40,7 @@ export function WebsiteSecondaryComponent({
   const pageIssueCount = issues?.length || 0
 
   return (
-    <div className={classes.row}>
+    <div className={'flex space-x-2'}>
       {pageIssueCount ? (
         <Tooltip
           title={`${mainIssues} issue${
@@ -97,7 +51,6 @@ export function WebsiteSecondaryComponent({
           placement={'right'}
         >
           <Chip
-            className={classes.adjust}
             variant='outlined'
             size='small'
             avatar={<IssuesIcon />}
@@ -117,7 +70,6 @@ export function WebsiteSecondaryComponent({
           <Chip
             variant='outlined'
             size='small'
-            className={classes.adjust}
             avatar={<HealingIcon />}
             label={
               issuesFixedByCdn
@@ -135,7 +87,6 @@ export function WebsiteSecondaryComponent({
           <Chip
             variant='outlined'
             size='small'
-            className={classes.adjust}
             avatar={<CalendarIcon />}
             label={format(lastScan, 'MM/dd/yyyy')}
           />
@@ -151,7 +102,6 @@ export function WebsiteSecondaryComponent({
           <Chip
             variant='outlined'
             size='small'
-            className={classes.adjust}
             avatar={<PolicyIcon color={'primary'} />}
             label={`${pageHeaders?.length} custom header${
               pageHeaders?.length === 1 ? '' : 's'

@@ -1,38 +1,13 @@
 import React, { useMemo } from 'react'
 import { format } from 'date-fns'
-import { useMediaQuery, Chip, Tooltip } from '@material-ui/core'
+import { Chip, Tooltip } from '@material-ui/core'
 import {
   Update as CalendarIcon,
   Error as IssuesIcon,
   Healing as HealingIcon,
   Policy as PolicyIcon,
 } from '@material-ui/icons'
-import { makeStyles, createStyles } from '@material-ui/core/styles'
-import type { MergedTheme } from '@app/theme'
 import { PageLoad } from './page-load'
-
-const useStyles = makeStyles(({ breakpoints }: MergedTheme) =>
-  createStyles({
-    row: {
-      display: 'flex',
-      alignItems: 'center',
-    },
-    issuesText: {
-      marginRight: '7px',
-      fontSize: '15px',
-      fontWeight: 400,
-      [breakpoints.down('sm')]: {
-        fontSize: '12px',
-      },
-    },
-    adjust: {
-      marginRight: '8px',
-      [breakpoints.down('sm')]: {
-        marginRight: '5px',
-      },
-    },
-  })
-)
 
 export function RenderSecondary({
   adaScore,
@@ -44,12 +19,10 @@ export function RenderSecondary({
   issuesInfo,
   pageHeaders,
 }: any) {
-  const classes = useStyles()
-  const matches = useMediaQuery('(min-width:600px)')
   const possibleIssuesFixedByCdn = issuesInfo?.possibleIssuesFixedByCdn
   const totalIssuesOnPage = issuesInfo?.totalIssues
   const issuesFixedByCdn = issuesInfo?.issuesFixedByCdn
-  const lastScan = new Date(lastScanDate ? lastScanDate : undefined)
+  const lastScan = new Date(lastScanDate ? lastScanDate : null)
 
   const allPageIssues = useMemo(() => {
     if (issues?.length) {
@@ -65,7 +38,7 @@ export function RenderSecondary({
     totalIssuesOnPage > allPageIssues ? totalIssuesOnPage : allPageIssues
 
   return (
-    <div className={classes.row}>
+    <div className={'flex space-x-2'}>
       {mainIssues && adaScore !== 100 ? (
         <Tooltip
           title={`${mainIssues} issue${
@@ -76,7 +49,6 @@ export function RenderSecondary({
           placement={'right'}
         >
           <Chip
-            className={classes.adjust}
             variant='outlined'
             size='small'
             avatar={<IssuesIcon />}
@@ -84,7 +56,7 @@ export function RenderSecondary({
           />
         </Tooltip>
       ) : null}
-      <PageLoad pageLoadTime={pageLoadTime} mobile={!matches} />
+      <PageLoad pageLoadTime={pageLoadTime} />
       {possibleIssuesFixedByCdn && totalIssuesOnPage ? (
         <Tooltip
           title={
@@ -97,8 +69,7 @@ export function RenderSecondary({
           <Chip
             variant='outlined'
             size='small'
-            className={classes.adjust}
-            avatar={<HealingIcon color={'primary'} style={{ color: 'blue' }} />}
+            avatar={<HealingIcon color={'primary'} />}
             label={
               issuesFixedByCdn
                 ? `${issuesFixedByCdn}/${totalIssuesOnPage}`
@@ -107,7 +78,7 @@ export function RenderSecondary({
           />
         </Tooltip>
       ) : null}
-      {lastScan && matches ? (
+      {lastScan ? (
         <Tooltip
           title={`Last scan was at ${format(lastScan, 'MMMM d, yyyy hh:mm a')}`}
           placement={'right'}
@@ -115,7 +86,6 @@ export function RenderSecondary({
           <Chip
             variant='outlined'
             size='small'
-            className={classes.adjust}
             avatar={<CalendarIcon />}
             label={format(lastScan, 'MM/dd/yyyy')}
           />
@@ -131,7 +101,6 @@ export function RenderSecondary({
           <Chip
             variant='outlined'
             size='small'
-            className={classes.adjust}
             avatar={<PolicyIcon />}
             label={`${pageHeaders?.length} custom header${
               pageHeaders?.length === 1 ? '' : 's'

@@ -1,10 +1,8 @@
 import React, { useState, useMemo, useCallback, memo } from 'react'
-import { Button } from '@material-ui/core'
 import { MoreOptions } from '@app/components/general/cells/menu/more'
 import { Link } from '../link'
 import { WebsiteSecondary } from './render'
 import { ModalType } from '@app/data/enums'
-import { InfoCenterContainer } from './info-center-container'
 import {
   SCRIPTS_CDN_URL_HOST,
   BASE_GQL_URL,
@@ -112,17 +110,13 @@ export function WebsiteCellDashboardComponent({
         <div className={'w-full space-y-3'}>
           <div className='flex space-x-2'>
             <div className='flex-wrap flex space-x-4'>
-              <p className={styles.title} style={{ maxWidth: '65vw' }}>
-                {url}
-              </p>
-              <Button
-                component={Link}
+              <Link
+                title={`view in sandbox ${url}`}
+                className={styles.title}
                 href={`/website-details?websiteUrl=${encodeURIComponent(url)}`}
-                color={'inherit'}
-                className={'w-40'}
               >
-                View Website
-              </Button>
+                {url}
+              </Link>
             </div>
             <div className='flex flex-1 place-content-end'>
               <MoreOptions

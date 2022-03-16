@@ -160,7 +160,7 @@ export function WebsitePrimaryCell({
         onClose={handleMenuClose}
       >
         <MenuItem component={Link} href={href} color='inherit'>
-          View Website
+          View Sandbox
         </MenuItem>
         {!pagesModal && (pageIssues?.length || error) ? (
           <MenuItem onClick={viewIssue}>
@@ -173,7 +173,7 @@ export function WebsitePrimaryCell({
           </MenuItem>
         ) : null}
         <MenuItem onClick={handleMainClick(mainUrl, 'Mini Player', true)}>
-          View Website (Mini Player)
+          View Sandbox (Mini Player)
         </MenuItem>
       </Menu>
     </div>
