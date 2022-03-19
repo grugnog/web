@@ -7,7 +7,7 @@ import { theme } from '@app-theme'
 import { WithSnackBar } from '@app/components/adhoc'
 import { initAppModel, userModel } from '@app/data'
 import { twitterSite, DOMAIN_NAME, LOGGIN_ROUTES } from '@app/configs'
-import { startIntercom } from '@app/utils'
+import { ping, startIntercom } from '@app/utils'
 import { WebsiteProviderWrapper } from '@app/components/providers'
 import { ErrorBoundary, SkipContent } from '@app/components/general'
 import type { InnerApp } from '@app/types/page'
@@ -56,6 +56,9 @@ export function MyApp({ Component, pageProps }: InnerApp) {
         navigator.cookieEnabled &&
         document.cookie,
     })
+
+    // TODO: look into middleware initial request handler
+    queueMicrotask(ping)
   }, [])
 
   useEffect(() => {
