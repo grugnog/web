@@ -68,7 +68,7 @@ function Api({ name }: PageProps) {
 
   const toggleKey = useCallback(() => {
     setKey((c) => !c)
-  }, [keyVisible])
+  }, [])
 
   const SectionTitle = ({
     children,

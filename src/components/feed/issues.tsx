@@ -1,4 +1,4 @@
-import React, { memo, FC } from 'react'
+import React, { memo, FC, useMemo } from 'react'
 import { Typography, IconButton, Fade } from '@material-ui/core'
 import { Close as CloseIcon } from '@material-ui/icons'
 import { useStyles } from '../general/styles'
@@ -24,7 +24,11 @@ const Feed: FC = () => {
   const classes = useStyles()
   const { issueFeed, setIssueFeedContent } = useWebsiteContext()
 
-  if (issueFeed?.data?.length && issueFeed?.open) {
+  const data = useMemo(() => {
+    return issueFeed?.data ?? []
+  }, [issueFeed])
+
+  if (data?.length && issueFeed?.open) {
     return (
       <Fade in>
         <div className={classes.root}>
@@ -43,19 +47,14 @@ const Feed: FC = () => {
               <CloseIcon />
             </IconButton>
           </div>
-
-          {issueFeed?.data?.map((issue: any, issueIndex: number) => {
-            const issues = issue?.issues
+          {data.map((issue, issueIndex: number) => {
+            const issues = issue?.issues ?? []
 
             return (
               <div key={`${issueIndex} ${issue?.pageUrl} ${issue?.domain}`}>
-                <Typography
-                  variant='subtitle1'
-                  component='p'
-                  className={classes.subTitle}
-                >
-                  {issue.pageUrl}
-                </Typography>
+                <div className='px-3 py-2 border border-x-0 border-t-0'>
+                  <p className={'text-lg'}>{issue.pageUrl}</p>
+                </div>
                 <div className={classes.list}>
                   <IssueMemo
                     index={issueIndex}
