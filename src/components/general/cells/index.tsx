@@ -3,6 +3,7 @@ export { WebsiteCellDashboard } from './website-cell-dashboard'
 export { WebsitePrimaryCell } from './website-primary-cell'
 export { FeaturesCell } from './features-cell'
 export { IssuesCell } from './issues-cell'
+export { IssueFeedCell } from './issue-feed-cell'
 export {
   PageLoad,
   RenderIssuesList,

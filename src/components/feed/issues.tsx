@@ -2,12 +2,13 @@ import React, { memo, FC, useMemo } from 'react'
 import { Typography, IconButton, Fade } from '@material-ui/core'
 import { Close as CloseIcon } from '@material-ui/icons'
 import { useStyles } from '../general/styles'
-import { WebsitePrimaryCell } from '../general/cells'
+import { IssueFeedCell } from '../general/cells'
 import { useWebsiteContext } from '../providers/website'
+import { Link } from '../general'
 
 const IssueRow = ({ index, style, item, url }: any) => (
   <div style={style} key={`${item?.selector} ${item?.code} ${index}`}>
-    <WebsitePrimaryCell
+    <IssueFeedCell
       issuesModal
       error
       item={item}
@@ -33,7 +34,11 @@ const Feed: FC = () => {
       <Fade in>
         <div className={classes.root}>
           <div className={`${classes.row} ${classes.titleContainer}`}>
-            <Typography variant='h6' component='p' className={classes.title}>
+            <Typography
+              variant='h6'
+              component='p'
+              className={`${classes.title} font-semibold`}
+            >
               Recent Issues
             </Typography>
             <IconButton
@@ -53,7 +58,16 @@ const Feed: FC = () => {
             return (
               <div key={`${issueIndex} ${issue?.pageUrl} ${issue?.domain}`}>
                 <div className='px-3 py-2 border border-x-0 border-t-0'>
-                  <p className={'text-lg'}>{issue.pageUrl}</p>
+                  <Link
+                    title={`view in sandbox ${issue.pageUrl}`}
+                    href={`/website-details?websiteUrl=${encodeURIComponent(
+                      issue.pageUrl
+                    )}`}
+                    className={'text-lg'}
+                    style={{ color: '#707070', fontWeight: 'bold' }}
+                  >
+                    {issue.pageUrl}
+                  </Link>
                 </div>
                 <div className={classes.list}>
                   <IssueMemo
