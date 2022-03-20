@@ -1,7 +1,7 @@
 import React, { Fragment, memo, useState } from 'react'
 import { Typography, Grid, Button } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
-import { Ribbon, SectionContainer } from '@app/components/general'
+import { SectionContainer } from '@app/components/general'
 import { priceConfig } from '@app/configs'
 import { SectionHeading } from '../text'
 import { Link } from './link'
@@ -21,11 +21,9 @@ const useStyles = makeStyles(() => ({
     justifyContent: 'center',
     alignItems: 'center',
     flexDirection: 'column',
-    padding: 8,
     overflow: 'hidden',
     position: 'relative',
     whiteSpace: 'pre-wrap',
-    margin: 2,
   },
 }))
 
@@ -147,12 +145,13 @@ function PriceWrapper({
       </div>
       <Grid
         container
-        spacing={1}
-        className={`${!onClick ? classes.container : ''} overflow-visible`}
+        className={`${
+          !onClick ? classes.container : ''
+        } overflow-visible space-x-2`}
       >
         {priceConfig.plans
           .filter((item: any) => (!blockFree ? item.title !== 'Free' : true))
-          .map(({ title, details, cost, costYearly, Icon }: any) => {
+          .map(({ title, details, cost, costYearly }: any) => {
             const clickEvent =
               title === 'Enterprise' && !navigate
                 ? () => {
@@ -169,7 +168,6 @@ function PriceWrapper({
                   }
                 : onClick
 
-            const isPremium = title === 'Premium'
             const Component = clickEvent ? 'button' : 'div'
 
             const textColor = getPrimaryColor(title)
@@ -186,53 +184,56 @@ function PriceWrapper({
                   }
                 )} border border-gray-300 ${
                   clickEvent ? `hover:bg-blue-100` : ''
-                }`}
-                style={{
-                  borderTopColor: textColor,
-                  borderTopWidth: 3,
-                  borderTopLeftRadius: 5,
-                  borderTopRightRadius: 1,
-                }}
+                } rounded`}
                 onClick={clickEvent ? () => clickEvent(title) : undefined}
               >
                 <Fragment>
-                  {isPremium ? (
-                    <Ribbon backgroundColor={textColor} color={'#fff'} />
-                  ) : null}
-                  <Icon fontSize='large' style={{ color: textColor }} />
-                  <Typography
-                    variant='h4'
-                    component='h4'
-                    gutterBottom
-                    style={{ fontWeight: 'bold', color: textColor }}
-                  >
-                    {title}
-                  </Typography>
-                  <ul>
-                    {details?.map((item: string) => (
-                      <li
-                        className={'flex gap-x-3 place-items-center text-left'}
-                        key={item}
-                        aria-hidden={!String(item).trim()}
-                      >
-                        {String(item).trim() ? <Done /> : null}
-                        <Typography component={pricingPage ? 'h3' : 'h5'}>
-                          {item}
-                        </Typography>
-                      </li>
-                    ))}
-                  </ul>
-                  {cost ? (
-                    <h4 className={'py-2 text-3xl font-bold'}>
-                      {yearly ? costYearly : cost}
-                    </h4>
-                  ) : null}
-                  <MainButton title={title} />
                   <div
-                    className='pt-1'
-                    style={{ textAlign: 'center', fontSize: '0.95em' }}
+                    className='text-left w-full flex-col text-white px-8 py-3'
+                    style={{ backgroundColor: textColor }}
                   >
-                    {title !== 'Free' ? 'Cancel anytime.' : 'Forever Free'}
+                    <h4 className='text-3xl font-bold'>{title}</h4>
+                    {cost ? (
+                      <h5 className={'text-lg font-semibold'}>
+                        {yearly ? costYearly : cost}
+                      </h5>
+                    ) : null}
+                  </div>
+
+                  <div className='px-2 space-y-4 py-3'>
+                    <ul>
+                      {details?.map((item: string) => (
+                        <li
+                          className={
+                            'flex gap-x-3 place-items-center text-left'
+                          }
+                          key={item}
+                          aria-hidden={!String(item).trim()}
+                        >
+                          {String(item).trim() ? (
+                            <div
+                              className='rounded-xl text-white'
+                              style={{
+                                backgroundColor: textColor,
+                                padding: 1,
+                              }}
+                            >
+                              <Done fontSize='small' />
+                            </div>
+                          ) : null}
+                          <Typography component={pricingPage ? 'h3' : 'h5'}>
+                            {item}
+                          </Typography>
+                        </li>
+                      ))}
+                    </ul>
+                    <MainButton title={title} />
+                    <div
+                      className='pt-1'
+                      style={{ textAlign: 'center', fontSize: '0.95em' }}
+                    >
+                      {title !== 'Free' ? 'Cancel anytime.' : 'Forever Free'}
+                    </div>
                   </div>
                 </Fragment>
               </Component>
