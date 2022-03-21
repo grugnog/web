@@ -6,7 +6,7 @@ export function MarketingProductIntro() {
     <section id='app-section' className='overflow-visible pb-20'>
       <div>
         <h3 className='sr-only'>Multiple tools for a11y improvement</h3>
-        <div className={'flex flex-nowrap'}>
+        <div className={'flex flex-nowrap relative md:left-0 left-20'}>
           <div className='flex-1 border rounded shadow relative -left-40'>
             <Image
               height={500}

@@ -40,14 +40,14 @@ export const generateStrings = ({
         id: 0,
         title: 'On-Demand',
         detail:
-          'Target WCAG issues spot on helping to figure out problems at hand. View detailed reports and vitals on your website indefinitely.',
+          'Target WCAG issues spot on helping to figure out problems at hand. View detailed reports and vitals on your website.',
         reason: 'Stop waisting time with figuring out what your ada issues are',
       },
       {
         id: 1,
         title: 'Alerts',
         detail:
-          'Get notified when issues occur so you can take action immediately. Control the days of the week you want to get alerted for reports.',
+          'Get notified when issues occur so you can take action immediately. Control the days of the week you want to get alerted.',
         reason: 'Basic',
       },
       {
@@ -59,63 +59,42 @@ export const generateStrings = ({
       },
       {
         id: 3,
-        title: 'Patches',
-        detail:
-          'Get custom web accessibility fixes that you can include directly in your website pain free tailored to your content with full uptime.',
-        reason: 'Basic',
-      },
-      {
-        id: 4,
         title: 'Cloud',
         detail:
-          'Add a CDN script that mitigates drastic issues for your users easily. If you accidently deploy dark text on a dark background and etc.',
+          'Add a CDN script that mitigates drastic issues for your users easily. If you accidently deploy an issue to act like a safeguard.',
         reason: 'Basic',
         icon: 'accessibility',
       },
       {
-        id: 5,
-        title: 'Speed Test',
-        detail:
-          'Test how your website does with performance and other metrics. See the comparisons against your other pages to see how to improve.',
-        reason: 'Basic',
-      },
-      {
-        id: 6,
+        id: 4,
         title: 'Secure',
         detail:
-          'View your scripts with precision before you include them. Control what domains get access to your CDN to bring security in at will.',
+          'View your scripts with precision before you include them. Control what domains get access to your CDN to bring security in as needed.',
         reason: 'Basic',
       },
       {
-        id: 7,
+        id: 5,
         title: 'Simple',
         detail:
           'Just drop in one line of code and your now all your pages are handled. Works really well with frameworks like React, Angular, Svelte, and Vue.',
         reason: 'Basic',
       },
       {
-        id: 8,
+        id: 6,
         title: 'Live Viewer',
         detail:
-          'View the issues in the browser and experiment with fixes in real time. Adjust colors and a11y properties to leverage productivity.',
+          'View the issues in the browser and experiment with fixes in real time. Adjust colors and accessibility properties to leverage productivity.',
         reason: 'Basic',
       },
       {
-        id: 9,
+        id: 7,
         title: 'AI',
         detail:
           'With AI and machine learning we tailor custom needs for your website rapidly. Determine missing alts with high proximity ratios, css style issues, and more.',
         reason: 'Basic',
       },
       {
-        id: 10,
-        title: 'Lighthouse',
-        detail:
-          'Get Lighthouse metrics by google on all of your pages at once. Get rapid results utilizing the power of our lightning fast crawler.',
-        reason: 'Basic',
-      },
-      {
-        id: 11,
+        id: 9,
         title: '100% Open-Source',
         detail:
           'Every line of code to power this project is fully open-source and available on GitHub. Easily fork the project and run on your own server with docker.',

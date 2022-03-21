@@ -7,7 +7,7 @@ import { AccountCircle } from '@material-ui/icons'
 import { Link } from './link'
 import { TranslateBadge } from '../badges'
 import { UserManager } from '@app/managers'
-import { getAPIRoute, LOGGIN_ROUTES } from '@app/configs'
+import { LOGGIN_ROUTES } from '@app/configs'
 import { NavLinks } from './nav-links'
 import { useMutation } from '@apollo/react-hooks'
 import { LOGOUT } from '@app/mutations'
@@ -39,12 +39,6 @@ function AuthMenu({ loginClassName, className, registerClassName }: Props) {
       console.error(e)
     }
 
-    try {
-      await fetch(`${getAPIRoute()}/logout`, { method: 'POST' })
-    } catch (e) {
-      console.error(e)
-    }
-
     queueMicrotask(async () => {
       try {
         await client?.clearStore()
@@ -59,7 +53,7 @@ function AuthMenu({ loginClassName, className, registerClassName }: Props) {
       }
       UserManager.clearUser()
 
-      router.reload()
+      router.push('/')
     })
   }
 

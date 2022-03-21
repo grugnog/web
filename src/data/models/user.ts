@@ -1,11 +1,6 @@
 import { setCookie } from 'with-cookie'
 import { parseCookie } from '@app/lib/cookies'
-import {
-  _AUTHED,
-  _ALERTS_ENABLED,
-  _JWT,
-  _ONBOARDED,
-} from '@app/lib/cookies/names'
+import { _ALERTS_ENABLED, _JWT, _ONBOARDED } from '@app/lib/cookies/names'
 import { parseJwt } from '@app/lib/auth'
 import { shutdownIntercom } from 'next-intercom'
 import { User } from '@app/types'
@@ -38,14 +33,11 @@ const userModel = {
       }
 
       if (cookie) {
-        const {
-          [_AUTHED]: email,
-          [_JWT]: jwt,
-          [_ALERTS_ENABLED]: alertsEnabled,
-        } = parseCookie(cookie)
+        const { [_JWT]: jwt, [_ALERTS_ENABLED]: alertsEnabled } = parseCookie(
+          cookie
+        )
 
         this.alertsEnabled = alertsEnabled
-        this.email = email
         this.jwt = jwt
       }
     } catch (e) {

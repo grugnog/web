@@ -8,10 +8,8 @@ import {
   Accessibility as AccessibilityIcon,
   Notifications as NotificationsIcon,
   Code as CodeIcon,
-  Build as BuildIcon,
   Cloud as CloudIcon,
   Speed as SpeedIcon,
-  NetworkCheck as NetworkIcon,
   Security as SecurityIcon,
   Compare as CompareIcon,
   Web as WebIcon,
@@ -24,7 +22,6 @@ const useStyles = makeStyles((theme) => ({
   paper: {
     padding: theme.spacing(3),
     textAlign: 'center',
-    margin: '3px',
     flex: 1,
     flexDirection: 'column',
     display: 'flex',
@@ -68,30 +65,21 @@ const RenderIcon = ({ index, ...props }: any): any =>
           FeatureIcon = CodeIcon
           break
         case 3:
-          FeatureIcon = BuildIcon
-          break
-        case 4:
           FeatureIcon = CloudIcon
           break
-        case 5:
-          FeatureIcon = NetworkIcon
-          break
-        case 6:
+        case 4:
           FeatureIcon = SecurityIcon
           break
-        case 7:
+        case 5:
           FeatureIcon = CompareIcon
           break
-        case 8:
+        case 6:
           FeatureIcon = WebIcon
           break
-        case 9:
+        case 7:
           FeatureIcon = TripIcon
           break
-        case 10:
-          FeatureIcon = SpeedIcon
-          break
-        case 11:
+        case 8:
           FeatureIcon = GitHubIcon
           break
         default:
@@ -139,7 +127,7 @@ const CtaFeatures = () => {
           {strings.headers[2][1]}
         </Typography>
       </div>
-      <Grid container alignItems={'center'} justifyContent={'center'}>
+      <Grid container>
         {strings.features.map((item: any, index: number) => (
           <FeatureItem item={item} index={index} key={item.id} />
         ))}
