@@ -30,14 +30,12 @@ export async function middleware(req: NextRequest, event: NextFetchEvent) {
 
   const currentHost = req.headers?.get('host')?.replace(ROOT_URL, '')
 
-  // TODO: REWRITE APP
   if (/.blog/.test(currentHost + '')) {
     const url = req.nextUrl.clone()
     url.pathname = `/blog${req.nextUrl.pathname}`
     res = NextResponse.rewrite(url)
   }
 
-  // TODO: REWRITE APP
   if (token && req.nextUrl.pathname === '/') {
     const url = req.nextUrl.clone()
     url.pathname = `/dashboard${req.nextUrl.pathname}`

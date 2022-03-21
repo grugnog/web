@@ -49,11 +49,7 @@ function FixedCopyRight({ sticky }: Props) {
   const classes = useStyles()
 
   return (
-    <div
-      className={`${classes.stickContainer} ${
-        sticky ? classes.stick : ''
-      } z-10`}
-    >
+    <div className={`${classes.stickContainer} ${sticky ? classes.stick : ''}`}>
       <div className={classes.sticky}>
         <Typography
           variant={'caption'}

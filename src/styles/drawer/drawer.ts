@@ -42,6 +42,7 @@ export const drawerStyles = makeStyles((theme: Theme) => {
       right: 0,
     },
     nav: {
+      zIndex: 1001,
       backgroundColor: theme.palette.background.default,
     },
     appBar: {
