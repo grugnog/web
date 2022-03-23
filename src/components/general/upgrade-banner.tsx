@@ -3,14 +3,14 @@ import { UserManager } from '@app/managers'
 import { Link } from './link'
 
 const styles = {
-  container:
-    'fixed bottom-0 left-0 right-0 p-3 z-1 w-full flex place-content-center bg-white',
-  text: 'text-black font-semibold',
+  container: 'p-3 z-1 w-full flex place-content-center',
+  text: 'text-sm md:text-normal text-black font-semibold',
 }
 
-const UpgradeBanner = (): any => {
+const UpgradeBanner = () => {
+  // TODO: MOBILE VISUAL UPGRADE ICON
   return UserManager.freeAccount ? (
-    <>
+    <div className='invisible md:visible'>
       <div className='h-20' />
       <div className={styles.container}>
         <div className={styles.text}>
@@ -21,9 +21,10 @@ const UpgradeBanner = (): any => {
           >
             UPGRADE
           </Link>
+          .
         </div>
       </div>
-    </>
+    </div>
   ) : null
 }
 

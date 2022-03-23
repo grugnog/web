@@ -1,0 +1,7 @@
+export { AccessibilityBox } from './accessibility'
+export { LoadTimeBox } from './load-time'
+export { PagesBox } from './pages'
+export { CDNBox } from './cdn'
+export { HeadersBox } from './headers'
+export { LighthouseBox } from './lighthouse'
+export { OnlineBox } from './online'

@@ -86,7 +86,7 @@ const Profile: FC<PageProps> = ({ name }) => {
       ) : null}
       <NavBar backButton title={name} notitle />
       <Container maxWidth='xl'>
-        <Box>
+        <Box className='space-y-2'>
           <PageTitle title={'Your Profile'} />
           <ProfileCell
             title={'Email'}
@@ -114,15 +114,12 @@ const Profile: FC<PageProps> = ({ name }) => {
             subTitle={user?.alertEnabled ? 'Yes' : 'No'}
             className={classes.email}
           />
-          <Button
-            className={classes.payments}
-            type='button'
+          <Link
             href='/payments'
-            component={Link}
-            variant='outlined'
+            className={`text-lg font-bold inline-block rounded bg-black text-white px-10 py-4 hover:bg-white hover:text-black hover:outline`}
           >
             Upgrade
-          </Button>
+          </Link>
           <div className={classes.row}>
             <Typography
               variant='subtitle1'

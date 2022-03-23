@@ -1,6 +1,5 @@
 import React, { forwardRef } from 'react'
 import NextLink from 'next/link'
-import MuiLink from '@material-ui/core/Link'
 
 interface NextComposedProps {
   as?: string
@@ -29,6 +28,7 @@ const NextComposedPreFetch = forwardRef(function Link(
     </NextLink>
   )
 })
+
 function MNLink({
   activeClassName = 'active',
   innerRef,
@@ -40,17 +40,16 @@ function MNLink({
 }: any) {
   const external = String(href).includes('http')
   const as = external ? undefined : href
-  let component = external ? 'a' : NextComposed
+  let Component = external ? 'a' : NextComposed
 
   if (shouldPrefetch) {
-    component = NextComposedPreFetch
+    Component = NextComposedPreFetch
   }
 
   return (
-    <MuiLink
+    <Component
       {...props}
-      component={component}
-      className={className}
+      className={`text-lg hover:underline ${className}`}
       ref={innerRef}
       as={as}
       href={href}

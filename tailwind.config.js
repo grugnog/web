@@ -54,9 +54,6 @@ const theme = {
 
 module.exports = {
   theme,
-  content: [
-    './src/**/*.html',
-    './src/**/*.{js,jsx,ts,tsx,vue}',
-    './src/**/**/*.{js,jsx,ts,tsx,vue}',
-  ],
+  content: ['./src/**/*.{html,js,jsx,ts,tsx}'],
+  plugins: [],
 }

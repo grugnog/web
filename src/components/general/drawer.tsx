@@ -1,6 +1,5 @@
 import React, { Fragment, memo } from 'react'
 import dynamic from 'next/dynamic'
-import { Container } from '@material-ui/core'
 import { userData } from '@app/data'
 import { drawerStyles } from '@app/styles/drawer'
 import { NavBarTitle, AuthedMenu } from './navigation'
@@ -34,6 +33,7 @@ function MainDrawerContainerComponent({ route, dataSourceMap, classes }: any) {
       >
         <FormDialog />
       </div>
+      <UpgradeBanner />
       <FixedCopyRight sticky />
     </div>
   )
@@ -95,17 +95,15 @@ export function DrawerComponent({
         dataSourceMap={dataSourceMap}
       />
       <main className={classes.content}>
-        <Container maxWidth={'xl'}>
-          <div
-            className={
-              issueFeed?.data?.length && issueFeed.open
-                ? classes.sidePanelPadding
-                : ''
-            }
-          >
-            {children}
-          </div>
-        </Container>
+        <div
+          className={`${
+            issueFeed?.data?.length && issueFeed.open
+              ? `${classes.sidePanelPadding}`
+              : ''
+          }`}
+        >
+          <div className={'pr-8 lg:pl-8 md:pl-8'}>{children}</div>
+        </div>
         <ConfirmEmail
           sendEmail={sendConfirmEmail}
           visible={user?.loggedIn && !user?.emailConfirmed}
@@ -113,7 +111,6 @@ export function DrawerComponent({
         <IssueFeed />
         <MiniPlayer />
         <DynamicModal />
-        <UpgradeBanner />
       </main>
     </div>
   )

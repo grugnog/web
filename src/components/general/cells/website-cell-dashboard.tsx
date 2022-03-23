@@ -15,9 +15,19 @@ import { classNames } from '@app/utils'
 import { InfoBlock } from './info-block'
 // @ts-ignore
 import ReportViewer from 'react-lighthouse-viewer'
+import {
+  AccessibilityBox,
+  PagesBox,
+  LoadTimeBox,
+  CDNBox,
+  HeadersBox,
+  LighthouseBox,
+  OnlineBox,
+} from './blocks'
 
 const styles = {
-  title: 'flex flex-1 text-3xl font-bold text-ellipsis overflow-hidden',
+  title:
+    'flex flex-1 text-3xl font-bold text-ellipsis overflow-hidden md:w-1/2 w-48',
   spacing: 'py-2',
   row: 'flex flex-1',
   metaBlock: 'px-2 py-1 border',
@@ -85,10 +95,10 @@ export function WebsiteCellDashboardComponent({
     setAnchorEl(null)
   }
 
-  const modalClick = () => {
+  const modalClick = useCallback(() => {
     setModal({ open: true, modalType: ModalType.highlight, html, url })
     setAnchorEl(null)
-  }
+  }, [html, url, setModal, setAnchorEl])
 
   // TODO: REMOVE ALL URL CLIENT APPENDING
   const cdnUrl = `${SCRIPTS_CDN_URL_HOST}/${script?.cdnUrl}`
@@ -106,78 +116,63 @@ export function WebsiteCellDashboardComponent({
 
   return (
     <div className={`w-full relative border p-4 pl-6 rounded overflow-hidden`}>
-      <div className={'flex w-full'}>
-        <div className={'w-full space-y-3'}>
-          <div className='flex space-x-2'>
-            <div className='flex-wrap flex space-x-4'>
-              <Link
-                title={`view in sandbox ${url}`}
-                className={styles.title}
-                href={`/website-details?websiteUrl=${encodeURIComponent(url)}`}
-              >
-                {url}
-              </Link>
-            </div>
-            <div className='flex flex-1 place-content-end'>
-              <MoreOptions
-                url={url}
-                issues={issues}
-                crawlWebsite={crawlWebsite}
-                handleClose={handleClose}
-                handleMenu={handleMenu}
-                handleMainClick={handleMainClick}
-                modalClick={modalClick}
-                anchorEl={anchorEl}
-                removePress={onRemovePress}
-                subDomains={subDomains}
-                html={html}
-                pageHeaders={pageHeaders}
-                index={index}
-                pageInsights={pageInsights}
-              />
-            </div>
+      <div className={'w-full space-y-3'}>
+        <div className='flex space-x-2'>
+          <div className='flex-wrap flex space-x-4'>
+            <Link
+              title={`view in sandbox ${url}`}
+              className={styles.title}
+              href={`/website-details?websiteUrl=${encodeURIComponent(url)}`}
+            >
+              {url}
+            </Link>
           </div>
-          <WebsiteSecondary
-            issuesInfo={issuesInfo}
-            cdnConnected={cdnConnected}
-            adaScore={adaScore}
-            issues={issues}
-            pageLoadTime={pageLoadTime}
-            mutatationLoading={mutatationLoading}
-            lastScanDate={lastScanDate}
-            pageHeaders={pageHeaders}
-          />
+          <div className='flex flex-1 place-content-end'>
+            <MoreOptions
+              url={url}
+              issues={issues}
+              crawlWebsite={crawlWebsite}
+              handleClose={handleClose}
+              handleMenu={handleMenu}
+              handleMainClick={handleMainClick}
+              modalClick={modalClick}
+              anchorEl={anchorEl}
+              removePress={onRemovePress}
+              subDomains={subDomains}
+              html={html}
+              pageHeaders={pageHeaders}
+              index={index}
+              pageInsights={pageInsights}
+            />
+          </div>
         </div>
+        <WebsiteSecondary
+          issuesInfo={issuesInfo}
+          cdnConnected={cdnConnected}
+          adaScore={adaScore}
+          issues={issues}
+          pageLoadTime={pageLoadTime}
+          mutatationLoading={mutatationLoading}
+          lastScanDate={lastScanDate}
+          pageHeaders={pageHeaders}
+        />
       </div>
 
       <div className={styles.spacing} />
 
       <div className={[styles.row, 'flex-wrap py-1'].join(' ')}>
-        <InfoBlock title={'Accessibility Score'}>
-          {adaScore || adaScore === 0 ? `${adaScore}%` : 'N/A'}
-        </InfoBlock>
-        <InfoBlock title={'Page Count'}>
-          <p>{subDomains?.length}</p>
-        </InfoBlock>
-        <InfoBlock title={'Page Load Time'}>
-          <span>
-            {pageLoadTime?.durationFormated || 'N/A'} at{' '}
-            <b>{pageLoadTime?.duration ?? 0}ms</b>
-          </span>
-        </InfoBlock>
-        <InfoBlock title={'CDN Connected'}>
-          <p>{cdnConnected ? 'Yes' : 'No'}</p>
-        </InfoBlock>
-        <InfoBlock title={'Headers Included'}>
-          <p>{pageHeaders ? 'Yes' : 'No'}</p>
-        </InfoBlock>
-        <InfoBlock title={'Lighthouse Enabled'}>
-          <p>{pageInsights ? 'Yes' : 'No'}</p>
-        </InfoBlock>
-        <InfoBlock title={'Website Online'}>
-          <p>{online ? 'Yes' : 'No'}</p>
-        </InfoBlock>
+        <AccessibilityBox adaScore={adaScore} />
+        <PagesBox count={subDomains?.length} />
+        <LoadTimeBox
+          durationFormated={pageLoadTime?.durationFormated}
+          duration={pageLoadTime?.duration}
+        />
+        <CDNBox cdnConnected={cdnConnected} />
+        <HeadersBox pageHeaders={pageHeaders} />
+        <LighthouseBox pageInsights={pageInsights} />
+        <OnlineBox online={online} />
       </div>
+
       <div className={styles.spacing} />
       <div className={styles.spacing} />
       <div className={styles.metaBlock}>

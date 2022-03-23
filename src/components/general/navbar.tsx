@@ -50,10 +50,6 @@ const useStyles = makeStyles((theme) => ({
       fontSize: 12,
     },
   },
-  transparent: {
-    background: 'transparent',
-    boxShadow: 'none',
-  },
   register: {
     minWidth: 90.6562,
     [theme.breakpoints.down('sm')]: {
@@ -65,13 +61,6 @@ const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.down('sm')]: {
       minWidth: 'auto',
       marginLeft: 0,
-    },
-  },
-  menuBar: {
-    display: 'flex',
-    marginRight: 6,
-    [theme.breakpoints.down('sm')]: {
-      display: 'none',
     },
   },
   hideShadow: {
@@ -100,7 +89,7 @@ const NavBarComponent = ({
   backButton,
   marketing,
   toolbar,
-  className,
+  className = '',
   position = 'static',
   children,
   marketingLinks,
@@ -125,7 +114,9 @@ const NavBarComponent = ({
   return (
     <Fragment>
       <nav
-        className={`${className} ${classes.container} ${classes.hideShadow} ${
+        className={`${className ? `${className} ` : className}${
+          classes.container
+        } ${classes.hideShadow} ${
           position === 'fixed' ? 'fixed left-0 right-0' : ''
         }`}
       >

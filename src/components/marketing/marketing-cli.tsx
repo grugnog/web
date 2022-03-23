@@ -54,8 +54,7 @@ export function MarketingCli() {
         >
           Docker
         </a>{' '}
-        build the suite on your own server to handle everything. Get the CLI in
-        shell{' '}
+        build the suite on your own server. Get the CLI simply in shell using{' '}
         <code className='text-gray-700 bg-gray-300 p-1'>
           cargo install a11ywatch_cli
         </code>

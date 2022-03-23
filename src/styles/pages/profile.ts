@@ -6,28 +6,19 @@ export const useProfileStyles = makeStyles(() => ({
     flexDirection: 'row',
     alignItems: 'center',
   },
-  email: {
-    marginBottom: 10.5,
-  },
+  email: {},
   password: {
     marginRight: 70,
   },
   submit: {
     minWidth: 170,
   },
-  payments: {
-    minWidth: 170,
-    background: '#ccc',
-    marginBottom: 10.5,
-  },
   form: {
     display: 'flex',
     flexDirection: 'column',
     marginRight: 20,
   },
-  input: {
-    marginBottom: 10,
-  },
+  input: {},
   passwordTitle: {
     marginRight: 10,
   },

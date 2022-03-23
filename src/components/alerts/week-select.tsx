@@ -1,5 +1,4 @@
 import React, { useEffect, useState, useCallback, memo, FC } from 'react'
-import { Button } from '@a11ywatch/ui'
 import { Typography, Button as MatButton } from '@material-ui/core'
 import { CalendarToday as DateIcon } from '@material-ui/icons'
 import { addDays, format, startOfWeek } from 'date-fns'
@@ -46,32 +45,30 @@ const WeekSelectComponent: FC<Props> = ({ confirmDates, filterEmailDates }) => {
 
   return (
     <div>
-      <div>
-        <Typography component={'h2'} variant={'h5'} className={`text-xl py-4`}>
-          Disable notifications on selected days
-        </Typography>
-        <div className={'flex space-x-2'}>
-          {week.map((day) => (
-            <Button
-              onClick={() => selectDates(day)}
-              className={`text-large hover:text-black${
-                selected.includes(day) ? ' bg-secondary' : ''
-              }`}
-              key={day}
-            >
-              {format(addDays(startDate, day), 'eeee')}
-            </Button>
-          ))}
-        </div>
-        <div className={'py-6'}>
-          <MatButton
-            onClick={onDateConfirm}
-            variant={'contained'}
-            startIcon={<DateIcon />}
+      <Typography component={'h2'} variant={'h5'} className={`text-xl py-4`}>
+        Disable notifications on selected days
+      </Typography>
+      <div className={'flex gap-x-2 flex-wrap gap-y-2'}>
+        {week.map((day) => (
+          <button
+            onClick={() => selectDates(day)}
+            className={`text-xl md:text-2xl font-bold border rounded flex-1 h-[70px] px-2 py-4${
+              selected.includes(day) ? ' bg-secondary text-white' : ''
+            }`}
+            key={day}
           >
-            Confirm Dates
-          </MatButton>
-        </div>
+            {format(addDays(startDate, day), 'eeee')}
+          </button>
+        ))}
+      </div>
+      <div className={'py-6'}>
+        <MatButton
+          onClick={onDateConfirm}
+          variant={'contained'}
+          startIcon={<DateIcon />}
+        >
+          Confirm Dates
+        </MatButton>
       </div>
     </div>
   )

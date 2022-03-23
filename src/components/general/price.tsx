@@ -1,4 +1,4 @@
-import React, { Fragment, memo, useState } from 'react'
+import React, { Fragment, memo, useMemo, useState } from 'react'
 import { Typography, Grid, Button } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import { SectionContainer } from '@app/components/general'
@@ -55,6 +55,50 @@ const getPrimaryColor = (title: string) => {
   return color
 }
 
+function MainButton({
+  title,
+  navigate,
+  yearly,
+}: {
+  title: string
+  yearly: boolean
+  navigate: boolean
+}) {
+  const buttonColor = getPrimaryColor(title)
+  let textColor = '#fff'
+
+  if (title === 'Premium') {
+  } else if (title === 'Free') {
+  } else if (title === 'Basic') {
+    textColor = '#fff'
+  } else if (title === 'Enterprise') {
+    textColor = '#fff'
+  }
+
+  if (navigate) {
+    return (
+      <Button
+        component={Link}
+        className={`w-full hover:ring`}
+        style={{
+          backgroundColor: buttonColor,
+          color: textColor,
+          fontWeight: 800,
+        }}
+        href={
+          title === 'Enterprise'
+            ? '/contact'
+            : `/register?plan=${title}${yearly ? '&yearly=true' : ''}`
+        }
+      >
+        {title === 'Enterprise' ? 'Contact Us' : `${title} Start`}
+      </Button>
+    )
+  }
+
+  return null
+}
+
 function PriceWrapper({
   basic = false,
   premium = false,
@@ -75,41 +119,13 @@ function PriceWrapper({
     onSetYear(params)
   }
 
-  function MainButton({ title }: { title: string }) {
-    const buttonColor = getPrimaryColor(title)
-    let textColor = '#fff'
-
-    if (title === 'Premium') {
-    } else if (title === 'Free') {
-    } else if (title === 'Basic') {
-      textColor = '#fff'
-    } else if (title === 'Enterprise') {
-      textColor = '#fff'
-    }
-
-    if (navigate) {
-      return (
-        <Button
-          component={Link}
-          className={`w-full hover:ring`}
-          style={{
-            backgroundColor: buttonColor,
-            color: textColor,
-            fontWeight: 800,
-          }}
-          href={
-            title === 'Enterprise'
-              ? '/contact'
-              : `/register?plan=${title}${yearly ? '&yearly=true' : ''}`
-          }
-        >
-          {title === 'Enterprise' ? 'Contact Us' : `${title} Start`}
-        </Button>
-      )
-    }
-
-    return null
-  }
+  const plans = useMemo(
+    () =>
+      priceConfig.plans.filter((item: any) =>
+        !blockFree ? item.title !== 'Free' : true
+      ),
+    [priceConfig, blockFree]
+  )
 
   return (
     <div className={!onClick && !navigate ? '' : ''} id='plans-section'>
@@ -145,100 +161,98 @@ function PriceWrapper({
       </div>
       <Grid
         container
-        className={`${
-          !onClick ? classes.container : ''
-        } overflow-visible space-x-2`}
+        className={`${!onClick ? classes.container : ''} gap-x-2 gap-y-2`}
       >
-        {priceConfig.plans
-          .filter((item: any) => (!blockFree ? item.title !== 'Free' : true))
-          .map(({ title, details, cost, costYearly }: any) => {
-            const clickEvent =
-              title === 'Enterprise' && !navigate
-                ? () => {
-                    if (typeof window !== 'undefined') {
-                      const mailLink =
-                        'mailto:support@a11ywatch.com' +
-                        '?subject=' +
-                        encodeURIComponent('Enterprise Plan') +
-                        '&body=' +
-                        'I would like to find out more about the enterprise plan.'
+        {plans.map(({ title, details, cost, costYearly }: any) => {
+          const clickEvent =
+            title === 'Enterprise' && !navigate
+              ? () => {
+                  if (typeof window !== 'undefined') {
+                    const mailLink =
+                      'mailto:support@a11ywatch.com' +
+                      '?subject=' +
+                      encodeURIComponent('Enterprise Plan') +
+                      '&body=' +
+                      'I would like to find out more about the enterprise plan.'
 
-                      window.location.href = mailLink
-                    }
+                    window.location.href = mailLink
                   }
-                : onClick
+                }
+              : onClick
 
-            const Component = clickEvent ? 'button' : 'div'
+          const Component = clickEvent ? 'button' : 'div'
 
-            const textColor = getPrimaryColor(title)
+          const textColor = getPrimaryColor(title)
 
-            return (
-              <Component
-                key={title}
-                className={`${classes.paper} rounded ${highLight(
-                  title,
-                  'bg-gray-100 text-black',
-                  {
-                    premium,
-                    basic,
-                  }
-                )} border border-gray-300 ${
-                  clickEvent ? `hover:bg-blue-100` : ''
-                } rounded`}
-                onClick={clickEvent ? () => clickEvent(title) : undefined}
-              >
-                <Fragment>
+          return (
+            <Component
+              key={title}
+              className={`${classes.paper} rounded ${highLight(
+                title,
+                'bg-gray-100 text-black',
+                {
+                  premium,
+                  basic,
+                }
+              )} border border-gray-300 ${
+                clickEvent ? `hover:bg-blue-100` : ''
+              } rounded`}
+              onClick={clickEvent ? () => clickEvent(title) : undefined}
+            >
+              <Fragment>
+                <div
+                  className='text-left w-full flex-col text-white px-8 py-3'
+                  style={{ backgroundColor: textColor }}
+                >
+                  <h4 className='text-3xl font-bold'>{title}</h4>
+                  {cost ? (
+                    <h5 className={'text-lg font-semibold'}>
+                      {yearly ? costYearly : cost}
+                    </h5>
+                  ) : null}
+                </div>
+
+                <div className='px-2 space-y-3 py-3'>
+                  <ul>
+                    {details?.map((item: string) => (
+                      <li
+                        className={'flex gap-x-3 place-items-center text-left'}
+                        key={item}
+                        aria-hidden={!String(item).trim()}
+                      >
+                        {String(item).trim() ? (
+                          <div
+                            className='rounded-xl text-white'
+                            style={{
+                              backgroundColor: textColor,
+                              padding: 1,
+                            }}
+                          >
+                            <Done fontSize='small' />
+                          </div>
+                        ) : null}
+                        <Typography component={pricingPage ? 'h3' : 'h5'}>
+                          {item}
+                        </Typography>
+                      </li>
+                    ))}
+                  </ul>
+                  <MainButton
+                    title={title}
+                    navigate={navigate}
+                    yearly={yearly}
+                  />
                   <div
-                    className='text-left w-full flex-col text-white px-8 py-3'
-                    style={{ backgroundColor: textColor }}
+                    className='pt-1'
+                    style={{ textAlign: 'center', fontSize: '0.95em' }}
                   >
-                    <h4 className='text-3xl font-bold'>{title}</h4>
-                    {cost ? (
-                      <h5 className={'text-lg font-semibold'}>
-                        {yearly ? costYearly : cost}
-                      </h5>
-                    ) : null}
+                    {title !== 'Free' ? 'Cancel anytime.' : 'Forever Free'}
                   </div>
-
-                  <div className='px-2 space-y-4 py-3'>
-                    <ul>
-                      {details?.map((item: string) => (
-                        <li
-                          className={
-                            'flex gap-x-3 place-items-center text-left'
-                          }
-                          key={item}
-                          aria-hidden={!String(item).trim()}
-                        >
-                          {String(item).trim() ? (
-                            <div
-                              className='rounded-xl text-white'
-                              style={{
-                                backgroundColor: textColor,
-                                padding: 1,
-                              }}
-                            >
-                              <Done fontSize='small' />
-                            </div>
-                          ) : null}
-                          <Typography component={pricingPage ? 'h3' : 'h5'}>
-                            {item}
-                          </Typography>
-                        </li>
-                      ))}
-                    </ul>
-                    <MainButton title={title} />
-                    <div
-                      className='pt-1'
-                      style={{ textAlign: 'center', fontSize: '0.95em' }}
-                    >
-                      {title !== 'Free' ? 'Cancel anytime.' : 'Forever Free'}
-                    </div>
-                  </div>
-                </Fragment>
-              </Component>
-            )
-          })}
+                </div>
+              </Fragment>
+            </Component>
+          )
+        })}
       </Grid>
     </div>
   )

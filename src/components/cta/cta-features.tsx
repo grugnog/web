@@ -95,7 +95,7 @@ function FeatureItem({ item, index }: { item: any; index: number }) {
   const classes = useStyles()
 
   return (
-    <div className={`${classes.paper}`}>
+    <div className={classes.paper}>
       <RenderIcon index={index} fontSize='large' />
       <Typography
         variant='h5'

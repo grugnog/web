@@ -96,7 +96,11 @@ const SignOnForm: FunctionComponent<SignOnProps> = ({
       const user = data[loginView ? 'login' : 'register']
       if (user) {
         UserManager.setUser(user)
-        router.push(urlRoute)
+        if (router.pathname === urlRoute) {
+          router.reload()
+        } else {
+          router.push(urlRoute)
+        }
       }
     }
   }, [data, router, loginView, urlRoute])
@@ -264,10 +268,7 @@ const SignOnForm: FunctionComponent<SignOnProps> = ({
           {!home ? (
             <span className={classes.row}>
               <Typography variant='overline' component='p'>
-                Forgot Password?{' '}
-                <Link href='/reset-password' className={classes.loginLink}>
-                  Reset
-                </Link>
+                Forgot Password? <Link href='/reset-password'>Reset</Link>
               </Typography>
             </span>
           ) : null}
