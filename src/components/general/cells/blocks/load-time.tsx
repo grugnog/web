@@ -12,7 +12,7 @@ export const LoadTimeBoxWrapper = ({
   return (
     <InfoBlock title={'TTL'} icon={<GrTime />}>
       <span>
-        {durationFormated || 'N/A'} at <b>{duration ?? 0}ms</b>
+        {durationFormated || 'N/A'} at {duration ?? 0}ms
       </span>
     </InfoBlock>
   )

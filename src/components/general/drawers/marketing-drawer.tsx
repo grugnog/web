@@ -1,14 +1,14 @@
-import React, { Fragment } from 'react'
+import React, { Fragment, memo } from 'react'
 import { Container } from '@material-ui/core'
 import { navigationStyles } from '@app/styles/navigation'
 import { strings } from '@app-strings'
-import { NavBarTitle, MarketingNavMenu } from './navigation'
-import { SearchBar } from './searchbar'
-import { NavBar } from './navbar'
-import { Footer } from './footer'
-import { Link } from './link'
+import { NavBarTitle, MarketingNavMenu } from '../navigation'
+import { SearchBar } from '../searchbar'
+import { NavBar } from '../navbar'
+import { Footer } from '../footer'
+import { Link } from '../link'
 
-export function MarketingDrawer({
+export function MarketingDrawerContainer({
   children,
   initClosed,
   renderCtaSearch,
@@ -73,3 +73,5 @@ export function MarketingDrawer({
     </Fragment>
   )
 }
+
+export const MarketingDrawer = memo(MarketingDrawerContainer)

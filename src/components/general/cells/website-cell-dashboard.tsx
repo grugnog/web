@@ -95,8 +95,12 @@ export function WebsiteCellDashboardComponent({
   }, [html, url, setModal, setAnchorEl])
 
   // TODO: REMOVE ALL URL CLIENT APPENDING
-  const cdnUrl = `${SCRIPTS_CDN_URL_HOST}/${script?.cdnUrl}`
-  const cdnUrlMinifed = `${SCRIPTS_CDN_URL_HOST}/${script?.cdnUrlMinified}`
+  const cdnUrl = script?.cdnUrl
+    ? `${SCRIPTS_CDN_URL_HOST}/${script?.cdnUrl}`
+    : 'N/A'
+  const cdnUrlMinifed = script?.cdnUrlMinified
+    ? `${SCRIPTS_CDN_URL_HOST}/${script?.cdnUrlMinified}`
+    : 'N/A'
   const statusBadgeUrl = `${STATUS_URL}/${domain}`
   const reportsLink = `${BASE_GQL_URL}/${domain}`
 
