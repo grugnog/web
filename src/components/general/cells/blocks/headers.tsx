@@ -1,5 +1,6 @@
 import React, { memo } from 'react'
 import { InfoBlock } from '../info-block'
+import { GrFlag } from 'react-icons/gr'
 
 export const HeadersBoxWrapper = ({
   pageHeaders,
@@ -7,7 +8,7 @@ export const HeadersBoxWrapper = ({
   pageHeaders?: boolean
 }) => {
   return (
-    <InfoBlock title={'Headers'}>
+    <InfoBlock title={'Headers'} icon={<GrFlag />}>
       <p>{pageHeaders ? 'Yes' : 'No'}</p>
     </InfoBlock>
   )

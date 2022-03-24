@@ -1,5 +1,6 @@
 import React, { memo } from 'react'
 import { InfoBlock } from '../info-block'
+import { GrAccessibility } from 'react-icons/gr'
 
 export const AccessibilityBoxWrapper = ({
   adaScore,
@@ -7,7 +8,7 @@ export const AccessibilityBoxWrapper = ({
   adaScore?: number
 }) => {
   return (
-    <InfoBlock title={'Accessibility Score'}>
+    <InfoBlock title={'Score'} icon={<GrAccessibility />}>
       {adaScore || adaScore === 0 ? `${adaScore}%` : 'N/A'}
     </InfoBlock>
   )

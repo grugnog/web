@@ -1,5 +1,6 @@
 import React, { memo } from 'react'
 import { InfoBlock } from '../info-block'
+import { GrTime } from 'react-icons/gr'
 
 export const LoadTimeBoxWrapper = ({
   durationFormated,
@@ -9,7 +10,7 @@ export const LoadTimeBoxWrapper = ({
   duration?: number
 }) => {
   return (
-    <InfoBlock title={'Page Load Time'}>
+    <InfoBlock title={'TTL'} icon={<GrTime />}>
       <span>
         {durationFormated || 'N/A'} at <b>{duration ?? 0}ms</b>
       </span>

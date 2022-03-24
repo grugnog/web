@@ -8,21 +8,17 @@ import {
   BASE_GQL_URL,
   STATUS_URL,
 } from '@app/configs/app-config'
-import { prismStyles } from '@app/styles'
-import { PrismLight } from 'react-syntax-highlighter'
-import { copyClipboard } from '@app/lib'
-import { classNames } from '@app/utils'
-import { InfoBlock } from './info-block'
 // @ts-ignore
 import ReportViewer from 'react-lighthouse-viewer'
 import {
   AccessibilityBox,
   PagesBox,
   LoadTimeBox,
-  CDNBox,
   HeadersBox,
   LighthouseBox,
   OnlineBox,
+  StatusBadgeBox,
+  CustomCDNBox,
 } from './blocks'
 
 const styles = {
@@ -58,8 +54,6 @@ export function WebsiteCellDashboardComponent({
   pageInsights,
 }: any) {
   const [anchorEl, setAnchorEl] = useState<any>(null)
-  const [isCdnMinified, setMinified] = useState<boolean>(true)
-  const [isMarkdown, setMarkdown] = useState<boolean>(true)
 
   const handleMenu = useCallback(
     (event: any) => {
@@ -106,8 +100,6 @@ export function WebsiteCellDashboardComponent({
   const statusBadgeUrl = `${STATUS_URL}/${domain}`
   const reportsLink = `${BASE_GQL_URL}/${domain}`
 
-  const statusBadgeLanguage = isMarkdown ? 'markdown' : 'html'
-
   const parsedInsight = useMemo(() => {
     if (insight?.json) {
       return JSON.parse(insight?.json)
@@ -116,7 +108,7 @@ export function WebsiteCellDashboardComponent({
 
   return (
     <div className={`w-full relative border p-4 pl-6 rounded overflow-hidden`}>
-      <div className={'w-full space-y-3'}>
+      <div className={'w-full space-y-2'}>
         <div className='flex space-x-2'>
           <div className='flex-wrap flex space-x-4'>
             <Link
@@ -160,95 +152,32 @@ export function WebsiteCellDashboardComponent({
 
       <div className={styles.spacing} />
 
-      <div className={[styles.row, 'flex-wrap py-1'].join(' ')}>
+      <div className={[styles.row, 'flex-wrap gap-x-2 gap-y-1'].join(' ')}>
         <AccessibilityBox adaScore={adaScore} />
         <PagesBox count={subDomains?.length} />
         <LoadTimeBox
           durationFormated={pageLoadTime?.durationFormated}
           duration={pageLoadTime?.duration}
         />
-        <CDNBox cdnConnected={cdnConnected} />
         <HeadersBox pageHeaders={pageHeaders} />
         <LighthouseBox pageInsights={pageInsights} />
         <OnlineBox online={online} />
+        <div className='w-full flex space-x-2'>
+          <CustomCDNBox
+            cdnUrl={cdnUrl}
+            cdnUrlMinifed={cdnUrlMinifed}
+            cdnConnected={cdnConnected}
+          />
+          <StatusBadgeBox
+            reportsLink={reportsLink}
+            statusBadgeUrl={statusBadgeUrl}
+            domain={domain}
+          />
+        </div>
       </div>
 
       <div className={styles.spacing} />
-      <div className={styles.spacing} />
-      <div className={styles.metaBlock}>
-        <InfoBlock
-          title={'Custom CDN'}
-          titleButton={
-            <div className='flex'>
-              <input
-                checked={isCdnMinified}
-                type='checkbox'
-                onChange={() => setMinified((minified: boolean) => !minified)}
-                className={classNames(
-                  'outline-none relative inline-flex flex-shrink-0 h-5 w-10 rounded-full cursor-pointer transition-colors ease-in-out duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'
-                )}
-              ></input>
-              <span className='text-sm font-medium ml-3'>MINIFIED</span>
-            </div>
-          }
-        >
-          <PrismLight
-            language='html'
-            style={prismStyles}
-            onClick={copyClipboard}
-            className={
-              'hover:bg-blue-500 hover:text-white color-black cursor-pointer'
-            }
-          >
-            {script?.cdnUrl
-              ? `<script src="${
-                  isCdnMinified ? cdnUrlMinifed : cdnUrl
-                }"></script>`
-              : 'N/A'}
-          </PrismLight>
-        </InfoBlock>
 
-        {domain ? (
-          <InfoBlock
-            title={'Status Badge'}
-            titleButton={
-              <div className='flex'>
-                <input
-                  checked={isMarkdown}
-                  type='checkbox'
-                  onChange={() => setMarkdown((minified: boolean) => !minified)}
-                  className={classNames(
-                    'outline-none relative inline-flex flex-shrink-0 h-5 w-10 rounded-full cursor-pointer transition-colors ease-in-out duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'
-                  )}
-                ></input>
-                <span className='text-sm font-medium ml-3'>MARKDOWN</span>
-              </div>
-            }
-          >
-            <PrismLight
-              language={statusBadgeLanguage}
-              style={prismStyles}
-              onClick={copyClipboard}
-              className={'hover:bg-blue-500 hover:text-white cursor-pointer'}
-            >
-              {statusBadgeLanguage === 'markdown'
-                ? `[![A11yWatch](${statusBadgeUrl})](${reportsLink})`
-                : `<a href="${reportsLink}"><img src="${statusBadgeUrl}" /></a>`}
-            </PrismLight>
-
-            <div className='py-3'>
-              <Link href={reportsLink}>
-                <img
-                  src={statusBadgeUrl}
-                  alt={`Status badge for ${domain}`}
-                  width={112}
-                  height={20}
-                />
-              </Link>
-            </div>
-          </InfoBlock>
-        ) : null}
-      </div>
       {parsedInsight ? (
         <div className='py-2'>
           {/* @ts-ignore */}
