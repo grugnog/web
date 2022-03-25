@@ -1,13 +1,14 @@
-import React, { memo, FC, useMemo } from 'react'
+import React, { memo, FC, useMemo, useCallback } from 'react'
 import { Typography, IconButton, Fade } from '@material-ui/core'
-import { Close as CloseIcon } from '@material-ui/icons'
 import { useStyles } from '../general/styles'
 import { IssueFeedCell } from '../general/cells'
 import { useWebsiteContext } from '../providers/website'
 import { Link } from '../general'
+import { GrClose } from 'react-icons/gr'
 
+// REFACTOR COMPONENT
 const IssueRow = ({ index, style, item, url }: any) => (
-  <div style={style} key={`${item?.selector} ${item?.code} ${index}`}>
+  <div style={style}>
     <IssueFeedCell
       issuesModal
       error
@@ -24,12 +25,15 @@ const IssueMemo = memo(IssueRow)
 const Feed: FC = () => {
   const classes = useStyles()
   const { issueFeed, setIssueFeedContent } = useWebsiteContext()
+  const { data, open } = issueFeed
 
-  const data = useMemo(() => {
-    return issueFeed?.data ?? []
-  }, [issueFeed])
+  const issues = useMemo(() => data ?? [], [data])
 
-  if (data?.length && issueFeed?.open) {
+  const closeFeed = useCallback(() => {
+    setIssueFeedContent([], false)
+  }, [setIssueFeedContent])
+
+  if (issues.length && open) {
     return (
       <Fade in>
         <div className={classes.root}>
@@ -44,16 +48,14 @@ const Feed: FC = () => {
             <IconButton
               edge='start'
               color='inherit'
-              onClick={() => {
-                setIssueFeedContent([], false)
-              }}
+              onClick={closeFeed}
               aria-label='close'
             >
-              <CloseIcon />
+              <GrClose />
             </IconButton>
           </div>
-          {data.map((issue, issueIndex: number) => {
-            const issues = issue?.issues ?? []
+          {issues.map((issue, issueIndex: number) => {
+            const issues = issue?.issues
 
             return (
               <div key={`${issueIndex} ${issue?.pageUrl} ${issue?.domain}`}>
