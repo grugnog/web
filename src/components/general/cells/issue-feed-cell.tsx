@@ -1,4 +1,10 @@
-import React, { Fragment, memo, useState } from 'react'
+import React, {
+  Fragment,
+  memo,
+  SyntheticEvent,
+  useCallback,
+  useState,
+} from 'react'
 import { IconButton } from '@material-ui/core'
 import {
   ExpandLess as ExpandLessIcon,
@@ -7,21 +13,11 @@ import {
 import { makeStyles } from '@material-ui/core/styles'
 import { RenderIssuesList } from './render'
 
-const useStyles = makeStyles((theme) => ({
-  title: {
-    marginLeft: theme.spacing(2),
-    color: 'inherit',
-  },
+const useStyles = makeStyles(() => ({
   listTitle: {
     overflow: 'hidden',
     textOverflow: 'ellipsis',
     flex: 1,
-  },
-  flex: {
-    flex: 1,
-  },
-  list: {
-    maxHeight: '50vh',
   },
 }))
 
@@ -37,12 +33,13 @@ export function IssueFeedCellComponent({
   const classes = useStyles()
   const [issueView, setIssueView] = useState<any>(error)
 
-  const viewIssue = (e: any) => {
-    if (e?.preventDefault) {
-      e.preventDefault()
-    }
-    setIssueView(!issueView)
-  }
+  const onToggleIssue = useCallback(
+    (e: SyntheticEvent<HTMLButtonElement>) => {
+      e?.preventDefault()
+      setIssueView(!issueView)
+    },
+    [setIssueView]
+  )
 
   const pageIssues =
     (Array.isArray(item?.issues) ? item.issues : item?.issues?.issues) || []
@@ -73,7 +70,7 @@ export function IssueFeedCellComponent({
         <IconButton
           aria-label='toggle item visibility'
           aria-controls='menu-appbar-item'
-          onClick={viewIssue}
+          onClick={onToggleIssue}
           color='inherit'
         >
           {issueView ? <ExpandMoreIcon /> : <ExpandLessIcon />}

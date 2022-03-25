@@ -1,10 +1,5 @@
 import React, { useMemo } from 'react'
-import {
-  PageTitle,
-  Drawer,
-  CollaspeList,
-  Spacer,
-} from '@app/components/general'
+import { PageTitle, Drawer, CollaspeList } from '@app/components/general'
 import { PageLoader } from '@app/components/placeholders'
 import { scriptsData, useSearchFilter } from '@app/data'
 import { filterSort } from '@app/lib'
@@ -26,7 +21,6 @@ function Scripts({ name }: PageProps) {
     <>
       <Drawer title={name}>
         <PageTitle title={name} />
-        <Spacer height={'8px'} />
         <PageLoader
           empty={Object.keys(dataSource).length === 0}
           emptySubTitle={'Scripts will appear here.'}

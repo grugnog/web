@@ -5,7 +5,6 @@ import {
   PageTitle,
   LinearBottom,
   Drawer,
-  Spacer,
 } from '@app/components/general'
 import { useSearchFilter } from '@app/data'
 import { filterSort } from '@app/lib'
@@ -17,20 +16,23 @@ import { useWebsiteContext } from '@app/components/providers/website'
 function Issues({ name }: PageProps) {
   const { data, loading, refetch, error } = useWebsiteContext()
   const { search } = useSearchFilter()
+
+  // search local filtering
   const source = useMemo(() => filterSort(data, search), [data, search])
 
   // TODO: USE QUERY ON ISSUES INSTEAD OF WEBSITE
-  const issuesFound = source?.length
-    ? source?.reduceRight(function (page, nextPage) {
-        return page + nextPage?.issuesInfo?.totalIssues
-      }, 0)
-    : 0
+  const issuesFound = useMemo(() => {
+    return source?.length
+      ? source?.reduceRight(function (page, nextPage) {
+          return page + nextPage?.issuesInfo?.totalIssues
+        }, 0)
+      : 0
+  }, [source])
 
   return (
     <>
       <Drawer title={name}>
         <PageTitle title={name} />
-        <Spacer height={'8px'} />
         <PageLoader
           empty={issuesFound === 0}
           loading={loading}

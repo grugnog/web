@@ -15,18 +15,29 @@ import type { InnerApp } from '@app/types/page'
 const authRoutes = LOGGIN_ROUTES.map((route) => route.replace('/', ''))
 
 const Application = ({ Component, pageProps, name }: InnerApp) => {
+  // name is based off function name and not file name
   const nameLowerCased = (name && String(name).toLowerCase()) || ''
 
   if (Component.gql) {
-    // TODO: USE META TO DETERMINE PROVIDER PULLING
-    const initialQuery =
+    const initialWebsiteQuery =
       authRoutes.includes(nameLowerCased) ||
       authRoutes.includes(nameLowerCased.replace(/ /g, '-'))
+
+    // TODO: USE META TO DETERMINE PROVIDER PULLING
+    let initialQuery = initialWebsiteQuery
+    let scopedQuery = ''
+
+    // run query without pages. [Urgent and issues]
+    if (nameLowerCased === 'urgent' || nameLowerCased === 'issues') {
+      initialQuery = false
+      scopedQuery = 'issues'
+    }
 
     return (
       <WebsiteProviderWrapper
         skip={!initialQuery}
         gqlFilter={Component?.params?.filter}
+        scopedQuery={scopedQuery}
       >
         <Component {...pageProps} name={name} />
       </WebsiteProviderWrapper>

@@ -1,9 +1,7 @@
-import React, { useState } from 'react'
+import React, { useCallback, memo, useState } from 'react'
 import { useRouter } from 'next/router'
 
 import { IconButton, MenuItem, Menu, Tooltip } from '@material-ui/core'
-import { AccountCircle } from '@material-ui/icons'
-
 import { Link } from './link'
 import { TranslateBadge } from '../badges'
 import { UserManager } from '@app/managers'
@@ -12,6 +10,7 @@ import { NavLinks } from './nav-links'
 import { useMutation } from '@apollo/react-hooks'
 import { LOGOUT } from '@app/mutations'
 import { useWebsiteContext } from '../providers/website'
+import { CgProfile } from 'react-icons/cg'
 
 interface Props {
   loginClassName?: string
@@ -19,43 +18,53 @@ interface Props {
   registerClassName?: string
 }
 
-function AuthMenu({ loginClassName, className, registerClassName }: Props) {
+function AuthMenuComponent({
+  loginClassName,
+  className,
+  registerClassName,
+}: Props) {
   const router = useRouter()
   const [anchorEl, setAnchorEl] = useState<any>(null)
   const [logoutMutation, { client }] = useMutation(LOGOUT)
   const { setIssueFeedContent } = useWebsiteContext()
 
-  const handleMenu = (event?: any) => {
-    setAnchorEl(event?.currentTarget)
-  }
+  const handleMenu = useCallback(
+    (event?: any) => {
+      setAnchorEl(event?.currentTarget)
+    },
+    [setAnchorEl]
+  )
 
-  const logout = async (e: any) => {
-    e?.preventDefault()
-    setIssueFeedContent(null, false)
+  const logout = useCallback(
+    async (e: any) => {
+      e?.preventDefault()
+      setIssueFeedContent(null, false)
 
-    try {
-      await logoutMutation()
-    } catch (e) {
-      console.error(e)
-    }
-
-    queueMicrotask(async () => {
       try {
-        await client?.clearStore()
+        await logoutMutation()
       } catch (e) {
         console.error(e)
       }
 
-      try {
-        await client?.resetStore()
-      } catch (e) {
-        console.error(e)
-      }
-      UserManager.clearUser()
+      queueMicrotask(async () => {
+        try {
+          await client?.clearStore()
+        } catch (e) {
+          console.error(e)
+        }
 
-      router.push('/')
-    })
-  }
+        try {
+          await client?.resetStore()
+        } catch (e) {
+          console.error(e)
+        }
+        UserManager.clearUser()
+
+        router.push('/')
+      })
+    },
+    [setIssueFeedContent, client, router, logoutMutation]
+  )
 
   if (LOGGIN_ROUTES.includes(router?.pathname)) {
     return (
@@ -68,7 +77,7 @@ function AuthMenu({ loginClassName, className, registerClassName }: Props) {
             aria-haspopup='true'
             onClick={handleMenu}
           >
-            <AccountCircle />
+            <CgProfile color={'black'} />
           </IconButton>
         </Tooltip>
         <Menu
@@ -110,6 +119,7 @@ function AuthMenu({ loginClassName, className, registerClassName }: Props) {
       </div>
     )
   }
+
   return (
     <NavLinks
       className={className}
@@ -120,4 +130,4 @@ function AuthMenu({ loginClassName, className, registerClassName }: Props) {
   )
 }
 
-export { AuthMenu }
+export const AuthMenu = memo(AuthMenuComponent)

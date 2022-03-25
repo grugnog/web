@@ -1,10 +1,19 @@
-import React from 'react'
+import React, { useCallback, memo, SyntheticEvent } from 'react'
 import { List } from '@material-ui/core'
 import { featuresData, userModel, useEvents } from '@app/data'
 import { features } from '@app/configs'
 import { FeaturesCell } from '../cells'
 
-export function AuthedMenu({ route, isMobile, dataSourceMap }: any) {
+interface AuthedMenu {
+  route?: string
+  isMobile?: boolean
+  dataSourceMap?: any
+}
+export function AuthedMenuComponent({
+  route,
+  isMobile,
+  dataSourceMap,
+}: AuthedMenu) {
   const { toggleAlert, toggleAlertData } = featuresData()
   const { events, setEvents } = useEvents()
   const enabledAlerts = userModel.alertEnabled({
@@ -13,32 +22,39 @@ export function AuthedMenu({ route, isMobile, dataSourceMap }: any) {
       !toggleAlertData?.toggleAlert && dataSourceMap?.user?.alertEnabled,
   })
 
+  const onAlertToggle = useCallback(
+    async (e?: SyntheticEvent<HTMLInputElement>) => {
+      try {
+        e?.stopPropagation()
+        await toggleAlert({
+          variables: {
+            alertEnabled: !enabledAlerts,
+          },
+        })
+      } catch (e) {
+        console.error(e)
+      }
+    },
+    [enabledAlerts, toggleAlert]
+  )
+
   return (
     <List>
       {features.map(({ feature }: any, index: number) => (
-        <li key={index}>
-          <FeaturesCell
-            alertEnabled={!!enabledAlerts}
-            feature={feature}
-            index={index}
-            focused={route === feature}
-            events={events}
-            isMobile={isMobile}
-            setEvents={setEvents}
-            toggleAlert={async () => {
-              try {
-                await toggleAlert({
-                  variables: {
-                    alertEnabled: !enabledAlerts,
-                  },
-                })
-              } catch (e) {
-                console.error(e)
-              }
-            }}
-          />
-        </li>
+        <FeaturesCell
+          key={index}
+          alertEnabled={!!enabledAlerts}
+          feature={feature}
+          index={index}
+          focused={route === feature}
+          events={events}
+          isMobile={isMobile}
+          setEvents={setEvents}
+          toggleAlert={index === 0 ? onAlertToggle : undefined}
+        />
       ))}
     </List>
   )
 }
+
+export const AuthedMenu = memo(AuthedMenuComponent)

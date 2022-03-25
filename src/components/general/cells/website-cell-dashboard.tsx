@@ -110,6 +110,11 @@ export function WebsiteCellDashboardComponent({
     }
   }, [insight])
 
+  const linkUrl = useMemo(
+    () => `/website-details?websiteUrl=${encodeURIComponent(url)}`,
+    [url]
+  )
+
   return (
     <div className={`w-full relative border p-4 pl-6 rounded overflow-hidden`}>
       <div className={'w-full space-y-2'}>
@@ -118,7 +123,7 @@ export function WebsiteCellDashboardComponent({
             <Link
               title={`view in sandbox ${url}`}
               className={styles.title}
-              href={`/website-details?websiteUrl=${encodeURIComponent(url)}`}
+              href={linkUrl}
             >
               {url}
             </Link>

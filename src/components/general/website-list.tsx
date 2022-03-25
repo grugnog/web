@@ -25,6 +25,7 @@ export function WebsiteList({
 }: any) {
   const [modal, setOpen] = useState(defaultModalState)
   const { miniPlayer, setMiniPlayerContent } = useMiniPlayer()
+
   const handleClickOpen = useCallback(
     (data: any, title: any, url: any, error: any) => {
       setOpen({ open: true, data, title, url, error })

@@ -21,7 +21,8 @@ function WebsiteAccessibilityChecker({ name }: PageProps) {
 export default metaSetter(
   { WebsiteAccessibilityChecker },
   {
-    description: `Increase user experience and brand reputation with ${strings.appName}. Features provided include Automated Testing, Web Accessibility Tools, Monitoring, and Instant Accessibility Fixes.`,
+    description: `Improve your web inclusion and brand reputation with ${strings.appName}. Accessibility testing, reports, recommendations, monitoring, and code fixes for your websites.`,
     gql: true,
+    intercom: true,
   }
 )

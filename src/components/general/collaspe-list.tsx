@@ -202,7 +202,7 @@ function CollaspeListEntry({
   }, [updateScriptData, sectionData])
 
   return (
-    <span>
+    <div className='border'>
       <ListItem button onClick={() => handleClick(sectionTitle, open, setOpen)}>
         <ListItemIcon>
           <WebIcon />
@@ -226,7 +226,7 @@ function CollaspeListEntry({
           ))}
         </ul>
       </Collapse>
-    </span>
+    </div>
   )
 }
 

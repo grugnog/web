@@ -2,6 +2,18 @@ import gql from 'graphql-tag'
 import { UserManager, AppManager } from '@app/managers'
 import { MutationUpdaterFn } from 'apollo-client'
 
+const issuesFrag = `
+    issues(filter: $filter) {
+      pageUrl
+      issues {
+        code
+        type
+        selector
+        message
+        context
+      }
+    }
+`
 const GET_WEBSITES = gql`
   query getWebsites($filter: String) {
     user {
@@ -62,16 +74,24 @@ const GET_WEBSITES = gql`
             pageUrl
           }
         }
-        issues(filter: $filter) {
-          pageUrl
-          issues {
-            code
-            type
-            selector
-            message
-            context
-          }
+        ${issuesFrag}
+      }
+    }
+  }
+`
+
+export const GET_ISSUES = gql`
+  query getWebsites($filter: String) {
+    user {
+      id
+      websites {
+        url
+        domain
+        cdnConnected
+        issuesInfo {
+          totalIssues
         }
+        ${issuesFrag}
       }
     }
   }

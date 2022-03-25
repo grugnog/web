@@ -9,7 +9,7 @@ const useStyles = makeStyles((theme) => ({
     marginLeft: 6,
     background: 'none',
     pointerEvents: 'auto',
-    fill: '#959da5',
+    fill: '#000',
     [theme.breakpoints.down('sm')]: {
       marginRight: 12,
     },

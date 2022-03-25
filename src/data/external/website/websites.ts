@@ -1,4 +1,4 @@
-import { useEffect, useCallback, useReducer } from 'react'
+import { useEffect, useCallback, useReducer, useMemo } from 'react'
 import { useQuery, useMutation, useSubscription } from '@apollo/react-hooks'
 import {
   ADD_WEBSITE,
@@ -6,22 +6,20 @@ import {
   UPDATE_WEBSITE,
   CRAWL_WEBSITE,
 } from '@app/mutations'
-import { GET_WEBSITES, updateCache } from '@app/queries'
-import {
-  SUBDOMAIN_SUBSCRIPTION,
-  ISSUE_SUBSCRIPTION,
-  WEBSITE_SUBSCRIPTION,
-} from '@app/subscriptions'
+import { GET_WEBSITES, GET_ISSUES, updateCache } from '@app/queries'
+import { SUBDOMAIN_SUBSCRIPTION, ISSUE_SUBSCRIPTION } from '@app/subscriptions'
 import { UserManager, AppManager } from '@app/managers'
 import { useIssueFeed } from '../../local'
 import type { OnSubscriptionDataOptions } from '@apollo/react-common'
 import type { Website } from '@app/types'
 
+// TODO: REFACTOR QUERIES
 export const useWebsiteData = (
   filter: string = '',
   url: string = '',
   customHeaders: any = null,
-  skip: boolean = false
+  skip: boolean = false,
+  scopedQuery: string = ''
 ) => {
   const [_, forceUpdate] = useReducer((x) => x + 1, 0)
   const subscriptionVars = { userId: UserManager.getID }
@@ -31,9 +29,16 @@ export const useWebsiteData = (
     url,
   }
   const { issueFeed, setIssueFeedContent } = useIssueFeed()
+
+  // start of main queries for pages. Root gets all
   const { data, loading, refetch, error } = useQuery(GET_WEBSITES, {
     variables,
     skip,
+  })
+  // Only get issues from websites
+  const { data: issueData, loading: issueDataLoading } = useQuery(GET_ISSUES, {
+    variables,
+    skip: scopedQuery !== 'issues',
   })
 
   const [removeWebsite, { loading: removeLoading }] = useMutation(
@@ -49,7 +54,12 @@ export const useWebsiteData = (
   })
   const [crawlWebsite, { loading: crawlLoading }] = useMutation(CRAWL_WEBSITE)
 
-  const websites = data?.user?.websites || []
+  // SCOPE WEBSITE DATA PER ROUTE (ALL, ISSUES, PAGES)
+  const websites = useMemo(() => {
+    const dataTarget = data ?? issueData
+
+    return dataTarget?.user?.websites || []
+  }, [data, issueData])
 
   const updateSubDomain = useCallback(
     ({ subscriptionData }: OnSubscriptionDataOptions<any>) => {
@@ -126,11 +136,6 @@ export const useWebsiteData = (
     skip,
   })
 
-  const { data: websiteUpdated } = useSubscription(WEBSITE_SUBSCRIPTION, {
-    variables: subscriptionVars,
-    skip,
-  })
-
   useEffect(() => {
     updateCache.last = [...updateCache.last, ...websites]
   }, [websites])
@@ -164,46 +169,6 @@ export const useWebsiteData = (
   }, [updateData, forceUpdate])
 
   useEffect(() => {
-    if (websiteUpdated && websites?.length) {
-      const {
-        adaScore,
-        cdnConnected,
-        domain,
-        htmlIncluded,
-        html,
-        pageLoadTime,
-        issuesInfo,
-        pageInsights,
-      } = websiteUpdated?.websiteAdded
-
-      const dataSource = websites.find(
-        (source: Website) => source.domain === domain
-      )
-
-      if (dataSource) {
-        if (adaScore) {
-          dataSource.adaScore = adaScore
-        }
-        if (pageLoadTime) {
-          dataSource.pageLoadTime = pageLoadTime
-        }
-        if (typeof pageInsights !== 'undefined') {
-          dataSource.pageInsights = pageInsights
-        }
-        if (issuesInfo) {
-          dataSource.issuesInfo = issuesInfo
-        }
-        if (html) {
-          dataSource.html = html
-        }
-
-        dataSource.cdnConnected = cdnConnected
-        dataSource.htmlIncluded = htmlIncluded
-      }
-    }
-  }, [websiteUpdated])
-
-  useEffect(() => {
     if (addWebsiteData && !addWebsiteData?.addWebsite?.success) {
       AppManager.toggleSnack(true, addWebsiteData.addWebsite.message, 'warning')
     }
@@ -215,7 +180,8 @@ export const useWebsiteData = (
     },
     data: websites,
     loading,
-    mutatationLoading: removeLoading || addLoading || crawlLoading,
+    mutatationLoading:
+      removeLoading || addLoading || crawlLoading || issueDataLoading,
     error,
     issueFeed,
     removeWebsite,

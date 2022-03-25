@@ -176,7 +176,8 @@ export function FullScreenModal({
                     className={classes.subTitle}
                     style={{ textAlign: 'right' }}
                   >
-                    {data?.length} page{data?.length === 1 ? '' : 's'}
+                    {data?.length} {`${issuesModal ? 'issue' : 'page'}`}
+                    {data?.length === 1 ? '' : 's'}
                   </Typography>
                 ) : null}
               </div>

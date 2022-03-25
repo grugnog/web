@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo } from 'react'
+import React, { useCallback, useEffect, useMemo } from 'react'
 import { Button, Fade } from '@material-ui/core'
 import {
   PageTitle,
@@ -41,6 +41,21 @@ function Dashboard({ name }: PageProps) {
     }
   }, [issueSubData, events, setEvents])
 
+  const onRemoveAllWebsitePress = useCallback(async () => {
+    if (window.confirm('Are you sure you want to remove all websites?')) {
+      try {
+        await removeWebsite({
+          variables: {
+            url: '',
+            deleteMany: true,
+          },
+        })
+      } catch (e) {
+        console.error(e)
+      }
+    }
+  }, [removeWebsite])
+
   return (
     <>
       <Drawer title={name}>
@@ -50,24 +65,7 @@ function Dashboard({ name }: PageProps) {
             <Fade in={!!data?.length}>
               <div className={'flex space-x-2'}>
                 <Button
-                  onClick={async () => {
-                    if (
-                      window.confirm(
-                        'Are you sure you want to remove all websites?'
-                      )
-                    ) {
-                      try {
-                        await removeWebsite({
-                          variables: {
-                            url: '',
-                            deleteMany: true,
-                          },
-                        })
-                      } catch (e) {
-                        console.error(e)
-                      }
-                    }
-                  }}
+                  onClick={onRemoveAllWebsitePress}
                   variant={'outlined'}
                   color={'primary'}
                   aria-label={'Remove all websites'}

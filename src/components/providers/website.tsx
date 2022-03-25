@@ -11,8 +11,9 @@ export const WebsiteProvider = AppContext.Provider
 export const WebsiteProviderComponent: FC<{
   skip?: boolean
   gqlFilter?: any
-}> = ({ children, skip, gqlFilter = '' }) => {
-  const sharedState = useWebsiteData(gqlFilter, '', null, skip)
+  scopedQuery?: string
+}> = ({ children, skip, gqlFilter = '', scopedQuery }) => {
+  const sharedState = useWebsiteData(gqlFilter, '', null, skip, scopedQuery)
 
   return <WebsiteProvider value={sharedState}>{children}</WebsiteProvider>
 }

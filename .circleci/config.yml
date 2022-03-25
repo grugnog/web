@@ -20,13 +20,12 @@ jobs:
           key: node-v1-{{ .Branch }}-{{ checksum "yarn.lock" }}
       - run:
           command: yarn run test:ci
-          no_output_timeout: 60m
       - codecov/upload:
           file: './coverage/clover.xml'
           conf: './codecov.yml'
   web-e2e:
     docker:
-      - image: mcr.microsoft.com/playwright:v1.17.0-rc1-focal
+      - image: mcr.microsoft.com/playwright:focal
     steps:
       - checkout
       - restore_cache:

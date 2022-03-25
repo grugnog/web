@@ -91,6 +91,13 @@ function Payments({ hideTitle = false, name }: PaymentProps) {
       basic: newState === 'Basic',
       premium: newState === 'Premium',
     })
+
+    // todo remove for ref
+    const inputElement = document.querySelector('input')
+
+    if (inputElement) {
+      inputElement.focus()
+    }
   }
 
   const onToken = async (token: any) => {

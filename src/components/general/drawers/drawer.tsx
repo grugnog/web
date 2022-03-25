@@ -46,13 +46,14 @@ export function DrawerWrapperComponent({
   title = '',
   classes,
   dataSourceMap,
+  sidePannelStyles,
 }: any) {
   return (
     <Fragment>
       <NavBar
         title={title}
         position='fixed'
-        className={`${classes.nav} ${classes.appBar}`}
+        className={`${classes.nav} ${classes.appBar} ${sidePannelStyles}`}
         toolbar={
           <span className={classes.drawerIconContainer}>
             <NavBarTitle title={title} flex />
@@ -84,6 +85,12 @@ export function DrawerComponent({
 
   const user = dataSourceMap?.user as any
 
+  const sidePannelStyles = `${
+    issueFeed?.data?.length && issueFeed.open
+      ? `${classes.sidePanelPadding}`
+      : ''
+  }`
+
   return (
     <div className={classes.root}>
       <DrawerWrapper
@@ -93,15 +100,10 @@ export function DrawerComponent({
         title={title}
         bottomButton={bottomButton}
         dataSourceMap={dataSourceMap}
+        sidePannelStyles={sidePannelStyles}
       />
       <main className={classes.content}>
-        <div
-          className={`${
-            issueFeed?.data?.length && issueFeed.open
-              ? `${classes.sidePanelPadding}`
-              : ''
-          }`}
-        >
+        <div className={sidePannelStyles}>
           <div className={'pr-8 lg:pl-8 md:pl-8'}>{children}</div>
         </div>
         <ConfirmEmail

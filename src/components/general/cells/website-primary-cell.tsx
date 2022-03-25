@@ -197,7 +197,7 @@ export function WebsitePrimaryCell({
     href: linkType ? href : undefined,
     color: 'inherit',
     onClick: linkType ? undefined : viewIssue,
-    className: classes.noText,
+    className: `${classes.noText}`,
   }
 
   return (

@@ -5,7 +5,6 @@ import {
   PageTitle,
   LinearBottom,
   Drawer,
-  Spacer,
 } from '@app/components/general'
 import { useSearchFilter } from '@app/data'
 import { filterSort } from '@app/lib'
@@ -15,22 +14,23 @@ import { PageLoader } from '@app/components/placeholders'
 import { useWebsiteContext } from '@app/components/providers/website'
 
 function Urgent({ name }: PageProps) {
-  // TODO: ONLY USE CONTEXT TO GET WEBSITE DATA
   const { data, loading, refetch, error } = useWebsiteContext()
   const { search } = useSearchFilter()
   const source = useMemo(() => filterSort(data, search) || [], [data, search])
 
-  const issuesFound = source?.length
-    ? source?.reduceRight(function (page, nextPage) {
-        return page + nextPage?.issuesInfo?.totalIssues
-      }, 0)
-    : 0
+  // TODO: REMOVE. ISSUES ALWAYS RETURN FROM API
+  const issuesFound = useMemo(() => {
+    return source?.length
+      ? source?.reduceRight(function (page, nextPage) {
+          return page + nextPage?.issuesInfo?.totalIssues
+        }, 0)
+      : 0
+  }, [source])
 
   return (
     <Fragment>
       <Drawer title={name}>
         <PageTitle title={name} />
-        <Spacer height={'8px'} />
         <PageLoader
           loading={loading}
           hasWebsite={!!data?.length}

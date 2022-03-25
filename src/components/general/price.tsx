@@ -189,7 +189,7 @@ function PriceWrapper({
               key={title}
               className={`${classes.paper} rounded ${highLight(
                 title,
-                'bg-gray-100 text-black',
+                'bg-blue-100 text-black',
                 {
                   premium,
                   basic,

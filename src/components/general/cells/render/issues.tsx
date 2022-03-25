@@ -68,6 +68,8 @@ export function RenderIssueComponent({
 
   const { error, openError, ...props } = checkListProps
 
+  console.log(extraProps)
+
   return (
     <ListItem
       // @ts-ignore

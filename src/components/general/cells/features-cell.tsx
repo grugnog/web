@@ -6,15 +6,16 @@ import {
   ListItem,
 } from '@material-ui/core'
 import {
-  Notifications as NotificationsIcon,
-  Code as CodeIcon,
-  CloudDownloadOutlined as CloudDownloadOutlinedIcon,
-  DataUsage as DataUsageIcon,
-  BugReport as BugReportIcon,
-  Report as ReportIcon,
-  ChangeHistory as ChangeHistoryIcon,
-  Dashboard as DashboardIcon,
-} from '@material-ui/icons'
+  GrNotification as NotificationsIcon,
+  GrCode as CodeIcon,
+  GrCloud as CloudDownloadOutlinedIcon,
+  GrAnalytics as DataUsageIcon,
+  GrBug as BugReportIcon,
+  GrEmergency as ReportIcon,
+  GrHistory as HistoryIcon,
+  GrApps as DashboardIcon,
+} from 'react-icons/gr'
+
 import { cellStyles } from '@app/styles/cells'
 import { Link } from '../link'
 import { Pulse } from '../loaders'
@@ -36,7 +37,7 @@ const renderIcon = (feature?: string, className?: string) => {
     case 'Urgent':
       return <ReportIcon />
     case 'History':
-      return <ChangeHistoryIcon />
+      return <HistoryIcon />
     default:
       return <div />
   }
@@ -123,35 +124,34 @@ export function FeaturesCellComponent({
   const classes = cellStyles()
 
   return (
-    <ListItem
-      button
-      {...extraProps(feature, focused, setEvents)}
-      className={classes.topList}
-    >
-      <ListItemIcon>
-        {renderIcon(
-          focused ? 'Dashboard' : feature,
-          (index === 0 && alertEnabled && !isMobile && classes.alert) ||
-            undefined
-        )}
-      </ListItemIcon>
-      {focused ? 'Dashboard' : feature}
-      {index === 0 ? (
-        <FormControlLabel
-          checked={alertEnabled}
-          value='Alerts'
-          control={<Switch color='primary' />}
-          label=''
-          labelPlacement='start'
-          className={classes.toggleAlert}
-          onClick={async (e) => {
-            e?.stopPropagation()
-            await toggleAlert()
-          }}
-        />
-      ) : null}
-      {!isMobile ? renderGuide(index, events) : null}
-    </ListItem>
+    <li>
+      <ListItem
+        button
+        className={classes.topList}
+        {...extraProps(feature, focused, setEvents)}
+      >
+        <ListItemIcon>
+          {renderIcon(
+            focused ? 'Dashboard' : feature,
+            (index === 0 && alertEnabled && !isMobile && classes.alert) ||
+              undefined
+          )}
+        </ListItemIcon>
+        {focused ? 'Dashboard' : feature}
+        {index === 0 ? (
+          <FormControlLabel
+            checked={alertEnabled}
+            value='Alerts'
+            control={<Switch color='primary' />}
+            label=''
+            labelPlacement='start'
+            className={classes.toggleAlert}
+            onClick={toggleAlert}
+          />
+        ) : null}
+        {!isMobile ? renderGuide(index, events) : null}
+      </ListItem>
+    </li>
   )
 }
 
