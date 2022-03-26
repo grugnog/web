@@ -74,20 +74,18 @@ export function WebsiteCellDashboardComponent({
     })
   }, [url, removePress])
 
-  const handleMainClick = (
-    eventData?: any,
-    title?: string,
-    mini?: boolean,
-    url?: string
-  ) => () => {
-    if (mini) {
-      handleClickOpenPlayer(true, eventData, title)()
-    } else if (handleClickOpen) {
-      handleClickOpen(eventData, title, url)
-    }
+  const handleMainClick = useCallback(
+    (eventData?: any, title?: string, mini?: boolean, url?: string) => () => {
+      if (mini) {
+        handleClickOpenPlayer(true, eventData, title)()
+      } else if (handleClickOpen) {
+        handleClickOpen(eventData, title, url)
+      }
 
-    setAnchorEl(null)
-  }
+      setAnchorEl(null)
+    },
+    [handleClickOpenPlayer, handleClickOpen, setAnchorEl]
+  )
 
   const modalClick = useCallback(() => {
     setModal({ open: true, modalType: ModalType.highlight, html, url })

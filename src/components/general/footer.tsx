@@ -1,6 +1,6 @@
-import React from 'react'
+import React, { FC } from 'react'
 
-import { Routes, APP_TYPE } from '@app/configs'
+import { Routes, APP_TYPE, DOMAIN_NAME } from '@app/configs'
 import { Typography, Container } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import { strings } from '@app-strings'
@@ -83,33 +83,52 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
-const NavLinks: any = ({ className, filterType }: any) => {
-  return Routes.reverse()
-    .filter(({ type }: any) => type === filterType)
-    .map(({ href, name }: any) => {
-      return (
-        <li key={href + name}>
-          <Link
-            color={'inherit'}
-            className={className}
-            variant={'subtitle1'}
-            href={href}
-            rel={href.includes('https') ? 'noopener' : undefined}
-            target={href.includes('https') ? '_blank' : undefined}
-          >
-            {name}
-          </Link>
-        </li>
-      )
-    })
+interface NavLinks {
+  className?: string
+  filterType?: string
+  blog?: boolean // if coming from the blog sub domain
+}
+
+const baseRoutes = [...Routes].reverse()
+
+const NavLinks: FC<NavLinks> = ({ className, filterType, blog }) => {
+  const routes = baseRoutes.filter(({ type }: any) => type === filterType)
+
+  return (
+    <>
+      {routes.map(({ href: link, name }: any) => {
+        const href =
+          blog && link !== `${DOMAIN_NAME?.replace('.com', '.blog')}`
+            ? `${DOMAIN_NAME}${link}`
+            : link
+
+        return (
+          <li key={href + name}>
+            <Link
+              color={'inherit'}
+              className={className}
+              variant={'subtitle1'}
+              href={href}
+              rel={href.includes('https') ? 'noopener' : undefined}
+              target={href.includes('https') ? '_blank' : undefined}
+            >
+              {name}
+            </Link>
+          </li>
+        )
+      })}
+    </>
+  )
 }
 
 const Footer = ({
   sticky,
   footerSpacing,
+  blog,
 }: {
   sticky?: boolean
   footerSpacing?: boolean
+  blog?: boolean
 }) => {
   const classes = useStyles()
 
@@ -127,6 +146,7 @@ const Footer = ({
           <NavLinks
             filterType={title.toLowerCase()}
             className={classes.linkSpace}
+            blog={blog}
           />
         </ul>
       </div>

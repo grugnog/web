@@ -182,6 +182,7 @@ function CollaspeListEntry({
   const [sectionTitle, sectionData] = item
   const [newItemUpdate, setUpdate] = useState<any>({ key: null, script: null })
 
+  // TODO: RE-VISIT
   useEffect(() => {
     const scriptData = updateScriptData?.updateScript
 
@@ -230,14 +231,19 @@ function CollaspeListEntry({
   )
 }
 
+// List render - used for scripts and cdns
 export function CollaspeList({ dataSource }: any) {
   const classes = useStyles()
-  const [open, setOpen] = useState<boolean>(true)
+  const [open, setOpen] = useState<boolean | string>(true)
   const { updateScript, updateScriptData, scriptLoading } = scriptData('')
 
-  const entries = useMemo(() => {
-    return Object.entries(dataSource)
-  }, [dataSource])
+  const entries = useMemo(() => Object.entries(dataSource), [dataSource])
+
+  useEffect(() => {
+    if (entries?.length) {
+      setOpen(entries[0][0])
+    }
+  }, [entries, setOpen])
 
   if (!entries.length) {
     return <div>No Scripts added yet</div>

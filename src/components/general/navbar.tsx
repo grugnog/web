@@ -63,9 +63,6 @@ const useStyles = makeStyles((theme) => ({
       marginLeft: 0,
     },
   },
-  hideShadow: {
-    boxShadow: 'none',
-  },
   ghIcon: {
     marginLeft: 18,
     display: 'flex',
@@ -75,12 +72,6 @@ const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.down('sm')]: {
       display: 'none',
     },
-  },
-  toolbarInnerContainer: {
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    flex: 1,
   },
 }))
 
@@ -116,15 +107,13 @@ const NavBarComponent = ({
       <nav
         className={`${className ? `${className} ` : className}${
           classes.container
-        } ${classes.hideShadow} ${
-          position === 'fixed' ? 'fixed left-0 right-0' : ''
-        }`}
+        } shadow-none ${position === 'fixed' ? 'fixed left-0 right-0' : ''}`}
       >
         <div className='relative flex items-center pl-5 pr-5 min-h-[inherit]'>
           {toolbar || children ? (
             toolbar || children
           ) : (
-            <div className={classes.toolbarInnerContainer}>
+            <div className={`flex flex-1 place-content-center`}>
               {backButton || !marketing ? (
                 <IconButton className={classes.menu} {...buttonProps}>
                   {backButton ? <BackIcon /> : <AppIcon />}
@@ -141,12 +130,16 @@ const NavBarComponent = ({
           {marketingLinks}
           {marketingLinks ? null : (
             <AuthMenu
-              className={classes.iconButton}
+              className={`${classes.iconButton}`}
               registerClassName={classes.register}
               loginClassName={classes.login}
             />
           )}
-          {marketing ? <TranslateBadge className={classes.ghIcon} /> : null}
+          {marketing ? (
+            <div className='pl-4'>
+              <TranslateBadge className={classes.ghIcon} />
+            </div>
+          ) : null}
         </div>
       </nav>
       {position === 'fixed' ? <WrapShadow /> : null}

@@ -88,7 +88,7 @@ const Page: FC<BlogPageProps> = ({
         dangerouslySetInnerHTML={{ __html: html }}
         className='light-background'
       />
-      <Footer />
+      <Footer blog />
       {memoBodyScripts}
     </>
   )

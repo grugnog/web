@@ -171,7 +171,7 @@ function Payments({ hideTitle = false, name }: PaymentProps) {
 
   const subTitle = !renderPayMentBoxes
     ? 'Account Info'
-    : 'Select an option to get started upgrading your account.'
+    : 'Pay yearly and get 2 months for free.'
 
   return (
     <Elements stripe={stripePromise}>
@@ -183,7 +183,7 @@ function Payments({ hideTitle = false, name }: PaymentProps) {
             <EmptyPayments subTitle={subTitle} />
           ) : (
             <div>
-              <p className='text-xl font-bold'>{subTitle}</p>
+              <p className='text-xl'>{subTitle}</p>
               {renderPayMentBoxes ? (
                 <PriceMemo
                   priceOnly
@@ -271,7 +271,8 @@ export default metaSetter(
   { Payments },
   {
     description:
-      'Payment plans that can be adjusted at any time to better your fit you.',
+      'Payment plans that can be adjusted at any time. Scale with your team and your websites needs.',
     gql: true,
+    intercom: true,
   }
 )

@@ -1,4 +1,4 @@
-import React, { FC } from 'react'
+import React, { FC, memo } from 'react'
 import { Button } from '@material-ui/core'
 import { Link } from './link'
 
@@ -12,7 +12,7 @@ interface Props {
   loginClassName?: string
 }
 
-export const NavItem: FC<Props> = ({
+export const NavItemComponent: FC<Props> = ({
   href,
   name,
   className,
@@ -34,3 +34,5 @@ export const NavItem: FC<Props> = ({
     </Button>
   )
 }
+
+export const NavItem = memo(NavItemComponent)

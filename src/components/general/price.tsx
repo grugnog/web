@@ -135,7 +135,7 @@ function PriceWrapper({
             {navigate ? 'Plans for everyone' : 'Pricing'}
           </SectionHeading>
           <Typography variant='h6' component='p' gutterBottom>
-            Flexible plans that can be adjusted anytime
+            Flexible plans that can be adjusted anytime.
           </Typography>
         </>
       ) : null}

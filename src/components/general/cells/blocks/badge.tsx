@@ -21,14 +21,14 @@ export const StatusBadgeBoxWrapper = ({
 
   return (
     <InfoBlock title={'Badge'} icon={<GrShield />}>
-      <div className='flex pb-2'>
+      <div className='flex pb-2 space-x-1'>
         <span className='text-sm font-medium'>MARKDOWN</span>
         <input
           checked={isMarkdown}
           type='checkbox'
           onChange={() => setMarkdown((minified: boolean) => !minified)}
           className={
-            'outline-none relative inline-flex flex-shrink-0 h-5 w-10 rounded-full cursor-pointer transition-colors ease-in-out duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'
+            'outline-none relative inline-flex flex-shrink-0 h-4 w-7 rounded-full cursor-pointer transition-colors ease-in-out duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'
           }
         ></input>
       </div>

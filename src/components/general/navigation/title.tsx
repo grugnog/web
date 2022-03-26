@@ -10,9 +10,6 @@ const useStyles = makeStyles((theme) => ({
     color: theme.palette.text.primary,
     letterSpacing: '.12rem',
   },
-  flex: {
-    flex: 1,
-  },
   brand: {
     alignItems: 'center',
     justifyContent: 'center',
@@ -43,7 +40,6 @@ function NavBarTitle({
   ...props
 }: any) {
   const classes = useStyles()
-  const flexStyle = flex ? classes.flex : ''
 
   if (marketing && !notitle) {
     return (
@@ -65,8 +61,8 @@ function NavBarTitle({
     <Typography
       variant='h6'
       noWrap
-      component={'span'}
-      className={`${classes.title} ${flexStyle}`}
+      component={'div'}
+      className={`${classes.title} flex flex-1 place-items-center`}
       {...props}
     >
       {children || title}

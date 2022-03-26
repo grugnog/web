@@ -18,14 +18,14 @@ export const CustomCDNBoxWrapper = ({
 
   return (
     <InfoBlock title={'Custom CDN'} icon={<GrCloudSoftware />}>
-      <div className='flex pb-2'>
+      <div className='flex pb-2 space-x-1'>
         <span className='text-sm font-medium'>MINIFIED</span>
         <input
           checked={isMinified}
           type='checkbox'
           onChange={() => setMinified((minified: boolean) => !minified)}
           className={
-            'outline-none relative inline-flex flex-shrink-0 h-5 w-10 rounded-full cursor-pointer transition-colors ease-in-out duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'
+            'outline-none relative inline-flex flex-shrink-0 h-4 w-7 rounded-full cursor-pointer transition-colors ease-in-out duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'
           }
         ></input>
       </div>
@@ -37,8 +37,12 @@ export const CustomCDNBoxWrapper = ({
       >
         {isMinified ? cdnUrlMinifed : cdnUrl}
       </PrismLight>
-      <div className='py-3 text-gray-500 text-sm'>
-        <p>{cdnConnected ? 'Connected' : 'Disconnected'}</p>
+      <div
+        className={`py-3 text-gray-500 text-sm ${
+          !cdnConnected ? 'text-red-500' : 'text-green-500'
+        }`}
+      >
+        {cdnConnected ? 'Connected' : 'Disconnected'}
       </div>
     </InfoBlock>
   )
