@@ -1,0 +1,1 @@
+export { FeedIssueComponent } from './issue'

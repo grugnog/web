@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from 'react'
+import React, { Fragment, useCallback, useState } from 'react'
 import {
   ListItem,
   ListItemSecondaryAction,
@@ -96,7 +96,7 @@ export function WebsiteIssuesCell({
 }: any) {
   const classes = useStyles()
   const [anchorEl, setAnchorEl] = useState<any>(null)
-  const [issueView, setIssueView] = useState<any>(error)
+  const [issueView, setIssueView] = useState<boolean>(error)
 
   const handleMenu = (event: any) => {
     setAnchorEl(event.currentTarget)
@@ -104,13 +104,15 @@ export function WebsiteIssuesCell({
   const handleMenuClose = () => {
     setAnchorEl(null)
   }
-  const viewIssue = (e: any) => {
-    if (e?.preventDefault) {
-      e.preventDefault()
-    }
-    handleMenuClose()
-    setIssueView(!issueView)
-  }
+  const viewIssue = useCallback(
+    (e: any) => {
+      e?.preventDefault()
+
+      handleMenuClose()
+      setIssueView((v) => !v)
+    },
+    [setIssueView, handleMenuClose]
+  )
 
   const handleMainClick = (
     eventData: any,

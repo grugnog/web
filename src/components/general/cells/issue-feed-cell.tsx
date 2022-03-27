@@ -10,23 +10,15 @@ import {
   ExpandLess as ExpandLessIcon,
   ExpandMore as ExpandMoreIcon,
 } from '@material-ui/icons'
-import { RenderIssuesList } from './render'
+import { FeedIssuesList } from './render/issues-list'
 
-export function IssueFeedCellComponent({
-  item,
-  error = false,
-  handleToggle,
-  checked,
-  checkList,
-  listIndex,
-  openError,
-}: any) {
-  const [issueView, setIssueView] = useState<any>(error)
+export function IssueFeedCellComponent({ item, handleToggle, listIndex }: any) {
+  const [issueView, setIssueView] = useState<boolean>(true)
 
   const onToggleIssue = useCallback(
     (e: SyntheticEvent<HTMLButtonElement>) => {
       e?.preventDefault()
-      setIssueView(!issueView)
+      setIssueView((v) => !v)
     },
     [setIssueView]
   )
@@ -37,12 +29,8 @@ export function IssueFeedCellComponent({
   const mainUrl = item?.url || item?.pageUrl
 
   const issueProps = {
-    error,
-    checkList,
     handleToggle,
-    checked,
     listIndex,
-    openError,
     pageIssues,
     item,
   }
@@ -68,7 +56,7 @@ export function IssueFeedCellComponent({
           {issueView ? <ExpandMoreIcon /> : <ExpandLessIcon />}
         </IconButton>
       </li>
-      {issueView ? <RenderIssuesList {...issueProps} /> : null}
+      {issueView ? <FeedIssuesList {...issueProps} /> : null}
     </Fragment>
   )
 }

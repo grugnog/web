@@ -6,20 +6,6 @@ import { useWebsiteContext } from '../providers/website'
 import { Link } from '../general'
 import { GrClose } from 'react-icons/gr'
 
-// REFACTOR COMPONENT
-const IssueRow = ({ index, item, url }: any) => (
-  <IssueFeedCell
-    issuesModal
-    error
-    item={item}
-    listIndex={index}
-    url={url}
-    listTitleMax
-  />
-)
-
-const IssueMemo = memo(IssueRow)
-
 function IssueTitleComponent({ pageUrl }: { pageUrl: string }) {
   return (
     <div className='px-3 py-2 border border-x-0 border-t-0'>
@@ -74,11 +60,12 @@ const Feed: FC = () => {
                 <div className={classes.list}>
                   {pageIssues?.map((item, i) => {
                     return (
-                      <IssueMemo
+                      <IssueFeedCell
                         key={i}
-                        index={issueIndex}
-                        url={issue.pageUrl}
+                        issuesModal
                         item={item}
+                        listIndex={issueIndex}
+                        url={issue.pageUrl}
                       />
                     )
                   })}
