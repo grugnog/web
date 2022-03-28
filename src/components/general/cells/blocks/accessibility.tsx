@@ -9,7 +9,7 @@ export const AccessibilityBoxWrapper = ({
 }) => {
   return (
     <InfoBlock title={'Score'} icon={<GrAccessibility />}>
-      {adaScore || adaScore === 0 ? `${adaScore}%` : 'N/A'}
+      {typeof adaScore === 'number' ? `${Math.round(adaScore)}%` : 'N/A'}
     </InfoBlock>
   )
 }

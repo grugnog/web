@@ -5,7 +5,7 @@ const styles = {
   infoBorder: 'border',
   p: 'text-lg',
   spacing: 'pt-2',
-  row: 'flex flex-1',
+  row: 'flex flex-1 place-items-center space-x-2',
 }
 
 export const InfoBlock: FC<{
@@ -21,8 +21,8 @@ export const InfoBlock: FC<{
           : ''
       }`}
     >
-      {icon}
       <div className={styles.row}>
+        {icon}
         <p className={[styles.p, 'p-black font-bold'].join(' ').trim()}>
           {title}
         </p>

@@ -21,11 +21,9 @@ import { SectionContainer } from '../general'
 const useStyles = makeStyles((theme) => ({
   paper: {
     padding: theme.spacing(3),
-    textAlign: 'center',
     flex: 1,
     flexDirection: 'column',
     display: 'flex',
-    alignItems: 'center',
     overflow: 'hidden',
     minWidth: '23vw',
     border: `1px solid ${theme.palette.divider}`,
@@ -96,15 +94,14 @@ function FeatureItem({ item, index }: { item: any; index: number }) {
 
   return (
     <div className={classes.paper}>
-      <RenderIcon index={index} fontSize='large' />
-      <Typography
-        variant='h5'
-        component='span'
-        gutterBottom
-        className={classes.title}
-      >
-        {item.title}
-      </Typography>
+      <div className='flex space-x-2 pb-4 items-center'>
+        <div className='flex rounded-3xl border w-10 h-10 justify-center items-center'>
+          <RenderIcon index={index} fontSize='sm' />
+        </div>
+        <Typography variant='h5' component='div' className={classes.title}>
+          {item.title}
+        </Typography>
+      </div>
       <div className={classes.flex} />
       <Typography
         variant='subtitle1'
