@@ -17,14 +17,18 @@ export function WebsiteSecondaryComponent({
 }: any) {
   const matches = useMediaQuery('(min-width:600px)')
 
-  const allPageIssues = useMemo(() => {
+  const { allPageIssues } = useMemo(() => {
+    let allPageIssues = 0
+    // let errorsCount = 0
+    // let issuesCount = 0
+
     if (issues?.length) {
-      return issues.reduceRight(
-        (a: number, item: any) => a + item?.issues?.length || 0,
-        0
-      )
+      allPageIssues = issues.reduceRight((a: number, item: any) => {
+        return a + item?.issues?.length || 0
+      }, 0)
     }
-    return 0
+
+    return { allPageIssues }
   }, [issues])
 
   const lastScan = new Date(lastScanDate ? lastScanDate : null)
@@ -43,7 +47,7 @@ export function WebsiteSecondaryComponent({
     <div className={'flex space-x-2'}>
       {pageIssueCount ? (
         <Tooltip
-          title={`${mainIssues} issue${
+          title={`${mainIssues} possible issue${
             totalIssuesOnPage === 1 ? '' : 's'
           } across ${pageIssueCount} page${
             pageIssueCount === 1 || !pageIssueCount ? '' : 's'
@@ -54,7 +58,7 @@ export function WebsiteSecondaryComponent({
             variant='outlined'
             size='small'
             avatar={<IssuesIcon />}
-            label={`${mainIssues} issue${totalIssuesOnPage === 1 ? '' : 's'}`}
+            label={mainIssues}
           />
         </Tooltip>
       ) : null}

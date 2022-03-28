@@ -7,7 +7,11 @@ import {
   CRAWL_WEBSITE,
 } from '@app/mutations'
 import { GET_WEBSITES, GET_ISSUES, updateCache } from '@app/queries'
-import { SUBDOMAIN_SUBSCRIPTION, ISSUE_SUBSCRIPTION } from '@app/subscriptions'
+import {
+  SUBDOMAIN_SUBSCRIPTION,
+  ISSUE_SUBSCRIPTION,
+  CRAWL_COMPLETE_SUBSCRIPTION,
+} from '@app/subscriptions'
 import { UserManager, AppManager } from '@app/managers'
 import { useIssueFeed } from '../../local'
 import type { OnSubscriptionDataOptions } from '@apollo/react-common'
@@ -92,6 +96,37 @@ export const useWebsiteData = (
   useSubscription(SUBDOMAIN_SUBSCRIPTION, {
     variables: subscriptionVars,
     onSubscriptionData: updateSubDomain,
+  })
+
+  const onCrawlCompleteSubscription = useCallback(
+    ({ subscriptionData }: OnSubscriptionDataOptions<any>) => {
+      const completedWebsite = subscriptionData?.data?.crawlComplete
+
+      if (completedWebsite) {
+        // use apollo cache instead
+        const dataSource = websites.find(
+          (source: any) => source.domain === completedWebsite.domain
+        )
+
+        if (dataSource) {
+          dataSource.adaScore = completedWebsite.adaScore
+
+          AppManager.toggleSnack(
+            true,
+            `Crawl finished for ${completedWebsite.domain}`,
+            'success'
+          )
+
+          forceUpdate()
+        }
+      }
+    },
+    [websites]
+  )
+
+  useSubscription(CRAWL_COMPLETE_SUBSCRIPTION, {
+    variables: subscriptionVars,
+    onSubscriptionData: onCrawlCompleteSubscription,
   })
 
   const onIssueSubscription = useCallback(
