@@ -78,6 +78,7 @@ export const useWebsiteData = (
         const dataSourceUrl = dataSource?.url && new URL(dataSource.url)
 
         if (newSubUrl?.pathname === dataSourceUrl?.pathname) {
+          dataSource.online = newSubDomain.online
           dataSource.insight = newSubDomain.insight
         }
 
