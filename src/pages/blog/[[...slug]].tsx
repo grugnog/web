@@ -1,5 +1,4 @@
 import React from 'react'
-import Head from 'next/head'
 import { metaSetter } from '@app/utils/meta-setter'
 import { getBlogPage } from '@app/lib/get-blog'
 import { WordPressPage } from '@app/components/blog/wordpress-page'
@@ -7,14 +6,7 @@ import type { BlogPageProps } from '@app/types'
 import type { GetStaticProps } from 'next'
 
 function Blogs(props: BlogPageProps) {
-  return (
-    <>
-      <Head>
-        <link rel='alternate' hrefLang='en' />
-      </Head>
-      <WordPressPage {...props} />
-    </>
-  )
+  return <WordPressPage {...props} />
 }
 
 export async function getStaticPaths() {

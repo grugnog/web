@@ -58,6 +58,7 @@ const Page: FC<BlogPageProps> = ({
     <>
       <Head>
         <title key='title'>{title || `Blog - ${websiteUrl}`}</title>
+        <link rel='alternate' hrefLang='en' />
         {links?.map((node, index) => (
           <Fragment key={`${node?.id}-${index}`}>
             <link {...node} />

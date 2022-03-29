@@ -16,6 +16,7 @@ export const getBlogPage = async (
 
   try {
     const { parse } = await import('node-html-parser')
+
     const res = await fetch(`${BLOG_URL}${websiteUrl ? `/${websiteUrl}` : ''}`)
 
     if (res && res?.ok) {
@@ -76,9 +77,17 @@ export const getBlogPage = async (
         })
 
         h1Tags?.forEach((h1, index) => {
-          // todo replace instead
-          if (index > 0) {
-            h1.remove()
+          if (h1Tags.length > 1 && index === 0) {
+            let clone = h1
+            clone.tagName = 'span'
+            h1.replaceWith(clone)
+          }
+
+          if (index > 1) {
+            let clone = h1
+            clone.tagName = 'h2'
+
+            h1.replaceWith(clone)
           }
         })
 
@@ -121,22 +130,30 @@ export const getBlogPage = async (
         htmlRoot.insertAdjacentHTML(
           'beforeend',
           `<style type="text/css">
-
-        #content, #comments {
-          padding-top: 20px;
-          padding-bottom: 20px;
-          overflow: hidden;
-         }
-
-        .light-background {
-          background-color: #fff;
-          font-family: system-ui;
-        }
-        .dark-background {
-          background-color: rgb(26, 26, 26);
-          font-family: system-ui;
-        }
-
+            h1.post-title {
+              font-size: 36px;
+              font-weight: 800;
+            }
+            article > .entry-wrapper > p {
+              max-width: none;
+            }
+            h2 {
+              font-size: 26px;
+              font-weight: 600;
+            }
+            #content, #comments {
+              padding-top: 20px;
+              padding-bottom: 20px;
+              overflow: hidden;
+            }
+            .light-background {
+              background-color: #fff;
+              font-family: system-ui;
+            }
+            .dark-background {
+              background-color: rgb(26, 26, 26);
+              font-family: system-ui;
+            }
         </style>`
         )
 
@@ -149,7 +166,7 @@ export const getBlogPage = async (
           })
           sheet.remove()
         })
-        html = htmlRoot.toString()
+        html = htmlRoot.innerHTML
       }
     }
   } catch (e) {
