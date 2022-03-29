@@ -35,6 +35,9 @@ const useStyles = makeStyles(() => ({
   },
 }))
 
+const getFill = (label: string) =>
+  label === 'Errors' ? red[600] : label === 'Warnings' ? yellow[600] : grey[600]
+
 function Analytics({ name }: PageProps) {
   const classes = useStyles()
   const { data: websiteData, loading: websiteLoading } = useWebsiteContext()
@@ -75,12 +78,7 @@ function Analytics({ name }: PageProps) {
                     <VictoryBar
                       style={{
                         data: {
-                          fill: ({ datum }: any) =>
-                            datum.x === 'Errors'
-                              ? red[300]
-                              : datum.x === 'Warnings'
-                              ? yellow[300]
-                              : grey[300],
+                          fill: ({ datum }: any) => getFill(datum.x),
                           fillOpacity: 0.7,
                           strokeWidth: 3,
                         },
@@ -90,32 +88,27 @@ function Analytics({ name }: PageProps) {
                         },
                         labels: {
                           fontSize: 7,
-                          fill: ({ datum }: any) =>
-                            datum.x === 'Errors'
-                              ? red[300]
-                              : datum.x === 'Warnings'
-                              ? yellow[300]
-                              : grey[300],
+                          fill: ({ datum }: any) => getFill(datum.x),
                         },
                       }}
                       data={[
                         {
                           x: 'Errors',
                           y: source.errorCount,
-                          fill: red[300],
+                          fill: red[500],
                         },
                         {
                           x: 'Warnings',
                           y: source.warningCount,
-                          fill: yellow[300],
+                          fill: yellow[500],
                         },
                         {
                           x: 'Notices',
                           y: source.noticeCount,
-                          fill: grey[300],
+                          fill: grey[500],
                         },
                       ]}
-                      // colorScale={[red[300], yellow[300], grey[300]]}
+                      // colorScale={[red[500], yellow[500], grey[500]]}
                       labels={({ datum }: any) => (datum.y && datum.x) || ''}
                       events={[
                         {
