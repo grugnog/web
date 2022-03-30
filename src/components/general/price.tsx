@@ -124,7 +124,7 @@ function PriceWrapper({
       priceConfig.plans.filter((item: any) =>
         !blockFree ? item.title !== 'Free' : true
       ),
-    [priceConfig, blockFree]
+    [blockFree]
   )
 
   return (
