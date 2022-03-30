@@ -3,9 +3,7 @@ import type { BlogPageProps } from '@app/types'
 const BLOG_URL = process.env.BLOG_URL || 'https://a11ywatch.wpcomstaging.com'
 
 // get wordpress page and parse content by themes
-export const getBlogPage = async (
-  websiteUrl: string
-): Promise<BlogPageProps> => {
+export const getBlogPage = async (pathname: string): Promise<BlogPageProps> => {
   const links: BlogPageProps['links'] = []
   const stylesheets: BlogPageProps['stylesheets'] = []
   const metas: BlogPageProps['metas'] = []
@@ -17,7 +15,7 @@ export const getBlogPage = async (
   try {
     const { parse } = await import('node-html-parser')
 
-    const res = await fetch(`${BLOG_URL}${websiteUrl ? `/${websiteUrl}` : ''}`)
+    const res = await fetch(`${BLOG_URL}${pathname ? `/${pathname}` : ''}`)
 
     if (res && res?.ok) {
       const response = await res?.text()
@@ -77,17 +75,19 @@ export const getBlogPage = async (
         })
 
         h1Tags?.forEach((h1, index) => {
-          if (h1Tags.length > 1 && index === 0) {
-            let clone = h1
-            clone.tagName = 'span'
-            h1.replaceWith(clone)
-          }
+          if (h1Tags.length > 1) {
+            // replace the navbar h1 to span
+            if (index === 0) {
+              let clone = h1
+              clone.tagName = 'span'
+              h1.replaceWith(clone)
+              // let the second H1 stick (issue with wp theme)
+            } else if (index > 1) {
+              let clone = h1
+              clone.tagName = 'h2'
 
-          if (index > 1) {
-            let clone = h1
-            clone.tagName = 'h2'
-
-            h1.replaceWith(clone)
+              h1.replaceWith(clone)
+            }
           }
         })
 
