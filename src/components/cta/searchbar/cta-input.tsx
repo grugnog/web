@@ -1,4 +1,4 @@
-import React, { useState, useRef, SyntheticEvent } from 'react'
+import React, { useState, useRef, SyntheticEvent, useCallback } from 'react'
 import { InputLabel, InputBase } from '@material-ui/core'
 import {
   alpha,
@@ -6,8 +6,8 @@ import {
   Theme,
   createStyles,
 } from '@material-ui/core/styles'
-import { useSearch } from '@app/data'
 import { AppManager } from '@app/managers'
+import { useSearchRest } from '@app/data/local/useSearchRest'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -79,29 +79,35 @@ function CtaInput() {
   const classes = useStyles()
   const [searchFocused, setSearchFocused] = useState<boolean>()
   const ref = useRef<HTMLInputElement>(null)
-  const { search, setSearch, loading, toggleModal } = useSearch()
+  const { search, setSearch, loading, toggleModal } = useSearchRest()
 
-  const toggleSearch = (open: boolean = false) => () => {
-    if (open && !searchFocused && ref?.current) {
-      ref?.current?.focus()
-    }
-    setSearchFocused(!!open)
-  }
+  const toggleSearch = useCallback(
+    (open: boolean = false) => () => {
+      if (open && !searchFocused && ref?.current) {
+        ref?.current?.focus()
+      }
+      setSearchFocused(!!open)
+    },
+    [setSearchFocused, ref]
+  )
 
-  const submitForm = (e: SyntheticEvent<HTMLFormElement>) => {
-    e?.preventDefault()
-    if (!search) {
-      return AppManager.toggleSnack(
-        true,
-        `Please enter a valid web url`,
-        'error'
-      )
-    }
-    toggleModal(true, search)
-    if (ref.current) {
-      ref.current.value = ''
-    }
-  }
+  const submitForm = useCallback(
+    (e: SyntheticEvent<HTMLFormElement>) => {
+      e?.preventDefault()
+      if (!search) {
+        return AppManager.toggleSnack(
+          true,
+          `Please enter a valid web url`,
+          'error'
+        )
+      }
+      toggleModal(true, search)
+      if (ref.current) {
+        ref.current.value = ''
+      }
+    },
+    [toggleModal, ref]
+  )
 
   return (
     <form

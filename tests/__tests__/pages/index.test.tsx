@@ -5,7 +5,7 @@ import { describePage } from '../../describe-page'
 describePage(
   {
     folder: 'index',
-    name: 'Web Accessibility Automation',
+    name: 'Web Accessibility Monitoring',
     apollo: true,
   },
   () => {

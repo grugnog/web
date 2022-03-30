@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { SyntheticEvent, useEffect } from 'react'
 import { useApolloClient, useQuery, useMutation } from '@apollo/react-hooks'
 import gql from 'graphql-tag'
 import { isUrl } from '@app/lib/is-url'
@@ -24,10 +24,13 @@ const defaultState = {
   website: null,
 }
 
-export function useSearch() {
+// TODO: MOVE TO REST CALL
+export function useSearchRest() {
   const client = useApolloClient()
   const [scanWebsite, { data: crawlData, loading }] = useMutation(SCAN_WEBSITE)
+
   const { data } = useQuery(GET_SEARCH_STATE)
+
   const { search, hideWebsite, bottomModal, website } =
     data?.ctaSearch || defaultState
 
@@ -45,7 +48,10 @@ export function useSearch() {
     })
   }
 
-  const scanPage = async (event: any, text: string) => {
+  const scanPage = async (
+    event: null | SyntheticEvent<HTMLInputElement>,
+    text: string
+  ) => {
     event?.preventDefault()
 
     let tpt = ''
@@ -83,6 +89,7 @@ export function useSearch() {
     }
   }
 
+  // move validation
   const toggleModal = (bottom: boolean, text: string) => {
     const txt = text || ''
     const hasPriorCom = txt?.includes('.')

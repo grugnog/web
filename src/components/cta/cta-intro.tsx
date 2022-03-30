@@ -84,7 +84,7 @@ function CtaIntro({ checker }: CtaIntro) {
           >
             {checker
               ? 'Check Your Web Accessibility'
-              : 'Web Accessibility Automation'}
+              : 'Web Accessibility Monitoring'}
           </Typography>
           <Typography
             variant='subtitle1'
