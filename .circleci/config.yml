@@ -38,6 +38,8 @@ jobs:
       - run:
           command: yarn install --frozen-lockfile
       - run:
+          command: yarn build
+      - run:
           command: yarn test:e2e
 workflows:
   build_and_test:
