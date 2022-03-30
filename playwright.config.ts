@@ -1,4 +1,4 @@
-import { PlaywrightTestConfig, devices } from '@playwright/test'
+import { PlaywrightTestConfig } from '@playwright/test'
 import path from 'path'
 
 const config: PlaywrightTestConfig = {
@@ -14,24 +14,6 @@ const config: PlaywrightTestConfig = {
   use: {
     trace: 'retry-with-trace',
   },
-  //   projects: [
-  //     {
-  //       name: 'Desktop Chrome',
-  //       use: {
-  //         ...devices['Desktop Chrome'],
-  //       },
-  //     },
-  //     {
-  //       name: 'Mobile Chrome',
-  //       use: {
-  //         ...devices['Pixel 5'],
-  //       },
-  //     },
-  //     {
-  //       name: 'Mobile Safari',
-  //       use: devices['iPhone 12'],
-  //     },
-  //   ],
 }
 
 export default config
