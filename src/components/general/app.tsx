@@ -6,7 +6,7 @@ import { strings } from '@app-strings'
 import { theme } from '@app-theme'
 import { WithSnackBar } from '@app/components/adhoc'
 import { initAppModel, userModel } from '@app/data'
-import { twitterSite, DOMAIN_NAME, LOGGIN_ROUTES } from '@app/configs'
+import { LOGGIN_ROUTES } from '@app/configs'
 import { ping, startIntercom } from '@app/utils'
 import { WebsiteProviderWrapper } from '@app/components/providers'
 import { ErrorBoundary, SkipContent } from '@app/components/general'
@@ -83,36 +83,7 @@ export function MyApp({ Component, pageProps }: InnerApp) {
       <Head>
         <title key='title'>{title}</title>
         <meta name='description' content={description} key='description' />
-        {process.env.NEXT_PUBLIC_DISABLE_SEO === '1' ? (
-          <meta name='robots' content='noindex' />
-        ) : null}
-        <meta
-          name='viewport'
-          content='minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no'
-        />
-        <meta name='theme-color' content={theme.palette.primary.main} />
-        <meta name='mobile-web-app-capable' content='yes' />
-        <link rel='manifest' href='/manifest.json' />
-        <meta name='format-detection' content='telephone=no' />
-        <meta name='apple-mobile-web-app-capable' content='yes' />
-        <meta name='twitter:card' content='summary_large_image' />
-        <meta name='twitter:site' content={twitterSite} />
-        <meta
-          property='twitter:image'
-          content={`${DOMAIN_NAME}/img/intro-poster.png`}
-        />
-        <meta
-          property='og:title'
-          content={`Web Accessibility Service | ${strings.appName}`}
-        />
-        <meta property='og:url' content={DOMAIN_NAME} />
-        <meta
-          property='og:image'
-          content={`${DOMAIN_NAME}/img/intro-poster.png`}
-        />
         <meta property='og:description' content={description} />
-        <link rel='apple-touch-icon' href='/img/apple-touch-icon.png' />
-        <link rel='icon' type='image/x-icon' href='/img/favicon.ico' />
       </Head>
       <ThemeProvider theme={theme}>
         <CssBaseline />

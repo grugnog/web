@@ -4,6 +4,7 @@ import Head from 'next/head'
 import { Footer } from '@app/components/general/footer'
 import { NavBar } from '@app/components/blog/navbar'
 import { companyName } from '@app/configs/app-config'
+import parser from 'html-react-parser'
 
 const getProps = (props: any = {}) => {
   const { children, ...mainProps } = props?.children
@@ -85,10 +86,7 @@ const Page: FC<BlogPageProps> = ({
         {memoHeadScripts}
       </Head>
       <NavBar title={`The ${companyName} Blog`} />
-      <div
-        dangerouslySetInnerHTML={{ __html: html }}
-        className='light-background'
-      />
+      <div className='light-background'>{parser(html)}</div>
       <Footer blog />
       {memoBodyScripts}
     </>

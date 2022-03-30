@@ -96,7 +96,7 @@ function FeatureItem({ item, index }: { item: any; index: number }) {
     <div className={classes.paper}>
       <div className='flex space-x-2 pb-4 items-center'>
         <div className='flex rounded-3xl border w-10 h-10 justify-center items-center'>
-          <RenderIcon index={index} fontSize='sm' />
+          <RenderIcon index={index} fontSize='small' />
         </div>
         <Typography variant='h5' component='div' className={classes.title}>
           {item.title}
