@@ -2,7 +2,6 @@ import React, { useMemo } from 'react'
 import { makeStyles } from '@material-ui/core/styles'
 import { FakeButtonContainer } from '@app/components/fake'
 import { dev, cdn } from '@app/configs'
-import Image from 'next/image'
 
 const useStyles = makeStyles((theme) => ({
   centerAlign: {
@@ -55,6 +54,14 @@ const getBaseUrl = (baseURL: string) => {
   return url
 }
 
+interface Screenshot {
+  src?: string
+  url?: string
+  resetMargin?: boolean
+  width?: number
+  height?: number
+}
+
 export function Screenshot({ src, url, resetMargin, width, height }: any) {
   const classes = useStyles()
   const imageSource = useMemo(() => getBaseUrl(src), [src])
@@ -72,7 +79,7 @@ export function Screenshot({ src, url, resetMargin, width, height }: any) {
         }`}
       >
         <div className={resetMargin ? classes.float : classes.centerAlign}>
-          <Image
+          <img
             src={imageSource}
             alt={`screenshot of ${url} tested`}
             width={width ?? 450}

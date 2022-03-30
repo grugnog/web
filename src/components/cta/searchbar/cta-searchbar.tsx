@@ -7,8 +7,8 @@ import {
   createStyles,
 } from '@material-ui/core/styles'
 import { Search as SearchIcon } from '@material-ui/icons'
-import { useSearch } from '@app/data'
 import { AppManager } from '@app/managers'
+import { useSearch } from '@app/data'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({

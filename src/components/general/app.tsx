@@ -9,6 +9,7 @@ import { initAppModel, userModel } from '@app/data'
 import { LOGGIN_ROUTES } from '@app/configs'
 import { ping, startIntercom } from '@app/utils'
 import { WebsiteProviderWrapper } from '@app/components/providers'
+import { RestWebsiteProviderWrapper } from '../providers/rest/rest-website'
 import { ErrorBoundary, SkipContent } from '@app/components/general'
 import type { InnerApp } from '@app/types/page'
 
@@ -18,21 +19,29 @@ const Application = ({ Component, pageProps, name }: InnerApp) => {
   // name is based off function name and not file name
   const nameLowerCased = (name && String(name).toLowerCase()) || ''
 
+  const initialWebsiteQuery =
+    authRoutes.includes(nameLowerCased) ||
+    authRoutes.includes(nameLowerCased.replace(/ /g, '-'))
+
+  // TODO: USE META TO DETERMINE PROVIDER PULLING
+  let initialQuery = initialWebsiteQuery
+  let scopedQuery = ''
+
+  // run query without pages. [Urgent and issues]
+  if (nameLowerCased === 'urgent' || nameLowerCased === 'issues') {
+    initialQuery = false
+    scopedQuery = 'issues'
+  }
+
+  if (Component.rest) {
+    return (
+      <RestWebsiteProviderWrapper>
+        <Component {...pageProps} name={name} />
+      </RestWebsiteProviderWrapper>
+    )
+  }
+
   if (Component.gql) {
-    const initialWebsiteQuery =
-      authRoutes.includes(nameLowerCased) ||
-      authRoutes.includes(nameLowerCased.replace(/ /g, '-'))
-
-    // TODO: USE META TO DETERMINE PROVIDER PULLING
-    let initialQuery = initialWebsiteQuery
-    let scopedQuery = ''
-
-    // run query without pages. [Urgent and issues]
-    if (nameLowerCased === 'urgent' || nameLowerCased === 'issues') {
-      initialQuery = false
-      scopedQuery = 'issues'
-    }
-
     return (
       <WebsiteProviderWrapper
         skip={!initialQuery}

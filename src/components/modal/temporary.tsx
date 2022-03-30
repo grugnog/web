@@ -1,30 +1,44 @@
-import React, { useCallback } from 'react'
+import React, { memo } from 'react'
 import { Drawer, IconButton } from '@material-ui/core'
 import { useSearch } from '@app/data'
-import { Close as CloseIcon } from '@material-ui/icons'
+import { GrClose } from 'react-icons/gr'
 import { ReportView } from '@app/components/ada'
 
-// TODO: CREATE REACT-CONTEXT VERSION
-export function SwipeableTemporaryDrawer() {
-  const { bottomModal, website, toggleModal } = useSearch()
+interface BottomDrawer {
+  website?: any
+  bottomModal?: boolean
+  closeFeed?: () => void
+}
 
-  const toggleDrawer = useCallback(
-    (bottom: boolean) => () => {
-      toggleModal(bottom, '')
-    },
-    [toggleModal]
-  )
-
+export function BottomDrawerComponent({
+  bottomModal,
+  closeFeed,
+  website,
+}: BottomDrawer) {
   return (
-    <Drawer anchor='bottom' open={bottomModal} onClose={toggleDrawer(false)}>
+    <Drawer anchor='bottom' open={bottomModal} onClose={closeFeed}>
       <ReportView
         closeButton={
-          <IconButton aria-label='close modal' onClick={toggleDrawer(false)}>
-            <CloseIcon />
+          <IconButton aria-label='close modal' onClick={closeFeed}>
+            <GrClose />
           </IconButton>
         }
         website={website}
       />
     </Drawer>
+  )
+}
+
+export const BottomDrawer = memo(BottomDrawerComponent)
+
+export function SwipeableTemporaryDrawer() {
+  const { bottomModal, website, closeFeed } = useSearch()
+
+  return (
+    <BottomDrawer
+      bottomModal={bottomModal}
+      closeFeed={closeFeed}
+      website={website}
+    />
   )
 }

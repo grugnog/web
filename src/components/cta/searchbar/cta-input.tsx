@@ -7,7 +7,7 @@ import {
   createStyles,
 } from '@material-ui/core/styles'
 import { AppManager } from '@app/managers'
-import { useSearchRest } from '@app/data/local/useSearchRest'
+import { useSearch } from '@app/data'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -79,17 +79,14 @@ function CtaInput() {
   const classes = useStyles()
   const [searchFocused, setSearchFocused] = useState<boolean>()
   const ref = useRef<HTMLInputElement>(null)
-  const { search, setSearch, loading, toggleModal } = useSearchRest()
+  const { search, setSearch, loading, toggleModal } = useSearch()
 
-  const toggleSearch = useCallback(
-    (open: boolean = false) => () => {
-      if (open && !searchFocused && ref?.current) {
-        ref?.current?.focus()
-      }
-      setSearchFocused(!!open)
-    },
-    [setSearchFocused, ref]
-  )
+  const toggleSearch = (open: boolean = false) => () => {
+    if (open && !searchFocused && ref?.current) {
+      ref?.current?.focus()
+    }
+    setSearchFocused(!!open)
+  }
 
   const submitForm = useCallback(
     (e: SyntheticEvent<HTMLFormElement>) => {

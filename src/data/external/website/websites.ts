@@ -61,35 +61,37 @@ export const useWebsiteData = (
   // SCOPE WEBSITE DATA PER ROUTE (ALL, ISSUES, PAGES)
   const websites = useMemo(() => {
     const dataTarget = data ?? issueData
-
     return dataTarget?.user?.websites || []
   }, [data, issueData])
 
   const updateSubDomain = useCallback(
     ({ subscriptionData }: OnSubscriptionDataOptions<any>) => {
-      const newSubDomain = subscriptionData?.data?.subDomainAdded
+      queueMicrotask(() => {
+        const newSubDomain = subscriptionData?.data?.subDomainAdded
 
-      const newSubUrl = newSubDomain?.url && new URL(newSubDomain.url)
+        // TODO: USE DIFF MATCH FOR EXACT
+        const newSubUrl = newSubDomain?.url && new URL(newSubDomain.url)
 
-      if (newSubDomain && websites?.length) {
-        const dataSource = websites.find(
-          (source: Website) => source.domain === newSubDomain?.domain
-        )
-        const dataSourceUrl = dataSource?.url && new URL(dataSource.url)
+        if (newSubDomain && websites?.length) {
+          const dataSource = websites.find(
+            (source: Website) => source.domain === newSubDomain?.domain
+          )
+          const dataSourceUrl = dataSource?.url && new URL(dataSource.url)
 
-        if (newSubUrl?.pathname === dataSourceUrl?.pathname) {
-          dataSource.online = newSubDomain.online
-          dataSource.insight = newSubDomain.insight
-        }
+          if (newSubUrl?.pathname === dataSourceUrl?.pathname) {
+            dataSource.online = newSubDomain.online
+            dataSource.insight = newSubDomain.insight
+          }
 
-        if (dataSource) {
-          if (dataSource?.subDomains.length) {
-            dataSource.subDomains.push(newSubDomain)
-          } else {
-            dataSource.subDomains = [newSubDomain]
+          if (dataSource) {
+            if (dataSource?.subDomains?.length) {
+              dataSource.subDomains.push(newSubDomain)
+            } else {
+              dataSource.subDomains = [newSubDomain]
+            }
           }
         }
-      }
+      })
     },
     [websites]
   )
@@ -101,26 +103,28 @@ export const useWebsiteData = (
 
   const onCrawlCompleteSubscription = useCallback(
     ({ subscriptionData }: OnSubscriptionDataOptions<any>) => {
-      const completedWebsite = subscriptionData?.data?.crawlComplete
+      queueMicrotask(() => {
+        const completedWebsite = subscriptionData?.data?.crawlComplete
 
-      if (completedWebsite) {
-        // use apollo cache instead
-        const dataSource = websites.find(
-          (source: any) => source.domain === completedWebsite.domain
-        )
-
-        if (dataSource) {
-          dataSource.adaScore = completedWebsite.adaScore
-
-          AppManager.toggleSnack(
-            true,
-            `Crawl finished for ${completedWebsite.domain}`,
-            'success'
+        if (completedWebsite) {
+          // use apollo cache instead
+          const dataSource = websites.find(
+            (source: any) => source.domain === completedWebsite.domain
           )
 
-          forceUpdate()
+          if (dataSource) {
+            dataSource.adaScore = completedWebsite.adaScore
+
+            AppManager.toggleSnack(
+              true,
+              `Crawl finished for ${completedWebsite.domain}`,
+              'success'
+            )
+
+            forceUpdate()
+          }
         }
-      }
+      })
     },
     [websites]
   )
@@ -132,36 +136,38 @@ export const useWebsiteData = (
 
   const onIssueSubscription = useCallback(
     ({ subscriptionData }: OnSubscriptionDataOptions<any>) => {
-      const newIssue = subscriptionData?.data?.issueAdded
+      queueMicrotask(() => {
+        const newIssue = subscriptionData?.data?.issueAdded
 
-      if (newIssue) {
-        // use apollo cache instead
-        const dataSource = websites.find(
-          (source: any) => source.domain === newIssue.domain
-        )
-        const hasIssues = dataSource?.issues?.length
-
-        if (dataSource) {
-          // MUTATION UPDATING WEBSITES
-          if (hasIssues) {
-            const ids = new Set(dataSource.issues.map((d: any) => d.pageUrl))
-            const merged = [
-              ...dataSource.issues,
-              ...[newIssue].filter((d: any) => !ids.has(d.pageUrl)),
-            ]
-            dataSource.issues = merged
-          } else {
-            dataSource.issues = [newIssue]
-          }
-
-          setIssueFeedContent(dataSource.issues, true)
-          AppManager.toggleSnack(
-            true,
-            `Insight found on ${newIssue?.pageUrl}`,
-            'success'
+        if (newIssue) {
+          // use apollo cache instead
+          const dataSource = websites.find(
+            (source: Website) => source.domain === newIssue.domain
           )
+          const hasIssues = dataSource?.issues?.length
+
+          if (dataSource) {
+            // MUTATION UPDATING WEBSITES
+            if (hasIssues) {
+              const ids = new Set(dataSource.issues.map((d: any) => d.pageUrl))
+              const merged = [
+                ...dataSource.issues,
+                ...[newIssue].filter((d: any) => !ids.has(d.pageUrl)),
+              ]
+              dataSource.issues = merged
+            } else {
+              dataSource.issues = [newIssue]
+            }
+
+            setIssueFeedContent(dataSource.issues, true)
+            AppManager.toggleSnack(
+              true,
+              `Insight found on ${newIssue?.pageUrl}`,
+              'success'
+            )
+          }
         }
-      }
+      })
     },
     [websites]
   )
@@ -171,10 +177,6 @@ export const useWebsiteData = (
     onSubscriptionData: onIssueSubscription,
     skip,
   })
-
-  useEffect(() => {
-    updateCache.last = [...updateCache.last, ...websites]
-  }, [websites])
 
   useEffect(() => {
     const updatedWebsite = updateData && updateData?.updateWebsite?.website
@@ -189,15 +191,17 @@ export const useWebsiteData = (
           dataSource.pageHeaders = updatedWebsite.pageHeaders
         }
 
+        if (dataSource.pageInsights !== updatedWebsite.pageInsights) {
+          AppManager.toggleSnack(
+            true,
+            `Success lighthouse ${
+              dataSource.pageInsights ? 'enabled' : 'disabled'
+            }`,
+            'success'
+          )
+        }
         dataSource.pageInsights = updatedWebsite.pageInsights
 
-        AppManager.toggleSnack(
-          true,
-          `Success lighthouse ${
-            dataSource.pageInsights ? 'enabled' : 'disabled'
-          }`,
-          'success'
-        )
         // TODO: MOVE STATE MANAGE OUT OF APOLLO CACHE
         forceUpdate()
       }

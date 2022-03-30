@@ -1,12 +1,5 @@
 import { strings } from '@app-strings'
-import type { MetaData } from '@app/types/page'
-
-interface MetaFunction extends Function {
-  meta?: MetaData
-  gql?: boolean
-  intercom?: boolean
-  params?: any
-}
+import type { MetaData, MetaFunction } from '@app/types/page'
 
 interface Meta {
   [name: string]: MetaFunction

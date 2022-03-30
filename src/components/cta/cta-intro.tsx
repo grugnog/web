@@ -83,7 +83,7 @@ function CtaIntro({ checker }: CtaIntro) {
             className={`${classes.intro} text-6xl md:text-7xl bg-cover bg-center`}
           >
             {checker
-              ? 'Check Your Web Accessibility'
+              ? 'Real-Time Website Accessibility Checker'
               : 'Web Accessibility Monitoring'}
           </Typography>
           <Typography
@@ -93,7 +93,7 @@ function CtaIntro({ checker }: CtaIntro) {
             color={'textSecondary'}
           >
             {checker
-              ? 'Test your website inclusion and vitals'
+              ? 'Test your webpage inclusion and vitals'
               : 'Safeguard to a pleasant inclusive experience'}
           </Typography>
           <Button

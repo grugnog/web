@@ -2,6 +2,7 @@ export {
   websiteData,
   websiteHtmlData,
   useWebsiteData,
+  useRestWebsiteData,
 } from './external/website'
 export { issueData } from './external/issues/issue'
 export { userData } from './external/user/user'

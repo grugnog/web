@@ -1,11 +1,6 @@
 import { AppProps } from 'next/app'
 
-export type AppComponent = AppProps['Component'] &
-  Partial<MetaData> & {
-    meta: any
-    gql?: boolean
-    intercom?: boolean
-  }
+export type AppComponent = AppProps['Component'] & Partial<MetaData>
 
 export interface InnerApp {
   Component: AppComponent
@@ -24,6 +19,10 @@ export interface MetaData {
   description?: string
   /** Enable apollo gql */
   gql?: boolean
+  /** Enable rest provider for a11ywatch */
+  rest?: boolean
+  /** Meta data properties for head */
+  meta?: any
   /** ID: Component name or page name used in meta information */
   name?: string
   /** Enable intercom composer */
@@ -31,6 +30,8 @@ export interface MetaData {
   /** Params for initial gql queries [todo update generic] */
   params?: any
 }
+
+interface MetaFunction extends Partial<MetaData>, Function {}
 
 export type PageProps = {
   name: string

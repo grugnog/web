@@ -7,7 +7,6 @@ import {
   CtaSignonForm,
   CtaProfessionalSupportButton,
 } from '@app/components/cta'
-import { WithSwipeModal as SwipeableTemporaryDrawer } from '@app/components/adhoc'
 import {
   MarketingTestimonial,
   MarketingTrustBy,
@@ -16,6 +15,7 @@ import {
 } from '@app/components/marketing'
 import { metaSetter } from '@app/utils'
 import { strings } from '@app-strings'
+import { SwipeableTemporaryDrawer } from '@app/components/modal'
 
 function Index() {
   return (

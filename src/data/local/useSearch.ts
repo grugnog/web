@@ -5,12 +5,12 @@ import { isUrl } from '@app/lib/is-url'
 import { logGraphErrors } from '@app/lib/log'
 import { SCAN_WEBSITE } from '@app/mutations'
 import { AppManager } from '@app/managers'
+import { searchQuery } from '@app/utils'
 
 const GET_SEARCH_STATE = gql`
   query getCtaSearchState {
     ctaSearch @client {
       search
-      hideWebsite
       bottomModal
       website
     }
@@ -19,7 +19,6 @@ const GET_SEARCH_STATE = gql`
 
 const defaultState = {
   search: '',
-  hideWebsite: false,
   bottomModal: false,
   website: null,
 }
@@ -28,15 +27,13 @@ export function useSearch() {
   const client = useApolloClient()
   const [scanWebsite, { data: crawlData, loading }] = useMutation(SCAN_WEBSITE)
   const { data } = useQuery(GET_SEARCH_STATE)
-  const { search, hideWebsite, bottomModal, website } =
-    data?.ctaSearch || defaultState
+  const { search, bottomModal, website } = data?.ctaSearch || defaultState
 
   const setSearch = (event: any) => {
     client.writeData({
       data: {
         ctaSearch: {
           search: event?.search || '',
-          hideWebsite: false,
           bottomModal: false,
           website: null,
           __typename: 'SearchWebsites',
@@ -48,16 +45,7 @@ export function useSearch() {
   const scanPage = async (event: any, text: string) => {
     event?.preventDefault()
 
-    let tpt = ''
-    let squery = String(text || search)
-
-    if (!squery.includes('http')) {
-      tpt = 'http://'
-    }
-
-    const hasExt = squery.split('.').pop()
-
-    const querySearch = `${tpt}${squery}${hasExt ? `` : '.com'}`
+    const querySearch = searchQuery(text || search)
 
     scanWebsite({
       variables: {
@@ -71,44 +59,44 @@ export function useSearch() {
       data: {
         ctaSearch: {
           search: '',
-          hideWebsite: true,
           bottomModal: false,
           website: null,
           __typename: 'SearchWebsites',
         },
       },
     })
-    if (crawlData.scanWebsite) {
+    if (crawlData && crawlData.scanWebsite) {
       crawlData.scanWebsite.website = null
     }
   }
 
-  const toggleModal = (bottom: boolean, text: string) => {
-    const txt = text || ''
-    const hasPriorCom = txt?.includes('.')
+  // replace name to search
+  const toggleModal = (bottom: boolean, url: string) => {
+    const origin = isUrl(url)?.origin
 
-    if (!isUrl(txt) && !hasPriorCom) {
+    if (!origin) {
       AppManager.toggleSnack(
         true,
         'Please enter a valid website url starting with http:// or https://',
         'error'
       )
-    } else {
-      if (bottom && txt) {
-        scanPage(null, txt)
-      }
-      client.writeData({
-        data: {
-          ctaSearch: {
-            hideWebsite: true,
-            search: !bottom ? '' : search,
-            bottomModal: bottom,
-            website: null,
-            __typename: 'SearchWebsites',
-          },
-        },
-      })
+      return
     }
+
+    if (bottom && origin) {
+      scanPage(null, origin)
+    }
+
+    client.writeData({
+      data: {
+        ctaSearch: {
+          search: !bottom ? '' : search,
+          bottomModal: bottom,
+          website: null,
+          __typename: 'SearchWebsites',
+        },
+      },
+    })
   }
 
   useEffect(() => {
@@ -121,7 +109,6 @@ export function useSearch() {
         client.writeData({
           data: {
             ctaSearch: {
-              hideWebsite,
               search,
               bottomModal,
               website: JSON.stringify(page),
@@ -142,7 +129,6 @@ export function useSearch() {
       (website && JSON.parse(website)) || {
         url: search,
       },
-    hideWebsite,
     crawlData,
     closeFeed,
     bottomModal,

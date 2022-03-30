@@ -46,7 +46,6 @@ const SCAN_WEBSITE = gql`
         issue {
           code
           type
-          typeCode
           message
           context
           selector
