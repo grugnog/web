@@ -1,8 +1,7 @@
-import React, { useCallback } from 'react'
+import React from 'react'
 import { Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import { strings } from '@app-strings'
-import { useSearch } from '@app/data'
 import { SectionHeading } from '../text'
 import { SectionContainer } from '../general'
 import Image from 'next/image'
@@ -31,13 +30,6 @@ const useStyles = makeStyles((theme) => ({
 
 export function CtaCustomers() {
   const classes = useStyles()
-  const { toggleModal } = useSearch()
-  const clickItem = useCallback(
-    (item: string) => {
-      toggleModal(true, item)
-    },
-    [toggleModal]
-  )
 
   return (
     <SectionContainer>
@@ -47,17 +39,14 @@ export function CtaCustomers() {
       </Typography>
       <div className={classes.card}>
         {['twitter', 'github', 'dropbox'].map((item, i) => (
-          <button
-            onClick={() => {
-              clickItem(`https://${item}.com`)
-            }}
-            aria-label={`Scan ${item} for issues`}
+          <div
+            aria-label={`${item} logo`}
             key={item + i}
             style={{ border: 0 }}
             className={classes.badge}
           >
             <Image src={`/img/${item}.svg`} alt={item} width={78} height={78} />
-          </button>
+          </div>
         ))}
       </div>
     </SectionContainer>

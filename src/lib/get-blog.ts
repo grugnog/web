@@ -28,6 +28,12 @@ export const getBlogPage = async (pathname: string): Promise<BlogPageProps> => {
         const cssSheets = htmlRoot.querySelectorAll('style')
         const headTag = htmlRoot.querySelector(`head`)
 
+        const authorPrefix = htmlRoot.querySelectorAll('.author-prefix')
+
+        authorPrefix?.forEach((tag) => {
+          tag.remove()
+        })
+
         // IMPORTANT: scripts that belong in the head
         const startScripts = htmlRoot.querySelectorAll(`head script`)
 
@@ -79,6 +85,9 @@ export const getBlogPage = async (pathname: string): Promise<BlogPageProps> => {
             .light-background {
               background-color: #fff;
               font-family: system-ui;
+            }
+            .entry-date.published {
+              color: rgba(117, 117, 117, 1);
             }
             .dark-background {
               background-color: rgb(26, 26, 26);

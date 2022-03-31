@@ -41,7 +41,7 @@ export function RenderSecondary({
     <div className={'flex space-x-2'}>
       {mainIssues && adaScore !== 100 ? (
         <Tooltip
-          title={`${mainIssues} issue${
+          title={`${mainIssues} possible issue${
             totalIssuesOnPage === 1 ? '' : 's'
           } across ${issues?.length || 1} page${
             issues?.length === 1 || !issues.length ? '' : 's'
@@ -52,7 +52,7 @@ export function RenderSecondary({
             variant='outlined'
             size='small'
             avatar={<IssuesIcon />}
-            label={`${mainIssues} issue${totalIssuesOnPage === 1 ? '' : 's'}`}
+            label={mainIssues}
           />
         </Tooltip>
       ) : null}

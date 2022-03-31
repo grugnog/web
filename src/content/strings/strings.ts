@@ -24,10 +24,10 @@ export const generateStrings = ({
       'Improve your accessibility with our a11y monitor, helper and fixer powered by AI.',
     ctaTryOut: 'Try A11yWatch for free',
     ctaSeeHowItWorks: 'See How It Works',
-    customers: 'Get accessibility, performance, and UX insights on demand',
+    customers: 'Get reports, monitoring, and core web vitals',
     usersUsing: 'Used on here',
     customersWhy:
-      'See live results on a well known website like Twitter, Github, and Dropbox below.',
+      'Get live results on any website like Twitter, Github, and Dropbox.',
     testimonials: [
       {
         title:
@@ -74,27 +74,20 @@ export const generateStrings = ({
       },
       {
         id: 5,
-        title: 'Simple',
-        detail:
-          'Just drop in one line of code and your now all your pages are handled. Works really well with frameworks like React, Angular, Svelte, and Vue.',
-        reason: 'Basic',
-      },
-      {
-        id: 6,
         title: 'Live Viewer',
         detail:
           'View the issues in the browser and experiment with fixes in real time. Adjust colors and accessibility properties to leverage productivity.',
         reason: 'Basic',
       },
       {
-        id: 7,
+        id: 6,
         title: 'AI',
         detail:
           'With AI and machine learning we tailor custom needs for your website rapidly. Determine missing alts with high proximity ratios, css style issues, and more.',
         reason: 'Basic',
       },
       {
-        id: 9,
+        id: 7,
         title: '100% Open-Source',
         detail:
           'Every line of code to power this project is fully open-source and available on GitHub. Easily fork the project and run on your own server with docker.',
@@ -119,7 +112,7 @@ export const generateStrings = ({
     getSupport: 'Get Professional Support',
     trySearch: 'Free website accessibility scan',
     tryOutCdn:
-      'after sign in. Get your secure custom cdn script and insert it at the end of your html body',
+      'after sign in. Get your secure custom CDN script and insert it at the end of your html body.',
     subTitle: 'Elevating accessibility for every website',
   }
 }

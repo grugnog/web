@@ -12,7 +12,6 @@ import {
   Speed as SpeedIcon,
   Security as SecurityIcon,
   Compare as CompareIcon,
-  Web as WebIcon,
   TripOrigin as TripIcon,
   GitHub as GitHubIcon,
 } from '@material-ui/icons'
@@ -34,13 +33,6 @@ const useStyles = makeStyles((theme) => ({
       marginBottom: '3px',
       width: '100%',
     },
-  },
-  title: {
-    maxWidth: '80vw',
-  },
-  subtitle: {
-    maxWidth: '80vw',
-    textAlign: 'left',
   },
   flex: {
     flex: 1,
@@ -72,12 +64,9 @@ const RenderIcon = ({ index, ...props }: any): any =>
           FeatureIcon = CompareIcon
           break
         case 6:
-          FeatureIcon = WebIcon
-          break
-        case 7:
           FeatureIcon = TripIcon
           break
-        case 8:
+        case 7:
           FeatureIcon = GitHubIcon
           break
         default:
@@ -98,17 +87,12 @@ function FeatureItem({ item, index }: { item: any; index: number }) {
         <div className='flex rounded-3xl border w-10 h-10 justify-center items-center'>
           <RenderIcon index={index} fontSize='small' />
         </div>
-        <Typography variant='h5' component='div' className={classes.title}>
+        <Typography variant='h5' component='div'>
           {item.title}
         </Typography>
       </div>
       <div className={classes.flex} />
-      <Typography
-        variant='subtitle1'
-        component='p'
-        gutterBottom
-        className={classes.subtitle}
-      >
+      <Typography variant='subtitle1' component='p' gutterBottom>
         {item.detail}
       </Typography>
     </div>

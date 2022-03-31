@@ -1,26 +1,13 @@
 import React, { createContext, useContext, FC } from 'react'
-import { useRestWebsiteData } from '@app/data'
-import { sharedWebsiteDefaults } from '../defaults'
+import { useSearchRest } from '@app/data'
+import { restWebsiteDefaults } from '../defaults'
 
-const {
-  subscriptionData,
-  error,
-  addWebsite,
-  removeWebsite,
-  updateWebsite,
-  mutatationLoading,
-  refetch,
-  crawlWebsite,
-  ...strip
-} = sharedWebsiteDefaults
-
-const AppContext = createContext(strip)
+const AppContext = createContext(restWebsiteDefaults)
 
 export const RestWebsiteProvider = AppContext.Provider
 
-// skip fetching the website query
 export const RestWebsiteProviderWrapper: FC = ({ children }) => {
-  const sharedState = useRestWebsiteData()
+  const sharedState = useSearchRest()
 
   return (
     <RestWebsiteProvider value={sharedState}>{children}</RestWebsiteProvider>

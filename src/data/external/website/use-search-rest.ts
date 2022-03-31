@@ -43,10 +43,10 @@ export function useSearchRest() {
     loading: false,
     data: undefined,
   })
-
+  // modal state
   const [data, setSearchState] = useState<typeof defaultState>(defaultState)
 
-  const { bottomModal, website } = data || defaultState
+  const { bottomModal, website } = data
 
   const setSearch = useCallback(
     (event: any) => {
@@ -63,12 +63,13 @@ export function useSearchRest() {
     const querySearch = searchQuery(text || search)
     setScan({ loading: true })
     const json = await scanWebsite(querySearch)
+    console.log(json)
     setScan({ loading: false, data: json })
 
     return json
   }
 
-  const closeFeed = () => {
+  const closeModal = () => {
     setSearchState(defaultState)
   }
 
@@ -103,12 +104,11 @@ export function useSearchRest() {
     setSearch,
     scanPage,
     loading,
-    website: crawlData?.website ||
+    data: crawlData?.website ||
       website || {
         url: search,
       },
-    crawlData,
-    closeFeed,
+    closeModal,
     bottomModal,
     toggleModal,
   }
