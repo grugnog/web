@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react'
+import React, { Fragment, memo } from 'react'
 import { Grid, Typography, useMediaQuery } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import { a11yDark } from '@app/styles'
@@ -87,10 +87,14 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
-export function ReportView({ website, closeButton, disablePlayground }: any) {
+export function ReportViewComponent({
+  website,
+  closeButton,
+  disablePlayground,
+}: any) {
   const classes = useStyles()
   const desktop = useMediaQuery('(min-width:600px)')
-  const empty = Object.keys(website).length <= 1
+  const empty = Object.keys(website ?? {}).length <= 1
 
   return (
     <div className={classes.root}>
@@ -104,7 +108,7 @@ export function ReportView({ website, closeButton, disablePlayground }: any) {
         <RenderSecondary {...website} />
         <CtaCdn website={website} block disablePlayground={disablePlayground} />
         <Spacer height={8} />
-        {disablePlayground ? null : <Timer stop={!empty} />}
+        <Timer stop={!empty} />
         {website?.script?.script && desktop ? (
           <Fragment>
             <Typography gutterBottom variant={'body2'}>
@@ -148,3 +152,5 @@ export function ReportView({ website, closeButton, disablePlayground }: any) {
     </div>
   )
 }
+
+export const ReportView = memo(ReportViewComponent)

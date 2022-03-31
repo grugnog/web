@@ -39,7 +39,7 @@ export const CheckoutForm = ({ onToken, basic, price, disabled }: Props) => {
       if (!error) {
         await onToken(token)
       } else {
-        console.log(error)
+        console.error(error)
       }
     }
   }

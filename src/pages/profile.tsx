@@ -71,8 +71,6 @@ const Profile: FC<PageProps> = ({ name }) => {
     }
   }, [updateUserData, setCurrentPassword, setNewPassword])
 
-  console.log(user)
-
   return (
     <Fragment>
       {user?.passwordRequired ? (

@@ -1,2 +1,5 @@
 export { DynamicModal } from './dynamic'
-export { SwipeableTemporaryDrawer } from './temporary'
+export {
+  MarketingBottomTemporaryDrawer,
+  SwipeableTemporaryDrawer,
+} from './temporary'

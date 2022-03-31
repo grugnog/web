@@ -7,7 +7,7 @@ import {
   createStyles,
 } from '@material-ui/core/styles'
 import { AppManager } from '@app/managers'
-import { useSearch } from '@app/data'
+import { useRestWebsiteContext } from '@app/components/providers/rest/rest-website'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -75,11 +75,11 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 )
 
-function CtaInput() {
+function CtaInputRest() {
   const classes = useStyles()
-  const [searchFocused, setSearchFocused] = useState<boolean>()
   const ref = useRef<HTMLInputElement>(null)
-  const { search, setSearch, loading, toggleModal } = useSearch()
+  const [searchFocused, setSearchFocused] = useState<boolean>()
+  const { search, setSearch, loading, toggleModal } = useRestWebsiteContext()
 
   const toggleSearch = (open: boolean = false) => () => {
     if (open && !searchFocused && ref?.current) {
@@ -98,7 +98,7 @@ function CtaInput() {
           'error'
         )
       }
-      toggleModal(true, search)
+      toggleModal(search)
       if (ref.current) {
         ref.current.value = ''
       }
@@ -131,7 +131,7 @@ function CtaInput() {
           }}
           onBlur={toggleSearch(false)}
           onFocus={toggleSearch(true)}
-          onChange={(event: any) => setSearch({ search: event?.target?.value })}
+          onChange={setSearch}
           inputProps={{
             minLength: 4,
             name: 'search',
@@ -152,4 +152,4 @@ function CtaInput() {
   )
 }
 
-export { CtaInput }
+export { CtaInputRest }

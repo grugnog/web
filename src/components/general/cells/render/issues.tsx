@@ -66,7 +66,7 @@ export function RenderIssueComponent({
     extraProps
   )
 
-  const { error, openError, ...props } = checkListProps
+  const { error, openError, typeCode, runnerExtras, ...props } = checkListProps
 
   return (
     <ListItem

@@ -9,12 +9,14 @@ interface BottomDrawer {
   website?: any
   bottomModal?: boolean
   closeFeed?: () => void
+  disablePlayground?: boolean
 }
 
 export function BottomDrawerComponent({
   bottomModal,
   closeFeed,
   website,
+  disablePlayground,
 }: BottomDrawer) {
   return (
     <Drawer anchor='bottom' open={bottomModal} onClose={closeFeed}>
@@ -25,6 +27,7 @@ export function BottomDrawerComponent({
           </IconButton>
         }
         website={website}
+        disablePlayground={disablePlayground}
       />
     </Drawer>
   )
@@ -45,13 +48,15 @@ export function SwipeableTemporaryDrawer() {
 }
 
 export function MarketingBottomTemporaryDrawer() {
-  const { bottomModal, data, closeModal } = useRestWebsiteContext()
+  const { data, loading, closeModal, search } = useRestWebsiteContext()
+  const websiteData = { ...data, url: search }
 
   return (
     <BottomDrawer
-      bottomModal={bottomModal}
+      bottomModal={(loading && !data) || !!data}
       closeFeed={closeModal}
-      website={data}
+      website={websiteData}
+      disablePlayground
     />
   )
 }

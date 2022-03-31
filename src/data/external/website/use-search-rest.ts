@@ -1,25 +1,20 @@
-import { SyntheticEvent, useCallback, useState } from 'react'
+import { useCallback, useState } from 'react'
 import { isUrl } from '@app/lib/is-url'
 import { AppManager } from '@app/managers'
 import { searchQuery } from '@app/utils'
 import { getAPIRoute } from '@app/configs'
 import { Website } from '@app/types'
 
-const defaultState = {
-  bottomModal: false,
-  website: null,
-}
-
 // SCOPE WEBSITE DATA PER ROUTE (ALL, ISSUES, PAGES)
-export const scanWebsite = async (url: string) => {
+export const scanWebsite = async (websiteUrl: string) => {
   try {
     const request = await fetch(`${getAPIRoute('api')}/scan-simple`, {
       method: 'POST',
       body: JSON.stringify({
-        url,
+        websiteUrl,
       }),
       headers: {
-        contentType: 'application/json',
+        'Content-Type': 'application/json',
       },
     })
     if (request?.ok) {
@@ -39,42 +34,35 @@ interface Scan {
 // TODO: USE REST CALL
 export function useSearchRest() {
   const [search, setQuery] = useState<string>('')
-  const [{ data: crawlData, loading }, setScan] = useState<Scan>({
+  const [{ data, loading }, setScan] = useState<Scan>({
     loading: false,
     data: undefined,
   })
   // modal state
-  const [data, setSearchState] = useState<typeof defaultState>(defaultState)
-
-  const { bottomModal, website } = data
+  const { website } = data ?? {}
 
   const setSearch = useCallback(
     (event: any) => {
-      setQuery(event?.search)
+      setQuery(event?.target?.value)
     },
     [setQuery]
   )
 
-  const scanPage = async (
-    event: null | SyntheticEvent<HTMLInputElement>,
-    text: string
-  ) => {
-    event?.preventDefault()
-    const querySearch = searchQuery(text || search)
+  const scanPage = async () => {
+    const querySearch = searchQuery(search)
     setScan({ loading: true })
     const json = await scanWebsite(querySearch)
-    console.log(json)
     setScan({ loading: false, data: json })
 
     return json
   }
 
   const closeModal = () => {
-    setSearchState(defaultState)
+    setScan({ loading: false, data: undefined })
   }
 
   // move validation
-  const toggleModal = async (bottom: boolean, url: string) => {
+  const toggleModal = async (url: string) => {
     const origin = isUrl(url)?.origin
 
     if (!origin) {
@@ -86,17 +74,7 @@ export function useSearchRest() {
       return
     }
 
-    if (bottom && origin) {
-      const web = await scanPage(null, origin)
-      if (web) {
-        setSearchState({
-          bottomModal: bottom,
-          website: web,
-        })
-      } else {
-        setSearchState(defaultState)
-      }
-    }
+    await scanPage()
   }
 
   return {
@@ -104,12 +82,8 @@ export function useSearchRest() {
     setSearch,
     scanPage,
     loading,
-    data: crawlData?.website ||
-      website || {
-        url: search,
-      },
+    data: website,
     closeModal,
-    bottomModal,
     toggleModal,
   }
 }

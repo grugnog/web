@@ -1,18 +1,31 @@
 import React, { Fragment } from 'react'
-import { MarketingDrawer, SignOnForm } from '@app/components/general'
-import { CtaIntro } from '@app/components/cta'
-import { WithSwipeModal as SwipeableTemporaryDrawer } from '@app/components/adhoc'
+import { MarketingDrawer } from '@app/components/general'
+import { CtaIntroRest } from '@app/components/cta/cta-intro-rest'
 import { metaSetter } from '@app/utils'
 import type { PageProps } from '@app/types'
+import { MarketingBottomTemporaryDrawer } from '@app/components/modal'
 
 function WebsiteAccessibilityChecker({ name }: PageProps) {
   return (
     <Fragment>
       <MarketingDrawer title={name} navPosition={'relative'}>
-        <CtaIntro checker />
-        <SignOnForm home />
+        <CtaIntroRest checker />
+        <div className='px-4 max-w-[800px]'>
+          <h3 className='text-3xl font-bold'>Live Web Accessibility Testing</h3>
+          <p className='text-lg'>
+            Scan your website and get lightning fast results for free. Sign up
+            today to get monitoring and other web accessibility improvement
+            tools right in your browser or your own servers.
+          </p>
+          <p className='text-lg'>
+            Optimize your workflow on tackling web inclusion issues while
+            learning how to stay accessible for the long run. If you have
+            thousands of pages, A11yWatch was built with the speed in mind to
+            give you real time results with minimal downtime.
+          </p>
+        </div>
       </MarketingDrawer>
-      <SwipeableTemporaryDrawer />
+      <MarketingBottomTemporaryDrawer />
     </Fragment>
   )
 }
@@ -21,7 +34,7 @@ export default metaSetter(
   { WebsiteAccessibilityChecker },
   {
     description: `Check the accessibility of your webpage today. Improve your web inclusion with accessibility testing, reports, recommendations, monitoring, and instant accessibility fixes.`,
-    gql: true,
+    rest: true,
     intercom: true,
   }
 )

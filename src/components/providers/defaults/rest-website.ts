@@ -2,8 +2,7 @@ import { SyntheticEvent } from 'react'
 
 export const restWebsiteDefaults = {
   loading: false,
-  data: [] as any,
-  bottomModal: false,
+  data: {} as any,
   search: '', // search query
   setSearch: (_: any): void => {
     return _
@@ -14,7 +13,7 @@ export const restWebsiteDefaults = {
   ): Promise<any> => {
     return Promise.resolve()
   },
-  toggleModal: (_: any, _q: string): Promise<any> => {
+  toggleModal: (_: any): Promise<any> => {
     return _
   },
   closeModal: (): void => {},
