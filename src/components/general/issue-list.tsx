@@ -1,9 +1,7 @@
-import React, { Fragment, memo } from 'react'
-import { List, Button, Typography } from '@material-ui/core'
-import { printElement } from '@app/utils'
+import React, { memo } from 'react'
+import { List, Typography } from '@material-ui/core'
 import { useStyles } from './styles'
-import { RenderIssuesList } from './cells'
-import { getAPIRoute } from '@app/configs'
+import { FeedIssuesList } from './cells/render/issues-list'
 
 // TODO: REMOVE AND SPLIT COMPONENT
 const getIssue = (website: any) => {
@@ -22,11 +20,7 @@ const getIssue = (website: any) => {
   return issue
 }
 
-export function IssueListComponent({
-  printable,
-  website,
-  className = '',
-}: any) {
+export function IssueListComponent({ website, className = '' }: any) {
   const classes = useStyles()
   const CTA_LIST_ID = 'cta-issue-list'
   const issue = getIssue(website) ?? []
@@ -40,42 +34,19 @@ export function IssueListComponent({
   }
 
   return (
-    <Fragment>
-      {printable ? (
-        <div style={{ marginBottom: 14, marginTop: 14 }}>
-          <Button
-            className={classes.print}
-            style={{ marginRight: 5 }}
-            onClick={() => printElement(CTA_LIST_ID, website)}
-          >
-            Print
-          </Button>
-          <Button
-            className={classes.print}
-            component={'a'}
-            href={`${getAPIRoute()}/get-website?q=${
-              website?.url
-            }&download=true`}
-          >
-            Download
-          </Button>
-        </div>
-      ) : null}
-      <List
-        className={`${classes.searchList} ${className ?? ''}`}
-        id={CTA_LIST_ID}
-      >
-        {issue.map((item: any, listIndex: number) => (
-          <RenderIssuesList
-            item={item}
-            url={issue?.pageUrl}
-            listIndex={listIndex}
-            error
-            key={`${listIndex} ${item?.selector} ${item?.code}`}
-          />
-        ))}
-      </List>
-    </Fragment>
+    <List
+      className={`${classes.searchList} ${className ?? ''}`}
+      id={CTA_LIST_ID}
+    >
+      {issue.map((item: any, listIndex: number) => (
+        <FeedIssuesList
+          item={item}
+          url={issue?.pageUrl}
+          listIndex={listIndex}
+          key={`${listIndex} ${item?.selector} ${item?.code}`}
+        />
+      ))}
+    </List>
   )
 }
 

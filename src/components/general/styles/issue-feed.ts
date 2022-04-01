@@ -34,7 +34,7 @@ export const useStyles = makeStyles(
         overflowY: 'scroll',
         paddingBottom: 0,
         display: 'block',
-        maxHeight: 'calc(100vh - 48px)',
+        maxHeight: 'calc(100vh)',
         [breakpoints.down('sm')]: {
           maxHeight: '50vh',
         },

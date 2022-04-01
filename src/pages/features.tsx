@@ -47,12 +47,12 @@ function Features({ name }: PageProps) {
               Our inclusion insight reporter and monitor scans for problems with
               recommended solutions that are tuned for your website including
               WCAG 2.0 and beyond. Get notified when new issues occur with
-              detailed information on what happened with recommendations. The
-              reporter runs on all your pages and you can run the test multiple
-              times a day. Control how often you need the reporter to run to get
-              alerted along your schedule. Get Google Lighthouse reports on all
-              of your pages at once to elevate web vitals and other metrics that
-              help make a website inclusive.
+              detailed information on what happened including recommendations.
+              The reporter runs on all your pages and you can run the test
+              multiple times a day. Control how often you need the reporter to
+              run to get alerted along your schedule. Get Google Lighthouse
+              reports on all of your pages at once to elevate web vitals and
+              other metrics that help make a website inclusive.
             </FeatureHeading>
             <div className={paperStyle}>
               <Image

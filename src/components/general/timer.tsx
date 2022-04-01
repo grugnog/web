@@ -15,8 +15,6 @@ export const Timer = ({ stop }: { stop?: boolean }) => {
   }, [stop])
 
   return (
-    <Typography gutterBottom variant={'subtitle1'}>
-      Scan duration: {seconds}s
-    </Typography>
+    <Typography variant={'subtitle1'}>Scan duration: {seconds}s</Typography>
   )
 }

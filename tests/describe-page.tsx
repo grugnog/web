@@ -5,7 +5,7 @@ import { MyApp } from '../src/components/general/app'
 interface Target {
   component?: FC
   folder?: string
-  name?: string
+  name?: string // initial heading name
   apollo?: boolean
 }
 
@@ -16,7 +16,7 @@ export const describePage = jest.fn(
 
       it('renders without crashing', () => {
         act(() => {
-          render(<MyApp name={name} Component={Component} />)
+          render(<MyApp Component={Component} />)
         })
 
         expect(screen.getByRole('heading', { level: 1 })).toBeInTheDocument()

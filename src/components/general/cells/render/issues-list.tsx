@@ -42,5 +42,7 @@ export function FeedIssuesListComponent({
   return <FeedIssue {...props} {...item} />
 }
 
+// dynamic issues list component handling all edges
 export const RenderIssuesList = memo(RenderIssuesListComponent)
+// feed issue list component
 export const FeedIssuesList = memo(FeedIssuesListComponent)

@@ -84,7 +84,7 @@ function CtaIntro({ checker }: CtaIntro) {
           >
             {checker
               ? 'Real-Time Website Accessibility Checker'
-              : 'Web Accessibility Monitoring'}
+              : 'Build Inclusive Websites Now'}
           </Typography>
           <Typography
             variant='subtitle1'
@@ -94,7 +94,7 @@ function CtaIntro({ checker }: CtaIntro) {
           >
             {checker
               ? 'Test your webpage inclusion and vitals'
-              : 'Safeguard to a pleasant inclusive experience'}
+              : 'Safeguard to a pleasant diverse experience'}
           </Typography>
           <Button
             component={Link}

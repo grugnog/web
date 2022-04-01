@@ -43,8 +43,6 @@ export function RenderSecondary({
         <Tooltip
           title={`${mainIssues} possible issue${
             totalIssuesOnPage === 1 ? '' : 's'
-          } across ${issues?.length || 1} page${
-            issues?.length === 1 || !issues.length ? '' : 's'
           }`}
           placement={'right'}
         >

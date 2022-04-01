@@ -1,29 +1,16 @@
-import React, { Fragment, memo } from 'react'
-import { Grid, Typography, useMediaQuery } from '@material-ui/core'
+import React, { memo, useMemo } from 'react'
 import { makeStyles } from '@material-ui/core/styles'
-import { a11yDark } from '@app/styles'
 import {
   IssueList,
-  RenderSecondary,
-  Spacer,
   WebsiteTabs,
   Screenshot,
   TestView,
-  Timer,
 } from '@app/components/general'
 import { ListSkeleton } from '@app/components/placeholders'
-import { CtaCdn } from '@app/components/cta'
-import { strings } from '@app-strings'
-import { EditableMixture } from '@app/components/mixtures/editable-mixture'
+import { ReportViewComponentLeft } from './report-left'
+import { Website } from '@app/types'
 
 const useStyles = makeStyles((theme) => ({
-  container: {
-    padding: theme.spacing(1),
-    width: '38vw',
-    [theme.breakpoints.down('sm')]: {
-      width: 'auto',
-    },
-  },
   root: {
     height: '100vh',
     overflow: 'hidden',
@@ -58,11 +45,6 @@ const useStyles = makeStyles((theme) => ({
       flex: 1,
     },
   },
-  row: {
-    display: 'flex',
-    alignItems: 'center',
-    marginBottom: 6,
-  },
   title: {
     flex: 1,
     fontWeight: 600,
@@ -78,75 +60,83 @@ const useStyles = makeStyles((theme) => ({
     display: 'block',
     height: '100%',
   },
-  center: {
-    display: 'flex',
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    height: '100%',
-  },
 }))
+
+export function ReportEmptyView() {
+  const classes = useStyles()
+
+  return (
+    <div style={{ width: '100%' }}>
+      <div className={classes.loading} role='presentation'>
+        <ListSkeleton avatar={false} subTitle={false} count={3} />
+      </div>
+      <div className={classes.toolbar} role='presentation'>
+        <ListSkeleton avatar={false} subTitle={false} count={2} />
+      </div>
+      <ListSkeleton count={8} avatar={false} report />
+    </div>
+  )
+}
+export function ReportBody({ website }: { website: Website }) {
+  return <IssueList website={website} printable />
+}
+
+export function ReportInner({
+  website,
+  disablePlayground,
+  disableTabs,
+}: {
+  disablePlayground?: boolean
+  website: Website
+  disableTabs?: boolean
+}) {
+  if (disableTabs) {
+    return <ReportBody website={website} />
+  }
+
+  return (
+    <WebsiteTabs
+      issues={<IssueList website={website} printable />}
+      screenshot={
+        <div className={`flex flex-1 h-full items-center justify-center`}>
+          <Screenshot
+            url={website?.url}
+            src={website?.screenshotStill ?? website.screenshot}
+          />
+        </div>
+      }
+      playground={
+        disablePlayground ? null : (
+          <TestView url={website.url || ''} marketing />
+        )
+      }
+    />
+  )
+}
 
 export function ReportViewComponent({
   website,
   closeButton,
   disablePlayground,
+  disableTabs,
 }: any) {
   const classes = useStyles()
-  const desktop = useMediaQuery('(min-width:600px)')
-  const empty = Object.keys(website ?? {}).length <= 1
+  const empty = useMemo(() => Object.keys(website ?? {}).length <= 1, [website])
 
   return (
     <div className={classes.root}>
-      <div className={classes.container}>
-        <Grid className={classes.row}>
-          {closeButton}
-          <Typography variant='h5' component='p' className={classes.title}>
-            {website?.url || strings.trySearch}
-          </Typography>
-        </Grid>
-        <RenderSecondary {...website} />
-        <CtaCdn website={website} block disablePlayground={disablePlayground} />
-        <Spacer height={8} />
-        <Timer stop={!empty} />
-        {website?.script?.script && desktop ? (
-          <Fragment>
-            <Typography gutterBottom variant={'body2'}>
-              JS Fixes
-            </Typography>
-            <Spacer height={2} />
-            <div>
-              <EditableMixture language='html' style={a11yDark} editMode>
-                {website?.script?.script || ''}
-              </EditableMixture>
-            </div>
-          </Fragment>
-        ) : null}
-      </div>
+      <ReportViewComponentLeft
+        website={website}
+        closeButton={closeButton}
+        printable
+      />
       {empty ? (
-        <div style={{ width: '100%' }}>
-          <div className={classes.loading} role='presentation'>
-            <ListSkeleton avatar={false} subTitle={false} count={4} />
-          </div>
-          <div className={classes.toolbar} role='presentation'>
-            <ListSkeleton avatar={false} subTitle={false} count={2} />
-          </div>
-          <ListSkeleton count={8} avatar={false} report />
-        </div>
+        <ReportEmptyView />
       ) : (
-        <WebsiteTabs
-          issues={<IssueList website={website} printable />}
-          screenshot={
-            <div className={classes.center}>
-              <Screenshot
-                url={website?.url}
-                src={website?.screenshotStill ?? website.screenshot}
-              />
-            </div>
-          }
-          playground={
-            disablePlayground ? null : <TestView url={website?.url} marketing />
-          }
+        <ReportInner
+          website={website}
+          disablePlayground={disablePlayground}
+          disableTabs={disableTabs}
         />
       )}
     </div>

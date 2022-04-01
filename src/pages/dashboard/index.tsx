@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useMemo } from 'react'
-import { Button, Fade } from '@material-ui/core'
+import { Button } from '@material-ui/core'
 import {
   PageTitle,
   LinearBottom,
@@ -62,19 +62,21 @@ function Dashboard({ name }: PageProps) {
         <PageTitle
           title={'Websites'}
           rightButton={
-            <Fade in={!!data?.length}>
-              <div className={'flex space-x-2'}>
-                <Button
-                  onClick={onRemoveAllWebsitePress}
-                  variant={'outlined'}
-                  color={'primary'}
-                  aria-label={'Remove all websites'}
-                >
-                  Remove All
-                </Button>
-                <FormDialog buttonTitle={`Subscribe More`} />
-              </div>
-            </Fade>
+            <div
+              className={`flex space-x-2 ${
+                !!data?.length ? 'block' : 'hidden'
+              }`}
+            >
+              <Button
+                onClick={onRemoveAllWebsitePress}
+                variant={'outlined'}
+                color={'primary'}
+                aria-label={'Remove all websites'}
+              >
+                Remove All
+              </Button>
+              <FormDialog buttonTitle={`Subscribe More`} />
+            </div>
           }
         />
         <WebsiteList

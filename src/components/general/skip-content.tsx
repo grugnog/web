@@ -23,7 +23,7 @@ export const SkipContent = () => {
   return (
     <Button
       ariaLabel='Skip navigation'
-      className={`${classes.root} invisible md:visible`}
+      className={`${classes.root} hidden md:block`}
       onClick={() => {
         document
           ?.querySelector('main')

@@ -14,7 +14,6 @@ import { makeStyles } from '@material-ui/core/styles'
 
 import { Close as CloseIcon } from '@material-ui/icons'
 
-import { issueSort } from '@app/lib'
 import { NavBarTitle } from './navigation'
 import { useInputHeader } from './hooks'
 
@@ -190,7 +189,7 @@ export function FullScreenModal({
       ) : (
         <List className={classes.list}>
           {Array.isArray(data) && data?.length ? (
-            data.sort(issueSort)?.map((item: any, listIndex: number) => {
+            data?.map((item: any, listIndex: number) => {
               return (
                 <WebsitePrimaryCell
                   handleClickOpenPlayer={handleClickOpenPlayer}

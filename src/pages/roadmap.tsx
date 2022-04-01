@@ -75,9 +75,9 @@ function RoadMap({ name }: PageProps) {
             AI and machine learning has a bit to go to have spot on labeling for
             image recognition. This means we need to have a level of accuracy
             for certainty on our fix being correct. If the probability is not
-            near 100% we need to allow developers to edit the scripts to the
-            proper label. Using the script panel you should be able to live edit
-            the script so that the changes can be applied on your live website.
+            near 100% we need to allow developers to edit the scripts to proper
+            labels. Using the script panel you should be able to live edit the
+            script so that the changes can be applied on your live website.
           </Heading>
         </div>
         <Image src='/img/type_code.svg' alt={'edit your code with accuracy'} />

@@ -11,12 +11,15 @@ function WebsiteAccessibilityChecker({ name }: PageProps) {
       <MarketingDrawer title={name} navPosition={'relative'}>
         <CtaIntroRest checker />
         <div className='px-4 max-w-[800px]'>
-          <h3 className='text-3xl font-bold'>Live Web Accessibility Testing</h3>
+          <h3 className='text-3xl font-bold'>Live web accessibility testing</h3>
           <p className='text-lg'>
             Scan your website and get lightning fast results for free. Sign up
             today to get monitoring and other web accessibility improvement
-            tools right in your browser or your own servers.
+            tools right in the browser or your own servers.
           </p>
+          <h4 className='text-2xl font-bold'>
+            Real time web accessibility results
+          </h4>
           <p className='text-lg'>
             Optimize your workflow on tackling web inclusion issues while
             learning how to stay accessible for the long run. If you have

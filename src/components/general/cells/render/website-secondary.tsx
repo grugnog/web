@@ -1,5 +1,5 @@
 import React, { memo, useMemo } from 'react'
-import { useMediaQuery, Chip, Tooltip } from '@material-ui/core'
+import { Chip, Tooltip } from '@material-ui/core'
 import {
   Update as CalendarIcon,
   Error as IssuesIcon,
@@ -15,8 +15,6 @@ export function WebsiteSecondaryComponent({
   issuesInfo,
   pageHeaders,
 }: any) {
-  const matches = useMediaQuery('(min-width:600px)')
-
   const { allPageIssues } = useMemo(() => {
     let allPageIssues = 0
     // let errorsCount = 0
@@ -83,7 +81,7 @@ export function WebsiteSecondaryComponent({
           />
         </Tooltip>
       ) : null}
-      {lastScan && matches ? (
+      {lastScan ? (
         <Tooltip
           title={`Last scan was at ${format(lastScan, 'MMMM d, yyyy hh:mm a')}`}
           placement={'right'}

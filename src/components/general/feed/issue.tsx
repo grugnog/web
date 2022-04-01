@@ -50,7 +50,7 @@ export function FeedIssueComponent({
   ...extraProps
 }: any) {
   const classes = useStyles()
-  const { ...props } = extraProps
+  const { typeCode, runnerExtras, ...props } = extraProps
 
   return (
     <ListItem

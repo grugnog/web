@@ -32,7 +32,7 @@ function CtaIntroRest({ checker }: CtaIntroRest) {
           >
             {checker
               ? 'Test your webpage inclusion and vitals'
-              : 'Safeguard to a pleasant inclusive experience'}
+              : 'Safeguard to a pleasant diverse experience'}
           </Typography>
           <Button
             component={Link}

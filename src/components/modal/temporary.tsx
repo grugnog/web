@@ -10,6 +10,7 @@ interface BottomDrawer {
   bottomModal?: boolean
   closeFeed?: () => void
   disablePlayground?: boolean
+  disableTabs?: boolean
 }
 
 export function BottomDrawerComponent({
@@ -17,6 +18,7 @@ export function BottomDrawerComponent({
   closeFeed,
   website,
   disablePlayground,
+  disableTabs,
 }: BottomDrawer) {
   return (
     <Drawer anchor='bottom' open={bottomModal} onClose={closeFeed}>
@@ -27,6 +29,7 @@ export function BottomDrawerComponent({
           </IconButton>
         }
         website={website}
+        disableTabs={disableTabs}
         disablePlayground={disablePlayground}
       />
     </Drawer>
@@ -47,6 +50,7 @@ export function SwipeableTemporaryDrawer() {
   )
 }
 
+// rest component to get website data
 export function MarketingBottomTemporaryDrawer() {
   const { data, loading, closeModal, search } = useRestWebsiteContext()
   const websiteData = { ...data, url: search }
@@ -57,6 +61,7 @@ export function MarketingBottomTemporaryDrawer() {
       closeFeed={closeModal}
       website={websiteData}
       disablePlayground
+      disableTabs
     />
   )
 }

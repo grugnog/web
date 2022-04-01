@@ -28,16 +28,7 @@ function CdnFix({ name }: PageProps) {
           loading={loading}
           emptyTitle={'No cdn scripts yet'}
         >
-          <div style={{ paddingTop: 8, paddingBottom: 8 }}>
-            <h2 className='font-bold text-xl'>
-              Built for single or multi page applications
-            </h2>
-            <p className='text-lg pb-4'>
-              If your application is in nextjs, vue, or any SPA framework by
-              simply adding the root domain script.
-            </p>
-            <CollaspeListCdn dataSource={dataSource} />
-          </div>
+          <CollaspeListCdn dataSource={dataSource} />
         </PageLoader>
       </Drawer>
     </>

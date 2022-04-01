@@ -10,7 +10,7 @@ const styles = {
 const UpgradeBanner = () => {
   // TODO: MOBILE VISUAL UPGRADE ICON
   return UserManager.freeAccount ? (
-    <div className='invisible md:visible'>
+    <div className='hidden md:block'>
       <div className='h-20' />
       <div className={styles.container}>
         <div className={styles.text}>
