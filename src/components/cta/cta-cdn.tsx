@@ -98,19 +98,6 @@ function CtaCdn({ website, disablePlayground }: any) {
           >
             Register
           </Button>
-          {Object.keys(website).length > 1 ? (
-            <Button
-              component={LinkPrefetch}
-              href={`/reports/${encodeURIComponent(website?.url)}${
-                website?.timestamp ? `/${website?.timestamp}` : ''
-              }`}
-              color={'secondary'}
-              variant={'outlined'}
-              className={`${classes.report} ${classes.text}`}
-            >
-              Report
-            </Button>
-          ) : null}
         </span>
       )}
       {noIssues ? <Typography>No issues found, great job!</Typography> : null}
