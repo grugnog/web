@@ -98,12 +98,17 @@ export function WebsiteIssuesCell({
   const [anchorEl, setAnchorEl] = useState<any>(null)
   const [issueView, setIssueView] = useState<boolean>(error)
 
-  const handleMenu = (event: any) => {
-    setAnchorEl(event.currentTarget)
-  }
-  const handleMenuClose = () => {
+  const handleMenu = useCallback(
+    (event: any) => {
+      setAnchorEl(event.currentTarget)
+    },
+    [setAnchorEl]
+  )
+
+  const handleMenuClose = useCallback(() => {
     setAnchorEl(null)
-  }
+  }, [setAnchorEl])
+
   const viewIssue = useCallback(
     (e: any) => {
       e?.preventDefault()

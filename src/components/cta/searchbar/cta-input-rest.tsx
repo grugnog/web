@@ -103,7 +103,7 @@ function CtaInputRest() {
         ref.current.value = ''
       }
     },
-    [toggleModal, ref]
+    [toggleModal, ref, search]
   )
 
   return (

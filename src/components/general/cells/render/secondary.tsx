@@ -1,5 +1,4 @@
 import React, { useMemo } from 'react'
-import { format } from 'date-fns'
 import { Chip, Tooltip } from '@material-ui/core'
 import {
   Update as CalendarIcon,
@@ -22,7 +21,7 @@ export function RenderSecondary({
   const possibleIssuesFixedByCdn = issuesInfo?.possibleIssuesFixedByCdn
   const totalIssuesOnPage = issuesInfo?.totalIssues
   const issuesFixedByCdn = issuesInfo?.issuesFixedByCdn
-  const lastScan = new Date(lastScanDate ? lastScanDate : null)
+  const lastScan = lastScanDate
 
   const allPageIssues = useMemo(() => {
     if (issues?.length) {
@@ -77,15 +76,12 @@ export function RenderSecondary({
         </Tooltip>
       ) : null}
       {lastScan ? (
-        <Tooltip
-          title={`Last scan was at ${format(lastScan, 'MMMM d, yyyy hh:mm a')}`}
-          placement={'right'}
-        >
+        <Tooltip title={`Last scan was at ${lastScan}`} placement={'right'}>
           <Chip
             variant='outlined'
             size='small'
             avatar={<CalendarIcon />}
-            label={format(lastScan, 'MM/dd/yyyy')}
+            label={lastScan}
           />
         </Tooltip>
       ) : null}

@@ -1,5 +1,5 @@
 import type { PageProps } from '@app/types'
-import type { GetStaticProps } from 'next'
+import type { GetServerSideProps } from 'next'
 import React, { Fragment } from 'react'
 import Head from 'next/head'
 import { MarketingDrawer, PageTitle } from '@app/components/general'
@@ -23,21 +23,14 @@ function Reports({ name, website }: PageProps) {
       <MarketingDrawer title={url || name} maxWidth='xl' initClosed={true}>
         <div className={'py-2 px-4'}>
           <PageTitle>{`Report: ${domain || 'page'}`}</PageTitle>
-          {website ? (
-            <ReportView website={website} disablePlayground={true} />
-          ) : null}
+          <ReportView website={website} disablePlayground={true} />
         </div>
       </MarketingDrawer>
     </Fragment>
   )
 }
 
-export async function getStaticPaths() {
-  // TODO: pre-render top domains
-  return { paths: [], fallback: 'blocking' }
-}
-
-export const getStaticProps: GetStaticProps = async (context) => {
+export const getServerSideProps: GetServerSideProps = async (context) => {
   const { slug } = context.params ?? {}
 
   if (!slug) {
@@ -49,15 +42,6 @@ export const getStaticProps: GetStaticProps = async (context) => {
   const [websiteUrl, timestamp] = Array.isArray(slug) ? slug : []
 
   let website
-
-  if (websiteUrl === 'static') {
-    return {
-      redirect: {
-        destination: '/',
-        permanent: false,
-      },
-    }
-  }
 
   try {
     const res = await fetch(
@@ -83,7 +67,6 @@ export const getStaticProps: GetStaticProps = async (context) => {
 
   return {
     props: { website },
-    revalidate: 6400,
   }
 }
 
