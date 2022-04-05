@@ -1,7 +1,7 @@
 FROM node:alpine AS deps
 RUN apk add --no-cache libc6-compat
 WORKDIR /app
-COPY package.json yarn.lock .yarnrc load-env.sh .env.example.txt ./
+COPY package.json yarn.lock ./
 RUN yarn install --frozen-lockfile
 
 FROM node:alpine AS runner

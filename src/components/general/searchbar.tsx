@@ -1,9 +1,9 @@
 import React, { SyntheticEvent } from 'react'
 import { InputBase, Fade, Button } from '@material-ui/core'
 import { alpha, makeStyles } from '@material-ui/core/styles'
-import { Search as SearchIcon } from '@material-ui/icons'
 import { useSearchFilter, useSearch } from '@app/data'
 import { AppManager, HomeManager } from '@app/managers'
+import { GrSearch } from 'react-icons/gr'
 
 const useStyles = makeStyles((theme) => ({
   root: ({ noWidth }: any) => ({
@@ -92,7 +92,7 @@ export function SearchBar({ placeholder, noWidth, cta }: any) {
       <div className={classes.root} style={{ paddingTop: 5 }}>
         <div className={classes.search}>
           <div className={classes.searchIcon}>
-            <SearchIcon />
+            <GrSearch />
           </div>
           <InputBase
             placeholder={placeholder || 'Search…'}
@@ -110,7 +110,7 @@ export function SearchBar({ placeholder, noWidth, cta }: any) {
     <form className={classes.root} onSubmit={submit} noValidate>
       <div className={classes.search}>
         <div className={classes.searchIcon}>
-          <SearchIcon />
+          <GrSearch />
         </div>
         <InputBase
           placeholder={placeholder || 'Search…'}

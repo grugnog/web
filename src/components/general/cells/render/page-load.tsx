@@ -1,44 +1,38 @@
-import React from 'react'
+import React, { memo } from 'react'
 import { Chip, Tooltip } from '@material-ui/core'
-import { Speed as SpeedIcon } from '@material-ui/icons'
-import { makeStyles } from '@material-ui/core/styles'
+import { GrDashboard } from 'react-icons/gr'
 
-const useStyles = makeStyles((theme) => ({
-  toolTip: {
-    background: theme.palette.secondary.main,
-    color: '#000',
-    fontWeight: 600,
-    fontSize: '0.85em',
-  },
-  icon: {
-    marginRight: '8px',
-  },
-}))
-
-export function PageLoad({
-  pageLoadTime = {
-    duration: 0,
-  },
-}: any) {
-  const classes = useStyles()
-  const durationToSeconds = pageLoadTime?.duration / 1000
+interface PageLoad {
+  duration: number
+  durationFormated: string
+}
+export function PageLoadComponent({
+  duration = 0,
+  durationFormated = '',
+}: PageLoad) {
+  const durationToSeconds = duration / 1000
   const fixedLength =
     String(durationToSeconds).length === 1 ? 1 : durationToSeconds < 1 ? 3 : 2
 
-  return pageLoadTime?.duration ? (
+  if (!duration) {
+    return null
+  }
+
+  return (
     <Tooltip
-      title={`Page load time is ${pageLoadTime?.durationFormated ?? 'N/A'} at ${
+      title={`Page load time is ${durationFormated ?? 'N/A'} at ${
         durationToSeconds.toFixed(fixedLength) || 0
       } seconds`}
       placement={'right'}
     >
       <Chip
-        className={classes.icon}
         variant='outlined'
         size='small'
-        avatar={<SpeedIcon />}
+        avatar={<GrDashboard />}
         label={'Speed'}
       />
     </Tooltip>
-  ) : null
+  )
 }
+
+export const PageLoad = memo(PageLoadComponent)

@@ -1,19 +1,19 @@
 import React from 'react'
 import { observer } from 'mobx-react'
 import { frameDom, IframeManager } from '@app/managers'
-import {
-  Build as BuildIcon,
-  Error as ErrorIcon,
-  ListAlt as ListAltIcon,
-  DeveloperMode as DeveloperModeIcon,
-  Visibility as VisibilityIcon,
-  VisibilityOff as VisibilityOffIcon,
-} from '@material-ui/icons'
 import { Button, Tooltip } from '@material-ui/core'
 import { useAutoFix, useMiniPlayer, useIframe, useHtmlView } from '@app/data'
 import { makeStyles } from '@material-ui/core/styles'
 import { Box } from '@a11ywatch/ui'
 import type { MergedTheme } from '@app/theme'
+import {
+  GrCode,
+  GrList,
+  GrMagic,
+  GrMultimedia,
+  GrStatusWarning,
+  GrTestDesktop,
+} from 'react-icons/gr'
 
 const useStyles = makeStyles((theme: MergedTheme) => ({
   bar: {
@@ -57,9 +57,9 @@ const MFab = observer(({ iframeStore, issue, script, marketing }: any) => {
             onClick={() => iframeStore.toggleView()}
           >
             {iframeStore.viewMode ? (
-              <VisibilityOffIcon className={classes.icon} />
+              <GrTestDesktop className={classes.icon} />
             ) : (
-              <VisibilityIcon className={classes.icon} />
+              <GrMultimedia className={classes.icon} />
             )}
           </Button>
         </Tooltip>
@@ -70,20 +70,20 @@ const MFab = observer(({ iframeStore, issue, script, marketing }: any) => {
             className={classes.button}
             onClick={() => toggleHtmlModal(true)}
           >
-            <DeveloperModeIcon className={classes.icon} />
+            <GrCode className={classes.icon} />
           </Button>
         </Tooltip>
       ) : null}
       {highLight?.display ? (
         <Tooltip title='Highlight elements fixed by CDN' placement='right'>
           <Button className={classes.button} onClick={toggleHighLight}>
-            <ListAltIcon className={classes.icon} />
+            <GrList className={classes.icon} />
           </Button>
         </Tooltip>
       ) : null}
       {issue?.issues?.length ? (
         <Button className={classes.button} onClick={setMiniPlayerContent(true)}>
-          <ErrorIcon className={classes.icon} />
+          <GrStatusWarning className={classes.icon} />
         </Button>
       ) : null}
       {script?.cdnUrlMinified && issue?.issues?.length && !autoFixEnabled ? (
@@ -98,7 +98,7 @@ const MFab = observer(({ iframeStore, issue, script, marketing }: any) => {
           }
           className={classes.button}
         >
-          <BuildIcon className={classes.icon} />
+          <GrMagic className={classes.icon} />
         </Button>
       ) : null}
     </Box>

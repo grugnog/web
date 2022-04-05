@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from 'react'
+import React, { Fragment, useState, memo, useCallback } from 'react'
 import {
   ListItem,
   ListItemSecondaryAction,
@@ -7,16 +7,13 @@ import {
   Menu,
   MenuItem,
 } from '@material-ui/core'
-import {
-  ExpandLess as ExpandLessIcon,
-  ExpandMore as ExpandMoreIcon,
-  MoreVert as MoreIcon,
-} from '@material-ui/icons'
+
 import { makeStyles } from '@material-ui/core/styles'
 
 import { RenderAvatar, RenderSecondary, RenderIssuesList } from './render'
 
 import { Link } from '../link'
+import { GrDown, GrMoreVertical, GrUp } from 'react-icons/gr'
 
 const useStyles = makeStyles((theme) => ({
   title: {
@@ -79,7 +76,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
-export function WebsitePrimaryCell({
+export function WebsitePrimaryCellComponent({
   handleClickOpen,
   item,
   url,
@@ -98,12 +95,17 @@ export function WebsitePrimaryCell({
   const [anchorEl, setAnchorEl] = useState<any>(null)
   const [issueView, setIssueView] = useState<any>(error)
 
-  const handleMenu = (event: any) => {
-    setAnchorEl(event.currentTarget)
-  }
-  const handleMenuClose = () => {
+  const handleMenu = useCallback(
+    (event: any) => {
+      setAnchorEl(event.currentTarget)
+    },
+    [setAnchorEl]
+  )
+
+  const handleMenuClose = useCallback(() => {
     setAnchorEl(null)
-  }
+  }, [setAnchorEl])
+
   const viewIssue = (e: any) => {
     if (e?.preventDefault) {
       e.preventDefault()
@@ -130,7 +132,7 @@ export function WebsitePrimaryCell({
   const mainUrl = item?.url || item?.pageUrl
   const href = `/website-details?websiteUrl=${encodeURIComponent(mainUrl)}`
 
-  const Lighthouse = item?.insight?.json
+  const lh = item?.insight?.json
 
   // TODO: move to more options
   const authForm = (
@@ -142,7 +144,7 @@ export function WebsitePrimaryCell({
         onClick={handleMenu}
         color='inherit'
       >
-        <MoreIcon />
+        <GrMoreVertical />
       </IconButton>
       <Menu
         id='menu-appbar'
@@ -167,8 +169,8 @@ export function WebsitePrimaryCell({
             {issueView ? 'Hide' : 'View'} Issues
           </MenuItem>
         ) : null}
-        {Lighthouse ? (
-          <MenuItem onClick={handleMainClick(Lighthouse, 'Lighthouse', true)}>
+        {lh ? (
+          <MenuItem onClick={handleMainClick(lh, 'Lighthouse', true)}>
             View Lighthouse
           </MenuItem>
         ) : null}
@@ -228,7 +230,7 @@ export function WebsitePrimaryCell({
               onClick={viewIssue}
               color='inherit'
             >
-              {issueView ? <ExpandMoreIcon /> : <ExpandLessIcon />}
+              {issueView ? <GrUp /> : <GrDown />}
             </IconButton>
           </ListItemSecondaryAction>
         ) : (
@@ -239,3 +241,5 @@ export function WebsitePrimaryCell({
     </Fragment>
   )
 }
+
+export const WebsitePrimaryCell = memo(WebsitePrimaryCellComponent)

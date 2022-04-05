@@ -13,9 +13,7 @@ import { ScriptDownloadButton } from '@app/components/general'
 import { PrismLight } from 'react-syntax-highlighter'
 import { SCRIPTS_CDN_URL_HOST } from '@app/configs/app-config'
 import { a11yDark } from '@app/styles'
-import WebIcon from '@material-ui/icons/Web'
-import ExpandLess from '@material-ui/icons/ExpandLess'
-import ExpandMore from '@material-ui/icons/ExpandMore'
+import { GrDomain, GrDown, GrUp } from 'react-icons/gr'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -114,10 +112,10 @@ export function CollaspeListCdn({ dataSource }: any) {
               onClick={() => handleClick(sectionTitle, open, setOpen)}
             >
               <ListItemIcon>
-                <WebIcon />
+                <GrDomain />
               </ListItemIcon>
               <ListItemText primary={sectionTitle} />
-              {sectionTitle === open ? <ExpandLess /> : <ExpandMore />}
+              {sectionTitle === open ? <GrUp /> : <GrDown />}
             </ListItem>
             <Collapse in={sectionTitle === open} timeout='auto' unmountOnExit>
               <ul>

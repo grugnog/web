@@ -1,18 +1,21 @@
-import React, { useState, useMemo } from 'react'
+import React, { useState, useMemo, useCallback } from 'react'
 import { Menu, MenuItem, IconButton } from '@material-ui/core'
-import { MoreVert as MoreIcon } from '@material-ui/icons'
 import { isA11yWatch } from '@app/configs/app-config'
+import { GrMoreVertical } from 'react-icons/gr'
 
 export function ScriptDownloadButton({ cdn_url, cdn_url_min }: any) {
   const [menuOpen, toggleMenu] = useState<any>(null)
 
-  const handleMenu = (event: any) => {
-    toggleMenu(event.currentTarget)
-  }
+  const handleMenu = useCallback(
+    (event: any) => {
+      toggleMenu(event.currentTarget)
+    },
+    [toggleMenu]
+  )
 
-  const handleClose = () => {
+  const handleClose = useCallback(() => {
     toggleMenu(null)
-  }
+  }, [toggleMenu])
 
   const [downLoadCdnLink, downLoadCdnMinLink] = useMemo(() => {
     let mainjs = cdn_url.replace(
@@ -41,7 +44,7 @@ export function ScriptDownloadButton({ cdn_url, cdn_url_min }: any) {
         onClick={handleMenu}
         color='inherit'
       >
-        <MoreIcon />
+        <GrMoreVertical />
       </IconButton>
       <Menu
         id='script-appbar'

@@ -1,11 +1,11 @@
 import React from 'react'
-import { Mail as MailIcon } from '@material-ui/icons'
+import { GrMail } from 'react-icons/gr'
 
 const classes = {
   sticky: 'fixed flex justify-center bottom-11 left-0 right-0 z-[1001]',
   container: 'border p-3',
   text: 'font-bold text-xl',
-  btn: 'flex rounded place-items-center px-2 py-1',
+  btn: 'flex rounded place-items-center px-2 py-1 border',
 }
 
 interface Props {
@@ -32,7 +32,7 @@ function ConfirmEmail({ sendEmail, visible }: Props) {
           title={'Resend email confirmation'}
           className={classes.btn}
         >
-          <MailIcon />
+          <GrMail />
           <p className={[classes.text, 'ml-2'].join(' ').trim()}>Resend</p>
         </button>
       </div>

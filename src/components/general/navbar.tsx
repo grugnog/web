@@ -3,13 +3,13 @@ import { useRouter } from 'next/router'
 import dynamic from 'next/dynamic'
 
 import { IconButton } from '@material-ui/core'
-import { Public as AppIcon, ArrowBack as BackIcon } from '@material-ui/icons'
 import { makeStyles } from '@material-ui/core/styles'
 import { strings } from '@app-strings'
-import { NavBarTitle } from './navigation'
+import { Logo, NavBarTitle } from './navigation'
 import { Link } from './link'
 import { AuthMenu } from './auth-menu'
 import { TranslateBadge } from '../badges'
+import { GrLinkPrevious } from 'react-icons/gr'
 
 const WrapShadow = dynamic(
   () => import('./wrap-shadow').then((mod) => mod.WrapShadow) as any,
@@ -116,7 +116,7 @@ const NavBarComponent = ({
             <div className={`flex flex-1 place-content-center`}>
               {backButton || !marketing ? (
                 <IconButton className={classes.menu} {...buttonProps}>
-                  {backButton ? <BackIcon /> : <AppIcon />}
+                  {backButton ? <GrLinkPrevious /> : <Logo />}
                 </IconButton>
               ) : null}
               <NavBarTitle

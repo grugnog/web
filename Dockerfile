@@ -1,7 +1,7 @@
 FROM node:alpine AS deps
 RUN apk add --no-cache libc6-compat
 WORKDIR /app
-COPY package.json yarn.lock .yarnrc load-env.sh .env.example.txt ./
+COPY package.json yarn.lock ./
 RUN yarn install --frozen-lockfile
 
 FROM node:alpine AS builder
@@ -31,7 +31,6 @@ COPY --from=builder /app/tailwind.config.js ./
 COPY --from=builder /app/postcss.config.js ./
 COPY --from=builder /app/public ./public
 COPY --from=builder /app/node_modules ./node_modules
-COPY --from=builder /app/package.json ./package.json
 COPY --from=builder --chown=nextjs:nodejs /app/.next ./.next
 
 EXPOSE 3000
@@ -48,4 +47,4 @@ ENV NEXT_TELEMETRY_DISABLED 1
 ENV DOCKER_CONTAINER 1
 ENV NEXT_PUBLIC_DISABLE_SEO 1
 
-CMD ["npm", "run", "start"]
+CMD ["node_modules/.bin/next", "start"]

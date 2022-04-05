@@ -11,11 +11,9 @@ import { scriptData } from '@app/data'
 import { UserManager, AppManager } from '@app/managers'
 import { a11yDark } from '@app/styles'
 import Collapse from '@material-ui/core/Collapse'
-import WebIcon from '@material-ui/icons/Web'
-import ExpandLess from '@material-ui/icons/ExpandLess'
-import ExpandMore from '@material-ui/icons/ExpandMore'
 import { EditableMixture } from '@app/components/mixtures/editable-mixture'
 import { collaspeListStyles as useStyles } from './styles'
+import { GrDomain, GrDown, GrUp } from 'react-icons/gr'
 
 const handleClick = (item: any, open: boolean, cb?: any) => {
   cb(item === open ? '' : item)
@@ -206,10 +204,10 @@ function CollaspeListEntry({
     <div className='border'>
       <ListItem button onClick={() => handleClick(sectionTitle, open, setOpen)}>
         <ListItemIcon>
-          <WebIcon />
+          <GrDomain />
         </ListItemIcon>
         <ListItemText primary={sectionTitle} />
-        {sectionTitle === open ? <ExpandLess /> : <ExpandMore />}
+        {sectionTitle === open ? <GrUp /> : <GrDown />}
       </ListItem>
       <Collapse in={sectionTitle === open} timeout='auto' unmountOnExit>
         <ul>

@@ -3,8 +3,8 @@ import { Typography, Button } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import { CtaInput } from './searchbar'
 import { Link, SectionContainer } from '../general'
-import ExpandMore from '@material-ui/icons/ExpandMore'
 import Image from 'next/image'
+import { GrFormDown } from 'react-icons/gr'
 
 export const useStyles = makeStyles((theme) => ({
   root: {
@@ -124,7 +124,7 @@ function CtaIntro({ checker }: CtaIntro) {
             href='#plans-section'
             aria-label='Scroll to introduction video'
           >
-            <ExpandMore />
+            <GrFormDown />
           </a>
         </div>
       )}

@@ -1,11 +1,11 @@
 import React, { memo, useCallback, useMemo } from 'react'
 import { IconButton, MenuItem } from '@material-ui/core'
-import { MoreVert as MoreIcon } from '@material-ui/icons'
 import { AppManager } from '@app/managers'
 import { Link } from '../../link'
 import { TopMenu } from '../../top-menu'
 import { Website } from '@app/types'
 import { useWebsiteContext } from '@app/components/providers/website'
+import { GrMoreVertical } from 'react-icons/gr'
 
 interface MoreOptionsProps extends Partial<Website> {
   removePress(): void
@@ -50,13 +50,13 @@ function MoreOptionsComponent({
     [url]
   )
 
-  const toggleLighthouse = async () => {
+  const toggleLighthouse = useCallback(async () => {
     try {
       await updateWebsite({ variables: { url, pageInsights: !pageInsights } })
     } catch (e) {
       console.error(e)
     }
-  }
+  }, [updateWebsite, url, pageInsights])
 
   const menuId = `menu-appbar${index}`
 
@@ -89,7 +89,7 @@ function MoreOptionsComponent({
         onClick={handleMenu}
         color='inherit'
       >
-        <MoreIcon />
+        <GrMoreVertical />
       </IconButton>
       <TopMenu
         id={menuId}

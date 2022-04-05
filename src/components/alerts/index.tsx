@@ -1,5 +1,3 @@
 export { EnableNotifications } from './enable-notifications'
 export { ConfirmEmail } from './confirm-email'
-export { WhatsNew } from './whats-new'
 export { WeekSelect } from './week-select'
-export type { WhatsNewProps } from './whats-new'

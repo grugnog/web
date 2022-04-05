@@ -7,16 +7,12 @@ import {
   Menu,
   MenuItem,
 } from '@material-ui/core'
-import {
-  ExpandLess as ExpandLessIcon,
-  ExpandMore as ExpandMoreIcon,
-  MoreVert as MoreIcon,
-} from '@material-ui/icons'
 import { makeStyles } from '@material-ui/core/styles'
 
 import { RenderAvatar, RenderSecondary, RenderIssuesList } from './render'
 
 import { Link } from '../link'
+import { GrMoreVertical, GrUp, GrDown } from 'react-icons/gr'
 
 const useStyles = makeStyles((theme) => ({
   title: {
@@ -129,6 +125,7 @@ export function WebsiteIssuesCell({
       : handleClickOpen(eventData, title, url)
     setAnchorEl(null)
   }
+
   const pageIssues =
     (Array.isArray(item?.issues) ? item.issues : item?.issues?.issues) || []
   const secondaryText = pageIssues?.length
@@ -147,7 +144,7 @@ export function WebsiteIssuesCell({
         onClick={handleMenu}
         color='inherit'
       >
-        <MoreIcon />
+        <GrMoreVertical />
       </IconButton>
       <Menu
         id='menu-appbar'
@@ -228,7 +225,7 @@ export function WebsiteIssuesCell({
               onClick={viewIssue}
               color='inherit'
             >
-              {issueView ? <ExpandMoreIcon /> : <ExpandLessIcon />}
+              {issueView ? <GrUp /> : <GrDown />}
             </IconButton>
           </ListItemSecondaryAction>
         ) : (

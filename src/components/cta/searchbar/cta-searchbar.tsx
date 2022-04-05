@@ -6,9 +6,9 @@ import {
   Theme,
   createStyles,
 } from '@material-ui/core/styles'
-import { Search as SearchIcon } from '@material-ui/icons'
 import { AppManager } from '@app/managers'
 import { useSearch } from '@app/data'
+import { GrSearch } from 'react-icons/gr'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -194,7 +194,7 @@ function CtaSearchBar({ children, checker }: any) {
     <form className={classes.root} onSubmit={submitForm} noValidate>
       <div className={classes.search}>
         <div className={classes.searchIcon}>
-          <SearchIcon className={classes.searchIconFont} />
+          <GrSearch className={classes.searchIconFont} />
         </div>
         <FormControl fullWidth className={classes.formControl}>
           <InputLabel htmlFor='search-input' className={classes.hiddenLabel}>

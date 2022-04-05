@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useCallback, memo, FC } from 'react'
 import { Typography, Button as MatButton } from '@material-ui/core'
-import { CalendarToday as DateIcon } from '@material-ui/icons'
 import { addDays, format, startOfWeek } from 'date-fns'
+import { GrCalendar } from 'react-icons/gr'
 
 interface Props {
   confirmDates(dates: number[]): Promise<void>
@@ -65,7 +65,7 @@ const WeekSelectComponent: FC<Props> = ({ confirmDates, filterEmailDates }) => {
         <MatButton
           onClick={onDateConfirm}
           variant={'contained'}
-          startIcon={<DateIcon />}
+          startIcon={<GrCalendar />}
         >
           Confirm Dates
         </MatButton>

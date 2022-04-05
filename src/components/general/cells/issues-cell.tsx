@@ -1,18 +1,18 @@
-import React, { useState } from 'react'
+import React, { useState, memo, useCallback } from 'react'
 import {
   ListItem,
   ListItemAvatar,
   ListItemSecondaryAction,
   ListItemText,
-  Avatar,
   IconButton,
   MenuItem,
 } from '@material-ui/core'
-import { Folder as FolderIcon, MoreVert as MoreIcon } from '@material-ui/icons'
 import { makeStyles } from '@material-ui/core/styles'
 import { Link } from '../link'
 import { TopMenu } from '../top-menu'
 import type { IssueCellProps } from './types'
+import { GrMoreVertical } from 'react-icons/gr'
+import { RenderAvatar } from './render'
 
 const useStyles = makeStyles(() => ({
   title: {
@@ -24,7 +24,7 @@ const useStyles = makeStyles(() => ({
   },
 }))
 
-export function IssuesCell({
+export function IssuesCellComponent({
   url,
   handleClickOpen,
   handleClickOpenPlayer,
@@ -33,12 +33,17 @@ export function IssuesCell({
 }: IssueCellProps) {
   const classes = useStyles()
   const [anchorEl, setAnchorEl] = useState(null)
-  const handleMenu = (event: any) => {
-    setAnchorEl(event.currentTarget)
-  }
-  const handleClose = () => {
+
+  const handleMenu = useCallback(
+    (event: any) => {
+      setAnchorEl(event.currentTarget)
+    },
+    [setAnchorEl]
+  )
+
+  const handleClose = useCallback(() => {
     setAnchorEl(null)
-  }
+  }, [setAnchorEl])
 
   const handleMainClick = (eventData: any, title: any, mini: boolean) => () => {
     mini
@@ -60,7 +65,7 @@ export function IssuesCell({
         onClick={handleMenu}
         color={'inherit'}
       >
-        <MoreIcon />
+        <GrMoreVertical />
       </IconButton>
       <TopMenu
         id={menuId}
@@ -86,9 +91,7 @@ export function IssuesCell({
   return (
     <ListItem button component={Link} href={href} color={'inherit'} dense>
       <ListItemAvatar>
-        <Avatar>
-          <FolderIcon />
-        </Avatar>
+        <RenderAvatar />
       </ListItemAvatar>
       <ListItemText
         primary={url}
@@ -103,3 +106,5 @@ export function IssuesCell({
     </ListItem>
   )
 }
+
+export const IssuesCell = memo(IssuesCellComponent)

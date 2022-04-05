@@ -1,8 +1,8 @@
 import React, { memo } from 'react'
 import { Chip, Tooltip } from '@material-ui/core'
-import { Error as IssuesIcon } from '@material-ui/icons'
 import { makeStyles, createStyles } from '@material-ui/core/styles'
 import type { MergedTheme } from '@app/theme'
+import { GrStatusWarning } from 'react-icons/gr'
 
 const useStyles = makeStyles(({ breakpoints }: MergedTheme) =>
   createStyles({
@@ -43,7 +43,7 @@ export function TooltipIssuesComponent({
         className={classes.adjust}
         variant='outlined'
         size='small'
-        avatar={<IssuesIcon />}
+        avatar={<GrStatusWarning />}
         label={`${totalIssues} issue${totalIssues === 1 ? '' : 's'}`}
       />
     </Tooltip>

@@ -1,14 +1,14 @@
-import React, { useMemo } from 'react'
+import React, { memo, useMemo } from 'react'
 import { Chip, Tooltip } from '@material-ui/core'
-import {
-  Update as CalendarIcon,
-  Error as IssuesIcon,
-  Healing as HealingIcon,
-  Policy as PolicyIcon,
-} from '@material-ui/icons'
 import { PageLoad } from './page-load'
+import {
+  GrMagic,
+  GrCircleAlert,
+  GrConfigure,
+  GrFormCalendar,
+} from 'react-icons/gr'
 
-export function RenderSecondary({
+export function RenderSecondaryComponent({
   adaScore,
   pageLoadTime = {
     duration: 0,
@@ -48,12 +48,15 @@ export function RenderSecondary({
           <Chip
             variant='outlined'
             size='small'
-            avatar={<IssuesIcon />}
+            avatar={<GrCircleAlert />}
             label={mainIssues}
           />
         </Tooltip>
       ) : null}
-      <PageLoad pageLoadTime={pageLoadTime} />
+      <PageLoad
+        durationFormated={pageLoadTime?.durationFormated}
+        duration={pageLoadTime?.duration}
+      />
       {possibleIssuesFixedByCdn && totalIssuesOnPage ? (
         <Tooltip
           title={
@@ -66,7 +69,7 @@ export function RenderSecondary({
           <Chip
             variant='outlined'
             size='small'
-            avatar={<HealingIcon color={'primary'} />}
+            avatar={<GrMagic />}
             label={
               issuesFixedByCdn
                 ? `${issuesFixedByCdn}/${totalIssuesOnPage}`
@@ -80,7 +83,7 @@ export function RenderSecondary({
           <Chip
             variant='outlined'
             size='small'
-            avatar={<CalendarIcon />}
+            avatar={<GrFormCalendar />}
             label={lastScan}
           />
         </Tooltip>
@@ -95,7 +98,7 @@ export function RenderSecondary({
           <Chip
             variant='outlined'
             size='small'
-            avatar={<PolicyIcon />}
+            avatar={<GrConfigure />}
             label={`${pageHeaders?.length} custom header${
               pageHeaders?.length === 1 ? '' : 's'
             }`}
@@ -105,3 +108,5 @@ export function RenderSecondary({
     </div>
   )
 }
+
+export const RenderSecondary = memo(RenderSecondaryComponent)

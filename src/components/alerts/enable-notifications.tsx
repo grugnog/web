@@ -6,12 +6,12 @@ import {
   Button,
   Typography,
 } from '@material-ui/core'
-import { Notifications as NotificationsIcon } from '@material-ui/icons'
 import { strings } from '@app-strings'
 import { useDynamicModal } from '@app/data'
 import { enableNotifications } from '@app/lib'
 import { ringKeyFrames } from '@app/styles'
 import { useStyles } from './styles'
+import { GrNotification } from 'react-icons/gr'
 
 export function EnableNotifications() {
   const classes = useStyles()
@@ -22,7 +22,7 @@ export function EnableNotifications() {
       <CardContent>
         <div className={classes.iconContainer}>
           <style>{ringKeyFrames}</style>
-          <NotificationsIcon fontSize='large' className={classes.ringAnimate} />
+          <GrNotification fontSize='large' className={classes.ringAnimate} />
         </div>
         <Typography variant='h6' component='h3'>
           {strings.alerts.enableNotificationsTitle}

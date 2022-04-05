@@ -5,7 +5,7 @@ import { makeStyles } from '@material-ui/core/styles'
 import { useMiniPlayer } from '@app/data'
 import { ListSkeleton } from '../placeholders'
 import { FullScreenModal } from './fullscreen-modal'
-import { WebsiteCell as RenderWebsite, IssuesCell } from './cells'
+import { WebsiteCell, IssuesCell } from './cells'
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -30,7 +30,9 @@ function WebSites({
   loading,
 }: any) {
   const source = errorPage ? data?.issues : data
-  const WebComponent = useMemo(() => (errorPage ? IssuesCell : RenderWebsite), [
+
+  // TODO: REMOVE DUEL COMPONENTS
+  const WebComponent = useMemo(() => (errorPage ? IssuesCell : WebsiteCell), [
     errorPage,
   ])
 

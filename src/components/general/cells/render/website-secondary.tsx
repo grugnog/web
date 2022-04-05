@@ -1,12 +1,11 @@
 import React, { memo, useMemo } from 'react'
 import { Chip, Tooltip } from '@material-ui/core'
 import {
-  Update as CalendarIcon,
-  Error as IssuesIcon,
-  Healing as HealingIcon,
-  Policy as PolicyIcon,
-} from '@material-ui/icons'
-import { format } from 'date-fns'
+  GrCircleAlert,
+  GrConfigure,
+  GrFormCalendar,
+  GrMagic,
+} from 'react-icons/gr'
 
 // TODO: REFACTOR WITH Secondary (BASE)
 export function WebsiteSecondaryComponent({
@@ -29,7 +28,6 @@ export function WebsiteSecondaryComponent({
     return { allPageIssues }
   }, [issues])
 
-  const lastScan = new Date(lastScanDate ? lastScanDate : null)
   const {
     possibleIssuesFixedByCdn,
     issuesFixedByCdn,
@@ -55,7 +53,7 @@ export function WebsiteSecondaryComponent({
           <Chip
             variant='outlined'
             size='small'
-            avatar={<IssuesIcon />}
+            avatar={<GrCircleAlert />}
             label={mainIssues}
           />
         </Tooltip>
@@ -72,7 +70,7 @@ export function WebsiteSecondaryComponent({
           <Chip
             variant='outlined'
             size='small'
-            avatar={<HealingIcon />}
+            avatar={<GrMagic />}
             label={
               issuesFixedByCdn
                 ? `${issuesFixedByCdn}/${totalIssuesOnPage}`
@@ -81,16 +79,13 @@ export function WebsiteSecondaryComponent({
           />
         </Tooltip>
       ) : null}
-      {lastScan ? (
-        <Tooltip
-          title={`Last scan was at ${format(lastScan, 'MMMM d, yyyy hh:mm a')}`}
-          placement={'right'}
-        >
+      {lastScanDate ? (
+        <Tooltip title={`Last scan was at ${lastScanDate}`} placement={'right'}>
           <Chip
             variant='outlined'
             size='small'
-            avatar={<CalendarIcon />}
-            label={format(lastScan, 'MM/dd/yyyy')}
+            avatar={<GrFormCalendar />}
+            label={lastScanDate}
           />
         </Tooltip>
       ) : null}
@@ -104,7 +99,7 @@ export function WebsiteSecondaryComponent({
           <Chip
             variant='outlined'
             size='small'
-            avatar={<PolicyIcon color={'primary'} />}
+            avatar={<GrConfigure />}
             label={`${pageHeaders?.length} custom header${
               pageHeaders?.length === 1 ? '' : 's'
             }`}

@@ -6,11 +6,8 @@ import React, {
   useState,
 } from 'react'
 import { IconButton } from '@material-ui/core'
-import {
-  ExpandLess as ExpandLessIcon,
-  ExpandMore as ExpandMoreIcon,
-} from '@material-ui/icons'
 import { FeedIssuesList } from './render/issues-list'
+import { GrDown, GrUp } from 'react-icons/gr'
 
 export function IssueFeedCellComponent({ item, handleToggle, listIndex }: any) {
   const [issueView, setIssueView] = useState<boolean>(true)
@@ -53,7 +50,7 @@ export function IssueFeedCellComponent({ item, handleToggle, listIndex }: any) {
           onClick={onToggleIssue}
           color='inherit'
         >
-          {issueView ? <ExpandMoreIcon /> : <ExpandLessIcon />}
+          {issueView ? <GrUp /> : <GrDown />}
         </IconButton>
       </li>
       {issueView ? <FeedIssuesList {...issueProps} /> : null}

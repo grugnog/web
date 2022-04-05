@@ -4,18 +4,17 @@ import { strings } from '@app-strings'
 import { makeStyles } from '@material-ui/core/styles'
 import { SectionHeading } from '../text'
 
-import {
-  Accessibility as AccessibilityIcon,
-  Notifications as NotificationsIcon,
-  Code as CodeIcon,
-  Cloud as CloudIcon,
-  Speed as SpeedIcon,
-  Security as SecurityIcon,
-  Compare as CompareIcon,
-  TripOrigin as TripIcon,
-  GitHub as GitHubIcon,
-} from '@material-ui/icons'
 import { SectionContainer } from '../general'
+import {
+  GrAccessibility,
+  GrAggregate,
+  GrCloud,
+  GrCode,
+  GrCompare,
+  GrGithub,
+  GrNotification,
+  GrSecure,
+} from 'react-icons/gr'
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -46,31 +45,31 @@ const RenderIcon = ({ index, ...props }: any): any =>
 
       switch (index) {
         case 0:
-          FeatureIcon = AccessibilityIcon
+          FeatureIcon = GrAccessibility
           break
         case 1:
-          FeatureIcon = NotificationsIcon
+          FeatureIcon = GrNotification
           break
         case 2:
-          FeatureIcon = CodeIcon
+          FeatureIcon = GrCode
           break
         case 3:
-          FeatureIcon = CloudIcon
+          FeatureIcon = GrCloud
           break
         case 4:
-          FeatureIcon = SecurityIcon
+          FeatureIcon = GrSecure
           break
         case 5:
-          FeatureIcon = CompareIcon
+          FeatureIcon = GrCompare
           break
         case 6:
-          FeatureIcon = TripIcon
+          FeatureIcon = GrAggregate
           break
         case 7:
-          FeatureIcon = GitHubIcon
+          FeatureIcon = GrGithub
           break
         default:
-          FeatureIcon = SpeedIcon
+          FeatureIcon = 'div'
           break
       }
       return FeatureIcon
@@ -85,13 +84,13 @@ function FeatureItem({ item, index }: { item: any; index: number }) {
     <div className={classes.paper}>
       <div className='flex space-x-2 pb-4 items-center'>
         <div className='flex rounded-3xl border w-10 h-10 justify-center items-center'>
-          <RenderIcon index={index} fontSize='small' />
+          <RenderIcon index={index} fontSize='16px' />
         </div>
         <Typography variant='h5' component='div'>
           {item.title}
         </Typography>
       </div>
-      <div className={classes.flex} />
+      <div className={'flex-1'} />
       <Typography variant='subtitle1' component='p' gutterBottom>
         {item.detail}
       </Typography>
