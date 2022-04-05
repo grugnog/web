@@ -66,34 +66,29 @@ export const useWebsiteData = (
 
   const updateSubDomain = useCallback(
     ({ subscriptionData }: OnSubscriptionDataOptions<any>) => {
-      queueMicrotask(() => {
-        const newSubDomain = subscriptionData?.data?.subDomainAdded
+      const newSubDomain = subscriptionData?.data?.subDomainAdded
+      const dataSource = websites.find(
+        (source: Website) => source.domain === newSubDomain?.domain
+      )
+      if (dataSource && newSubDomain && websites?.length) {
+        queueMicrotask(() => {
+          if (dataSource?.subDomains?.length) {
+            dataSource.subDomains.push(newSubDomain)
+          } else {
+            dataSource.subDomains = [newSubDomain]
+          }
 
-        // TODO: USE DIFF MATCH FOR EXACT
-        const newSubUrl = newSubDomain?.url && new URL(newSubDomain.url)
-
-        if (newSubDomain && websites?.length) {
-          const dataSource = websites.find(
-            (source: Website) => source.domain === newSubDomain?.domain
-          )
-          const dataSourceUrl = dataSource?.url && new URL(dataSource.url)
-
-          if (newSubUrl?.pathname === dataSourceUrl?.pathname) {
+          if (dataSource?.url === newSubDomain?.url) {
             dataSource.online = newSubDomain.online
             dataSource.insight = newSubDomain.insight
+            dataSource.cdnConnected = newSubDomain.cdnConnected
+            dataSource.pageLoadTime = newSubDomain.pageLoadTime
+            forceUpdate()
           }
-
-          if (dataSource) {
-            if (dataSource?.subDomains?.length) {
-              dataSource.subDomains.push(newSubDomain)
-            } else {
-              dataSource.subDomains = [newSubDomain]
-            }
-          }
-        }
-      })
+        })
+      }
     },
-    [websites]
+    [websites, forceUpdate]
   )
 
   useSubscription(SUBDOMAIN_SUBSCRIPTION, {

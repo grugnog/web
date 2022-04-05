@@ -69,9 +69,6 @@ const useStyles = makeStyles((theme: Theme) =>
     inputRoot: {
       color: 'inherit',
     },
-    inputInput: {
-      padding: theme.spacing(1),
-    },
   })
 )
 
@@ -127,7 +124,7 @@ function CtaInputRest() {
           type='url'
           classes={{
             root: classes.inputRoot,
-            input: classes.inputInput,
+            input: 'p-1',
           }}
           onBlur={toggleSearch(false)}
           onFocus={toggleSearch(true)}

@@ -7,7 +7,6 @@ import {
   Typography,
 } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
-import CloseIcon from '@material-ui/icons/Close'
 import { DragHandler } from '@app/lib'
 import { useMiniPlayer } from '@app/data'
 import { Fab } from './fab'
@@ -17,6 +16,7 @@ import type { MergedTheme } from '@app/theme'
 import { GrowTransition } from './grow'
 // @ts-ignore
 import ReportViewer from 'react-lighthouse-viewer'
+import { GrClose } from 'react-icons/gr'
 
 const useStyles = makeStyles((theme: MergedTheme) => ({
   root: {
@@ -96,7 +96,7 @@ export const MiniPlayer: FunctionComponent<MiniPlayerProps> = (_) => {
             onClick={setMiniPlayerContent(false)}
             aria-label='close'
           >
-            <CloseIcon />
+            <GrClose />
           </IconButton>
           <div className={classes.row}>
             <Typography variant='h6' className={classes.title}>

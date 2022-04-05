@@ -1,22 +1,18 @@
 import React, { Fragment, memo, useMemo, useState } from 'react'
-import { Typography, Grid, Button } from '@material-ui/core'
+import { Typography, Button } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import { SectionContainer } from '@app/components/general'
 import { priceConfig } from '@app/configs'
 import { SectionHeading } from '../text'
 import { Link } from './link'
-import { Done } from '@material-ui/icons'
+import { GrFormCheckmark } from 'react-icons/gr'
 
 const useStyles = makeStyles(() => ({
-  container: {
-    flexGrow: 1,
-  },
+  container: {},
   icon: {
     fontSize: '40px',
   },
   paper: {
-    flexGrow: 1,
-    minHeight: '25vh',
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
@@ -24,12 +20,13 @@ const useStyles = makeStyles(() => ({
     overflow: 'hidden',
     position: 'relative',
     whiteSpace: 'pre-wrap',
+    width: 460,
   },
 }))
 
 const getStyles = (inactive: boolean) =>
   inactive
-    ? 'ml-0.5 relative w-1/2 border border-transparent rounded-md py-2 text-sm font-medium text-gray-500 whitespace-nowrap focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:z-10 sm:w-auto sm:px-8 hover:bg-gray-200'
+    ? 'shadow relative w-1/2 border border-transparent rounded-md py-2 text-sm font-medium text-gray-500 whitespace-nowrap focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:z-10 sm:w-auto sm:px-8 hover:bg-gray-200'
     : 'relative w-1/2 bg-gray-100 border border-gray-200 rounded-md shadow-sm py-2 text-sm font-medium text-white bg-black whitespace-nowrap focus:outline-none focus:ring-2 focus:ring-gray-500 focus:z-10 sm:w-auto sm:px-8'
 
 const highLight = (
@@ -128,7 +125,7 @@ function PriceWrapper({
   )
 
   return (
-    <div className={!onClick && !navigate ? '' : ''} id='plans-section'>
+    <div id='plans-section'>
       {typeof onClick === 'undefined' && !pricingPage ? (
         <>
           <SectionHeading style={onClick ? { fontWeight: 200 } : {}}>
@@ -139,7 +136,7 @@ function PriceWrapper({
           </Typography>
         </>
       ) : null}
-      <div className='flex sm:mt-6 py-4'>
+      <div className='flex sm:mt-6 py-4 space-x-1'>
         <button
           type='button'
           onClick={() => {
@@ -159,10 +156,7 @@ function PriceWrapper({
           Yearly billing
         </button>
       </div>
-      <Grid
-        container
-        className={`${!onClick ? classes.container : ''} gap-x-2 gap-y-2`}
-      >
+      <div className={`flex gap-x-2 gap-y-2 flex-wrap place-content-center`}>
         {plans.map(({ title, details, cost, costYearly }: any) => {
           const clickEvent =
             title === 'Enterprise' && !navigate
@@ -222,13 +216,13 @@ function PriceWrapper({
                       >
                         {String(item).trim() ? (
                           <div
-                            className='rounded-xl text-white'
+                            className='rounded-xl text-white stroke-white'
                             style={{
                               backgroundColor: textColor,
                               padding: 1,
                             }}
                           >
-                            <Done fontSize='small' />
+                            <GrFormCheckmark className='grIcon' />
                           </div>
                         ) : null}
                         <Typography component={pricingPage ? 'h3' : 'h5'}>
@@ -253,7 +247,7 @@ function PriceWrapper({
             </Component>
           )
         })}
-      </Grid>
+      </div>
     </div>
   )
 }

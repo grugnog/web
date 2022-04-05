@@ -12,8 +12,6 @@ import {
 } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 
-import { Close as CloseIcon } from '@material-ui/icons'
-
 import { NavBarTitle } from './navigation'
 import { useInputHeader } from './hooks'
 
@@ -21,6 +19,7 @@ import { Link } from './link'
 import { WebsitePrimaryCell } from './cells'
 import { InputHeaders } from './input-headers'
 import { useWebsiteData } from '@app/data'
+import { GrClose } from 'react-icons/gr'
 
 const useStyles = makeStyles((theme) => ({
   title: {
@@ -155,7 +154,7 @@ export function FullScreenModal({
             aria-label='close'
             className={classes.menuButton}
           >
-            <CloseIcon />
+            <GrClose />
           </IconButton>
           <div className={classes.row}>
             <NavBarTitle title={title} flex />

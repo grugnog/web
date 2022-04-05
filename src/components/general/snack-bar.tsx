@@ -9,9 +9,9 @@ import {
 } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 
-import CloseIcon from '@material-ui/icons/Close'
 import { AppManager } from '@app/managers'
 import { Link } from './link'
+import { GrClose } from 'react-icons/gr'
 
 const useStyles = makeStyles((theme) => ({
   error: {
@@ -97,7 +97,7 @@ const SnackbarContainer = observer(({ store }: any) => {
             color='inherit'
             onClick={handleClose as any}
           >
-            <CloseIcon />
+            <GrClose />
           </IconButton>,
         ]}
       />

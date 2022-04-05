@@ -16,7 +16,7 @@ import {
   Tooltip,
 } from '@material-ui/core'
 import { domainList as dmList } from '@app/utils'
-import { Close as CloseIcon } from '@material-ui/icons'
+import { GrClose } from 'react-icons/gr'
 import { InputHeaders } from './input-headers'
 import { useInputHeader } from './hooks'
 import { formDialogStyles as useStyles } from './styles'
@@ -183,7 +183,7 @@ export function FormDialogWrapper({
             Subscribe
           </DialogTitle>
           <IconButton aria-label='close modal' onClick={handleClose}>
-            <CloseIcon />
+            <GrClose />
           </IconButton>
         </div>
         <form onSubmit={submit} noValidate>

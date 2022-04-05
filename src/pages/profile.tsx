@@ -7,7 +7,6 @@ import {
   Fade,
   IconButton,
 } from '@material-ui/core'
-import CloseIcon from '@material-ui/icons/Close'
 import { Link, NavBar, PageTitle, ProfileCell } from '@app/components/general'
 import { Box } from '@a11ywatch/ui'
 import { TextSkeleton } from '@app/components/placeholders'
@@ -16,6 +15,7 @@ import { userData } from '@app/data'
 import { metaSetter } from '@app/utils'
 import { useProfileStyles as useStyles } from '@app/styles/pages/profile'
 import type { PageProps } from '@app/types'
+import { GrClose } from 'react-icons/gr'
 
 const Profile: FC<PageProps> = ({ name }) => {
   const classes = useStyles()
@@ -133,7 +133,7 @@ const Profile: FC<PageProps> = ({ name }) => {
                 onClick={togglePassword}
                 color='inherit'
               >
-                <CloseIcon fontSize='small' />
+                <GrClose />
               </IconButton>
             ) : null}
           </div>

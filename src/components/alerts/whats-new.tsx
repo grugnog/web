@@ -1,8 +1,9 @@
 import React, { useState } from 'react'
 import { Typography, Button } from '@material-ui/core'
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles'
-import { Extension, Close, NewReleases } from '@material-ui/icons'
+import { Extension, NewReleases } from '@material-ui/icons'
 import { Link } from '../general'
+import { GrClose } from 'react-icons/gr'
 
 type Platform = 'desktop' | 'mobile' | 'crossplatform'
 
@@ -75,7 +76,7 @@ function WhatsNew({
           className={classes.close}
           aria-label={'Close whats new section'}
         >
-          <Close />
+          <GrClose />
         </Button>
       ) : null}
       <Typography variant={'body2'} className={classes.text}>

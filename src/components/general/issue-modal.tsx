@@ -9,12 +9,12 @@ import {
   List,
 } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
-import CloseIcon from '@material-ui/icons/Close'
 import { DragHandler, issueSort } from '@app/lib'
 import { useMiniPlayer } from '@app/data'
 import { NavBarTitle } from './navigation'
 import { WebsitePrimaryCell } from './cells'
 import type { MergedTheme } from '@app/theme'
+import { GrClose } from 'react-icons/gr'
 
 const useStyles = makeStyles((theme: MergedTheme) => ({
   root: {
@@ -108,7 +108,7 @@ export function IssueModal({ issue }: any) {
             onClick={setMiniPlayerContent(false)}
             aria-label='close'
           >
-            <CloseIcon />
+            <GrClose />
           </IconButton>
           <div className={classes.row}>
             <NavBarTitle title={title} flex />
