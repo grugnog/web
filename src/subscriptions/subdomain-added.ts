@@ -7,7 +7,6 @@ export const SUBDOMAIN_SUBSCRIPTION = gql`
       domain
       adaScore
       cdnConnected
-      htmlIncluded
       pageInsights
       insight {
         json

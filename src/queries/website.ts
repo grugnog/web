@@ -8,8 +8,6 @@ const GET_WEBSITE = gql`
       domain
       adaScore
       cdnConnected
-      html
-      htmlIncluded
       screenshot
       timestamp
       online
@@ -49,8 +47,6 @@ const GET_WEBSITE_HTML = gql`
     website(url: $url) {
       id
       url
-      html
-      htmlIncluded
     }
   }
 `

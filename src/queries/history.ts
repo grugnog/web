@@ -9,8 +9,6 @@ const GET_HISTORY = gql`
         url
         domain
         cdnConnected
-        html
-        htmlIncluded
         insight {
           json
         }

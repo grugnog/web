@@ -18,6 +18,33 @@ const useStyles = makeStyles(({ breakpoints }: Theme) =>
   })
 )
 
+const Anchor = ({
+  children,
+  style: aStyle,
+  className,
+  href,
+  label,
+}: {
+  href?: string
+  label?: string
+  style: any
+  children: any
+  className?: string
+}) => {
+  return (
+    <a
+      href={href}
+      style={aStyle}
+      className={className}
+      target={'_blank'}
+      aria-label={label}
+      rel='noreferrer'
+    >
+      {children}
+    </a>
+  )
+}
+
 export const Badge = ({
   style,
   inline,
@@ -30,38 +57,16 @@ export const Badge = ({
   const size = badgeSize === 'small' ? 22 : 32
   const classes = useStyles()
 
-  const Anchor = ({
-    children,
-    style: aStyle,
-    className,
-  }: {
-    style: any
-    children: any
-    className?: string
-  }) => {
-    return (
-      <a
-        href={href}
-        style={aStyle}
-        className={className}
-        target={'_blank'}
-        aria-label={label}
-        rel='noreferrer'
-      >
-        {children}
-      </a>
-    )
-  }
-
-  const Img = () => (
-    <Image src={src} height={size} width={size} alt={`${title} logo`} />
-  )
-
   if (inline) {
     return (
-      <Anchor style={style} className={'gap-x-2 flex items-center'}>
+      <Anchor
+        style={style}
+        className={'gap-x-2 flex items-center'}
+        href={href}
+        label={label}
+      >
         <Fragment>
-          <Img />
+          <Image src={src} height={size} width={size} alt={`${title} logo`} />
           <Typography className={classes.text}>{title}</Typography>
         </Fragment>
       </Anchor>
@@ -70,8 +75,8 @@ export const Badge = ({
 
   return (
     <Tooltip title={String(label)}>
-      <Anchor style={style}>
-        <Img />
+      <Anchor style={style} href={href} label={label}>
+        <Image src={src} height={size} width={size} alt={`${title} logo`} />
       </Anchor>
     </Tooltip>
   )

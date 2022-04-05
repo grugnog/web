@@ -18,8 +18,6 @@ export const UPDATE_WEBSITE = gql`
         url
         id
         domain
-        htmlIncluded
-        html
         userId
         script {
           script

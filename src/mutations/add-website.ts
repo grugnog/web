@@ -19,8 +19,6 @@ export const ADD_WEBSITE = gql`
         domain
         adaScore
         cdnConnected
-        html
-        htmlIncluded
         lastScanDate
         online
         pageInsights
@@ -67,8 +65,6 @@ export const ADD_WEBSITE = gql`
           url
           adaScore
           cdnConnected
-          html
-          htmlIncluded
           pageInsights
           insight {
             json

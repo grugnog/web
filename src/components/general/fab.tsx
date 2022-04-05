@@ -2,12 +2,11 @@ import React from 'react'
 import { observer } from 'mobx-react'
 import { frameDom, IframeManager } from '@app/managers'
 import { Button, Tooltip } from '@material-ui/core'
-import { useAutoFix, useMiniPlayer, useIframe, useHtmlView } from '@app/data'
+import { useAutoFix, useMiniPlayer, useIframe } from '@app/data'
 import { makeStyles } from '@material-ui/core/styles'
 import { Box } from '@a11ywatch/ui'
 import type { MergedTheme } from '@app/theme'
 import {
-  GrCode,
   GrList,
   GrMagic,
   GrMultimedia,
@@ -45,7 +44,6 @@ const MFab = observer(({ iframeStore, issue, script, marketing }: any) => {
   const classes = useStyles()
   const { setMiniPlayerContent } = useMiniPlayer()
   const { highLight, toggleHighLight, setFrameContent } = useIframe()
-  const { htmlView, toggleHtmlModal } = useHtmlView()
   const { autoFixEnabled, setAutoFix } = useAutoFix(script)
 
   return (
@@ -61,16 +59,6 @@ const MFab = observer(({ iframeStore, issue, script, marketing }: any) => {
             ) : (
               <GrMultimedia className={classes.icon} />
             )}
-          </Button>
-        </Tooltip>
-      ) : null}
-      {htmlView?.display ? (
-        <Tooltip title='View html fixed by CDN' placement='right'>
-          <Button
-            className={classes.button}
-            onClick={() => toggleHtmlModal(true)}
-          >
-            <GrCode className={classes.icon} />
           </Button>
         </Tooltip>
       ) : null}

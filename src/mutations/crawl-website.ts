@@ -11,8 +11,6 @@ export const CRAWL_WEBSITE = gql`
         domain
         adaScore
         cdnConnected
-        html
-        htmlIncluded
         lastScanDate
         userId
         online
