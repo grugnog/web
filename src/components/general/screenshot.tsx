@@ -62,9 +62,32 @@ interface Screenshot {
   height?: number
 }
 
-export function Screenshot({ src, url, resetMargin, width, height }: any) {
+export function Screenshot({
+  src,
+  url,
+  resetMargin,
+  width,
+  height,
+  fullScreen,
+}: any) {
   const classes = useStyles()
   const imageSource = useMemo(() => getBaseUrl(src), [src])
+
+  const alt = `screenshot of ${url} tested`
+
+  if (fullScreen) {
+    return (
+      <div className={`w-full relative`}>
+        <img
+          src={imageSource}
+          alt={alt}
+          width={'100%'}
+          height={'100%'}
+          className={'h-auto'}
+        />
+      </div>
+    )
+  }
 
   return (
     <div
@@ -78,10 +101,10 @@ export function Screenshot({ src, url, resetMargin, width, height }: any) {
           resetMargin ? ` ${classes.resetMargin}` : ''
         }`}
       >
-        <div className={resetMargin ? classes.float : classes.centerAlign}>
+        <div className={resetMargin ? classes.float : ''}>
           <img
             src={imageSource}
-            alt={`screenshot of ${url} tested`}
+            alt={alt}
             width={width ?? 450}
             height={height ?? 500}
           />

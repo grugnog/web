@@ -98,11 +98,8 @@ export function ReportInner({
     <WebsiteTabs
       issues={<IssueList website={website} printable />}
       screenshot={
-        <div className={`flex flex-1 h-full items-center justify-center`}>
-          <Screenshot
-            url={website?.url}
-            src={website?.screenshotStill ?? website.screenshot}
-          />
+        <div className={`h-full w-full overflow-y-scroll`}>
+          <Screenshot url={website?.url} src={website.screenshot} fullScreen />
         </div>
       }
       playground={
