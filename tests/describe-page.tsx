@@ -10,7 +10,7 @@ interface Target {
 }
 
 export const describePage = jest.fn(
-  ({ component, folder, name }: Target, callBack?: () => void) => {
+  ({ component, folder }: Target, callBack?: () => void) => {
     describe(folder.toUpperCase(), () => {
       const Component = component || require(`@app/pages/${folder}`).default
 
@@ -20,10 +20,6 @@ export const describePage = jest.fn(
         })
 
         expect(screen.getByRole('heading', { level: 1 })).toBeInTheDocument()
-
-        if (typeof name !== 'undefined') {
-          expect(screen.getByRole('heading', { name })).toBeInTheDocument()
-        }
 
         if (typeof callBack === 'function') {
           jest.fn(callBack)

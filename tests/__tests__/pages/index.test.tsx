@@ -5,7 +5,6 @@ import { describePage } from '../../describe-page'
 describePage(
   {
     folder: 'index',
-    name: 'Build Inclusive Websites Now',
     apollo: true,
   },
   () => {
