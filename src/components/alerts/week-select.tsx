@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useCallback, memo, FC } from 'react'
-import { Typography, Button as MatButton } from '@material-ui/core'
+import { Button as MatButton } from '@material-ui/core'
 import { addDays, format, startOfWeek } from 'date-fns'
-import { GrCalendar } from 'react-icons/gr'
+import { GrCalendar, GrMoon, GrSun } from 'react-icons/gr'
 
 interface Props {
   confirmDates(dates: number[], morning: boolean): Promise<void>
@@ -13,7 +13,7 @@ const startDate = startOfWeek(new Date())
 
 const WeekSelectComponent: FC<Props> = ({ confirmDates, filterEmailDates }) => {
   const [selected, setSelected] = useState<number[]>(filterEmailDates ?? [])
-  const [morning, _setMorning] = useState<boolean>(false) // TODO: set morning
+  const [morning, setMorning] = useState<boolean>(true)
 
   useEffect(() => {
     if (filterEmailDates) {
@@ -44,12 +44,16 @@ const WeekSelectComponent: FC<Props> = ({ confirmDates, filterEmailDates }) => {
     [setSelected, selected]
   )
 
+  const activeColor = 'rgb(59 130 246)'
+  const activeStyles = {
+    borderColor: activeColor,
+    color: activeColor,
+  }
+
   return (
     <div>
-      <Typography component={'h2'} variant={'h5'} className={`text-xl py-4`}>
-        Disable notifications on selected days
-      </Typography>
-      <div className={'flex gap-x-2 flex-wrap gap-y-2'}>
+      <h2 className={`text-xl`}>Disable notifications on selected days.</h2>
+      <div className={'flex gap-x-2 flex-wrap gap-y-2 py-4'}>
         {week.map((day) => (
           <button
             onClick={() => selectDates(day)}
@@ -62,13 +66,46 @@ const WeekSelectComponent: FC<Props> = ({ confirmDates, filterEmailDates }) => {
           </button>
         ))}
       </div>
+      <div className='py-4 border px-4 rounded'>
+        <h3 className='text-lg space-y-2'>
+          Determine alert setting preference, day or night.
+        </h3>
+        <div className='flex space-x-2 py-2'>
+          <MatButton
+            variant={'outlined'}
+            startIcon={
+              <GrSun
+                style={morning ? { fill: activeColor } : {}}
+                className={'grIcon'}
+              />
+            }
+            onClick={() => setMorning(true)}
+            style={morning ? activeStyles : {}}
+          >
+            Morning
+          </MatButton>
+          <MatButton
+            variant={'outlined'}
+            onClick={() => setMorning(false)}
+            startIcon={
+              <GrMoon
+                style={!morning ? { fill: activeColor } : {}}
+                className={'grIcon'}
+              />
+            }
+            style={!morning ? activeStyles : {}}
+          >
+            Night
+          </MatButton>
+        </div>
+      </div>
       <div className={'py-6'}>
         <MatButton
           onClick={onDateConfirm}
-          variant={'contained'}
+          variant={'outlined'}
           startIcon={<GrCalendar />}
         >
-          Confirm Dates
+          Confirm
         </MatButton>
       </div>
     </div>

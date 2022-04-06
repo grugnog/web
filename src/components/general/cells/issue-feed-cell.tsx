@@ -36,7 +36,7 @@ export function IssueFeedCellComponent({ item, handleToggle, listIndex }: any) {
     <Fragment>
       <li
         className={
-          'flex flex-1 place-items-center pl-3 py-1 border border-t-0 border-l-0 border-r-0'
+          'flex flex-1 px-3 place-items-center py-1 border border-t-0 border-l-0 border-r-0'
         }
       >
         <span
@@ -50,7 +50,11 @@ export function IssueFeedCellComponent({ item, handleToggle, listIndex }: any) {
           onClick={onToggleIssue}
           color='inherit'
         >
-          {issueView ? <GrUp /> : <GrDown />}
+          {issueView ? (
+            <GrUp className='grIcon' style={{ height: 12, width: 12 }} />
+          ) : (
+            <GrDown className='grIcon' style={{ height: 12, width: 12 }} />
+          )}
         </IconButton>
       </li>
       {issueView ? <FeedIssuesList {...issueProps} /> : null}
