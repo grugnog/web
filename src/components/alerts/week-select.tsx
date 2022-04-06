@@ -4,7 +4,7 @@ import { addDays, format, startOfWeek } from 'date-fns'
 import { GrCalendar } from 'react-icons/gr'
 
 interface Props {
-  confirmDates(dates: number[]): Promise<void>
+  confirmDates(dates: number[], morning: boolean): Promise<void>
   filterEmailDates: number[]
 }
 
@@ -13,6 +13,7 @@ const startDate = startOfWeek(new Date())
 
 const WeekSelectComponent: FC<Props> = ({ confirmDates, filterEmailDates }) => {
   const [selected, setSelected] = useState<number[]>(filterEmailDates ?? [])
+  const [morning, _setMorning] = useState<boolean>(false) // TODO: set morning
 
   useEffect(() => {
     if (filterEmailDates) {
@@ -24,8 +25,8 @@ const WeekSelectComponent: FC<Props> = ({ confirmDates, filterEmailDates }) => {
     const validItems = selected.filter(
       (item) => Number.isInteger(item) && item >= 0
     )
-    await confirmDates(validItems)
-  }, [confirmDates, selected])
+    await confirmDates(validItems, morning)
+  }, [confirmDates, selected, morning])
 
   const selectDates = useCallback(
     (day: number) => {

@@ -1,12 +1,8 @@
 import React, { memo, useMemo } from 'react'
 import { Chip, Tooltip } from '@material-ui/core'
 import { PageLoad } from './page-load'
-import {
-  GrMagic,
-  GrCircleAlert,
-  GrConfigure,
-  GrFormCalendar,
-} from 'react-icons/gr'
+import { GrMagic, GrCircleAlert, GrConfigure, GrCalendar } from 'react-icons/gr'
+import { format } from 'date-fns'
 
 export function RenderSecondaryComponent({
   adaScore,
@@ -36,6 +32,8 @@ export function RenderSecondaryComponent({
   const mainIssues =
     totalIssuesOnPage > allPageIssues ? totalIssuesOnPage : allPageIssues
 
+  const chipStyle = { width: 12, height: 12 }
+
   return (
     <div className={'flex space-x-2'}>
       {mainIssues && adaScore !== 100 ? (
@@ -48,7 +46,7 @@ export function RenderSecondaryComponent({
           <Chip
             variant='outlined'
             size='small'
-            avatar={<GrCircleAlert />}
+            avatar={<GrCircleAlert style={chipStyle} />}
             label={mainIssues}
           />
         </Tooltip>
@@ -56,6 +54,7 @@ export function RenderSecondaryComponent({
       <PageLoad
         durationFormated={pageLoadTime?.durationFormated}
         duration={pageLoadTime?.duration}
+        style={chipStyle}
       />
       {possibleIssuesFixedByCdn && totalIssuesOnPage ? (
         <Tooltip
@@ -69,7 +68,7 @@ export function RenderSecondaryComponent({
           <Chip
             variant='outlined'
             size='small'
-            avatar={<GrMagic />}
+            avatar={<GrMagic style={chipStyle} />}
             label={
               issuesFixedByCdn
                 ? `${issuesFixedByCdn}/${totalIssuesOnPage}`
@@ -83,8 +82,9 @@ export function RenderSecondaryComponent({
           <Chip
             variant='outlined'
             size='small'
-            avatar={<GrFormCalendar />}
-            label={lastScan}
+            avatar={<GrCalendar style={chipStyle} />}
+            className={'flex sm:text-sm'}
+            label={format(new Date(lastScan), 'dd/MM/yyyy')}
           />
         </Tooltip>
       ) : null}
@@ -98,7 +98,7 @@ export function RenderSecondaryComponent({
           <Chip
             variant='outlined'
             size='small'
-            avatar={<GrConfigure />}
+            avatar={<GrConfigure style={chipStyle} />}
             label={`${pageHeaders?.length} custom header${
               pageHeaders?.length === 1 ? '' : 's'
             }`}

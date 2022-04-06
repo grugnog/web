@@ -4,7 +4,6 @@ import { observer } from 'mobx-react'
 import {
   Snackbar as MUISnackbar,
   SnackbarContent,
-  Typography,
   IconButton,
 } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
@@ -15,14 +14,13 @@ import { GrClose } from 'react-icons/gr'
 
 const useStyles = makeStyles((theme) => ({
   error: {
-    backgroundColor: theme.palette.error.dark,
+    border: `1px solid ${theme.palette.error.dark}`,
   },
   errorMessage: {
-    color: '#000',
+    color: theme.palette.error.dark,
   },
   message: {
-    color: '#fff',
-    maxWidth: '70vw',
+    color: '#000',
   },
 }))
 
@@ -56,20 +54,22 @@ const SnackbarContainer = observer(({ store }: any) => {
       }}
     >
       <SnackbarContent
-        color='primary'
+        style={{
+          backgroundColor: '#fff',
+          color: '#000',
+        }}
         message={
           <Fragment>
-            <Typography
+            <p
               id='message-id'
-              variant='subtitle1'
-              className={
+              className={`text-lg ${
                 store.snackbar.type === 'error'
                   ? classes.errorMessage
                   : classes.message
-              }
+              }`}
             >
               {store.snackbar.title}
-            </Typography>
+            </p>
             {needsUpgrade ? (
               <Link
                 href='/payments'

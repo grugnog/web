@@ -1,11 +1,7 @@
 import React, { memo, useMemo } from 'react'
 import { Chip, Tooltip } from '@material-ui/core'
-import {
-  GrCircleAlert,
-  GrConfigure,
-  GrFormCalendar,
-  GrMagic,
-} from 'react-icons/gr'
+import { GrCalendar, GrCircleAlert, GrConfigure, GrMagic } from 'react-icons/gr'
+import { format } from 'date-fns'
 
 // TODO: REFACTOR WITH Secondary (BASE)
 export function WebsiteSecondaryComponent({
@@ -39,6 +35,8 @@ export function WebsiteSecondaryComponent({
 
   const pageIssueCount = issues?.length || 0
 
+  const chipStyle = { width: 12, height: 12 }
+
   return (
     <div className={'flex space-x-2'}>
       {pageIssueCount ? (
@@ -53,7 +51,7 @@ export function WebsiteSecondaryComponent({
           <Chip
             variant='outlined'
             size='small'
-            avatar={<GrCircleAlert />}
+            avatar={<GrCircleAlert style={chipStyle} />}
             label={mainIssues}
           />
         </Tooltip>
@@ -70,7 +68,7 @@ export function WebsiteSecondaryComponent({
           <Chip
             variant='outlined'
             size='small'
-            avatar={<GrMagic />}
+            avatar={<GrMagic style={chipStyle} />}
             label={
               issuesFixedByCdn
                 ? `${issuesFixedByCdn}/${totalIssuesOnPage}`
@@ -84,8 +82,8 @@ export function WebsiteSecondaryComponent({
           <Chip
             variant='outlined'
             size='small'
-            avatar={<GrFormCalendar />}
-            label={lastScanDate}
+            avatar={<GrCalendar style={chipStyle} />}
+            label={format(new Date(lastScanDate), 'dd/MM/yyyy')}
           />
         </Tooltip>
       ) : null}
@@ -99,7 +97,7 @@ export function WebsiteSecondaryComponent({
           <Chip
             variant='outlined'
             size='small'
-            avatar={<GrConfigure />}
+            avatar={<GrConfigure style={chipStyle} />}
             label={`${pageHeaders?.length} custom header${
               pageHeaders?.length === 1 ? '' : 's'
             }`}

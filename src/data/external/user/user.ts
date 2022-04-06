@@ -60,10 +60,14 @@ export const userData = (skip?: boolean) => {
       console.error(e)
     }
   }
-  const onFilterEmailDates = async (dates: number[]) => {
+  const onFilterEmailDates = async (
+    dates: number[],
+    morning: boolean = false
+  ) => {
     const res = await filterEmailDates({
       variables: {
         emailFilteredDates: dates,
+        morning,
       },
     }).catch((e: any) => {
       console.error(e)
