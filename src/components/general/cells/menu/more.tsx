@@ -9,7 +9,6 @@ import { GrMoreVertical } from 'react-icons/gr'
 
 interface MoreOptionsProps extends Partial<Website> {
   removePress(): void
-  modalClick?(data: any): void
   handleClose(): void
   handleMainClick: (
     data: any,
@@ -32,12 +31,10 @@ function MoreOptionsComponent({
   issues,
   history,
   crawlWebsite,
-  html,
   pageHeaders,
   index,
   // top props
   handleMainClick,
-  modalClick,
   // TODO: use STATE to manage
   anchorEl,
   handleClose,
@@ -122,9 +119,6 @@ function MoreOptionsComponent({
         <MenuItem onClick={handleMainClick(url, 'Mini Player', true)}>
           View Sandbox (Mini Player)
         </MenuItem>
-        {typeof modalClick === 'function' && html ? (
-          <MenuItem onClick={modalClick}>View Source</MenuItem>
-        ) : null}
         {!history ? (
           <MenuItem onClick={toggleLighthouse}>
             Toggle Lighthouse {pageInsights ? 'Off' : 'On'}

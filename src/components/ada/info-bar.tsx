@@ -1,7 +1,7 @@
 import React, { memo } from 'react'
 import { Button } from '@material-ui/core'
 import { printElement } from '@app/utils'
-import { getAPIRoute } from '@app/configs'
+// import { getAPIRoute } from '@app/configs'
 import type { Website } from '@app/types'
 
 const CTA_LIST_ID = 'cta-issue-list'
@@ -28,13 +28,13 @@ export function InfoBarComponent({ printable, website }: InfoBarComponent) {
       >
         Print
       </Button>
-      <Button
+      {/* <Button
         className={'border'}
         component={'a'}
         href={`${getAPIRoute()}/get-website?q=${website?.url}&download=true`}
       >
         Download
-      </Button>
+      </Button> */}
       {website?.screenshot ? (
         <Button
           className={'border'}

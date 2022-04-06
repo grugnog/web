@@ -7,7 +7,6 @@ import {
 import { makeStyles } from '@material-ui/core/styles'
 import { Link } from '../link'
 import { RenderAvatar, RenderSecondary } from './render'
-import { ModalType } from '@app/data/enums'
 import { MoreOptions } from '@app/components/general/cells/menu/more'
 import type { Website } from '@app/types'
 
@@ -48,8 +47,6 @@ export function WebsiteCell(props: WebsiteCellProps) {
     issuesInfo,
     adaScore,
     cdnConnected,
-    setModal,
-    html,
     pageLoadTime,
     mutatationLoading,
     lastScanDate,
@@ -88,10 +85,6 @@ export function WebsiteCell(props: WebsiteCellProps) {
       : handleClickOpen(eventData, title, url)
     setAnchorEl(null)
   }
-  const modalClick = () => {
-    setModal({ open: true, modalType: ModalType.highlight, html, url })
-    setAnchorEl(null)
-  }
 
   return (
     <ListItem
@@ -126,7 +119,6 @@ export function WebsiteCell(props: WebsiteCellProps) {
       </div>
       <ListItemSecondaryAction>
         <MoreOptions
-          modalClick={modalClick}
           handleMainClick={handleMainClick}
           anchorEl={anchorEl}
           handleClose={handleClose}

@@ -2,7 +2,6 @@ import React, { useState, useMemo, useCallback, memo } from 'react'
 import { MoreOptions } from '@app/components/general/cells/menu/more'
 import { Link } from '../link'
 import { WebsiteSecondary } from './render'
-import { ModalType } from '@app/data/enums'
 import {
   SCRIPTS_CDN_URL_HOST,
   BASE_GQL_URL,
@@ -40,8 +39,6 @@ export function WebsiteCellDashboardComponent({
   adaScore,
   cdnConnected,
   crawlWebsite,
-  setModal,
-  html,
   pageLoadTime,
   mutatationLoading,
   lastScanDate,
@@ -87,11 +84,6 @@ export function WebsiteCellDashboardComponent({
     [handleClickOpenPlayer, handleClickOpen, setAnchorEl]
   )
 
-  const modalClick = useCallback(() => {
-    setModal({ open: true, modalType: ModalType.highlight, html, url })
-    setAnchorEl(null)
-  }, [html, url, setModal, setAnchorEl])
-
   // TODO: REMOVE ALL URL CLIENT APPENDING
   const cdnUrl = script?.cdnUrl
     ? `${SCRIPTS_CDN_URL_HOST}/${script?.cdnUrl}`
@@ -134,11 +126,9 @@ export function WebsiteCellDashboardComponent({
               handleClose={handleClose}
               handleMenu={handleMenu}
               handleMainClick={handleMainClick}
-              modalClick={modalClick}
               anchorEl={anchorEl}
               removePress={onRemovePress}
               subDomains={subDomains}
-              html={html}
               pageHeaders={pageHeaders}
               index={index}
               pageInsights={pageInsights}
