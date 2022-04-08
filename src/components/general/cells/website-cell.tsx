@@ -70,7 +70,7 @@ export function WebsiteCell(props: WebsiteCellProps) {
   }, [url, removePress])
 
   const href = useMemo(
-    () => (url ? `/website-details?url=${encodeURIComponent(url)}` : ''),
+    () => (url ? `/website-details?url=${encodeURI(url)}` : ''),
     [url]
   )
 

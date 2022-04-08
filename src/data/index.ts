@@ -19,7 +19,6 @@ export {
   useUser,
   useCtaModal,
   useIframe,
-  useHtmlView,
   useDynamicModal,
   useAutoFix,
   useEvents,

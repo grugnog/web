@@ -11,7 +11,7 @@ function IssueTitleComponent({ pageUrl }: { pageUrl: string }) {
     <div className='px-3 py-2 border border-x-0 border-t-0'>
       <Link
         title={`view in sandbox ${pageUrl}`}
-        href={`/website-details?url=${encodeURIComponent(pageUrl)}`}
+        href={`/website-details?url=${encodeURI(pageUrl)}`}
         className={'text-lg'}
         style={{ color: '#707070', fontWeight: 'bold' }}
       >

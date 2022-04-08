@@ -7,10 +7,9 @@ import {
 import { IframeManager, HomeManager, frameDom } from '@app/managers'
 import { observer } from 'mobx-react'
 import { toJS } from 'mobx'
-import { useIframe, useHtmlView } from '@app/data'
+import { useIframe } from '@app/data'
 import { sboxType } from './config'
 import { ResetCss } from './styles'
-import { HtmlView } from './html-view'
 import { onLoad } from './utils'
 import { AnnotationContainer } from './annotation-container'
 
@@ -29,7 +28,7 @@ IFrameComponent.displayName = 'IFrameComponent'
 
 const urlReplacer = (url: string, homeStore: any) => {
   if (url) {
-    return `/api/iframe?url=${encodeURIComponent(url)}`
+    return `/api/iframe?url=${encodeURI(url)}`
   }
   return homeStore.getIframeSource(url)
 }
@@ -45,7 +44,6 @@ const MainFrame = observer(
   }: any) => {
     const iframeRef = useRef()
     const { setFrameContent } = useIframe()
-    const { setHtmlViewContent } = useHtmlView()
 
     useEffect(() => {
       try {
@@ -73,7 +71,7 @@ const MainFrame = observer(
 
     const loadFrame = (event: any) => {
       try {
-        onLoad(event, { setFrameContent, iframeRef, setHtmlViewContent })
+        onLoad(event, { setFrameContent, iframeRef })
         if (issue) {
           iframeStore.initIssueFix(issue)
         }
@@ -132,7 +130,6 @@ export const AdaIframe = ({ url = '', miniPlayer, issue }: any) => {
       ) : null}
       <FixPortals store={IframeManager} />
       <Container store={IframeManager} />
-      <HtmlView />
     </Fragment>
   )
 }

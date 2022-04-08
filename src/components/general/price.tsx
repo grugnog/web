@@ -165,7 +165,7 @@ function PriceWrapper({
                     const mailLink =
                       'mailto:support@a11ywatch.com' +
                       '?subject=' +
-                      encodeURIComponent('Enterprise Plan') +
+                      encodeURI('Enterprise Plan') +
                       '&body=' +
                       'I would like to find out more about the enterprise plan.'
 

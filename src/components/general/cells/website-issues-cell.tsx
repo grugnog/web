@@ -132,7 +132,7 @@ export function WebsiteIssuesCell({
     ? `${pageIssues.length} issue${pageIssues?.length === 1 ? '' : 's'} found!`
     : null
   const mainUrl = item?.url || item?.pageUrl
-  const href = `/website-details?url=${encodeURIComponent(mainUrl)}`
+  const href = `/website-details?url=${encodeURI(mainUrl)}`
 
   // TODO: move to more options
   const authForm = (

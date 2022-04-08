@@ -164,7 +164,7 @@ export function FullScreenModal({
                   variant='subtitle1'
                   className={classes.subTitle}
                   component={Link}
-                  href={`/website-details?url=${encodeURIComponent(url)}`}
+                  href={`/website-details?url=${encodeURI(url)}`}
                 >
                   {url}
                 </Typography>

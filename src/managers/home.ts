@@ -17,22 +17,14 @@ class HomeManager {
     event?.preventDefault()
   }
 
-  getIframeSource = (url: string = '', rp: boolean): string => {
-    const src = this.iframeSrc
-      ? this.iframeSrc
-      : `/api/iframe?url=${encodeURIComponent(url)}`
+  getIframeSource = (url: string = ''): string => {
+    const src = this.iframeSrc || `/api/iframe?url=${encodeURI(url)}`
 
-    if (rp && src) {
-      return src.replace('/api/iframe?url=', '')
-    }
     return src
   }
 
   @computed get getTestFrameUrl() {
-    return (
-      (this.iframeSrc && this.iframeSrc.replace('/api/iframe/?url=', '')) ||
-      'https://www.drake.com'
-    )
+    return this.iframeSrc || 'https://www.drake.com'
   }
 
   @action
@@ -40,7 +32,7 @@ class HomeManager {
     this.preventDefault(event)
     IframeManager.clearPortals()
     AppManager.clearPortals()
-    this.iframeSrc = `/api/iframe/?url=${url || this.url}`
+    this.iframeSrc = `/api/iframe?url=${url || this.url}`
     this.searchHidden = true
   }
 
@@ -53,7 +45,7 @@ class HomeManager {
       })
       IframeManager.clearPortals()
       // TODO: update iframeDOm location and just update urlParam source
-      iframeDOM.location = `/api/iframe/?url=${source}`
+      iframeDOM.location = `/api/iframe?url=${source}`
     }
   }
 

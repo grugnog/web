@@ -1,10 +1,7 @@
 import { frameDom } from '@app/managers'
 
 // IFRAME LOADER
-export const onLoad = (
-  event: any,
-  { setFrameContent, iframeRef, setHtmlViewContent }: any
-) => {
+export const onLoad = (event: any, { setFrameContent, iframeRef }: any) => {
   try {
     const dom =
       (typeof iframeRef !== 'undefined' &&
@@ -14,7 +11,7 @@ export const onLoad = (
     if (dom) {
       frameDom.setFrameDom(dom)
       if (typeof setFrameContent === 'function') {
-        setFrameContent(setHtmlViewContent)
+        setFrameContent()
       }
     }
   } catch (e) {

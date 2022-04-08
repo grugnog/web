@@ -52,7 +52,7 @@ export function IssuesCellComponent({
     setAnchorEl(null)
   }
 
-  const href = `/website-details?url=${encodeURIComponent(url)}`
+  const href = `/website-details?url=${encodeURI(url)}`
   const menuId = `issues-appbar${index}`
 
   // TODO: move to more options
