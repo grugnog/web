@@ -48,10 +48,6 @@ class MyDocument extends Document {
           {process.env.NEXT_PUBLIC_DISABLE_SEO === '1' ? (
             <meta name='robots' content='noindex' />
           ) : null}
-          <meta
-            name='viewport'
-            content='minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no'
-          />
           <meta name='theme-color' content={theme.palette.primary.main} />
           <meta name='mobile-web-app-capable' content='yes' />
           <link rel='manifest' href='/manifest.json' />

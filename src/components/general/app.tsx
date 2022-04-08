@@ -91,6 +91,10 @@ export function MyApp({ Component, pageProps }: InnerApp) {
     <Fragment>
       <Head>
         <title key='title'>{title}</title>
+        <meta
+          name='viewport'
+          content='minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no'
+        />
         <meta name='description' content={description} key='description' />
         <meta property='og:description' content={description} />
       </Head>
