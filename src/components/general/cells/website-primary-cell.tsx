@@ -130,7 +130,7 @@ export function WebsitePrimaryCellComponent({
     ? `${pageIssues.length} issue${pageIssues?.length === 1 ? '' : 's'} found!`
     : null
   const mainUrl = item?.url || item?.pageUrl
-  const href = `/website-details?websiteUrl=${encodeURIComponent(mainUrl)}`
+  const href = `/website-details?url=${encodeURIComponent(mainUrl)}`
 
   const lh = item?.insight?.json
 

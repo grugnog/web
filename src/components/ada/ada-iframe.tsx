@@ -16,9 +16,10 @@ import { AnnotationContainer } from './annotation-container'
 
 const IFrameComponent = forwardRef((props: any, ref: any) => {
   const src = props?.src || ''
+
   if (src?.includes('.pdf')) {
     return (
-      <embed {...props} ref={ref} src={src.replace('/api/iframe/?url=', '')} />
+      <embed {...props} ref={ref} src={src.replace('/api/iframe?url=', '')} />
     )
   }
   return <iframe {...props} ref={ref} />
@@ -28,10 +29,7 @@ IFrameComponent.displayName = 'IFrameComponent'
 
 const urlReplacer = (url: string, homeStore: any) => {
   if (url) {
-    if (url.includes('http://localhost')) {
-      return url
-    }
-    return `/api/iframe?url=${url}`
+    return `/api/iframe?url=${encodeURIComponent(url)}`
   }
   return homeStore.getIframeSource(url)
 }
@@ -120,16 +118,18 @@ const Container = observer(({ store }: { store: any }) =>
   ) : null
 )
 
-export const AdaIframe = ({ url, miniPlayer, issue }: any) => {
+export const AdaIframe = ({ url = '', miniPlayer, issue }: any) => {
   return (
     <Fragment>
-      <MainFrame
-        homeStore={HomeManager}
-        iframeStore={IframeManager}
-        url={url}
-        miniPlayer={miniPlayer}
-        issue={issue}
-      />
+      {url ? (
+        <MainFrame
+          homeStore={HomeManager}
+          iframeStore={IframeManager}
+          url={url}
+          miniPlayer={miniPlayer}
+          issue={issue}
+        />
+      ) : null}
       <FixPortals store={IframeManager} />
       <Container store={IframeManager} />
       <HtmlView />

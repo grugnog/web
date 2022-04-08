@@ -43,7 +43,7 @@ function MoreOptionsComponent({
 }: MoreOptionsProps) {
   const { updateWebsite } = useWebsiteContext()
   const href = useMemo(
-    () => (url ? `/website-details?websiteUrl=${encodeURIComponent(url)}` : ''),
+    () => (url ? `/website-details?url=${encodeURIComponent(url)}` : ''),
     [url]
   )
 
