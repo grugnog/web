@@ -1,19 +1,6 @@
 import React, { memo } from 'react'
 import { Tooltip, Avatar } from '@material-ui/core'
-import { makeStyles } from '@material-ui/core/styles'
 import { GrFolder, GrStatusWarning } from 'react-icons/gr'
-
-const useStyles = makeStyles((theme) => ({
-  cdnText: {
-    color: theme.palette.secondary.main,
-    fontWeight: 800,
-  },
-  pulse: {
-    boxShadow: `2px 1.5px ${theme.palette.secondary.main}`,
-    backgroundColor: 'rgb(211,211,211)',
-    color: theme.palette.common.black,
-  },
-}))
 
 export function RenderAvatarComponent({
   adaScore,
@@ -21,16 +8,14 @@ export function RenderAvatarComponent({
   error, // issues view
   className = '',
 }: any) {
-  const classes = useStyles()
-
-  const newScore = adaScore && `${Math.max(0, adaScore.toFixed(0))}%`
+  const newScore = adaScore && `${Math.round(adaScore)}`
   const ADASCORE = adaScore
     ? `Accessibility score ${newScore}`
     : error
     ? ''
     : 'Accessibility score not generated yet'
 
-  const css = `${cdnConnected ? ` ${classes.pulse}` : ''} ${className}`
+  const css = `${cdnConnected ? ` ring` : ''} ${className}`
 
   let inner = <GrFolder />
 
@@ -38,9 +23,7 @@ export function RenderAvatarComponent({
     inner = (
       <p
         aria-label={ADASCORE}
-        className={`text-black text-sm text-center font-bold ${
-          cdnConnected ? classes.cdnText : ''
-        }`}
+        className={`text-black text-sm text-center font-bold`}
       >
         {newScore}
       </p>
