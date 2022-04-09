@@ -144,6 +144,22 @@ function WebAccessibility({ name }: PageProps) {
         to see if everyone will perceive the effect the same.
       </Typography>
       <Typography variant='h4' component='h3' gutterBottom style={bold}>
+        Understand how performance impacts accessibility
+      </Typography>
+      <Typography variant='subtitle1' component='p' gutterBottom>
+        Performance goes into web accessibility in many forms. In certain
+        situations even voice over can be impacted by heavy usage of javascript
+        in incorrect locations. Try to move certain synchronous methods outside
+        of the render loop as much as possible. Avoid doing sorts on large array
+        elements inside render as well unless you know exactly how the flow of
+        control for the render cycle will be impacted, a solution could be to
+        move sequences into seperate buckets on event processing. Theres a lot
+        more that can be done to improve performance with javascript including
+        using <em>queueMicroTask</em> and understanding how the event loop
+        works. When theres a need for a lot of work using web workers could also
+        help or simply moving the processing to the server.
+      </Typography>
+      <Typography variant='h4' component='h3' gutterBottom style={bold}>
         Practice VoiceOver
       </Typography>
       <Typography variant='subtitle1' component='p' gutterBottom>

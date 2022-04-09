@@ -1,4 +1,4 @@
-import React, { forwardRef } from 'react'
+import React, { forwardRef, StrictMode } from 'react'
 import NextLink from 'next/link'
 
 interface NextComposedProps {
@@ -72,7 +72,11 @@ function MNLink({
 }
 
 export const Link = forwardRef(function Link(props: any, ref: any) {
-  return <MNLink {...props} innerRef={ref} />
+  return (
+    <StrictMode>
+      <MNLink {...props} innerRef={ref} />
+    </StrictMode>
+  )
 })
 
 export const LinkPrefetch = forwardRef(function Link(props: any, ref: any) {
