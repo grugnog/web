@@ -38,20 +38,34 @@ function MNLink({
   shouldPrefetch,
   ...props
 }: any) {
-  const external = String(href).includes('http')
-  const as = external ? undefined : href
-  let Component = external ? 'a' : NextComposed
+  if (/http|https/.test(href)) {
+    return (
+      <a
+        {...props}
+        className={`text-lg hover:underline ${className}`}
+        href={href}
+      />
+    )
+  }
 
   if (shouldPrefetch) {
-    Component = NextComposedPreFetch
+    return (
+      <NextComposedPreFetch
+        {...props}
+        className={`text-lg hover:underline ${className}`}
+        ref={innerRef}
+        as={href}
+        href={href}
+      />
+    )
   }
 
   return (
-    <Component
+    <NextComposed
       {...props}
       className={`text-lg hover:underline ${className}`}
       ref={innerRef}
-      as={as}
+      as={href}
       href={href}
     />
   )

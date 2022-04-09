@@ -85,25 +85,19 @@ const SignOnForm: FunctionComponent<SignOnProps> = ({
   const emailRef = useRef<any>(null)
   const passwordRef = useRef<any>(null)
 
-  const plan = String(router?.query?.plan).toLocaleLowerCase() as string
-  const urlRoute =
-    typeof plan === 'string' && ['basic', 'premium'].includes(String(plan))
-      ? `/payments?plan=${plan}`
-      : '/'
-
   useEffect(() => {
     if (data) {
       const user = data[loginView ? 'login' : 'register']
       if (user) {
+        const plan = String(router?.query?.plan).toLocaleLowerCase() as string
+        const urlRoute = ['basic', 'premium'].includes(plan)
+          ? `/payments?plan=${plan}`
+          : '/'
         UserManager.setUser(user)
-        if (router.pathname === urlRoute) {
-          router.reload()
-        } else {
-          router.push(urlRoute)
-        }
+        router.push(urlRoute)
       }
     }
-  }, [data, router, loginView, urlRoute])
+  }, [data, router, loginView])
 
   const submit = useCallback(
     async (e: any) => {
