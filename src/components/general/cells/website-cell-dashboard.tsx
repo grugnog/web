@@ -95,8 +95,14 @@ export function WebsiteCellDashboardComponent({
   const reportsLink = `${BASE_GQL_URL}/${domain}`
 
   const parsedInsight = useMemo(() => {
-    if (insight?.json) {
-      return JSON.parse(insight?.json)
+    // TODO: REMOVE DOUBLE PARSING OF JSON
+    if (insight && insight?.json && insight.json !== `{"json":""}`) {
+      const parsed = JSON.parse(insight?.json)
+
+      if (parsed?.json) {
+        return JSON.parse(parsed.json)
+      }
+      return parsed
     }
   }, [insight])
 
