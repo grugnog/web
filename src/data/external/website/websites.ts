@@ -79,12 +79,14 @@ export const useWebsiteData = (
           }
 
           if (dataSource?.url === newSubDomain?.url) {
+            dataSource.adaScore = newSubDomain.adaScore
             dataSource.online = newSubDomain.online
             dataSource.insight = newSubDomain.insight
             dataSource.cdnConnected = newSubDomain.cdnConnected
             dataSource.pageLoadTime = newSubDomain.pageLoadTime
-            forceUpdate()
           }
+
+          forceUpdate()
         })
       }
     },
@@ -108,14 +110,13 @@ export const useWebsiteData = (
           )
 
           if (dataSource) {
-            dataSource.adaScore = completedWebsite.adaScore
-
+            const adaScoreAverage = completedWebsite.adaScoreAverage
+            dataSource.adaScoreAverage = adaScoreAverage
             AppManager.toggleSnack(
               true,
-              `Crawl finished for ${completedWebsite.domain}`,
+              `Crawl finished for ${completedWebsite.domain}. Average score across pages ${adaScoreAverage}`,
               'success'
             )
-
             forceUpdate()
           }
         }

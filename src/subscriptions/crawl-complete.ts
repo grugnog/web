@@ -4,7 +4,7 @@ const CRAWL_COMPLETE_SUBSCRIPTION = gql`
   subscription crawlComplete($userId: Int) {
     crawlComplete(userId: $userId) {
       domain
-      adaScore
+      adaScoreAverage
     }
   }
 `

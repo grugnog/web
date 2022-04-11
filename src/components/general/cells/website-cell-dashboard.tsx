@@ -37,6 +37,7 @@ export function WebsiteCellDashboardComponent({
   issues,
   issuesInfo,
   adaScore,
+  adaScoreAverage,
   cdnConnected,
   crawlWebsite,
   pageLoadTime,
@@ -153,7 +154,10 @@ export function WebsiteCellDashboardComponent({
       <div className={styles.spacing} />
 
       <div className={[styles.row, 'flex-wrap gap-x-2 gap-y-1'].join(' ')}>
-        <AccessibilityBox adaScore={adaScore} />
+        <AccessibilityBox
+          adaScore={adaScore}
+          adaScoreAverage={adaScoreAverage}
+        />
         <PagesBox count={subDomains?.length} />
         <LoadTimeBox
           durationFormated={pageLoadTime?.durationFormated}

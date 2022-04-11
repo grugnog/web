@@ -22,6 +22,7 @@ const GET_WEBSITES = gql`
         url
         domain
         adaScore
+        adaScoreAverage
         cdnConnected
         lastScanDate
         online
@@ -53,7 +54,6 @@ const GET_WEBSITES = gql`
           domain
           url
           adaScore
-          
           pageInsights
           insight {
             json
