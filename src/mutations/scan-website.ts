@@ -10,12 +10,11 @@ const SCAN_WEBSITE = gql`
         url
         domain
         adaScore
+        adaScoreAverage
         cdnConnected
         cdn
         userId
         lastScanDate
-        screenshot
-        screenshotStill
         timestamp
         online
         script {

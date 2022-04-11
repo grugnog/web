@@ -35,14 +35,6 @@ export function InfoBarComponent({ printable, website }: InfoBarComponent) {
       >
         Download
       </Button>
-      {website?.screenshot ? (
-        <Button
-          className={'border'}
-          onClick={() => window.open(website.screenshot + '')}
-        >
-          View Screenshot
-        </Button>
-      ) : null}
     </div>
   )
 }

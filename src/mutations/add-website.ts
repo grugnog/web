@@ -18,6 +18,7 @@ export const ADD_WEBSITE = gql`
         userId
         domain
         adaScore
+        adaScoreAverage
         cdnConnected
         lastScanDate
         online

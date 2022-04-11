@@ -47,7 +47,7 @@ function a11yProps(index: number) {
   }
 }
 
-export function WebsiteTabs({ issues, html, screenshot, playground }: any) {
+export function WebsiteTabs({ issues, html, playground }: any) {
   const [value, setValue] = useState<number>(0)
   const classes = useStyles()
 
@@ -55,8 +55,7 @@ export function WebsiteTabs({ issues, html, screenshot, playground }: any) {
     setValue(newValue)
   }, [])
 
-  const screenshotIndex = !html ? 1 : 2
-  const playgroundIndex = !html ? 2 : 3
+  const playgroundIndex = !html ? 1 : 2
 
   return (
     <div className={classes.wrapper}>
@@ -68,9 +67,6 @@ export function WebsiteTabs({ issues, html, screenshot, playground }: any) {
       >
         <Tab label='Insights' {...a11yProps(0)} />
         {html ? <Tab label='HTML' {...a11yProps(1)} /> : null}
-        {screenshot ? (
-          <Tab label='Screenshots' {...a11yProps(screenshotIndex)} />
-        ) : null}
         {playground ? (
           <Tab label='Playground' {...a11yProps(playgroundIndex)} />
         ) : null}
@@ -81,15 +77,6 @@ export function WebsiteTabs({ issues, html, screenshot, playground }: any) {
       {html ? (
         <TabPanel value={value} index={1} className={classes.container}>
           {html}
-        </TabPanel>
-      ) : null}
-      {screenshot ? (
-        <TabPanel
-          value={value}
-          index={screenshotIndex}
-          className={classes.container}
-        >
-          {screenshot}
         </TabPanel>
       ) : null}
       {playground ? (

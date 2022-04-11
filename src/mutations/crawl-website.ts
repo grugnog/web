@@ -14,6 +14,7 @@ export const CRAWL_WEBSITE = gql`
         lastScanDate
         userId
         online
+        adaScoreAverage
         insight {
           json
         }

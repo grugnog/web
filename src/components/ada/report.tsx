@@ -1,11 +1,6 @@
 import React, { memo, useMemo } from 'react'
 import { makeStyles } from '@material-ui/core/styles'
-import {
-  IssueList,
-  WebsiteTabs,
-  Screenshot,
-  TestView,
-} from '@app/components/general'
+import { IssueList, WebsiteTabs, TestView } from '@app/components/general'
 import { ListSkeleton } from '@app/components/placeholders'
 import { ReportViewComponentLeft } from './report-left'
 import { Website } from '@app/types'
@@ -97,11 +92,6 @@ export function ReportInner({
   return (
     <WebsiteTabs
       issues={<IssueList website={website} printable />}
-      screenshot={
-        <div className={`h-full w-full overflow-y-scroll`}>
-          <Screenshot url={website?.url} src={website.screenshot} fullScreen />
-        </div>
-      }
       playground={
         disablePlayground ? null : (
           <TestView url={website.url || ''} marketing />
