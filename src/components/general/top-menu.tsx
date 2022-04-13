@@ -1,7 +1,7 @@
-import React from 'react'
+import React, { memo } from 'react'
 import { Menu } from '@material-ui/core'
 
-export function TopMenu({
+export function TopMenuComponent({
   children,
   anchorEl,
   id,
@@ -30,3 +30,5 @@ export function TopMenu({
     </Menu>
   )
 }
+
+export const TopMenu = memo(TopMenuComponent)

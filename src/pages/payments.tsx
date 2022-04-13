@@ -122,7 +122,8 @@ function Payments({ hideTitle = false, name }: PaymentProps) {
         }
 
         AppManager.toggleSnack(true, 'Payment confirmed!', 'success')
-        router.push('/')
+
+        await router.push('/')
       }
     } catch (e) {
       console.error(e)
@@ -134,20 +135,24 @@ function Payments({ hideTitle = false, name }: PaymentProps) {
   }
 
   const cancelConfirm = async () => {
-    const res = await cancelSubscription({
-      variables: {
-        email: data?.email,
-      },
-    })
-    AppManager.toggleSnack(true, 'Payment cancelled!', 'success')
-    setOpen(false)
-    const jwt = res?.data?.cancelSubscription?.user.jwt
+    try {
+      const res = await cancelSubscription({
+        variables: {
+          email: data?.email,
+        },
+      })
+      AppManager.toggleSnack(true, 'Payment cancelled!', 'success')
+      setOpen(false)
+      const jwt = res?.data?.cancelSubscription?.user.jwt
 
-    if (jwt) {
-      UserManager.setJwt(jwt)
+      if (jwt) {
+        UserManager.setJwt(jwt)
+      }
+
+      await router.push('/')
+    } catch (e) {
+      console.error(e)
     }
-
-    router.push('/')
   }
 
   const renderPayMentBoxes = data?.role === 0 && !data.activeSubscription

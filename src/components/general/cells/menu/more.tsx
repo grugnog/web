@@ -1,11 +1,11 @@
 import React, { memo, useCallback, useMemo } from 'react'
 import { IconButton, MenuItem } from '@material-ui/core'
-import { AppManager } from '@app/managers'
-import { Link } from '../../link'
-import { TopMenu } from '../../top-menu'
-import { Website } from '@app/types'
-import { useWebsiteContext } from '@app/components/providers/website'
 import { GrMoreVertical } from 'react-icons/gr'
+import { AppManager } from '@app/managers'
+import type { Website } from '@app/types'
+import { useWebsiteContext } from '@app/components/providers/website'
+import { NextComposed } from '../../link'
+import { TopMenu } from '../../top-menu'
 
 interface MoreOptionsProps extends Partial<Website> {
   removePress(): void
@@ -84,7 +84,6 @@ function MoreOptionsComponent({
         aria-controls={menuId}
         aria-haspopup='true'
         onClick={handleMenu}
-        color='inherit'
       >
         <GrMoreVertical />
       </IconButton>
@@ -94,7 +93,7 @@ function MoreOptionsComponent({
         open={!!anchorEl}
         onClose={handleClose}
       >
-        <MenuItem component={Link} href={href} color='inherit'>
+        <MenuItem component={NextComposed as any} href={href}>
           View Sandbox
         </MenuItem>
         {issues?.length ? (

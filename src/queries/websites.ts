@@ -68,9 +68,6 @@ const GET_WEBSITES = gql`
             possibleIssuesFixedByCdn
             totalIssues
           }
-          issues(filter: $filter) {
-            pageUrl
-          }
         }
         ${issuesFrag}
       }

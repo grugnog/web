@@ -70,7 +70,9 @@ function ResetPassword({ name }: PageProps) {
   useEffect(() => {
     if (resetPasswordData?.resetPassword?.jwt) {
       UserManager.setUser(resetPasswordData.resetPassword)
-      router.push('/')
+      ;(async () => {
+        await router.push('/')
+      })()
     }
   }, [router, resetPasswordData])
 

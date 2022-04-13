@@ -89,12 +89,21 @@ const SignOnForm: FunctionComponent<SignOnProps> = ({
     if (data) {
       const user = data[loginView ? 'login' : 'register']
       if (user) {
-        const plan = String(router?.query?.plan).toLocaleLowerCase() as string
-        const urlRoute = ['basic', 'premium'].includes(plan)
-          ? `/payments?plan=${plan}`
-          : '/'
-        UserManager.setUser(user)
-        router.push(urlRoute)
+        try {
+          const plan = String(router?.query?.plan).toLocaleLowerCase() as string
+          const urlRoute = ['basic', 'premium'].includes(plan)
+            ? `/payments?plan=${plan}`
+            : '/'
+
+          UserManager.setUser(user)
+          ;(async () => {
+            await router.push(urlRoute, urlRoute)
+          })()
+        } catch (e) {
+          console.error(e)
+        }
+
+        // location.reload()
       }
     }
   }, [data, router, loginView])
@@ -132,6 +141,23 @@ const SignOnForm: FunctionComponent<SignOnProps> = ({
     [signOnMutation]
   )
 
+  const onGoogleAuth = useCallback(
+    async (response: any) => {
+      try {
+        await signOnMutation({
+          variables: {
+            email: response?.profileObj?.email,
+            password: '',
+            googleId: response?.googleId,
+          },
+        })
+      } catch (e) {
+        console.error(e)
+      }
+    },
+    [signOnMutation]
+  )
+
   return (
     <Fragment>
       <Container maxWidth='sm'>
@@ -149,19 +175,7 @@ const SignOnForm: FunctionComponent<SignOnProps> = ({
             <GoogleLogin
               clientId={String(GOOGLE_CLIENT_ID)}
               buttonText={loginView ? 'Login' : 'Sign up with google'}
-              onSuccess={async (response: any) => {
-                try {
-                  await signOnMutation({
-                    variables: {
-                      email: response?.profileObj?.email,
-                      password: '',
-                      googleId: response?.googleId,
-                    },
-                  })
-                } catch (e) {
-                  console.error(e)
-                }
-              }}
+              onSuccess={onGoogleAuth}
               onFailure={(err) => {
                 console.error(err)
               }}

@@ -40,9 +40,9 @@ export function Onboarding() {
       </CardContent>
       <CardActions>
         <Button
-          onClick={() => {
+          onClick={async () => {
             setModal({ open: false })
-            router.push('/alerts')
+            await router.push('/alerts')
           }}
           variant='contained'
           className={classes.normal}

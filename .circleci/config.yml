@@ -5,6 +5,9 @@ jobs:
   web:
     docker:
       - image: cimg/node:14.18.3
+    environment:
+      PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: 1
+      PLAYWRIGHT_BROWSERS_PATH: 0
     steps:
       - checkout
       - restore_cache:

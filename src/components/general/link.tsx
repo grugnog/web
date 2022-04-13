@@ -1,4 +1,4 @@
-import React, { forwardRef, StrictMode } from 'react'
+import React, { forwardRef } from 'react'
 import NextLink from 'next/link'
 
 interface NextComposedProps {
@@ -7,9 +7,9 @@ interface NextComposedProps {
   prefetch: boolean
 }
 
-const NextComposed = forwardRef(function Link(
+export const NextComposed = forwardRef(function Link(
   { as, href, ...other }: NextComposedProps,
-  ref: React.Ref<HTMLAnchorElement>
+  ref?: React.Ref<HTMLAnchorElement>
 ) {
   return (
     <NextLink href={href} as={as} passHref prefetch={false}>
@@ -29,7 +29,7 @@ const NextComposedPreFetch = forwardRef(function Link(
   )
 })
 
-function MNLink({
+export function MNLink({
   activeClassName = 'active',
   innerRef,
   className,
@@ -72,11 +72,7 @@ function MNLink({
 }
 
 export const Link = forwardRef(function Link(props: any, ref: any) {
-  return (
-    <StrictMode>
-      <MNLink {...props} innerRef={ref} />
-    </StrictMode>
-  )
+  return <MNLink {...props} innerRef={ref} />
 })
 
 export const LinkPrefetch = forwardRef(function Link(props: any, ref: any) {

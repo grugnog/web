@@ -37,12 +37,16 @@ class HomeManager {
   }
 
   @action
-  link = (iframeDOM: any, source: any) => {
+  link = async (iframeDOM: any, source: any) => {
     if (iframeDOM) {
-      Router.push({
-        pathname: window?.location?.pathname,
-        query: { websiteUrl: source },
-      })
+      try {
+        await Router.push({
+          pathname: window?.location?.pathname,
+          query: { websiteUrl: source },
+        })
+      } catch (e) {
+        console.error(e)
+      }
       IframeManager.clearPortals()
       // TODO: update iframeDOm location and just update urlParam source
       iframeDOM.location = `/api/iframe?url=${source}`

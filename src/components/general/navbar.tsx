@@ -92,12 +92,12 @@ const NavBarComponent = ({
   const buttonProps = !backButton
     ? { href: '/', component: Link }
     : {
-        onClick: (e: any) => {
+        onClick: async (e: any) => {
           e?.preventDefault()
           if (backButton) {
             router.back()
           } else {
-            router.push('/')
+            await router.push('/')
           }
         },
       }
