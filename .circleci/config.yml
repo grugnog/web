@@ -28,7 +28,10 @@ jobs:
           conf: './codecov.yml'
   web-e2e:
     docker:
-      - image: mcr.microsoft.com/playwright:focal
+      - image: mcr.microsoft.com/playwright:v1.21.0-focal
+    environment:
+      PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: 1
+      PLAYWRIGHT_BROWSERS_PATH: 0
     steps:
       - checkout
       - restore_cache:
@@ -37,13 +40,14 @@ jobs:
             - node-v1-{{ .Branch }}-
             - node-v1-
       - run:
-          command: npx playwright install chromium
-      - run:
           command: yarn install --frozen-lockfile
+      - run:
+          command: npx playwright install
       - run:
           command: yarn build
       - run:
           command: yarn test:e2e
+          no_output_timeout: 60m
 workflows:
   build_and_test:
     jobs:

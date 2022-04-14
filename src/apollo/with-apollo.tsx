@@ -34,13 +34,13 @@ const createLink = (): ApolloLink => {
   const errorLink = onError(({ graphQLErrors, networkError }: any) => {
     if (typeof window !== 'undefined') {
       let graphErrors = ''
-      graphQLErrors?.map(({ message }: { message?: string }) => {
+      graphQLErrors?.forEach(({ message }: { message?: string }) => {
         if (message) {
           const invalidSignature = message.includes(
             'Context creation failed: invalid signature'
           )
 
-          // todo fire mutation with client for logout
+          // TODO: CLEAR AUTH SS FOR USER AND redirect CS
           if (message.includes('JWT:') || invalidSignature) {
             UserManager.clearUser()
           }

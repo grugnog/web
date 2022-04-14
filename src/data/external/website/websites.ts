@@ -145,6 +145,7 @@ export const useWebsiteData = (
           if (dataSource) {
             // MUTATION UPDATING WEBSITES
             if (hasIssues) {
+              // TODO: remove set
               const ids = new Set(dataSource.issues.map((d: any) => d.pageUrl))
               const merged = [
                 ...dataSource.issues,
@@ -156,6 +157,7 @@ export const useWebsiteData = (
             }
 
             setIssueFeedContent(dataSource.issues, true)
+
             AppManager.toggleSnack(
               true,
               `Insight found on ${newIssue?.pageUrl}`,
@@ -197,7 +199,6 @@ export const useWebsiteData = (
           )
         }
         dataSource.pageInsights = updatedWebsite.pageInsights
-
         // TODO: MOVE STATE MANAGE OUT OF APOLLO CACHE
         forceUpdate()
       }
@@ -206,7 +207,7 @@ export const useWebsiteData = (
 
   useEffect(() => {
     if (addWebsiteData && !addWebsiteData?.addWebsite?.success) {
-      AppManager.toggleSnack(true, addWebsiteData.addWebsite.message, 'warning')
+      AppManager.toggleSnack(true, addWebsiteData.addWebsite.message)
     }
   }, [addWebsiteData])
 
