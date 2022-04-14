@@ -82,6 +82,7 @@ export function FormDialogWrapper({
   const submit = useCallback(
     async (event: any) => {
       event?.preventDefault()
+      // TODO: REMOVE LOGIC
       let cleanUrl = String(websitUrl)
         .replace(https ? 'https' : 'http', https ? 'http' : 'https')
         .replace(/^(?:https?:\/\/)?/i, '')
@@ -92,9 +93,11 @@ export function FormDialogWrapper({
       }
 
       let tpt = 'https'
+
       if (websitUrl.includes('http://') || !https) {
         tpt = 'http'
       }
+
       let urlBase = cleanUrl.includes('://') ? '' : `://`
 
       let blockExt = extension === 'none'
@@ -105,6 +108,7 @@ export function FormDialogWrapper({
 
       const ex =
         blockExt ||
+        cleanUrl.includes('.') ||
         domainList.some((element: any) => cleanUrl.includes(element))
           ? ''
           : extension
