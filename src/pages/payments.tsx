@@ -19,11 +19,9 @@ import { useRouter } from 'next/router'
 import { UserManager, AppManager } from '@app/managers'
 import { CheckoutForm } from '@app/components/stripe/checkout'
 import { Elements } from '@stripe/react-stripe-js'
-import { loadStripe } from '@stripe/stripe-js'
+import { loadStripe, Stripe } from '@stripe/stripe-js'
 import { STRIPE_KEY } from '@app/configs/app-config'
 import { EmptyPayments } from '@app/components/empty'
-
-const stripePromise = loadStripe(STRIPE_KEY)
 
 const useStyles = makeStyles(() => ({
   row: {
@@ -70,9 +68,20 @@ function Payments({ hideTitle = false, name }: PaymentProps) {
   })
   const [yearly, setYearly] = useState<boolean>(false)
   const [open, setOpen] = useState<boolean>(false)
+  const [stripePromise, setStripe] = useState<Stripe | null>(null)
 
   const plan = String(router?.query?.plan).toLocaleLowerCase() as string
   const yearSet = String(router?.query?.yearly)
+
+  useEffect(() => {
+    ;(async () => {
+      const stripePromise = await loadStripe(STRIPE_KEY)
+
+      if (stripePromise) {
+        setStripe(stripePromise)
+      }
+    })()
+  }, [])
 
   useEffect(() => {
     if (yearSet && yearSet !== 'undefined') {

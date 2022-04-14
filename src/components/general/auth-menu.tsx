@@ -46,22 +46,25 @@ function AuthMenuComponent({
         console.error(e)
       }
 
-      queueMicrotask(async () => {
-        UserManager.clearUser()
+      try {
+        await client?.clearStore()
+      } catch (e) {
+        console.error(e)
+      }
 
-        try {
-          await client?.clearStore()
-        } catch (e) {
-          console.error(e)
-        }
+      try {
+        await client?.resetStore()
+      } catch (e) {
+        console.error(e)
+      }
 
-        try {
-          await client?.resetStore()
-          await router.push('/')
-        } catch (e) {
-          console.error(e)
-        }
-      })
+      try {
+        await router.push('/', '/')
+      } catch (e) {
+        console.error(e)
+      }
+
+      UserManager.clearUser()
     },
     [setIssueFeedContent, client, router, logoutMutation]
   )

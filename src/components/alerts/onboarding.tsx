@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useCallback } from 'react'
 import { useRouter } from 'next/router'
 import {
   Card,
@@ -18,6 +18,15 @@ export function Onboarding() {
   const router = useRouter()
   const classes = useStyles()
   const { setModal } = useDynamicModal()
+
+  const onTakePress = useCallback(async () => {
+    setModal({ open: false })
+    await router.push('/alerts', '/alerts')
+  }, [setModal, router])
+
+  const onClose = useCallback(async () => {
+    setModal({ open: false })
+  }, [setModal])
 
   return (
     <Card className={classes.card}>
@@ -40,21 +49,13 @@ export function Onboarding() {
       </CardContent>
       <CardActions>
         <Button
-          onClick={async () => {
-            setModal({ open: false })
-            await router.push('/alerts')
-          }}
+          onClick={onTakePress}
           variant='contained'
           className={classes.normal}
         >
           Take me there
         </Button>
-        <Button
-          className={classes.see}
-          onClick={() => {
-            setModal({ open: false })
-          }}
-        >
+        <Button className={classes.see} onClick={onClose}>
           Close
         </Button>
       </CardActions>
