@@ -14,6 +14,7 @@ import Collapse from '@material-ui/core/Collapse'
 import { EditableMixture } from '@app/components/mixtures/editable-mixture'
 import { collaspeListStyles as useStyles } from './styles'
 import { GrDomain, GrDown, GrUp } from 'react-icons/gr'
+import { CdnBlock } from './blocks/cdn'
 
 const handleClick = (item: any, open: boolean, cb?: any) => {
   cb(item === open ? '' : item)
@@ -33,6 +34,7 @@ function MainCell({
   updateScript,
   scriptLoading,
   newItemUpdate,
+  cdn,
 }: any) {
   const [source, setSource] = useState<any>(sourceData)
   const [newScript, setScript] = useState<any>(source?.script ?? sourceData)
@@ -129,7 +131,7 @@ function MainCell({
         ) : null}
         <>
           <div style={{ flex: 1 }} />
-          <div style={{ flex: 1, display: 'flex', paddingBottom: 4 }}>
+          <div className='flex flex-1 py-2 space-x-2'>
             <Button
               onClick={(e: any) => {
                 e?.preventDefault()
@@ -143,11 +145,17 @@ function MainCell({
             >
               {editMode ? 'Default' : 'Edit'}
             </Button>
-            <div style={{ flex: 1 }} />
             {editMode ? (
               <Button onClick={submitEdit} className={'hover:text-green-600'}>
                 SAVE
               </Button>
+            ) : null}
+            {cdn && source?.cdnUrl ? (
+              <CdnBlock
+                cdn_url={source?.cdnUrl}
+                cdn_url_min={source?.cdnUrlMinified}
+                hideUrl
+              />
             ) : null}
           </div>
         </>
@@ -176,6 +184,7 @@ function CollaspeListEntry({
   open,
   setOpen,
   updateScriptData,
+  cdn,
 }: any) {
   const [sectionTitle, sectionData] = item
   const [newItemUpdate, setUpdate] = useState<any>({ key: null, script: null })
@@ -221,6 +230,7 @@ function CollaspeListEntry({
               newItemUpdate={
                 index === newItemUpdate?.key ? newItemUpdate?.script : null
               }
+              cdn={cdn}
             />
           ))}
         </ul>
@@ -230,7 +240,7 @@ function CollaspeListEntry({
 }
 
 // List render - used for scripts and cdns
-export function CollaspeList({ dataSource }: any) {
+export function CollaspeList({ dataSource, cdn }: any) {
   const classes = useStyles()
   const [open, setOpen] = useState<boolean | string>(true)
   const { updateScript, updateScriptData, scriptLoading } = scriptData('')
@@ -253,6 +263,7 @@ export function CollaspeList({ dataSource }: any) {
         <CollaspeListEntry
           key={ek}
           item={item}
+          cdn={cdn}
           classes={classes}
           setOpen={setOpen}
           open={open}

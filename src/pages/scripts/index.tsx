@@ -27,7 +27,7 @@ function Scripts({ name }: PageProps) {
           loading={loading}
           hasWebsite={!!websiteData?.length}
         >
-          <CollaspeList dataSource={dataSource} loading={loading} />
+          <CollaspeList dataSource={dataSource} loading={loading} cdn />
         </PageLoader>
       </Drawer>
     </>

@@ -8,7 +8,6 @@ import {
 import {
   GrNotification as NotificationsIcon,
   GrCode as CodeIcon,
-  GrCloud as CloudDownloadOutlinedIcon,
   GrAnalytics as DataUsageIcon,
   GrBug as BugReportIcon,
   GrEmergency as ReportIcon,
@@ -26,8 +25,6 @@ const renderIcon = (feature?: string, className?: string) => {
       return <NotificationsIcon className={className} />
     case 'Scripts':
       return <CodeIcon />
-    case 'CDN FIX':
-      return <CloudDownloadOutlinedIcon />
     case 'Analytics':
       return <DataUsageIcon />
     case 'Issues':
@@ -54,12 +51,6 @@ const extraProps = (feature?: string, focused?: boolean, setEvents?: any) => {
     case 'Scripts':
       return {
         href: focused ? '/' : '/scripts',
-        component: Link,
-        color: 'inherit',
-      }
-    case 'CDN FIX':
-      return {
-        href: focused ? '/' : '/cdn-fix',
         onClick: setEvents ? () => setEvents({ firstAdd: 'set' }) : undefined,
         component: Link,
         color: 'inherit',

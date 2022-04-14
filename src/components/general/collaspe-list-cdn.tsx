@@ -1,6 +1,5 @@
 import React, { useEffect, useMemo, useState } from 'react'
 import {
-  Typography,
   ListSubheader,
   List,
   ListItem,
@@ -9,11 +8,9 @@ import {
   Collapse,
 } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
-import { ScriptDownloadButton } from '@app/components/general'
-import { PrismLight } from 'react-syntax-highlighter'
 import { SCRIPTS_CDN_URL_HOST } from '@app/configs/app-config'
-import { a11yDark } from '@app/styles'
 import { GrDomain, GrDown, GrUp } from 'react-icons/gr'
+import { CdnBlock } from './blocks/cdn'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -131,31 +128,7 @@ export function CollaspeListCdn({ dataSource }: any) {
                       <ListSubheader style={{ flex: 1 }} component={'span'}>
                         {source?.pageUrl}
                       </ListSubheader>
-                      <div className={`${classes.flex} ${classes.row}`}>
-                        <div className={`${classes.flex} ${classes.space}`}>
-                          <PrismLight
-                            language='html'
-                            style={a11yDark}
-                            className={`${classes.codeContainer} ${classes.adjust}`}
-                          >
-                            {`<script src="${cdn_url}"></script>`}
-                          </PrismLight>
-                          <Typography className={classes.minified}>
-                            MINIFIED
-                          </Typography>
-                          <PrismLight
-                            language='html'
-                            style={a11yDark}
-                            className={`${classes.codeContainer} ${classes.bottomCdn}`}
-                          >
-                            {`<script src="${cdn_url_min}" crossorigin="anonymous"></script>`}
-                          </PrismLight>
-                        </div>
-                        <ScriptDownloadButton
-                          cdn_url={cdn_url}
-                          cdn_url_min={cdn_url_min}
-                        />
-                      </div>
+                      <CdnBlock cdn_url_min={cdn_url_min} cdn_url={cdn_url} />
                     </ListItem>
                   )
                 })}

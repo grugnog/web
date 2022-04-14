@@ -86,12 +86,14 @@ export function FormDialogWrapper({
 
       if (!websitUrl) {
         // prevent empty
-        return AppManager.toggleSnack(
+        AppManager.toggleSnack(
           true,
           'Please enter a valid website url.',
           'error'
         )
+        return
       }
+
       if (
         websitUrl.endsWith('.png') ||
         websitUrl.endsWith('.jpg') ||
@@ -100,11 +102,12 @@ export function FormDialogWrapper({
         websitUrl.endsWith('.mp3')
       ) {
         //block resourcees
-        return AppManager.toggleSnack(
+        AppManager.toggleSnack(
           true,
           'Media resources are not allowed. Try to add a valid website url.',
           'error'
         )
+        return
       }
 
       let cleanUrl = String(websitUrl)

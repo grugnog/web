@@ -169,7 +169,6 @@ export const LOGGIN_ROUTES = [
   '/website-details',
   '/profile',
   '/cdn',
-  '/cdn-fix',
   '/scripts',
   '/history',
   '/payments',

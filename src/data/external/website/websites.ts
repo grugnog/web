@@ -73,6 +73,7 @@ export const useWebsiteData = (
       if (dataSource && newSubDomain && websites?.length) {
         queueMicrotask(() => {
           if (dataSource?.subDomains?.length) {
+            // TODO: prevent dup comains
             dataSource.subDomains.push(newSubDomain)
           } else {
             dataSource.subDomains = [newSubDomain]
@@ -100,10 +101,9 @@ export const useWebsiteData = (
 
   const onCrawlCompleteSubscription = useCallback(
     ({ subscriptionData }: OnSubscriptionDataOptions<any>) => {
-      queueMicrotask(() => {
-        const completedWebsite = subscriptionData?.data?.crawlComplete
-
-        if (completedWebsite) {
+      const completedWebsite = subscriptionData?.data?.crawlComplete
+      if (completedWebsite) {
+        queueMicrotask(() => {
           // use apollo cache instead
           const dataSource = websites.find(
             (source: any) => source.domain === completedWebsite.domain
@@ -112,6 +112,7 @@ export const useWebsiteData = (
           if (dataSource) {
             const adaScoreAverage = completedWebsite.adaScoreAverage
             dataSource.adaScoreAverage = adaScoreAverage
+            dataSource.issueFeed = {} // reset to empty object
             AppManager.toggleSnack(
               true,
               `Crawl finished for ${completedWebsite.domain}. Average score across pages ${adaScoreAverage}`,
@@ -119,8 +120,8 @@ export const useWebsiteData = (
             )
             forceUpdate()
           }
-        }
-      })
+        })
+      }
     },
     [websites]
   )
@@ -132,31 +133,28 @@ export const useWebsiteData = (
 
   const onIssueSubscription = useCallback(
     ({ subscriptionData }: OnSubscriptionDataOptions<any>) => {
-      queueMicrotask(() => {
-        const newIssue = subscriptionData?.data?.issueAdded
-
-        if (newIssue) {
+      const newIssue = subscriptionData?.data?.issueAdded
+      if (newIssue) {
+        queueMicrotask(() => {
           // use apollo cache instead
           const dataSource = websites.find(
             (source: Website) => source.domain === newIssue.domain
           )
-          const hasIssues = dataSource?.issues?.length
 
           if (dataSource) {
             // MUTATION UPDATING WEBSITES
-            if (hasIssues) {
-              // TODO: remove set
-              const ids = new Set(dataSource.issues.map((d: any) => d.pageUrl))
-              const merged = [
-                ...dataSource.issues,
-                ...[newIssue].filter((d: any) => !ids.has(d.pageUrl)),
-              ]
-              dataSource.issues = merged
-            } else {
-              dataSource.issues = [newIssue]
+            if (!dataSource.issueFeed) {
+              // temp map of all live issues
+              dataSource.issueFeed = {}
             }
+            // move to object outside and clear on subscription from website crawl finished
+            dataSource.issueFeed[newIssue.pageUrl] = newIssue
+            dataSource.issues = Object.values(dataSource.issueFeed) // todo move to complete storing of issues key,value based
 
-            setIssueFeedContent(dataSource.issues, true)
+            const mainFeed = issueFeed?.data ?? []
+            mainFeed.push(newIssue)
+
+            setIssueFeedContent(mainFeed, true)
 
             AppManager.toggleSnack(
               true,
@@ -164,10 +162,10 @@ export const useWebsiteData = (
               'success'
             )
           }
-        }
-      })
+        })
+      }
     },
-    [websites]
+    [websites, issueFeed]
   )
 
   const { data: issueSubData } = useSubscription(ISSUE_SUBSCRIPTION, {

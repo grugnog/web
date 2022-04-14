@@ -18,18 +18,12 @@ export function ScriptDownloadButton({ cdn_url, cdn_url_min }: any) {
   }, [toggleMenu])
 
   const [downLoadCdnLink, downLoadCdnMinLink] = useMemo(() => {
-    let mainjs = cdn_url.replace(
-      'http://localhost:8090/cdn',
-      'http://localhost:8080/scripts'
-    )
-    let minjs = cdn_url_min.replace(
-      'http://localhost:8090/cdn',
-      'http://localhost:8080/scripts'
-    )
+    let mainjs = cdn_url?.replace('/cdn/', '/scripts/')
+    let minjs = cdn_url_min?.replace('/cdn/', '/scripts/')
     // remove .cdn with .api since only exposed endpoint
     if (isA11yWatch) {
-      mainjs = mainjs.replace('cdn', 'api')
-      minjs = minjs.replace('cdn', 'api')
+      mainjs = mainjs?.replace('cdn', 'api')
+      minjs = minjs?.replace('cdn', 'api')
     }
 
     return [mainjs, minjs]
