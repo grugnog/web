@@ -83,6 +83,30 @@ export function FormDialogWrapper({
     async (event: any) => {
       event?.preventDefault()
       // TODO: REMOVE LOGIC
+
+      if (!websitUrl) {
+        // prevent empty
+        return AppManager.toggleSnack(
+          true,
+          'Please enter a valid website url.',
+          'error'
+        )
+      }
+      if (
+        websitUrl.endsWith('.png') ||
+        websitUrl.endsWith('.jpg') ||
+        websitUrl.endsWith('.gif') ||
+        websitUrl.endsWith('.mp4') ||
+        websitUrl.endsWith('.mp3')
+      ) {
+        //block resourcees
+        return AppManager.toggleSnack(
+          true,
+          'Media resources are not allowed. Try to add a valid website url.',
+          'error'
+        )
+      }
+
       let cleanUrl = String(websitUrl)
         .replace(https ? 'https' : 'http', https ? 'http' : 'https')
         .replace(/^(?:https?:\/\/)?/i, '')
