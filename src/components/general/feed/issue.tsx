@@ -2,6 +2,7 @@ import React, { memo } from 'react'
 import { ListItem, Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import { WithHighlight } from '@app/components/adhoc'
+import { getErrorColor } from '@app/lib/base-colors'
 
 const useStyles = makeStyles(() => ({
   mainItemContainer: {
@@ -26,25 +27,13 @@ const useStyles = makeStyles(() => ({
     fontWeight: 400,
     fontSize: '1.35em',
   },
-  blockColor: {
-    color: 'rgb(202,109,102)',
-  },
-  error: {
-    background: 'rgba(239,83,80, 0.06)',
-  },
-  notice: {
-    background: 'rgba(189,189,189, 0.06)',
-  },
-  warning: {
-    background: 'rgba(255,238,88, 0.06)',
-  },
 }))
 
 export function FeedIssueComponent({
   message,
   code,
   context,
-  type = 'notice',
+  type: issueType = 'notice',
   handleToggle,
   listIndex,
   ...extraProps
@@ -55,14 +44,17 @@ export function FeedIssueComponent({
   return (
     <ListItem
       // @ts-ignore
-      className={`${classes.mainItemContainer} ${classes[type]}`}
+      className={`${classes.mainItemContainer}`}
       divider
       {...props}
     >
       <div className={classes.mainItemContainer}>
-        <Typography className={classes.mainSubtitle} component={'p'}>
-          {code}
-        </Typography>
+        <div className='flex space-x-2 items-center'>
+          <div className={`${getErrorColor(issueType)} w-3 h-3 rounded-xl`} />
+          <Typography className={classes.mainSubtitle} component={'p'}>
+            {code}
+          </Typography>
+        </div>
         <Typography gutterBottom className={classes.secondSubtitle}>
           {message}
         </Typography>

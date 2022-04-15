@@ -20,8 +20,7 @@ export function IssueFeedCellComponent({ item, handleToggle, listIndex }: any) {
     [setIssueView]
   )
 
-  const pageIssues =
-    (Array.isArray(item?.issues) ? item.issues : item?.issues?.issues) || []
+  const pageIssues = Array.isArray(item?.issues) ? item.issues : []
 
   const mainUrl = item?.url || item?.pageUrl
 
@@ -31,6 +30,8 @@ export function IssueFeedCellComponent({ item, handleToggle, listIndex }: any) {
     pageIssues,
     item,
   }
+
+  const iconStyle = { height: 12, width: 12 }
 
   return (
     <Fragment>
@@ -51,9 +52,9 @@ export function IssueFeedCellComponent({ item, handleToggle, listIndex }: any) {
           color='inherit'
         >
           {issueView ? (
-            <GrUp className='grIcon' style={{ height: 12, width: 12 }} />
+            <GrUp className='grIcon' style={iconStyle} />
           ) : (
-            <GrDown className='grIcon' style={{ height: 12, width: 12 }} />
+            <GrDown className='grIcon' style={iconStyle} />
           )}
         </IconButton>
       </li>

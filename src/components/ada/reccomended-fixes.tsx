@@ -36,9 +36,13 @@ const useStyles = makeStyles(() => ({
   },
 }))
 
-const toggleItem = (item: any, source?: any, type: string = 'color'): void => {
+const toggleItem = (
+  item: any,
+  source?: any,
+  typeCode: string = 'color'
+): void => {
   if (source) {
-    source.style[type] = item
+    source.style[typeCode] = item
   }
 }
 
