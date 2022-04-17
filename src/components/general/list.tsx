@@ -1,21 +1,19 @@
-import React, { FC, useState, useEffect, useCallback, useMemo } from 'react'
-import { List as MUList, Grid, Card, CardHeader } from '@material-ui/core'
-import { makeStyles } from '@material-ui/core/styles'
+import React, {
+  FC,
+  useState,
+  useEffect,
+  useCallback,
+  useMemo,
+  memo,
+} from 'react'
+import { List as MUList, CardHeader } from '@material-ui/core'
 
 import { useMiniPlayer } from '@app/data'
 import { ListSkeleton } from '../placeholders'
 import { FullScreenModal } from './fullscreen-modal'
 import { WebsiteCell, IssuesCell } from './cells'
 
-const useStyles = makeStyles(() => ({
-  root: {
-    flexGrow: 1,
-    overflow: 'visible',
-  },
-  empty: {
-    minHeight: 88,
-  },
-}))
+const emptyClass = 'min-h-10'
 
 function WebSites({
   data,
@@ -65,7 +63,7 @@ const defaultModalState = {
   error: '',
 }
 
-export function List({
+export function ListComponent({
   data,
   error,
   loading,
@@ -82,7 +80,6 @@ export function List({
   mutatationLoading,
   blocked,
 }: any) {
-  const classes = useStyles()
   const [modal, setOpen] = useState(defaultModalState)
   const { miniPlayer, setMiniPlayerContent } = useMiniPlayer()
 
@@ -115,7 +112,7 @@ export function List({
         <CardHeader
           title='Error'
           subheader='An Issue occured. Please try again. If issue persist please contact support.'
-          className={classes.empty}
+          className={emptyClass}
         />
       )
     }
@@ -138,7 +135,10 @@ export function List({
       (data?.length && !errorPage)
     ) {
       return (
-        <MUList>
+        <MUList
+          className={`border rounded`}
+          style={{ paddingTop: 0, paddingBottom: 0 }}
+        >
           {!errorPage ? (
             <WebSites data={data} {...generalProps} />
           ) : (
@@ -158,26 +158,22 @@ export function List({
       <CardHeader
         title={emptyHeaderTitle}
         subheader={emptyHeaderSubTitle}
-        className={classes.empty}
+        className={emptyClass}
       />
     )
   }
 
   return (
-    <div className={classes.root}>
-      <Grid container spacing={2} justifyContent='center'>
-        <Grid item xs={12} md={12}>
-          <Card>
-            <RenderInner />
-          </Card>
-        </Grid>
+    <>
+      <div>
+        <RenderInner />
         {errorPage || history || blocked ? null : (
           <BottomButton
             buttonTitle={data?.length ? undefined : 'Lets start!'}
             okPress={addPress}
           />
         )}
-      </Grid>
+      </div>
       <FullScreenModal
         {...modal}
         handleClose={handleClose}
@@ -185,6 +181,8 @@ export function List({
         refetch={refetch}
         handleClickOpenPlayer={setMiniPlayerContent}
       />
-    </div>
+    </>
   )
 }
+
+export const List = memo(ListComponent)

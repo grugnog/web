@@ -27,8 +27,8 @@ const Application = ({ Component, pageProps, name }: InnerApp) => {
   let initialQuery = initialWebsiteQuery
   let scopedQuery = ''
 
-  // run query without pages. [Urgent and issues]
-  if (nameLowerCased === 'urgent' || nameLowerCased === 'issues') {
+  // run query without pages
+  if (nameLowerCased === 'issues') {
     initialQuery = false
     scopedQuery = 'issues'
   }

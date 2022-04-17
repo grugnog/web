@@ -89,7 +89,14 @@ export function IssuesCellComponent({
   )
 
   return (
-    <ListItem button component={Link} href={href} color={'inherit'} dense>
+    <ListItem
+      button
+      component={Link}
+      href={href}
+      color={'inherit'}
+      dense
+      divider
+    >
       <ListItemAvatar>
         <RenderAvatar />
       </ListItemAvatar>

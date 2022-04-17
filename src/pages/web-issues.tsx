@@ -40,15 +40,17 @@ function Issues({ name }: PageProps) {
           emptyTitle={'No Websites Added'}
           error={error}
         >
-          <List
-            data={source}
-            loading={loading}
-            refetch={refetch}
-            BottomButton={FormDialog}
-            emptyHeaderTitle='No issues found'
-            emptyHeaderSubTitle='Issues will appear here when they arise'
-            errorPage
-          />
+          <div className='py-1'>
+            <List
+              data={source}
+              loading={loading}
+              refetch={refetch}
+              BottomButton={FormDialog}
+              emptyHeaderTitle='No issues found'
+              emptyHeaderSubTitle='Issues will appear here when they arise'
+              errorPage
+            />
+          </div>
         </PageLoader>
       </Drawer>
       <LinearBottom loading={!!loading} />

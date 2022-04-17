@@ -10,7 +10,6 @@ import {
   GrCode as CodeIcon,
   GrAnalytics as DataUsageIcon,
   GrBug as BugReportIcon,
-  GrEmergency as ReportIcon,
   GrHistory as HistoryIcon,
   GrApps as DashboardIcon,
 } from 'react-icons/gr'
@@ -31,8 +30,6 @@ const renderIcon = (feature?: string, className?: string) => {
       return <BugReportIcon />
     case 'Dashboard':
       return <DashboardIcon />
-    case 'Urgent':
-      return <ReportIcon />
     case 'History':
       return <HistoryIcon />
     default:
@@ -70,12 +67,6 @@ const extraProps = (feature?: string, focused?: boolean, setEvents?: any) => {
     case 'Dashboard':
       return {
         href: '/',
-        component: Link,
-        color: 'inherit',
-      }
-    case 'Urgent':
-      return {
-        href: focused ? '/' : '/urgent-issues',
         component: Link,
         color: 'inherit',
       }

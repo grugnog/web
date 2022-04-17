@@ -173,8 +173,6 @@ export const LOGGIN_ROUTES = [
   '/history',
   '/payments',
   '/website-analytics',
-  '/urgent',
   '/issues',
   '/web-issues',
-  '/urgent-issues',
 ]

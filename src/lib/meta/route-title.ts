@@ -65,9 +65,6 @@ export function routeTitle(route: string = '') {
     case 'TestOut':
       title = 'Try for Free'
       break
-    case 'UrgentIssues':
-      title = 'Urgent Issues'
-      break
     case 'AllErrors':
       title = 'All Issues'
       break
