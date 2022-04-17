@@ -1,28 +1,15 @@
-import React, { useState, memo, useCallback } from 'react'
+import React, { useState, memo, useMemo, useCallback } from 'react'
 import {
   ListItem,
-  ListItemAvatar,
   ListItemSecondaryAction,
   ListItemText,
   IconButton,
   MenuItem,
 } from '@material-ui/core'
-import { makeStyles } from '@material-ui/core/styles'
-import { Link } from '../link'
+import { NextComposed } from '../link'
 import { TopMenu } from '../top-menu'
 import type { IssueCellProps } from './types'
 import { GrMoreVertical } from 'react-icons/gr'
-import { RenderAvatar } from './render'
-
-const useStyles = makeStyles(() => ({
-  title: {
-    maxWidth: '50vw',
-    overflow: 'hidden',
-    textOverflow: 'ellipsis',
-    color: '#000',
-    flex: 1,
-  },
-}))
 
 export function IssuesCellComponent({
   url,
@@ -31,7 +18,6 @@ export function IssuesCellComponent({
   issues,
   index,
 }: IssueCellProps) {
-  const classes = useStyles()
   const [anchorEl, setAnchorEl] = useState(null)
 
   const handleMenu = useCallback(
@@ -52,64 +38,57 @@ export function IssuesCellComponent({
     setAnchorEl(null)
   }
 
-  const href = `/website-details?url=${encodeURI(url)}`
-  const menuId = `issues-appbar${index}`
+  const href = useMemo(() => `/website-details?url=${encodeURI(url)}`, [url])
 
-  // TODO: move to more options
-  const authForm = (
-    <div>
-      <IconButton
-        aria-label={`websites ${url || 'url'} more actions`}
-        aria-controls={menuId}
-        aria-haspopup='true'
-        onClick={handleMenu}
-        color={'inherit'}
-      >
-        <GrMoreVertical />
-      </IconButton>
-      <TopMenu
-        id={menuId}
-        anchorEl={anchorEl}
-        open={!!anchorEl}
-        onClose={handleClose}
-      >
-        <MenuItem component={Link} href={href} color={'inherit'}>
-          View Sandbox
-        </MenuItem>
-        {issues?.length ? (
-          <MenuItem onClick={handleMainClick(issues, 'Issues', false)}>
-            View Issues
-          </MenuItem>
-        ) : null}
-        <MenuItem onClick={handleMainClick(url, 'Mini Player', true)}>
-          View Sandbox (Mini Player)
-        </MenuItem>
-      </TopMenu>
-    </div>
-  )
+  const menuId = `issues-appbar${index}`
 
   return (
     <ListItem
       button
-      component={Link}
+      component={NextComposed as any}
       href={href}
       color={'inherit'}
       dense
       divider
     >
-      <ListItemAvatar>
-        <RenderAvatar />
-      </ListItemAvatar>
       <ListItemText
         primary={url}
-        className={classes.title}
-        secondary={
-          issues?.length
-            ? `${issues.length} issues found`
-            : String.fromCharCode(160)
-        }
+        className={'flex-1 truncate'}
+        secondary={`${issues.length} issues found`}
       />
-      <ListItemSecondaryAction>{authForm}</ListItemSecondaryAction>
+      <ListItemSecondaryAction>
+        <div>
+          <IconButton
+            aria-label={`websites ${url || 'url'} more actions`}
+            aria-controls={menuId}
+            aria-haspopup='true'
+            onClick={handleMenu}
+            color={'inherit'}
+          >
+            <GrMoreVertical />
+          </IconButton>
+          <TopMenu
+            id={menuId}
+            anchorEl={anchorEl}
+            open={!!anchorEl}
+            onClose={handleClose}
+          >
+            <MenuItem
+              component={NextComposed as any}
+              href={href}
+              color={'inherit'}
+            >
+              View Sandbox
+            </MenuItem>
+            <MenuItem onClick={handleMainClick(issues, 'Issues', false)}>
+              View Issues
+            </MenuItem>
+            <MenuItem onClick={handleMainClick(url, 'Mini Player', true)}>
+              View Sandbox (Mini Player)
+            </MenuItem>
+          </TopMenu>
+        </div>
+      </ListItemSecondaryAction>
     </ListItem>
   )
 }

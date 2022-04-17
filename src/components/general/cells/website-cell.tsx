@@ -5,7 +5,7 @@ import {
   ListItemText,
 } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
-import { Link } from '../link'
+import { NextComposed } from '../link'
 import { RenderAvatar, RenderSecondary } from './render'
 import { MoreOptions } from '@app/components/general/cells/menu/more'
 import type { Website } from '@app/types'
@@ -89,7 +89,7 @@ export function WebsiteCell(props: WebsiteCellProps) {
   return (
     <ListItem
       button
-      component={Link}
+      component={NextComposed as any}
       href={href}
       color={'inherit'}
       className={classes.root}

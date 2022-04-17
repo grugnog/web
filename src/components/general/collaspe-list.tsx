@@ -15,6 +15,7 @@ import { EditableMixture } from '@app/components/mixtures/editable-mixture'
 import { collaspeListStyles as useStyles } from './styles'
 import { GrDomain, GrDown, GrUp } from 'react-icons/gr'
 import { CdnBlock } from './blocks/cdn'
+import { SCRIPTS_CDN_URL_HOST } from '@app/configs/app-config'
 
 const handleClick = (item: any, open: boolean, cb?: any) => {
   cb(item === open ? '' : item)
@@ -52,22 +53,29 @@ function MainCell({
     e?.preventDefault()
 
     if (freeAccount) {
-      upgradeAccountError()
-    } else {
-      try {
-        await updateScript({
-          variables: {
-            url: source?.pageUrl,
-            scriptMeta: {
-              skipContentEnabled: !skipContentEnabled,
-            },
-            editScript: false,
-          },
-        })
-      } catch (e) {
-        console.error(e)
-      }
+      return upgradeAccountError()
     }
+    try {
+      await updateScript({
+        variables: {
+          url: source?.pageUrl,
+          scriptMeta: {
+            skipContentEnabled: !skipContentEnabled,
+          },
+          editScript: false,
+        },
+      })
+    } catch (e) {
+      console.error(e)
+    }
+  }
+
+  const onEditPress = (e: any) => {
+    e?.preventDefault()
+    if (freeAccount) {
+      return upgradeAccountError()
+    }
+    setEdit(!editMode)
   }
 
   const submitEdit = async (e: any) => {
@@ -75,24 +83,33 @@ function MainCell({
     const confirm = window.confirm(
       'Are you sure you wish to save this script? Your script may be changed to reflect your page as problems arise.'
     )
-
     if (confirm) {
-      await updateScript({
-        variables: {
-          url: source?.pageUrl,
-          scriptMeta: {
-            skipContentEnabled,
+      try {
+        await updateScript({
+          variables: {
+            url: source?.pageUrl,
+            scriptMeta: {
+              skipContentEnabled,
+            },
+            editScript: true,
+            newScript,
           },
-          editScript: true,
-          newScript,
-        },
-      }).catch((e: any) => {
+        })
+        setSource({ ...source, script: newScript })
+        setEdit(false)
+      } catch (e) {
         console.error(e)
-      })
-      setSource({ ...source, script: newScript })
-      setEdit(false)
+      }
     }
   }
+
+  // TODO: REMOVE ALL URL CLIENT APPENDING
+  const cdnUrl = source?.cdnUrl
+    ? `${SCRIPTS_CDN_URL_HOST}/${source?.cdnUrl}`
+    : 'N/A'
+  const cdnUrlMinifed = source?.cdnUrlMinified
+    ? `${SCRIPTS_CDN_URL_HOST}/${source?.cdnUrlMinified}`
+    : 'N/A'
 
   return (
     <li>
@@ -132,17 +149,7 @@ function MainCell({
         <>
           <div style={{ flex: 1 }} />
           <div className='flex flex-1 py-2 space-x-2'>
-            <Button
-              onClick={(e: any) => {
-                e?.preventDefault()
-                if (freeAccount) {
-                  upgradeAccountError()
-                } else {
-                  setEdit(!editMode)
-                }
-              }}
-              className={'hover:text-black'}
-            >
+            <Button onClick={onEditPress} className={'hover:text-black'}>
               {editMode ? 'Default' : 'Edit'}
             </Button>
             {editMode ? (
@@ -150,12 +157,15 @@ function MainCell({
                 SAVE
               </Button>
             ) : null}
+
             {cdn && source?.cdnUrl ? (
-              <CdnBlock
-                cdn_url={source?.cdnUrl}
-                cdn_url_min={source?.cdnUrlMinified}
-                hideUrl
-              />
+              <div className='flex-1 overflow-hidden'>
+                <CdnBlock
+                  cdn_url={cdnUrl}
+                  cdn_url_min={cdnUrlMinifed}
+                  hideUrl
+                />
+              </div>
             ) : null}
           </div>
         </>
@@ -254,7 +264,7 @@ export function CollaspeList({ dataSource, cdn }: any) {
   }, [entries, setOpen])
 
   if (!entries.length) {
-    return <div>No Scripts added yet</div>
+    return <div className='text-2xl'>No Scripts added yet</div>
   }
 
   return (

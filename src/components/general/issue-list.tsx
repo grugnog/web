@@ -1,5 +1,5 @@
 import React, { memo } from 'react'
-import { List, Typography } from '@material-ui/core'
+import { List } from '@material-ui/core'
 import { useStyles } from './styles'
 import { FeedIssuesList } from './cells/render/issues-list'
 
@@ -26,11 +26,7 @@ export function IssueListComponent({ website, className = '' }: any) {
   const issue = getIssue(website) ?? []
 
   if (!issue?.length) {
-    return (
-      <Typography variant='h5' component='p' className={classes.subTitle}>
-        No issues found. Great work
-      </Typography>
-    )
+    return <p className={'py-2 text-2xl'}>No issues found. Great work</p>
   }
 
   return (

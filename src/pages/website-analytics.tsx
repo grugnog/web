@@ -1,7 +1,6 @@
 import React, { useMemo } from 'react'
 import { red, grey, yellow } from '@material-ui/core/colors'
 import { List } from '@material-ui/core'
-import { makeStyles } from '@material-ui/core/styles'
 import { VictoryLabel, VictoryTheme, VictoryBar, VictoryChart } from 'victory'
 import { PageTitle, Drawer } from '@app/components/general'
 import { analyticsData, useSearchFilter } from '@app/data'
@@ -12,34 +11,10 @@ import type { PageProps } from '@app/types'
 import { PageLoader } from '@app/components/placeholders'
 import { useWebsiteContext } from '@app/components/providers/website'
 
-const useStyles = makeStyles(() => ({
-  alignCenter: {
-    textAlign: 'center',
-  },
-  flex: {
-    flex: 1,
-  },
-  center: {
-    justfiyContent: 'center',
-    alignCenter: 'center',
-    display: 'flex',
-    flexDirection: 'column',
-  },
-  box: { marginTop: 30 },
-  textLoader: {
-    marginBottom: 30,
-  },
-  subtitle: {
-    marginTop: 20,
-    fontWeight: 500,
-  },
-}))
-
 const getFill = (label: string) =>
   label === 'Errors' ? red[600] : label === 'Warnings' ? yellow[600] : grey[600]
 
 function Analytics({ name }: PageProps) {
-  const classes = useStyles()
   const { data: websiteData, loading: websiteLoading } = useWebsiteContext()
   const { data, error } = analyticsData(true)
   const { search } = useSearchFilter()
@@ -62,7 +37,7 @@ function Analytics({ name }: PageProps) {
           <List>
             {dataSource?.map((source: any, i: number) => {
               return (
-                <li key={`${source.pageUrl} ${i}`} className={classes.flex}>
+                <li key={`${source.pageUrl} ${i}`}>
                   <VictoryChart
                     theme={VictoryTheme.material}
                     domainPadding={{ x: 12 }}

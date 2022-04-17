@@ -34,15 +34,23 @@ export function RenderAvatarComponent({
     inner = <GrStatusWarning />
   }
 
+  if (cdnConnected) {
+    return (
+      <Tooltip
+        title={`${ADASCORE} ${cdnConnected ? '- A11yWatch CDN Connected' : ''}`}
+        placement={'left'}
+      >
+        <div className='px-3'>
+          <Avatar className={css}>{inner}</Avatar>
+        </div>
+      </Tooltip>
+    )
+  }
+
   return (
-    <Tooltip
-      title={`${ADASCORE} ${cdnConnected ? '- A11yWatch CDN Connected' : ''}`}
-      placement={'left'}
-    >
-      <div className='px-3'>
-        <Avatar className={css}>{inner}</Avatar>
-      </div>
-    </Tooltip>
+    <div className='px-3'>
+      <Avatar className={css}>{inner}</Avatar>
+    </div>
   )
 }
 

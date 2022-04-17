@@ -22,50 +22,20 @@ import { useWebsiteData } from '@app/data'
 import { GrClose } from 'react-icons/gr'
 
 const useStyles = makeStyles((theme) => ({
-  title: {
-    marginLeft: theme.spacing(2),
-    flex: 1,
-  },
-  overflowY: {
-    overflowY: 'hidden',
-  },
-  row: {
-    display: 'flex',
-    alignItems: 'center',
-    flex: 1,
-  },
   menuButton: {
     marginRight: theme.spacing(2),
     [theme.breakpoints.down('sm')]: {
       marginRight: theme.spacing(1),
     },
   },
-  subTitle: {
-    maxWidth: '75vw',
-    overflow: 'hidden',
-    textOverflow: 'ellipsis',
-    color: theme.palette.text.primary,
-    [theme.breakpoints.down('sm')]: {
-      maxWidth: '50vw',
-    },
-  },
   list: {
     paddingTop: 70,
-    [theme.breakpoints.down('sm')]: {
-      paddingTop: 56,
-    },
   },
   submit: {
     margin: theme.spacing(1),
   },
   navbar: {
     backgroundColor: theme.palette.background.default,
-  },
-  warning: {
-    padding: theme.spacing(1),
-    backgroundColor: theme.palette.background.default,
-    borderRadius: theme.shape?.borderRadius || 4,
-    margin: theme.spacing(1),
   },
 }))
 
@@ -99,23 +69,22 @@ function UpperInput({ data, url }: any) {
     updateFormField,
   }
 
+  const onUpdateWebsite = async () => {
+    try {
+      await updateWebsite({
+        variables: { url, customHeaders, filter: '' },
+      })
+    } catch (e) {
+      console.error(e)
+    }
+  }
+
   return (
     <>
       <div className={classes.list}>
         <InputHeaders {...inputProps} />
       </div>
-      <Button
-        className={classes.submit}
-        onClick={async () => {
-          try {
-            await updateWebsite({
-              variables: { url, customHeaders, filter: '' },
-            })
-          } catch (e) {
-            console.error(e)
-          }
-        }}
-      >
+      <Button className={classes.submit} onClick={onUpdateWebsite}>
         Update
       </Button>
     </>
@@ -156,27 +125,18 @@ export function FullScreenModal({
           >
             <GrClose />
           </IconButton>
-          <div className={classes.row}>
+          <div className={'flex flex-1 place-content-center'}>
             <NavBarTitle title={title} flex />
             {url ? (
-              <div>
-                <Typography
-                  variant='subtitle1'
-                  className={classes.subTitle}
-                  component={Link}
-                  href={`/website-details?url=${encodeURI(url)}`}
-                >
+              <div className={'truncate max-w-[70vw] text-right text-black'}>
+                <Link href={`/website-details?url=${encodeURI(url)}`}>
                   {url}
-                </Typography>
-                {data?.length ? (
-                  <Typography
-                    variant='subtitle2'
-                    className={classes.subTitle}
-                    style={{ textAlign: 'right' }}
-                  >
-                    {data?.length} {`${issuesModal ? 'issue' : 'page'}`}
+                </Link>
+                {data?.length && (issuesModal || pagesModal) ? (
+                  <p>
+                    {data?.length} {issuesModal && error ? 'issue' : 'page'}
                     {data?.length === 1 ? '' : 's'}
-                  </Typography>
+                  </p>
                 ) : null}
               </div>
             ) : null}

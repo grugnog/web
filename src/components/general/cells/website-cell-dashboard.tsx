@@ -7,8 +7,10 @@ import {
   BASE_GQL_URL,
   STATUS_URL,
 } from '@app/configs/app-config'
-// @ts-ignore
-import ReportViewer from 'react-lighthouse-viewer'
+import dynamic from 'next/dynamic'
+
+const ReportViewer = dynamic(() => import('react-lighthouse-viewer')) as any
+
 import {
   AccessibilityBox,
   PagesBox,
@@ -21,8 +23,7 @@ import {
 } from './blocks'
 
 const styles = {
-  title:
-    'flex flex-1 text-3xl font-bold text-ellipsis overflow-hidden md:w-1/2 w-48',
+  title: 'block text-3xl font-bold truncate w-full',
   spacing: 'py-2',
   row: 'flex flex-1',
   metaBlock: 'px-2 py-1 border',
@@ -110,46 +111,45 @@ export function WebsiteCellDashboardComponent({
   const linkUrl = useMemo(() => `/website-details?url=${encodeURI(url)}`, [url])
 
   return (
-    <div className={`w-full relative border p-4 pl-6 rounded overflow-hidden`}>
-      <div className={'w-full space-y-2'}>
-        <div className='flex space-x-2'>
-          <div className='flex-wrap flex space-x-4'>
-            <Link
-              title={`view in sandbox ${url}`}
-              className={styles.title}
-              href={linkUrl}
-            >
-              {url}
-            </Link>
-          </div>
-          <div className='flex flex-1 place-content-end'>
-            <MoreOptions
-              url={url}
-              issues={issues}
-              crawlWebsite={crawlWebsite}
-              handleClose={handleClose}
-              handleMenu={handleMenu}
-              handleMainClick={handleMainClick}
-              anchorEl={anchorEl}
-              removePress={onRemovePress}
-              subDomains={subDomains}
-              pageHeaders={pageHeaders}
-              index={index}
-              pageInsights={pageInsights}
-            />
-          </div>
+    <li className={`border px-3 py-2 rounded overflow-hidden`}>
+      <div className='flex space-x-2'>
+        <div className='contents'>
+          <Link
+            title={`view in sandbox ${url}`}
+            className={styles.title}
+            href={linkUrl}
+          >
+            {url}
+          </Link>
         </div>
-        <WebsiteSecondary
-          issuesInfo={issuesInfo}
-          cdnConnected={cdnConnected}
-          adaScore={adaScore}
-          issues={issues}
-          pageLoadTime={pageLoadTime}
-          mutatationLoading={mutatationLoading}
-          lastScanDate={lastScanDate}
-          pageHeaders={pageHeaders}
-        />
+        <div>
+          <MoreOptions
+            url={url}
+            issues={issues}
+            crawlWebsite={crawlWebsite}
+            handleClose={handleClose}
+            handleMenu={handleMenu}
+            handleMainClick={handleMainClick}
+            anchorEl={anchorEl}
+            removePress={onRemovePress}
+            subDomains={subDomains}
+            pageHeaders={pageHeaders}
+            index={index}
+            pageInsights={pageInsights}
+          />
+        </div>
       </div>
+
+      <WebsiteSecondary
+        issuesInfo={issuesInfo}
+        cdnConnected={cdnConnected}
+        adaScore={adaScore}
+        issues={issues}
+        pageLoadTime={pageLoadTime}
+        mutatationLoading={mutatationLoading}
+        lastScanDate={lastScanDate}
+        pageHeaders={pageHeaders}
+      />
 
       <div className={styles.spacing} />
 
@@ -195,7 +195,7 @@ export function WebsiteCellDashboardComponent({
           <ReportViewer json={parsedInsight} />
         </div>
       ) : null}
-    </div>
+    </li>
   )
 }
 

@@ -1,11 +1,5 @@
 import React, { useMemo } from 'react'
-import {
-  List,
-  FormDialog,
-  PageTitle,
-  LinearBottom,
-  Drawer,
-} from '@app/components/general'
+import { List, FormDialog, PageTitle, Drawer } from '@app/components/general'
 import { useSearchFilter } from '@app/data'
 import { filterSort } from '@app/lib'
 import { metaSetter } from '@app/utils'
@@ -14,36 +8,30 @@ import { PageLoader } from '@app/components/placeholders'
 import { useWebsiteContext } from '@app/components/providers/website'
 
 function Issues({ name }: PageProps) {
-  const { data, loading, refetch, error } = useWebsiteContext()
+  const { issueData, issueDataLoading, refetch, error } = useWebsiteContext()
   const { search } = useSearchFilter()
 
   // search local filtering
-  const source = useMemo(() => filterSort(data, search), [data, search])
-
-  // TODO: USE QUERY ON ISSUES INSTEAD OF WEBSITE
-  const issuesFound = useMemo(() => {
-    return source?.length
-      ? source?.reduceRight(function (page, nextPage) {
-          return page + nextPage?.issuesInfo?.totalIssues
-        }, 0)
-      : 0
-  }, [source])
+  const source = useMemo(
+    () => (Array.isArray(issueData) ? filterSort(issueData, search) : []),
+    [issueData, search]
+  )
 
   return (
     <>
       <Drawer title={name}>
         <PageTitle title={name} />
         <PageLoader
-          empty={issuesFound === 0}
-          loading={loading}
-          hasWebsite={!!data?.length}
+          empty={issueData?.length === 0}
+          loading={issueDataLoading}
+          hasWebsite={!!issueData?.length}
           emptyTitle={'No Websites Added'}
           error={error}
         >
           <div className='py-1'>
             <List
               data={source}
-              loading={loading}
+              loading={issueDataLoading}
               refetch={refetch}
               BottomButton={FormDialog}
               emptyHeaderTitle='No issues found'
@@ -53,7 +41,6 @@ function Issues({ name }: PageProps) {
           </div>
         </PageLoader>
       </Drawer>
-      <LinearBottom loading={!!loading} />
     </>
   )
 }

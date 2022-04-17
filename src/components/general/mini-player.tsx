@@ -14,9 +14,11 @@ import { AdaIframe } from '../ada/ada-iframe'
 import { Link } from './link'
 import type { MergedTheme } from '@app/theme'
 import { GrowTransition } from './grow'
-// @ts-ignore
-import ReportViewer from 'react-lighthouse-viewer'
 import { GrClose } from 'react-icons/gr'
+
+import dynamic from 'next/dynamic'
+
+const ReportViewer = dynamic(() => import('react-lighthouse-viewer')) as any
 
 const useStyles = makeStyles((theme: MergedTheme) => ({
   root: {

@@ -17,7 +17,7 @@ export const CustomCDNBoxWrapper = ({
   const [isMinified, setMinified] = useState<boolean>(true)
 
   return (
-    <InfoBlock title={'Custom CDN'} icon={<GrCloudSoftware />}>
+    <InfoBlock title={'CDN'} icon={<GrCloudSoftware />}>
       <div className='flex pb-2 space-x-1'>
         <span className='text-sm font-medium'>MINIFIED</span>
         <input

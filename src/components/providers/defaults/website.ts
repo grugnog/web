@@ -10,6 +10,9 @@ export const sharedWebsiteDefaults = {
   subscriptionData: {
     issueSubData: null,
   },
+  // issues only TODO: MOVE TO SEPERATE PROVIDER
+  issueData: [],
+  issueDataLoading: false,
   refetch: (_: any): Promise<any> => {
     return _
   },

@@ -40,10 +40,13 @@ export const useWebsiteData = (
     skip,
   })
   // Only get issues from websites
-  const { data: issueData, loading: issueDataLoading } = useQuery(GET_ISSUES, {
-    variables,
-    skip: scopedQuery !== 'issues',
-  })
+  const { data: issuesResults, loading: issueDataLoading } = useQuery(
+    GET_ISSUES,
+    {
+      variables,
+      skip: scopedQuery !== 'issues',
+    }
+  )
 
   const [removeWebsite, { loading: removeLoading }] = useMutation(
     REMOVE_WEBSITE,
@@ -60,9 +63,12 @@ export const useWebsiteData = (
 
   // SCOPE WEBSITE DATA PER ROUTE (ALL, ISSUES, PAGES)
   const websites = useMemo(() => {
-    const dataTarget = data ?? issueData
-    return dataTarget?.user?.websites || []
-  }, [data, issueData])
+    return data?.user?.websites || []
+  }, [data])
+
+  const issueData = useMemo(() => {
+    return issuesResults?.user?.websites || []
+  }, [issuesResults])
 
   const updateSubDomain = useCallback(
     ({ subscriptionData }: OnSubscriptionDataOptions<any>) => {
@@ -214,6 +220,8 @@ export const useWebsiteData = (
       issueSubData,
     },
     data: websites,
+    issueData: issueData,
+    issueDataLoading: issueDataLoading,
     loading,
     mutatationLoading:
       removeLoading || addLoading || crawlLoading || issueDataLoading,
