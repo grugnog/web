@@ -40,7 +40,7 @@ export function MarketingCli() {
           target={'_blank'}
           rel='noreferrer'
           aria-label='rust install link'
-          className='text-blue-400'
+          className='text-blue-500'
         >
           Rust
         </a>{' '}
@@ -50,7 +50,7 @@ export function MarketingCli() {
           target={'_blank'}
           rel='noreferrer'
           aria-label='docker install link'
-          className='text-blue-400'
+          className='text-blue-500'
         >
           Docker
         </a>{' '}
@@ -67,8 +67,8 @@ export function MarketingCli() {
             <div className='border-b' />
             <div className='bg-white'>
               <div className='py-4 px-4 text-gray-800 text-lg'>
-                <span className='text-gray-400'>~ </span> a11ywatch start -f{' '}
-                <i className='text-gray-400'># view browser localhost:3270</i>
+                <span className='text-gray-500'>~ </span> a11ywatch start -f{' '}
+                <i className='text-gray-500'># view browser localhost:3270</i>
                 <span style={previewStyles}></span>
               </div>
             </div>

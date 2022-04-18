@@ -127,6 +127,18 @@ function TermsOfService({ name }: PageProps) {
         effective, you agree to be bound by the revised terms. If you do not
         agree to the new terms, please stop using the Service.
       </Typography>
+
+      <Typography variant='body1' component='p' gutterBottom>
+        April 19, 2020
+      </Typography>
+      <Typography gutterBottom>
+        By signing up you have the option to receive email notifications from us
+        regarding reports, updates, and other aspects that relate to helping
+        improve your web accessibility. You can opt out of receiving email
+        reports at any time by unsubscribing or going to the dashboard after
+        signup and toggling off the alert option.
+      </Typography>
+
       <Typography variant='h4' component='h3' gutterBottom style={bold}>
         Contact Us
       </Typography>
