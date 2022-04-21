@@ -34,13 +34,13 @@ export function MarketingCli() {
     <SectionContainer className={'bg-gray-100'}>
       <SectionHeading>Accessibility CLI</SectionHeading>
       <p className='text-lg pb-4 leading-10'>
-        Run A11yWatch on any machine with the Rust Command Line Interface. With{' '}
+        Run A11yWatch on any machine using the Rust Command Line Interface. With{' '}
         <a
           href='https://www.rust-lang.org/tools/install'
           target={'_blank'}
           rel='noreferrer'
-          aria-label='rust install link'
-          className='text-blue-500'
+          aria-label='Rust lang install link'
+          className='text-blue-600'
         >
           Rust
         </a>{' '}
@@ -49,12 +49,12 @@ export function MarketingCli() {
           href='https://www.docker.com/products/docker-desktop'
           target={'_blank'}
           rel='noreferrer'
-          aria-label='docker install link'
-          className='text-blue-500'
+          aria-label='Docker install link'
+          className='text-blue-600'
         >
           Docker
         </a>{' '}
-        build the suite on your own server. Get the CLI simply in shell using{' '}
+        build the suite anywhere. Get the CLI simply in shell using{' '}
         <code className='text-gray-700 bg-gray-300 p-1'>
           cargo install a11ywatch_cli
         </code>
