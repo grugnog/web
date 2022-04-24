@@ -24,7 +24,7 @@ const useStyles = makeStyles((theme) => ({
   title: {
     flex: 1,
     fontWeight: 600,
-    maxWidth: '95vw',
+    maxWidth: '85vw',
     textOverflow: 'ellipsis',
     whiteSpace: 'nowrap',
     overflow: 'hidden',
@@ -50,11 +50,12 @@ export function ReportViewComponentLeft({
           {website?.url || strings.trySearch}
         </Typography>
       </Grid>
-      <RenderSecondary {...website} />
+      <div className='flex space-x-2 place-items-center'>
+        <Timer stop={!empty} />
+        <RenderSecondary {...website} />
+      </div>
       <CtaCdn website={website} block disablePlayground={disablePlayground} />
-      <Spacer height={8} />
-      <Timer stop={!empty} />
-      <Spacer height={8} />
+      <Spacer />
       <InfoBar website={website} printable={printable} />
       {website?.script?.script ? (
         <div className='hidden md:block'>

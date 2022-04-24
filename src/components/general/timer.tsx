@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Typography } from '@material-ui/core'
+import { Tooltip } from '@material-ui/core'
 
 export const Timer = ({ stop }: { stop?: boolean }) => {
   const [seconds, setSeconds] = useState(0)
@@ -15,6 +15,10 @@ export const Timer = ({ stop }: { stop?: boolean }) => {
   }, [stop])
 
   return (
-    <Typography variant={'subtitle1'}>Scan duration: {seconds}s</Typography>
+    <Tooltip title={`Scan duration ${seconds} seconds`} placement={'right'}>
+      <div className='border rounded-3xl p-1 w-9 h-9 items-center justify-center flex truncate'>
+        <p className='font-small'>{seconds}s</p>
+      </div>
+    </Tooltip>
   )
 }

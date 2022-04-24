@@ -31,7 +31,7 @@ function CtaIntroRest({ checker }: CtaIntroRest) {
             color={'textSecondary'}
           >
             {checker
-              ? 'Test your webpage inclusion and vitals'
+              ? 'Test your web page inclusion and vitals'
               : 'Safeguard to a pleasant diverse experience'}
           </Typography>
           <Button
