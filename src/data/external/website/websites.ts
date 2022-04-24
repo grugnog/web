@@ -59,7 +59,7 @@ export const useWebsiteData = (
   const [updateWebsite, { data: updateData }] = useMutation(UPDATE_WEBSITE, {
     variables,
   })
-  const [crawlWebsite, { loading: crawlLoading }] = useMutation(CRAWL_WEBSITE)
+  const [crawl, { loading: crawlLoading }] = useMutation(CRAWL_WEBSITE)
 
   // SCOPE WEBSITE DATA PER ROUTE (ALL, ISSUES, PAGES)
   const websites = useMemo(() => {
@@ -69,6 +69,18 @@ export const useWebsiteData = (
   const issueData = useMemo(() => {
     return issuesResults?.user?.websites || []
   }, [issuesResults])
+
+  const issueDataExists: boolean = !!issueFeed?.data
+
+  const crawlWebsite = useCallback(
+    async (params) => {
+      const canCrawl = await crawl(params)
+      if (canCrawl && issueDataExists) {
+        setIssueFeedContent([], false)
+      }
+    },
+    [issueDataExists]
+  )
 
   const updateSubDomain = useCallback(
     ({ subscriptionData }: OnSubscriptionDataOptions<any>) => {
@@ -105,6 +117,7 @@ export const useWebsiteData = (
     onSubscriptionData: updateSubDomain,
   })
 
+  // website crawl finished
   const onCrawlCompleteSubscription = useCallback(
     ({ subscriptionData }: OnSubscriptionDataOptions<any>) => {
       const completedWebsite = subscriptionData?.data?.crawlComplete
