@@ -6,36 +6,19 @@ import {
   SnackbarContent,
   IconButton,
 } from '@material-ui/core'
-import { makeStyles } from '@material-ui/core/styles'
 
 import { AppManager } from '@app/managers'
 import { Link } from './link'
 import { GrClose } from 'react-icons/gr'
 
-const useStyles = makeStyles((theme) => ({
-  error: {
-    border: `1px solid ${theme.palette.error.dark}`,
-  },
-  errorMessage: {
-    color: theme.palette.error.dark,
-  },
-  message: {
-    color: '#000',
-  },
-}))
-
 const SnackbarContainer = observer(({ store }: any) => {
-  const classes = useStyles()
-  const handleClose = (_: any, reason: string): any => {
-    if (reason === 'clickaway') {
-      return
-    }
-    store.closeSnack()
+  if (!store?.snackbar) {
+    return null
   }
 
-  const tt = store?.snackbar?.title ?? ''
-
-  const lowerCaseText = tt.toLowerCase()
+  const lowerCaseText = store?.snackbar?.title
+    ? String(store?.snackbar?.title).toLowerCase()
+    : ''
 
   const needsUpgrade =
     lowerCaseText.includes('max websites added') ||
@@ -43,6 +26,13 @@ const SnackbarContainer = observer(({ store }: any) => {
     lowerCaseText === 'you need to upgrade your account to edit scripts'
 
   const marketingRedirect = lowerCaseText.includes('redirected to dashboard')
+
+  const handleClose = (_: any, reason: string): any => {
+    if (reason === 'clickaway') {
+      return
+    }
+    store.closeSnack()
+  }
 
   return (
     <MUISnackbar
@@ -56,16 +46,13 @@ const SnackbarContainer = observer(({ store }: any) => {
       <SnackbarContent
         style={{
           backgroundColor: '#fff',
-          color: '#000',
         }}
         message={
           <Fragment>
             <p
               id='message-id'
               className={`text-lg ${
-                store.snackbar.type === 'error'
-                  ? classes.errorMessage
-                  : classes.message
+                store.snackbar.type === 'error' ? 'text-red-500' : 'text-black'
               }`}
             >
               {store.snackbar.title}
@@ -88,7 +75,9 @@ const SnackbarContainer = observer(({ store }: any) => {
             ) : null}
           </Fragment>
         }
-        className={store.snackbar.type === 'error' ? classes.error : ''}
+        className={
+          store.snackbar.type === 'error' ? 'border border-red-500' : ''
+        }
         action={[
           <IconButton
             key='close'
