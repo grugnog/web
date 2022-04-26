@@ -111,8 +111,7 @@ export const generateStrings = ({
     },
     getSupport: 'Get Professional Support',
     trySearch: 'Free website accessibility scan',
-    tryOutCdn:
-      'after sign in. Get your secure custom CDN script and insert it at the end of your html body.',
+    tryOutCdn: 'after sign in.',
     subTitle: 'Elevating accessibility for every website',
   }
 }

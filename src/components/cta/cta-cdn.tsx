@@ -1,7 +1,6 @@
 import React, { Fragment } from 'react'
 import { Button, Typography } from '@material-ui/core'
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles'
-import { strings } from '@app-strings'
 import { LinkPrefetch } from '@app/components/general/link'
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -39,31 +38,18 @@ function CtaCdn({ website, disablePlayground }: any) {
   const classes = useStyles()
   const noIssues =
     Number(website?.issues?.length || website?.issues?.issues?.length) === 0
-  const possibleIssuesFixedByCdn =
-    website?.issuesInfo?.possibleIssuesFixedByCdn ?? '_'
+
   const totalIssuesOnPage = website?.issuesInfo?.totalIssues ?? '_'
   const shouldBlock = disablePlayground
   const limitedResonse = website?.issuesInfo?.limitedCount
-    ? `This is a limited API response showing ${website.issuesInfo.limitedCount}/${totalIssuesOnPage} issues for the current page`
+    ? `This is a limited API response showing ${website.issuesInfo.limitedCount}/${totalIssuesOnPage} issues for the current page, sign in to see more.`
     : !website?.issues && 'Gathering details'
-  const cdnTitle = shouldBlock
-    ? `Login to fix ${possibleIssuesFixedByCdn} out of ${totalIssuesOnPage} issues instantly with a custom secure cdn free`
-    : `Fix ${possibleIssuesFixedByCdn} out of ${totalIssuesOnPage} issues instantly ${strings.tryOutCdn} `
   const moreInfo = shouldBlock
     ? `Get all your pages issues at once and more after signing in`
     : ''
 
   return (
     <Fragment>
-      <span className={classes.row} style={{ marginTop: 12 }}>
-        <Typography
-          component='span'
-          className={classes.tryOut}
-          variant={'subtitle1'}
-        >
-          {cdnTitle}
-        </Typography>
-      </span>
       {moreInfo ? (
         <Typography
           component='span'
