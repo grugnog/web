@@ -33,9 +33,6 @@ const useStyles = makeStyles((theme) => ({
       width: '100%',
     },
   },
-  flex: {
-    flex: 1,
-  },
 }))
 
 const RenderIcon = ({ index, ...props }: any): any =>

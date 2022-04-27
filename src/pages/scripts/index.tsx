@@ -23,7 +23,9 @@ function Scripts({ name }: PageProps) {
         <PageTitle title={name} />
         <PageLoader
           empty={Object.keys(dataSource).length === 0}
-          emptySubTitle={'Scripts will appear here.'}
+          emptySubTitle={
+            'Scripts will appear here for basic or premium accounts.'
+          }
           loading={loading}
           hasWebsite={!!websiteData?.length}
         >

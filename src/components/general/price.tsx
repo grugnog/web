@@ -96,6 +96,19 @@ function MainButton({
   return null
 }
 
+const openMail = () => {
+  if (typeof window !== 'undefined') {
+    const mailLink =
+      'mailto:support@a11ywatch.com' +
+      '?subject=' +
+      encodeURI('Enterprise Plan') +
+      '&body=' +
+      'I would like to find out more about the enterprise plan.'
+
+    window.location.href = mailLink
+  }
+}
+
 function PriceWrapper({
   basic = false,
   premium = false,
@@ -159,20 +172,7 @@ function PriceWrapper({
       <div className={`flex gap-x-2 gap-y-2 flex-wrap place-content-center`}>
         {plans.map(({ title, details, cost, costYearly }: any) => {
           const clickEvent =
-            title === 'Enterprise' && !navigate
-              ? () => {
-                  if (typeof window !== 'undefined') {
-                    const mailLink =
-                      'mailto:support@a11ywatch.com' +
-                      '?subject=' +
-                      encodeURI('Enterprise Plan') +
-                      '&body=' +
-                      'I would like to find out more about the enterprise plan.'
-
-                    window.location.href = mailLink
-                  }
-                }
-              : onClick
+            title === 'Enterprise' && !navigate ? openMail : onClick
 
           const Component = clickEvent ? 'button' : 'div'
 
@@ -208,10 +208,10 @@ function PriceWrapper({
 
                 <div className='px-2 space-y-3 py-3'>
                   <ul>
-                    {details?.map((item: string) => (
+                    {details?.map((item: string, i: number) => (
                       <li
                         className={'flex gap-x-3 place-items-center text-left'}
-                        key={item}
+                        key={`${item}-${i}`}
                         aria-hidden={!String(item).trim()}
                       >
                         {String(item).trim() ? (
@@ -224,7 +224,11 @@ function PriceWrapper({
                           >
                             <GrFormCheckmark className='grIcon' />
                           </div>
-                        ) : null}
+                        ) : (
+                          <>
+                            <div style={{ padding: 1, height: '2.07rem' }} />
+                          </>
+                        )}
                         <Typography component={pricingPage ? 'h3' : 'h5'}>
                           {item}
                         </Typography>

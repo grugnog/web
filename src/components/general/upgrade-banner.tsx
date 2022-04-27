@@ -15,7 +15,7 @@ const UpgradeBanner = () => {
       <div className={styles.container}>
         <div className={styles.text}>
           Upgrade your account to add multiple websites, multi page lighthouse
-          reports, edit scripts, and more.{' '}
+          reports, custom script fixes, and more.{' '}
           <Link href={'/payments'} style={{ color: '#3b82f6' }}>
             UPGRADE
           </Link>
