@@ -8,14 +8,14 @@ import { IssueModal } from './issue-modal'
 import { OverlayPortalContainer } from './overlay'
 
 const TestViewContainer = observer(
-  ({ url: currentUrl, store, marketing }: any) => {
+  ({ url: currentUrl, store, marketing, posRelative }: any) => {
     const url = encodeURI(currentUrl ?? store?.getTestFrameUrl)
     const { issue } = issueData(url, !url)
     const { script } = scriptData(url, marketing)
 
     return (
       <Fragment>
-        <TestOutIframe url={url} issue={issue} />
+        <TestOutIframe url={url} issue={issue} posRelative={posRelative} />
         <Fab
           direction='left'
           autoFix
@@ -33,10 +33,16 @@ const TestViewContainer = observer(
 interface TestViewProps {
   marketing?: boolean
   url?: string
+  posRelative?: boolean // iframe relative
 }
 
-export function TestView({ marketing, url }: TestViewProps) {
+export function TestView({ marketing, url, posRelative }: TestViewProps) {
   return (
-    <TestViewContainer store={HomeManager} marketing={marketing} url={url} />
+    <TestViewContainer
+      store={HomeManager}
+      marketing={marketing}
+      url={url}
+      posRelative={posRelative}
+    />
   )
 }

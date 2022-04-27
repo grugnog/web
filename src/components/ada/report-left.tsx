@@ -1,11 +1,14 @@
-import React, { memo } from 'react'
+import React, { memo, useState } from 'react'
 import { Grid, Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
-import { a11yDark } from '@app/styles'
-import { RenderSecondary, Spacer, Timer } from '@app/components/general'
+import {
+  RenderSecondary,
+  Spacer,
+  Timer,
+  TestViewRest,
+} from '@app/components/general'
 import { CtaCdn } from '@app/components/cta'
 import { strings } from '@app-strings'
-import { EditableMixture } from '@app/components/mixtures/editable-mixture'
 import { InfoBar } from './info-bar'
 
 const useStyles = makeStyles((theme) => ({
@@ -39,6 +42,7 @@ export function ReportViewComponentLeft({
   disablePlayground,
   printable,
 }: any) {
+  const [hideMobile, setMobileHidden] = useState<boolean>(false)
   const classes = useStyles()
   const empty = Object.keys(website ?? {}).length <= 1
 
@@ -57,18 +61,28 @@ export function ReportViewComponentLeft({
       <CtaCdn website={website} block disablePlayground={disablePlayground} />
       <Spacer />
       <InfoBar website={website} printable={printable} />
-      {website?.script?.script ? (
-        <div className='hidden md:block'>
-          <div className='py-2'>
-            <Typography variant={'body2'}>JS Fixes</Typography>
-          </div>
-          <div>
-            <EditableMixture language='html' style={a11yDark} editMode>
-              {website?.script?.script || ''}
-            </EditableMixture>
-          </div>
+      <div className='hidden lg:block'>
+        <div className='py-2 flex space-x-2 place-items-center border-b'>
+          <Typography variant={'body2'}>Live Website</Typography>
+          <button
+            onClick={() => setMobileHidden((h) => !h)}
+            className={'border rounded p-1 px-2'}
+          >
+            Toggle Viewer
+          </button>
         </div>
-      ) : null}
+        <div
+          className={!hideMobile ? 'block' : 'hidden'}
+          aria-hidden={hideMobile}
+        >
+          <TestViewRest
+            url={website.url || ''}
+            marketing
+            posRelative
+            issues={website?.issue}
+          />
+        </div>
+      </div>
     </div>
   )
 }

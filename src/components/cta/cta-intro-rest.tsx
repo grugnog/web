@@ -2,8 +2,8 @@ import React from 'react'
 import { Typography, Button } from '@material-ui/core'
 import { Link, SectionContainer } from '../general'
 import Image from 'next/image'
-import { useStyles } from './cta-intro'
 import { CtaInputRest } from './searchbar/cta-input-rest'
+import { useStyles } from './intro-styles'
 
 interface CtaIntroRest {
   checker?: boolean
@@ -14,7 +14,7 @@ function CtaIntroRest({ checker }: CtaIntroRest) {
   return (
     <SectionContainer>
       <div className={`${classes.root}`}>
-        <div className={`${classes.block} mr-4`}>
+        <div className={`${classes.block}`}>
           <Typography
             variant='h1'
             component={'h1'}
@@ -32,7 +32,7 @@ function CtaIntroRest({ checker }: CtaIntroRest) {
           >
             {checker
               ? 'Test your web page inclusion and vitals'
-              : 'Safeguard to a pleasant diverse experience'}
+              : 'Path to a pleasant diverse experience'}
           </Typography>
           <Button
             component={Link}

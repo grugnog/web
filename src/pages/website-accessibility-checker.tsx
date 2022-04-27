@@ -8,7 +8,12 @@ import { MarketingBottomTemporaryDrawer } from '@app/components/modal'
 function WebsiteAccessibilityChecker({ name }: PageProps) {
   return (
     <Fragment>
-      <MarketingDrawer title={name} navPosition={'relative'}>
+      <MarketingDrawer
+        title={name}
+        navPosition={'relative'}
+        maxWidth={'xl'}
+        index
+      >
         <CtaIntroRest checker />
         <div className='px-4 max-w-[800px]'>
           <h3 className='text-3xl font-bold'>Live web accessibility testing</h3>

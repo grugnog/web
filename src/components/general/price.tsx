@@ -214,27 +214,24 @@ function PriceWrapper({
                         key={`${item}-${i}`}
                         aria-hidden={!String(item).trim()}
                       >
-                        {String(item).trim() ? (
-                          <div
-                            className='rounded-xl text-white stroke-white'
-                            style={{
-                              backgroundColor: textColor,
-                              padding: 1,
-                            }}
-                          >
-                            <GrFormCheckmark className='grIcon' />
-                          </div>
-                        ) : (
-                          <>
-                            <div style={{ padding: 1, height: '2.07rem' }} />
-                          </>
-                        )}
+                        <div
+                          className='rounded-xl text-white stroke-white'
+                          style={{
+                            backgroundColor: textColor,
+                            padding: 1,
+                          }}
+                        >
+                          <GrFormCheckmark className='grIcon' />
+                        </div>
                         <Typography component={pricingPage ? 'h3' : 'h5'}>
                           {item}
                         </Typography>
                       </li>
                     ))}
                   </ul>
+                  {title === 'Free' ? (
+                    <span style={{ height: '3.38rem', display: 'block' }} />
+                  ) : null}
                   <MainButton
                     title={title}
                     navigate={navigate}

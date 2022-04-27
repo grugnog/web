@@ -15,8 +15,6 @@ const plans = [
       '3 Private API request a day.',
       'Lighthouse on index page.',
       'Email Support',
-      '',
-      '',
     ],
     cost: '$0/month',
     costYearly: '$0/year',

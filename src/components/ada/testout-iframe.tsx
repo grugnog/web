@@ -8,62 +8,64 @@ import { ResetCss } from './styles'
 import { sboxType } from './config'
 import { onLoad } from './utils'
 
-const MainFrame = observer(({ homeStore, iframeStore, url, issue }: any) => {
-  const iframeRef = useRef(null)
+const MainFrame = observer(
+  ({ homeStore, iframeStore, url, issue, posRelative }: any) => {
+    const iframeRef = useRef(null)
 
-  useEffect(() => {
-    onLoad(null, { iframeRef })
+    useEffect(() => {
+      onLoad(null, { iframeRef })
 
-    return () => {
-      iframeStore?.clearPortals()
-      frameDom?.clearDom()
+      return () => {
+        iframeStore?.clearPortals()
+        frameDom?.clearDom()
+      }
+    }, [iframeStore])
+
+    useEffect(() => {
+      if (issue && frameDom?.dom && !iframeStore.issueInited) {
+        iframeStore.initIssueFix(issue)
+      }
+    }, [iframeStore, issue])
+
+    const loadFrame = (event: any) => {
+      onLoad(event, { iframeRef })
+      if (issue) {
+        iframeStore.initIssueFix(issue)
+      }
     }
-  }, [iframeStore])
 
-  useEffect(() => {
-    if (issue && frameDom?.dom && !iframeStore.issueInited) {
-      iframeStore.initIssueFix(issue)
-    }
-  }, [iframeStore, issue])
+    const iframeSrc = homeStore.getIframeSource(url)
+    const pdfView = iframeSrc.includes('.pdf')
 
-  const loadFrame = (event: any) => {
-    onLoad(event, { iframeRef })
-    if (issue) {
-      iframeStore.initIssueFix(issue)
-    }
+    return (
+      <div className={posRelative ? '' : mainFixed}>
+        <ResetCss />
+        {pdfView ? (
+          <embed
+            src={iframeSrc}
+            id='ada-frame'
+            className={mainFrame}
+            title={`${iframeSrc} accessibility insight pdf viewer`}
+            onLoad={loadFrame}
+            ref={iframeRef}
+          />
+        ) : (
+          <iframe
+            src={iframeSrc}
+            id='ada-frame'
+            className={mainFrame}
+            title={`${iframeSrc} accessibility insight view`}
+            name='ada iframe'
+            sandbox={`${sboxType} allow-scripts`}
+            onLoad={loadFrame}
+            ref={iframeRef}
+            allowFullScreen
+          />
+        )}
+      </div>
+    )
   }
-
-  const iframeSrc = homeStore.getIframeSource(url)
-  const pdfView = iframeSrc.includes('.pdf')
-
-  return (
-    <div className={mainFixed}>
-      <ResetCss />
-      {pdfView ? (
-        <embed
-          src={iframeSrc}
-          id='ada-frame'
-          className={mainFrame}
-          title={`${iframeSrc} accessibility insight pdf viewer`}
-          onLoad={loadFrame}
-          ref={iframeRef}
-        />
-      ) : (
-        <iframe
-          src={iframeSrc}
-          id='ada-frame'
-          className={mainFrame}
-          title={`${iframeSrc} accessibility insight view`}
-          name='ada iframe'
-          sandbox={`${sboxType} allow-scripts`}
-          onLoad={loadFrame}
-          ref={iframeRef}
-          allowFullScreen
-        />
-      )}
-    </div>
-  )
-})
+)
 
 const Portals = observer(({ store }: any) => toJS(store.Portals))
 
@@ -73,13 +75,14 @@ const Container = observer(({ store }: { store: typeof IframeManager }) => {
   ) : null
 })
 
-export const TestOutIframe = ({ url, issue }: any) => {
+export const TestOutIframe = ({ url, issue, posRelative }: any) => {
   return (
     <Fragment>
       <MainFrame
         homeStore={HomeManager}
         iframeStore={IframeManager}
         issue={issue}
+        posRelative={posRelative}
         url={url}
       />
       <Container store={IframeManager} />

@@ -94,7 +94,7 @@ export function ReportInner({
       issues={<IssueList website={website} printable />}
       playground={
         disablePlayground ? null : (
-          <TestView url={website.url || ''} marketing />
+          <TestView url={website.url || ''} marketing posRelative />
         )
       }
     />
