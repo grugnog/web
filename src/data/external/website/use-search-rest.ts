@@ -49,12 +49,32 @@ export function useSearchRest() {
   )
 
   const scanPage = async () => {
-    const querySearch = searchQuery(search)
-    setScan({ loading: true })
-    const json = await scanWebsite(querySearch)
-    setScan({ loading: false, data: json })
+    try {
+      const [querySearch, autoTPT] = searchQuery(search)
 
-    return json
+      if (autoTPT) {
+        AppManager.toggleSnack(true, 'https:// automatically added to query.')
+      }
+      setScan({ loading: true })
+      let json = await scanWebsite(querySearch)
+
+      // retry query as http if https autofilled [TODO: move autoquery detection to SS ]
+      if (json && !json?.website && autoTPT) {
+        AppManager.toggleSnack(
+          true,
+          'https:// failed retrying with http:// ...'
+        )
+
+        const [q] = searchQuery(search, true)
+        json = await scanWebsite(q)
+      }
+
+      setScan({ loading: false, data: json })
+
+      return json
+    } catch (e) {
+      console.error(e)
+    }
   }
 
   const closeModal = () => {

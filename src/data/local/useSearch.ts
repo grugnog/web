@@ -45,7 +45,7 @@ export function useSearch() {
   const scanPage = async (event: any, text: string) => {
     event?.preventDefault()
 
-    const querySearch = searchQuery(text || search)
+    const [querySearch] = searchQuery(text || search)
 
     scanWebsite({
       variables: {
