@@ -44,13 +44,25 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   let website
 
   try {
-    const res = await fetch(
+    let res = await fetch(
       `${getAPIRoute('api', true)}/get-website?q=${websiteUrl}${
         timestamp ? `&timestamp=${timestamp}` : ''
       }`
     )
+
     if (res && res?.ok) {
       website = await res.json()
+    }
+
+    // retry without timestamp. TODO: LOOK INTO TIMESTAMP INCONSISTENCIES
+    if (!website) {
+      res = await fetch(
+        `${getAPIRoute('api', true)}/get-website?q=${websiteUrl}`
+      )
+
+      if (res && res?.ok) {
+        website = await res.json()
+      }
     }
   } catch (e) {
     console.error(e)
