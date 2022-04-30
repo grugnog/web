@@ -1,10 +1,4 @@
-import React, {
-  useEffect,
-  useRef,
-  useCallback,
-  FunctionComponent,
-  Fragment,
-} from 'react'
+import React, { useEffect, useRef, FunctionComponent, Fragment } from 'react'
 import { GoogleLogin } from 'react-google-login'
 import { useRouter } from 'next/router'
 import {
@@ -97,7 +91,7 @@ const SignOnForm: FunctionComponent<SignOnProps> = ({
 
           UserManager.setUser(user)
           ;(async () => {
-            await router.push(urlRoute, urlRoute)
+            await router.push(urlRoute)
           })()
         } catch (e) {
           console.error(e)
@@ -108,55 +102,49 @@ const SignOnForm: FunctionComponent<SignOnProps> = ({
     }
   }, [data, router, loginView])
 
-  const submit = useCallback(
-    async (e: any) => {
-      e?.preventDefault()
-      // @ts-ignore
-      if (!passwordRef?.current?.value || !emailRef?.current?.value) {
-        AppManager.toggleSnack(
-          true,
-          !emailRef?.current?.value
-            ? 'Please enter a password of at least 6 characters.'
-            : 'Please check your email and password and try again.',
-          'error'
-        )
-      } else {
-        try {
-          await signOnMutation({
-            variables: {
-              email: emailRef?.current?.value,
-              password: passwordRef?.current?.value,
-            },
-          })
-        } catch (e) {
-          console.error(e)
-        }
-
-        // @ts-ignore
-        if (passwordRef.current) {
-          passwordRef.current.value = ''
-        }
-      }
-    },
-    [signOnMutation]
-  )
-
-  const onGoogleAuth = useCallback(
-    async (response: any) => {
+  const submit = async (e: any) => {
+    e?.preventDefault()
+    // @ts-ignore
+    if (!passwordRef?.current?.value || !emailRef?.current?.value) {
+      AppManager.toggleSnack(
+        true,
+        !emailRef?.current?.value
+          ? 'Please enter a password of at least 6 characters.'
+          : 'Please check your email and password and try again.',
+        'error'
+      )
+    } else {
       try {
         await signOnMutation({
           variables: {
-            email: response?.profileObj?.email,
-            password: '',
-            googleId: response?.googleId,
+            email: emailRef?.current?.value,
+            password: passwordRef?.current?.value,
           },
         })
       } catch (e) {
         console.error(e)
       }
-    },
-    [signOnMutation]
-  )
+
+      // @ts-ignore
+      if (passwordRef.current) {
+        passwordRef.current.value = ''
+      }
+    }
+  }
+
+  const onGoogleAuth = async (response: any) => {
+    try {
+      await signOnMutation({
+        variables: {
+          email: response?.profileObj?.email,
+          password: '',
+          googleId: response?.googleId,
+        },
+      })
+    } catch (e) {
+      console.error(e)
+    }
+  }
 
   return (
     <Fragment>
