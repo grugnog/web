@@ -148,10 +148,7 @@ function MainCell({
         ) : null}
         <>
           <div style={{ flex: 1 }} />
-          <div className='flex flex-1 py-2 space-x-2'>
-            <Button onClick={onEditPress} className={'hover:text-black'}>
-              {editMode ? 'Default' : 'Edit'}
-            </Button>
+          <div className='flex flex-1 py-2 space-x-2 place-items-center'>
             {editMode ? (
               <Button onClick={submitEdit} className={'hover:text-green-600'}>
                 SAVE
@@ -170,18 +167,29 @@ function MainCell({
           </div>
         </>
       </div>
-      <EditableMixture
-        language='javascript'
-        style={a11yDark}
-        className={classes.code}
-        lineProps={() => ({
-          style: { display: 'block', cursor: 'pointer' },
-        })}
-        setScript={setScript}
-        editMode={editMode}
-      >
-        {source?.script || ''}
-      </EditableMixture>
+      <div className='relative'>
+        <div className='absolute top-2 right-3'>
+          <button
+            onClick={onEditPress}
+            className={
+              'hover:bg-blue-800 text-white border-white h-8 px-4 border rounded'
+            }
+          >
+            {editMode ? 'Default' : 'Edit'}
+          </button>
+        </div>
+        <EditableMixture
+          language='javascript'
+          style={a11yDark}
+          lineProps={() => ({
+            style: { display: 'block', cursor: 'pointer' },
+          })}
+          setScript={setScript}
+          editMode={editMode}
+        >
+          {source?.script || ''}
+        </EditableMixture>
+      </div>
     </li>
   )
 }

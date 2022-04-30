@@ -2,7 +2,7 @@ import React, { memo, useMemo } from 'react'
 import { makeStyles } from '@material-ui/core/styles'
 import { IssueList, WebsiteTabs, TestView } from '@app/components/general'
 import { ListSkeleton } from '@app/components/placeholders'
-import { ReportViewComponentLeft } from './report-left'
+import { ReportViewLeft } from './report-left'
 import { Website } from '@app/types'
 
 const useStyles = makeStyles((theme) => ({
@@ -112,11 +112,7 @@ export function ReportViewComponent({
 
   return (
     <div className={classes.root}>
-      <ReportViewComponentLeft
-        website={website}
-        closeButton={closeButton}
-        printable
-      />
+      <ReportViewLeft website={website} closeButton={closeButton} printable />
       {empty ? (
         <ReportEmptyView />
       ) : (

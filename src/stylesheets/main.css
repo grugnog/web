@@ -16,9 +16,3 @@ a {
 .grIcon > * {
   stroke: inherit;
 }
-
-@media print {
-  .hide-print-shift {
-    margin-left: -0px !important;
-  }
-}

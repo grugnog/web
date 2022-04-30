@@ -21,7 +21,6 @@ const useStyles = makeStyles(() => ({
     fontSize: '1.1em',
   },
   secondSubtitle: {
-    maxWidth: '88%',
     overflow: 'hidden',
     textOverflow: 'ellipsis',
     fontWeight: 400,
@@ -29,6 +28,7 @@ const useStyles = makeStyles(() => ({
   },
 }))
 
+// TODO: remove MAT usage
 export function FeedIssueComponent({
   message,
   code,
@@ -42,12 +42,7 @@ export function FeedIssueComponent({
   const { typeCode, runnerExtras, ...props } = extraProps
 
   return (
-    <ListItem
-      // @ts-ignore
-      className={`${classes.mainItemContainer}`}
-      divider
-      {...props}
-    >
+    <ListItem className={classes.mainItemContainer} divider {...props}>
       <div className={classes.mainItemContainer}>
         <div className='flex space-x-2 items-center'>
           <div className={`${getErrorColor(issueType)} w-3 h-3 rounded-xl`} />
