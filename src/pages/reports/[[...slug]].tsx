@@ -6,6 +6,7 @@ import { MarketingDrawer, PageTitle } from '@app/components/general'
 import { ReportView } from '@app/components/ada'
 import { metaSetter } from '@app/utils'
 import { getAPIRoute } from '@app/configs/api-route'
+import { codecs } from '@a11ywatch/website-source-builder'
 
 function Reports({ name, website }: PageProps) {
   const { url, domain } = website ?? { domain: '', url: 'Not Found' }
@@ -30,6 +31,20 @@ function Reports({ name, website }: PageProps) {
   )
 }
 
+const getWebsite = async (url: string, timestamp?: string) => {
+  let website
+  let res = await fetch(
+    `${getAPIRoute('api', true)}/get-website?q=${url}${
+      timestamp ? `&timestamp=${timestamp}` : ''
+    }`
+  )
+
+  if (res && res?.ok) {
+    website = await res.json()
+  }
+  return website
+}
+
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const { slug } = context.params ?? {}
 
@@ -40,29 +55,23 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   }
 
   const [websiteUrl, timestamp] = Array.isArray(slug) ? slug : []
-
   let website
+  let targetUrl = websiteUrl
 
   try {
-    let res = await fetch(
-      `${getAPIRoute('api', true)}/get-website?q=${websiteUrl}${
-        timestamp ? `&timestamp=${timestamp}` : ''
-      }`
-    )
+    targetUrl = codecs.decipher(websiteUrl)
+  } catch (e) {
+    console.error(e)
+  }
 
-    if (res && res?.ok) {
-      website = await res.json()
+  try {
+    website = await getWebsite(targetUrl, timestamp)
+    if (!website) {
+      website = await getWebsite(websiteUrl, timestamp)
     }
-
     // retry without timestamp. TODO: LOOK INTO TIMESTAMP INCONSISTENCIES
     if (!website) {
-      res = await fetch(
-        `${getAPIRoute('api', true)}/get-website?q=${websiteUrl}`
-      )
-
-      if (res && res?.ok) {
-        website = await res.json()
-      }
+      website = await getWebsite(websiteUrl)
     }
   } catch (e) {
     console.error(e)

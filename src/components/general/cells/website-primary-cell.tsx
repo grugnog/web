@@ -89,7 +89,7 @@ export function WebsitePrimaryCellComponent({
   const secondaryText = pageIssues?.length
     ? `${pageIssues.length} issue${pageIssues?.length === 1 ? '' : 's'} found!`
     : null
-  const mainUrl = item?.url || item?.pageUrl
+  const mainUrl = item?.pageUrl || item?.url
   const href = `/website-details?url=${encodeURI(mainUrl)}`
 
   const lh = item?.insight?.json
@@ -103,6 +103,7 @@ export function WebsitePrimaryCellComponent({
     openError,
     pageIssues,
     item,
+    url,
   }
 
   const linkType = openError && !issuesModal
@@ -157,6 +158,7 @@ export function WebsitePrimaryCellComponent({
               handleClose={handleClose}
               handleMenu={handleMenu}
               lh={lh}
+              pageUrl={mainUrl}
               {...issueProps}
             />
           </ListItemSecondaryAction>

@@ -130,7 +130,9 @@ export function WebsiteIssuesCell({
   const secondaryText = pageIssues?.length
     ? `${pageIssues.length} issue${pageIssues?.length === 1 ? '' : 's'} found!`
     : null
-  const mainUrl = item?.url || item?.pageUrl
+
+  const mainUrl = item?.pageUrl || item.url
+
   const href = `/website-details?url=${encodeURI(mainUrl)}`
 
   const issueProps = {
@@ -192,6 +194,7 @@ export function WebsiteIssuesCell({
               anchorEl={anchorEl}
               handleClose={handleClose}
               handleMenu={handleMenu}
+              pageUrl={mainUrl}
               {...issueProps}
             />
           </ListItemSecondaryAction>

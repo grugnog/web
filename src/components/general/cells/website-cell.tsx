@@ -51,7 +51,7 @@ export function WebsiteCell(props: WebsiteCellProps) {
     mutatationLoading,
     lastScanDate,
     pageHeaders,
-  } = props ?? {}
+  } = props
 
   const handleMenu = (event: any) => {
     setAnchorEl(event?.currentTarget)

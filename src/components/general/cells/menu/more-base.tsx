@@ -1,9 +1,10 @@
 import React, { memo, useMemo } from 'react'
 import { IconButton, MenuItem } from '@material-ui/core'
 import { GrMoreVertical } from 'react-icons/gr'
+import { codecs } from '@a11ywatch/website-source-builder'
+import { NextComposed } from '@app/components/general/link'
+import { TopMenu } from '@app/components/general/top-menu'
 import type { Website } from '@app/types'
-import { NextComposed } from '../../link'
-import { TopMenu } from '../../top-menu'
 
 export interface MoreOptionsProps extends Partial<Website> {
   removePress?(): void
@@ -17,15 +18,18 @@ export interface MoreOptionsProps extends Partial<Website> {
   crawlWebsite?(data: any): Promise<void>
   index?: number
   pageHeaders?: any
-  history?: boolean
+  history?: boolean // is this a history page?
   anchorEl?: any
   handleMenu?: any
   lh?: any // lighthouse data render as modal
   children?: any
+  url?: string | null // base url or domain
+  pageUrl?: string | null // main target for page
 }
 
 // Base of more options ...
 function MoreOptionsBaseComponent({
+  pageUrl,
   url,
   subDomains,
   issues,
@@ -38,10 +42,13 @@ function MoreOptionsBaseComponent({
   handleClose,
   handleMenu,
 }: MoreOptionsProps) {
-  const href = useMemo(
-    () => (url ? `/website-details?url=${encodeURI(url)}` : ''),
-    [url]
-  )
+  const targetUrl = pageUrl || url
+
+  const [href, reportHref] = useMemo(() => {
+    const link = targetUrl ? `/website-details?url=${encodeURI(targetUrl)}` : ''
+    const report = targetUrl ? `/reports/${codecs.cipher(targetUrl)}` : ''
+    return [link, report]
+  }, [targetUrl])
 
   const menuId = `menu-appbar${index}`
 
@@ -64,6 +71,9 @@ function MoreOptionsBaseComponent({
         <MenuItem component={NextComposed as any} href={href}>
           View Sandbox
         </MenuItem>
+        <MenuItem component={NextComposed as any} href={reportHref}>
+          View Report
+        </MenuItem>
         {issues?.length ? (
           <MenuItem
             onClick={handleMainClick(issues, 'Issues', false, url as string)}
@@ -77,7 +87,7 @@ function MoreOptionsBaseComponent({
               subDomains,
               'All Pages',
               false,
-              url as string
+              targetUrl as string
             )}
           >
             View Pages

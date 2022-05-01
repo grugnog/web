@@ -88,7 +88,7 @@ export function RenderSecondaryComponent({
           />
         </Tooltip>
       ) : null}
-      {pageHeaders ? (
+      {pageHeaders?.length ? (
         <Tooltip
           title={`Custom headers ${JSON.stringify(
             pageHeaders.map((item: any) => ({ [item.key]: item.value }))
