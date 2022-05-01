@@ -9,7 +9,7 @@ import {
   List,
 } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
-import { DragHandler, issueSort } from '@app/lib'
+import { DragHandler } from '@app/lib'
 import { useMiniPlayer } from '@app/data'
 import { NavBarTitle } from './navigation'
 import { WebsitePrimaryCell } from './cells'
@@ -126,20 +126,18 @@ export function IssueModal({ issue }: any) {
             issue?.issues?.length === 1 ? classes.noMaxHeight : ''
           }`}
         >
-          {issue?.issues
-            ?.sort(issueSort)
-            .map((item: any, listIndex: number) => {
-              return (
-                <li key={`${listIndex} ${item?.selector} ${item?.code}`}>
-                  <WebsitePrimaryCell
-                    issuesModal
-                    error
-                    item={item}
-                    url={issue?.pageUrl}
-                  />
-                </li>
-              )
-            })}
+          {issue?.issues.map((item: any, listIndex: number) => {
+            return (
+              <li key={`${listIndex} ${item?.selector} ${item?.code}`}>
+                <WebsitePrimaryCell
+                  issuesModal
+                  error
+                  item={item}
+                  url={issue?.pageUrl}
+                />
+              </li>
+            )
+          })}
         </List>
       ) : null}
     </Dialog>

@@ -21,10 +21,10 @@ function Reports({ name, website }: PageProps) {
         />
       </Head>
       <MarketingDrawer title={url || name} maxWidth='xl' initClosed={true}>
-        <div className={'py-2 px-4'}>
+        <div className='sr-only'>
           <PageTitle>{`Report: ${domain || 'page'}`}</PageTitle>
-          <ReportView website={website} disablePlayground={true} />
         </div>
+        <ReportView website={website} disablePlayground={true} disableTabs />
       </MarketingDrawer>
     </Fragment>
   )

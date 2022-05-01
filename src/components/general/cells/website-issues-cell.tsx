@@ -4,15 +4,14 @@ import {
   ListItemSecondaryAction,
   ListItemText,
   IconButton,
-  Menu,
-  MenuItem,
 } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 
 import { RenderAvatar, RenderSecondary, RenderIssuesList } from './render'
 
 import { Link } from '../link'
-import { GrMoreVertical, GrUp, GrDown } from 'react-icons/gr'
+import { GrUp, GrDown } from 'react-icons/gr'
+import { MoreOptionsBase } from './menu'
 
 const useStyles = makeStyles((theme) => ({
   title: {
@@ -101,7 +100,7 @@ export function WebsiteIssuesCell({
     [setAnchorEl]
   )
 
-  const handleMenuClose = useCallback(() => {
+  const handleClose = useCallback(() => {
     setAnchorEl(null)
   }, [setAnchorEl])
 
@@ -109,10 +108,10 @@ export function WebsiteIssuesCell({
     (e: any) => {
       e?.preventDefault()
 
-      handleMenuClose()
+      handleClose()
       setIssueView((v) => !v)
     },
-    [setIssueView, handleMenuClose]
+    [setIssueView, handleClose]
   )
 
   const handleMainClick = (
@@ -133,48 +132,6 @@ export function WebsiteIssuesCell({
     : null
   const mainUrl = item?.url || item?.pageUrl
   const href = `/website-details?url=${encodeURI(mainUrl)}`
-
-  // TODO: move to more options
-  const authForm = (
-    <div>
-      <IconButton
-        aria-label='account of current user'
-        aria-controls='menu-appbar'
-        aria-haspopup='true'
-        onClick={handleMenu}
-        color='inherit'
-      >
-        <GrMoreVertical />
-      </IconButton>
-      <Menu
-        id='menu-appbar'
-        anchorEl={anchorEl}
-        anchorOrigin={{
-          vertical: 'top',
-          horizontal: 'right',
-        }}
-        keepMounted
-        transformOrigin={{
-          vertical: 'top',
-          horizontal: 'right',
-        }}
-        open={!!anchorEl}
-        onClose={handleMenuClose}
-      >
-        <MenuItem component={Link} href={href} color='inherit'>
-          View Sandbox
-        </MenuItem>
-        {pageIssues?.length || error ? (
-          <MenuItem onClick={viewIssue}>
-            {issueView ? 'Hide' : 'View'} Issues
-          </MenuItem>
-        ) : null}
-        <MenuItem onClick={handleMainClick(mainUrl, 'Mini Player', true)}>
-          View Sandbox (Mini Player)
-        </MenuItem>
-      </Menu>
-    </div>
-  )
 
   const issueProps = {
     error,
@@ -229,7 +186,15 @@ export function WebsiteIssuesCell({
             </IconButton>
           </ListItemSecondaryAction>
         ) : (
-          <ListItemSecondaryAction>{authForm}</ListItemSecondaryAction>
+          <ListItemSecondaryAction>
+            <MoreOptionsBase
+              handleMainClick={handleMainClick}
+              anchorEl={anchorEl}
+              handleClose={handleClose}
+              handleMenu={handleMenu}
+              {...issueProps}
+            />
+          </ListItemSecondaryAction>
         )}
       </ListItem>
       {issueView ? <RenderIssuesList {...issueProps} /> : null}

@@ -111,8 +111,10 @@ export function ReportViewComponent({
   const empty = useMemo(() => Object.keys(website ?? {}).length <= 1, [website])
 
   return (
-    <div className={classes.root}>
-      <ReportViewLeft website={website} closeButton={closeButton} printable />
+    <div className={`${classes.root} border-t`}>
+      <div className='border-r'>
+        <ReportViewLeft website={website} closeButton={closeButton} printable />
+      </div>
       {empty ? (
         <ReportEmptyView />
       ) : (

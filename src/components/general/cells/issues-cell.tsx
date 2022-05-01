@@ -11,6 +11,7 @@ import { TopMenu } from '../top-menu'
 import type { IssueCellProps } from './types'
 import { GrMoreVertical } from 'react-icons/gr'
 
+// TODO: use generic menu
 export function IssuesCellComponent({
   url,
   handleClickOpen,

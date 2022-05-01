@@ -27,18 +27,20 @@ export function DynamicModal() {
   const { modelData, setModal } = useDynamicModal()
   const { open, modalType, html } = modelData
 
+  const onClose = () => {
+    if (typeof dynamicModalHandler?.onClose === 'function') {
+      dynamicModalHandler.onClose()
+    }
+    setModal({ open: false })
+  }
+
   return (
     <Modal
       aria-labelledby='dynamic-modal-title'
       aria-describedby='dynamic-modal-description'
       className={classes.modal}
       open={!!open}
-      onClose={() => {
-        if (typeof dynamicModalHandler?.onClose === 'function') {
-          dynamicModalHandler.onClose()
-        }
-        setModal({ open: false })
-      }}
+      onClose={onClose}
       closeAfterTransition
       BackdropComponent={Backdrop}
     >

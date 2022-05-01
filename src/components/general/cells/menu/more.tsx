@@ -1,51 +1,23 @@
-import React, { memo, useCallback, useMemo } from 'react'
-import { IconButton, MenuItem } from '@material-ui/core'
-import { GrMoreVertical } from 'react-icons/gr'
+import React, { memo, useCallback } from 'react'
+import { MenuItem } from '@material-ui/core'
 import { AppManager } from '@app/managers'
-import type { Website } from '@app/types'
 import { useWebsiteContext } from '@app/components/providers/website'
-import { NextComposed } from '../../link'
-import { TopMenu } from '../../top-menu'
+import { MoreOptionsBase, MoreOptionsProps } from './more-base'
 
-interface MoreOptionsProps extends Partial<Website> {
-  removePress(): void
-  handleClose(): void
-  handleMainClick: (
-    data: any,
-    title: string,
-    navigate?: boolean,
-    url?: string
-  ) => () => void
-  crawlWebsite?(data: any): Promise<void>
-  index?: number
-  pageHeaders?: any
-  history?: boolean
-  anchorEl?: any
-  handleMenu?: any
-}
-
-function MoreOptionsComponent({
-  url,
-  removePress,
-  subDomains,
-  issues,
-  history,
-  crawlWebsite,
-  pageHeaders,
-  index,
-  // top props
-  handleMainClick,
-  // TODO: use STATE to manage
-  anchorEl,
-  handleClose,
-  handleMenu,
-  pageInsights,
-}: MoreOptionsProps) {
+function MoreOptionsComponent(props: MoreOptionsProps) {
   const { updateWebsite } = useWebsiteContext()
-  const href = useMemo(
-    () => (url ? `/website-details?url=${encodeURI(url)}` : ''),
-    [url]
-  )
+
+  const {
+    url,
+    removePress,
+    history,
+    crawlWebsite,
+    pageHeaders,
+    index,
+    handleMainClick,
+    handleClose,
+    pageInsights,
+  } = props
 
   const toggleLighthouse = useCallback(async () => {
     try {
@@ -54,8 +26,6 @@ function MoreOptionsComponent({
       console.error(e)
     }
   }, [updateWebsite, url, pageInsights])
-
-  const menuId = `menu-appbar${index}`
 
   const onWebsiteCrawl = useCallback(async () => {
     AppManager.toggleSnack(
@@ -79,45 +49,10 @@ function MoreOptionsComponent({
 
   return (
     <>
-      <IconButton
-        aria-label='account of current user'
-        aria-controls={menuId}
-        aria-haspopup='true'
-        onClick={handleMenu}
-      >
-        <GrMoreVertical />
-      </IconButton>
-      <TopMenu
-        id={menuId}
-        anchorEl={anchorEl}
-        open={!!anchorEl}
-        onClose={handleClose}
-      >
-        <MenuItem component={NextComposed as any} href={href}>
-          View Sandbox
-        </MenuItem>
-        {issues?.length ? (
-          <MenuItem
-            onClick={handleMainClick(issues, 'Issues', false, url as string)}
-          >
-            View Issues
-          </MenuItem>
+      <MoreOptionsBase {...props} index={index}>
+        {typeof crawlWebsite === 'function' ? (
+          <MenuItem onClick={onWebsiteCrawl}>Scan</MenuItem>
         ) : null}
-        {subDomains?.length ? (
-          <MenuItem
-            onClick={handleMainClick(
-              subDomains,
-              'All Pages',
-              false,
-              url as string
-            )}
-          >
-            View Pages
-          </MenuItem>
-        ) : null}
-        <MenuItem onClick={handleMainClick(url, 'Mini Player', true)}>
-          View Sandbox (Mini Player)
-        </MenuItem>
         {!history ? (
           <MenuItem onClick={toggleLighthouse}>
             Toggle Lighthouse {pageInsights ? 'Off' : 'On'}
@@ -135,15 +70,12 @@ function MoreOptionsComponent({
             Update Headers
           </MenuItem>
         ) : null}
-        {typeof crawlWebsite === 'function' ? (
-          <MenuItem onClick={onWebsiteCrawl}>Scan</MenuItem>
-        ) : null}
-        {!!removePress && !history ? (
+        {typeof removePress === 'function' && !history ? (
           <MenuItem onClick={removePress} style={{ color: 'red' }}>
             Delete
           </MenuItem>
         ) : null}
-      </TopMenu>
+      </MoreOptionsBase>
     </>
   )
 }
