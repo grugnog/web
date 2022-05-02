@@ -52,6 +52,15 @@ const createLink = (): ApolloLink => {
       })
 
       if (graphErrors) {
+        // ignore api info error for displaying jwt
+        if (
+          typeof window !== 'undefined' &&
+          window.location.href === '/api-info' &&
+          graphErrors ===
+            'Authorization token not found. Please add your authorization header and try again.'
+        ) {
+          return
+        }
         AppManager.toggleSnack(true, graphErrors, 'error')
       }
 

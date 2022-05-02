@@ -1,12 +1,6 @@
 import React, { useRef, useEffect, SyntheticEvent } from 'react'
 import { makeStyles } from '@material-ui/core/styles'
-import {
-  Paper,
-  TextField,
-  Button,
-  FormControl,
-  LinearProgress,
-} from '@material-ui/core'
+import { TextField, FormControl, LinearProgress } from '@material-ui/core'
 import { AppManager, UserManager } from '@app/managers'
 import { userData } from '@app/data'
 import { MarketingDrawer, PageTitle } from '@app/components/general'
@@ -15,31 +9,7 @@ import { metaSetter } from '@app/utils'
 import type { PageProps } from '@app/types'
 import { MarketingShortTitle } from '@app/components/marketing'
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    paddingTop: '7%',
-    paddingBottom: '7%',
-  },
-  paper: {
-    padding: theme.spacing(3),
-    textAlign: 'center',
-  },
-  textField: {
-    marginLeft: theme.spacing(1),
-    marginRight: theme.spacing(1),
-    width: 200,
-  },
-  submit: {
-    marginTop: 10,
-  },
-  block: {
-    flexDirection: 'column',
-  },
-  row: {
-    marginTop: 10,
-    flexDirection: 'row',
-    display: 'inline-flex',
-  },
+const useStyles = makeStyles(() => ({
   absolute: {
     position: 'absolute',
     bottom: 0,
@@ -57,7 +27,7 @@ function ResetPassword({ name }: PageProps) {
     forgotPasswordData,
     resetPassword,
     resetPasswordData,
-  } = userData()
+  } = userData(true)
 
   const emailRef = useRef(null)
   const resetRef = useRef(null)
@@ -128,45 +98,41 @@ function ResetPassword({ name }: PageProps) {
     >
       <MarketingShortTitle />
       <PageTitle component={resetSent ? 'h3' : 'h1'}>{title}</PageTitle>
-      <Paper className={classes.paper}>
-        <form autoComplete={resetSent ? 'on' : 'off'} onSubmit={submit}>
-          <div>
-            <FormControl>
-              {resetSent ? (
-                <TextField
-                  id='resetCode'
-                  aria-describedby='my-reset-text'
-                  className={classes.textField}
-                  label='Reset Code'
-                  type='text'
-                  autoFocus
-                  margin='normal'
-                  variant='outlined'
-                  required
-                  inputRef={resetRef}
-                />
-              ) : (
-                <TextField
-                  id='email'
-                  aria-describedby='my-email-text'
-                  className={classes.textField}
-                  label='Email'
-                  type='email'
-                  autoFocus
-                  autoComplete='email'
-                  margin='normal'
-                  variant='outlined'
-                  required
-                  inputRef={emailRef}
-                />
-              )}
-            </FormControl>
-          </div>
-          <Button className={classes.submit} type='submit'>
-            {resetSent ? 'Submit' : 'Send Email'}
-          </Button>
-        </form>
-      </Paper>
+      <form autoComplete={resetSent ? 'on' : 'off'} onSubmit={submit}>
+        <div className='space-y-6'>
+          <FormControl>
+            {resetSent ? (
+              <TextField
+                id='resetCode'
+                aria-describedby='my-reset-text'
+                label='Reset Code'
+                type='text'
+                autoFocus
+                margin='normal'
+                variant='outlined'
+                required
+                inputRef={resetRef}
+              />
+            ) : (
+              <TextField
+                id='email'
+                aria-describedby='my-email-text'
+                label='Email'
+                type='email'
+                autoFocus
+                autoComplete='email'
+                margin='normal'
+                variant='outlined'
+                required
+                inputRef={emailRef}
+              />
+            )}
+          </FormControl>
+        </div>
+        <button className={'border rounded py-3 px-6 text-xl'} type='submit'>
+          {resetSent ? 'Submit' : 'Send Email'}
+        </button>
+      </form>
       {loading ? (
         <LinearProgress className={classes.absolute} color='secondary' />
       ) : null}
