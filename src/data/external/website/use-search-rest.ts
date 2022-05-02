@@ -17,6 +17,17 @@ export const scanWebsite = async (websiteUrl: string) => {
         'Content-Type': 'application/json',
       },
     })
+
+    // rate limit custom message on scan
+    if (request.status === 429) {
+      AppManager.toggleSnack(
+        true,
+        'Rate limited exceed, sign up and set a plan to increase limits.',
+        'error'
+      )
+      return Promise.resolve()
+    }
+
     if (request?.ok) {
       return await request.json()
     }
@@ -59,7 +70,7 @@ export function useSearchRest() {
       let json = await scanWebsite(querySearch)
 
       // retry query as http if https autofilled [TODO: move autoquery detection to SS ]
-      if (json && !json?.website && autoTPT) {
+      if (json && !json?.data && autoTPT) {
         AppManager.toggleSnack(
           true,
           'https:// failed retrying with http:// ...'

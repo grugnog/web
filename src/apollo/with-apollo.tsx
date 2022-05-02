@@ -47,21 +47,23 @@ const createLink = (): ApolloLink => {
 
           const errorMessage = invalidSignature ? 'Please re-login' : message
 
-          graphErrors += `${errorMessage} \n`
+          graphErrors += `${errorMessage}\n`
         }
       })
 
       if (graphErrors) {
         // ignore api info error for displaying jwt
+        let errors = graphErrors.trim()
+
         if (
           typeof window !== 'undefined' &&
-          window.location.href === '/api-info' &&
-          graphErrors ===
+          window.location.pathname === '/api-info' &&
+          errors ===
             'Authorization token not found. Please add your authorization header and try again.'
         ) {
           return
         }
-        AppManager.toggleSnack(true, graphErrors, 'error')
+        AppManager.toggleSnack(true, errors, 'error')
       }
 
       if (networkError) {

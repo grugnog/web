@@ -47,7 +47,7 @@ export function useSearch() {
 
     const [querySearch] = searchQuery(text || search)
 
-    scanWebsite({
+    await scanWebsite({
       variables: {
         url: querySearch,
       },

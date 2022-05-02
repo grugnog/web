@@ -4,7 +4,8 @@ import { makeStyles, createStyles } from '@material-ui/core/styles'
 const useStyles = makeStyles(() =>
   createStyles({
     container: {
-      margin: '10px 7px',
+      position: 'absolute',
+      left: 10,
       ['& > span']: {
         display: 'inline-block',
         position: 'relative',
@@ -33,7 +34,7 @@ function FakeButtonContainer({ title }: { title?: string }) {
   const { container, close, zoom, minimize } = useStyles()
 
   return (
-    <div className='flex flex-1 place-items-center shadow'>
+    <div className='flex flex-1 place-items-center relative py-2'>
       <span className={container}>
         <span className={close} />
         <span className={minimize} />

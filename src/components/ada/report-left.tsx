@@ -61,28 +61,30 @@ export function ReportViewComponentLeft({
       <CtaCdn website={website} block disablePlayground={disablePlayground} />
       <Spacer />
       <InfoBar website={website} printable={printable} />
-      <div className='hidden lg:block'>
-        <div className='py-2 flex space-x-2 place-items-center border-b'>
-          <Typography variant={'body2'}>Live Website</Typography>
-          <button
-            onClick={() => setMobileHidden((h) => !h)}
-            className={'border rounded p-1 px-2'}
+      {website?.url ? (
+        <div className='hidden lg:block'>
+          <div className='py-2 flex space-x-2 place-items-center border-b'>
+            <Typography variant={'body2'}>Live Website</Typography>
+            <button
+              onClick={() => setMobileHidden((h) => !h)}
+              className={'border rounded p-1 px-2'}
+            >
+              Toggle Viewer
+            </button>
+          </div>
+          <div
+            className={!hideMobile ? 'block' : 'hidden'}
+            aria-hidden={hideMobile}
           >
-            Toggle Viewer
-          </button>
+            <TestViewRest
+              url={website.url || ''}
+              marketing
+              posRelative
+              issues={website?.issue}
+            />
+          </div>
         </div>
-        <div
-          className={!hideMobile ? 'block' : 'hidden'}
-          aria-hidden={hideMobile}
-        >
-          <TestViewRest
-            url={website.url || ''}
-            marketing
-            posRelative
-            issues={website?.issue}
-          />
-        </div>
-      </div>
+      ) : null}
     </div>
   )
 }

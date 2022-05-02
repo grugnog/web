@@ -25,7 +25,7 @@ function WebsiteAccessibilityChecker({ name }: PageProps) {
               today to get site-wide monitoring and other web accessibility
               improvement tools right in the browser or your own servers. Theres
               multiple entry points to get started keeping your website
-              inclusive to everyone.
+              inclusive.
             </p>
           </div>
           <div>
@@ -40,9 +40,7 @@ function WebsiteAccessibilityChecker({ name }: PageProps) {
             </p>
           </div>
           <div>
-            <h4 className='text-2xl font-bold'>
-              Deliver changes with confidence
-            </h4>
+            <h4 className='text-2xl font-bold'>Actionable WCAG reports</h4>
             <p className='text-lg'>
               Extending WCAG as the foundation, we also look at other areas of
               the guidelines that have yet to be introduced and other concepts

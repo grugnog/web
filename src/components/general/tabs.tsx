@@ -47,7 +47,7 @@ function a11yProps(index: number) {
   }
 }
 
-export function WebsiteTabs({ issues, html, playground }: any) {
+export function WebsiteTabs({ issues, playground }: any) {
   const [value, setValue] = useState<number>(0)
   const classes = useStyles()
 
@@ -55,7 +55,9 @@ export function WebsiteTabs({ issues, html, playground }: any) {
     setValue(newValue)
   }, [])
 
-  const playgroundIndex = !html ? 1 : 2
+  const playgroundIndex = 1
+
+  const containerClass = `${classes.container} max-w-full lg:max-w-[62vw]`
 
   return (
     <div className={classes.wrapper}>
@@ -66,24 +68,18 @@ export function WebsiteTabs({ issues, html, playground }: any) {
         variant={'fullWidth'}
       >
         <Tab label='Insights' {...a11yProps(0)} />
-        {html ? <Tab label='HTML' {...a11yProps(1)} /> : null}
         {playground ? (
           <Tab label='Playground' {...a11yProps(playgroundIndex)} />
         ) : null}
       </Tabs>
-      <TabPanel value={value} index={0} className={classes.container}>
+      <TabPanel value={value} index={0} className={containerClass}>
         {issues}
       </TabPanel>
-      {html ? (
-        <TabPanel value={value} index={1} className={classes.container}>
-          {html}
-        </TabPanel>
-      ) : null}
       {playground ? (
         <TabPanel
           value={value}
           index={playgroundIndex}
-          className={classes.container}
+          className={containerClass}
         >
           {playground}
         </TabPanel>

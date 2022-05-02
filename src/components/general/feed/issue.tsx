@@ -11,10 +11,8 @@ const useStyles = makeStyles(() => ({
   },
   code: {
     overflow: 'hidden',
-    maxWidth: '69vw',
   },
   mainSubtitle: {
-    maxWidth: '88%',
     overflow: 'hidden',
     textOverflow: 'ellipsis',
     fontWeight: 300,
