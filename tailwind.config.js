@@ -55,5 +55,5 @@ const theme = {
 module.exports = {
   theme,
   content: ['./src/**/*.{html,js,jsx,ts,tsx}'],
-  plugins: [],
+  plugins: [require('@tailwindcss/line-clamp')],
 }

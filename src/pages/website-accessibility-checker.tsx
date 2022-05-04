@@ -17,7 +17,7 @@ function WebsiteAccessibilityChecker({ name }: PageProps) {
         <CtaIntroRest checker />
         <div className='px-4 max-w-[800px] space-y-2'>
           <div>
-            <h3 className='text-3xl font-bold'>
+            <h3 className='text-2xl font-bold'>
               Live web accessibility testing
             </h3>
             <p className='text-lg'>
@@ -40,12 +40,12 @@ function WebsiteAccessibilityChecker({ name }: PageProps) {
             </p>
           </div>
           <div>
-            <h4 className='text-2xl font-bold'>Actionable WCAG reports</h4>
+            <h4 className='text-2xl font-bold'>Inclusive web by default</h4>
             <p className='text-lg'>
-              Extending WCAG as the foundation, we also look at other areas of
-              the guidelines that have yet to be introduced and other concepts
-              that relates into web accessibility. The recommended solutions
-              based on your web page apply the guidelines by using chromium.
+              Extending WCAG2.1 as the foundation, we also look at other areas
+              of the guidelines that have yet to be introduced and other
+              concepts that relates into web accessibility. The recommended
+              solutions based on your web page use chromium to run the reports.
             </p>
           </div>
         </div>

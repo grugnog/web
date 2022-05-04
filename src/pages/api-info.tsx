@@ -1,13 +1,14 @@
-import React, { Fragment, useState, useCallback } from 'react'
-import { Container, Typography, Button } from '@material-ui/core'
+import React, { Fragment, useState } from 'react'
+import { Container, Button, IconButton } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import { NavBar, PageTitle, Link } from '@app/components/general'
 import { Box } from '@a11ywatch/ui'
 import { TextSkeleton } from '@app/components/placeholders'
-import { UserManager } from '@app/managers'
+import { UserManager, AppManager } from '@app/managers'
 import { userData } from '@app/data'
 import { metaSetter } from '@app/utils'
 import type { PageProps } from '@app/types'
+import { GrCopy } from 'react-icons/gr'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -31,13 +32,6 @@ const useStyles = makeStyles((theme) => ({
   },
   italic: {
     fontStyle: 'italic',
-  },
-  token: {
-    background: 'transparent',
-  },
-  apiContainer: {
-    overflow: 'hidden',
-    height: 'auto',
   },
   passwordTitle: {
     marginRight: theme.spacing(2),
@@ -77,9 +71,27 @@ function Api({ name }: PageProps) {
 
   const { user } = data
 
-  const toggleKey = useCallback(() => {
-    setKey((c) => !c)
-  }, [])
+  const toggleKey = () => setKey((c) => !c)
+
+  // TODO: MOVE TO SS
+  const apiLimit = !data?.user
+    ? 0
+    : user?.role === 0
+    ? 3
+    : user?.role === 1
+    ? 100
+    : 500
+
+  const copyText = (text: string) => (
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ): void => {
+    e?.preventDefault()
+    navigator.clipboard.writeText(text)
+    AppManager.toggleSnack(true, `Copied: ${text}`, 'success')
+  }
+
+  // token
+  const token = UserManager?.token ? UserManager.token.trim() : ''
 
   return (
     <Fragment>
@@ -87,7 +99,7 @@ function Api({ name }: PageProps) {
         backButton
         title={name.toUpperCase()}
         notitle
-        marketingLinks={UserManager?.token ? [] : null}
+        marketingLinks={!data?.user ? [] : null}
       />
       <Container maxWidth='xl' className={classes.root}>
         <Box>
@@ -110,7 +122,7 @@ function Api({ name }: PageProps) {
           </p>
           {!data?.user && loading ? (
             <TextSkeleton className={classes.email} />
-          ) : UserManager?.token ? (
+          ) : data?.user ? (
             <div>
               <Button
                 className={classes.payments}
@@ -121,10 +133,17 @@ function Api({ name }: PageProps) {
                 {`${keyVisible ? 'HIDE' : 'VIEW'} TOKEN`}
               </Button>
               {keyVisible ? (
-                <div className={`${classes.container} ${classes.apiContainer}`}>
-                  <Typography className={classes.token}>
-                    {UserManager?.token}
-                  </Typography>
+                <div className={`${classes.container} relative`}>
+                  <button className='absolute right-2 -top-12 overflow-visible'>
+                    <IconButton
+                      aria-label='Copy your access token to clipboard'
+                      onClick={copyText(token)}
+                      color='default'
+                    >
+                      <GrCopy title='Copy to clipboard' />
+                    </IconButton>
+                  </button>
+                  <p className='line-clamp-3'>{token}</p>
                 </div>
               ) : null}
             </div>
@@ -139,18 +158,14 @@ function Api({ name }: PageProps) {
             <TextSkeleton className={classes.email} />
           ) : !data?.user ? (
             <p className={'pb-2 text-lg'}>
-              <Link href={'/login'}>Login</Link> to see your API limits.
+              <Link href={'/login'} className={'underline'}>
+                Login
+              </Link>{' '}
+              to see your API limits.
             </p>
           ) : (
             <SectionTitle className={classes.email}>
-              {user?.apiUsage?.usage || 0}/
-              {!data?.user
-                ? 0
-                : user?.role === 0
-                ? 3
-                : user?.role === 1
-                ? 25
-                : 100}
+              {user?.apiUsage?.usage || 0}/{apiLimit}
             </SectionTitle>
           )}
         </Box>
@@ -159,10 +174,10 @@ function Api({ name }: PageProps) {
           <h3 className='text-xl font-bold'>API Endpoints</h3>
           <h4 className='text-lg pb-1'>Scan a website for issues.</h4>
           <code className='border block p-2 rounded bg-gray-100'>
-            {`curl --location --request POST
-            'https://api.a11ywatch.com/api/scan-simple' \ --header
-            'Content-Type: application/x-www-form-urlencoded' \ --data-urlencode
-            'url=https://www.nytimes.com'`}
+            {`curl --location --request POST 'https://api.a11ywatch.com/api/scan-simple' \
+--header 'Authorization: $A11YWATCH_TOKEN' \
+--header 'Content-Type: application/x-www-form-urlencoded' \
+--data-urlencode 'websiteUrl=https://www.nytimes.com'`}
           </code>
         </Box>
 

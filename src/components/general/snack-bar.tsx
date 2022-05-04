@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react'
+import React from 'react'
 import { observer } from 'mobx-react'
 
 import {
@@ -48,10 +48,10 @@ const SnackbarContainer = observer(({ store }: any) => {
           backgroundColor: '#fff',
         }}
         message={
-          <Fragment>
+          <div className='max-w-[50vw]'>
             <p
               id='message-id'
-              className={`text-lg ${
+              className={`text-lg line-clamp-4 ${
                 store.snackbar.type === 'error' ? 'text-red-500' : 'text-black'
               }`}
             >
@@ -73,7 +73,7 @@ const SnackbarContainer = observer(({ store }: any) => {
                 Go back to marketing page
               </Link>
             ) : null}
-          </Fragment>
+          </div>
         }
         className={
           store.snackbar.type === 'error' ? 'border border-red-500' : ''
