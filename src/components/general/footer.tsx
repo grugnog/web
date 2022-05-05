@@ -105,9 +105,7 @@ const NavLinks: FC<NavLinks> = ({ className, filterType, blog }) => {
         return (
           <li key={href + name}>
             <Link
-              color={'inherit'}
               className={className}
-              variant={'subtitle1'}
               href={href}
               rel={href.includes('https') ? 'noopener' : undefined}
               target={href.includes('https') ? '_blank' : undefined}

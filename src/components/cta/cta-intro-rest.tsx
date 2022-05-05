@@ -49,7 +49,6 @@ function CtaIntroRest({ checker }: CtaIntroRest) {
             height={500}
             width={500}
             alt='Built to improve website accessibility'
-            priority
           />
         </div>
       </div>

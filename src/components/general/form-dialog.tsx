@@ -1,6 +1,5 @@
 import React, { useRef, useState, useCallback, memo, Fragment } from 'react'
 import {
-  Button,
   TextField,
   Dialog,
   DialogActions,
@@ -15,6 +14,7 @@ import {
   IconButton,
   Tooltip,
 } from '@material-ui/core'
+import { Button } from '@app/components/general'
 import { domainList as dmList } from '@app/utils'
 import { GrClose } from 'react-icons/gr'
 import { InputHeaders } from './input-headers'
@@ -198,9 +198,8 @@ export function FormDialogWrapper({
   return (
     <Fragment>
       <Button
-        variant={'outlined'}
         onClick={handleClickOpen}
-        className={[classes.buttonAdjust, buttonStyles].join(' ').trim()}
+        className={['w-full', buttonStyles].join(' ').trim()}
       >
         {buttonTitle}
       </Button>

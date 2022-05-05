@@ -23,7 +23,7 @@ import {
 } from './blocks'
 
 const styles = {
-  title: 'block text-3xl font-bold truncate w-full',
+  title: 'md:text-3xl font-bold truncate',
   spacing: 'py-2',
   row: 'flex flex-1',
   metaBlock: 'px-2 py-1 border',
@@ -113,11 +113,11 @@ export function WebsiteCellDashboardComponent({
   return (
     <li className={`border px-3 py-2 rounded overflow-hidden`}>
       <div className='flex space-x-2'>
-        <div className='contents'>
+        <div className={`flex-1`}>
           <Link
             title={`view in sandbox ${url}`}
-            className={styles.title}
             href={linkUrl}
+            className={styles.title}
           >
             {url}
           </Link>

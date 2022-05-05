@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useMemo } from 'react'
-import { Button } from '@material-ui/core'
 import {
+  Button,
   PageTitle,
   LinearBottom,
   Drawer,
@@ -69,8 +69,7 @@ function Dashboard({ name }: PageProps) {
             >
               <Button
                 onClick={onRemoveAllWebsitePress}
-                variant={'outlined'}
-                color={'primary'}
+                className={'min-w-[120px]'}
                 aria-label={'Remove all websites'}
               >
                 Remove All

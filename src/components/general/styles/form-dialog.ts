@@ -54,15 +54,6 @@ export const formDialogStyles = makeStyles((theme: MergedTheme) => ({
       fontSize: 15,
     },
   },
-  buttonAdjust: {
-    padding: theme.spacing(1),
-    paddingRight: theme.spacing(2),
-    paddingLeft: theme.spacing(2),
-    '&:hover': {
-      background: '#ccc',
-      color: theme?.color?.primary,
-    },
-  },
   formControl: {
     marginLeft: 4,
     marginRight: 10,

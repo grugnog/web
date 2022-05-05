@@ -118,6 +118,21 @@ function PriceWrapper({
     [blockFree]
   )
 
+  const SubHeading = ({ children, ...extra }: any) =>
+    pricingPage ? (
+      <h3 {...extra}>{children}</h3>
+    ) : (
+      <h4 {...extra}> {children}</h4>
+    )
+
+  // feature with plan
+  const Description = ({ children, ...extra }: any) =>
+    pricingPage ? (
+      <h4 {...extra}>{children}</h4>
+    ) : (
+      <h5 {...extra}>{children}</h5>
+    )
+
   return (
     <div id='plans-section'>
       {typeof onClick === 'undefined' && !pricingPage ? (
@@ -175,19 +190,19 @@ function PriceWrapper({
               onClick={clickEvent ? () => clickEvent(title) : undefined}
             >
               <>
-                <div>
+                <div className='w-full'>
                   <div
                     className='text-left w-full flex-col text-white px-8 py-3'
                     style={{ backgroundColor: textColor }}
                   >
-                    <h3 className='text-3xl font-bold'>
+                    <SubHeading className='text-3xl font-bold'>
                       <span>{title}</span>
                       {cost ? (
                         <span className={'text-lg font-semibold block'}>
                           {yearly ? costYearly : cost}
                         </span>
                       ) : null}
-                    </h3>
+                    </SubHeading>
                   </div>
 
                   <ul className='px-4 space-y-1 py-4'>
@@ -205,7 +220,7 @@ function PriceWrapper({
                         >
                           <GrFormCheckmark className='grIcon' />
                         </div>
-                        <h4 className='text-lg'>{item}</h4>
+                        <Description className='text-lg'>{item}</Description>
                       </li>
                     ))}
                   </ul>

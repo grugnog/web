@@ -34,6 +34,8 @@ const Feed: FC = () => {
     setIssueFeedContent([], false)
   }, [setIssueFeedContent])
 
+  // const scan = async (target: string) => {}
+
   if (issues.length && open) {
     return (
       <Fade in>
@@ -57,6 +59,14 @@ const Feed: FC = () => {
             return (
               <div key={issueIndex}>
                 <IssueTitle pageUrl={issue.pageUrl} />
+                {/* <div className='flex'>
+                  <div className='flex-1'>
+                    <IssueTitle pageUrl={issue.pageUrl} />
+                  </div>
+                  <IconButton onClick={async () => await scan(issue.pageUrl)}>
+                    <GrAction />
+                  </IconButton>
+                </div> */}
                 <div className={classes.list}>
                   {pageIssues?.map((item, i) => {
                     return (

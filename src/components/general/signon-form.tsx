@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, FunctionComponent, Fragment } from 'react'
-import { GoogleLogin } from 'react-google-login'
+import { GoogleLoginButton } from './google-login'
 import { useRouter } from 'next/router'
 import {
   Container,
@@ -14,8 +14,6 @@ import { makeStyles } from '@material-ui/core/styles'
 import { useMutation } from '@apollo/react-hooks'
 import { REGISTER, LOGIN } from '@app/mutations'
 import { AppManager, UserManager } from '@app/managers'
-import { GOOGLE_CLIENT_ID } from '@app/configs'
-import { GoogleIcon } from '@app/components/badges'
 import { Link } from './link'
 import { LinearBottom } from './loaders'
 
@@ -159,41 +157,12 @@ const SignOnForm: FunctionComponent<SignOnProps> = ({
           {(loginView && 'Login') || (home && 'Sign up for free') || 'Register'}
         </Typography>
         <div className={classes.paper}>
-          {GOOGLE_CLIENT_ID && isVisible ? (
-            <GoogleLogin
-              clientId={String(GOOGLE_CLIENT_ID)}
-              buttonText={loginView ? 'Login' : 'Sign up with google'}
-              onSuccess={onGoogleAuth}
-              onFailure={(err) => {
-                console.error(err)
-              }}
-              cookiePolicy={'single_host_origin'}
-              render={(renderProps: any) => (
-                <Button
-                  onClick={renderProps.onClick}
-                  className={classes.google}
-                  disabled={renderProps.disabled}
-                  variant='text'
-                  size='small'
-                  startIcon={
-                    <GoogleIcon className={classes.iconColor} src={''} />
-                  }
-                >
-                  {loginView ? 'Login' : 'Sign up with google'}
-                </Button>
-              )}
-            />
-          ) : (
-            <Button
-              className={classes.google}
-              disabled={true}
-              variant='text'
-              size='small'
-              startIcon={<GoogleIcon className={classes.iconColor} src={''} />}
-            >
-              {loginView ? 'Login' : 'Sign up with google'}
-            </Button>
-          )}
+          <GoogleLoginButton
+            loginView={loginView}
+            isVisible={isVisible}
+            onSuccess={onGoogleAuth}
+            classes={classes}
+          />
           <Typography variant='overline' component='p' className={classes.or}>
             Or
           </Typography>
