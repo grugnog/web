@@ -1,28 +1,10 @@
-import React, { Fragment, memo, useMemo, useState } from 'react'
-import { Typography, Button } from '@material-ui/core'
-import { makeStyles } from '@material-ui/core/styles'
+import React, { memo, useMemo, useState } from 'react'
+import { Button } from '@material-ui/core'
 import { SectionContainer } from '@app/components/general'
 import { priceConfig } from '@app/configs'
 import { SectionHeading } from '../text'
 import { Link } from './link'
 import { GrFormCheckmark } from 'react-icons/gr'
-
-const useStyles = makeStyles(() => ({
-  container: {},
-  icon: {
-    fontSize: '40px',
-  },
-  paper: {
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    flexDirection: 'column',
-    overflow: 'hidden',
-    position: 'relative',
-    whiteSpace: 'pre-wrap',
-    width: 460,
-  },
-}))
 
 const getStyles = (inactive: boolean) =>
   inactive
@@ -119,7 +101,6 @@ function PriceWrapper({
   setYearly: setYear,
   pricingPage,
 }: any) {
-  const classes = useStyles()
   const [yearly, onSetYear] = useState<boolean>(!!year)
 
   const setYearly = (params: any) => {
@@ -144,9 +125,9 @@ function PriceWrapper({
           <SectionHeading style={onClick ? { fontWeight: 200 } : {}}>
             {navigate ? 'Plans for everyone' : 'Pricing'}
           </SectionHeading>
-          <Typography variant='h6' component='p' gutterBottom>
+          <p className='pb-2 text-xl'>
             Flexible plans that can be adjusted anytime.
-          </Typography>
+          </p>
         </>
       ) : null}
       <div className='flex sm:mt-6 py-4 space-x-1'>
@@ -169,7 +150,7 @@ function PriceWrapper({
           Yearly billing
         </button>
       </div>
-      <div className={`flex gap-x-2 gap-y-2 flex-wrap place-content-center`}>
+      <div className={`grid gap-2 grid-cols-1 lg:grid-cols-2 xl:grid-cols-4`}>
         {plans.map(({ title, details, cost, costYearly }: any) => {
           const clickEvent =
             title === 'Enterprise' && !navigate ? openMail : onClick
@@ -181,7 +162,7 @@ function PriceWrapper({
           return (
             <Component
               key={title}
-              className={`${classes.paper} rounded ${highLight(
+              className={`rounded flex flex-col justify-between ${highLight(
                 title,
                 'bg-blue-100 text-black',
                 {
@@ -193,21 +174,23 @@ function PriceWrapper({
               } rounded`}
               onClick={clickEvent ? () => clickEvent(title) : undefined}
             >
-              <Fragment>
-                <div
-                  className='text-left w-full flex-col text-white px-8 py-3'
-                  style={{ backgroundColor: textColor }}
-                >
-                  <h4 className='text-3xl font-bold'>{title}</h4>
-                  {cost ? (
-                    <h5 className={'text-lg font-semibold'}>
-                      {yearly ? costYearly : cost}
-                    </h5>
-                  ) : null}
-                </div>
+              <>
+                <div>
+                  <div
+                    className='text-left w-full flex-col text-white px-8 py-3'
+                    style={{ backgroundColor: textColor }}
+                  >
+                    <h3 className='text-3xl font-bold'>
+                      <span>{title}</span>
+                      {cost ? (
+                        <span className={'text-lg font-semibold block'}>
+                          {yearly ? costYearly : cost}
+                        </span>
+                      ) : null}
+                    </h3>
+                  </div>
 
-                <div className='px-2 space-y-3 py-3'>
-                  <ul>
+                  <ul className='px-4 space-y-1 py-4'>
                     {details?.map((item: string, i: number) => (
                       <li
                         className={'flex gap-x-3 place-items-center text-left'}
@@ -218,20 +201,16 @@ function PriceWrapper({
                           className='rounded-xl text-white stroke-white'
                           style={{
                             backgroundColor: textColor,
-                            padding: 1,
                           }}
                         >
                           <GrFormCheckmark className='grIcon' />
                         </div>
-                        <Typography component={pricingPage ? 'h3' : 'h5'}>
-                          {item}
-                        </Typography>
+                        <h4 className='text-lg'>{item}</h4>
                       </li>
                     ))}
                   </ul>
-                  {title === 'Free' ? (
-                    <span style={{ height: '3.38rem', display: 'block' }} />
-                  ) : null}
+                </div>
+                <div className='px-4 py-2'>
                   <MainButton
                     title={title}
                     navigate={navigate}
@@ -244,7 +223,7 @@ function PriceWrapper({
                     {title !== 'Free' ? 'Cancel anytime.' : 'Forever Free'}
                   </div>
                 </div>
-              </Fragment>
+              </>
             </Component>
           )
         })}
