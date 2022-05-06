@@ -4,7 +4,6 @@ import { makeStyles } from '@material-ui/core/styles'
 
 const useStyles = makeStyles((theme) => ({
   title: {
-    flex: 1,
     fontSize: '3.4rem',
     fontWeight: 800,
     textOverflow: 'ellipsis',
@@ -46,7 +45,7 @@ function PageTitle({
       <div
         className={`${className ? `${className} ` : ''}${classes.row} ${
           classes.topBlock
-        } flex-wrap`}
+        } justify-between flex-wrap`}
       >
         <Typography
           variant='h4'

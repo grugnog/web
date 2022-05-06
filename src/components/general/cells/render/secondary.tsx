@@ -33,6 +33,10 @@ export function RenderSecondaryComponent({
     totalIssuesOnPage > allPageIssues ? totalIssuesOnPage : allPageIssues
 
   const chipStyle = { width: 12, height: 12 }
+  const chipRootStyle = {
+    backgroundColor: 'rgba(0, 0, 0, 0.05)',
+    color: 'rgba(0, 0, 0, 0.7)',
+  }
 
   return (
     <div className={'flex space-x-2'}>
@@ -44,8 +48,8 @@ export function RenderSecondaryComponent({
           placement={'right'}
         >
           <Chip
-            variant='outlined'
             size='small'
+            style={chipRootStyle}
             avatar={<GrCircleAlert style={chipStyle} />}
             label={mainIssues}
           />
@@ -66,7 +70,7 @@ export function RenderSecondaryComponent({
           placement={'right'}
         >
           <Chip
-            variant='outlined'
+            style={chipRootStyle}
             size='small'
             avatar={<GrMagic style={chipStyle} />}
             label={

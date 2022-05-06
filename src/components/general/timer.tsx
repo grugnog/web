@@ -14,9 +14,17 @@ export const Timer = ({ stop }: { stop?: boolean }) => {
     return () => clearInterval(interval)
   }, [stop])
 
+  const style = {
+    backgroundColor: 'rgba(0, 0, 0, 0.05)',
+    color: 'rgba(0, 0, 0, 0.7)',
+  }
+
   return (
     <Tooltip title={`Scan duration ${seconds} seconds`} placement={'right'}>
-      <div className='border rounded-3xl p-1 w-9 h-9 items-center justify-center flex truncate'>
+      <div
+        className='rounded-3xl p-1 w-9 h-9 items-center justify-center flex truncate'
+        style={style}
+      >
         <p className='font-small'>{seconds}s</p>
       </div>
     </Tooltip>

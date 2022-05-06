@@ -74,7 +74,6 @@ export const CheckoutForm = ({ onToken, basic, price, disabled }: Props) => {
         >
           Start {basic ? 'Basic' : 'Premium'}
         </Button>
-        <div className='text-sm'>14 days money back guarantee.</div>
       </form>
     </div>
   )

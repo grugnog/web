@@ -153,7 +153,7 @@ export function WebsiteCellDashboardComponent({
 
       <div className={styles.spacing} />
 
-      <div className={[styles.row, 'flex-wrap gap-x-2 gap-y-1'].join(' ')}>
+      <div className={[styles.row, 'flex-wrap gap-x-1 gap-y-1'].join(' ')}>
         <AccessibilityBox
           adaScore={adaScore}
           adaScoreAverage={adaScoreAverage}
@@ -166,7 +166,7 @@ export function WebsiteCellDashboardComponent({
         <HeadersBox pageHeaders={pageHeaders} />
         <LighthouseBox pageInsights={pageInsights} />
         <OnlineBox online={online} />
-        <div className='w-full flex space-x-2'>
+        <div className='w-full flex space-x-1'>
           <CustomCDNBox
             cdnUrl={cdnUrl}
             cdnUrlMinifed={cdnUrlMinifed}

@@ -199,7 +199,7 @@ export function FormDialogWrapper({
     <Fragment>
       <Button
         onClick={handleClickOpen}
-        className={['w-full', buttonStyles].join(' ').trim()}
+        className={[buttonStyles].join(' ').trim()}
       >
         {buttonTitle}
       </Button>

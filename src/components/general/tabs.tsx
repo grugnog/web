@@ -10,6 +10,12 @@ type TabPanelProps = {
 }
 
 const useStyles = makeStyles(() => ({
+  root: {
+    minHeight: 44,
+    '& button.MuiTab-root': {
+      minHeight: 44,
+    },
+  },
   container: {
     height: '100%',
     width: '100%',
@@ -64,6 +70,7 @@ export function WebsiteTabs({ issues, playground }: any) {
         onChange={handleChange}
         aria-label='tabs to compare problems and fixes'
         variant={'fullWidth'}
+        classes={{ root: classes.root }}
       >
         <Tab label='Insights' {...a11yProps(0)} />
         {playground ? <Tab label='Playground' {...a11yProps(1)} /> : null}

@@ -29,7 +29,7 @@ const useStyles = makeStyles((theme) => ({
     width: '250px',
     paddingBottom: '8px',
     paddingTop: '8px',
-    backgroundColor: theme.palette.background.default,
+    backgroundColor: 'inherit',
     [theme.breakpoints.down('sm')]: {
       display: 'none',
     },
@@ -48,6 +48,20 @@ interface Props {
 function FixedCopyRight({ sticky }: Props) {
   const classes = useStyles()
 
+  const cc = `© ${new Date().getFullYear()} ${companyName}, LLC`
+
+  if (!sticky) {
+    return (
+      <Typography
+        variant={'caption'}
+        className={classes.text}
+        gutterBottom={!sticky}
+      >
+        {cc}
+      </Typography>
+    )
+  }
+
   return (
     <div className={`${classes.stickContainer} ${sticky ? classes.stick : ''}`}>
       <div className={classes.sticky}>
@@ -56,7 +70,7 @@ function FixedCopyRight({ sticky }: Props) {
           className={classes.text}
           gutterBottom={!sticky}
         >
-          © {new Date().getFullYear()} {companyName}, LLC
+          {cc}
         </Typography>
       </div>
     </div>

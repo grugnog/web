@@ -11,7 +11,7 @@ export const Button: React.FC<{
   onClick,
   className = '',
   disabled,
-  type,
+  type = 'button',
   style,
   ...extra
 }) => {
@@ -20,7 +20,10 @@ export const Button: React.FC<{
       style={style}
       type={type}
       disabled={disabled}
-      className={['px-4 py-3 border rounded hover:bg-gray-200', className]
+      className={[
+        'px-2 py-2 md:px-4 md:py-3 border rounded hover:bg-gray-200',
+        className,
+      ]
         .join(' ')
         .trim()}
       {...extra}

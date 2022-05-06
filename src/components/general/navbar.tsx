@@ -1,6 +1,5 @@
 import React, { Fragment, memo } from 'react'
 import { useRouter } from 'next/router'
-import dynamic from 'next/dynamic'
 
 import { IconButton } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
@@ -10,13 +9,6 @@ import { Link } from './link'
 import { AuthMenu } from './auth-menu'
 import { TranslateBadge } from '../badges'
 import { GrLinkPrevious } from 'react-icons/gr'
-
-const WrapShadow = dynamic(
-  () => import('./wrap-shadow').then((mod) => mod.WrapShadow) as any,
-  {
-    ssr: false,
-  }
-)
 
 const useStyles = makeStyles((theme) => ({
   flex: {
@@ -105,9 +97,11 @@ const NavBarComponent = ({
   return (
     <Fragment>
       <nav
-        className={`${className ? `${className} ` : className}${
+        className={`bg-[inherit] ${className ? `${className} ` : className}${
           classes.container
-        } shadow-none ${position === 'fixed' ? 'fixed left-0 right-0' : ''}`}
+        } ${
+          position === 'fixed' ? 'fixed left-0 right-0 shadow' : 'shadow-none'
+        }`}
       >
         <div className='relative flex items-center pl-5 pr-5 min-h-[inherit]'>
           {toolbar || children ? (
@@ -142,7 +136,6 @@ const NavBarComponent = ({
           ) : null}
         </div>
       </nav>
-      {position === 'fixed' ? <WrapShadow /> : null}
     </Fragment>
   )
 }

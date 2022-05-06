@@ -62,20 +62,17 @@ function Dashboard({ name }: PageProps) {
         <PageTitle
           title={'Websites'}
           rightButton={
-            <div
-              className={`flex space-x-2 ${
-                !!data?.length ? 'block' : 'hidden'
-              }`}
-            >
-              <Button
-                onClick={onRemoveAllWebsitePress}
-                className={'min-w-[120px]'}
-                aria-label={'Remove all websites'}
-              >
-                Remove All
-              </Button>
-              <FormDialog buttonTitle={`Subscribe More`} />
-            </div>
+            !!data?.length ? (
+              <div className='flex flex-wrap space-x-2'>
+                <Button
+                  onClick={onRemoveAllWebsitePress}
+                  aria-label={'Remove all websites'}
+                >
+                  Remove All
+                </Button>
+                <FormDialog buttonTitle={`Subscribe`} />
+              </div>
+            ) : null
           }
         />
         <WebsiteList

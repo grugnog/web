@@ -1,15 +1,11 @@
 import React, { memo, useState } from 'react'
 import { Grid, Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
-import {
-  RenderSecondary,
-  Spacer,
-  Timer,
-  TestViewRest,
-} from '@app/components/general'
+import { Spacer, Timer, TestViewRest } from '@app/components/general'
 import { CtaCdn } from '@app/components/cta'
 import { strings } from '@app-strings'
 import { InfoBar } from './info-bar'
+import { WebsiteSecondary } from '../general/cells/render/website-secondary'
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -56,7 +52,7 @@ export function ReportViewComponentLeft({
       </Grid>
       <div className='flex space-x-2 place-items-center'>
         <Timer stop={!empty} />
-        <RenderSecondary {...website} />
+        <WebsiteSecondary {...website} />
       </div>
       <CtaCdn website={website} block disablePlayground={disablePlayground} />
       <Spacer />

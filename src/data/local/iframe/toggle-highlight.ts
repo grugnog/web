@@ -19,7 +19,9 @@ export const toggleHighLight = () => {
 
         AppManager.toggleSnack(
           true,
-          `Highlighted ${a11yElements.length} elements fixed by CDN`,
+          `Highlighted ${a11yElements.length} element${
+            a11yElements.length === 1 ? '' : ''
+          } fixed by CDN`,
           'sucess'
         )
       } else {

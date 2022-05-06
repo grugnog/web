@@ -169,9 +169,9 @@ function PriceWrapper({
         {plans.map(({ title, details, cost, costYearly }: any) => {
           const clickEvent =
             title === 'Enterprise' && !navigate ? openMail : onClick
+          const onPriceClick = clickEvent ? () => clickEvent(title) : undefined
 
           const Component = clickEvent ? 'button' : 'div'
-
           const textColor = getPrimaryColor(title)
 
           return (
@@ -187,7 +187,7 @@ function PriceWrapper({
               )} border border-gray-300 ${
                 clickEvent ? `hover:bg-blue-100` : ''
               } rounded`}
-              onClick={clickEvent ? () => clickEvent(title) : undefined}
+              onClick={onPriceClick}
             >
               <>
                 <div className='w-full'>
@@ -225,15 +225,15 @@ function PriceWrapper({
                     ))}
                   </ul>
                 </div>
-                <div className='px-4 py-2'>
+                <div className='px-4 py-2 w-full'>
                   <MainButton
                     title={title}
                     navigate={navigate}
                     yearly={yearly}
                   />
                   <div
-                    className='pt-1'
-                    style={{ textAlign: 'center', fontSize: '0.95em' }}
+                    className='pt-1 text-center'
+                    style={{ fontSize: '0.95em' }}
                   >
                     {title !== 'Free' ? 'Cancel anytime.' : 'Forever Free'}
                   </div>

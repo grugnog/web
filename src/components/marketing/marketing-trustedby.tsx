@@ -37,7 +37,7 @@ function TrustBy() {
     <SectionContainer className={'bg-gray-100'}>
       <SectionHeading>Trusted by many businesses from all over</SectionHeading>
       <Typography variant='h6' component='p' gutterBottom>
-        From small companies to Fortune 500
+        From small companies to Fortune 500.
       </Typography>
       <div className='px-4 sm:px-6 lg:px-8 border'>
         <div className='grid grid-cols-2 gap-0.5 md:grid-cols-3'>

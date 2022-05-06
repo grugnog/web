@@ -30,7 +30,7 @@ function WebsiteAccessibilityChecker({ name }: PageProps) {
           </div>
           <div>
             <h4 className='text-2xl font-bold'>
-              Real time web accessibility results
+              Fast web accessibility results
             </h4>
             <p className='text-lg'>
               Optimize your workflow on tackling web inclusion issues while
@@ -40,12 +40,11 @@ function WebsiteAccessibilityChecker({ name }: PageProps) {
             </p>
           </div>
           <div>
-            <h4 className='text-2xl font-bold'>Inclusive web by default</h4>
+            <h4 className='text-2xl font-bold'>Conformance to WCAG2.1</h4>
             <p className='text-lg'>
               Extending WCAG2.1 as the foundation, we also look at other areas
               of the guidelines that have yet to be introduced and other
-              concepts that relates into web accessibility. The recommended
-              solutions based on your web page use chromium to run the reports.
+              additions that blend into web accessibility.
             </p>
           </div>
         </div>

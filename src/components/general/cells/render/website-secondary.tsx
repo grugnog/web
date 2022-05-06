@@ -2,6 +2,7 @@ import React, { memo, useMemo } from 'react'
 import { Chip, Tooltip } from '@material-ui/core'
 import { GrCalendar, GrCircleAlert, GrConfigure, GrMagic } from 'react-icons/gr'
 import { format } from 'date-fns'
+import { PageLoad } from './page-load'
 
 // TODO: REFACTOR WITH Secondary (BASE)
 export function WebsiteSecondaryComponent({
@@ -9,6 +10,9 @@ export function WebsiteSecondaryComponent({
   lastScanDate,
   issuesInfo,
   pageHeaders,
+  pageLoadTime = {
+    duration: 0,
+  },
 }: any) {
   const { allPageIssues } = useMemo(() => {
     let allPageIssues = 0
@@ -36,6 +40,10 @@ export function WebsiteSecondaryComponent({
   const pageIssueCount = issues?.length || 0
 
   const chipStyle = { width: 12, height: 12 }
+  const chipRootStyle = {
+    backgroundColor: 'rgba(0, 0, 0, 0.05)',
+    color: 'rgba(0, 0, 0, 0.7)',
+  }
 
   return (
     <div className={'flex space-x-2'}>
@@ -49,25 +57,35 @@ export function WebsiteSecondaryComponent({
           placement={'right'}
         >
           <Chip
-            variant='outlined'
             size='small'
+            style={chipRootStyle}
             avatar={<GrCircleAlert style={chipStyle} />}
             label={mainIssues}
           />
         </Tooltip>
       ) : null}
+      {pageLoadTime?.duration ? (
+        <PageLoad
+          durationFormated={pageLoadTime?.durationFormated}
+          duration={pageLoadTime?.duration}
+          style={chipRootStyle}
+          chipStyle={chipStyle}
+        />
+      ) : null}
       {possibleIssuesFixedByCdn && totalIssuesOnPage ? (
         <Tooltip
           title={
             issuesFixedByCdn
-              ? `${issuesFixedByCdn} issues fixed from CDN out of ${totalIssuesOnPage} for current page.`
+              ? `${issuesFixedByCdn} issue${
+                  issuesFixedByCdn === 1 ? '' : ''
+                } fixed from CDN out of ${totalIssuesOnPage} for current page.`
               : `${possibleIssuesFixedByCdn} out of ${totalIssuesOnPage} issues on the current page can be fixed instantly with our custom CDN.`
           }
           placement={'right'}
         >
           <Chip
-            variant='outlined'
             size='small'
+            style={chipRootStyle}
             avatar={<GrMagic style={chipStyle} />}
             label={
               issuesFixedByCdn
@@ -80,7 +98,7 @@ export function WebsiteSecondaryComponent({
       {lastScanDate ? (
         <Tooltip title={`Last scan was at ${lastScanDate}`} placement={'right'}>
           <Chip
-            variant='outlined'
+            style={chipRootStyle}
             size='small'
             avatar={<GrCalendar style={chipStyle} />}
             label={format(new Date(lastScanDate), 'dd/MM/yyyy')}
@@ -95,7 +113,7 @@ export function WebsiteSecondaryComponent({
           placement={'right'}
         >
           <Chip
-            variant='outlined'
+            style={chipRootStyle}
             size='small'
             avatar={<GrConfigure style={chipStyle} />}
             label={`${pageHeaders?.length} custom header${

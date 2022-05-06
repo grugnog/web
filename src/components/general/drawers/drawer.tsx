@@ -25,16 +25,21 @@ const UpgradeBanner = dynamic(
 
 function MainDrawerContainerComponent({ route, dataSourceMap, classes }: any) {
   return (
-    <div className={`${classes.drawer} ${classes.drawerPaper} print:hidden`}>
-      <AuthedMenu dataSourceMap={dataSourceMap} route={route} />
-      <div className={classes.flex} />
-      <div
-        className={'xl:visible invisible p-4 place-items-center flex-col flex'}
-      >
-        <FormDialog />
+    <div
+      className={`${classes.drawer} ${classes.drawerPaper} relative print:hidden overflow-hidden`}
+    >
+      <div className='fixed flex flex-col w-[inherit] overflow-hidden h-full bg-gray-100'>
+        <AuthedMenu dataSourceMap={dataSourceMap} route={route} />
+        <div
+          className={
+            'xl:visible invisible p-4 place-items-center flex-col flex'
+          }
+        >
+          <FormDialog buttonStyles={'w-full'} />
+        </div>
+        <UpgradeBanner />
+        <FixedCopyRight sticky />
       </div>
-      <UpgradeBanner />
-      <FixedCopyRight sticky />
     </div>
   )
 }

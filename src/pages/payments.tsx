@@ -185,7 +185,7 @@ function Payments({ hideTitle = false, name }: PaymentProps) {
 
   const subTitle = !renderPayMentBoxes
     ? 'Account Info'
-    : 'Pay yearly and get 2 months for free.'
+    : 'Pay yearly and get 2 months included.'
 
   return (
     <Elements stripe={stripePromise}>

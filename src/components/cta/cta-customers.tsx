@@ -12,7 +12,7 @@ export function CtaCustomers() {
       <Typography variant='h6' component='h4' gutterBottom>
         {strings.customersWhy}
       </Typography>
-      <div className={'border flex w-full p-5 justify-around'}>
+      <div className={'border rounded flex w-full p-5 justify-around'}>
         {['twitter', 'github', 'dropbox'].map((item, i) => (
           <Fragment key={item + i}>
             <Image

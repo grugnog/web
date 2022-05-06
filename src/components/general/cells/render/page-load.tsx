@@ -5,12 +5,15 @@ import { GrDashboard } from 'react-icons/gr'
 interface PageLoad {
   duration: number
   durationFormated: string
-  style?: any
+  style?: any // root
+  chipStyle?: any // icon
 }
+
 export function PageLoadComponent({
   duration = 0,
   durationFormated = '',
   style,
+  chipStyle,
 }: PageLoad) {
   const durationToSeconds = duration / 1000
   const fixedLength =
@@ -28,9 +31,9 @@ export function PageLoadComponent({
       placement={'right'}
     >
       <Chip
-        variant='outlined'
+        style={style}
         size='small'
-        avatar={<GrDashboard style={style} />}
+        avatar={<GrDashboard style={chipStyle} />}
         label={'Speed'}
       />
     </Tooltip>
