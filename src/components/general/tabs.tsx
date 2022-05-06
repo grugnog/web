@@ -55,8 +55,6 @@ export function WebsiteTabs({ issues, playground }: any) {
     setValue(newValue)
   }, [])
 
-  const playgroundIndex = 1
-
   const containerClass = `${classes.container} max-w-full lg:max-w-[62vw]`
 
   return (
@@ -68,19 +66,13 @@ export function WebsiteTabs({ issues, playground }: any) {
         variant={'fullWidth'}
       >
         <Tab label='Insights' {...a11yProps(0)} />
-        {playground ? (
-          <Tab label='Playground' {...a11yProps(playgroundIndex)} />
-        ) : null}
+        {playground ? <Tab label='Playground' {...a11yProps(1)} /> : null}
       </Tabs>
       <TabPanel value={value} index={0} className={containerClass}>
         {issues}
       </TabPanel>
       {playground ? (
-        <TabPanel
-          value={value}
-          index={playgroundIndex}
-          className={containerClass}
-        >
+        <TabPanel value={value} index={1} className={containerClass}>
           {playground}
         </TabPanel>
       ) : null}

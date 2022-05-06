@@ -82,7 +82,7 @@ const extraProps = (feature?: string, focused?: boolean, setEvents?: any) => {
 }
 
 function renderGuide(index: number, events: any) {
-  if (index === 2 && events?.firstAdd === true) {
+  if (index === 1 && events?.firstAdd === true) {
     return (
       <div style={{ display: 'flex', justifyContent: 'flex-end', flex: 1 }}>
         <Pulse visible size={20} />
