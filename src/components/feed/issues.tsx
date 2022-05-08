@@ -1,28 +1,10 @@
 import React, { memo, FC, useMemo, useCallback } from 'react'
 import { IconButton, Fade } from '@material-ui/core'
 import { useStyles } from '../general/styles'
-import { IssueFeedCell } from '../general/cells'
 import { useWebsiteContext } from '../providers/website'
-import { Link } from '../general'
-import { GrClose, GrSync } from 'react-icons/gr'
+import { GrClose } from 'react-icons/gr'
 import { AppManager } from '@app/managers'
-
-function IssueTitleComponent({ pageUrl }: { pageUrl: string }) {
-  return (
-    <div className='flex-1 px-3 py-2 truncate'>
-      <Link
-        title={`view in sandbox ${pageUrl}`}
-        href={`/website-details?url=${encodeURI(pageUrl)}`}
-        className={'text-lg'}
-        style={{ color: '#707070', fontWeight: 'bold' }}
-      >
-        {pageUrl}
-      </Link>
-    </div>
-  )
-}
-
-const IssueTitle = memo(IssueTitleComponent)
+import { FeedCell } from './cell'
 
 const Feed: FC = () => {
   const classes = useStyles()
@@ -111,32 +93,13 @@ const Feed: FC = () => {
             </IconButton>
           </div>
           {issues.map((issue, issueIndex: number) => {
-            const pageIssues = issue?.issues
-
             return (
-              <div key={issueIndex}>
-                <div className='flex px-2 place-items-center py-1 border border-x-0 border-t-0 h-15'>
-                  <IssueTitle pageUrl={issue.pageUrl} />
-                  <IconButton
-                    onClick={async () => await onScanEvent(issue.pageUrl)}
-                  >
-                    <GrSync title={`Re scan ${issue.pageUrl} and sync`} />
-                  </IconButton>
-                </div>
-                <div className={classes.list}>
-                  {pageIssues?.map((item, i) => {
-                    return (
-                      <IssueFeedCell
-                        key={i}
-                        issuesModal
-                        item={item}
-                        listIndex={issueIndex}
-                        url={issue.pageUrl}
-                      />
-                    )
-                  })}
-                </div>
-              </div>
+              <FeedCell
+                key={issueIndex}
+                issueIndex={issueIndex}
+                onScanEvent={onScanEvent}
+                issue={issue}
+              />
             )
           })}
         </div>
