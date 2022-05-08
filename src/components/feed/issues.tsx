@@ -4,11 +4,12 @@ import { useStyles } from '../general/styles'
 import { IssueFeedCell } from '../general/cells'
 import { useWebsiteContext } from '../providers/website'
 import { Link } from '../general'
-import { GrClose } from 'react-icons/gr'
+import { GrClose, GrSync } from 'react-icons/gr'
+import { AppManager } from '@app/managers'
 
 function IssueTitleComponent({ pageUrl }: { pageUrl: string }) {
   return (
-    <div className='px-3 py-2 border border-x-0 border-t-0'>
+    <div className='flex-1 px-3 py-2 truncate'>
       <Link
         title={`view in sandbox ${pageUrl}`}
         href={`/website-details?url=${encodeURI(pageUrl)}`}
@@ -25,7 +26,7 @@ const IssueTitle = memo(IssueTitleComponent)
 
 const Feed: FC = () => {
   const classes = useStyles()
-  const { issueFeed, setIssueFeedContent } = useWebsiteContext()
+  const { issueFeed, setIssueFeedContent, scanWebsite } = useWebsiteContext()
   const { data, open } = issueFeed
 
   const issues = useMemo(() => data ?? [], [data])
@@ -34,7 +35,63 @@ const Feed: FC = () => {
     setIssueFeedContent([], false)
   }, [setIssueFeedContent])
 
-  // const scan = async (target: string) => {}
+  const onScanEvent = async (target: string) => {
+    try {
+      const data = await scanWebsite({ variables: { url: target } })
+
+      // replace issue feed section with new value
+      if (data) {
+        // clone array to prevent mutation
+        const issuesClone = [...issues]
+        // new issue for page
+        const issueIndex = issuesClone.findIndex(
+          (source) => source.pageUrl === data?.url
+        )
+
+        // current issue
+        const issueItem = issues[issueIndex]
+        const pageIssues = issuesClone[issueIndex]?.issues
+        const pageIssuesCount = pageIssues?.length
+        // new issue
+        const newIssue = data?.issue
+        const newIssuesCount = newIssue?.length
+
+        if (issueItem) {
+          const issueMessage =
+            newIssuesCount > pageIssuesCount ? 'more' : 'less'
+
+          const issueDif = pageIssuesCount - newIssuesCount
+
+          AppManager.toggleSnack(
+            true,
+            pageIssuesCount !== newIssuesCount
+              ? `${issueDif} ${issueMessage} issue${
+                  issueDif === 1 ? '' : 's'
+                } found`
+              : 'No new issues found',
+            'message'
+          )
+
+          // no issues found. remove from array
+          if (!newIssue || newIssuesCount === 0) {
+            issuesClone.splice(issueIndex, 1)
+          } else {
+            issuesClone[issueIndex].issues = data.issue
+          }
+        } else {
+          issuesClone.push({
+            pageUrl: data.url,
+            domain: data.domain,
+            issues: data.issue,
+          })
+        }
+
+        setIssueFeedContent(issuesClone, true)
+      }
+    } catch (e) {
+      console.error(e)
+    }
+  }
 
   if (issues.length && open) {
     return (
@@ -58,15 +115,14 @@ const Feed: FC = () => {
 
             return (
               <div key={issueIndex}>
-                <IssueTitle pageUrl={issue.pageUrl} />
-                {/* <div className='flex'>
-                  <div className='flex-1'>
-                    <IssueTitle pageUrl={issue.pageUrl} />
-                  </div>
-                  <IconButton onClick={async () => await scan(issue.pageUrl)}>
-                    <GrAction />
+                <div className='flex px-2 place-items-center py-1 border border-x-0 border-t-0 h-15'>
+                  <IssueTitle pageUrl={issue.pageUrl} />
+                  <IconButton
+                    onClick={async () => await onScanEvent(issue.pageUrl)}
+                  >
+                    <GrSync title={`Re scan ${issue.pageUrl} and sync`} />
                   </IconButton>
-                </div> */}
+                </div>
                 <div className={classes.list}>
                   {pageIssues?.map((item, i) => {
                     return (

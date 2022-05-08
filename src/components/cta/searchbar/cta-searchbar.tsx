@@ -226,6 +226,7 @@ function CtaSearchBar({ children, checker }: any) {
         </FormControl>
         {children && !search && !searchFocused ? (
           <button
+            type='submit'
             className={classes.innerInput}
             title={'Enter your website to check for accessibility issues'}
             onClick={toggleSearch(true)}

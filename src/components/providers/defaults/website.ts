@@ -31,4 +31,7 @@ export const sharedWebsiteDefaults = {
   setIssueFeedContent: (_: any, _open: boolean): void => {
     return _
   },
+  scanWebsite: (_: any): Promise<any> => {
+    return _
+  },
 }

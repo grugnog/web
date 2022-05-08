@@ -5,6 +5,7 @@ import {
   REMOVE_WEBSITE,
   UPDATE_WEBSITE,
   CRAWL_WEBSITE,
+  SCAN_WEBSITE,
 } from '@app/mutations'
 import { GET_WEBSITES, GET_ISSUES, updateCache } from '@app/queries'
 import {
@@ -60,6 +61,7 @@ export const useWebsiteData = (
     variables,
   })
   const [crawl, { loading: crawlLoading }] = useMutation(CRAWL_WEBSITE)
+  const [scan, { loading: scanLoading }] = useMutation(SCAN_WEBSITE)
 
   // SCOPE WEBSITE DATA PER ROUTE (ALL, ISSUES, PAGES)
   const websites = useMemo(() => {
@@ -72,15 +74,18 @@ export const useWebsiteData = (
 
   const issueDataExists: boolean = !!issueFeed?.data
 
-  const crawlWebsite = useCallback(
-    async (params) => {
-      const canCrawl = await crawl(params)
-      if (canCrawl && issueDataExists) {
-        setIssueFeedContent([], false)
-      }
-    },
-    [issueDataExists]
-  )
+  const crawlWebsite = async (params: any) => {
+    const canCrawl = await crawl(params)
+    if (canCrawl && issueDataExists) {
+      setIssueFeedContent([], false)
+    }
+  }
+
+  const scanWebsite = async (params: any) => {
+    const canScan = await scan(params)
+    // TODO: add handling for errors
+    return canScan?.data?.scanWebsite?.website
+  }
 
   const updateSubDomain = useCallback(
     ({ subscriptionData }: OnSubscriptionDataOptions<any>) => {
@@ -237,13 +242,18 @@ export const useWebsiteData = (
     issueDataLoading: issueDataLoading,
     loading,
     mutatationLoading:
-      removeLoading || addLoading || crawlLoading || issueDataLoading,
+      removeLoading ||
+      addLoading ||
+      crawlLoading ||
+      scanLoading ||
+      issueDataLoading,
     error,
     issueFeed,
     removeWebsite,
     addWebsite: addWebsiteMutation,
     refetch,
     crawlWebsite,
+    scanWebsite, // single page web scan
     updateWebsite,
     setIssueFeedContent,
   }
