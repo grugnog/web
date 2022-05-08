@@ -133,6 +133,8 @@ function PriceWrapper({
       <h5 {...extra}>{children}</h5>
     )
 
+  const xlColumns = pricingPage ? 'xl:grid-cols-4' : 'xl:grid-cols-3'
+
   return (
     <div id='plans-section'>
       {typeof onClick === 'undefined' && !pricingPage ? (
@@ -165,7 +167,7 @@ function PriceWrapper({
           Yearly billing
         </button>
       </div>
-      <div className={`grid gap-2 grid-cols-1 lg:grid-cols-2 xl:grid-cols-4`}>
+      <div className={`grid gap-2 grid-cols-1 lg:grid-cols-2 ${xlColumns}`}>
         {plans.map(({ title, details, cost, costYearly }: any) => {
           const clickEvent =
             title === 'Enterprise' && !navigate ? openMail : onClick
