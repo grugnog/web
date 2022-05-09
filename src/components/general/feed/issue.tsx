@@ -43,7 +43,7 @@ export function FeedIssueComponent({
     <ListItem className={classes.mainItemContainer} divider {...props}>
       <div className={classes.mainItemContainer}>
         <div className='flex space-x-2 items-center'>
-          <div className={`${getErrorColor(issueType)} w-3 h-3 rounded-xl`} />
+          <div className={`${getErrorColor(issueType)} w-3 h-3 rounded-full`} />
           <Typography className={classes.mainSubtitle} component={'p'}>
             {code}
           </Typography>
