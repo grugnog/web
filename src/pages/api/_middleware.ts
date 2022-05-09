@@ -14,7 +14,7 @@ export async function middleware(req: NextRequest) {
       console.error(e)
     }
 
-    return new NextResponse(iframeSource, {
+    return new NextResponse(iframeSource ?? undefined, {
       headers: { 'Content-Type': 'text/html' },
     })
   }

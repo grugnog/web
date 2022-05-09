@@ -14,7 +14,6 @@ export const RestWebsiteProviderWrapper: FC = ({ children }) => {
   )
 }
 
-// TODO:
 export function withRestWebsite(PageComponent: any) {
   const WithRestWebsite = ({ ...pageProps }: any) => {
     return (

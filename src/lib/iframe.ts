@@ -1,5 +1,8 @@
 import { IFRAME_ENDPOINT } from '@app/configs/next/iframe'
 
+let endpoint = IFRAME_ENDPOINT
+
+// fetch iframe reverse engineered website from API
 export const iframe = async (
   url: string,
   baseHref: string | string[] | true
@@ -8,13 +11,19 @@ export const iframe = async (
     url = `http://${url}`
   }
 
-  const path = `${IFRAME_ENDPOINT}/iframe?url=${encodeURI(url)}&baseHref=${
-    baseHref || true
-  }`
+  const base = `/iframe?url=${encodeURI(url)}&baseHref=${baseHref || true}`
+  const path = `${endpoint}${base}`
+
+  let data
 
   try {
-    const data = await fetch(path)
-    const iframe = await data.text()
+    data = await fetch(path)
+  } catch (e) {
+    console.error(e)
+  }
+
+  try {
+    const iframe = data && (await data.text())
 
     return iframe
   } catch (e) {

@@ -10,7 +10,6 @@ import { makeStyles } from '@material-ui/core/styles'
 import { DragHandler } from '@app/lib'
 import { useMiniPlayer } from '@app/data'
 import { Fab } from './fab'
-import { AdaIframe } from '../ada/ada-iframe'
 import { Link } from './link'
 import type { MergedTheme } from '@app/theme'
 import { GrowTransition } from './grow'
@@ -19,6 +18,9 @@ import { GrClose } from 'react-icons/gr'
 import dynamic from 'next/dynamic'
 
 const ReportViewer = dynamic(() => import('react-lighthouse-viewer')) as any
+const AdaIframe = dynamic(
+  () => import('../ada/ada-iframe').then((mod) => mod.AdaIframe) as any
+) as any
 
 const useStyles = makeStyles((theme: MergedTheme) => ({
   root: {

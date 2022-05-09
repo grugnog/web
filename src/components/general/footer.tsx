@@ -210,7 +210,9 @@ const Footer = ({
           <TranslateBadge inline />
         </div>
       </Container>
-      <FixedCopyRight />
+      <div className='px-2 flex place-content-center'>
+        <FixedCopyRight />
+      </div>
     </footer>
   )
 }
