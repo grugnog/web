@@ -17,7 +17,6 @@ export function RenderSecondaryComponent({
   const possibleIssuesFixedByCdn = issuesInfo?.possibleIssuesFixedByCdn
   const totalIssuesOnPage = issuesInfo?.totalIssues
   const issuesFixedByCdn = issuesInfo?.issuesFixedByCdn
-  const lastScan = lastScanDate
 
   const allPageIssues = useMemo(() => {
     if (issues?.length) {
@@ -64,7 +63,9 @@ export function RenderSecondaryComponent({
         <Tooltip
           title={
             issuesFixedByCdn
-              ? `${issuesFixedByCdn} issues fixed from CDN out of ${totalIssuesOnPage} for current page`
+              ? `${issuesFixedByCdn} issue${
+                  issuesFixedByCdn === 1 ? '' : 's'
+                } fixed by the CDN out of ${totalIssuesOnPage} for current page`
               : `${possibleIssuesFixedByCdn} out of ${totalIssuesOnPage} issues on the current page can be fixed instantly with our custom CDN.`
           }
           placement={'right'}
@@ -81,14 +82,14 @@ export function RenderSecondaryComponent({
           />
         </Tooltip>
       ) : null}
-      {lastScan ? (
-        <Tooltip title={`Last scan was at ${lastScan}`} placement={'right'}>
+      {lastScanDate ? (
+        <Tooltip title={`Last scan was at ${lastScanDate}`} placement={'right'}>
           <Chip
-            variant='outlined'
+            style={chipRootStyle}
             size='small'
             avatar={<GrCalendar style={chipStyle} />}
             className={'flex sm:text-sm'}
-            label={format(new Date(lastScan), 'dd/MM/yyyy')}
+            label={format(new Date(lastScanDate), 'dd/MM/yyyy')}
           />
         </Tooltip>
       ) : null}
@@ -100,7 +101,7 @@ export function RenderSecondaryComponent({
           placement={'right'}
         >
           <Chip
-            variant='outlined'
+            style={chipRootStyle}
             size='small'
             avatar={<GrConfigure style={chipStyle} />}
             label={`${pageHeaders?.length} custom header${
