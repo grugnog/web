@@ -133,7 +133,7 @@ function PriceWrapper({
       <h5 {...extra}>{children}</h5>
     )
 
-  const xlColumns = pricingPage ? 'xl:grid-cols-4' : 'xl:grid-cols-3'
+  const xlColumns = 'xl:grid-cols-4'
 
   return (
     <div id='plans-section'>
