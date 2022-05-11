@@ -31,6 +31,7 @@ export type Analytic = {
 export type ApiUsage = {
   __typename?: 'ApiUsage'
   usage?: Maybe<Scalars['Int']>
+  usageLimit?: Maybe<Scalars['Int']>
   lastScanDate?: Maybe<Scalars['String']>
 }
 

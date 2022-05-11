@@ -7,8 +7,9 @@ import { Website } from '@app/types'
 
 // SCOPE WEBSITE DATA PER ROUTE (ALL, ISSUES, PAGES)
 export const scanWebsite = async (websiteUrl: string) => {
+  let request
   try {
-    const request = await fetch(`${getAPIRoute('api')}/scan-simple`, {
+    request = await fetch(`${getAPIRoute('api')}/scan-simple`, {
       method: 'POST',
       body: JSON.stringify({
         websiteUrl,
@@ -17,17 +18,22 @@ export const scanWebsite = async (websiteUrl: string) => {
         'Content-Type': 'application/json',
       },
     })
+  } catch (e) {
+    console.error(e)
+    AppManager.toggleSnack(true, e, 'error')
+  }
 
-    // rate limit custom message on scan
-    if (request.status === 429) {
-      AppManager.toggleSnack(
-        true,
-        'Rate limited exceed, sign up and set a plan to increase limits.',
-        'error'
-      )
-      return Promise.resolve()
-    }
+  // rate limit custom message on scan
+  if (request && request.status === 429) {
+    AppManager.toggleSnack(
+      true,
+      'Rate limited exceed, sign up and set a plan to increase limits.',
+      'error'
+    )
+    return Promise.resolve()
+  }
 
+  try {
     if (request?.ok) {
       return await request.json()
     }

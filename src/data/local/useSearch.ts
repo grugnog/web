@@ -47,7 +47,7 @@ export function useSearch() {
 
     const [querySearch] = searchQuery(text || search)
 
-    await scanWebsite({
+    return await scanWebsite({
       variables: {
         url: querySearch,
       },
@@ -71,7 +71,7 @@ export function useSearch() {
   }
 
   // replace name to search
-  const toggleModal = (bottom: boolean, url: string) => {
+  const toggleModal = async (bottom: boolean, url: string) => {
     const origin = isUrl(url)?.origin
 
     if (!origin) {
@@ -81,10 +81,6 @@ export function useSearch() {
         'error'
       )
       return
-    }
-
-    if (bottom && origin) {
-      scanPage(null, origin)
     }
 
     client.writeData({
@@ -97,6 +93,12 @@ export function useSearch() {
         },
       },
     })
+
+    try {
+      await scanPage(null, origin)
+    } catch (e) {
+      console.log(data)
+    }
   }
 
   useEffect(() => {

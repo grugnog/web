@@ -80,7 +80,7 @@ const Feed: FC = () => {
       <Fade in>
         <div className={`${classes.root} shadow`}>
           <div
-            className={`flex place-items-center px-3 py-1 border border-t-0 border-r-0 border-l-0 bg-gray-200`}
+            className={`flex place-items-center px-3 py-2 border border-t-0 border-r-0 border-l-0 bg-gray-200`}
           >
             <p className={`flex-1 text-lg font-semibold`}>Recent Issues</p>
             <IconButton

@@ -15,6 +15,7 @@ const GET_USER = gql`
       apiUsage {
         usage
         lastScanDate
+        usageLimit
       }
     }
   }
