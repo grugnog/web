@@ -11,6 +11,7 @@ const GET_WEBSITE = gql`
       timestamp
       online
       pageInsights
+      mobile
       insight {
         json
       }

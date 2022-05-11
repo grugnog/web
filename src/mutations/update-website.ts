@@ -19,6 +19,7 @@ export const UPDATE_WEBSITE = gql`
         id
         domain
         userId
+        mobile
         script {
           script
         }

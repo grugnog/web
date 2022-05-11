@@ -40,11 +40,11 @@ function WebsiteAccessibilityChecker({ name }: PageProps) {
             </p>
           </div>
           <div>
-            <h4 className='text-2xl font-bold'>Conformance to WCAG2.1</h4>
+            <h4 className='text-2xl font-bold'>Conformance to WCAG2.1 +</h4>
             <p className='text-lg'>
               Extending WCAG2.1 as the foundation, we also look at other areas
               of the guidelines that have yet to be introduced and other
-              additions that blend into web accessibility.
+              additions that blend into web accessibility including WCAG3.0.
             </p>
           </div>
         </div>

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { memo } from 'react'
 import { observer } from 'mobx-react'
 
 import {
@@ -94,6 +94,8 @@ const SnackbarContainer = observer(({ store }: any) => {
   )
 })
 
-const SnackBar = () => <SnackbarContainer store={AppManager} />
+const SnackBarWrapper = () => <SnackbarContainer store={AppManager} />
+
+const SnackBar = memo(SnackBarWrapper)
 
 export { SnackBar }

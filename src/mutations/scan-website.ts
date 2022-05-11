@@ -17,6 +17,7 @@ const SCAN_WEBSITE = gql`
         lastScanDate
         timestamp
         online
+        mobile
         script {
           script
         }

@@ -27,6 +27,7 @@ const GET_WEBSITES = gql`
         lastScanDate
         online
         pageInsights
+        mobile
         insight {
           json
         }

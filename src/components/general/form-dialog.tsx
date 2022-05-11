@@ -38,6 +38,8 @@ export function FormDialogWrapper({
   const [websitUrl, setUrl] = useState<string>('')
   const [https, setTransportType] = useState<boolean>(true)
   const [pageInsights, setPageInsights] = useState<boolean>(true)
+  const [mobileViewport, setMobile] = useState<boolean>(false)
+
   const inputRef = useRef(null)
   const classes = useStyles()
 
@@ -263,6 +265,22 @@ export function FormDialogWrapper({
                     />
                   }
                   label='Lighthouse'
+                />
+              </Tooltip>
+              <Tooltip title={'Scan pages using mobile viewport for issues.'}>
+                <FormControlLabel
+                  classes={formLabelStyles}
+                  control={
+                    <Checkbox
+                      checked={mobileViewport}
+                      onChange={() => {
+                        setMobile(!mobileViewport)
+                      }}
+                      value={mobileViewport}
+                      color='primary'
+                    />
+                  }
+                  label='Mobile'
                 />
               </Tooltip>
               <Tooltip

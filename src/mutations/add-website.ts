@@ -6,11 +6,13 @@ export const ADD_WEBSITE = gql`
     $url: String!
     $customHeaders: [CreatePageHeaders]
     $pageInsights: Boolean
+    $mobile: Boolean
   ) {
     addWebsite(
       url: $url
       customHeaders: $customHeaders
       pageInsights: $pageInsights
+      mobile: $mobile
     ) {
       website {
         url
@@ -23,6 +25,7 @@ export const ADD_WEBSITE = gql`
         lastScanDate
         online
         pageInsights
+        mobile
         insight {
           json
         }

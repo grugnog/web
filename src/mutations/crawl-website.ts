@@ -15,6 +15,7 @@ export const CRAWL_WEBSITE = gql`
         userId
         online
         adaScoreAverage
+        mobile
         insight {
           json
         }
