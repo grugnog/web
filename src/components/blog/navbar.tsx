@@ -1,4 +1,4 @@
-import React, { Fragment, memo } from 'react'
+import React, { Fragment, FC, memo } from 'react'
 import { AppBar, Toolbar } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import { strings } from '@app-strings'
@@ -9,9 +9,6 @@ import { theme as appTheme } from '@app/theme/main'
 import { companyName } from '@app/configs'
 
 const useStyles = makeStyles((theme) => ({
-  flex: {
-    flex: 1,
-  },
   container: {
     backgroundColor: '#000',
     color: theme.palette.background.default,
@@ -24,10 +21,6 @@ const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.down('sm')]: {
       marginRight: theme.spacing(1),
     },
-  },
-  transparent: {
-    background: 'transparent',
-    boxShadow: 'none',
   },
   menuBar: {
     display: 'flex',
@@ -56,12 +49,14 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
-const NavBarComponent = ({
+const BLOG_HREF = process.env.NODE_ENV === 'production' ? '/' : '/blog'
+
+const NavBarComponent: FC<any> = ({
   title = strings.appName,
   className,
   position = 'relative',
   component = 'nav',
-}: any) => {
+}) => {
   const classes = useStyles()
 
   return (
@@ -81,7 +76,7 @@ const NavBarComponent = ({
           <div className={classes.toolbarInnerContainer}>
             <Link
               className={`${classes.menu} space-x-2 align-items-center text-normal text-black`}
-              href={process.env.NODE_ENV === 'production' ? '/' : '/blog'}
+              href={BLOG_HREF}
             >
               <div className='invert'>
                 <SmallLogo />
@@ -89,7 +84,7 @@ const NavBarComponent = ({
               <div className='pl-1 text-white'>{title}</div>
             </Link>
           </div>
-          <TranslateBadge className={classes.ghIcon} />{' '}
+          <TranslateBadge className={classes.ghIcon} />
         </Toolbar>
       </AppBar>
     </Fragment>
