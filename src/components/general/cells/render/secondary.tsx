@@ -57,7 +57,8 @@ export function RenderSecondaryComponent({
       <PageLoad
         durationFormated={pageLoadTime?.durationFormated}
         duration={pageLoadTime?.duration}
-        style={chipStyle}
+        style={chipRootStyle}
+        chipStyle={chipStyle}
       />
       {possibleIssuesFixedByCdn && totalIssuesOnPage ? (
         <Tooltip

@@ -32,7 +32,7 @@ export const MobileBoxWrapper = ({
       title={'Mobile'}
       icon={<GrPhoneFlip className='grIcon' color='black' fill='black' />}
     >
-      <div className='flex pb-1 space-x-1'>
+      <div className='flex pb-2 space-x-1'>
         <span className='text-sm font-medium'>MOBILE</span>
         <input
           checked={isMobile}
@@ -43,11 +43,7 @@ export const MobileBoxWrapper = ({
           }
         ></input>
       </div>
-      <br />
-
-      <div className='py-3'>
-        <p>{isMobile ? 'Mobile Viewport' : 'Web Viewport'}</p>
-      </div>
+      <div>{isMobile ? 'Mobile Viewport' : 'Web Viewport'}</div>
     </InfoBlock>
   )
 }
