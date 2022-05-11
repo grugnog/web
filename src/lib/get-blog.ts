@@ -61,20 +61,46 @@ export const getBlogPage = async (pathname: string): Promise<BlogPageProps> => {
           link.remove()
         })
 
+        const h1Tags = htmlRoot.querySelectorAll(`h1`)
+
+        h1Tags?.forEach((h1, index) => {
+          if (index >= 1) {
+            let clone = h1
+            clone.tagName = 'h2'
+
+            h1.replaceWith(clone)
+          }
+        })
+
+        const h2Tags = htmlRoot.querySelectorAll(`h2`)
+
+        h2Tags?.forEach((h2, index) => {
+          if (index >= 1) {
+            let clone = h2
+            clone.tagName = 'h3'
+
+            h2.replaceWith(clone)
+          }
+        })
+
         title = titleElement?.structuredText || ''
 
         htmlRoot.insertAdjacentHTML(
           'beforeend',
           `<style type="text/css">
             h1.post-title {
-              font-size: 36px;
+              font-size: 2rem;
               font-weight: 800;
             }
             article > .entry-wrapper > p {
               max-width: none;
             }
             h2 {
-              font-size: 26px;
+              font-size: 1.5rem;
+              font-weight: 600;
+            }
+            h3 {
+              font-size: 1.25rem;
               font-weight: 600;
             }
             #content, #comments {
