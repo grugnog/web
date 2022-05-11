@@ -33,15 +33,25 @@ function Reports({ name, website }: PageProps) {
 
 const getWebsite = async (url: string, timestamp?: string) => {
   let website
-  let res = await fetch(
-    `${getAPIRoute('api', true)}/get-website?q=${url}${
-      timestamp ? `&timestamp=${timestamp}` : ''
-    }`
-  )
-
-  if (res && res?.ok) {
-    website = await res.json()
+  let res
+  try {
+    res = await fetch(
+      `${getAPIRoute('api')}/get-website?q=${url}${
+        timestamp ? `&timestamp=${timestamp}` : ''
+      }`
+    )
+  } catch (e) {
+    console.error(e)
   }
+
+  try {
+    if (res && res?.ok) {
+      website = await res.json()
+    }
+  } catch (e) {
+    console.error(e)
+  }
+
   return website
 }
 
@@ -56,7 +66,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
   const [websiteUrl, timestamp] = Array.isArray(slug) ? slug : []
   let website
-  let targetUrl = websiteUrl
+  let targetUrl
 
   try {
     targetUrl = codecs.decipher(websiteUrl)

@@ -66,6 +66,7 @@ export function useSearchRest() {
       if (autoTPT) {
         AppManager.toggleSnack(true, 'https:// automatically added to query.')
       }
+
       setScan({ loading: true })
       let json = await scanWebsite(querySearch)
 
