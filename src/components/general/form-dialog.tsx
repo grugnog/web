@@ -7,10 +7,7 @@ import {
   DialogContentText,
   DialogTitle,
   Checkbox,
-  FormControl,
   FormControlLabel,
-  Select,
-  MenuItem,
   IconButton,
   Tooltip,
 } from '@material-ui/core'
@@ -41,7 +38,6 @@ export function FormDialogWrapper({
   const [websitUrl, setUrl] = useState<string>('')
   const [https, setTransportType] = useState<boolean>(true)
   const [pageInsights, setPageInsights] = useState<boolean>(true)
-  const [extension, setExtension] = useState<string>('.com')
   const inputRef = useRef(null)
   const classes = useStyles()
 
@@ -71,13 +67,6 @@ export function FormDialogWrapper({
     setOpen(false)
     setUrl('')
   }, [setOpen, setUrl])
-
-  const handleChangeExt = useCallback(
-    (event: any) => {
-      setExtension(event.target.value)
-    },
-    [setExtension]
-  )
 
   const submit = useCallback(
     async (event: any) => {
@@ -127,18 +116,19 @@ export function FormDialogWrapper({
 
       let urlBase = cleanUrl.includes('://') ? '' : `://`
 
-      let blockExt = extension === 'none'
+      let blockExt
 
       if (cleanUrl.includes('localhost:')) {
         blockExt = true
       }
 
+      // determine whether to add an extension or not
       const ex =
         blockExt ||
         cleanUrl.includes('.') ||
         domainList.some((element: any) => cleanUrl.includes(element))
           ? ''
-          : extension
+          : '.com'
 
       const websiteUrl = `${tpt}${urlBase}${cleanUrl}${ex}`.trim()
       const websiteCustomHeaders = customHeader ? customFields : null
@@ -173,7 +163,6 @@ export function FormDialogWrapper({
       handleClose,
       addWebsite,
       okPress,
-      extension,
       websitUrl,
       customFields,
       customHeader,
@@ -240,27 +229,6 @@ export function FormDialogWrapper({
               required
             />
             <div className={classes.row}>
-              <FormControl
-                variant='outlined'
-                className={classes.formControl}
-                size='small'
-              >
-                <Select
-                  labelId='extany-select-outlined-label'
-                  id='ext-select-outlined'
-                  value={extension}
-                  onChange={handleChangeExt}
-                  classes={{
-                    selectMenu: classes.inputSelect,
-                  }}
-                >
-                  {domainList.map((value: any) => (
-                    <MenuItem value={value} key={value}>
-                      {value.toUpperCase()}
-                    </MenuItem>
-                  ))}
-                </Select>
-              </FormControl>
               <Tooltip title={'Use http or https for protocol on scans'}>
                 <FormControlLabel
                   classes={formLabelStyles}
