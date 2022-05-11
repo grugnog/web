@@ -34,12 +34,13 @@ function Reports({ name, website }: PageProps) {
 const getWebsite = async (url: string, timestamp?: string) => {
   let website
   let res
+
+  const apiRoute = `${getAPIRoute('api', true)}/get-website?q=${url}${
+    timestamp ? `&timestamp=${timestamp}` : ''
+  }`
+
   try {
-    res = await fetch(
-      `${getAPIRoute('api')}/get-website?q=${url}${
-        timestamp ? `&timestamp=${timestamp}` : ''
-      }`
-    )
+    res = await fetch(apiRoute)
   } catch (e) {
     console.error(e)
   }

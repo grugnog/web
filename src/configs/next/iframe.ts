@@ -4,7 +4,7 @@ let IFRAME_ENDPOINT =
 
 // target docker container name only usable via SSR
 if (!process.env.IFRAME_URL && process.env.DOCKER_CONTAINER) {
-  IFRAME_ENDPOINT = IFRAME_ENDPOINT.replace('localhost', 'api')
+  IFRAME_ENDPOINT = IFRAME_ENDPOINT.replace('localhost', 'host.docker.internal')
 }
 
 // REMOVE GQL FROM STRING IF SINGLE ENDPOINT
