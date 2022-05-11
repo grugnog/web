@@ -21,6 +21,7 @@ import {
   StatusBadgeBox,
   CustomCDNBox,
 } from './blocks'
+import { MobileBox } from './blocks/mobile'
 
 const styles = {
   title: 'md:text-3xl font-bold truncate',
@@ -51,6 +52,7 @@ export function WebsiteCellDashboardComponent({
   online,
   insight,
   pageInsights,
+  mobile,
 }: any) {
   const [anchorEl, setAnchorEl] = useState<any>(null)
 
@@ -177,6 +179,7 @@ export function WebsiteCellDashboardComponent({
             statusBadgeUrl={statusBadgeUrl}
             domain={domain}
           />
+          <MobileBox mobile={mobile} url={url} />
         </div>
       </div>
 

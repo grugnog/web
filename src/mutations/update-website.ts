@@ -5,11 +5,13 @@ export const UPDATE_WEBSITE = gql`
     $url: String
     $customHeaders: [CreatePageHeaders]
     $pageInsights: Boolean
+    $mobile: Boolean
   ) {
     updateWebsite(
       url: $url
       customHeaders: $customHeaders
       pageInsights: $pageInsights
+      mobile: $mobile
     ) {
       code
       success

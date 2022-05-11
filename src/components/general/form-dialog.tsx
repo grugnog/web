@@ -139,6 +139,7 @@ export function FormDialogWrapper({
         url: websiteUrl,
         customHeaders: websiteCustomHeaders,
         pageInsights,
+        mobile: mobileViewport,
       }
 
       // CLOSE pre-optimistic prevent dialog unmount state error
@@ -170,6 +171,7 @@ export function FormDialogWrapper({
       customHeader,
       https,
       pageInsights,
+      mobileViewport,
     ]
   )
 
