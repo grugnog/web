@@ -53,6 +53,7 @@ export function WebsiteCellDashboardComponent({
   insight,
   pageInsights,
   mobile,
+  lighthouseVisible,
 }: any) {
   const [anchorEl, setAnchorEl] = useState<any>(null)
 
@@ -185,19 +186,21 @@ export function WebsiteCellDashboardComponent({
 
       <div className={styles.spacing} />
 
-      {parsedInsight ? (
-        <div className='py-2'>
-          {/* @ts-ignore */}
-          <style>
-            {`
+      <div
+        className={`py-2 ${
+          pageInsights && lighthouseVisible ? 'visible' : 'hidden'
+        }`}
+      >
+        <style>
+          {`
             .lh-topbar__url, .report-icon--download {
               display: none !important;
             }
             `}
-          </style>
-          <ReportViewer json={parsedInsight} />
-        </div>
-      ) : null}
+        </style>
+        {/* @ts-ignore */}
+        {parsedInsight ? <ReportViewer json={parsedInsight} /> : null}
+      </div>
     </li>
   )
 }

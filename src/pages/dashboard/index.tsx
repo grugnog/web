@@ -9,7 +9,7 @@ import {
 import { useDynamicModal, useSearchFilter, useEvents } from '@app/data'
 import { filterSort } from '@app/lib'
 import { metaSetter } from '@app/utils'
-import type { PageProps } from '@app/types'
+import type { PageProps, Website } from '@app/types'
 import { _ONBOARDED } from '@app/lib/cookies/names'
 import { useWebsiteContext } from '@app/components/providers/website'
 import { WebsiteList } from '@app/components/general/website-list'
@@ -27,9 +27,14 @@ function Dashboard({ name }: PageProps) {
     refetch,
     crawlWebsite,
     subscriptionData,
+    setLighthouseVisibility,
+    lighthouseVisible,
   } = useWebsiteContext()
 
-  const websites = useMemo(() => filterSort(data, search), [data, search])
+  const websites: Website[] = useMemo(() => filterSort(data, search), [
+    data,
+    search,
+  ])
 
   const { issueSubData } = subscriptionData
 
@@ -56,6 +61,12 @@ function Dashboard({ name }: PageProps) {
     }
   }, [removeWebsite])
 
+  const onLighthouseToggle = useCallback(async () => {
+    setLighthouseVisibility((visible: boolean) => !visible)
+  }, [setLighthouseVisibility])
+
+  const lhEnabled = websites?.some((web) => web.pageInsights)
+
   return (
     <>
       <Drawer title={name}>
@@ -63,14 +74,21 @@ function Dashboard({ name }: PageProps) {
           title={'Websites'}
           rightButton={
             !!data?.length ? (
-              <div className='flex flex-wrap space-x-2'>
+              <div className='flex flex-wrap gap-x-2 gap-y-1'>
+                <FormDialog buttonTitle={`Subscribe`} />
+                <Button
+                  className={lhEnabled ? 'visible' : 'hidden'}
+                  onClick={onLighthouseToggle}
+                  aria-label={'Toggle lighthouse reports visibility.'}
+                >
+                  {lighthouseVisible ? 'Hide' : 'Display'} Lighthouse
+                </Button>
                 <Button
                   onClick={onRemoveAllWebsitePress}
                   aria-label={'Remove all websites'}
                 >
                   Remove All
                 </Button>
-                <FormDialog buttonTitle={`Subscribe`} />
               </div>
             ) : null
           }
@@ -84,6 +102,7 @@ function Dashboard({ name }: PageProps) {
           crawlWebsite={crawlWebsite}
           refetch={refetch}
           setModal={setModal}
+          lighthouseVisible={lighthouseVisible}
           emptyHeaderTitle={'Welcome to A11yWatch'}
           emptyHeaderSubTitle={'Add a website to monitor below'}
         />

@@ -13,6 +13,8 @@ export const sharedWebsiteDefaults = {
   // issues only TODO: MOVE TO SEPERATE PROVIDER
   issueData: [],
   issueDataLoading: false,
+  // visuals
+  lighthouseVisible: true,
   refetch: (_: any): Promise<any> => {
     return _
   },
@@ -32,6 +34,10 @@ export const sharedWebsiteDefaults = {
     return _
   },
   scanWebsite: (_: any): Promise<any> => {
+    return _
+  },
+  // TODO: move UI control on its own
+  setLighthouseVisibility: (_: any): void => {
     return _
   },
 }

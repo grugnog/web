@@ -13,9 +13,9 @@ export const WebsiteProviderComponent: FC<{
   gqlFilter?: any
   scopedQuery?: string
 }> = ({ children, skip, gqlFilter = '', scopedQuery }) => {
-  const sharedState = useWebsiteData(gqlFilter, '', null, skip, scopedQuery)
+  const state = useWebsiteData(gqlFilter, '', null, skip, scopedQuery)
 
-  return <WebsiteProvider value={sharedState}>{children}</WebsiteProvider>
+  return <WebsiteProvider value={state}>{children}</WebsiteProvider>
 }
 
 export const WebsiteProviderWrapper = withApollo(WebsiteProviderComponent)

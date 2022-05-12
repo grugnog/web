@@ -25,6 +25,7 @@ export const RenderInner: FC<any> = ({
   mutatationLoading,
   handleClickOpen,
   handleClickOpenPlayer,
+  lighthouseVisible,
 }) => {
   const classes = useStyles()
 
@@ -61,6 +62,7 @@ export const RenderInner: FC<any> = ({
           crawlWebsite,
           setModal,
           mutatationLoading: mutatationLoading,
+          lighthouseVisible,
         }}
       />
     </MUList>

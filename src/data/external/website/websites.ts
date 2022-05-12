@@ -1,4 +1,4 @@
-import { useEffect, useCallback, useReducer, useMemo } from 'react'
+import { useState, useEffect, useCallback, useReducer, useMemo } from 'react'
 import { useQuery, useMutation, useSubscription } from '@apollo/react-hooks'
 import {
   ADD_WEBSITE,
@@ -26,6 +26,9 @@ export const useWebsiteData = (
   skip: boolean = false,
   scopedQuery: string = ''
 ) => {
+  // TODO: move to UI hooks
+  const [lighthouseVisible, setLighthouseVisibility] = useState<boolean>(true)
+
   const [_, forceUpdate] = useReducer((x) => x + 1, 0)
   const subscriptionVars = { userId: UserManager.getID }
   const variables = {
@@ -215,7 +218,7 @@ export const useWebsiteData = (
           AppManager.toggleSnack(
             true,
             `Success lighthouse ${
-              dataSource.pageInsights ? 'enabled' : 'disabled'
+              updatedWebsite.pageInsights ? 'enabled' : 'disabled'
             }`,
             'success'
           )
@@ -249,6 +252,8 @@ export const useWebsiteData = (
       issueDataLoading,
     error,
     issueFeed,
+    lighthouseVisible,
+    setLighthouseVisibility,
     removeWebsite,
     addWebsite: addWebsiteMutation,
     refetch,

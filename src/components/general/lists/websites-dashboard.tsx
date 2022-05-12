@@ -12,6 +12,7 @@ export function WebSitesDashboard({
   setModal,
   mutatationLoading,
   loading,
+  lighthouseVisible,
 }: any) {
   return data?.map(({ url, id, pageUrl, ...props }: any, index: number) => (
     <WebsiteCellDashboard
@@ -26,6 +27,7 @@ export function WebSitesDashboard({
       loading={loading}
       mutatationLoading={mutatationLoading}
       index={index}
+      lighthouseVisible={lighthouseVisible}
       {...props}
     />
   ))

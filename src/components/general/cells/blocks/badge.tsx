@@ -42,16 +42,18 @@ export const StatusBadgeBoxWrapper = ({
           ? `[![A11yWatch](${statusBadgeUrl})](${reportsLink})`
           : `<a href="${reportsLink}"><img src="${statusBadgeUrl}" /></a>`}
       </PrismLight>
-      <div className='py-3'>
-        <Link href={reportsLink}>
-          <img
-            src={statusBadgeUrl}
-            alt={`Status badge for ${domain}`}
-            width={112}
-            height={20}
-          />
-        </Link>
-      </div>
+      {statusBadgeUrl ? (
+        <div className={`py-3`}>
+          <Link href={reportsLink}>
+            <img
+              src={statusBadgeUrl}
+              alt={`Status badge for ${domain}`}
+              width={112}
+              height={20}
+            />
+          </Link>
+        </div>
+      ) : null}
     </InfoBlock>
   )
 }
