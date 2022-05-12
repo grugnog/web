@@ -1,8 +1,17 @@
 import React from 'react'
 
-export const Logo = () => {
+interface Logo {
+  width?: number
+  height?: number
+}
+export const Logo = ({ width, height }: Logo) => {
   return (
-    <img src='/img/logo.svg' alt='A11yWatch logo' width={'51'} height={'30'} />
+    <img
+      src='/img/logo.svg'
+      alt='A11yWatch logo'
+      width={width || '51'}
+      height={height || '30'}
+    />
   )
 }
 

@@ -5,6 +5,13 @@ export const Routes = [
     name: 'Terms of Service',
     type: 'legal',
   },
+
+  {
+    nav: false,
+    href: '/brand-assets',
+    name: 'Brand Assets / Logos',
+    type: 'resources',
+  },
   {
     nav: false,
     href: 'https://a11ywatch.blog',
