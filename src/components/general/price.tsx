@@ -133,7 +133,7 @@ function PriceWrapper({
       <h5 {...extra}>{children}</h5>
     )
 
-  const xlColumns = 'xl:grid-cols-4'
+  const xlColumns = !onClick ? 'xl:grid-cols-4' : 'xl:grid-cols-3'
 
   return (
     <div id='plans-section'>

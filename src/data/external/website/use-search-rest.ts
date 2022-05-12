@@ -44,19 +44,19 @@ export const scanWebsite = async (websiteUrl: string) => {
 }
 
 interface Scan {
-  data?: { website?: Website }
+  data?: { data?: Website } // TODO: reduce dup data
   loading: boolean
 }
 
 // TODO: USE REST CALL
 export function useSearchRest() {
   const [search, setQuery] = useState<string>('')
-  const [{ data, loading }, setScan] = useState<Scan>({
+  const [{ data: scanState, loading }, setScan] = useState<Scan>({
     loading: false,
     data: undefined,
   })
   // modal state
-  const { website } = data ?? {}
+  const { data } = scanState ?? {}
 
   const setSearch = useCallback(
     (event: any) => {
@@ -120,7 +120,7 @@ export function useSearchRest() {
     setSearch,
     scanPage,
     loading,
-    data: website,
+    data,
     closeModal,
     toggleModal,
   }
