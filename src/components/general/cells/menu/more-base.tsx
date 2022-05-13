@@ -1,7 +1,6 @@
 import React, { memo, useMemo } from 'react'
 import { IconButton, MenuItem } from '@material-ui/core'
 import { GrMoreVertical } from 'react-icons/gr'
-import { codecs } from '@a11ywatch/website-source-builder'
 import { NextComposed } from '@app/components/general/link'
 import { TopMenu } from '@app/components/general/top-menu'
 import type { Website } from '@app/types'
@@ -45,8 +44,10 @@ function MoreOptionsBaseComponent({
   const targetUrl = pageUrl || url
 
   const [href, reportHref] = useMemo(() => {
-    const link = targetUrl ? `/website-details?url=${encodeURI(targetUrl)}` : ''
-    const report = targetUrl ? `/reports/${codecs.cipher(targetUrl)}` : ''
+    const link = targetUrl
+      ? `/website-details?url=${encodeURIComponent(targetUrl)}`
+      : ''
+    const report = targetUrl ? `/reports/${encodeURIComponent(targetUrl)}` : ''
     return [link, report]
   }, [targetUrl])
 

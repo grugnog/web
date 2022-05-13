@@ -6,7 +6,6 @@ import { MarketingDrawer, PageTitle } from '@app/components/general'
 import { ReportView } from '@app/components/ada'
 import { metaSetter } from '@app/utils'
 import { getAPIRoute } from '@app/configs/api-route'
-import { codecs } from '@a11ywatch/website-source-builder'
 
 function Reports({ name, website }: PageProps) {
   const { url, domain } = website ?? { domain: '', url: 'Not Found' }
@@ -67,19 +66,12 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
   const [websiteUrl, timestamp] = Array.isArray(slug) ? slug : []
   let website
-  let targetUrl
 
-  try {
-    targetUrl = codecs.decipher(websiteUrl)
-  } catch (e) {
-    console.error(e)
-  }
+  let targetUrl = decodeURIComponent(websiteUrl)
 
   try {
     website = await getWebsite(targetUrl, timestamp)
-    if (!website) {
-      website = await getWebsite(websiteUrl, timestamp)
-    }
+
     // retry without timestamp. TODO: LOOK INTO TIMESTAMP INCONSISTENCIES
     if (!website) {
       website = await getWebsite(websiteUrl)
