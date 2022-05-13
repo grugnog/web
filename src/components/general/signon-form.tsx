@@ -53,9 +53,6 @@ const useStyles = makeStyles((theme) => ({
     minHeight: 40,
     border: `1px solid rgba(0, 0, 0, 0.3)`,
   },
-  iconColor: {
-    color: theme.palette.secondary.main,
-  },
 }))
 
 interface SignOnProps {

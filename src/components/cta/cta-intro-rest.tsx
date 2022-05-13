@@ -4,6 +4,7 @@ import { Link, SectionContainer } from '../general'
 import Image from 'next/image'
 import { CtaInputRest } from './searchbar/cta-input-rest'
 import { useStyles } from './intro-styles'
+import { GrFormDown } from 'react-icons/gr'
 
 interface CtaIntroRest {
   checker?: boolean
@@ -52,6 +53,19 @@ function CtaIntroRest({ checker }: CtaIntroRest) {
           />
         </div>
       </div>
+      {checker ? null : (
+        <div className={classes.join}>
+          <p className='py-2'>JOIN THOUSANDS OF HIGHLY PRODUCTIVE TEAMS</p>
+          <Image src={'/img/wave.svg'} height={8} width={120} alt='' />
+          <a
+            className={classes.bottomAnchor}
+            href='#plans-section'
+            aria-label='Scroll to introduction video'
+          >
+            <GrFormDown />
+          </a>
+        </div>
+      )}
     </SectionContainer>
   )
 }

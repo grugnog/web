@@ -2,7 +2,7 @@ import React, { Fragment } from 'react'
 import { MarketingDrawer, Price } from '@app/components/general'
 import {
   CtaFeatures,
-  CtaIntro,
+  CtaIntroRest,
   CtaCustomers,
   CtaSignonForm,
   CtaProfessionalSupportButton,
@@ -15,14 +15,14 @@ import {
 } from '@app/components/marketing'
 import { metaSetter } from '@app/utils'
 import { strings } from '@app-strings'
-import { SwipeableTemporaryDrawer } from '@app/components/modal'
+import { MarketingBottomTemporaryDrawer } from '@app/components/modal'
 
 function Index() {
   return (
     <Fragment>
       <MarketingDrawer navPosition={'relative'} maxWidth={'xl'} index>
         <CtaProfessionalSupportButton />
-        <CtaIntro />
+        <CtaIntroRest />
         <MarketingProductIntro />
         <CtaFeatures />
         <CtaCustomers />
@@ -32,7 +32,7 @@ function Index() {
         <Price blockFree navigate />
         <CtaSignonForm />
       </MarketingDrawer>
-      <SwipeableTemporaryDrawer />
+      <MarketingBottomTemporaryDrawer />
     </Fragment>
   )
 }
@@ -40,6 +40,7 @@ function Index() {
 export default metaSetter(
   { Index },
   {
+    rest: true,
     intercom: true,
     gql: true,
     title: `${strings.appName}: the all around web accessibility tool.`,

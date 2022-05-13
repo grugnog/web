@@ -33,27 +33,31 @@ const Application = ({ Component, pageProps, name }: InnerApp) => {
     scopedQuery = 'issues'
   }
 
-  if (Component.rest) {
-    return (
-      <RestWebsiteProviderWrapper>
-        <Component {...pageProps} name={name} />
-      </RestWebsiteProviderWrapper>
-    )
-  }
+  // Restful provider for API [Good for marketing sections]
+  const RestWrapper = Component.rest ? RestWebsiteProviderWrapper : Fragment
 
-  if (Component.gql) {
-    return (
-      <WebsiteProviderWrapper
-        skip={!initialQuery}
-        gqlFilter={Component?.params?.filter}
-        scopedQuery={scopedQuery}
-      >
-        <Component {...pageProps} name={name} />
-      </WebsiteProviderWrapper>
-    )
-  }
+  // gQL provider for API
+  const GqlWrapper = Component.gql
+    ? ({ children }: { children: any }) => {
+        return (
+          <WebsiteProviderWrapper
+            skip={!initialQuery}
+            gqlFilter={Component?.params?.filter}
+            scopedQuery={scopedQuery}
+          >
+            {children}
+          </WebsiteProviderWrapper>
+        )
+      }
+    : Fragment
 
-  return <Component {...pageProps} name={name} />
+  return (
+    <GqlWrapper>
+      <RestWrapper>
+        <Component {...pageProps} name={name} />
+      </RestWrapper>
+    </GqlWrapper>
+  )
 }
 
 const MemoApp = memo(Application)
