@@ -46,7 +46,7 @@ export function WebsiteSecondaryComponent({
   }
 
   return (
-    <div className={'flex space-x-2'}>
+    <div className={'flex gap-x-2 gap-y-1 overflow-x-auto'}>
       {pageIssueCount ? (
         <Tooltip
           title={`${mainIssues} possible issue${

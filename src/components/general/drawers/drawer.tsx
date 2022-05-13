@@ -109,7 +109,9 @@ export function DrawerComponent({
       />
       <main className={classes.content}>
         <div className={sidePannelStyles}>
-          <div className={'pr-8 lg:pl-8 md:pl-8'}>{children}</div>
+          <div className={'pr-2 md:pr-4 md:pl-8 lg:pl-8 lg:pr-8'}>
+            {children}
+          </div>
         </div>
         <ConfirmEmail
           sendEmail={sendConfirmEmail}

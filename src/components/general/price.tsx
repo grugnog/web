@@ -168,7 +168,7 @@ function PriceWrapper({
         </button>
       </div>
       <div className={`grid gap-2 grid-cols-1 lg:grid-cols-2 ${xlColumns}`}>
-        {plans.map(({ title, details, cost, costYearly }: any) => {
+        {plans.map(({ title, details, cost, costYearly, subTitle }: any) => {
           const clickEvent =
             title === 'Enterprise' && !navigate ? openMail : onClick
           const onPriceClick = clickEvent ? () => clickEvent(title) : undefined
@@ -205,6 +205,9 @@ function PriceWrapper({
                         </span>
                       ) : null}
                     </SubHeading>
+                    <div className='py-2 max-w-[350px] lg:max-w-[380px]'>
+                      <p className='text-lg'>{subTitle}</p>
+                    </div>
                   </div>
 
                   <ul className='px-4 space-y-1 py-4'>

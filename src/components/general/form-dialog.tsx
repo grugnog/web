@@ -210,7 +210,9 @@ export function FormDialogWrapper({
           </IconButton>
         </div>
         <form onSubmit={submit} noValidate>
-          <DialogContent className={classes.dialogPadding}>
+          <DialogContent
+            className={`${classes.dialogPadding} overflow-hidden relative`}
+          >
             <DialogContentText>
               To add a website to your watchlist, please enter the website url
               below.
@@ -232,7 +234,7 @@ export function FormDialogWrapper({
               type='url'
               required
             />
-            <div className={classes.row}>
+            <div className={`${classes.row} overflow-x-auto`}>
               <Tooltip title={'Use http or https for protocol on scans'}>
                 <FormControlLabel
                   classes={formLabelStyles}

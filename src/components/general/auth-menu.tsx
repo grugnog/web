@@ -40,12 +40,6 @@ function AuthMenuComponent({
       setIssueFeedContent(null, false)
 
       try {
-        await logoutMutation()
-      } catch (e) {
-        console.error(e)
-      }
-
-      try {
         await client?.clearStore()
       } catch (e) {
         console.error(e)
@@ -58,7 +52,13 @@ function AuthMenuComponent({
       }
 
       try {
-        await router.push('/', '/')
+        await logoutMutation()
+      } catch (e) {
+        console.error(e)
+      }
+
+      try {
+        router.reload()
       } catch (e) {
         console.error(e)
       }

@@ -6,11 +6,12 @@ const VISUAL_PLAYGROUND = 'Visual website playground.'
 const plans = [
   {
     title: 'Free',
+    subTitle: 'Perfect for small hobby projects & websites.',
     details: [
       'Monitor 1 website.',
       'Daily email reports.',
       '2 site-wide scans a day.',
-      'Root page checked a day.',
+      'Root page checked daily.',
       VISUAL_PLAYGROUND,
       '3 private API request a day.',
       'Lighthouse on root page.',
@@ -21,11 +22,12 @@ const plans = [
   },
   {
     title: 'Basic',
+    subTitle: 'Great for production grade websites & pages.',
     details: [
       'Monitor up to 4 websites.',
       'Daily email reports.',
       '10 site-wide scans a day.',
-      'All pages checked frequently.',
+      'All pages checked daily.',
       TRUSTED_CDN,
       VISUAL_PLAYGROUND,
       'Custom editable scripts.',
@@ -38,11 +40,12 @@ const plans = [
   },
   {
     title: 'Premium',
+    subTitle: 'Large workloads for websites and subdomains.',
     details: [
       'Monitor up to 10 websites.',
       'Daily email reports.',
       '100 site-wide scans a day.',
-      'All pages checked often.',
+      'All pages checked frequently.',
       TRUSTED_CDN,
       VISUAL_PLAYGROUND,
       'Custom editable scripts.',
@@ -55,16 +58,17 @@ const plans = [
   },
   {
     title: 'Enterprise',
+    subTitle: 'Custom workloads and integrations built for you.',
     details: [
-      'Monitor unlimited websites.',
+      'Custom websites monitoring limit.',
       'Daily email reports.',
-      '1k+ site-wide scans a day.',
+      'Custom site-wide scans limit.',
       TRUSTED_CDN,
       VISUAL_PLAYGROUND,
-      'Custom editable scripts.',
+      'Custom contracts & invoicing.',
       'Custom API usage limits.',
-      'Lighthouse on all pages',
-      'Enterprise support.',
+      'Lighthouse on all pages.',
+      '24×7×365 premium enterprise support.',
       'Code audits & professional services.',
     ],
     cost: 'Contact Us',

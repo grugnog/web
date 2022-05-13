@@ -16,9 +16,7 @@ export const InfoBlock: FC<{
   return (
     <div
       className={`${styles.infoContainer}${
-        icon
-          ? ` ${styles.infoBorder} min-w-[120px] md:min-w-[172px] lg:min-w-[225px] xl:min-w-[320px] rounded`
-          : ''
+        icon ? ` ${styles.infoBorder} rounded` : ''
       }`}
     >
       <div className={styles.row}>

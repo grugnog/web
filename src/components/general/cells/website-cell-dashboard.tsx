@@ -24,7 +24,7 @@ import {
 import { MobileBox } from './blocks/mobile'
 
 const styles = {
-  title: 'md:text-3xl font-bold truncate',
+  title: 'text-xl md:text-3xl font-bold truncate',
   spacing: 'py-2',
   row: 'flex flex-1',
   metaBlock: 'px-2 py-1 border',
@@ -114,8 +114,8 @@ export function WebsiteCellDashboardComponent({
   const linkUrl = useMemo(() => `/website-details?url=${encodeURI(url)}`, [url])
 
   return (
-    <li className={`border px-3 py-2 rounded overflow-hidden`}>
-      <div className='flex space-x-2'>
+    <li className={`border px-3 pt-2 rounded overflow-hidden`}>
+      <div className='flex space-x-2 place-items-center'>
         <div className={`flex-1`}>
           <Link
             title={`view in sandbox ${url}`}
@@ -156,20 +156,21 @@ export function WebsiteCellDashboardComponent({
 
       <div className={styles.spacing} />
 
-      <div className={[styles.row, 'flex-wrap gap-x-1 gap-y-1'].join(' ')}>
-        <AccessibilityBox
-          adaScore={adaScore}
-          adaScoreAverage={adaScoreAverage}
-        />
-        <PagesBox count={subDomains?.length} />
-        <LoadTimeBox
-          durationFormated={pageLoadTime?.durationFormated}
-          duration={pageLoadTime?.duration}
-        />
-        <HeadersBox pageHeaders={pageHeaders} />
-        <LighthouseBox pageInsights={pageInsights} />
-        <OnlineBox online={online} />
-        <div className='w-full flex space-x-1'>
+      <div className='space-y-1'>
+        <div className='grid xm:grid-cols-1 gap-1 sm:grid-cols-3'>
+          <AccessibilityBox
+            adaScore={adaScore}
+            adaScoreAverage={adaScoreAverage}
+          />
+          <PagesBox count={subDomains?.length} />
+          <LoadTimeBox duration={pageLoadTime?.duration} />
+        </div>
+        <div className='grid grid-cols-1 gap-1 sm:grid-cols-3'>
+          <HeadersBox pageHeaders={pageHeaders} />
+          <LighthouseBox pageInsights={pageInsights} />
+          <OnlineBox online={online} />
+        </div>
+        <div className='grid grid-cols-1 gap-1 sm:grid-cols-3'>
           <CustomCDNBox
             cdnUrl={cdnUrl}
             cdnUrlMinifed={cdnUrlMinifed}

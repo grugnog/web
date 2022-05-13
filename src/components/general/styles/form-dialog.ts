@@ -7,8 +7,8 @@ export const formDialogStyles = makeStyles((theme: MergedTheme) => ({
     flex: 1,
     display: 'flex',
     alignItems: 'center',
-    marginTop: theme.spacing(1),
-    marginBottom: theme.spacing(1) - 4.2,
+    paddingTop: theme.spacing(1),
+    paddingBottom: theme.spacing(1) - 4.2,
   },
   addButton: {
     marginLeft: theme.spacing(1),
