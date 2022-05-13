@@ -53,7 +53,7 @@
     "react-resize-detector": "5.2.0",
     "react-syntax-highlighter": "12.2.1",
     "react-visibility-sensor": "^5.1.1",
-    "sharp": "^0.30.2",
+    "sharp": "^0.30.4",
     "subscriptions-transport-ws": "0.11.0",
     "victory": "34.3.12",
     "with-cookie": "1.5.7"
