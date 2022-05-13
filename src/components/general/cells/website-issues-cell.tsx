@@ -133,7 +133,7 @@ export function WebsiteIssuesCell({
 
   const mainUrl = item?.pageUrl || item.url
 
-  const href = `/website-details?url=${encodeURI(mainUrl)}`
+  const href = `/website-details?url=${encodeURIComponent(mainUrl)}`
 
   const issueProps = {
     error,

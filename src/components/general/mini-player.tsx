@@ -112,7 +112,7 @@ export const MiniPlayer: FunctionComponent<MiniPlayerProps> = (_) => {
                 className={classes.subTitle}
                 component={Link}
                 color={'primary'}
-                href={`/website-details?url=${encodeURI(data)}`}
+                href={`/website-details?url=${encodeURIComponent(data)}`}
               >
                 {data}
               </Typography>

@@ -7,6 +7,8 @@ interface Props {
   route?: string
   registerClassName?: string
   loginClassName?: string
+  href?: string
+  name?: string
 }
 
 export const NavLinks: FC<Props> = ({
@@ -15,14 +17,16 @@ export const NavLinks: FC<Props> = ({
   className,
   registerClassName,
   loginClassName,
+  href = '/register',
+  name = 'Register',
 }) => {
   return (
     <NavItem
-      href={'/register'}
-      key={'register'}
+      href={href}
+      key={href}
       as={as}
       route={route}
-      name={'Register'}
+      name={name}
       registerClassName={registerClassName}
       loginClassName={loginClassName}
       className={className}

@@ -7,7 +7,7 @@ import { Issue } from '@app/types'
 
 const TestViewRestContainer = observer(
   ({ url: currentUrl, store, posRelative, issues }: any) => {
-    const url = encodeURI(currentUrl ?? store?.getTestFrameUrl)
+    const url = encodeURIComponent(currentUrl ?? store?.getTestFrameUrl)
 
     return (
       <>

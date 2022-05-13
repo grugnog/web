@@ -28,7 +28,7 @@ IFrameComponent.displayName = 'IFrameComponent'
 
 const urlReplacer = (url: string, homeStore: any) => {
   if (url) {
-    return `/api/iframe?url=${encodeURI(url)}`
+    return `/api/iframe?url=${encodeURIComponent(url)}`
   }
   return homeStore.getIframeSource(url)
 }

@@ -39,7 +39,10 @@ export function IssuesCellComponent({
     setAnchorEl(null)
   }
 
-  const href = useMemo(() => `/website-details?url=${encodeURI(url)}`, [url])
+  const href = useMemo(
+    () => `/website-details?url=${encodeURIComponent(url)}`,
+    [url]
+  )
 
   const menuId = `issues-appbar${index}`
 

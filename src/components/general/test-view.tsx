@@ -9,7 +9,7 @@ import { OverlayPortalContainer } from './overlay'
 
 const TestViewContainer = observer(
   ({ url: currentUrl, store, marketing, posRelative }: any) => {
-    const url = encodeURI(currentUrl ?? store?.getTestFrameUrl)
+    const url = encodeURIComponent(currentUrl ?? store?.getTestFrameUrl)
     const { issue } = issueData(url, !url)
     const { script } = scriptData(url, marketing)
 

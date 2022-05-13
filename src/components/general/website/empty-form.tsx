@@ -50,7 +50,9 @@ const EmptyWebsiteFormComponent: FC<EmptyWebsiteProps> = ({
         <FormDialog />
       )}
       <div className={'flex space-items-center space-x-10 py-10'}>
-        <ul className={'w-full text-left space-y-2 md:w-1/2 md:pr-20'}>
+        <ul
+          className={'w-full text-left space-y-2 md:w-full lg:w-1/2 xl:pr-12'}
+        >
           {infoDetails.map(
             (detail: { title: string; subTitle: string }, i: number) => {
               return (

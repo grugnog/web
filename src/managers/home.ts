@@ -18,7 +18,7 @@ class HomeManager {
   }
 
   getIframeSource = (url: string = ''): string => {
-    const src = this.iframeSrc || `/api/iframe?url=${encodeURI(url)}`
+    const src = this.iframeSrc || `/api/iframe?url=${encodeURIComponent(url)}`
 
     return src
   }

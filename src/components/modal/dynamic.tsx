@@ -1,5 +1,5 @@
 import React from 'react'
-import { Fade, Backdrop, Modal } from '@material-ui/core'
+import { Backdrop, Modal } from '@material-ui/core'
 import { useDynamicModal } from '@app/data'
 import { GetType } from './helpers'
 import { makeStyles } from '@material-ui/core/styles'
@@ -44,11 +44,11 @@ export function DynamicModal() {
       closeAfterTransition
       BackdropComponent={Backdrop}
     >
-      <Fade in={!!open}>
+      <div className={open ? 'visible' : 'hidden'}>
         <div className={classes.paper}>
           <GetType modalType={modalType} html={html} />
         </div>
-      </Fade>
+      </div>
     </Modal>
   )
 }

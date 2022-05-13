@@ -26,7 +26,7 @@ function Pricing({ name }: PageProps) {
           href={
             'mailto:support@a11ywatch.com' +
             '?subject=' +
-            encodeURI('Partner') +
+            'Partner' +
             '&body=' +
             'I would like to find out more about your partnership.'
           }

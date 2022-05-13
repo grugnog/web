@@ -1,4 +1,4 @@
-import React, { Fragment, memo } from 'react'
+import React, { memo } from 'react'
 import { useRouter } from 'next/router'
 
 import { IconButton } from '@material-ui/core'
@@ -22,7 +22,7 @@ const useStyles = makeStyles((theme) => ({
       position === 'static' ? theme.palette.background.default : 'transparent',
     overflow: 'hidden',
     zIndex: 1,
-    ...theme.mixins.toolbar,
+    minHeight: theme.mixins.toolbar.minHeight,
   }),
   menu: {
     display: 'flex',
@@ -76,6 +76,7 @@ const NavBarComponent = ({
   children,
   marketingLinks,
   notitle,
+  authenticated,
 }: any) => {
   const classes = useStyles({ position })
   const router = useRouter()
@@ -94,43 +95,42 @@ const NavBarComponent = ({
       }
 
   return (
-    <Fragment>
-      <nav
-        className={`bg-[inherit] ${className ? `${className} ` : className}${
-          classes.container
-        } ${
-          position === 'fixed' ? 'fixed left-0 right-0 shadow' : 'shadow-none'
-        }`}
-      >
-        <div className='relative flex items-center pl-5 pr-5 min-h-[inherit]'>
-          {toolbar || children ? (
-            toolbar || children
-          ) : (
-            <div className={`flex flex-1 place-content-center`}>
-              {backButton || !marketing ? (
-                <IconButton className={classes.menu} {...buttonProps}>
-                  {backButton ? <GrLinkPrevious /> : <Logo />}
-                </IconButton>
-              ) : null}
-              <NavBarTitle
-                title={title}
-                flex
-                marketing={marketing}
-                notitle={notitle}
-              />
-            </div>
-          )}
-          {marketingLinks}
-          {marketingLinks ? null : (
-            <AuthMenu
-              className={`${classes.iconButton}`}
-              registerClassName={classes.register}
-              loginClassName={classes.login}
+    <nav
+      className={`bg-[inherit] ${className ? `${className} ` : className}${
+        classes.container
+      } ${
+        position === 'fixed' ? 'fixed left-0 right-0 shadow' : 'shadow-none'
+      }`}
+    >
+      <div className='relative flex items-center pl-5 pr-5 min-h-[inherit]'>
+        {toolbar || children ? (
+          toolbar || children
+        ) : (
+          <div className={`flex flex-1 place-content-center`}>
+            {backButton || !marketing ? (
+              <IconButton className={classes.menu} {...buttonProps}>
+                {backButton ? <GrLinkPrevious /> : <Logo />}
+              </IconButton>
+            ) : null}
+            <NavBarTitle
+              title={title}
+              flex
+              marketing={marketing}
+              notitle={notitle}
             />
-          )}
-        </div>
-      </nav>
-    </Fragment>
+          </div>
+        )}
+        {marketingLinks}
+        {marketingLinks ? null : (
+          <AuthMenu
+            className={`${classes.iconButton}`}
+            registerClassName={classes.register}
+            loginClassName={classes.login}
+            authenticated={authenticated}
+          />
+        )}
+      </div>
+    </nav>
   )
 }
 

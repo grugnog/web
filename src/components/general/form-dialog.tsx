@@ -234,7 +234,9 @@ export function FormDialogWrapper({
               type='url'
               required
             />
-            <div className={`${classes.row} overflow-x-auto`}>
+            <div
+              className={`${classes.row} overflow-x-hidden hover:overflow-x-auto`}
+            >
               <Tooltip title={'Use http or https for protocol on scans'}>
                 <FormControlLabel
                   classes={formLabelStyles}

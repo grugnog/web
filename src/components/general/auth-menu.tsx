@@ -15,12 +15,14 @@ interface Props {
   loginClassName?: string
   className?: string
   registerClassName?: string
+  authenticated?: boolean // user logged in
 }
 
 function AuthMenuComponent({
   loginClassName,
   className,
   registerClassName,
+  authenticated,
 }: Props) {
   const router = useRouter()
   const [anchorEl, setAnchorEl] = useState<any>(null)
@@ -68,7 +70,10 @@ function AuthMenuComponent({
     [setIssueFeedContent, client, router, logoutMutation]
   )
 
-  if (LOGGIN_ROUTES.includes(router?.pathname)) {
+  if (
+    (!authenticated && LOGGIN_ROUTES.includes(router?.pathname)) ||
+    (authenticated && router?.pathname === '/api-info')
+  ) {
     return (
       <div>
         <Tooltip title={'More options'}>
@@ -121,13 +126,24 @@ function AuthMenuComponent({
     )
   }
 
+  // when not authed return login or register
   return (
-    <NavLinks
-      className={className}
-      registerClassName={registerClassName}
-      loginClassName={loginClassName}
-      route={router?.pathname}
-    />
+    <>
+      <NavLinks
+        className={className}
+        registerClassName={registerClassName}
+        loginClassName={loginClassName}
+        route={router?.pathname}
+        href={'/login'}
+        name={'Login'}
+      />
+      <NavLinks
+        className={className}
+        registerClassName={registerClassName}
+        loginClassName={loginClassName}
+        route={router?.pathname}
+      />
+    </>
   )
 }
 

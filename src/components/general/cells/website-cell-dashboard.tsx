@@ -111,7 +111,10 @@ export function WebsiteCellDashboardComponent({
     }
   }, [insight])
 
-  const linkUrl = useMemo(() => `/website-details?url=${encodeURI(url)}`, [url])
+  const linkUrl = useMemo(
+    () => `/website-details?url=${encodeURIComponent(url)}`,
+    [url]
+  )
 
   return (
     <li className={`border px-3 pt-2 rounded overflow-hidden`}>

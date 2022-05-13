@@ -90,7 +90,7 @@ export function WebsitePrimaryCellComponent({
     ? `${pageIssues.length} issue${pageIssues?.length === 1 ? '' : 's'} found!`
     : null
   const mainUrl = item?.pageUrl || item?.url
-  const href = `/website-details?url=${encodeURI(mainUrl)}`
+  const href = `/website-details?url=${encodeURIComponent(mainUrl)}`
 
   const lh = item?.insight?.json
 

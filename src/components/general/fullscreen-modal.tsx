@@ -129,7 +129,7 @@ export function FullScreenModal({
             <NavBarTitle title={title} flex />
             {url ? (
               <div className={'truncate max-w-[70vw] text-right text-black'}>
-                <Link href={`/website-details?url=${encodeURI(url)}`}>
+                <Link href={`/website-details?url=${encodeURIComponent(url)}`}>
                   {url}
                 </Link>
                 {data?.length && (issuesModal || pagesModal) ? (

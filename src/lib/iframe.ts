@@ -11,7 +11,9 @@ export const iframe = async (
     url = `http://${url}`
   }
 
-  const base = `/iframe?url=${encodeURI(url)}&baseHref=${baseHref || true}`
+  const base = `/iframe?url=${encodeURIComponent(url)}&baseHref=${
+    baseHref || true
+  }`
   const path = `${endpoint}${base}`
 
   let data

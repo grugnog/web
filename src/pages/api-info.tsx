@@ -1,7 +1,7 @@
 import React, { Fragment, useState } from 'react'
 import { Container, Button, IconButton } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
-import { NavBar, PageTitle, Link } from '@app/components/general'
+import { NavBar, PageTitle, Link, Footer } from '@app/components/general'
 import { Box } from '@a11ywatch/ui'
 import { TextSkeleton } from '@app/components/placeholders'
 import { UserManager, AppManager } from '@app/managers'
@@ -99,7 +99,7 @@ function Api({ name }: PageProps) {
         backButton
         title={name.toUpperCase()}
         notitle
-        marketingLinks={!data?.user ? [] : null}
+        authenticated={!!data?.user}
       />
       <Container maxWidth='xl' className={classes.root}>
         <Box>
@@ -187,6 +187,8 @@ function Api({ name }: PageProps) {
             expose more of the main API.
           </p>
         </div>
+
+        <Footer />
       </Container>
     </Fragment>
   )

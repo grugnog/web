@@ -6,7 +6,7 @@ function IssueTitleComponent({ pageUrl }: { pageUrl: string }) {
     <div className='flex-1 px-3 py-2 truncate'>
       <Link
         title={`view in sandbox ${pageUrl}`}
-        href={`/website-details?url=${encodeURI(pageUrl)}`}
+        href={`/website-details?url=${encodeURIComponent(pageUrl)}`}
         className={'text-lg'}
         style={{ color: '#707070', fontWeight: 'bold' }}
       >

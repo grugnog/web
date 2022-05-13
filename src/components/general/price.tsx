@@ -83,7 +83,7 @@ const openMail = () => {
     const mailLink =
       'mailto:support@a11ywatch.com' +
       '?subject=' +
-      encodeURI('Enterprise Plan') +
+      encodeURIComponent('Enterprise Plan') +
       '&body=' +
       'I would like to find out more about the enterprise plan.'
 
