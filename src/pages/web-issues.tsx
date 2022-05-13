@@ -1,5 +1,6 @@
 import React, { useMemo } from 'react'
-import { List, FormDialog, PageTitle, Drawer } from '@app/components/general'
+import { FormDialog, PageTitle, Drawer } from '@app/components/general'
+import { List } from '@app/components/general/lists/websites-issues'
 import { useSearchFilter } from '@app/data'
 import { filterSort } from '@app/lib'
 import { metaSetter } from '@app/utils'
@@ -28,7 +29,7 @@ function Issues({ name }: PageProps) {
           emptyTitle={'No Websites Added'}
           error={error}
         >
-          <div className='py-1'>
+          <div className={'py-2 pb-2'}>
             <List
               data={source}
               loading={issueDataLoading}
@@ -36,7 +37,6 @@ function Issues({ name }: PageProps) {
               BottomButton={FormDialog}
               emptyHeaderTitle='No issues found'
               emptyHeaderSubTitle='Issues will appear here when they arise'
-              errorPage
             />
           </div>
         </PageLoader>

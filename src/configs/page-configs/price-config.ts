@@ -58,7 +58,7 @@ const plans = [
   },
   {
     title: 'Enterprise',
-    subTitle: 'Custom workloads and integrations built.',
+    subTitle: 'Custom workloads and integrations at hand.',
     details: [
       'Custom websites monitoring limit.',
       'Daily email reports.',

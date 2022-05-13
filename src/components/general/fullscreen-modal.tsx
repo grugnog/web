@@ -108,12 +108,64 @@ export function FullScreenModal({
   const headerModal = title === 'Custom Headers'
   const pagesModal = title === 'All Pages'
 
+  const issueCount = data?.length
+
+  const Body = () => {
+    if (headerModal) {
+      return <UpperInput data={data} url={url} />
+    }
+
+    // if not open do not render content for large list content moving off screen
+    if (!open) {
+      return null
+    }
+
+    return (
+      <List className={classes.list}>
+        {Array.isArray(data) && issueCount ? (
+          data?.map((item: any, listIndex: number) => {
+            return (
+              <WebsitePrimaryCell
+                handleClickOpenPlayer={handleClickOpenPlayer}
+                handleClickOpen={handleClickOpen}
+                handleClose={handleClose}
+                key={`${listIndex} ${item?.selector} ${item?.code}`}
+                refetch={refetch}
+                openError
+                issuesModal={issuesModal}
+                noMaxHeight={issueCount === 1}
+                error={error}
+                item={item}
+                url={url}
+                pagesModal={pagesModal}
+              />
+            )
+          })
+        ) : (
+          <Container>
+            <Typography variant='subtitle1' component='p'>
+              No data found yet, please try again later or reload the page.
+            </Typography>
+            <Button
+              aria-label='refetch data'
+              aria-haspopup='true'
+              onClick={() => refetch()}
+              color='inherit'
+            >
+              Reload Data
+            </Button>
+          </Container>
+        )}
+      </List>
+    )
+  }
+
   return (
     <Dialog
       fullScreen
       open={open}
-      onClose={handleClose}
       TransitionComponent={Transition as any}
+      onClose={handleClose}
     >
       <AppBar position={'fixed'} className={classes.navbar}>
         <Toolbar>
@@ -125,17 +177,17 @@ export function FullScreenModal({
           >
             <GrClose />
           </IconButton>
-          <div className={'flex flex-1 place-content-center'}>
+          <div className={'flex flex-1 space-x-2 place-content-center'}>
             <NavBarTitle title={title} flex />
             {url ? (
               <div className={'truncate max-w-[70vw] text-right text-black'}>
                 <Link href={`/website-details?url=${encodeURIComponent(url)}`}>
                   {url}
                 </Link>
-                {data?.length && (issuesModal || pagesModal) ? (
+                {issueCount && (issuesModal || pagesModal) ? (
                   <p>
-                    {data?.length} {issuesModal && error ? 'issue' : 'page'}
-                    {data?.length === 1 ? '' : 's'}
+                    {issueCount} {issuesModal && error ? 'issue' : 'page'}
+                    {issueCount === 1 ? '' : 's'}
                   </p>
                 ) : null}
               </div>
@@ -143,46 +195,7 @@ export function FullScreenModal({
           </div>
         </Toolbar>
       </AppBar>
-      {headerModal ? (
-        <UpperInput data={data} url={url} />
-      ) : (
-        <List className={classes.list}>
-          {Array.isArray(data) && data?.length ? (
-            data?.map((item: any, listIndex: number) => {
-              return (
-                <WebsitePrimaryCell
-                  handleClickOpenPlayer={handleClickOpenPlayer}
-                  handleClickOpen={handleClickOpen}
-                  handleClose={handleClose}
-                  key={`${listIndex} ${item?.selector} ${item?.code}`}
-                  refetch={refetch}
-                  openError
-                  issuesModal={issuesModal}
-                  noMaxHeight={data?.length === 1}
-                  error={error}
-                  item={item}
-                  url={url}
-                  pagesModal={pagesModal}
-                />
-              )
-            })
-          ) : (
-            <Container>
-              <Typography variant='subtitle1' component='p'>
-                No data found yet, please try again later or reload the page.
-              </Typography>
-              <Button
-                aria-label='refetch data'
-                aria-haspopup='true'
-                onClick={() => refetch()}
-                color='inherit'
-              >
-                Reload Data
-              </Button>
-            </Container>
-          )}
-        </List>
-      )}
+      <Body />
     </Dialog>
   )
 }

@@ -66,10 +66,19 @@ export function MarketingCli() {
             <FakeButtonContainer title='Bash' />
             <div className='border-b' />
             <div className='bg-white'>
-              <div className='py-4 px-4 text-gray-800 text-lg'>
-                <span className='text-gray-500'>~ </span> a11ywatch start -f{' '}
-                <i className='text-gray-500'># view browser localhost:3270</i>
-                <span style={previewStyles}></span>
+              <div className='py-3 px-3 text-lg'>
+                <div className='text-gray-600'>
+                  <span className='text-gray-500'>~ </span> cargo install
+                  a11ywatch_cli
+                </div>
+                <div className='text-gray-600'>
+                  <span className='text-gray-500'>~ </span> a11ywatch start
+                </div>
+                <div className='text-gray-800'>
+                  <span className='text-gray-600'>~ </span> a11ywatch scan -u
+                  https://hbo.com
+                  <span style={previewStyles}></span>
+                </div>
               </div>
             </div>
           </div>

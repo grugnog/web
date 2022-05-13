@@ -89,7 +89,7 @@ export function SearchBar({ placeholder, noWidth, cta }: any) {
 
   if (!cta) {
     return (
-      <div className={classes.root} style={{ paddingTop: 5 }}>
+      <div className={classes.root}>
         <div className={classes.search}>
           <div className={classes.searchIcon}>
             <GrSearch />

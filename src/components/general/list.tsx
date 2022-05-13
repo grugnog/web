@@ -1,17 +1,10 @@
-import React, {
-  FC,
-  useState,
-  useEffect,
-  useCallback,
-  useMemo,
-  memo,
-} from 'react'
+import React, { FC, useState, useEffect, useCallback, memo } from 'react'
 import { List as MUList, CardHeader } from '@material-ui/core'
 
 import { useMiniPlayer } from '@app/data'
 import { ListSkeleton } from '../placeholders'
 import { FullScreenModal } from './fullscreen-modal'
-import { WebsiteCell, IssuesCell } from './cells'
+import { WebsiteCell } from './cells'
 
 const emptyClass = 'min-h-10'
 
@@ -21,22 +14,15 @@ function WebSites({
   handleClickOpen,
   refetch,
   handleClickOpenPlayer,
-  errorPage,
   crawlWebsite,
   setModal,
   mutatationLoading,
   loading,
+  history,
 }: any) {
-  const source = errorPage ? data?.issues : data
-
-  // TODO: REMOVE DUEL COMPONENTS
-  const WebComponent = useMemo(() => (errorPage ? IssuesCell : WebsiteCell), [
-    errorPage,
-  ])
-
-  return source?.map(
+  return data?.map(
     ({ url, id, pageHeaders, pageUrl, ...domainProps }: any, index: number) => (
-      <WebComponent
+      <WebsiteCell
         handleClickOpen={handleClickOpen}
         url={url || pageUrl}
         key={`${id} ${url} ${pageUrl} ${index}`}
@@ -49,6 +35,7 @@ function WebSites({
         mutatationLoading={mutatationLoading}
         pageHeaders={pageHeaders}
         index={index}
+        history={history}
         {...domainProps}
       />
     )
@@ -63,6 +50,7 @@ const defaultModalState = {
   error: '',
 }
 
+// TODO: remove for central history component
 export function ListComponent({
   data,
   error,
@@ -73,7 +61,6 @@ export function ListComponent({
   emptyHeaderTitle = 'Empty',
   emptyHeaderSubTitle = 'Add your website below',
   refetch,
-  errorPage,
   history,
   crawlWebsite,
   setModal,
@@ -82,8 +69,6 @@ export function ListComponent({
 }: any) {
   const [modal, setOpen] = useState(defaultModalState)
   const { miniPlayer, setMiniPlayerContent } = useMiniPlayer()
-
-  const findIssues = data?.some((source: any) => source?.issues?.length)
 
   const handleClickOpen = useCallback(
     (data: any, title: any, url: any, error: any) => {
@@ -102,6 +87,18 @@ export function ListComponent({
     }
   }, [miniPlayer, handleClose])
 
+  const generalProps = {
+    handleClickOpen,
+    handleClickOpenPlayer: setMiniPlayerContent,
+    removePress,
+    refetch,
+    history,
+    crawlWebsite,
+    setModal,
+    mutatationLoading: mutatationLoading,
+    errorPage: true,
+  }
+
   // TODO: MOVE OUTSIDE COMPONENT
   const RenderInner: FC = () => {
     if (!data?.length && loading) {
@@ -117,39 +114,14 @@ export function ListComponent({
       )
     }
 
-    const generalProps = {
-      handleClickOpen,
-      handleClickOpenPlayer: setMiniPlayerContent,
-      removePress,
-      refetch,
-      errorPage,
-      history,
-      crawlWebsite,
-      setModal,
-      mutatationLoading: mutatationLoading,
-    }
-
     // ERROR PAGE to display errors ( not actual network error )
-    if (
-      (errorPage && data?.length && findIssues) ||
-      (data?.length && !errorPage)
-    ) {
+    if (data?.length) {
       return (
         <MUList
           className={`border rounded`}
           style={{ paddingTop: 0, paddingBottom: 0 }}
         >
-          {!errorPage ? (
-            <WebSites data={data} {...generalProps} />
-          ) : (
-            data.map((page: any, i: number) => (
-              <WebSites
-                data={page}
-                key={`${page.pageUrl} ${i}`}
-                {...generalProps}
-              />
-            ))
-          )}
+          <WebSites data={data} {...generalProps} />
         </MUList>
       )
     }
@@ -167,7 +139,7 @@ export function ListComponent({
     <>
       <div>
         <RenderInner />
-        {errorPage || history || blocked ? null : (
+        {history || blocked ? null : (
           <BottomButton
             buttonTitle={data?.length ? undefined : 'Lets start!'}
             okPress={addPress}

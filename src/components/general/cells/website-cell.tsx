@@ -32,14 +32,16 @@ interface WebsiteCellProps extends Partial<Website> {
   handleClickOpenPlayer: (a: boolean, b: any, c?: string) => () => void
   setModal(data: any): void
   mutatationLoading: boolean
+  history: boolean // history page
 }
 
 export function WebsiteCell(props: WebsiteCellProps) {
   const classes = useStyles()
   const [anchorEl, setAnchorEl] = useState<any>(null)
 
+  const { removePress, ...extra } = props
+
   const {
-    removePress,
     url,
     handleClickOpen,
     handleClickOpenPlayer,
@@ -51,7 +53,7 @@ export function WebsiteCell(props: WebsiteCellProps) {
     mutatationLoading,
     lastScanDate,
     pageHeaders,
-  } = props
+  } = extra
 
   const handleMenu = (event: any) => {
     setAnchorEl(event?.currentTarget)
@@ -123,8 +125,8 @@ export function WebsiteCell(props: WebsiteCellProps) {
           anchorEl={anchorEl}
           handleClose={handleClose}
           handleMenu={handleMenu}
-          {...props}
           removePress={onRemovePress}
+          {...extra}
         />
       </ListItemSecondaryAction>
     </ListItem>

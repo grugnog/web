@@ -6,6 +6,7 @@ import { GrClose } from 'react-icons/gr'
 import { AppManager } from '@app/managers'
 import { FeedCell } from './cell'
 
+// side panel that appears fixed on the right of current issues of domain being scanned
 const Feed: FC = () => {
   const classes = useStyles()
   const { issueFeed, setIssueFeedContent, scanWebsite } = useWebsiteContext()
@@ -80,7 +81,7 @@ const Feed: FC = () => {
       <Fade in>
         <div className={`${classes.root} shadow`}>
           <div
-            className={`flex place-items-center px-3 py-2 border border-t-0 border-r-0 border-l-0 bg-gray-200`}
+            className={`flex place-items-center px-3 py-1 border border-t-0 border-r-0 border-l-0 bg-gray-200`}
           >
             <p className={`flex-1 text-lg font-semibold`}>Recent Issues</p>
             <IconButton

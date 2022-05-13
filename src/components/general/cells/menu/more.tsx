@@ -50,7 +50,7 @@ function MoreOptionsComponent(props: MoreOptionsProps) {
   return (
     <>
       <MoreOptionsBase {...props} index={index}>
-        {typeof crawlWebsite === 'function' ? (
+        {typeof crawlWebsite === 'function' && !history ? (
           <MenuItem onClick={onWebsiteCrawl}>Scan</MenuItem>
         ) : null}
         {!history ? (

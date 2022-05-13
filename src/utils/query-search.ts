@@ -12,7 +12,5 @@ export const searchQuery = (
     autoTPT = true
   }
 
-  const hasExt = squery.split('.').pop()
-
-  return [`${tpt}${squery}${hasExt ? `` : '.com'}`, autoTPT]
+  return [`${tpt}${squery}`, autoTPT]
 }

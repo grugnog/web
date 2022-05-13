@@ -36,39 +36,41 @@ function AuthMenuComponent({
     [setAnchorEl]
   )
 
-  const logout = useCallback(
-    async (e: any) => {
-      e?.preventDefault()
-      setIssueFeedContent(null, false)
+  // simple logout
+  const logout = async (e: any) => {
+    e?.preventDefault()
+    setIssueFeedContent(null, false)
 
+    try {
+      await logoutMutation()
+    } catch (e) {
+      console.error(e)
+    }
+
+    try {
+      await client?.clearStore()
+    } catch (e) {
+      console.error(e)
+    }
+
+    try {
+      await client?.resetStore()
+    } catch (e) {
+      console.error(e)
+    }
+
+    UserManager.clearUser()
+
+    if (router.pathname !== '/') {
       try {
-        await client?.clearStore()
+        await router.push('/')
       } catch (e) {
         console.error(e)
       }
-
-      try {
-        await client?.resetStore()
-      } catch (e) {
-        console.error(e)
-      }
-
-      try {
-        await logoutMutation()
-      } catch (e) {
-        console.error(e)
-      }
-
-      try {
-        router.reload()
-      } catch (e) {
-        console.error(e)
-      }
-
-      UserManager.clearUser()
-    },
-    [setIssueFeedContent, client, router, logoutMutation]
-  )
+    } else {
+      router.reload()
+    }
+  }
 
   if (
     (!authenticated && LOGGIN_ROUTES.includes(router?.pathname)) ||

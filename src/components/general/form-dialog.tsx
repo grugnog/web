@@ -73,8 +73,6 @@ export function FormDialogWrapper({
   const submit = useCallback(
     async (event: any) => {
       event?.preventDefault()
-      // TODO: REMOVE LOGIC
-
       if (!websitUrl) {
         // prevent empty
         AppManager.toggleSnack(

@@ -253,4 +253,4 @@ const SignOnFormWrapper: FunctionComponent<SignOnProps> = ({
   )
 }
 
-export const SignOnForm = withApollo(SignOnFormWrapper)
+export const SignOnForm = withApollo(SignOnFormWrapper, { ssr: true })
