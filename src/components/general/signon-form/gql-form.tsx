@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, FunctionComponent, Fragment } from 'react'
-import { GoogleLoginButton } from './google-login'
+import { GoogleLoginButton } from '../google-login'
 import { useRouter } from 'next/router'
 import {
   Container,
@@ -14,8 +14,9 @@ import { makeStyles } from '@material-ui/core/styles'
 import { useMutation } from '@apollo/react-hooks'
 import { REGISTER, LOGIN } from '@app/mutations'
 import { AppManager, UserManager } from '@app/managers'
-import { Link } from './link'
-import { LinearBottom } from './loaders'
+import { Link } from '../link'
+import { LinearBottom } from '../loaders'
+import { withApollo } from '@app/apollo'
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -58,16 +59,15 @@ const useStyles = makeStyles((theme) => ({
 interface SignOnProps {
   loginView?: boolean
   home?: boolean
-  isVisible?: boolean
 }
 
-const SignOnForm: FunctionComponent<SignOnProps> = ({
+const SignOnFormWrapper: FunctionComponent<SignOnProps> = ({
   loginView,
   home,
-  isVisible = true,
 }) => {
   const router = useRouter()
   const classes = useStyles()
+
   const [signOnMutation, { data, loading }] = useMutation(
     loginView ? LOGIN : REGISTER
   )
@@ -156,7 +156,6 @@ const SignOnForm: FunctionComponent<SignOnProps> = ({
         <div className={classes.paper}>
           <GoogleLoginButton
             loginView={loginView}
-            isVisible={isVisible}
             onSuccess={onGoogleAuth}
             classes={classes}
           />
@@ -254,4 +253,4 @@ const SignOnForm: FunctionComponent<SignOnProps> = ({
   )
 }
 
-export { SignOnForm }
+export const SignOnForm = withApollo(SignOnFormWrapper)

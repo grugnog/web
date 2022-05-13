@@ -1,14 +1,13 @@
 import React from 'react'
 import {
   Container,
-  Button,
   TextField,
   FormControl,
   FormHelperText,
 } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import { TextSkeleton as Typography } from './text'
-import { Skeleton } from '@material-ui/lab'
+import { GoogleLoginButton } from '../general'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -58,21 +57,16 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
-export function SignOnFormSkeleton({ loginView }: { loginView?: boolean }) {
+// TODO: use stub or actually ui and lazy load gql providers
+export function SignOnFormSkeleton() {
   const classes = useStyles()
 
   return (
     <Container maxWidth='sm' className={classes.root}>
       <Typography width={'20%'} height={'10%'} style={{ marginBottom: 20 }} />
       <div className={classes.paper}>
-        <Button
-          className={classes.google}
-          variant='text'
-          size='small'
-          startIcon={<Skeleton className={classes.iconColor} />}
-        >
-          {loginView ? 'Login' : 'Sign up with google'}
-        </Button>
+        <GoogleLoginButton skeleton />
+        <Typography width={'10%'} height={'32px'} style={{ marginBottom: 5 }} />
         <FormControl>
           <TextField
             id='email'

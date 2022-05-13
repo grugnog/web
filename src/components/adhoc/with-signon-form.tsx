@@ -3,11 +3,14 @@ import { SignOnFormSkeleton } from '../placeholders'
 /* eslint-disable */
 
 const WithSignOnForm = dynamic(
-  () => import('../general/signon-form').then((mod) => mod.SignOnForm) as any,
+  () =>
+    import('../general/signon-form/gql-form').then(
+      (mod) => mod.SignOnForm
+    ) as any,
   {
-    ssr: true,
-    loading: () => <SignOnFormSkeleton loginView={false} />,
+    ssr: false,
+    loading: () => <SignOnFormSkeleton />,
   }
-)
+) as any
 
 export { WithSignOnForm }

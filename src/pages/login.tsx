@@ -22,7 +22,6 @@ function Login({ name }: PageProps) {
 export default metaSetter(
   { Login },
   {
-    gql: true,
     description: 'Login in to get all your accessibility insight and more.',
   }
 )
