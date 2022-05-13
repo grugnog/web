@@ -29,6 +29,10 @@ In order to use the application you need to make sure you have the [A11yWatch](h
 
 check out [ENVIRONMENT CONFIG](./ENVIRONMENT.md) for configuring project specefics like google authentication.
 
+## Translations
+
+At the moment all text is supported for english-en. Help contribute to the [translations](https://github.com/A11yWatch/web/tree/main/src/content/strings/a11y) by sending a [PR](https://github.com/A11yWatch/web/compare).
+
 ## LICENSE
 
 check the license file in the root of the project.

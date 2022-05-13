@@ -3,7 +3,6 @@ import { AppBar, Toolbar } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import { strings } from '@app-strings'
 import { Link } from '../general/link'
-import { TranslateBadge } from '../badges'
 import { SmallLogo } from '../general'
 import { theme as appTheme } from '@app/theme/main'
 import { companyName } from '@app/configs'
@@ -84,7 +83,6 @@ const NavBarComponent: FC<any> = ({
               <div className='pl-1 text-white'>{title}</div>
             </Link>
           </div>
-          <TranslateBadge className={classes.ghIcon} />
         </Toolbar>
       </AppBar>
     </Fragment>

@@ -3,7 +3,6 @@ import { useRouter } from 'next/router'
 
 import { IconButton, MenuItem, Menu, Tooltip } from '@material-ui/core'
 import { Link } from './link'
-import { TranslateBadge } from '../badges'
 import { UserManager } from '@app/managers'
 import { LOGGIN_ROUTES } from '@app/configs'
 import { NavLinks } from './nav-links'
@@ -72,7 +71,6 @@ function AuthMenuComponent({
   if (LOGGIN_ROUTES.includes(router?.pathname)) {
     return (
       <div>
-        <TranslateBadge />
         <Tooltip title={'More options'}>
           <IconButton
             aria-label='account of current user'

@@ -7,7 +7,6 @@ import { strings } from '@app-strings'
 import { Logo, NavBarTitle } from './navigation'
 import { Link } from './link'
 import { AuthMenu } from './auth-menu'
-import { TranslateBadge } from '../badges'
 import { GrLinkPrevious } from 'react-icons/gr'
 
 const useStyles = makeStyles((theme) => ({
@@ -129,11 +128,6 @@ const NavBarComponent = ({
               loginClassName={classes.login}
             />
           )}
-          {marketing ? (
-            <div className='pl-4'>
-              <TranslateBadge className={classes.ghIcon} />
-            </div>
-          ) : null}
         </div>
       </nav>
     </Fragment>

@@ -12,7 +12,6 @@ import {
   TwitterBadge,
   FacebookBadge,
   LinkedinBadge,
-  TranslateBadge,
 } from '../badges'
 
 const useStyles = makeStyles((theme) => ({
@@ -206,9 +205,6 @@ const Footer = ({
             </Typography>
           </div>
         ) : null}
-        <div className={classes.linkContainer}>
-          <TranslateBadge inline />
-        </div>
       </Container>
       <div className='px-2 flex place-content-center'>
         <FixedCopyRight />
