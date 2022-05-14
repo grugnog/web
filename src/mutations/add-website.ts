@@ -1,18 +1,21 @@
 import gql from 'graphql-tag'
 
-// pageinsights added
 export const ADD_WEBSITE = gql`
   mutation AddWebsite(
     $url: String!
     $customHeaders: [CreatePageHeaders]
     $pageInsights: Boolean
     $mobile: Boolean
+    $standard: String
+    $ua: String
   ) {
     addWebsite(
       url: $url
       customHeaders: $customHeaders
       pageInsights: $pageInsights
       mobile: $mobile
+      standard: $standard
+      ua: $ua
     ) {
       website {
         url
@@ -26,6 +29,8 @@ export const ADD_WEBSITE = gql`
         online
         pageInsights
         mobile
+        standard
+        ua
         insight {
           json
         }

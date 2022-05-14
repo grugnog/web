@@ -1,3 +1,4 @@
+import { initUrl } from '@a11ywatch/website-source-builder'
 import { IFRAME_ENDPOINT } from '@app/configs/next/iframe'
 
 let endpoint = IFRAME_ENDPOINT
@@ -7,13 +8,10 @@ export const iframe = async (
   url: string,
   baseHref: string | string[] | true
 ) => {
-  if (/^((http|https):\/\/)/.test(url) === false) {
-    url = `http://${url}`
-  }
-
-  const base = `/iframe?url=${encodeURIComponent(url)}&baseHref=${
+  const base = `/iframe?url=${encodeURIComponent(initUrl(url))}&baseHref=${
     baseHref || true
   }`
+
   const path = `${endpoint}${base}`
 
   let data

@@ -6,21 +6,24 @@ import { RenderIssue } from './issues'
 interface IssuesList {
   pageIssues?: Issue[]
   item: any
-  [x: string]: any
   error?: boolean
+  [x: string]: any
 }
 
+// issues on the page - used for modals
 export function RenderIssuesListComponent({
   pageIssues = [],
   item,
   ...props
 }: IssuesList) {
-  return (
-    <>
-      {props?.error ? (
-        <RenderIssue {...item} {...props} />
-      ) : (
-        pageIssues.map((pages: any, i: number) => {
+  if (props?.error) {
+    return <RenderIssue {...item} {...props} />
+  }
+
+  if (pageIssues && Array.isArray(pageIssues)) {
+    return (
+      <>
+        {pageIssues?.map((pages: any, i: number) => {
           return (
             <RenderIssue
               {...pages}
@@ -28,10 +31,12 @@ export function RenderIssuesListComponent({
               key={`${i} ${props?.listIndex}`}
             />
           )
-        })
-      )}
-    </>
-  )
+        })}
+      </>
+    )
+  }
+
+  return null
 }
 
 export function FeedIssuesListComponent({
@@ -44,5 +49,5 @@ export function FeedIssuesListComponent({
 
 // dynamic issues list component handling all edges
 export const RenderIssuesList = memo(RenderIssuesListComponent)
-// feed issue list component
+// feed issue list component - side panel on the right
 export const FeedIssuesList = memo(FeedIssuesListComponent)

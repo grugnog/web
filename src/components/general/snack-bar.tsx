@@ -48,7 +48,7 @@ const SnackbarContainer = observer(({ store }: any) => {
           backgroundColor: '#fff',
         }}
         message={
-          <div className='max-w-[50vw]'>
+          <div className='line-clamp-2 max-w-[76vw]'>
             <p
               id='message-id'
               className={`text-lg line-clamp-4 ${

@@ -16,16 +16,10 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
   },
   logoText: {
-    paddingLeft: '1rem',
     alignSelf: 'center',
+    fontWeight: 'bold',
     [theme.breakpoints.down('sm')]: {
       display: 'none',
-    },
-  },
-  link: {
-    paddingTop: 4,
-    '&:hover': {
-      textDecoration: 'none',
     },
   },
 }))
@@ -43,15 +37,16 @@ function NavBarTitle({
 
   if (marketing && !notitle) {
     return (
-      <Link href='/' className={classes.link}>
+      <Link
+        href='/'
+        className={'hover:no-underline'}
+        title={`${companyName} Home`}
+      >
         <div className={classes.brand}>
           <Logo />
-          <Typography
-            component={'strong'}
-            className={`${classes.title} ${classes.logoText}`}
-          >
+          <div className={`text-2xl ${classes.title} ${classes.logoText}`}>
             {companyName}
-          </Typography>
+          </div>
         </div>
       </Link>
     )

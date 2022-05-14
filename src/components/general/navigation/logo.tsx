@@ -9,19 +9,19 @@ export const Logo = ({ width, height }: Logo) => {
     <img
       src='/img/logo.svg'
       alt='A11yWatch logo'
-      width={width || '51'}
-      height={height || '30'}
+      width={width || '44'}
+      height={height || '44'}
     />
   )
 }
 
-export const SmallLogo = ({ className }: any) => {
+export const SmallLogo = ({ className }: { className?: string }) => {
   return (
     <img
       src='/img/logo.svg'
       alt='A11yWatch logo'
       width={'25.5'}
-      height={'15'}
+      height={'25.5'}
       className={className}
     />
   )

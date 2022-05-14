@@ -13,7 +13,6 @@ const GET_DYNAMIC_MODAL_STATE = gql`
       open
       modalType
       url
-      html
     }
   }
 `
@@ -22,7 +21,6 @@ const defaultProps = {
   open: false,
   modalType: ModalType.empty,
   url: '',
-  html: '',
 }
 
 const getLastAlertedDate = (setModal: (x: any) => void) => {
@@ -48,13 +46,7 @@ export function useDynamicModal() {
   const modelData = data?.modal || defaultProps
 
   const setModal = useCallback(
-    ({
-      open = true,
-      modalType = ModalType.empty,
-      onClose,
-      url = '',
-      html = '',
-    }: any) => {
+    ({ open = true, modalType = ModalType.empty, onClose, url = '' }: any) => {
       if (!open && typeof dynamicModalHandler?.onClose === 'function') {
         dynamicModalHandler.onClose()
       }
@@ -64,7 +56,7 @@ export function useDynamicModal() {
 
       client.writeData({
         data: {
-          modal: { open, modalType, url, html, __typename: 'DynamicModal' },
+          modal: { open, modalType, url, __typename: 'DynamicModal' },
         },
       })
     },

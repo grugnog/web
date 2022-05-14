@@ -127,6 +127,7 @@ export function WebsiteIssuesCell({
 
   const pageIssues =
     (Array.isArray(item?.issues) ? item.issues : item?.issues?.issues) || []
+
   const secondaryText = pageIssues?.length
     ? `${pageIssues.length} issue${pageIssues?.length === 1 ? '' : 's'} found!`
     : null

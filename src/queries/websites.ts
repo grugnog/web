@@ -28,6 +28,8 @@ const GET_WEBSITES = gql`
         online
         pageInsights
         mobile
+        standard
+        ua
         insight {
           json
         }

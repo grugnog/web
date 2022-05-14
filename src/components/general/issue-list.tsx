@@ -2,23 +2,7 @@ import React, { memo } from 'react'
 import { List } from '@material-ui/core'
 import { useStyles } from './styles'
 import { FeedIssuesList } from './cells/render/issues-list'
-
-// TODO: REMOVE AND SPLIT COMPONENT
-const getIssue = (website: any) => {
-  let issue
-  if (website?.issue) {
-    issue = website.issue
-  } else if (
-    Array.isArray(website?.issues) &&
-    website?.issues?.length &&
-    website?.issues[0]?.issues
-  ) {
-    issue = website?.issues[0]?.issues
-  } else {
-    issue = website?.issues
-  }
-  return issue
-}
+import { getIssue } from '@app/utils'
 
 export function IssueListComponent({ website, className = '' }: any) {
   const classes = useStyles()
@@ -38,7 +22,6 @@ export function IssueListComponent({ website, className = '' }: any) {
         <FeedIssuesList
           item={item}
           url={issue?.pageUrl}
-          listIndex={listIndex}
           key={`${listIndex} ${item?.selector} ${item?.code}`}
         />
       ))}

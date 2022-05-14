@@ -56,7 +56,7 @@ const getWebsite = async (url: string, timestamp?: string) => {
 }
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  const { slug } = context.params ?? {}
+  const { slug, timestamp } = context.params ?? {}
 
   if (!slug) {
     return {
@@ -64,20 +64,30 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     }
   }
 
-  const [websiteUrl, timestamp] = Array.isArray(slug) ? slug : []
-  let website
+  let url: string | string[] = slug
+  let time: string | string[] = timestamp || ''
 
-  let targetUrl = decodeURIComponent(websiteUrl)
+  // if its an array for dynamic routes [ old next.js v9 ]
+  if (Array.isArray(slug) && slug.length) {
+    ;[url, time] = slug
+  }
+
+  let website
+  let targetUrl = encodeURIComponent(url + '')
 
   try {
-    website = await getWebsite(targetUrl, timestamp)
-
-    // retry without timestamp. TODO: LOOK INTO TIMESTAMP INCONSISTENCIES
-    if (!website) {
-      website = await getWebsite(websiteUrl)
-    }
+    website = await getWebsite(targetUrl, time + '')
   } catch (e) {
     console.error(e)
+  }
+
+  if (!website) {
+    try {
+      website = await getWebsite(targetUrl)
+      // retry without timestamp. TODO: LOOK INTO TIMESTAMP INCONSISTENCIES
+    } catch (e) {
+      console.error(e)
+    }
   }
 
   if (!website) {

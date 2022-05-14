@@ -1,61 +1,62 @@
 import React, { memo } from 'react'
-import { ListItem, Typography } from '@material-ui/core'
-import { makeStyles } from '@material-ui/core/styles'
-import { WithHighlight } from '@app/components/adhoc'
 import { getErrorColor } from '@app/lib/base-colors'
+import { Issue } from '@app/types'
 
-const useStyles = makeStyles(() => ({
-  mainItemContainer: {
-    overflow: 'hidden',
-    display: 'block',
-  },
-  code: {
-    overflow: 'hidden',
-  },
-  mainSubtitle: {
-    overflow: 'hidden',
-    textOverflow: 'ellipsis',
-    fontWeight: 300,
-    fontSize: '1.1em',
-  },
-  secondSubtitle: {
-    overflow: 'hidden',
-    textOverflow: 'ellipsis',
-    fontWeight: 400,
-    fontSize: '1.35em',
-  },
-}))
+type CellIssue = Partial<Issue> & {
+  hideSelector?: boolean
+}
 
-// TODO: remove MAT usage
+export function FeedIssueCardComponent({
+  message,
+  code,
+  context,
+  type: issueType = 'notice',
+  selector,
+  hideSelector,
+}: CellIssue) {
+  return (
+    <div className='p-3'>
+      <div className='flex space-x-2 items-center pb-1'>
+        <div
+          className={`${getErrorColor(issueType + '')} w-3 h-3 rounded-full`}
+        />
+        <p className={'truncate text-sm font-light'}>{code}</p>
+      </div>
+      <p className={'text-lg'}>{message}</p>
+      {hideSelector ? null : (
+        <p className='pb-1 text-gray-600 line-clamp-2'>{selector}</p>
+      )}
+      <pre
+        className={`overflow-x-auto p-2 block text-white`}
+        style={{ tabSize: 4, backgroundColor: 'rgb(43, 43, 43)' }}
+      >
+        {context + ''}
+      </pre>
+    </div>
+  )
+}
+
+export const FeedIssueCard = memo(FeedIssueCardComponent)
+
 export function FeedIssueComponent({
   message,
   code,
   context,
   type: issueType = 'notice',
-  handleToggle,
-  listIndex,
-  ...extraProps
-}: any) {
-  const classes = useStyles()
-  const { typeCode, runnerExtras, ...props } = extraProps
-
+  selector,
+  hideSelector,
+}: CellIssue) {
   return (
-    <ListItem className={classes.mainItemContainer} divider {...props}>
-      <div className={classes.mainItemContainer}>
-        <div className='flex space-x-2 items-center'>
-          <div className={`${getErrorColor(issueType)} w-3 h-3 rounded-full`} />
-          <Typography className={classes.mainSubtitle} component={'p'}>
-            {code}
-          </Typography>
-        </div>
-        <Typography gutterBottom className={classes.secondSubtitle}>
-          {message}
-        </Typography>
-        <WithHighlight className={classes.code}>
-          {String(context)}
-        </WithHighlight>
-      </div>
-    </ListItem>
+    <li className='border border-t-0 border-r-0 border-l-0'>
+      <FeedIssueCard
+        selector={selector}
+        type={issueType}
+        context={context}
+        code={code}
+        message={message}
+        hideSelector={hideSelector}
+      />
+    </li>
   )
 }
 

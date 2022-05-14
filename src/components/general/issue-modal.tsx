@@ -15,6 +15,7 @@ import { NavBarTitle } from './navigation'
 import { WebsitePrimaryCell } from './cells'
 import type { MergedTheme } from '@app/theme'
 import { GrClose } from 'react-icons/gr'
+import { issueExtractor } from '@app/utils'
 
 const useStyles = makeStyles((theme: MergedTheme) => ({
   root: {
@@ -78,6 +79,8 @@ export function IssueModal({ issue }: any) {
   const { open, title } = miniPlayer
   const handler = new DragHandler(appBarRef?.current)
 
+  const pageIssues = issueExtractor(issue)
+
   return (
     <Dialog
       ref={appBarRef}
@@ -120,13 +123,13 @@ export function IssueModal({ issue }: any) {
           </div>
         </Toolbar>
       </AppBar>
-      {issue?.issues?.length ? (
+      {pageIssues?.length ? (
         <List
           className={`${classes.list} ${
-            issue?.issues?.length === 1 ? classes.noMaxHeight : ''
+            pageIssues?.length === 1 ? classes.noMaxHeight : ''
           }`}
         >
-          {issue?.issues.map((item: any, listIndex: number) => {
+          {pageIssues.map((item: any, listIndex: number) => {
             return (
               <li key={`${listIndex} ${item?.selector} ${item?.code}`}>
                 <WebsitePrimaryCell

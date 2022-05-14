@@ -30,7 +30,7 @@ function WebsiteAccessibilityChecker({ name }: PageProps) {
           </div>
           <div>
             <h4 className='text-2xl font-bold'>
-              Fast web accessibility results
+              Fast website inclusion results
             </h4>
             <p className='text-lg'>
               Optimize your workflow on tackling web inclusion issues while

@@ -86,7 +86,7 @@ function CtaInputRest() {
   }
 
   const submitForm = useCallback(
-    (e: SyntheticEvent<HTMLFormElement>) => {
+    async (e: SyntheticEvent<HTMLFormElement>) => {
       e?.preventDefault()
       if (!search) {
         return AppManager.toggleSnack(
@@ -95,7 +95,11 @@ function CtaInputRest() {
           'error'
         )
       }
-      toggleModal(search)
+      try {
+        await toggleModal(search)
+      } catch (e) {
+        console.error(e)
+      }
       if (ref.current) {
         ref.current.value = ''
       }

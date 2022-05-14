@@ -6,7 +6,7 @@ import { GrClose } from 'react-icons/gr'
 import { AppManager } from '@app/managers'
 import { FeedCell } from './cell'
 
-// side panel that appears fixed on the right of current issues of domain being scanned
+// side panel that appears fixed on the right of current issues of domain being
 const Feed: FC = () => {
   const classes = useStyles()
   const { issueFeed, setIssueFeedContent, scanWebsite } = useWebsiteContext()
@@ -34,20 +34,24 @@ const Feed: FC = () => {
         // current issue
         const issueItem = issues[issueIndex]
         const pageIssues = issuesClone[issueIndex]?.issues
-        const pageIssuesCount = pageIssues?.length
         // new issue
         const newIssue = data?.issue
+
+        // counters
+        const pageIssuesCount = pageIssues?.length
         const newIssuesCount = newIssue?.length
 
         if (issueItem) {
           const issueMessage =
             newIssuesCount > pageIssuesCount ? 'more' : 'less'
 
+          const issuesUpdated = pageIssuesCount !== newIssuesCount
+
           const issueDif = pageIssuesCount - newIssuesCount
 
           AppManager.toggleSnack(
             true,
-            pageIssuesCount !== newIssuesCount
+            issuesUpdated
               ? `${issueDif} ${issueMessage} issue${
                   issueDif === 1 ? '' : 's'
                 } found`
@@ -55,9 +59,9 @@ const Feed: FC = () => {
             'message'
           )
 
-          // no issues found. remove from array
+          // TODO: find what issues do not exist in each array and remove
           if (!newIssue || newIssuesCount === 0) {
-            issuesClone.splice(issueIndex, 1)
+            // issuesClone.splice(issueIndex, 1)
           } else {
             issuesClone[issueIndex].issues = data.issue
           }

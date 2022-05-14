@@ -1,15 +1,16 @@
-import React, {
-  Fragment,
-  memo,
-  SyntheticEvent,
-  useCallback,
-  useState,
-} from 'react'
+import React, { memo, SyntheticEvent, useCallback, useState } from 'react'
 import { IconButton } from '@material-ui/core'
-import { FeedIssuesList } from './render/issues-list'
 import { GrDown, GrUp } from 'react-icons/gr'
+import { FeedIssueCard } from '../feed/issue'
+import { Issue } from '@app/types'
 
-export function IssueFeedCellComponent({ item, handleToggle, listIndex }: any) {
+export function IssueFeedCellComponent({
+  item,
+  hideSelector,
+}: {
+  item: Partial<Issue>
+  hideSelector?: boolean
+}) {
   const [issueView, setIssueView] = useState<boolean>(true)
 
   const onToggleIssue = useCallback(
@@ -20,31 +21,16 @@ export function IssueFeedCellComponent({ item, handleToggle, listIndex }: any) {
     [setIssueView]
   )
 
-  const pageIssues = Array.isArray(item?.issues) ? item.issues : []
-
-  const mainUrl = item?.url || item?.pageUrl
-
-  const issueProps = {
-    handleToggle,
-    listIndex,
-    pageIssues,
-    item,
-  }
-
   const iconStyle = { height: 12, width: 12 }
 
   return (
-    <Fragment>
-      <li
+    <li className='border border-t-0 border-l-0 border-r-0'>
+      <div
         className={
           'flex flex-1 px-3 place-items-center py-1 border border-t-0 border-l-0 border-r-0'
         }
       >
-        <span
-          className={`flex-1 overflow-hidden text-ellipsis flex flex-1 text-lg`}
-        >
-          {mainUrl || item?.selector}
-        </span>
+        <p className={`flex flex-1 text-md line-clamp-2`}>{item?.selector}</p>
         <IconButton
           aria-label='toggle item visibility'
           aria-controls='menu-appbar-item'
@@ -57,9 +43,13 @@ export function IssueFeedCellComponent({ item, handleToggle, listIndex }: any) {
             <GrDown className='grIcon' style={iconStyle} />
           )}
         </IconButton>
-      </li>
-      {issueView ? <FeedIssuesList {...issueProps} /> : null}
-    </Fragment>
+      </div>
+      <div className={issueView ? 'visible' : 'hidden'}>
+        {issueView ? (
+          <FeedIssueCard {...item} hideSelector={hideSelector} />
+        ) : null}
+      </div>
+    </li>
   )
 }
 

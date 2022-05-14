@@ -1,7 +1,6 @@
 import React from 'react'
 import {
   AppBar,
-  Button,
   Dialog,
   List,
   Toolbar,
@@ -17,19 +16,21 @@ import { useInputHeader } from './hooks'
 
 import { Link } from './link'
 import { WebsitePrimaryCell } from './cells'
+import { Button } from './button'
+
 import { InputHeaders } from './input-headers'
 import { useWebsiteData } from '@app/data'
 import { GrClose } from 'react-icons/gr'
+import { Spacer } from './spacer'
+import { theme } from '@app-theme'
+import { AppManager } from '@app/managers'
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   menuButton: {
     marginRight: theme.spacing(2),
     [theme.breakpoints.down('sm')]: {
       marginRight: theme.spacing(1),
     },
-  },
-  list: {
-    paddingTop: 70,
   },
   submit: {
     margin: theme.spacing(1),
@@ -74,16 +75,20 @@ function UpperInput({ data, url }: any) {
       await updateWebsite({
         variables: { url, customHeaders, filter: '' },
       })
+      AppManager.toggleSnack(true, 'Headers updated successfully.')
+      // todo find website and apply headers
     } catch (e) {
       console.error(e)
+      AppManager.toggleSnack(true, e, 'error')
     }
   }
 
   return (
     <>
-      <div className={classes.list}>
+      <div className='py-2'>
         <InputHeaders {...inputProps} />
       </div>
+
       <Button className={classes.submit} onClick={onUpdateWebsite}>
         Update
       </Button>
@@ -111,19 +116,20 @@ export function FullScreenModal({
   const issueCount = data?.length
 
   const Body = () => {
-    if (headerModal) {
-      return <UpperInput data={data} url={url} />
-    }
-
     // if not open do not render content for large list content moving off screen
     if (!open) {
       return null
     }
 
-    return (
-      <List className={classes.list}>
-        {Array.isArray(data) && issueCount ? (
-          data?.map((item: any, listIndex: number) => {
+    if (headerModal) {
+      return <UpperInput data={data} url={url} />
+    }
+
+    // render the the list data exist
+    if (data && Array.isArray(data) && issueCount) {
+      return (
+        <List>
+          {data?.map((item: any, listIndex: number) => {
             return (
               <WebsitePrimaryCell
                 handleClickOpenPlayer={handleClickOpenPlayer}
@@ -140,23 +146,24 @@ export function FullScreenModal({
                 pagesModal={pagesModal}
               />
             )
-          })
-        ) : (
-          <Container>
-            <Typography variant='subtitle1' component='p'>
-              No data found yet, please try again later or reload the page.
-            </Typography>
-            <Button
-              aria-label='refetch data'
-              aria-haspopup='true'
-              onClick={() => refetch()}
-              color='inherit'
-            >
-              Reload Data
-            </Button>
-          </Container>
-        )}
-      </List>
+          })}
+        </List>
+      )
+    }
+
+    return (
+      <Container>
+        <Typography variant='subtitle1' component='p'>
+          No data found yet, please try again later or reload the page.
+        </Typography>
+        <Button
+          aria-label='refetch data'
+          aria-haspopup='true'
+          onClick={() => refetch()}
+        >
+          Reload Data
+        </Button>
+      </Container>
     )
   }
 
@@ -185,7 +192,7 @@ export function FullScreenModal({
                   {url}
                 </Link>
                 {issueCount && (issuesModal || pagesModal) ? (
-                  <p>
+                  <p className='truncate max-w-[50vw]'>
                     {issueCount} {issuesModal && error ? 'issue' : 'page'}
                     {issueCount === 1 ? '' : 's'}
                   </p>
@@ -195,6 +202,7 @@ export function FullScreenModal({
           </div>
         </Toolbar>
       </AppBar>
+      <Spacer height={theme.mixins.toolbar.minHeight} />
       <Body />
     </Dialog>
   )

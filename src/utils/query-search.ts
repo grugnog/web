@@ -1,16 +1,18 @@
+import { initUrl } from '@a11ywatch/website-source-builder'
+
 // search the query [url, autoTPT]
 export const searchQuery = (
-  url?: string,
+  url: string,
   insecureTransport?: boolean
 ): [string, boolean] => {
-  let tpt = ''
-  let squery = String(url).replace(/\s/g, '')
+  let squery = url
   let autoTPT = false
 
-  if (!/^(http|https)/.test(squery)) {
-    tpt = `http${insecureTransport ? '' : 's'}://`
+  if (/^(http|https)/.test(squery)) {
     autoTPT = true
   }
 
-  return [`${tpt}${squery}`, autoTPT]
+  const target = initUrl(url, insecureTransport)
+
+  return [target, autoTPT]
 }

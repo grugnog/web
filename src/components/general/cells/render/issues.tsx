@@ -1,7 +1,6 @@
 import React, { memo } from 'react'
 import { ListItem, ListItemIcon, Typography, Checkbox } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
-import { WithHighlight } from '@app/components/adhoc'
 import { getErrorColor } from '@app/lib/base-colors'
 
 const useStyles = makeStyles(() => ({
@@ -80,9 +79,12 @@ export function RenderIssueComponent({
         <Typography gutterBottom className={classes.secondSubtitle}>
           {message}
         </Typography>
-        <WithHighlight className={classes.code}>
+        <pre
+          className={`${classes.code} overflow-x-auto p-2 block text-white`}
+          style={{ tabSize: 4, backgroundColor: 'rgb(43, 43, 43)' }}
+        >
           {String(context)}
-        </WithHighlight>
+        </pre>
       </div>
     </ListItem>
   )

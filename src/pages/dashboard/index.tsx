@@ -69,6 +69,15 @@ function Dashboard({ name }: PageProps) {
 
   return (
     <>
+      {lhEnabled ? (
+        <style>
+          {`
+          .lh-topbar__url, .report-icon--download {
+            display: none !important;
+          }
+      `}
+        </style>
+      ) : null}
       <Drawer title={name}>
         <PageTitle
           title={'Websites'}

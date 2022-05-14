@@ -13,6 +13,7 @@ import {
   GrStatusWarning,
   GrTestDesktop,
 } from 'react-icons/gr'
+import { issueExtractor } from '@app/utils'
 
 const useStyles = makeStyles((theme: MergedTheme) => ({
   bar: {
@@ -46,6 +47,8 @@ const MFab = observer(({ iframeStore, issue, script, marketing }: any) => {
   const { highLight, toggleHighLight, setFrameContent } = useIframe()
   const { autoFixEnabled, setAutoFix } = useAutoFix(script)
 
+  const pageIssues = issueExtractor(issue)
+
   return (
     <Box className={classes.bar}>
       {!marketing ? (
@@ -69,12 +72,12 @@ const MFab = observer(({ iframeStore, issue, script, marketing }: any) => {
           </Button>
         </Tooltip>
       ) : null}
-      {issue?.issues?.length ? (
+      {pageIssues?.length ? (
         <Button className={classes.button} onClick={setMiniPlayerContent(true)}>
           <GrStatusWarning className={classes.icon} />
         </Button>
       ) : null}
-      {script?.cdnUrlMinified && issue?.issues?.length && !autoFixEnabled ? (
+      {script?.cdnUrlMinified && pageIssues?.length && !autoFixEnabled ? (
         <Button
           onClick={() =>
             frameDom.injectAutoFix({

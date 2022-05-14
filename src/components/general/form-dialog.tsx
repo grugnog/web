@@ -29,6 +29,14 @@ interface FormDialogProps {
   buttonStyles?: string
 }
 
+enum Standard {
+  'WCAG2A',
+  'WCAG2AA',
+  'WCAG2AAAA',
+}
+
+type WCAGStandard = typeof Standard[keyof typeof Standard]
+
 export function FormDialogWrapper({
   buttonTitle = 'Subscribe',
   okPress,
@@ -39,6 +47,8 @@ export function FormDialogWrapper({
   const [https, setTransportType] = useState<boolean>(true)
   const [pageInsights, setPageInsights] = useState<boolean>(true)
   const [mobileViewport, setMobile] = useState<boolean>(false)
+  const [ua, _setUserAgent] = useState<string>('')
+  const [standard, _setWCAGStandard] = useState<WCAGStandard>(Standard.WCAG2AA)
 
   const inputRef = useRef(null)
   const classes = useStyles()
@@ -133,31 +143,39 @@ export function FormDialogWrapper({
       const websiteUrl = `${tpt}${urlBase}${cleanUrl}${ex}`.trim()
       const websiteCustomHeaders = customHeader ? customFields : null
 
+      const validStandard = Standard[standard]
+
       const params = {
         url: websiteUrl,
         customHeaders: websiteCustomHeaders,
         pageInsights,
         mobile: mobileViewport,
+        ua,
+        standard: validStandard,
       }
 
       // CLOSE pre-optimistic prevent dialog unmount state error
       handleClose()
 
-      try {
-        if (okPress && typeof okPress === 'function') {
+      if (okPress && typeof okPress === 'function') {
+        try {
           await okPress(params)
-        } else {
-          AppManager.toggleSnack(
-            true,
-            'Checking all pages for issues, please wait...',
-            'success'
-          )
+        } catch (e) {
+          console.error(e)
+        }
+      } else {
+        AppManager.toggleSnack(
+          true,
+          'Checking all pages for issues, please wait...',
+          'success'
+        )
+        try {
           await addWebsite({
             variables: params,
           })
+        } catch (e) {
+          console.error(e)
         }
-      } catch (e) {
-        console.error(e)
       }
     },
     [

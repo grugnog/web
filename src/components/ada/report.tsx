@@ -73,7 +73,7 @@ export function ReportEmptyView() {
   )
 }
 export function ReportBody({ website }: { website: Website }) {
-  return <IssueList website={website} printable />
+  return <IssueList website={website} printable className={'w-full'} />
 }
 
 export function ReportInner({

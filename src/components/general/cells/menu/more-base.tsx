@@ -102,9 +102,6 @@ function MoreOptionsBaseComponent({
         <MenuItem onClick={handleMainClick(url, 'Mini Player', true)}>
           View Sandbox (Mini Player)
         </MenuItem>
-        {/* {typeof crawlWebsite === 'function' ? (
-          <MenuItem onClick={onWebsiteCrawl}>Scan</MenuItem>
-        ) : null} */}
         {children}
       </TopMenu>
     </>

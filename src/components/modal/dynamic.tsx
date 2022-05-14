@@ -25,7 +25,7 @@ const useStyles = makeStyles((theme) => ({
 export function DynamicModal() {
   const classes = useStyles()
   const { modelData, setModal } = useDynamicModal()
-  const { open, modalType, html } = modelData
+  const { open, modalType } = modelData
 
   const onClose = () => {
     if (typeof dynamicModalHandler?.onClose === 'function') {
@@ -46,7 +46,7 @@ export function DynamicModal() {
     >
       <div className={open ? 'visible' : 'hidden'}>
         <div className={classes.paper}>
-          <GetType modalType={modalType} html={html} />
+          <GetType modalType={modalType} />
         </div>
       </div>
     </Modal>

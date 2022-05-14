@@ -7,11 +7,7 @@ import {
   BASE_GQL_URL,
   STATUS_URL,
 } from '@app/configs/app-config'
-import dynamic from 'next/dynamic'
-
-const ReportViewer = dynamic(() => import('next-lighthouse'), {
-  ssr: false,
-}) as any
+import ReportViewer from 'next-lighthouse'
 
 import {
   AccessibilityBox,
@@ -32,6 +28,7 @@ const styles = {
   metaBlock: 'px-2 py-1 border',
 }
 
+// TODO: add types
 export function WebsiteCellDashboardComponent({
   url,
   removePress,
@@ -45,7 +42,6 @@ export function WebsiteCellDashboardComponent({
   cdnConnected,
   crawlWebsite,
   pageLoadTime,
-  mutatationLoading,
   lastScanDate,
   pageHeaders,
   index,
@@ -70,26 +66,33 @@ export function WebsiteCellDashboardComponent({
     setAnchorEl(null)
   }, [setAnchorEl])
 
-  const onRemovePress = useCallback(() => {
-    removePress({
-      variables: {
-        url,
-      },
-    })
+  const onRemovePress = useCallback(async () => {
+    try {
+      await removePress({
+        variables: {
+          url,
+        },
+      })
+    } catch (e) {
+      console.error(e)
+    }
   }, [url, removePress])
 
-  const handleMainClick = useCallback(
-    (eventData?: any, title?: string, mini?: boolean, url?: string) => () => {
-      if (mini) {
-        handleClickOpenPlayer(true, eventData, title)()
-      } else if (handleClickOpen) {
-        handleClickOpen(eventData, title, url)
-      }
+  const handleMainClick = (
+    eventData?: any,
+    title?: string,
+    mini?: boolean,
+    url?: string
+  ) => () => {
+    // mini player open - small modal with dynamic content
+    if (mini) {
+      handleClickOpenPlayer(true, eventData, title)()
+    } else if (handleClickOpen) {
+      handleClickOpen(eventData, title, url)
+    }
 
-      setAnchorEl(null)
-    },
-    [handleClickOpenPlayer, handleClickOpen, setAnchorEl]
-  )
+    setAnchorEl(null)
+  }
 
   // TODO: REMOVE ALL URL CLIENT APPENDING
   const cdnUrl = script?.cdnUrl
@@ -98,8 +101,12 @@ export function WebsiteCellDashboardComponent({
   const cdnUrlMinifed = script?.cdnUrlMinified
     ? `${SCRIPTS_CDN_URL_HOST}/${script?.cdnUrlMinified}`
     : 'N/A'
-  const statusBadgeUrl = `${STATUS_URL}/${domain}`
-  const reportsLink = `${BASE_GQL_URL}/${domain}`
+  const statusBadgeUrl = `${STATUS_URL}/${encodeURIComponent(domain)}`
+
+  const encodedUrl = encodeURIComponent(url)
+
+  const reportsLink = `${BASE_GQL_URL}/${encodedUrl}`
+  const reportsPageLink = `/reports/${encodedUrl}`
 
   const parsedInsight = useMemo(() => {
     // TODO: REMOVE DOUBLE PARSING OF JSON
@@ -120,7 +127,7 @@ export function WebsiteCellDashboardComponent({
   )
 
   return (
-    <li className={`border px-3 pt-2 rounded overflow-hidden`}>
+    <li className={`border-4 px-3 pt-2 rounded overflow-hidden`}>
       <div className='flex space-x-2 place-items-center'>
         <div className={`flex-1`}>
           <Link
@@ -155,40 +162,34 @@ export function WebsiteCellDashboardComponent({
         adaScore={adaScore}
         issues={issues}
         pageLoadTime={pageLoadTime}
-        mutatationLoading={mutatationLoading}
         lastScanDate={lastScanDate}
         pageHeaders={pageHeaders}
       />
 
       <div className={styles.spacing} />
 
-      <div className='space-y-1'>
-        <div className='grid xm:grid-cols-1 gap-1 sm:grid-cols-3'>
-          <AccessibilityBox
-            adaScore={adaScore}
-            adaScoreAverage={adaScoreAverage}
-          />
-          <PagesBox count={subDomains?.length} />
-          <LoadTimeBox duration={pageLoadTime?.duration} />
-        </div>
-        <div className='grid grid-cols-1 gap-1 sm:grid-cols-3'>
-          <HeadersBox pageHeaders={pageHeaders} />
-          <LighthouseBox pageInsights={pageInsights} />
-          <OnlineBox online={online} />
-        </div>
-        <div className='grid grid-cols-1 gap-1 sm:grid-cols-3'>
-          <CustomCDNBox
-            cdnUrl={cdnUrl}
-            cdnUrlMinifed={cdnUrlMinifed}
-            cdnConnected={cdnConnected}
-          />
-          <StatusBadgeBox
-            reportsLink={reportsLink}
-            statusBadgeUrl={statusBadgeUrl}
-            domain={domain}
-          />
-          <MobileBox mobile={mobile} url={url} />
-        </div>
+      <div className='grid grid-cols-1 gap-1 sm:grid-cols-3'>
+        <AccessibilityBox
+          adaScore={adaScore}
+          adaScoreAverage={adaScoreAverage}
+        />
+        <PagesBox count={subDomains?.length} />
+        <LoadTimeBox duration={pageLoadTime?.duration} />
+        <HeadersBox pageHeaders={pageHeaders} />
+        <LighthouseBox pageInsights={pageInsights} />
+        <OnlineBox online={online} />
+        <CustomCDNBox
+          cdnUrl={cdnUrl}
+          cdnUrlMinifed={cdnUrlMinifed}
+          cdnConnected={cdnConnected}
+        />
+        <StatusBadgeBox
+          reportsLink={reportsLink}
+          statusBadgeUrl={statusBadgeUrl}
+          domain={domain}
+          reportsPageLink={reportsPageLink}
+        />
+        <MobileBox mobile={mobile} url={url} />
       </div>
 
       <div className={styles.spacing} />
@@ -198,13 +199,6 @@ export function WebsiteCellDashboardComponent({
           pageInsights && lighthouseVisible ? 'visible' : 'hidden'
         }`}
       >
-        <style>
-          {`
-            .lh-topbar__url, .report-icon--download {
-              display: none !important;
-            }
-            `}
-        </style>
         <ReportViewer json={parsedInsight} />
       </div>
     </li>

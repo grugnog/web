@@ -5,10 +5,11 @@ import { IssueFeedCell } from '../general/cells'
 import { GrHide, GrSync, GrView } from 'react-icons/gr'
 import { IssueTitle } from './title'
 import type { IssueData } from '@app/data/local/useIssueFeed'
+import { issueExtractor } from '@app/utils'
 
 interface FeedCellComponent {
   issueIndex?: number
-  onScanEvent: any
+  onScanEvent: (u: string) => Promise<void>
   issue: IssueData
 }
 
@@ -18,12 +19,21 @@ const FeedCellComponent: FC<FeedCellComponent> = ({
   issue,
 }) => {
   const [sectionHidden, onToggleSection] = useState<boolean>(false)
-  const pageIssues = issue?.issues
+
+  const onScan = async () => {
+    try {
+      await onScanEvent(issue.pageUrl)
+    } catch (e) {
+      console.error(e)
+    }
+  }
+
+  const pageIssues = issueExtractor(issue) // array of issues force
 
   return (
     <div>
       <div className='flex px-2 place-items-center py-1 border border-x-0 border-t-0 h-15'>
-        <IssueTitle pageUrl={issue.pageUrl} />
+        <IssueTitle pageUrl={issue.pageUrl} domain={issue?.domain} />
         <IconButton onClick={() => onToggleSection((v) => !v)}>
           {sectionHidden ? (
             <GrView title={`Toggle items visible for ${issue.pageUrl}`} />
@@ -31,25 +41,23 @@ const FeedCellComponent: FC<FeedCellComponent> = ({
             <GrHide title={`Toggle items hidden for ${issue.pageUrl}`} />
           )}
         </IconButton>
-        <IconButton onClick={async () => await onScanEvent(issue.pageUrl)}>
+        <IconButton onClick={onScan}>
           <GrSync title={`Re scan ${issue.pageUrl} and sync`} />
         </IconButton>
       </div>
-      <div
-        className={`overflow-x-hidden${sectionHidden ? ' hidden' : 'visible'}`}
+      <ul
+        className={`overflow-x-hidden${sectionHidden ? ' hidden' : ' visible'}`}
       >
         {pageIssues?.map((item: any, i: number) => {
           return (
             <IssueFeedCell
-              key={i}
-              issuesModal
+              key={`${i} ${issueIndex}`}
               item={item}
-              listIndex={issueIndex}
-              url={issue.pageUrl}
+              hideSelector
             />
           )
         })}
-      </div>
+      </ul>
     </div>
   )
 }

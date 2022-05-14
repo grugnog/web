@@ -214,6 +214,7 @@ export const useWebsiteData = (
           dataSource.pageHeaders = updatedWebsite.pageHeaders
         }
 
+        // todo move to toggle feedback
         if (dataSource.pageInsights !== updatedWebsite.pageInsights) {
           AppManager.toggleSnack(
             true,
@@ -223,7 +224,9 @@ export const useWebsiteData = (
             'success'
           )
         }
+
         dataSource.pageInsights = updatedWebsite.pageInsights
+
         // TODO: MOVE STATE MANAGE OUT OF APOLLO CACHE
         forceUpdate()
       }
