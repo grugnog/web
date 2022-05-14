@@ -9,7 +9,9 @@ import {
 } from '@app/configs/app-config'
 import dynamic from 'next/dynamic'
 
-const ReportViewer = dynamic(() => import('react-lighthouse-viewer')) as any
+const ReportViewer = dynamic(() => import('next-lighthouse'), {
+  ssr: false,
+}) as any
 
 import {
   AccessibilityBox,
@@ -109,6 +111,7 @@ export function WebsiteCellDashboardComponent({
       }
       return parsed
     }
+    return {}
   }, [insight])
 
   const linkUrl = useMemo(
@@ -202,8 +205,7 @@ export function WebsiteCellDashboardComponent({
             }
             `}
         </style>
-        {/* @ts-ignore */}
-        {parsedInsight ? <ReportViewer json={parsedInsight} /> : null}
+        <ReportViewer json={parsedInsight} />
       </div>
     </li>
   )

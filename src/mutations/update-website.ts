@@ -41,7 +41,6 @@ export const UPDATE_WEBSITE = gql`
             json
           }
           issues {
-            url
             code
             type
             selector

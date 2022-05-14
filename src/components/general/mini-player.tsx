@@ -17,7 +17,7 @@ import { GrClose } from 'react-icons/gr'
 
 import dynamic from 'next/dynamic'
 
-const ReportViewer = dynamic(() => import('react-lighthouse-viewer')) as any
+const ReportViewer = dynamic(() => import('next-lighthouse')) as any
 const AdaIframe = dynamic(
   () => import('../ada/ada-iframe').then((mod) => mod.AdaIframe) as any
 ) as any

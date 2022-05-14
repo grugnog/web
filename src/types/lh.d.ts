@@ -1,1 +1,1 @@
-declare module 'react-lighthouse-viewer'
+declare module 'next-lighthouse'
