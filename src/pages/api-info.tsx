@@ -14,11 +14,6 @@ const useStyles = makeStyles((theme) => ({
   root: {
     overflow: 'hidden',
   },
-  row: {
-    display: 'flex',
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
   container: {
     marginTop: theme.spacing(2),
     marginBottom: theme.spacing(2),
@@ -32,21 +27,6 @@ const useStyles = makeStyles((theme) => ({
   },
   italic: {
     fontStyle: 'italic',
-  },
-  passwordTitle: {
-    marginRight: theme.spacing(2),
-  },
-  input: {
-    background: 'transparent',
-    color: theme.palette.text.primary,
-    textDecoration: 'underline',
-  },
-  smallInput: {
-    width: 70,
-  },
-  jwt: {
-    maxWidth: '50vw',
-    textAlign: 'left',
   },
 }))
 
@@ -129,12 +109,13 @@ function Api({ name }: PageProps) {
                 type='button'
                 onClick={toggleKey}
                 variant='outlined'
+                aria-label='Toggle api key visibility'
               >
                 {`${keyVisible ? 'HIDE' : 'VIEW'} TOKEN`}
               </Button>
               {keyVisible ? (
                 <div className={`${classes.container} relative`}>
-                  <button className='absolute right-2 -top-12 overflow-visible'>
+                  <div className='absolute right-2 -top-12 overflow-visible'>
                     <IconButton
                       aria-label='Copy your access token to clipboard'
                       onClick={copyText(token)}
@@ -142,7 +123,7 @@ function Api({ name }: PageProps) {
                     >
                       <GrCopy title='Copy to clipboard' />
                     </IconButton>
-                  </button>
+                  </div>
                   <p className='line-clamp-3'>{token}</p>
                 </div>
               ) : null}

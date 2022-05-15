@@ -1,6 +1,10 @@
 const tailwindColors = require('tailwindcss/colors')
 
 delete tailwindColors['lightBlue']
+// delete tailwindColors['warmGray']
+// delete tailwindColors['trueGray']
+// delete tailwindColors['coolGray']
+// delete tailwindColors['blueGray']
 
 const fontFamilys = [
   'system-ui',

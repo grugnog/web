@@ -28,6 +28,7 @@ function Scripts({ name }: PageProps) {
           }
           loading={loading}
           hasWebsite={!!websiteData?.length}
+          goToPayments
         >
           <CollaspeList dataSource={dataSource} loading={loading} cdn />
         </PageLoader>

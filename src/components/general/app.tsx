@@ -4,7 +4,6 @@ import { CssBaseline } from '@material-ui/core'
 import { ThemeProvider } from '@material-ui/core/styles'
 import { strings } from '@app-strings'
 import { theme } from '@app-theme'
-import { WithSnackBar } from '@app/components/adhoc'
 import { initAppModel, userModel } from '@app/data'
 import { LOGGIN_ROUTES } from '@app/configs'
 import { ping, startIntercom } from '@app/utils'
@@ -12,6 +11,7 @@ import { WebsiteProviderWrapper } from '@app/components/providers'
 import { RestWebsiteProviderWrapper } from '../providers/rest/rest-website'
 import { ErrorBoundary, SkipContent } from '@app/components/general'
 import type { InnerApp } from '@app/types/page'
+import { SnackBar } from './snack-bar'
 
 const authRoutes = LOGGIN_ROUTES.map((route) => route.replace('/', ''))
 
@@ -106,7 +106,7 @@ export function MyApp({ Component, pageProps }: InnerApp) {
         <ErrorBoundary>
           <MemoApp Component={Component} pageProps={pageProps} name={name} />
         </ErrorBoundary>
-        <WithSnackBar />
+        <SnackBar />
       </ThemeProvider>
     </Fragment>
   )

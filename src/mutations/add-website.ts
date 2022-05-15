@@ -50,6 +50,7 @@ export const ADD_WEBSITE = gql`
           value
         }
         issuesInfo {
+          adaScoreAverage
           issuesFixedByCdn
           possibleIssuesFixedByCdn
           totalIssues
@@ -57,6 +58,7 @@ export const ADD_WEBSITE = gql`
           skipContentIncluded
           errorCount
           warningCount
+          noticeCount
           limitedCount
         }
         issues {
@@ -89,7 +91,6 @@ export const ADD_WEBSITE = gql`
             selector
             message
             context
-            pageUrl
           }
         }
       }

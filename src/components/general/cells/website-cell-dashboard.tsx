@@ -18,8 +18,12 @@ import {
   OnlineBox,
   StatusBadgeBox,
   CustomCDNBox,
+  StandardBox,
+  IssuesBox,
+  WarningsBox,
 } from './blocks'
 import { MobileBox } from './blocks/mobile'
+import { Issue } from '@app/types'
 
 const styles = {
   title: 'text-xl md:text-3xl font-bold truncate',
@@ -52,6 +56,7 @@ export function WebsiteCellDashboardComponent({
   pageInsights,
   mobile,
   lighthouseVisible,
+  standard,
 }: any) {
   const [anchorEl, setAnchorEl] = useState<any>(null)
 
@@ -126,6 +131,37 @@ export function WebsiteCellDashboardComponent({
     [url]
   )
 
+  const { errorCount, warningCount, totalIssues } = useMemo(() => {
+    let errors = 0
+    let warnings = 0
+    let notices = 0
+
+    if (issues?.length) {
+      issues.forEach((iss: any) => {
+        const pageIssues = iss?.issues
+
+        pageIssues?.forEach((page: Issue) => {
+          if (page?.type === 'error') {
+            errors++
+          }
+          if (page?.type === 'warning') {
+            warnings++
+          }
+          if (page?.type === 'notice') {
+            notices++
+          }
+        })
+      })
+    }
+
+    return {
+      errorCount: errors,
+      warningCount: warnings,
+      noticeCount: notices,
+      totalIssues: errors + warnings + notices,
+    }
+  }, [issues])
+
   return (
     <li className={`border-4 px-3 pt-2 rounded overflow-hidden`}>
       <div className='flex space-x-2 place-items-center'>
@@ -155,9 +191,15 @@ export function WebsiteCellDashboardComponent({
           />
         </div>
       </div>
-
       <WebsiteSecondary
-        issuesInfo={issuesInfo}
+        issuesInfo={{
+          ...issuesInfo,
+          totalIssues:
+            totalIssues > issuesInfo?.totalIssues
+              ? totalIssues
+              : issuesInfo?.totalIssues,
+        }}
+        pageIssueCount={issues?.length}
         cdnConnected={cdnConnected}
         adaScore={adaScore}
         issues={issues}
@@ -165,16 +207,17 @@ export function WebsiteCellDashboardComponent({
         lastScanDate={lastScanDate}
         pageHeaders={pageHeaders}
       />
-
       <div className={styles.spacing} />
-
       <div className='grid grid-cols-1 gap-1 sm:grid-cols-3'>
         <AccessibilityBox
           adaScore={adaScore}
           adaScoreAverage={adaScoreAverage}
         />
+        <IssuesBox issues={errorCount} />
+        <WarningsBox issues={warningCount} />
         <PagesBox count={subDomains?.length} />
         <LoadTimeBox duration={pageLoadTime?.duration} />
+        <StandardBox standard={standard} />
         <HeadersBox pageHeaders={pageHeaders} />
         <LighthouseBox pageInsights={pageInsights} />
         <OnlineBox online={online} />
@@ -191,9 +234,7 @@ export function WebsiteCellDashboardComponent({
         />
         <MobileBox mobile={mobile} url={url} />
       </div>
-
       <div className={styles.spacing} />
-
       <div
         className={`py-2 ${
           pageInsights && lighthouseVisible ? 'visible' : 'hidden'

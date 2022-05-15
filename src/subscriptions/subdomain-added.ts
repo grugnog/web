@@ -27,7 +27,6 @@ export const SUBDOMAIN_SUBSCRIPTION = gql`
         selector
         message
         context
-        pageUrl
       }
     }
   }

@@ -42,7 +42,7 @@ function CtaCdn({ website, disablePlayground }: any) {
   const totalIssuesOnPage = website?.issuesInfo?.totalIssues ?? '_'
   const shouldBlock = disablePlayground
   const limitedResonse = website?.issuesInfo?.limitedCount
-    ? `This is a limited API response showing ${website.issuesInfo.limitedCount}/${totalIssuesOnPage} issues for the current page, sign in to see more.`
+    ? `This is a limited API response showing ${website.issuesInfo.limitedCount}/${totalIssuesOnPage} issues for the current page, sign in to see the full report across all pages.`
     : !website?.issues && 'Gathering details'
   const moreInfo = shouldBlock
     ? `Get all your pages issues at once and more after signing in`

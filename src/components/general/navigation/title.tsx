@@ -1,5 +1,4 @@
 import React from 'react'
-import { Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import { Logo } from './logo'
 import { Link } from '../link'
@@ -53,15 +52,12 @@ function NavBarTitle({
   }
 
   return (
-    <Typography
-      variant='h6'
-      noWrap
-      component={'div'}
-      className={`${classes.title} flex flex-1 place-items-center`}
+    <span
+      className={`text-2xl ${classes.title} flex flex-1 line-clamp-1`}
       {...props}
     >
       {children || title}
-    </Typography>
+    </span>
   )
 }
 

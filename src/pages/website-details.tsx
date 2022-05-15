@@ -1,5 +1,5 @@
 import React from 'react'
-import { NavBar, IssueModal, Pulse } from '@app/components/general'
+import { NavBar, IssueModal, Pulse, Fab } from '@app/components/general'
 import { useRouter } from 'next/router'
 import { issueData, scriptData } from '@app/data'
 import { metaSetter } from '@app/utils'
@@ -8,12 +8,6 @@ import dynamic from 'next/dynamic'
 const AdaIframe = dynamic(
   // @ts-ignore
   () => import('../components/ada/ada-iframe').then((mod) => mod.AdaIframe),
-  { loading: () => <Pulse />, ssr: false }
-) as any
-
-const Fab = dynamic(
-  // @ts-ignore
-  () => import('@app/components/general/fab').then((mod) => mod.Fab),
   { loading: () => <Pulse />, ssr: false }
 ) as any
 

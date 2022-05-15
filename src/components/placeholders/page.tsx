@@ -10,6 +10,7 @@ interface PageLoader {
   emptySubTitle?: string
   hasWebsite?: boolean
   error?: any
+  goToPayments?: boolean // navigate to payments page on empty display
 }
 export function PageLoader({
   loading,
@@ -19,6 +20,7 @@ export function PageLoader({
   emptySubTitle,
   hasWebsite = false,
   error = false,
+  goToPayments = false,
 }: PageLoader) {
   if (empty) {
     if (loading) {
@@ -30,6 +32,7 @@ export function PageLoader({
           emptyHeaderTitle={emptyTitle}
           emptyHeaderSubTitle={emptySubTitle}
           hasWebsite={hasWebsite}
+          goToPayments={goToPayments}
         />
       )
     }

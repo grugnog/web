@@ -5,6 +5,7 @@ import { useWebsiteContext } from '../providers/website'
 import { GrClose } from 'react-icons/gr'
 import { AppManager } from '@app/managers'
 import { FeedCell } from './cell'
+import { Website } from '@app/types'
 
 // side panel that appears fixed on the right of current issues of domain being
 const Feed: FC = () => {
@@ -19,65 +20,59 @@ const Feed: FC = () => {
   }, [setIssueFeedContent])
 
   const onScanEvent = async (target: string) => {
+    let webPage: Partial<Website> | null = null
+
     try {
-      const data = await scanWebsite({ variables: { url: target } })
-
-      // replace issue feed section with new value
-      if (data) {
-        // clone array to prevent mutation
-        const issuesClone = [...issues]
-        // new issue for page
-        const issueIndex = issuesClone.findIndex(
-          (source) => source.pageUrl === data?.url
-        )
-
-        // current issue
-        const issueItem = issues[issueIndex]
-        const pageIssues = issuesClone[issueIndex]?.issues
-        // new issue
-        const newIssue = data?.issue
-
-        // counters
-        const pageIssuesCount = pageIssues?.length
-        const newIssuesCount = newIssue?.length
-
-        if (issueItem) {
-          const issueMessage =
-            newIssuesCount > pageIssuesCount ? 'more' : 'less'
-
-          const issuesUpdated = pageIssuesCount !== newIssuesCount
-
-          const issueDif = pageIssuesCount - newIssuesCount
-
-          AppManager.toggleSnack(
-            true,
-            issuesUpdated
-              ? `${issueDif} ${issueMessage} issue${
-                  issueDif === 1 ? '' : 's'
-                } found`
-              : 'No new issues found',
-            'message'
-          )
-
-          // TODO: find what issues do not exist in each array and remove
-          if (!newIssue || newIssuesCount === 0) {
-            // issuesClone.splice(issueIndex, 1)
-          } else {
-            issuesClone[issueIndex].issues = data.issue
-          }
-        } else {
-          issuesClone.push({
-            pageUrl: data.url,
-            domain: data.domain,
-            issues: data.issue,
-          })
-        }
-
-        setIssueFeedContent(issuesClone, true)
-      }
+      webPage = await scanWebsite({ variables: { url: target } })
     } catch (e) {
-      console.error(e)
+      AppManager.toggleSnack(true, e, 'error')
     }
+
+    // clone array to prevent mutation
+    const issuesClone = [...issues]
+
+    // replace issue feed section with new value
+    if (webPage) {
+      const { url, issuesInfo } = webPage
+
+      // the current item in the feed
+      const pageIndex = issuesClone.findIndex(
+        (source) => source.pageUrl === url
+      )
+      const page = issuesClone[pageIndex]
+      const pageIssues = page?.issues || []
+
+      // old issues
+      const pageIssuesCount = pageIssues?.length ? pageIssues.length : 0
+      // new issues
+      const newIssuesCount = issuesInfo?.totalIssues ?? 0
+
+      // did the issues on the page update
+      const issuesUpdated = pageIssuesCount !== newIssuesCount
+
+      const issueMessage = newIssuesCount > pageIssuesCount ? 'more' : 'less'
+
+      const issueDif = pageIssuesCount - newIssuesCount
+
+      let message = 'No new issues found'
+
+      if (issuesUpdated) {
+        message = `${issueDif} ${issueMessage} issue${
+          issueDif === 1 ? '' : 's'
+        } found`
+      }
+
+      AppManager.toggleSnack(true, message, 'message')
+
+      // // TODO: find what issues do not exist in each array and remove
+      // if (!issue || newIssuesCount === 0) {
+      //   // issuesClone.splice(issueIndex, 1)
+      // } else if (issue && Array.isArray(issue)) {
+      //   page.issues = issue as any
+      // }
+    }
+
+    setIssueFeedContent(issuesClone, true)
   }
 
   if (issues.length && open) {

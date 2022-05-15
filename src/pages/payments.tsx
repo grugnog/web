@@ -81,6 +81,11 @@ function Payments({ hideTitle = false, name }: PaymentProps) {
         setStripe(stripePromise)
       }
     })()
+
+    // close the snackbar if routed from
+    if (AppManager.snackbar.open) {
+      AppManager.closeSnack()
+    }
   }, [])
 
   useEffect(() => {
@@ -144,23 +149,38 @@ function Payments({ hideTitle = false, name }: PaymentProps) {
   }
 
   const cancelConfirm = async () => {
+    let res
     try {
-      const res = await cancelSubscription({
+      res = await cancelSubscription({
         variables: {
           email: data?.email,
         },
       })
+    } catch (e) {
+      console.error(e)
+    }
+
+    if (res) {
       AppManager.toggleSnack(true, 'Payment cancelled!', 'success')
       setOpen(false)
+
       const jwt = res?.data?.cancelSubscription?.user.jwt
 
       if (jwt) {
         UserManager.setJwt(jwt)
       }
 
-      await router.push('/')
-    } catch (e) {
-      console.error(e)
+      try {
+        await router.push('/')
+      } catch (e) {
+        console.error(e)
+      }
+    } else {
+      AppManager.toggleSnack(
+        true,
+        'An Error occured trying to cancel. Please contact support.',
+        'error'
+      )
     }
   }
 

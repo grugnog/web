@@ -40,9 +40,13 @@ const GET_WEBSITES = gql`
           cdnUrlMinified
         }
         issuesInfo {
-          issuesFixedByCdn
+          adaScoreAverage
           possibleIssuesFixedByCdn
           totalIssues
+          issuesFixedByCdn
+          errorCount
+          warningCount
+          noticeCount
         }
         pageHeaders {
           key
@@ -67,9 +71,13 @@ const GET_WEBSITES = gql`
             color
           }
           issuesInfo {
-            issuesFixedByCdn
+            adaScoreAverage
             possibleIssuesFixedByCdn
             totalIssues
+            issuesFixedByCdn
+            errorCount
+            warningCount
+            noticeCount
           }
         }
         ${issuesFrag}

@@ -29,9 +29,16 @@ export const CRAWL_WEBSITE = gql`
           color
         }
         issuesInfo {
+          adaScoreAverage
           issuesFixedByCdn
           possibleIssuesFixedByCdn
           totalIssues
+          cdnConnected
+          skipContentIncluded
+          errorCount
+          warningCount
+          noticeCount
+          limitedCount
         }
       }
     }

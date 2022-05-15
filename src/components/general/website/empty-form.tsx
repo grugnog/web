@@ -2,6 +2,7 @@ import React, { memo, FC } from 'react'
 import { Button, CardHeader } from '@material-ui/core'
 import { FormDialog } from '../form-dialog'
 import Image from 'next/image'
+import { Link } from '../link'
 
 const infoDetails = [
   {
@@ -24,13 +25,17 @@ interface EmptyWebsiteProps {
   emptyHeaderTitle?: string
   emptyHeaderSubTitle?: string
   hasWebsite?: boolean
+  goToPayments?: boolean
 }
 
 const EmptyWebsiteFormComponent: FC<EmptyWebsiteProps> = ({
   emptyHeaderTitle = 'Empty',
   emptyHeaderSubTitle = 'Add your website below',
   hasWebsite = false,
+  goToPayments = false,
 }) => {
+  const goToHref = goToPayments ? '/payments' : '/'
+
   return (
     <div
       className={
@@ -43,11 +48,11 @@ const EmptyWebsiteFormComponent: FC<EmptyWebsiteProps> = ({
         titleTypographyProps={{ style: { fontSize: '3.1rem' } }}
       />
       {hasWebsite ? (
-        <Button href={'/'} type='a' variant={'outlined'}>
-          Go to Dashboard
+        <Button href={goToHref} component={Link} variant={'outlined'}>
+          Go to {goToPayments ? 'Payments' : 'Dashboard'}
         </Button>
       ) : (
-        <FormDialog />
+        <FormDialog buttonStyles={'min-w-[220px]'} />
       )}
       <div className={'flex space-items-center space-x-10 py-10'}>
         <ul

@@ -52,7 +52,7 @@ export function ReportViewComponentLeft({
       </Grid>
       <div className='flex space-x-2 place-items-center'>
         <Timer stop={!empty} />
-        <WebsiteSecondary {...website} />
+        <WebsiteSecondary {...website} pageIssueCount={1} />
       </div>
       <CtaCdn website={website} block disablePlayground={disablePlayground} />
       <Spacer />

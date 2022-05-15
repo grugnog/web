@@ -139,7 +139,6 @@ export const useWebsiteData = (
           if (dataSource) {
             const adaScoreAverage = completedWebsite.adaScoreAverage
             dataSource.adaScoreAverage = adaScoreAverage
-            dataSource.issueFeed = {} // reset to empty object
             AppManager.toggleSnack(
               true,
               `Crawl finished for ${completedWebsite.domain}. Average score across pages ${adaScoreAverage}`,

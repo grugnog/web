@@ -97,7 +97,7 @@ export function useSearch() {
     try {
       await scanPage(null, origin)
     } catch (e) {
-      console.log(data)
+      console.error(data)
     }
   }
 

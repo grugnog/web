@@ -15,6 +15,9 @@ function WebAccessibility({ name }: PageProps) {
     {
       href: 'https://developer.mozilla.org/en-US/docs/Web/Accessibility',
     },
+    {
+      href: 'https://www.section508.gov/test/testing-overview/',
+    },
   ]
 
   const linkStyle = {
@@ -121,15 +124,15 @@ function WebAccessibility({ name }: PageProps) {
           target='_blank'
           style={linkStyle}
         >
-          https://chakra-ui.com
+          Chakra UI
         </ListItem>
         <ListItem
-          href={'https://a11ywatch.github.io/ui/?path=/story/box--accessible'}
+          href={'https://react-icons.github.io/react-icons/icons?name=gr'}
           component={'a'}
           target='_blank'
           style={linkStyle}
         >
-          @a11ywatch/ui
+          GrIcons
         </ListItem>
       </List>
       <Typography variant='h4' component='h3' gutterBottom style={bold}>

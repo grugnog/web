@@ -21,8 +21,8 @@ function WebsiteAccessibilityChecker({ name }: PageProps) {
               Live web accessibility testing
             </h3>
             <p className='text-lg'>
-              Scan your website and get lightning fast results for free. Sign up
-              today to get site-wide monitoring and other web accessibility
+              Scan your website and get near instant results free. Sign up today
+              to get site-wide monitoring and other web accessibility
               improvement tools right in the browser or your own servers. Theres
               multiple entry points to get started keeping your website
               inclusive.

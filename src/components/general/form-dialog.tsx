@@ -10,6 +10,10 @@ import {
   FormControlLabel,
   IconButton,
   Tooltip,
+  FormControl,
+  Select,
+  MenuItem,
+  InputLabel,
 } from '@material-ui/core'
 import { Button } from '@app/components/general'
 import { domainList as dmList } from '@app/utils'
@@ -32,10 +36,12 @@ interface FormDialogProps {
 enum Standard {
   'WCAG2A',
   'WCAG2AA',
-  'WCAG2AAAA',
+  'WCAG2AAA',
 }
 
-type WCAGStandard = typeof Standard[keyof typeof Standard]
+const standards = Object.values(Standard).filter(
+  (value) => typeof value === 'string'
+)
 
 export function FormDialogWrapper({
   buttonTitle = 'Subscribe',
@@ -48,7 +54,7 @@ export function FormDialogWrapper({
   const [pageInsights, setPageInsights] = useState<boolean>(true)
   const [mobileViewport, setMobile] = useState<boolean>(false)
   const [ua, _setUserAgent] = useState<string>('')
-  const [standard, _setWCAGStandard] = useState<WCAGStandard>(Standard.WCAG2AA)
+  const [standard, setWCAGStandard] = useState<string>(Standard[1])
 
   const inputRef = useRef(null)
   const classes = useStyles()
@@ -73,6 +79,13 @@ export function FormDialogWrapper({
       setUrl(event.target.value)
     },
     [setUrl]
+  )
+
+  const onStandardChange = useCallback(
+    (event: any) => {
+      setWCAGStandard(event.target.value)
+    },
+    [setWCAGStandard]
   )
 
   const handleClose = useCallback(() => {
@@ -143,15 +156,13 @@ export function FormDialogWrapper({
       const websiteUrl = `${tpt}${urlBase}${cleanUrl}${ex}`.trim()
       const websiteCustomHeaders = customHeader ? customFields : null
 
-      const validStandard = Standard[standard]
-
       const params = {
         url: websiteUrl,
         customHeaders: websiteCustomHeaders,
         pageInsights,
         mobile: mobileViewport,
         ua,
-        standard: validStandard,
+        standard,
       }
 
       // CLOSE pre-optimistic prevent dialog unmount state error
@@ -188,6 +199,8 @@ export function FormDialogWrapper({
       https,
       pageInsights,
       mobileViewport,
+      standard,
+      ua,
     ]
   )
 
@@ -206,16 +219,14 @@ export function FormDialogWrapper({
 
   return (
     <Fragment>
-      <Button
-        onClick={handleClickOpen}
-        className={[buttonStyles].join(' ').trim()}
-      >
+      <Button onClick={handleClickOpen} className={buttonStyles}>
         {buttonTitle}
       </Button>
       <Dialog
         open={open}
         onClose={handleClose}
         aria-labelledby='form-dialog-title'
+        maxWidth={'xl'}
       >
         <div className={classes.topRow}>
           <DialogTitle id='form-dialog-title' className={classes.topTitle}>
@@ -251,7 +262,7 @@ export function FormDialogWrapper({
               required
             />
             <div
-              className={`${classes.row} overflow-x-hidden hover:overflow-x-auto`}
+              className={`flex flex-1 place-items-center space-x-3 py-2 overflow-x-auto`}
             >
               <Tooltip title={'Use http or https for protocol on scans'}>
                 <FormControlLabel
@@ -322,6 +333,41 @@ export function FormDialogWrapper({
                   }
                   label='Headers'
                 />
+              </Tooltip>
+              <Tooltip title={'Select WCAG report standard.'}>
+                <FormControl
+                  className={classes.formControl}
+                  style={{ paddingLeft: 3 }}
+                >
+                  <InputLabel
+                    id='extany-select-outlined-label'
+                    className='sr-only'
+                    style={{ marginTop: 0 }}
+                  >
+                    WCAG Standard
+                  </InputLabel>
+                  <Select
+                    labelId='extany-select-outlined-label'
+                    id='ext-select-outlined'
+                    value={standard}
+                    style={{ marginTop: 0, border: 'none' }}
+                    onChange={onStandardChange}
+                    classes={{
+                      selectMenu: classes.inputSelect,
+                    }}
+                  >
+                    {standards.map((value: any) => (
+                      <MenuItem
+                        value={value}
+                        key={value}
+                        dense
+                        style={{ fontSize: '1rem' }}
+                      >
+                        {value && String(value)?.toUpperCase()}
+                      </MenuItem>
+                    ))}
+                  </Select>
+                </FormControl>
               </Tooltip>
             </div>
             {customHeader ? <InputHeaders {...inputProps} /> : null}

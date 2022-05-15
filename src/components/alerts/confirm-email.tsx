@@ -5,7 +5,7 @@ const classes = {
   sticky: 'fixed flex justify-center bottom-11 left-0 right-0 z-[1001]',
   container: 'border p-3',
   text: 'font-bold text-xl',
-  btn: 'flex rounded place-items-center px-2 py-1 border',
+  btn: 'flex rounded place-items-center px-2 py-1 border-2',
 }
 
 interface Props {

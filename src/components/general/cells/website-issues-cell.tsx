@@ -177,8 +177,8 @@ export function WebsiteIssuesCell({
             />
           )}
         </div>
-        {error ? (
-          <ListItemSecondaryAction>
+        <ListItemSecondaryAction>
+          {error ? (
             <IconButton
               aria-label='toggle item visibility'
               aria-controls='menu-appbar-item'
@@ -187,9 +187,7 @@ export function WebsiteIssuesCell({
             >
               {issueView ? <GrUp /> : <GrDown />}
             </IconButton>
-          </ListItemSecondaryAction>
-        ) : (
-          <ListItemSecondaryAction>
+          ) : (
             <MoreOptionsBase
               handleMainClick={handleMainClick}
               anchorEl={anchorEl}
@@ -198,8 +196,8 @@ export function WebsiteIssuesCell({
               pageUrl={mainUrl}
               {...issueProps}
             />
-          </ListItemSecondaryAction>
-        )}
+          )}
+        </ListItemSecondaryAction>
       </ListItem>
       {issueView ? <RenderIssuesList {...issueProps} /> : null}
     </Fragment>

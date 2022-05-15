@@ -2,14 +2,6 @@ import { makeStyles } from '@material-ui/core/styles'
 import type { MergedTheme } from '@app/theme'
 
 export const formDialogStyles = makeStyles((theme: MergedTheme) => ({
-  row: {
-    flexDirection: 'row',
-    flex: 1,
-    display: 'flex',
-    alignItems: 'center',
-    paddingTop: theme.spacing(1),
-    paddingBottom: theme.spacing(1) - 4.2,
-  },
   addButton: {
     marginLeft: theme.spacing(1),
   },
@@ -29,11 +21,10 @@ export const formDialogStyles = makeStyles((theme: MergedTheme) => ({
     marginLeft: 4,
   },
   formLabel: {
-    paddingLeft: 2,
-    paddingRight: 2,
+    padding: 0,
+    margin: 0,
     [theme.breakpoints.down('md')]: {
       marginLeft: 'auto',
-      marginRight: 6,
     },
   },
   formLabelText: {
@@ -43,9 +34,10 @@ export const formDialogStyles = makeStyles((theme: MergedTheme) => ({
     },
   },
   inputSelect: {
+    fontSize: '1rem',
+    paddingLeft: 4,
     [theme.breakpoints.down('md')]: {
       fontSize: 13,
-      paddingRight: 2,
     },
     maxHeight: '50vh',
   },
@@ -55,13 +47,15 @@ export const formDialogStyles = makeStyles((theme: MergedTheme) => ({
     },
   },
   formControl: {
-    marginLeft: 4,
-    marginRight: 10,
     width: 'auto',
-    minWidth: 70,
+    margin: 0,
+    padding: 0,
+    minWidth: 120,
     [theme.breakpoints.down('md')]: {
-      marginLeft: 'auto',
-      minWidth: 60,
+      minWidth: 100,
+    },
+    [theme.breakpoints.down('md')]: {
+      minWidth: 80,
     },
   },
   topRow: {

@@ -106,7 +106,9 @@ const NavBarComponent = ({
         {toolbar || children ? (
           toolbar || children
         ) : (
-          <div className={`flex flex-1 place-content-center`}>
+          <div
+            className={`flex flex-1 place-content-center place-items-center`}
+          >
             {backButton || !marketing ? (
               <IconButton className={classes.menu} {...buttonProps}>
                 {backButton ? <GrLinkPrevious /> : <Logo />}

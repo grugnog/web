@@ -77,19 +77,22 @@ export type HistoryIssuesArgs = {
   filter?: Maybe<Scalars['String']>
 }
 
-export type Issue = {
+export interface PageIssue {
+  code?: string
+  context?: string
+  message?: string
+  runner?: string // what what used for testing
+  type?: string
+  selector?: string
+  typeCode?: number
+}
+
+// TODO refactor
+export interface Issue extends PageIssue {
   __typename?: 'Issue'
   documentTitle?: Maybe<Scalars['String']>
-  code?: Maybe<Scalars['String']>
-  type?: Maybe<Scalars['String']>
-  typeCode?: Maybe<Scalars['Int']>
-  message?: Maybe<Scalars['String']>
-  context?: Maybe<Scalars['String']>
-  selector?: Maybe<Scalars['String']>
-  runner?: Maybe<Scalars['String']>
-  issue?: Maybe<Issue>
-  issues?: Maybe<Array<Maybe<Issue>>>
-  url?: Maybe<Scalars['String']>
+  issue?: Maybe<PageIssue>
+  issues?: Maybe<Array<Maybe<PageIssue>>>
   domain?: Maybe<Scalars['String']>
   pageUrl?: Maybe<Scalars['String']>
 }

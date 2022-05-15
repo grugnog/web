@@ -11,6 +11,17 @@ import { AppManager } from '@app/managers'
 import { Link } from './link'
 import { GrClose } from 'react-icons/gr'
 
+const upgradeRequired = (text: string) =>
+  text.includes('max websites added') ||
+  text.includes('upgrade your account') ||
+  text.includes(
+    'you hit your scan limit for the day, please try again tomorrow.'
+  ) ||
+  text.includes(
+    'you hit your scan limit for the day, please try again tomorrow to add your website.'
+  ) ||
+  text === 'you need to upgrade your account to edit scripts'
+
 const SnackbarContainer = observer(({ store }: any) => {
   if (!store?.snackbar) {
     return null
@@ -20,18 +31,16 @@ const SnackbarContainer = observer(({ store }: any) => {
     ? String(store?.snackbar?.title).toLowerCase()
     : ''
 
-  const needsUpgrade =
-    lowerCaseText.includes('max websites added') ||
-    lowerCaseText.includes('upgrade your account') ||
-    lowerCaseText === 'you need to upgrade your account to edit scripts'
-
+  const needsUpgrade = upgradeRequired(lowerCaseText)
   const marketingRedirect = lowerCaseText.includes('redirected to dashboard')
 
   const handleClose = (_: any, reason: string): any => {
     if (reason === 'clickaway') {
       return
     }
-    store.closeSnack()
+    if (store && store.closeSnack) {
+      store.closeSnack()
+    }
   }
 
   return (
@@ -51,7 +60,7 @@ const SnackbarContainer = observer(({ store }: any) => {
           <div className='line-clamp-2 max-w-[76vw]'>
             <p
               id='message-id'
-              className={`text-lg line-clamp-4 ${
+              className={`text-lg line-clamp-1 ${
                 store.snackbar.type === 'error' ? 'text-red-500' : 'text-black'
               }`}
             >
