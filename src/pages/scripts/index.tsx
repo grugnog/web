@@ -9,7 +9,7 @@ import { useWebsiteContext } from '@app/components/providers/website'
 
 function Scripts({ name }: PageProps) {
   const { data: websiteData } = useWebsiteContext()
-  const { data, loading } = scriptsData()
+  const { data, activeSubscription, loading } = scriptsData()
   const { search } = useSearchFilter()
 
   const dataSource = useMemo(
@@ -24,11 +24,13 @@ function Scripts({ name }: PageProps) {
         <PageLoader
           empty={Object.keys(dataSource).length === 0}
           emptySubTitle={
-            'Scripts will appear here for basic or premium accounts.'
+            activeSubscription
+              ? 'Scripts will appear here after your next scan if issues arise.'
+              : 'Scripts will appear here for basic or premium accounts.'
           }
           loading={loading}
           hasWebsite={!!websiteData?.length}
-          goToPayments
+          goToPayments={!activeSubscription}
         >
           <CollaspeList dataSource={dataSource} loading={loading} cdn />
         </PageLoader>

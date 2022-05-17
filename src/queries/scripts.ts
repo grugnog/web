@@ -4,6 +4,7 @@ const GET_SCRIPTS = gql`
   query getScripts($filter: String) {
     user {
       id
+      activeSubscription
       scripts(filter: $filter) {
         pageUrl
         domain
@@ -26,6 +27,7 @@ const GET_SCRIPT = gql`
   query getScript($filter: String, $url: String) {
     user {
       id
+      activeSubscription
       script(filter: $filter, url: $url) {
         pageUrl
         domain

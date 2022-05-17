@@ -12,7 +12,20 @@ function Alerts({ name }: PageProps) {
     filterEmailDatesData,
     onFilterEmailDates,
     filterEmailDatesLoading,
+    data, // user
+    loading,
   } = userData()
+
+  if (!data && !loading) {
+    return (
+      <div className='px-2'>
+        <PageTitle title={'Alerts'} />
+        <div className='p-4 text-2xl'>
+          Authentication required for alerts. Please login to continue.
+        </div>
+      </div>
+    )
+  }
 
   return (
     <>
