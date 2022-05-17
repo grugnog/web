@@ -60,7 +60,7 @@ const SnackbarContainer = observer(({ store }: any) => {
           <div className='line-clamp-2 max-w-[76vw]'>
             <p
               id='message-id'
-              className={`text-lg line-clamp-1 ${
+              className={`text-lg line-clamp-2 ${
                 store.snackbar.type === 'error' ? 'text-red-500' : 'text-black'
               }`}
             >

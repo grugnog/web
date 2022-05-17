@@ -7,12 +7,7 @@ import { strings } from '@app-strings'
 
 import { Link } from './link'
 import { FixedCopyRight } from './fixed-copy-right'
-import {
-  GithubBadge,
-  TwitterBadge,
-  FacebookBadge,
-  LinkedinBadge,
-} from '../badges'
+import { GithubBadge, TwitterBadge } from '../badges'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -172,16 +167,13 @@ const Footer = ({
             <ul
               className={`${classes.linkContainer} ${classes.socialContainer}`}
             >
-              {[
-                { Icon: TwitterBadge },
-                { Icon: GithubBadge },
-                { Icon: FacebookBadge },
-                { Icon: LinkedinBadge },
-              ].map(({ Icon }: any, i: number) => (
-                <li className={classes.link} key={i}>
-                  <Icon inline />
-                </li>
-              ))}
+              {[{ Icon: TwitterBadge }, { Icon: GithubBadge }].map(
+                ({ Icon }: any, i: number) => (
+                  <li className={classes.link} key={i}>
+                    <Icon inline />
+                  </li>
+                )
+              )}
             </ul>
           </div>
           <SectionLinks title={'Explore'} />

@@ -33,7 +33,7 @@ const useStyles = makeStyles((theme) => ({
 const SectionTitle = ({ children, className, bold }: any) => {
   return (
     <h2
-      className={`text-2xl ${bold ? 'font-bold' : ''}${
+      className={`text-3xl ${bold ? 'font-bold' : ''}${
         className ? ' ' + className : ''
       }`}
     >
@@ -83,7 +83,7 @@ function Api({ name }: PageProps) {
       />
       <Container maxWidth='xl' className={classes.root}>
         <Box>
-          <PageTitle title={'API Details and Usage'} />
+          <PageTitle title={'The Web Acessibility API Documentation'} />
           <p className='text-lg'>
             In order to get started using the A11yWatch API you need to add a
             authorization header with the jwt format <b>Bearer TOKEN</b>.
@@ -133,7 +133,7 @@ function Api({ name }: PageProps) {
 
         <Box>
           <SectionTitle variant='subtitle1' bold>
-            Daily Allowed Usage
+            REST web accessibility and vitals endpoints.
           </SectionTitle>
           {!data?.user && loading ? (
             <TextSkeleton className={classes.email} />
@@ -145,20 +145,39 @@ function Api({ name }: PageProps) {
               to see your API limits.
             </p>
           ) : (
-            <SectionTitle className={classes.email}>
-              {user?.apiUsage?.usage || 0}/{apiLimit}
-            </SectionTitle>
+            <>
+              <p className='text-lg'>
+                Daily Allowed Usage {user?.apiUsage?.usage || 0}/{apiLimit}
+              </p>
+              <p className={'text-sm'}>
+                Your limit will reset on your next API request if {`it's`} the
+                next day.
+              </p>
+            </>
           )}
         </Box>
 
         <Box>
-          <h3 className='text-xl font-bold'>API Endpoints</h3>
-          <h4 className='text-lg pb-1'>Scan a website for issues.</h4>
-          <code className='border block p-2 rounded bg-gray-100'>
+          <h3 className='text-2xl font-bold'>API Endpoints</h3>
+          <h4 className='text-xl py-2'>Single page website scan.</h4>
+          <h5 className='py-1'>
+            Endpoint: https://api.a11ywatch.com/api/scan-simple
+          </h5>
+          <code className='border block p-1 rounded bg-gray-100'>
             {`curl --location --request POST 'https://api.a11ywatch.com/api/scan-simple' \
 --header 'Authorization: $A11YWATCH_TOKEN' \
 --header 'Content-Type: application/x-www-form-urlencoded' \
---data-urlencode 'websiteUrl=https://www.nytimes.com'`}
+--data-urlencode 'websiteUrl=https://www.jeffmendez.com'`}
+          </code>
+          <h4 className='text-xl py-1'>Multi page website scan.</h4>
+          <h5 className='py-1'>
+            Endpoint: https://api.a11ywatch.com/api/crawl
+          </h5>
+          <code className='border block p-2 rounded bg-gray-100'>
+            {`curl --location --request POST 'https://api.a11ywatch.com/api/crawl' \
+--header 'Authorization: $A11YWATCH_TOKEN' \
+--header 'Content-Type: application/x-www-form-urlencoded' \
+--data-urlencode 'websiteUrl=https://www.jeffmendez.com'`}
           </code>
         </Box>
 

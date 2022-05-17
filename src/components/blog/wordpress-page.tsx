@@ -27,6 +27,7 @@ const Page: FC<BlogPageProps> = ({
   metas,
   headScripts,
   bodyScripts,
+  children,
 }) => {
   const memoHeadScripts = useMemo(
     () =>
@@ -58,7 +59,9 @@ const Page: FC<BlogPageProps> = ({
   return (
     <>
       <Head>
-        <title key='title'>{title || `Blog - ${websiteUrl}`}</title>
+        <title key='title'>
+          {title || `Blog${websiteUrl ? ` - ${websiteUrl}` : ''}`}
+        </title>
         <link rel='alternate' hrefLang='en' />
         {links?.map((node, index) => (
           <Fragment key={`${node?.id}-${index}`}>
@@ -86,7 +89,11 @@ const Page: FC<BlogPageProps> = ({
         {memoHeadScripts}
       </Head>
       <NavBar title={`The ${companyName} Blog`} />
-      <div className='light-background'>{parser(html)}</div>
+      {children ? (
+        children
+      ) : (
+        <div className='light-background'>{parser(html)}</div>
+      )}
       <Footer blog />
       {memoBodyScripts}
     </>
