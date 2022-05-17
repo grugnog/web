@@ -59,11 +59,13 @@ const useStyles = makeStyles((theme) => ({
 interface SignOnProps {
   loginView?: boolean
   home?: boolean
+  googleLoginSkeleton?: boolean
 }
 
 const SignOnFormWrapper: FunctionComponent<SignOnProps> = ({
   loginView,
   home,
+  googleLoginSkeleton = false,
 }) => {
   const router = useRouter()
   const classes = useStyles()
@@ -158,6 +160,7 @@ const SignOnFormWrapper: FunctionComponent<SignOnProps> = ({
             loginView={loginView}
             onSuccess={onGoogleAuth}
             classes={classes}
+            skeleton={googleLoginSkeleton}
           />
           <Typography variant='overline' component='p' className={classes.or}>
             Or

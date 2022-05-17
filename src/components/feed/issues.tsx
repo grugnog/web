@@ -25,7 +25,8 @@ const Feed: FC = () => {
     try {
       webPage = await scanWebsite({ variables: { url: target } })
     } catch (e) {
-      AppManager.toggleSnack(true, e, 'error')
+      console.error(e)
+      return
     }
 
     // clone array to prevent mutation

@@ -1,20 +1,25 @@
-import React from 'react'
+import React, { useRef } from 'react'
 import VisibilitySensor from 'react-visibility-sensor'
-import { WithSignOnForm } from '../adhoc'
-import { SectionContainer } from '../general'
-import { SignOnFormSkeleton } from '../placeholders'
+import { SectionContainer, SignOnForm } from '../general'
 
 export function CtaSignonForm() {
-  let loaded = false
+  const loaded = useRef<boolean>(false)
+
+  const onChange = (isVisible: boolean) => {
+    if (!loaded?.current && isVisible) {
+      loaded.current = true
+    }
+  }
+
   return (
-    <VisibilitySensor partialVisibility>
+    <VisibilitySensor partialVisibility onChange={onChange}>
       {({ isVisible }) => {
-        if (!loaded && isVisible) {
-          loaded = true
-        }
         return (
           <SectionContainer className={'bg-gray-100'}>
-            {loaded ? <WithSignOnForm home /> : <SignOnFormSkeleton />}
+            <SignOnForm
+              home
+              googleLoginSkeleton={!loaded.current && !isVisible}
+            />
           </SectionContainer>
         )
       }}
