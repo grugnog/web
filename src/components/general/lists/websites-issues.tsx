@@ -1,4 +1,4 @@
-import React, { FC, useState, useEffect, memo } from 'react'
+import React, { FC, useState, useEffect, useCallback, memo } from 'react'
 import { List as MUList, CardHeader } from '@material-ui/core'
 
 import { useMiniPlayer } from '@app/data'
@@ -124,9 +124,9 @@ export function ListComponent({
     setOpen({ open: true, data, title, url, error })
   }
 
-  const handleClose = () => {
+  const handleClose = useCallback(() => {
     setOpen(defaultModalState)
-  }
+  }, [setOpen])
 
   useEffect(() => {
     if (miniPlayer.open) {

@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react'
 import { Button, Typography } from '@material-ui/core'
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles'
-import { LinkPrefetch } from '@app/components/general/link'
+import { Link } from '@app/components/general/link'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -67,7 +67,7 @@ function CtaCdn({ website, disablePlayground }: any) {
       {disablePlayground ? null : (
         <span className={classes.row} style={{ marginTop: 12 }}>
           <Button
-            component={LinkPrefetch}
+            component={Link}
             href={'/login'}
             color={'secondary'}
             variant={'contained'}
@@ -76,7 +76,7 @@ function CtaCdn({ website, disablePlayground }: any) {
             Login
           </Button>
           <Button
-            component={LinkPrefetch}
+            component={Link}
             href={'/register'}
             color={'secondary'}
             variant={'outlined'}
