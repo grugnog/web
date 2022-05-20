@@ -165,7 +165,7 @@ export function WebsiteCellDashboardComponent({
   return (
     <li className={`border-4 px-3 pt-2 rounded overflow-hidden`}>
       <div className='flex space-x-2 place-items-center'>
-        <div className={`flex-1`}>
+        <div className={`${styles.title} flex-1`}>
           <Link
             title={`view in sandbox ${url}`}
             href={linkUrl}
