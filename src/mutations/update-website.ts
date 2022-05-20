@@ -46,7 +46,6 @@ export const UPDATE_WEBSITE = gql`
             selector
             message
             context
-            pageUrl
           }
         }
         issues {

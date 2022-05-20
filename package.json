@@ -40,7 +40,7 @@
     "isomorphic-unfetch": "^3.1.0",
     "mobx": "5.15.7",
     "mobx-persist": "0.4.1",
-    "mobx-react": "6.3.1",
+    "mobx-react-lite": "2.2.2",
     "next": "12.1.5",
     "next-intercom": "0.1.4",
     "next-lighthouse": "^1.0.7",

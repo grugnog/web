@@ -1,5 +1,5 @@
 import React, { useRef } from 'react'
-import { observer } from 'mobx-react'
+import { observer } from 'mobx-react-lite'
 import { Modal, Paper, Typography, IconButton } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import { AdaManager } from '@app/managers'

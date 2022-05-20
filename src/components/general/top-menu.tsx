@@ -1,5 +1,10 @@
 import React, { memo } from 'react'
-import { Menu } from '@material-ui/core'
+import { Menu, PopoverOrigin, Fade } from '@material-ui/core'
+
+const originProp: PopoverOrigin = {
+  vertical: 'top',
+  horizontal: 'right',
+}
 
 export function TopMenuComponent({
   children,
@@ -13,17 +18,13 @@ export function TopMenuComponent({
   open: boolean
   onClose?: any
 }) {
-  const originProp: any = {
-    vertical: 'top',
-    horizontal: 'right',
-  }
   return (
     <Menu
       id={id}
+      TransitionComponent={Fade}
       anchorEl={anchorEl}
       anchorOrigin={originProp}
       transformOrigin={originProp}
-      keepMounted
       {...props}
     >
       {children}

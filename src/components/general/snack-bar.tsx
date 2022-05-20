@@ -1,5 +1,5 @@
 import React, { memo } from 'react'
-import { observer } from 'mobx-react'
+import { observer } from 'mobx-react-lite'
 
 import {
   Snackbar as MUISnackbar,

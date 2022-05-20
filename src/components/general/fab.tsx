@@ -1,5 +1,5 @@
 import React from 'react'
-import { observer } from 'mobx-react'
+import { observer } from 'mobx-react-lite'
 import { frameDom, IframeManager } from '@app/managers'
 import { Button, Tooltip } from '@material-ui/core'
 import { useAutoFix, useMiniPlayer, useIframe } from '@app/data'

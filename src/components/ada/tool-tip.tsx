@@ -1,6 +1,6 @@
 import React from 'react'
 import { observable, action } from 'mobx'
-import { observer } from 'mobx-react'
+import { observer } from 'mobx-react-lite'
 import {
   alignCenter,
   tipType,
@@ -66,6 +66,7 @@ const ToolTip = ({
   contrastRatio,
   message,
 }: any) => {
+  // convert to useState instead
   const store = observable({
     textFix: contrastRatio >= 3,
     toggle: action(() => {

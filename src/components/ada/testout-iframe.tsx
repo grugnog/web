@@ -1,5 +1,5 @@
 import React, { Fragment, useRef, useEffect } from 'react'
-import { observer } from 'mobx-react'
+import { observer } from 'mobx-react-lite'
 import { toJS } from 'mobx'
 import { mainFixed, mainFrame } from '@app/stylesheets/index.module.css'
 import { IframeManager, HomeManager, frameDom } from '@app/managers'

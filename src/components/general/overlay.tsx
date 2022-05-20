@@ -1,6 +1,6 @@
 import React from 'react'
 import { overlay } from '@app/stylesheets/overlay.module.css'
-import { observer } from 'mobx-react'
+import { observer } from 'mobx-react-lite'
 import { toJS } from 'mobx'
 import { AppManager } from '@app/managers'
 

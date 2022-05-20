@@ -4,7 +4,7 @@ import '@app/stylesheets/tailwind.css'
 import React from 'react'
 import { MyApp } from '../components/general/app'
 import type { MergedApp } from '@app/types/page'
-import { useStaticRendering as enableMobxStaticRendering } from 'mobx-react'
+import { useStaticRendering as enableMobxStaticRendering } from 'mobx-react-lite'
 
 if (typeof window === 'undefined') {
   enableMobxStaticRendering(true)

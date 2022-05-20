@@ -5,7 +5,7 @@ import {
   mainFixed,
 } from '@app/stylesheets/index.module.css'
 import { IframeManager, HomeManager, frameDom } from '@app/managers'
-import { observer } from 'mobx-react'
+import { observer } from 'mobx-react-lite'
 import { toJS } from 'mobx'
 import { useIframe } from '@app/data'
 import { sboxType } from './config'

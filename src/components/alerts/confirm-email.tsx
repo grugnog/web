@@ -3,7 +3,7 @@ import { GrMail } from 'react-icons/gr'
 
 const classes = {
   sticky: 'fixed flex justify-center bottom-11 left-0 right-0 z-[1001]',
-  container: 'border p-3',
+  container: 'border-2 p-3',
   text: 'font-bold text-xl',
   btn: 'flex rounded place-items-center px-2 py-1 border-2',
 }
@@ -17,10 +17,7 @@ function ConfirmEmail({ sendEmail, visible }: Props) {
   return !!visible ? (
     <div className={classes.sticky}>
       <div
-        className={[
-          classes.container,
-          'border items-center flex flex-row rounded bg-gray-100',
-        ]
+        className={[classes.container, 'items-center flex rounded bg-gray-100']
           .join(' ')
           .trim()}
       >

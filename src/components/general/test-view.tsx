@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react'
-import { observer } from 'mobx-react'
+import { observer } from 'mobx-react-lite'
 import { issueData, scriptData } from '@app/data'
 import { HomeManager } from '@app/managers'
 import { TestOutIframe } from '../ada/testout-iframe'
