@@ -42,7 +42,7 @@ class HomeManager {
       try {
         await Router.push({
           pathname: window?.location?.pathname,
-          query: { websiteUrl: source },
+          query: { url: source },
         })
       } catch (e) {
         console.error(e)

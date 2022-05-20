@@ -32,7 +32,10 @@ export function Annotations({
     <Button
       variant='text'
       type='button'
-      onClick={() => {
+      onClick={(e) => {
+        e?.preventDefault()
+        e?.stopPropagation()
+
         IframeManager.setActiveAnnotation({
           contrastRatio,
           source,

@@ -11,12 +11,7 @@ import { WebsiteProviderWrapper } from '@app/components/providers'
 import { RestWebsiteProviderWrapper } from '../providers/rest/rest-website'
 import { ErrorBoundary, SkipContent } from '@app/components/general'
 import type { InnerApp } from '@app/types/page'
-import dynamic from 'next/dynamic'
-
-const SnackBar = dynamic(
-  () => import('./snack-bar').then((mod) => mod.SnackBar) as any,
-  { ssr: false }
-)
+import { SnackBar } from './snack-bar'
 
 const authRoutes = LOGGIN_ROUTES.map((route) => route.replace('/', ''))
 

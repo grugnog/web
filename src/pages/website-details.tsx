@@ -1,15 +1,9 @@
 import React from 'react'
-import { NavBar, IssueModal, Pulse, Fab } from '@app/components/general'
+import { NavBar, IssueModal, Fab } from '@app/components/general'
+import { AdaIframe } from '@app/components/ada/ada-iframe'
 import { useRouter } from 'next/router'
 import { issueData, scriptData } from '@app/data'
 import { metaSetter } from '@app/utils'
-import dynamic from 'next/dynamic'
-
-const AdaIframe = dynamic(
-  // @ts-ignore
-  () => import('../components/ada/ada-iframe').then((mod) => mod.AdaIframe),
-  { loading: () => <Pulse />, ssr: false }
-) as any
 
 function WebsiteDetails() {
   const router = useRouter()
@@ -20,7 +14,7 @@ function WebsiteDetails() {
   return (
     <>
       <NavBar title={url} backButton notitle />
-      <AdaIframe url={url} issue={issue} />
+      {url ? <AdaIframe url={url} issue={issue} /> : null}
       <Fab autoFix issue={issue} script={script} />
       <IssueModal issue={issue} />
     </>
