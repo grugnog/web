@@ -23,10 +23,6 @@ const upgradeRequired = (text: string) =>
   text === 'you need to upgrade your account to edit scripts'
 
 const SnackbarContainer = observer(({ store }: any) => {
-  if (!store?.snackbar) {
-    return null
-  }
-
   const lowerCaseText = store?.snackbar?.title
     ? String(store?.snackbar?.title).toLowerCase()
     : ''

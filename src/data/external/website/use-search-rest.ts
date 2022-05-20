@@ -12,7 +12,7 @@ export const scanWebsite = async (websiteUrl: string) => {
     request = await fetch(`${getAPIRoute('api')}/scan-simple`, {
       method: 'POST',
       body: JSON.stringify({
-        websiteUrl,
+        websiteUrl: encodeURIComponent(websiteUrl),
       }),
       headers: {
         'Content-Type': 'application/json',
@@ -32,14 +32,13 @@ export const scanWebsite = async (websiteUrl: string) => {
     )
     return Promise.resolve()
   }
-
-  try {
-    if (request?.ok) {
+  if (request && request?.ok) {
+    try {
       return await request.json()
+    } catch (e) {
+      console.error(e)
+      AppManager.toggleSnack(true, e, 'error')
     }
-  } catch (e) {
-    console.error(e)
-    AppManager.toggleSnack(true, e, 'error')
   }
 }
 
@@ -93,7 +92,10 @@ export function useSearchRest() {
       }
     }
 
-    setScan({ loading: false, data: response })
+    setScan({
+      loading: false,
+      data: response && response?.data ? response : undefined,
+    })
 
     return response
   }
@@ -104,6 +106,7 @@ export function useSearchRest() {
 
   // move validation
   const toggleModal = async (url: string) => {
+    // TODO: revisit url checking
     const origin = isUrl(url)?.origin
 
     if (!origin) {
@@ -115,7 +118,11 @@ export function useSearchRest() {
       return
     }
 
-    await scanPage()
+    try {
+      await scanPage()
+    } catch (e) {
+      console.error(e)
+    }
   }
 
   return {

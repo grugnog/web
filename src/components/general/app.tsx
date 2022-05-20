@@ -11,7 +11,12 @@ import { WebsiteProviderWrapper } from '@app/components/providers'
 import { RestWebsiteProviderWrapper } from '../providers/rest/rest-website'
 import { ErrorBoundary, SkipContent } from '@app/components/general'
 import type { InnerApp } from '@app/types/page'
-import { SnackBar } from './snack-bar'
+import dynamic from 'next/dynamic'
+
+const SnackBar = dynamic(
+  () => import('./snack-bar').then((mod) => mod.SnackBar) as any,
+  { ssr: false }
+)
 
 const authRoutes = LOGGIN_ROUTES.map((route) => route.replace('/', ''))
 
@@ -102,7 +107,7 @@ export function MyApp({ Component, pageProps }: InnerApp) {
       </Head>
       <ThemeProvider theme={theme}>
         <CssBaseline />
-        {Component.intercom === false ? null : <SkipContent />}
+        <SkipContent />
         <ErrorBoundary>
           <MemoApp Component={Component} pageProps={pageProps} name={name} />
         </ErrorBoundary>
