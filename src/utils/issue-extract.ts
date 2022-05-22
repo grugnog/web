@@ -1,12 +1,14 @@
-import { Issue } from '@app/types'
+import { Issue, PageIssue, IssueData } from '@app/types'
 
 // return valid page issues from recursive issues gql type [Issues.issues] due to model name
-export const issueExtractor = (issue: Issue): Issue[] => {
+export const issueExtractor = (
+  issue: Partial<Issue | IssueData>
+): PageIssue[] => {
   if (issue && Array.isArray(issue)) {
-    return issue as Issue[]
+    return issue
   }
   if (issue && 'issues' in issue && Array.isArray(issue.issues)) {
-    return issue.issues as Issue[]
+    return issue.issues as PageIssue[]
   }
 
   return []

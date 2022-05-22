@@ -1,4 +1,4 @@
-import type { IssueData } from '@app/data/local/useIssueFeed'
+import type { IssueData } from '@app/types'
 import { ApolloError } from 'apollo-client'
 
 export const sharedWebsiteDefaults = {

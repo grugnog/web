@@ -4,16 +4,16 @@ import { useStyles } from '../general/styles'
 import { useWebsiteContext } from '../providers/website'
 import { GrClose } from 'react-icons/gr'
 import { AppManager } from '@app/managers'
-import { FeedCell } from './cell'
+import { FeedList } from './list'
 import { Website } from '@app/types'
 
-// side panel that appears fixed on the right of current issues of domain being
+// side panel that appears fixed on the right of current issues of domain being. This returns a list of pages with a list of issues per page.
 const Feed: FC = () => {
   const classes = useStyles()
   const { issueFeed, setIssueFeedContent, scanWebsite } = useWebsiteContext()
   const { data, open } = issueFeed
 
-  const issues = useMemo(() => data ?? [], [data])
+  const issues = useMemo(() => data ?? [], [data]) // memo issues as data source
 
   const closeFeed = useCallback(() => {
     setIssueFeedContent([], false)
@@ -76,38 +76,37 @@ const Feed: FC = () => {
     setIssueFeedContent(issuesClone, true)
   }
 
-  if (issues.length && open) {
-    return (
-      <Fade in>
-        <div className={`${classes.root} shadow`}>
-          <div
-            className={`flex place-items-center px-3 py-1 border border-t-0 border-r-0 border-l-0 bg-gray-200`}
+  return (
+    <Fade in={issues.length && open ? true : false}>
+      <div className={`${classes.root} shadow`}>
+        <div
+          className={`flex place-items-center px-3 py-1 border border-t-0 border-r-0 border-l-0 bg-gray-200`}
+        >
+          <p className={`flex-1 text-lg font-semibold`}>Recent Issues</p>
+          <IconButton
+            edge='start'
+            color='inherit'
+            onClick={closeFeed}
+            aria-label='close'
           >
-            <p className={`flex-1 text-lg font-semibold`}>Recent Issues</p>
-            <IconButton
-              edge='start'
-              color='inherit'
-              onClick={closeFeed}
-              aria-label='close'
-            >
-              <GrClose />
-            </IconButton>
-          </div>
-          {issues.map((issue, issueIndex: number) => {
+            <GrClose />
+          </IconButton>
+        </div>
+        <ul>
+          {issues.map((issue, index) => {
             return (
-              <FeedCell
-                key={issueIndex}
-                issueIndex={issueIndex}
+              <FeedList
+                key={issue.pageUrl}
                 onScanEvent={onScanEvent}
                 issue={issue}
+                isHidden={!!index}
               />
             )
           })}
-        </div>
-      </Fade>
-    )
-  }
-  return null
+        </ul>
+      </div>
+    </Fade>
+  )
 }
 
 export const IssueFeed = memo(Feed)

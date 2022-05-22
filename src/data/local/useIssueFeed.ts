@@ -1,22 +1,9 @@
+import { IssueData } from '@app/types'
 import { useCallback, useState } from 'react'
 
 const defaultState = {
   data: [],
   open: false,
-}
-
-interface Issue {
-  context: string
-  message: string
-  type: string
-  selector: string
-  code: string
-}
-
-export interface IssueData {
-  pageUrl: string
-  domain: string
-  issues: Issue[]
 }
 
 export function useIssueFeed() {

@@ -77,14 +77,15 @@ export type HistoryIssuesArgs = {
   filter?: Maybe<Scalars['String']>
 }
 
+// the accessibility issue details
 export interface PageIssue {
-  code?: string
-  context?: string
-  message?: string
-  runner?: string // what what used for testing
-  type?: string
-  selector?: string
-  typeCode?: number
+  code: string
+  context: string
+  message: string
+  runner: string // what what used for testing
+  type: string
+  selector: string
+  typeCode: number
 }
 
 // TODO refactor
@@ -95,6 +96,13 @@ export interface Issue extends PageIssue {
   issues?: Maybe<Array<Maybe<PageIssue>>>
   domain?: Maybe<Scalars['String']>
   pageUrl?: Maybe<Scalars['String']>
+}
+
+// issue model reflection types
+export interface IssueData {
+  pageUrl: string
+  domain: string
+  issues: Partial<PageIssue[]>
 }
 
 export type IssueIssuesArgs = {
