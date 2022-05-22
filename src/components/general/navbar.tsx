@@ -102,7 +102,7 @@ const NavBarComponent = ({
         position === 'fixed' ? 'fixed left-0 right-0 shadow' : 'shadow-none'
       }`}
     >
-      <div className='relative flex items-center pl-5 pr-5 min-h-[inherit]'>
+      <div className='relative flex items-center px-5 min-h-[inherit]'>
         {toolbar || children ? (
           toolbar || children
         ) : (

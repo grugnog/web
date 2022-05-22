@@ -3,7 +3,6 @@ import {
   AppBar,
   Dialog,
   List,
-  Toolbar,
   IconButton,
   Typography,
   Container,
@@ -37,6 +36,8 @@ const useStyles = makeStyles(() => ({
   },
   navbar: {
     backgroundColor: theme.palette.background.default,
+    height: theme.mixins.toolbar.minHeight,
+    justifyContent: 'center',
   },
 }))
 
@@ -88,7 +89,6 @@ function UpperInput({ data, url }: any) {
       <div className='py-2'>
         <InputHeaders {...inputProps} />
       </div>
-
       <Button className={classes.submit} onClick={onUpdateWebsite}>
         Update
       </Button>
@@ -175,19 +175,21 @@ export function FullScreenModal({
       onClose={handleClose}
     >
       <AppBar position={'fixed'} className={classes.navbar}>
-        <Toolbar>
-          <IconButton
-            edge='start'
-            onClick={handleClose}
-            aria-label='close'
-            className={classes.menuButton}
-          >
-            <GrClose />
-          </IconButton>
-          <div className={'flex flex-1 space-x-2 place-content-center'}>
-            <NavBarTitle title={title} flex />
+        <div className='flex flex-1 align-center place-content-between px-5'>
+          <div className={'flex space-x-1 place-items-center'}>
+            <IconButton
+              edge='start'
+              onClick={handleClose}
+              aria-label='close'
+              className={classes.menuButton}
+            >
+              <GrClose />
+            </IconButton>
+            <NavBarTitle title={title} />
+          </div>
+          <div className={'flex space-x-1 place-items-center'}>
             {url ? (
-              <div className={'truncate max-w-[70vw] text-right text-black'}>
+              <div className={'text-right text-black'}>
                 <Link href={`/website-details?url=${encodeURIComponent(url)}`}>
                   {url}
                 </Link>
@@ -200,7 +202,7 @@ export function FullScreenModal({
               </div>
             ) : null}
           </div>
-        </Toolbar>
+        </div>
       </AppBar>
       <Spacer height={theme.mixins.toolbar.minHeight} />
       <Body />

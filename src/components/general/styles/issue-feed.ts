@@ -1,8 +1,6 @@
 import { makeStyles, createStyles } from '@material-ui/core/styles'
 import type { MergedTheme } from '@app/theme'
 
-const containerPadding = { paddingLeft: 12, paddingRight: 10 }
-
 export const useStyles = makeStyles(
   ({ breakpoints, color, palette }: MergedTheme) =>
     createStyles({
@@ -17,7 +15,13 @@ export const useStyles = makeStyles(
         zIndex: 1002,
         backgroundColor: palette.common.white,
         [breakpoints.down(1280)]: {
-          display: 'none',
+          top: '50%',
+          height: '50vh',
+          width: '100vw',
+          left: 0,
+          position: 'fixed',
+          overflowY: 'auto',
+          borderTop: `1px solid ${palette.divider}`,
         },
       },
       title: {
@@ -45,7 +49,8 @@ export const useStyles = makeStyles(
         overflowY: 'hidden',
       },
       subTitle: {
-        ...containerPadding,
+        paddingLeft: 12,
+        paddingRight: 10,
         borderBottom: `1px solid ${color?.border || '#ccc'}`,
       },
       row: {
