@@ -4,7 +4,7 @@ import { SectionContainer } from '@app/components/general'
 import { priceConfig } from '@app/configs'
 import { SectionHeading } from '../text'
 import { Link } from './link'
-import { GrFormCheckmark } from 'react-icons/gr'
+import { GrFormCheckmark, GrFormUp } from 'react-icons/gr'
 
 const getStyles = (inactive: boolean) =>
   inactive
@@ -176,6 +176,8 @@ function PriceWrapper({
           const Component = clickEvent ? 'button' : 'div'
           const textColor = getPrimaryColor(title)
 
+          const planRequired = title !== 'Free'
+
           return (
             <Component
               key={title}
@@ -223,7 +225,7 @@ function PriceWrapper({
                             backgroundColor: textColor,
                           }}
                         >
-                          <GrFormCheckmark className='grIcon' />
+                         {planRequired && i === 0 ? <GrFormUp className='grIcon' />: <GrFormCheckmark className='grIcon' />}
                         </div>
                         <Description className='text-lg'>{item}</Description>
                       </li>

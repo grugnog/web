@@ -53,6 +53,7 @@ export function AnnotationContainer({
   message,
   code,
   context,
+  recurrence
 }: any) {
   const classes = useStyles()
   const annotationRef = useRef()
@@ -117,6 +118,7 @@ export function AnnotationContainer({
         >
           {code}
         </Typography>
+        {recurrence ? <p className={'truncate text-sm font-bold py-2'}>Recurred: {recurrence} times</p> : null}
         <Typography variant='subtitle1' className={classes.title} gutterBottom>
           {message}
         </Typography>

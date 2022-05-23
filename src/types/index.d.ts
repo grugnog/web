@@ -86,6 +86,7 @@ export interface PageIssue {
   type: string
   selector: string
   typeCode: number
+  recurrence?: number // amount of times issue appeared.
 }
 
 // TODO refactor

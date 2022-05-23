@@ -25,10 +25,10 @@ const FeedListComponent: FC<FeedComponentProps> = ({
       <ul
         className={`overflow-x-hidden${sectionHidden ? ' hidden' : ' visible'}`}
       >
-        {pageIssues?.map((item: PageIssue, i: number) => {
+        {pageIssues?.map((item: PageIssue) => {
           return (
             <IssueFeedCell
-              key={`${item.code}-${item.selector}-${issue.pageUrl}-${i}`}
+              key={`${item.code}-${item.selector}-${issue.pageUrl}`}
               item={item}
               hideSelector
             />

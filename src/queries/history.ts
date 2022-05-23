@@ -35,6 +35,7 @@ const GET_HISTORY = gql`
             selector
             message
             context
+            recurrence
           }
         }
         issues(filter: $filter) {

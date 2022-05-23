@@ -10,6 +10,7 @@ const GET_ISSUE = gql`
         selector
         message
         context
+        recurrence
       }
     }
   }

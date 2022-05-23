@@ -69,6 +69,7 @@ export const ADD_WEBSITE = gql`
             selector
             message
             context
+            recurrence
           }
         }
         subDomains {
@@ -91,6 +92,7 @@ export const ADD_WEBSITE = gql`
             selector
             message
             context
+            recurrence
           }
         }
       }

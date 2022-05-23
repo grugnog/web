@@ -2,6 +2,7 @@ import gql from 'graphql-tag'
 import { UserManager, AppManager } from '@app/managers'
 import { MutationUpdaterFn } from 'apollo-client'
 
+// TODO: use actually gql fragment
 const issuesFrag = `
     issues(filter: $filter) {
       pageUrl
@@ -11,6 +12,7 @@ const issuesFrag = `
         selector
         message
         context
+        recurrence
       }
     }
 `

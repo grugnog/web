@@ -67,7 +67,7 @@ function WebAccessibility({ name }: PageProps) {
         Application foundations that help improve your audience inclusion and
         reach.
       </Typography>
-      <ul className='space-y-2 pb-2 list-disc'>
+      <ul className='space-y-2 pb-2 list-disc px-2'>
         <li>
           <a
             className={'text-blue-600'}
@@ -99,7 +99,7 @@ function WebAccessibility({ name }: PageProps) {
       <Typography variant='subtitle1' component='p' gutterBottom>
         A couple of quick checklists to improve your contents accessibility.
       </Typography>
-      <ul className='space-y-2 pb-2 list-disc'>
+      <ul className='space-y-2 pb-2 list-disc px-2'>
         {checklistLinks.map(({ href }: any) => {
           return (
             <li key={href}>
@@ -125,7 +125,7 @@ function WebAccessibility({ name }: PageProps) {
         technologies underneath. This allows us to use these features to our
         advantage to better assist users.
       </Typography>
-      <ul className='space-y-2 pb-2 list-disc'>
+      <ul className='space-y-2 pb-2 list-disc px-2'>
         <li>
           <a
             className={'text-blue-600'}
@@ -170,7 +170,7 @@ function WebAccessibility({ name }: PageProps) {
         chakra-ui. They take care of a lot of the things that we can easily miss
         when trying to deliver a website fast.
       </Typography>
-      <ul className='space-y-2 pb-2 list-disc'>
+      <ul className='space-y-2 pb-2 list-disc px-2'>
         <li>
           <a
             className={'text-blue-600'}
@@ -244,7 +244,7 @@ function WebAccessibility({ name }: PageProps) {
         with this enabled from aria-label, a11y assetive props, performance and
         more.
       </Typography>
-      <ul className='space-y-2 pb-2 list-disc'>
+      <ul className='space-y-2 pb-2 list-disc px-2'>
         <li>
           <a
             className={'text-blue-600'}
@@ -275,7 +275,7 @@ function WebAccessibility({ name }: PageProps) {
       <Typography variant='h4' component='h3' gutterBottom style={bold}>
         More Resources
       </Typography>
-      <ul className='space-y-2 pb-2 list-disc'>
+      <ul className='space-y-2 pb-2 list-disc px-2'>
         <li>
           <a
             className={'text-blue-600'}

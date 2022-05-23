@@ -46,6 +46,7 @@ export const UPDATE_WEBSITE = gql`
             selector
             message
             context
+            recurrence
           }
         }
         issues {
@@ -56,6 +57,7 @@ export const UPDATE_WEBSITE = gql`
             selector
             message
             context
+            recurrence
           }
         }
       }

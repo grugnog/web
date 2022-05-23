@@ -13,6 +13,7 @@ export function FeedIssueCardComponent({
   type: issueType = 'notice',
   selector,
   hideSelector,
+  recurrence
 }: CellIssue) {
   return (
     <div className='p-3'>
@@ -21,6 +22,7 @@ export function FeedIssueCardComponent({
           className={`${getErrorColor(issueType + '')} w-3 h-3 rounded-full`}
         />
         <p className={'truncate text-sm font-light'}>{code}</p>
+        {recurrence ? <div className='px-2 bg-gray-200 rounded'><p className={'truncate text-sm font-bold'}>Recurrence: {recurrence}</p></div> : null}
       </div>
       <p className={'text-lg'}>{message}</p>
       {hideSelector ? null : (
@@ -45,6 +47,7 @@ export function FeedIssueComponent({
   type: issueType = 'notice',
   selector,
   hideSelector,
+  recurrence
 }: CellIssue) {
   return (
     <li className='border border-t-0 border-r-0 border-l-0'>
@@ -55,6 +58,7 @@ export function FeedIssueComponent({
         code={code}
         message={message}
         hideSelector={hideSelector}
+        recurrence={recurrence}
       />
     </li>
   )

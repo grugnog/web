@@ -51,7 +51,7 @@ export function RenderIssueComponent({
     extraProps
   )
 
-  const { error, openError, typeCode, runnerExtras, ...props } = checkListProps
+  const { error, openError, typeCode, runnerExtras, recurrence,  ...props } = checkListProps
 
   return (
     <ListItem className={`${classes.mainItemContainer}`} divider {...props}>
@@ -72,6 +72,7 @@ export function RenderIssueComponent({
           <Typography className={classes.mainSubtitle} component={'p'}>
             {code}
           </Typography>
+          {recurrence ? <div className='px-2 bg-gray-200 rounded'><p className={'truncate text-sm font-bold'}>Recurrence: {recurrence}</p></div> : null}
         </div>
         <Typography gutterBottom className={classes.secondSubtitle}>
           {message}
