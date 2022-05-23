@@ -1,6 +1,5 @@
 export { RenderAvatar } from './avatar'
 export { RenderSecondary } from './secondary'
-export { RenderIssue } from './issues'
 export { RenderIssuesList } from './issues-list'
 export { PageLoad } from './page-load'
 export { WebsiteSecondary } from './website-secondary'

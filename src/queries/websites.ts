@@ -17,10 +17,10 @@ const issuesFrag = `
     }
 `
 const GET_WEBSITES = gql`
-  query getWebsites($filter: String) {
+  query getWebsites($filter: String, $limit: Int, $offset: Int) {
     user {
       id
-      websites {
+      websites(limit: $limit, offset: $offset) {
         url
         domain
         adaScore
@@ -89,10 +89,10 @@ const GET_WEBSITES = gql`
 `
 
 export const GET_ISSUES = gql`
-  query getWebsites($filter: String) {
+  query getWebsites($filter: String, $limit: Int, $offset: Int) {
     user {
       id
-      websites {
+      websites(limit: $limit, offset:  $offset) {
         url
         domain
         cdnConnected
@@ -108,7 +108,12 @@ export const GET_ISSUES = gql`
 export const updateCache: { update?: MutationUpdaterFn<any>; last: any } = {
   last: [],
   update(cache: any, { data: { addWebsite, removeWebsite } }: any) {
-    const variables = { userId: UserManager.getID, filter: '' }
+    const variables = {
+      userId: UserManager.getID,
+      filter: '',
+      limit: 0,
+      offset: 0,
+    }
 
     const { user } = cache.readQuery({
       query: GET_WEBSITES,

@@ -53,6 +53,9 @@ const theme = {
     minHeight: {
       inherit: 'inherit',
     },
+    height: {
+      inherit: 'inherit',
+    },
   },
 }
 

@@ -40,14 +40,22 @@ export const useWebsiteData = (
 
   // start of main queries for pages. Root gets all
   const { data, loading, refetch, error } = useQuery(GET_WEBSITES, {
-    variables,
+    variables: {
+      ...variables,
+      limit: 0,
+      offset: 0,
+    },
     skip,
   })
   // Only get issues from websites
   const { data: issuesResults, loading: issueDataLoading } = useQuery(
     GET_ISSUES,
     {
-      variables,
+      variables: {
+        ...variables,
+        limit: 0,
+        offset: 0,
+      },
       skip: scopedQuery !== 'issues',
     }
   )

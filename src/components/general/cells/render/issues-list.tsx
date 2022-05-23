@@ -1,7 +1,6 @@
 import { Issue } from '@app/types'
 import React, { memo } from 'react'
 import { FeedIssue } from '../../feed/issue'
-import { RenderIssue } from './issues'
 
 interface IssuesList {
   pageIssues?: Issue[]
@@ -17,7 +16,7 @@ export function RenderIssuesListComponent({
   ...props
 }: IssuesList) {
   if (props?.error) {
-    return <RenderIssue {...item} {...props} />
+    return <FeedIssue {...item} {...props} />
   }
 
   if (pageIssues && Array.isArray(pageIssues)) {
@@ -25,11 +24,7 @@ export function RenderIssuesListComponent({
       <>
         {pageIssues?.map((pages: any, i: number) => {
           return (
-            <RenderIssue
-              {...pages}
-              {...props}
-              key={`${i} ${props?.listIndex}`}
-            />
+            <FeedIssue {...pages} {...props} key={`${i} ${props?.listIndex}`} />
           )
         })}
       </>

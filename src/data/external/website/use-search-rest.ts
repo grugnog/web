@@ -81,8 +81,12 @@ export function useSearchRest() {
       console.error(e)
     }
 
-    // retry query as http if https autofilled [TODO: move autoquery detection to SS ]
-    if (response && !response?.data && autoTPT) {
+    if (response && response?.code === 400) {
+      AppManager.toggleSnack(true, response.message)
+    }
+
+    // Retry query as http if https autofilled [TODO: move autoquery detection to SS ]
+    if (!response?.data && autoTPT) {
       AppManager.toggleSnack(true, 'https:// failed retrying with http:// ...')
       const [q] = searchQuery(search, true)
       try {

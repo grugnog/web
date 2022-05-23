@@ -3,9 +3,11 @@ import { IssueFeedCell } from '../general/cells'
 import { issueExtractor } from '@app/utils'
 import { FeedHeading } from './heading'
 import type { FeedComponentProps } from './interface'
-import { PageIssue } from '@app/types'
+import { FixedSizeList as List } from 'react-window'
 
-// list of issues rendered.
+const listHeight = typeof window !== 'undefined' ? window.innerHeight / 3 : 500
+
+// List of issues rendered.
 const FeedListComponent: FC<FeedComponentProps> = ({
   onScanEvent,
   issue,
@@ -13,6 +15,19 @@ const FeedListComponent: FC<FeedComponentProps> = ({
 }) => {
   const [sectionHidden, onToggleSection] = useState<boolean>(!!isHidden)
   const pageIssues = issueExtractor(issue) // array of issues extract duplex types
+
+  const Row = ({ index, style }: any) => {
+    const item = pageIssues[index]
+
+    return (
+      <IssueFeedCell
+        key={`${item.code}-${item.selector}-${issue.pageUrl}`}
+        item={item}
+        hideSelector={false}
+        style={style}
+      />
+    )
+  }
 
   return (
     <li>
@@ -23,17 +38,20 @@ const FeedListComponent: FC<FeedComponentProps> = ({
         issue={issue}
       />
       <ul
-        className={`overflow-x-hidden${sectionHidden ? ' hidden' : ' visible'}`}
+        className={`overflow-x-hidden${
+          sectionHidden
+            ? ' hidden'
+            : ' visible border border-t-0 border-l-0 border-r-0'
+        }`}
       >
-        {pageIssues?.map((item: PageIssue) => {
-          return (
-            <IssueFeedCell
-              key={`${item.code}-${item.selector}-${issue.pageUrl}`}
-              item={item}
-              hideSelector
-            />
-          )
-        })}
+        <List
+          height={listHeight}
+          itemCount={pageIssues.length}
+          itemSize={Math.max(listHeight / 1.38, 260)}
+          width={'100%'}
+        >
+          {Row}
+        </List>
       </ul>
     </li>
   )
