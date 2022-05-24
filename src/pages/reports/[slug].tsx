@@ -24,7 +24,12 @@ function Reports({ name, website }: PageProps) {
         <div className='sr-only'>
           <PageTitle>{`Report: ${domain || 'page'}`}</PageTitle>
         </div>
-        <ReportView website={website} disablePlayground={true} disableTabs />
+        <ReportView
+          website={website}
+          disablePlayground={true}
+          disableTabs
+          download
+        />
       </MarketingDrawer>
     </Fragment>
   )

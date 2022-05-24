@@ -40,7 +40,7 @@ export const useStyles = makeStyles(
         display: 'block',
         maxHeight: 'calc(100vh)',
         [breakpoints.down('sm')]: {
-          maxHeight: '50vh',
+          maxHeight: '72vh',
         },
         paddingTop: 0,
       },

@@ -30,7 +30,6 @@ export interface MoreOptionsProps extends Partial<Website> {
 function MoreOptionsBaseComponent({
   pageUrl,
   url,
-  subDomains,
   issues,
   index,
   lh,
@@ -80,18 +79,6 @@ function MoreOptionsBaseComponent({
             onClick={handleMainClick(issues, 'Issues', false, url as string)}
           >
             View Issues
-          </MenuItem>
-        ) : null}
-        {subDomains?.length ? (
-          <MenuItem
-            onClick={handleMainClick(
-              subDomains,
-              'All Pages',
-              false,
-              targetUrl as string
-            )}
-          >
-            View Pages
           </MenuItem>
         ) : null}
         {lh ? (

@@ -9,9 +9,14 @@ const CTA_LIST_ID = 'cta-issue-list'
 interface InfoBarComponent {
   printable?: boolean
   website: Website
+  download?: boolean // display the download button
 }
 
-export function InfoBarComponent({ printable, website }: InfoBarComponent) {
+export function InfoBarComponent({
+  printable,
+  website,
+  download = true,
+}: InfoBarComponent) {
   if (!printable) {
     return null
   }
@@ -20,21 +25,25 @@ export function InfoBarComponent({ printable, website }: InfoBarComponent) {
     return <div className='flex py-2 space-x-2'></div>
   }
 
+  const onPrint = (e: React.SyntheticEvent<HTMLButtonElement>) => {
+    e?.preventDefault()
+    printElement(CTA_LIST_ID, website)
+  }
+
   return (
     <div className='flex py-2 space-x-2 border border-l-0 border-r-0'>
-      <Button
-        className={'border'}
-        onClick={() => printElement(CTA_LIST_ID, website)}
-      >
+      <Button className={'border'} onClick={onPrint}>
         Print
       </Button>
-      <Button
-        className={'border'}
-        component={'a'}
-        href={`${getAPIRoute()}/get-website?q=${website?.url}&download=true`}
-      >
-        Download
-      </Button>
+      {download ? (
+        <Button
+          className={'border'}
+          component={'a'}
+          href={`${getAPIRoute()}/get-website?q=${website?.url}&download=true`}
+        >
+          Download
+        </Button>
+      ) : null}
     </div>
   )
 }

@@ -31,6 +31,7 @@ export function BottomDrawerComponent({
         website={website}
         disableTabs={disableTabs}
         disablePlayground={disablePlayground}
+        download={false}
       />
     </Drawer>
   )

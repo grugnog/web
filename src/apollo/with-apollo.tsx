@@ -107,7 +107,7 @@ function createApolloClient(initialState: any = {}) {
     ssrMode: false,
     link,
     cache: new InMemoryCache({
-      dataIdFromObject: (object: any) => object.id || null,
+      dataIdFromObject: (object: any) => object._id || object.id || null,
     }).restore(initialState),
     resolvers,
   })

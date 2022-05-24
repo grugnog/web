@@ -131,6 +131,7 @@ export function WebsiteCellDashboardComponent({
     [url]
   )
 
+  // real time issue tracking
   const { errorCount, warningCount, totalIssues } = useMemo(() => {
     let errors = 0
     let warnings = 0
@@ -215,7 +216,7 @@ export function WebsiteCellDashboardComponent({
         />
         <IssuesBox issues={errorCount} />
         <WarningsBox issues={warningCount} />
-        <PagesBox count={subDomains?.length} />
+        <PagesBox count={issues.length} />
         <LoadTimeBox duration={pageLoadTime?.duration} />
         <StandardBox standard={standard} />
         <HeadersBox pageHeaders={pageHeaders} />

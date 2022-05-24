@@ -23,7 +23,6 @@ const FeedListComponent: FC<FeedComponentProps> = ({
       <IssueFeedCell
         key={`${item.code}-${item.selector}-${issue.pageUrl}`}
         item={item}
-        hideSelector={false}
         style={style}
       />
     )

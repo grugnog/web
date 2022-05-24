@@ -1,16 +1,9 @@
 import React, { FC } from 'react'
-import { List as MUList, CardHeader } from '@material-ui/core'
-import { makeStyles } from '@material-ui/core/styles'
+import { CardHeader } from '@material-ui/core'
 
 import { ListSkeleton } from '@app/components/placeholders'
 import { WebSitesDashboard } from '@app/components/general/lists/websites-dashboard'
 import { EmptyWebsiteForm } from '@app/components/general/website/empty-form'
-
-const useStyles = makeStyles(() => ({
-  empty: {
-    minHeight: 88,
-  },
-}))
 
 export const RenderInner: FC<any> = ({
   data,
@@ -27,8 +20,6 @@ export const RenderInner: FC<any> = ({
   handleClickOpenPlayer,
   lighthouseVisible,
 }) => {
-  const classes = useStyles()
-
   if (!data.length) {
     if (loading) {
       return <ListSkeleton />
@@ -38,7 +29,7 @@ export const RenderInner: FC<any> = ({
         <CardHeader
           title='Error'
           subheader='An Issue occured. Please try again. If issue persist please contact support.'
-          className={classes.empty}
+          style={{ minHeight: 88 }}
         />
       )
     }
@@ -51,7 +42,7 @@ export const RenderInner: FC<any> = ({
   }
 
   return (
-    <MUList>
+    <ul className='space-y-2 py-2'>
       <WebSitesDashboard
         data={data}
         {...{
@@ -65,6 +56,6 @@ export const RenderInner: FC<any> = ({
           lighthouseVisible,
         }}
       />
-    </MUList>
+    </ul>
   )
 }

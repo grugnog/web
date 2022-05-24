@@ -54,11 +54,7 @@ export function IssueFeedCellComponent({
           </IconButton>
         </div>
       )}
-      <FeedIssueCard
-        {...item}
-        hideSelector={hideSelector}
-        hidden={!issueView}
-      />
+      <FeedIssueCard {...item} hidden={!issueView} />
     </li>
   )
 }

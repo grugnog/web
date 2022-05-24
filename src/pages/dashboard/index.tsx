@@ -29,6 +29,7 @@ function Dashboard({ name }: PageProps) {
     subscriptionData,
     setLighthouseVisibility,
     lighthouseVisible,
+    onLoadMoreWebsites,
   } = useWebsiteContext()
 
   const websites: Website[] = useMemo(() => filterSort(data, search), [
@@ -102,19 +103,28 @@ function Dashboard({ name }: PageProps) {
             ) : null
           }
         />
-        <WebsiteList
-          data={websites}
-          error={error}
-          loading={loading}
-          mutatationLoading={mutatationLoading}
-          removePress={removeWebsite}
-          crawlWebsite={crawlWebsite}
-          refetch={refetch}
-          setModal={setModal}
-          lighthouseVisible={lighthouseVisible}
-          emptyHeaderTitle={'Welcome to A11yWatch'}
-          emptyHeaderSubTitle={'Add a website to monitor below'}
-        />
+        <div>
+          <WebsiteList
+            data={websites}
+            error={error}
+            loading={loading}
+            mutatationLoading={mutatationLoading}
+            removePress={removeWebsite}
+            crawlWebsite={crawlWebsite}
+            refetch={refetch}
+            setModal={setModal}
+            lighthouseVisible={lighthouseVisible}
+            emptyHeaderTitle={'Welcome to A11yWatch'}
+            emptyHeaderSubTitle={'Add a website to monitor below'}
+          />
+          {websites.length > 1 ? (
+            <div className='flex place-content-center pt-8'>
+              <Button onClick={onLoadMoreWebsites} className={'w-40'}>
+                Load More
+              </Button>
+            </div>
+          ) : null}
+        </div>
       </Drawer>
       <LinearBottom loading={mutatationLoading} />
     </>

@@ -331,6 +331,6 @@ export default metaSetter(
   { WebAccessibility },
   {
     description:
-      'Web accessibility improvement for everyone using with resources to learn. Leverage tools at hand to guide, check, and maintain your website.',
+      'Web accessibility improvement with resources to learn for free. Leverage tools at hand to guide, check, and maintain your websites inclusion.',
   }
 )

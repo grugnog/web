@@ -9,7 +9,6 @@ import {
 } from '@app/mutations'
 import { GET_WEBSITES, GET_ISSUES, updateCache } from '@app/queries'
 import {
-  SUBDOMAIN_SUBSCRIPTION,
   ISSUE_SUBSCRIPTION,
   CRAWL_COMPLETE_SUBSCRIPTION,
 } from '@app/subscriptions'
@@ -39,23 +38,20 @@ export const useWebsiteData = (
   const { issueFeed, setIssueFeedContent } = useIssueFeed()
 
   // start of main queries for pages. Root gets all
-  const { data, loading, refetch, error } = useQuery(GET_WEBSITES, {
+  const { data, loading, refetch, error, fetchMore } = useQuery(GET_WEBSITES, {
     variables: {
       ...variables,
-      limit: 0,
+      limit: 2,
       offset: 0,
     },
     skip,
   })
+
   // Only get issues from websites
   const { data: issuesResults, loading: issueDataLoading } = useQuery(
     GET_ISSUES,
     {
-      variables: {
-        ...variables,
-        limit: 0,
-        offset: 0,
-      },
+      variables,
       skip: scopedQuery !== 'issues',
     }
   )
@@ -97,41 +93,6 @@ export const useWebsiteData = (
     // TODO: add handling for errors
     return canScan?.data?.scanWebsite?.website
   }
-
-  const updateSubDomain = useCallback(
-    ({ subscriptionData }: OnSubscriptionDataOptions<any>) => {
-      const newSubDomain = subscriptionData?.data?.subDomainAdded
-      const dataSource = websites.find(
-        (source: Website) => source.domain === newSubDomain?.domain
-      )
-      if (dataSource && newSubDomain && websites?.length) {
-        queueMicrotask(() => {
-          if (dataSource?.subDomains?.length) {
-            // TODO: prevent dup comains
-            dataSource.subDomains.push(newSubDomain)
-          } else {
-            dataSource.subDomains = [newSubDomain]
-          }
-
-          if (dataSource?.url === newSubDomain?.url) {
-            dataSource.adaScore = newSubDomain.adaScore
-            dataSource.online = newSubDomain.online
-            dataSource.insight = newSubDomain.insight
-            dataSource.cdnConnected = newSubDomain.cdnConnected
-            dataSource.pageLoadTime = newSubDomain.pageLoadTime
-          }
-
-          forceUpdate()
-        })
-      }
-    },
-    [websites, forceUpdate]
-  )
-
-  useSubscription(SUBDOMAIN_SUBSCRIPTION, {
-    variables: subscriptionVars,
-    onSubscriptionData: updateSubDomain,
-  })
 
   // website crawl finished
   const onCrawlCompleteSubscription = useCallback(
@@ -246,6 +207,40 @@ export const useWebsiteData = (
     }
   }, [addWebsiteData])
 
+  const onLoadMoreWebsites = async () => {
+    try {
+      await fetchMore({
+        query: GET_WEBSITES,
+        variables: {
+          offset: Number(websites.length || 0),
+        },
+        updateQuery: (prev: any, { fetchMoreResult }: any) => {
+          if (!fetchMoreResult) {
+            return prev
+          }
+
+          if (!fetchMoreResult?.user?.websites?.length) {
+            AppManager.toggleSnack(true, 'No more websites exist.')
+            return prev
+          }
+          const websites = [
+            ...prev?.user?.websites,
+            ...fetchMoreResult?.user?.websites,
+          ]
+
+          return Object.assign({}, prev, {
+            user: {
+              ...prev?.user,
+              websites,
+            },
+          })
+        },
+      })
+    } catch (e) {
+      console.error(e)
+    }
+  }
+
   return {
     subscriptionData: {
       issueSubData,
@@ -271,5 +266,6 @@ export const useWebsiteData = (
     scanWebsite, // single page web scan
     updateWebsite,
     setIssueFeedContent,
+    onLoadMoreWebsites,
   }
 }

@@ -3,6 +3,7 @@ import gql from 'graphql-tag'
 const GET_WEBSITE = gql`
   query getWebsite($url: String) {
     website(url: $url) {
+      _id
       url
       userId
       domain
@@ -45,7 +46,7 @@ const GET_WEBSITE = gql`
 const GET_WEBSITE_HTML = gql`
   query getWebsite($url: String) {
     website(url: $url) {
-      id
+      _id
       url
     }
   }

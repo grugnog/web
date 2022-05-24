@@ -37,6 +37,7 @@ export function ReportViewComponentLeft({
   closeButton,
   disablePlayground,
   printable,
+  download,
 }: any) {
   const [hideMobile, setMobileHidden] = useState<boolean>(false)
   const classes = useStyles()
@@ -56,7 +57,7 @@ export function ReportViewComponentLeft({
       </div>
       <CtaCdn website={website} block disablePlayground={disablePlayground} />
       <Spacer />
-      <InfoBar website={website} printable={printable} />
+      <InfoBar website={website} printable={printable} download={download} />
       {website?.url ? (
         <div className='hidden lg:block'>
           <div className='py-2 flex space-x-2 place-items-center border-b'>

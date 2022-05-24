@@ -40,4 +40,7 @@ export const sharedWebsiteDefaults = {
   setLighthouseVisibility: (_: any): void => {
     return _
   },
+  onLoadMoreWebsites: (_: any): Promise<any> => {
+    return _
+  },
 }

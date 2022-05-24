@@ -1,6 +1,8 @@
+import { websiteFragments } from '@app/apollo'
 import gql from 'graphql-tag'
 
 export const ADD_WEBSITE = gql`
+  ${websiteFragments}
   mutation AddWebsite(
     $url: String!
     $customHeaders: [CreatePageHeaders]
@@ -18,83 +20,7 @@ export const ADD_WEBSITE = gql`
       ua: $ua
     ) {
       website {
-        url
-        id
-        userId
-        domain
-        adaScore
-        adaScoreAverage
-        cdnConnected
-        lastScanDate
-        online
-        pageInsights
-        mobile
-        standard
-        ua
-        insight {
-          json
-        }
-        script {
-          id
-          script
-          cdnUrl
-          cdnUrlMinified
-        }
-        pageLoadTime {
-          duration
-          durationFormated
-          color
-        }
-        pageHeaders {
-          key
-          value
-        }
-        issuesInfo {
-          adaScoreAverage
-          issuesFixedByCdn
-          possibleIssuesFixedByCdn
-          totalIssues
-          cdnConnected
-          skipContentIncluded
-          errorCount
-          warningCount
-          noticeCount
-          limitedCount
-        }
-        issues {
-          pageUrl
-          issues {
-            code
-            type
-            selector
-            message
-            context
-            recurrence
-          }
-        }
-        subDomains {
-          domain
-          url
-          adaScore
-          cdnConnected
-          pageInsights
-          insight {
-            json
-          }
-          pageLoadTime {
-            duration
-            durationFormated
-            color
-          }
-          issues {
-            code
-            type
-            selector
-            message
-            context
-            recurrence
-          }
-        }
+        ...WebsiteParts
       }
       code
       success

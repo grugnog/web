@@ -394,7 +394,6 @@ export type Subscription = {
   __typename?: 'Subscription'
   websiteAdded?: Maybe<Website>
   issueAdded?: Maybe<Issue>
-  subDomainAdded?: Maybe<SubDomain>
   emailVerified?: Maybe<User>
   issueRemoved?: Maybe<Issue>
   subDomainRemoved?: Maybe<SubDomain>
@@ -406,10 +405,6 @@ export type SubscriptionWebsiteAddedArgs = {
 }
 
 export type SubscriptionIssueAddedArgs = {
-  userId?: Maybe<Scalars['Int']>
-}
-
-export type SubscriptionSubDomainAddedArgs = {
   userId?: Maybe<Scalars['Int']>
 }
 

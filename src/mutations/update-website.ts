@@ -18,7 +18,7 @@ export const UPDATE_WEBSITE = gql`
       message
       website {
         url
-        id
+        _id
         domain
         userId
         mobile

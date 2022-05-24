@@ -106,6 +106,7 @@ export function ReportViewComponent({
   closeButton,
   disablePlayground,
   disableTabs,
+  download,
 }: any) {
   const classes = useStyles()
   const empty = useMemo(() => Object.keys(website ?? {}).length <= 1, [website])
@@ -113,7 +114,12 @@ export function ReportViewComponent({
   return (
     <div className={`${classes.root} border-t`}>
       <div className='border-r'>
-        <ReportViewLeft website={website} closeButton={closeButton} printable />
+        <ReportViewLeft
+          website={website}
+          closeButton={closeButton}
+          printable
+          download={download}
+        />
       </div>
       {empty ? (
         <ReportEmptyView />
