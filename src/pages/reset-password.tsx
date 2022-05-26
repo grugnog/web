@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, SyntheticEvent } from 'react'
+import React, { useRef, useEffect, SyntheticEvent, useState } from 'react'
 import { makeStyles } from '@material-ui/core/styles'
 import { TextField, FormControl, LinearProgress } from '@material-ui/core'
 import { AppManager, UserManager } from '@app/managers'
@@ -29,12 +29,13 @@ function ResetPassword({ name }: PageProps) {
     resetPasswordData,
   } = userData(true)
 
-  const emailRef = useRef(null)
-  const resetRef = useRef(null)
-  const savedEmail = useRef(null)
+  const emailRef = useRef<{ value: string }>(null)
+  const resetRef = useRef<{ value: string }>(null)
+
+  const [emailState, setEmailState] = useState<string>('')
+  const [resetState, setResetState] = useState<string>('')
 
   const resetSent = forgotPasswordData?.forgotPassword?.email == 'true'
-
   const title = resetSent ? 'Enter Reset Code' : 'Reset Password'
 
   useEffect(() => {
@@ -56,36 +57,93 @@ function ResetPassword({ name }: PageProps) {
     }
   }, [resetSent])
 
+  const onEmailChange = (
+    e: SyntheticEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    e?.preventDefault()
+    setEmailState(e?.currentTarget?.value)
+  }
+
+  const onResetEvent = (
+    e: SyntheticEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    e?.preventDefault()
+    setResetState(e?.currentTarget?.value)
+  }
+
   const submit = async (e: SyntheticEvent) => {
-    e.preventDefault()
+    e?.preventDefault()
     try {
-      // @ts-ignore
       if (resetSent && resetRef?.current?.value) {
         await resetPassword({
           variables: {
-            email: savedEmail.current,
-            // @ts-ignore
-            resetCode: resetRef.current.value,
+            email: emailState,
+            resetCode: resetState,
           },
         })
-        // @ts-ignore
       } else if (emailRef?.current?.value) {
         await forgotPassword({
           variables: {
-            // @ts-ignore
-            email: emailRef.current.value,
+            email: emailState,
           },
         })
-        // @ts-ignore
-        savedEmail.current = emailRef.current.value
       }
     } catch (e) {
       console.error(e)
     }
-    if (emailRef?.current) {
-      // @ts-ignore
-      emailRef.current.value = ''
+  }
+
+  const FormInputRender = () => {
+    if (resetSent) {
+      return (
+        <FormControl>
+          <TextField
+            id='resetCode'
+            aria-describedby='my-reset-text'
+            label='Reset Code'
+            type='text'
+            autoFocus
+            margin='normal'
+            variant='outlined'
+            value={resetState}
+            required
+            inputRef={resetRef}
+            onChange={onResetEvent}
+          />
+        </FormControl>
+      )
     }
+
+    return (
+      <FormControl>
+        <TextField
+          id='email'
+          aria-describedby='my-email-text'
+          label='Email'
+          type='email'
+          autoFocus
+          onChange={onEmailChange}
+          autoComplete='email'
+          margin='normal'
+          variant='outlined'
+          required
+          value={emailState}
+          inputRef={emailRef}
+        />
+      </FormControl>
+    )
+  }
+  const FormRender = () => {
+    return (
+      <form autoComplete={resetSent ? 'on' : 'off'} onSubmit={submit}>
+        <div className='space-y-6'>
+          <FormInputRender />
+        </div>
+        <button className={'border rounded py-3 px-6 text-xl'} type='submit'>
+          {resetSent ? 'Submit' : 'Send Email'}
+        </button>
+      </form>
+    )
   }
 
   return (
@@ -98,41 +156,7 @@ function ResetPassword({ name }: PageProps) {
     >
       <MarketingShortTitle />
       <PageTitle component={resetSent ? 'h3' : 'h1'}>{title}</PageTitle>
-      <form autoComplete={resetSent ? 'on' : 'off'} onSubmit={submit}>
-        <div className='space-y-6'>
-          <FormControl>
-            {resetSent ? (
-              <TextField
-                id='resetCode'
-                aria-describedby='my-reset-text'
-                label='Reset Code'
-                type='text'
-                autoFocus
-                margin='normal'
-                variant='outlined'
-                required
-                inputRef={resetRef}
-              />
-            ) : (
-              <TextField
-                id='email'
-                aria-describedby='my-email-text'
-                label='Email'
-                type='email'
-                autoFocus
-                autoComplete='email'
-                margin='normal'
-                variant='outlined'
-                required
-                inputRef={emailRef}
-              />
-            )}
-          </FormControl>
-        </div>
-        <button className={'border rounded py-3 px-6 text-xl'} type='submit'>
-          {resetSent ? 'Submit' : 'Send Email'}
-        </button>
-      </form>
+      <FormRender />
       {loading ? (
         <LinearProgress className={classes.absolute} color='secondary' />
       ) : null}

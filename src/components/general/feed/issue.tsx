@@ -46,7 +46,11 @@ export function FeedIssueCardComponent({
           <div
             className={`${getErrorColor(issueType + '')} w-3 h-3 rounded-full`}
           />
-          <p className={'truncate text-sm font-bold max-w-[86vw]'}>
+          <p
+            className={`truncate text-sm font-bold ${
+              recurrence ? 'max-w-[60%]' : 'max-w-[70%]'
+            }`}
+          >
             {selector}
           </p>
           {recurrence ? (
