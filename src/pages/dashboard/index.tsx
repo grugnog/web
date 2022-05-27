@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useMemo } from 'react'
+import React, { useCallback, useEffect, useMemo, useState } from 'react'
 import {
   Button,
   PageTitle,
@@ -13,8 +13,10 @@ import type { PageProps, Website } from '@app/types'
 import { _ONBOARDED } from '@app/lib/cookies/names'
 import { useWebsiteContext } from '@app/components/providers/website'
 import { WebsiteList } from '@app/components/general/website-list'
+import { SortableWebsiteList } from '@app/components/general/website'
 
 function Dashboard({ name }: PageProps) {
+  const [sortModalVisible, setSortModalVisible] = useState<boolean>()
   const { search } = useSearchFilter()
   const { events, setEvents } = useEvents()
   const { setModal } = useDynamicModal()
@@ -68,6 +70,10 @@ function Dashboard({ name }: PageProps) {
 
   const lhEnabled = websites?.some((web) => web.pageInsights)
 
+  const onWebsiteSort = () => {
+    setSortModalVisible((v) => !v)
+  }
+
   return (
     <>
       {lhEnabled ? (
@@ -99,32 +105,45 @@ function Dashboard({ name }: PageProps) {
                 >
                   Remove All
                 </Button>
+                {data?.length >= 2 ? (
+                  <Button
+                    onClick={onWebsiteSort}
+                    aria-label={'Sort websites'}
+                    className={sortModalVisible ? 'border-blue-800' : ''}
+                  >
+                    {sortModalVisible ? 'Toggle Sort' : 'Sort Websites'}
+                  </Button>
+                ) : null}
               </div>
             ) : null
           }
         />
-        <div>
-          <WebsiteList
-            data={websites}
-            error={error}
-            loading={loading}
-            mutatationLoading={mutatationLoading}
-            removePress={removeWebsite}
-            crawlWebsite={crawlWebsite}
-            refetch={refetch}
-            setModal={setModal}
-            lighthouseVisible={lighthouseVisible}
-            emptyHeaderTitle={'Welcome to A11yWatch'}
-            emptyHeaderSubTitle={'Add a website to monitor below'}
-          />
-          {websites.length > 1 ? (
-            <div className='flex place-content-center pt-8'>
-              <Button onClick={onLoadMoreWebsites} className={'w-40'}>
-                Load More
-              </Button>
-            </div>
-          ) : null}
-        </div>
+        {sortModalVisible ? (
+          <SortableWebsiteList refetch={refetch} />
+        ) : (
+          <div>
+            <WebsiteList
+              data={websites}
+              error={error}
+              loading={loading}
+              mutatationLoading={mutatationLoading}
+              removePress={removeWebsite}
+              crawlWebsite={crawlWebsite}
+              refetch={refetch}
+              setModal={setModal}
+              lighthouseVisible={lighthouseVisible}
+              emptyHeaderTitle={'Welcome to A11yWatch'}
+              emptyHeaderSubTitle={'Add a website to monitor below'}
+            />
+            {websites.length > 1 ? (
+              <div className='flex place-content-center pt-8'>
+                <Button onClick={onLoadMoreWebsites} className={'w-40'}>
+                  Load More
+                </Button>
+              </div>
+            ) : null}
+          </div>
+        )}
       </Drawer>
       <LinearBottom loading={mutatationLoading} />
     </>

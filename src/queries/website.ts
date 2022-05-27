@@ -43,13 +43,4 @@ const GET_WEBSITE = gql`
   }
 `
 
-const GET_WEBSITE_HTML = gql`
-  query getWebsite($url: String) {
-    website(url: $url) {
-      _id
-      url
-    }
-  }
-`
-
-export { GET_WEBSITE_HTML, GET_WEBSITE }
+export { GET_WEBSITE }

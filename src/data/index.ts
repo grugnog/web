@@ -1,9 +1,4 @@
-export {
-  websiteData,
-  websiteHtmlData,
-  useWebsiteData,
-  useSearchRest,
-} from './external/website'
+export { websiteData, useWebsiteData, useSearchRest } from './external/website'
 export { issueData } from './external/issues/issue'
 export { userData } from './external/user/user'
 export { historyData } from './external/history/history'

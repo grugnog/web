@@ -1,7 +1,7 @@
 export { GET_WEBSITES, GET_ISSUES, updateCache } from './websites'
 export { GET_USER } from './user'
 export { GET_FEATURES } from './features'
-export { GET_WEBSITE, GET_WEBSITE_HTML } from './website'
+export { GET_WEBSITE } from './website'
 export { GET_ISSUE } from './issue'
 export { GET_HISTORY } from './history'
 export { GET_ANALYTICS } from './analytics'

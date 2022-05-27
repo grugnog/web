@@ -20,6 +20,18 @@ const GET_WEBSITES = gql`
   }
 `
 
+// get a list of website to use for sorting etc.
+export const GET_WEBSITES_LIST = gql`
+  query getWebsitesList($limit: Int, $offset: Int) {
+    user {
+      id
+      websites(limit: $limit, offset: $offset) {
+        domain
+      }
+    }
+  }
+`
+
 export const GET_ISSUES = gql`
   ${issueFragments}
   query getWebsites($filter: String, $limit: Int, $offset: Int) {
