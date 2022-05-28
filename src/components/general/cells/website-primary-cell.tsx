@@ -35,6 +35,7 @@ const useStyles = makeStyles(() => ({
   },
 }))
 
+// TODO: refactor component usage for FeedItem rendering.
 export function WebsitePrimaryCellComponent({
   handleClickOpen,
   item,
@@ -43,7 +44,6 @@ export function WebsitePrimaryCellComponent({
   issuesModal = false,
   error = false,
   handleToggle,
-  checked,
   checkList,
   listIndex,
   openError,
@@ -94,18 +94,6 @@ export function WebsitePrimaryCellComponent({
 
   const lh = item?.insight?.json
 
-  const issueProps = {
-    error,
-    checkList,
-    handleToggle,
-    checked,
-    listIndex,
-    openError,
-    pageIssues,
-    item,
-    url,
-  }
-
   const linkType = openError && !issuesModal
 
   const extraProps = {
@@ -117,6 +105,17 @@ export function WebsitePrimaryCellComponent({
   }
 
   const secondaryContent = !pagesModal && secondaryText ? secondaryText : ''
+
+  // build the props we want for the component extracting pieces.
+  const issueProps = {
+    error,
+    checkList,
+    handleToggle,
+    listIndex,
+    openError,
+    pageIssues, // array of issues
+    url,
+  }
 
   return (
     <Fragment>

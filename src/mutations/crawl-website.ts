@@ -34,11 +34,11 @@ export const CRAWL_WEBSITE = gql`
           possibleIssuesFixedByCdn
           totalIssues
           cdnConnected
-          skipContentIncluded
           errorCount
           warningCount
           noticeCount
           limitedCount
+          pageCount
         }
       }
     }

@@ -114,7 +114,7 @@ export function WebsiteCellDashboardComponent({
   const reportsPageLink = `/reports/${encodedUrl}`
 
   const parsedInsight = useMemo(() => {
-    // TODO: REMOVE DOUBLE PARSING OF JSON
+    // TODO: Handles Deprecated pages
     if (insight && insight?.json && insight.json !== `{"json":""}`) {
       const parsed = JSON.parse(insight?.json)
 
@@ -131,7 +131,7 @@ export function WebsiteCellDashboardComponent({
     [url]
   )
 
-  // real time issue tracking
+  // real time issue tracking [TODO: combine with website analytic data]
   const { errorCount, warningCount, totalIssues } = useMemo(() => {
     let errors = 0
     let warnings = 0
@@ -153,6 +153,10 @@ export function WebsiteCellDashboardComponent({
           }
         })
       })
+    } else {
+      errors = issuesInfo?.errorCount
+      warnings = issuesInfo?.warningCount
+      notices = issuesInfo?.noticesCount
     }
 
     return {
@@ -161,7 +165,12 @@ export function WebsiteCellDashboardComponent({
       noticeCount: notices,
       totalIssues: errors + warnings + notices,
     }
-  }, [issues])
+  }, [issues, issuesInfo])
+
+  const pageIssueCount =
+    issues?.length > issuesInfo?.pageCount
+      ? issues.length
+      : issuesInfo?.pageCount
 
   return (
     <li className={`border-4 px-3 pt-2 rounded overflow-hidden`}>
@@ -200,7 +209,7 @@ export function WebsiteCellDashboardComponent({
               ? totalIssues
               : issuesInfo?.totalIssues,
         }}
-        pageIssueCount={issues?.length}
+        pageIssueCount={pageIssueCount}
         cdnConnected={cdnConnected}
         adaScore={adaScore}
         issues={issues}
@@ -216,9 +225,9 @@ export function WebsiteCellDashboardComponent({
         />
         <IssuesBox issues={errorCount} />
         <WarningsBox issues={warningCount} />
-        <PagesBox count={issues.length} />
+        <PagesBox count={pageIssueCount ?? 'N/A'} />
         <LoadTimeBox duration={pageLoadTime?.duration} />
-        <StandardBox standard={standard} />
+        <StandardBox standard={standard} url={url} />
         <HeadersBox pageHeaders={pageHeaders} />
         <LighthouseBox pageInsights={pageInsights} />
         <OnlineBox online={online} />

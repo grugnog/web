@@ -32,7 +32,7 @@ const apiRoutes = [
     pathName: 'crawl',
     method: 'POST',
     params: '',
-    info: 'Scan all of your domains pages at once.',
+    info: 'Multi-page scan for a domain gather all issues.',
     title: 'Crawl',
     encodedParams: "--data-urlencode 'websiteUrl=https://a11ywatch.com'",
   },
@@ -45,12 +45,21 @@ const apiRoutes = [
     encodedParams: "--data-urlencode 'websiteUrl=https://a11ywatch.com'",
   },
   {
+    pathName: 'scan-stream',
+    method: 'POST',
+    params: '',
+    info:
+      'Scan a single page for issues as a stream [WIP - lazy stream to keep connection alive]. ',
+    title: 'Scan Stream',
+    encodedParams: "--data-urlencode 'websiteUrl=https://a11ywatch.com'",
+  },
+  {
     pathName: 'image-check',
     method: 'POST',
     params: '',
     encodedParams: `--data-urlencode 'imageBase64=${exampleBase64}'`,
     info: 'Try to determine an image using AI based on a base64 string.',
-    title: 'Classify',
+    title: 'Image Classify',
   },
   {
     pathName: 'report?url=https://a11ywatch.com',
@@ -154,7 +163,7 @@ function Api({ name }: PageProps) {
       />
       <Container maxWidth='xl'>
         <Box>
-          <PageTitle title={'The Web Acessibility API Documentation'} />
+          <PageTitle title={'API Documentation'} />
           <p className='text-lg'>
             In order to get started using the A11yWatch API you need to add a
             authorization header with the jwt format <b>Bearer TOKEN</b>.
@@ -203,7 +212,7 @@ function Api({ name }: PageProps) {
 
         <Box className={'border rounded p-2'}>
           <SectionTitle className={'text-lg font-bold'}>
-            REST API Reference Examples
+            REST Reference Examples
           </SectionTitle>
           {!data?.user && loading ? (
             <TextSkeleton className={'p-2'} />
@@ -283,6 +292,7 @@ ${route.encodedParams}`}
 export default metaSetter(
   { Api },
   {
+    title: 'API Documentation',
     description: `Use A11yWatch's API to get the web accessibility uptime you need when you want. Rates are limited based on your membership plan.`,
     gql: true,
   }

@@ -1,47 +1,51 @@
 import React, { memo, useState } from 'react'
 import { InfoBlock } from '../info-block'
 import { GrDocumentTest } from 'react-icons/gr'
+import { WCAGSelectInput } from '../../select'
+import { useWebsiteContext } from '@app/components/providers/website'
+import { AppManager } from '@app/managers'
+import { Standard } from '../../select/select-input'
 // import { useWebsiteContext } from '@app/components/providers/website'
 
 export const StandardBoxWrapper = ({
   standard: prevStandard,
+  url,
 }: {
-  standard?: string
+  standard?: keyof typeof Standard
+  url: string
 }) => {
-  const [standard, _setStandard] = useState<string>(prevStandard || 'WCAG2AA')
-  //   const { updateWebsite } = useWebsiteContext()
+  const [standard, setStandard] = useState<keyof typeof Standard>(
+    prevStandard || 'WCAG2AA'
+  )
+  const { updateWebsite } = useWebsiteContext()
 
-  //   const onMobileEvent = async () => {
-  //     let nextValue = !isMobile
+  const onStandardChange = async (
+    event: React.ChangeEvent<HTMLSelectElement>
+  ) => {
+    const value = event.target.value as keyof typeof Standard
+    setStandard(value)
 
-  //     setMobile(nextValue)
-
-  //     try {
-  //       await updateWebsite({
-  //         variables: { url, mobile: nextValue },
-  //       })
-  //     } catch (e) {
-  //       console.error(e)
-  //     }
-  //   }
+    try {
+      await updateWebsite({
+        variables: { url, standard: value },
+      })
+      AppManager.toggleSnack(true, `Updated website to ${value}`)
+    } catch (e) {
+      console.error(e)
+      // @ts-ignore
+      AppManager.toggleSnack(true, e?.message)
+    }
+  }
 
   return (
     <InfoBlock
       title={'Standard'}
       icon={<GrDocumentTest className='grIcon' color='black' fill='black' />}
     >
-      {/* <div className='flex pb-2 space-x-1'>
-        <span className='text-sm font-medium'>MOBILE</span>
-        <input
-          checked={standard}
-          type='checkbox'
-          onChange={onMobileEvent}
-          className={
-            'outline-none relative inline-flex flex-shrink-0 h-4 w-7 rounded-full cursor-pointer transition-colors ease-in-out duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'
-          }
-        ></input>
-      </div> */}
-      <div>{standard}</div>
+      <WCAGSelectInput
+        standard={standard}
+        onStandardChange={onStandardChange}
+      />
     </InfoBlock>
   )
 }

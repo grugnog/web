@@ -35,7 +35,7 @@ export const SortableWebsiteList: FC<{ refetch: any }> = ({ refetch }) => {
         refetch()
       }
     }
-  }, [hasSorted])
+  }, [hasSorted, refetch])
 
   return (
     <div>

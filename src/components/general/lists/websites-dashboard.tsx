@@ -1,5 +1,6 @@
 import React from 'react'
 import { WebsiteCellDashboard } from '@app/components/general/cells'
+import { Website } from '@app/types'
 
 // Iterate over website dashboard cells
 export function WebSitesDashboard({
@@ -16,11 +17,11 @@ export function WebSitesDashboard({
 }: any) {
   return (
     <>
-      {data?.map(({ url, id, pageUrl, ...props }: any, index: number) => (
+      {data?.map(({ url, _id, ...props }: Website, index: number) => (
         <WebsiteCellDashboard
+          key={_id}
           handleClickOpen={handleClickOpen}
-          url={url || pageUrl}
-          key={`${id}-${url || pageUrl}`}
+          url={url}
           removePress={removePress}
           refetch={refetch}
           handleClickOpenPlayer={handleClickOpenPlayer}

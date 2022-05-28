@@ -6,12 +6,16 @@ export const UPDATE_WEBSITE = gql`
     $customHeaders: [CreatePageHeaders]
     $pageInsights: Boolean
     $mobile: Boolean
+    $standard: String
+    $ua: String
   ) {
     updateWebsite(
       url: $url
       customHeaders: $customHeaders
       pageInsights: $pageInsights
       mobile: $mobile
+      standard: $standard
+      ua: $ua
     ) {
       code
       success
@@ -25,6 +29,7 @@ export const UPDATE_WEBSITE = gql`
         script {
           script
         }
+        standard
         pageInsights
         insight {
           json

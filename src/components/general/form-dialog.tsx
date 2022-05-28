@@ -10,10 +10,6 @@ import {
   FormControlLabel,
   IconButton,
   Tooltip,
-  FormControl,
-  Select,
-  MenuItem,
-  InputLabel,
 } from '@material-ui/core'
 import { Button } from '@app/components/general'
 import { domainList as dmList } from '@app/utils'
@@ -24,6 +20,9 @@ import { formDialogStyles as useStyles } from './styles'
 import { useWebsiteContext } from '../providers/website'
 import { AppManager } from '@app/managers'
 import { theme } from '@app/theme'
+import { WCAGSelectInput } from './select'
+import { Standard } from './select/select-input'
+import type { StandardKeys } from './select/select-input'
 
 const domainList = [...dmList, 'none']
 
@@ -32,16 +31,6 @@ interface FormDialogProps {
   okPress?: (a: any) => void
   buttonStyles?: string
 }
-
-enum Standard {
-  'WCAG2A',
-  'WCAG2AA',
-  'WCAG2AAA',
-}
-
-const standards = Object.values(Standard).filter(
-  (value) => typeof value === 'string'
-)
 
 export function FormDialogWrapper({
   buttonTitle = 'Subscribe',
@@ -54,7 +43,9 @@ export function FormDialogWrapper({
   const [pageInsights, setPageInsights] = useState<boolean>(true)
   const [mobileViewport, setMobile] = useState<boolean>(false)
   const [ua, _setUserAgent] = useState<string>('')
-  const [standard, setWCAGStandard] = useState<string>(Standard[1])
+  const [standard, setWCAGStandard] = useState<StandardKeys>(
+    Standard[1] as StandardKeys
+  )
 
   const inputRef = useRef(null)
   const classes = useStyles()
@@ -75,14 +66,14 @@ export function FormDialogWrapper({
   }, [setOpen])
 
   const onChangeText = useCallback(
-    (event: any) => {
+    (event: React.ChangeEvent<HTMLInputElement>) => {
       setUrl(event.target.value)
     },
     [setUrl]
   )
 
   const onStandardChange = useCallback(
-    (event: any) => {
+    (event: React.ChangeEvent<any>) => {
       setWCAGStandard(event.target.value)
     },
     [setWCAGStandard]
@@ -334,41 +325,10 @@ export function FormDialogWrapper({
                   label='Headers'
                 />
               </Tooltip>
-              <Tooltip title={'Select WCAG report standard.'}>
-                <FormControl
-                  className={classes.formControl}
-                  style={{ paddingLeft: 3 }}
-                >
-                  <InputLabel
-                    id='extany-select-outlined-label'
-                    className='sr-only'
-                    style={{ marginTop: 0 }}
-                  >
-                    WCAG Standard
-                  </InputLabel>
-                  <Select
-                    labelId='extany-select-outlined-label'
-                    id='ext-select-outlined'
-                    value={standard}
-                    style={{ marginTop: 0, border: 'none' }}
-                    onChange={onStandardChange}
-                    classes={{
-                      selectMenu: classes.inputSelect,
-                    }}
-                  >
-                    {standards.map((value: any) => (
-                      <MenuItem
-                        value={value}
-                        key={value}
-                        dense
-                        style={{ fontSize: '1rem' }}
-                      >
-                        {value && String(value)?.toUpperCase()}
-                      </MenuItem>
-                    ))}
-                  </Select>
-                </FormControl>
-              </Tooltip>
+              <WCAGSelectInput
+                standard={standard}
+                onStandardChange={onStandardChange}
+              />
             </div>
             {customHeader ? <InputHeaders {...inputProps} /> : null}
           </DialogContent>

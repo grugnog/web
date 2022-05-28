@@ -1,4 +1,4 @@
-import React, { Fragment, useState, useEffect, useCallback } from 'react'
+import React, { Fragment, useState, useCallback } from 'react'
 import { useMiniPlayer } from '@app/data'
 import { RenderInner } from '@app/components/general/cells/render/website-inner'
 import { FullScreenModal } from './fullscreen-modal'
@@ -11,6 +11,7 @@ const defaultModalState = {
   error: '',
 }
 
+// returns a list of websites with top level modal for displaying issues.
 export function WebsiteList({
   data,
   error,
@@ -25,7 +26,7 @@ export function WebsiteList({
   lighthouseVisible,
 }: any) {
   const [modal, setOpen] = useState(defaultModalState)
-  const { miniPlayer, setMiniPlayerContent } = useMiniPlayer()
+  const { setMiniPlayerContent } = useMiniPlayer(setOpen)
 
   const handleClickOpen = useCallback(
     (data: any, title: any, url: any, error: any) => {
@@ -37,12 +38,6 @@ export function WebsiteList({
   const handleClose = useCallback(() => {
     setOpen((m) => ({ ...m, open: false }))
   }, [setOpen])
-
-  useEffect(() => {
-    if (miniPlayer.open) {
-      handleClose()
-    }
-  }, [miniPlayer, handleClose])
 
   return (
     <Fragment>

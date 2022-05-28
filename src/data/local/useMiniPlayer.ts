@@ -17,15 +17,20 @@ const defultPlayer = {
   data: '',
 }
 
-export function useMiniPlayer() {
-  const miniPlayer =
-    useQuery(GET_MINI_PLAYER_STATE).data?.miniPlayer || defultPlayer
+export function useMiniPlayer(toggleModalVisibility?: (a: any) => void) {
+  const modalState = useQuery(GET_MINI_PLAYER_STATE)
   const client = useApolloClient()
+
   const setMiniPlayerContent = (
     open: boolean = false,
     data: any = '',
     title: string = ''
   ) => () => {
+    // if the mini player is open and modals are visible perform close.
+    if (toggleModalVisibility && open) {
+      toggleModalVisibility((m: any) => ({ ...m, open: false }))
+    }
+
     client.writeData({
       data: {
         miniPlayer: {
@@ -39,7 +44,7 @@ export function useMiniPlayer() {
   }
 
   return {
-    miniPlayer,
+    miniPlayer: modalState?.data?.miniPlayer || defultPlayer,
     setMiniPlayerContent,
   }
 }

@@ -76,7 +76,12 @@ function MoreOptionsBaseComponent({
         </MenuItem>
         {issues?.length ? (
           <MenuItem
-            onClick={handleMainClick(issues, 'Issues', false, url as string)}
+            onClick={handleMainClick(
+              issues,
+              'Issues',
+              false,
+              targetUrl as string
+            )}
           >
             View Issues
           </MenuItem>
@@ -86,7 +91,7 @@ function MoreOptionsBaseComponent({
             View Lighthouse
           </MenuItem>
         ) : null}
-        <MenuItem onClick={handleMainClick(url, 'Mini Player', true)}>
+        <MenuItem onClick={handleMainClick(targetUrl, 'Mini Player', true)}>
           View Sandbox (Mini Player)
         </MenuItem>
         {children}

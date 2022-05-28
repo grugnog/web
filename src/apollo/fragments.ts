@@ -71,6 +71,7 @@ export const websiteFragments = gql`
       errorCount
       warningCount
       noticeCount
+      pageCount
     }
     pageHeaders {
       key

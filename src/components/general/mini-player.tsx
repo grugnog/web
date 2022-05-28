@@ -11,7 +11,6 @@ import { DragHandler } from '@app/lib'
 import { useMiniPlayer } from '@app/data'
 import { Fab } from './fab'
 import { Link } from './link'
-import type { MergedTheme } from '@app/theme'
 import { GrowTransition } from './grow'
 import { GrClose } from 'react-icons/gr'
 
@@ -22,16 +21,13 @@ const AdaIframe = dynamic(
   () => import('../ada/ada-iframe').then((mod) => mod.AdaIframe) as any
 ) as any
 
-const useStyles = makeStyles((theme: MergedTheme) => ({
+const useStyles = makeStyles(() => ({
   root: {
     overflow: 'hidden',
   },
   appBar: {
     position: 'relative',
-  },
-  title: {
-    marginLeft: theme?.spacing(2),
-    flex: 1,
+    backgroundColor: '#000',
   },
   miniPlayer: {
     overflow: 'hidden',
@@ -44,20 +40,14 @@ const useStyles = makeStyles((theme: MergedTheme) => ({
   transparent: {
     background: 'inherit',
   },
-  row: {
-    display: 'flex',
-    alignItems: 'center',
-    flex: 1,
-    overflow: 'hidden',
-  },
   subTitle: {
-    maxWidth: '25vw',
-    color: theme?.color?.indigo,
+    color: '#fff',
   },
 }))
 
 interface MiniPlayerProps {}
 
+// a mini modal that appears that can be dragged across the screen.
 export const MiniPlayer: FunctionComponent<MiniPlayerProps> = (_) => {
   const { miniPlayer, setMiniPlayerContent } = useMiniPlayer()
   const classes = useStyles()
@@ -65,16 +55,22 @@ export const MiniPlayer: FunctionComponent<MiniPlayerProps> = (_) => {
   const handler = new DragHandler(appBarRef?.current)
 
   const { open, data, title } = useMemo(() => {
+    // parse lighthouse data
     if (miniPlayer?.title === 'Lighthouse') {
       return { ...miniPlayer, data: JSON.parse(miniPlayer?.data) }
     }
     return miniPlayer
   }, [miniPlayer])
 
+  const onMouseDownEvent = (e: any) => {
+    e?.preventDefault()
+    handler.dragMouseDown(e, appBarRef?.current)
+  }
+
   return (
     <Dialog
       fullScreen={false}
-      onMouseDown={(e: any) => handler.dragMouseDown(e, appBarRef?.current)}
+      onMouseDown={onMouseDownEvent}
       ref={appBarRef}
       className={classes.miniPlayer}
       fullWidth
@@ -96,42 +92,36 @@ export const MiniPlayer: FunctionComponent<MiniPlayerProps> = (_) => {
         <Toolbar>
           <IconButton
             edge='start'
-            color='inherit'
+            color='secondary'
             onClick={setMiniPlayerContent(false)}
             aria-label='close'
           >
-            <GrClose />
+            <GrClose className='grIcon text-white' />
           </IconButton>
-          <div className={classes.row}>
-            <Typography variant='h6' className={classes.title}>
-              {title}
-            </Typography>
+          <div
+            className={
+              'flex flex-1 place-items-center space-x-2 place-content-between'
+            }
+          >
+            <p className='text-xl font-bold text-white'>{title}</p>
             {title !== 'Lighthouse' ? (
-              <Typography
-                variant='subtitle1'
-                className={classes.subTitle}
-                component={Link}
-                color={'primary'}
-                href={`/website-details?url=${encodeURIComponent(data)}`}
-              >
-                {data}
-              </Typography>
+              <div className='truncate'>
+                <Typography
+                  variant='subtitle1'
+                  className={classes.subTitle}
+                  component={Link}
+                  color={'secondary'}
+                  href={`/website-details?url=${encodeURIComponent(data)}`}
+                >
+                  {data}
+                </Typography>
+              </div>
             ) : null}
           </div>
         </Toolbar>
       </AppBar>
       {title === 'Lighthouse' ? (
-        <div>
-          {/* @ts-ignore */}
-          <style>
-            {`
-            .lh-topbar__url, .report-icon--download {
-              display: none !important;
-            }
-            `}
-          </style>
-          <ReportViewer json={data} id='fullscreen-lighthouse-report' />
-        </div>
+        <ReportViewer json={data} id='fullscreen-lighthouse-report' />
       ) : (
         <div>
           <AdaIframe url={data} miniPlayer />

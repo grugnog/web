@@ -70,9 +70,7 @@ function Dashboard({ name }: PageProps) {
 
   const lhEnabled = websites?.some((web) => web.pageInsights)
 
-  const onWebsiteSort = () => {
-    setSortModalVisible((v) => !v)
-  }
+  const onWebsiteSort = () => setSortModalVisible((v) => !v)
 
   return (
     <>

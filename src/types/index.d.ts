@@ -486,7 +486,7 @@ export type UserScriptArgs = {
 
 export type Website = {
   __typename?: 'Website'
-  id?: Maybe<Scalars['ID']>
+  _id?: Maybe<Scalars['ID']>
   url?: Maybe<Scalars['String']>
   user?: Maybe<User>
   userId?: Maybe<Scalars['Int']>

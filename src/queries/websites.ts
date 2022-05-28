@@ -5,16 +5,12 @@ import { issueFragments, websiteFragments } from '@app/apollo'
 import { User } from '@app/types'
 
 const GET_WEBSITES = gql`
-  ${issueFragments}
   ${websiteFragments}
-  query getWebsites($filter: String, $limit: Int, $offset: Int) {
+  query getWebsites($limit: Int, $offset: Int) {
     user {
       id
       websites(limit: $limit, offset: $offset) {
         ...WebsiteParts
-        issues(filter: $filter) {
-          ...IssueParts
-        }
       }
     }
   }

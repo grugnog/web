@@ -8,8 +8,8 @@ import { GrFormCheckmark, GrFormUp } from 'react-icons/gr'
 
 const getStyles = (inactive: boolean) =>
   inactive
-    ? 'shadow relative w-1/2 border border-transparent rounded-md py-2 text-sm font-medium text-gray-500 whitespace-nowrap focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:z-10 sm:w-auto sm:px-8 hover:bg-gray-200'
-    : 'relative w-1/2 bg-gray-100 border border-gray-200 rounded-md shadow-sm py-2 text-sm font-medium text-white bg-black whitespace-nowrap focus:outline-none focus:ring-2 focus:ring-gray-500 focus:z-10 sm:w-auto sm:px-8'
+    ? 'relative w-1/2 border rounded-md py-2 text-sm font-medium text-gray-700 whitespace-nowrap focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:z-10 sm:w-auto sm:px-8 hover:bg-gray-200'
+    : 'relative w-1/2 rounded-md shadow-sm py-2 text-sm font-medium text-white bg-black whitespace-nowrap focus:outline-none focus:ring-2 focus:ring-gray-500 focus:z-10 sm:w-auto sm:px-8'
 
 const highLight = (
   name: string = '',
@@ -225,7 +225,11 @@ function PriceWrapper({
                             backgroundColor: textColor,
                           }}
                         >
-                         {planRequired && i === 0 ? <GrFormUp className='grIcon' />: <GrFormCheckmark className='grIcon' />}
+                          {planRequired && i === 0 ? (
+                            <GrFormUp className='grIcon' />
+                          ) : (
+                            <GrFormCheckmark className='grIcon' />
+                          )}
                         </div>
                         <Description className='text-lg'>{item}</Description>
                       </li>

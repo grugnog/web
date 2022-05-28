@@ -35,13 +35,14 @@ function Reports({ name, website }: PageProps) {
   )
 }
 
-const getWebsite = async (url: string, timestamp?: string) => {
+const getWebsite = async (url: string) => {
   let website
   let res
 
-  const apiRoute = `${getAPIRoute('api', true)}/get-website?q=${url}${
-    timestamp ? `&timestamp=${timestamp}` : ''
-  }`
+  const apiRoute = `${getAPIRoute(
+    'api',
+    true
+  )}/get-website?q=${encodeURIComponent(url)}`
 
   try {
     res = await fetch(apiRoute)
@@ -61,7 +62,7 @@ const getWebsite = async (url: string, timestamp?: string) => {
 }
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  const { slug, timestamp } = context.params ?? {}
+  const { slug } = context.params ?? {}
 
   if (!slug) {
     return {
@@ -70,29 +71,19 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   }
 
   let url: string | string[] = slug
-  let time: string | string[] = timestamp || ''
 
   // if its an array for dynamic routes [ old next.js v9 ]
   if (Array.isArray(slug) && slug.length) {
-    ;[url, time] = slug
+    ;[url] = slug
   }
 
   let website
-  let targetUrl = encodeURIComponent(url + '')
+  let targetUrl = url + ''
 
   try {
-    website = await getWebsite(targetUrl, time + '')
+    website = await getWebsite(targetUrl)
   } catch (e) {
     console.error(e)
-  }
-
-  if (!website) {
-    try {
-      website = await getWebsite(targetUrl)
-      // retry without timestamp. TODO: LOOK INTO TIMESTAMP INCONSISTENCIES
-    } catch (e) {
-      console.error(e)
-    }
   }
 
   if (!website) {
