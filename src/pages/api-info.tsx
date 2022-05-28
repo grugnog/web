@@ -8,15 +8,32 @@ import { userData } from '@app/data'
 import { metaSetter } from '@app/utils'
 import type { PageProps } from '@app/types'
 import { GrCopy } from 'react-icons/gr'
-import { companyName } from '@app/configs'
+import { API_ENDPOINT, companyName } from '@app/configs'
+import { exampleBase64 } from '@app/lib/mocks/example-base64'
 
 const apiRoutes = [
+  {
+    pathName: 'login',
+    method: 'POST',
+    params: '',
+    info: 'Login to an existing account and retreives an authentication token.',
+    title: 'Login',
+    encodedParams: `--data-urlencode 'email=example@email.com' \ --data-urlencode 'password=dwdwd'`,
+  },
+  {
+    pathName: 'register',
+    method: 'POST',
+    params: '',
+    info: 'Create a new account to use and retreives an authentication token.',
+    title: 'Register',
+    encodedParams: `--data-urlencode 'email=example@email.com' \ --data-urlencode 'password=dwdwd'`,
+  },
   {
     pathName: 'crawl',
     method: 'POST',
     params: '',
     info: 'Scan all of your domains pages at once.',
-    title: 'Multi page website scan',
+    title: 'Crawl',
     encodedParams: "--data-urlencode 'websiteUrl=https://a11ywatch.com'",
   },
   {
@@ -24,16 +41,66 @@ const apiRoutes = [
     method: 'POST',
     params: '',
     info: 'Scan a single page for issues.',
-    title: 'Scan a website',
+    title: 'Scan',
     encodedParams: "--data-urlencode 'websiteUrl=https://a11ywatch.com'",
+  },
+  {
+    pathName: 'image-check',
+    method: 'POST',
+    params: '',
+    encodedParams: `--data-urlencode 'imageBase64=${exampleBase64}'`,
+    info: 'Try to determine an image using AI based on a base64 string.',
+    title: 'Classify',
   },
   {
     pathName: 'report?url=https://a11ywatch.com',
     method: 'GET',
     params: '',
     encodedParams: '',
-    info: 'Get the last scan ran for a website.',
-    title: 'Get website scan results',
+    info: 'Get the last scan ran for a web page url.',
+    title: 'Last Scan',
+  },
+  {
+    pathName: 'user',
+    method: 'GET',
+    params: '',
+    encodedParams: '',
+    info: 'Retreive your user information details.',
+    title: 'User',
+  },
+  {
+    pathName: 'website?domain=a11ywatch.com',
+    method: 'GET',
+    params: '',
+    encodedParams: '',
+    info: 'Retreive a web page information details.',
+    title: 'Website',
+  },
+  {
+    pathName: 'analytics?url=https://a11ywatch.com',
+    method: 'GET',
+    params: '',
+    encodedParams: '',
+    info: 'Retreive analytics for a web page.',
+    title: 'Analytics',
+  },
+  {
+    pathName: 'list/website?offset=0',
+    method: 'GET',
+    params: '',
+    encodedParams: '',
+    info:
+      'Retreive a list of websites paginated. Request is limited to 2 websites at a time.',
+    title: 'List Websites',
+  },
+  {
+    pathName: 'list/issue?offset=0&domain=www.a11ywatch.com',
+    method: 'GET',
+    params: '',
+    encodedParams: '',
+    info:
+      'Retreive a list of issues paginated. Request is limited to 100 issues at a time.',
+    title: 'List Issues',
   },
 ]
 
@@ -177,14 +244,18 @@ function Api({ name }: PageProps) {
                   <h6 className='text-base'>{route.info}</h6>
                   <p className='italic text-blue-700'>Method: {route.method}</p>
                   <p className='py-1'>
-                    Endpoint: https://api.a11ywatch.com/api/{route.pathName}
+                    Endpoint: {API_ENDPOINT}/{route.pathName}
                   </p>
                   <code className='border block p-2 rounded bg-black text-white text-base overflow-auto'>
-                    {`curl --location --request POST 'https://api.a11ywatch.com/api/${
-                      route.pathName
-                    }' \
---header 'Authorization: ${keyVisible ? token : '$A11YWATCH_TOKEN'}' \
---header 'Content-Type: application/x-www-form-urlencoded' \
+                    {`curl --location --request ${
+                      route.method ?? 'POST'
+                    } '${API_ENDPOINT}/${route.pathName}' \
+--header 'Authorization: ${keyVisible ? token : '$A11YWATCH_TOKEN'}'
+${
+  route.method === 'POST'
+    ? `\ --header 'Content-Type: application/x-www-form-urlencoded'`
+    : ''
+} \
 ${route.encodedParams}`}
                   </code>
                 </li>

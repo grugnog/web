@@ -30,7 +30,7 @@ export const paymentsData = () => {
   }, [newUser])
 
   const model = Object.freeze({
-    data: (Object.keys(userData).length > 0 && userData) || null,
+    data: (Object.keys(userData).length && userData) || null,
     loading: loading || addPaymentLoading || cancelSubscriptionLoading,
     addSubscription,
     cancelSubscription,

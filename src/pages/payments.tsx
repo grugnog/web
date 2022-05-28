@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { getDate, format } from 'date-fns'
+import { getDate } from 'date-fns'
 import {
   Container,
   Button,
@@ -13,7 +13,7 @@ import { makeStyles } from '@material-ui/core/styles'
 import { NavBar, PriceMemo, PageTitle } from '@app/components/general'
 import { Box } from '@a11ywatch/ui'
 import { paymentsData } from '@app/data'
-import { getOrdinalSuffix, metaSetter } from '@app/utils'
+import { metaSetter } from '@app/utils'
 import type { PageProps } from '@app/types'
 import { useRouter } from 'next/router'
 import { UserManager, AppManager } from '@app/managers'
@@ -22,13 +22,9 @@ import { Elements } from '@stripe/react-stripe-js'
 import { loadStripe, Stripe } from '@stripe/stripe-js'
 import { STRIPE_KEY } from '@app/configs/app-config'
 import { EmptyPayments } from '@app/components/empty'
+import { useBillingDisplay } from '@app/data/formatters'
 
 const useStyles = makeStyles(() => ({
-  row: {
-    display: 'flex',
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
   cancel: {
     border: '1px solid #000',
   },
@@ -72,6 +68,8 @@ function Payments({ hideTitle = false, name }: PaymentProps) {
 
   const plan = String(router?.query?.plan).toLocaleLowerCase() as string
   const yearSet = String(router?.query?.yearly)
+
+  const { billingtitle } = useBillingDisplay(data?.invoice)
 
   useEffect(() => {
     ;(async () => {
@@ -190,18 +188,11 @@ function Payments({ hideTitle = false, name }: PaymentProps) {
   const nextPaymentDay =
     paymentSubscription?.current_period_end &&
     getDate(new Date(Number(paymentSubscription.current_period_end * 1000)))
-  const startDate =
-    paymentSubscription?.current_period_start &&
-    new Date(Number(paymentSubscription.start_date * 1000))
+
   const price = state.basic ? 999 : 1999
+
   const priceMultiplyier = yearly ? 9 : ''
-  const paymentDate = `${name} will occur on the ${
-    paymentSubscription?.plan?.interval === 'year'
-      ? `${format(startDate, 'MMMM')} `
-      : ''
-  }${getOrdinalSuffix(nextPaymentDay)} of every ${
-    paymentSubscription?.plan?.interval ?? 'month'
-  }`
+  const paymentDate = `Next payment will occur on ${billingtitle}`
 
   const subTitle = !renderPayMentBoxes
     ? 'Account Info'
@@ -211,13 +202,13 @@ function Payments({ hideTitle = false, name }: PaymentProps) {
     <Elements stripe={stripePromise}>
       <NavBar title={name} backButton notitle />
       <Container maxWidth='xl'>
-        <Box>
-          {hideTitle ? null : <PageTitle>{name}</PageTitle>}
+        <Box className='py-2'>
+          {hideTitle ? null : <PageTitle>Payment Details</PageTitle>}
           {loading && !data ? (
             <EmptyPayments subTitle={subTitle} />
           ) : (
             <div>
-              <p className='text-xl'>{subTitle}</p>
+              <p className='text-xl font-bold'>{subTitle}</p>
               {renderPayMentBoxes ? (
                 <PriceMemo
                   priceOnly
@@ -232,7 +223,7 @@ function Payments({ hideTitle = false, name }: PaymentProps) {
                   {nextPaymentDay ? (
                     <p className='text-xl'> {paymentDate}</p>
                   ) : null}
-                  <p className='text-2xl font-bold'>Account Type</p>
+                  <p className='text-xl font-bold'>Account Type</p>
                   <p className='text-xl'>
                     {`${
                       paymentSubscription?.plan?.nickname ||
@@ -241,6 +232,7 @@ function Payments({ hideTitle = false, name }: PaymentProps) {
                   </p>
                 </div>
               )}
+
               <div className='py-10'>
                 {!renderPayMentBoxes ? (
                   <Button
@@ -260,43 +252,43 @@ function Payments({ hideTitle = false, name }: PaymentProps) {
                   />
                 )}
               </div>
-              <Dialog
-                open={open}
-                onClose={handleModal(false)}
-                aria-labelledby='alert-dialog-title'
-                aria-describedby='alert-dialog-description'
-              >
-                <DialogTitle id='alert-dialog-title'>
-                  {'Cancel your subscription? You can always re-sub later on.'}
-                </DialogTitle>
-                <DialogContent>
-                  <DialogContentText id='alert-dialog-description'>
-                    Confirm cancel for {data?.role === 1 ? 'basic' : 'premium'}{' '}
-                    subscription.
-                  </DialogContentText>
-                </DialogContent>
-                <DialogActions>
-                  <Button
-                    onClick={handleModal(false)}
-                    variant='contained'
-                    className={classes.cancelBtn}
-                  >
-                    No
-                  </Button>
-                  <Button
-                    onClick={cancelConfirm}
-                    color='primary'
-                    variant='contained'
-                    type='submit'
-                  >
-                    Confirm Cancel
-                  </Button>
-                </DialogActions>
-              </Dialog>
             </div>
           )}
         </Box>
       </Container>
+      <Dialog
+        open={open}
+        onClose={handleModal(false)}
+        aria-labelledby='alert-dialog-title'
+        aria-describedby='alert-dialog-description'
+      >
+        <DialogTitle id='alert-dialog-title'>
+          {'Cancel your subscription? You can always re-sub later on.'}
+        </DialogTitle>
+        <DialogContent>
+          <DialogContentText id='alert-dialog-description'>
+            Confirm cancel for {data?.role === 1 ? 'basic' : 'premium'}{' '}
+            subscription.
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button
+            onClick={handleModal(false)}
+            variant='contained'
+            className={classes.cancelBtn}
+          >
+            No
+          </Button>
+          <Button
+            onClick={cancelConfirm}
+            color='primary'
+            variant='contained'
+            type='submit'
+          >
+            Confirm Cancel
+          </Button>
+        </DialogActions>
+      </Dialog>
     </Elements>
   )
 }

@@ -17,6 +17,18 @@ const GET_USER = gql`
         lastScanDate
         usageLimit
       }
+      invoice {
+        amount_due
+        amount_paid
+        amount_remaining
+        next_payment_attempt
+        period_end
+        period_start
+        total
+        sub_total
+        paid
+        billing_reason
+      }
     }
   }
 `

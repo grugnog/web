@@ -20,6 +20,7 @@ import { userData } from '@app/data'
 import { metaSetter } from '@app/utils'
 import { useProfileStyles as useStyles } from '@app/styles/pages/profile'
 import type { PageProps } from '@app/types'
+import { useBillingDisplay } from '@app/data/formatters'
 
 const Profile: FC<PageProps> = ({ name }) => {
   const classes = useStyles()
@@ -29,6 +30,9 @@ const Profile: FC<PageProps> = ({ name }) => {
   const [newPassword, setNewPassword] = useState<string>('')
 
   const { user } = data
+  const { invoice } = user ?? {}
+
+  const { billingtitle, billingHeadDisplay } = useBillingDisplay(invoice)
 
   const onChangeCurrent = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -119,9 +123,9 @@ const Profile: FC<PageProps> = ({ name }) => {
             />
             {user?.activeSubscription ? (
               <ProfileCell
-                title={'Next Invoice'}
+                title={billingHeadDisplay}
                 skeletonLoad={!user && loading}
-                subTitle={user?.activeSubscription ? 'End of Month' : 'N/A'}
+                subTitle={billingtitle}
                 className={classes.email}
               />
             ) : null}
