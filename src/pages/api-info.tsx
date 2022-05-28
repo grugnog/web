@@ -1,6 +1,5 @@
 import React, { Fragment, useState } from 'react'
 import { Container, Button, IconButton } from '@material-ui/core'
-import { makeStyles } from '@material-ui/core/styles'
 import { NavBar, PageTitle, Link, Footer } from '@app/components/general'
 import { Box } from '@a11ywatch/ui'
 import { TextSkeleton } from '@app/components/placeholders'
@@ -9,26 +8,34 @@ import { userData } from '@app/data'
 import { metaSetter } from '@app/utils'
 import type { PageProps } from '@app/types'
 import { GrCopy } from 'react-icons/gr'
+import { companyName } from '@app/configs'
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    overflow: 'hidden',
+const apiRoutes = [
+  {
+    pathName: 'crawl',
+    method: 'POST',
+    params: '',
+    info: 'Scan all of your domains pages at once.',
+    title: 'Multi page website scan',
+    encodedParams: "--data-urlencode 'websiteUrl=https://a11ywatch.com'",
   },
-  container: {
-    marginTop: theme.spacing(2),
-    marginBottom: theme.spacing(2),
+  {
+    pathName: 'scan-simple',
+    method: 'POST',
+    params: '',
+    info: 'Scan a single page for issues.',
+    title: 'Scan a website',
+    encodedParams: "--data-urlencode 'websiteUrl=https://a11ywatch.com'",
   },
-  payments: {
-    marginTop: theme.spacing(1),
-    marginBottom: theme.spacing(1),
+  {
+    pathName: 'report?url=https://a11ywatch.com',
+    method: 'GET',
+    params: '',
+    encodedParams: '',
+    info: 'Get the last scan ran for a website.',
+    title: 'Get website scan results',
   },
-  email: {
-    marginBottom: theme.spacing(2),
-  },
-  italic: {
-    fontStyle: 'italic',
-  },
-}))
+]
 
 const SectionTitle = ({ children, className, bold }: any) => {
   return (
@@ -44,11 +51,8 @@ const SectionTitle = ({ children, className, bold }: any) => {
 
 // TODO: GENERATE DOCS FROM API
 function Api({ name }: PageProps) {
-  const classes = useStyles()
   const [keyVisible, setKey] = useState<boolean>(false)
-
   const { data = {}, loading } = userData()
-
   const { user } = data
 
   const toggleKey = () => setKey((c) => !c)
@@ -81,7 +85,7 @@ function Api({ name }: PageProps) {
         notitle
         authenticated={!!data?.user}
       />
-      <Container maxWidth='xl' className={classes.root}>
+      <Container maxWidth='xl'>
         <Box>
           <PageTitle title={'The Web Acessibility API Documentation'} />
           <p className='text-lg'>
@@ -101,11 +105,10 @@ function Api({ name }: PageProps) {
             .
           </p>
           {!data?.user && loading ? (
-            <TextSkeleton className={classes.email} />
+            <TextSkeleton className={'p-2'} />
           ) : data?.user ? (
-            <div>
+            <div className='py-2'>
               <Button
-                className={classes.payments}
                 type='button'
                 onClick={toggleKey}
                 variant='outlined'
@@ -114,7 +117,7 @@ function Api({ name }: PageProps) {
                 {`${keyVisible ? 'HIDE' : 'VIEW'} TOKEN`}
               </Button>
               {keyVisible ? (
-                <div className={`${classes.container} relative`}>
+                <div className={`py-2 relative`}>
                   <div className='absolute right-2 -top-12 overflow-visible'>
                     <IconButton
                       aria-label='Copy your access token to clipboard'
@@ -131,18 +134,19 @@ function Api({ name }: PageProps) {
           ) : null}
         </Box>
 
-        <Box>
-          <SectionTitle variant='subtitle1' bold>
-            REST web accessibility and vitals endpoints.
+        <Box className={'border rounded p-2'}>
+          <SectionTitle className={'text-lg font-bold'}>
+            REST API Reference Examples
           </SectionTitle>
           {!data?.user && loading ? (
-            <TextSkeleton className={classes.email} />
+            <TextSkeleton className={'p-2'} />
           ) : !data?.user ? (
             <p className={'pb-2 text-lg'}>
               <Link href={'/login'} className={'underline'}>
                 Login
               </Link>{' '}
-              to see your API limits.
+              to see your API limits and test requests using your account.
+              <p>Replace the sample API key with your actual API key.</p>
             </p>
           ) : (
             <>
@@ -158,33 +162,44 @@ function Api({ name }: PageProps) {
         </Box>
 
         <Box>
-          <h3 className='text-2xl font-bold'>API Endpoints</h3>
-          <h4 className='text-xl py-2'>Single page website scan.</h4>
-          <h5 className='py-1'>
-            Endpoint: https://api.a11ywatch.com/api/scan-simple
-          </h5>
-          <code className='border block p-1 rounded bg-gray-100'>
-            {`curl --location --request POST 'https://api.a11ywatch.com/api/scan-simple' \
---header 'Authorization: $A11YWATCH_TOKEN' \
+          <h3 className='text-2xl font-bold'>REST API Endpoints</h3>
+          <h4>
+            Example API endpoints for retreiving data and performing operations.
+          </h4>
+          <ul className='space-y-3 py-2'>
+            {apiRoutes.map((route: any, i) => {
+              return (
+                <li
+                  key={`api-route-${i}`}
+                  className={'text-base border-2 p-3 rounded'}
+                >
+                  <h5 className='text-lg font-bold'>{route.title}</h5>
+                  <h6 className='text-base'>{route.info}</h6>
+                  <p className='italic text-blue-700'>Method: {route.method}</p>
+                  <p className='py-1'>
+                    Endpoint: https://api.a11ywatch.com/api/{route.pathName}
+                  </p>
+                  <code className='border block p-2 rounded bg-black text-white text-base overflow-auto'>
+                    {`curl --location --request POST 'https://api.a11ywatch.com/api/${
+                      route.pathName
+                    }' \
+--header 'Authorization: ${keyVisible ? token : '$A11YWATCH_TOKEN'}' \
 --header 'Content-Type: application/x-www-form-urlencoded' \
---data-urlencode 'websiteUrl=https://www.jeffmendez.com'`}
-          </code>
-          <h4 className='text-xl py-1'>Multi page website scan.</h4>
-          <h5 className='py-1'>
-            Endpoint: https://api.a11ywatch.com/api/crawl
-          </h5>
-          <code className='border block p-2 rounded bg-gray-100'>
-            {`curl --location --request POST 'https://api.a11ywatch.com/api/crawl' \
---header 'Authorization: $A11YWATCH_TOKEN' \
---header 'Content-Type: application/x-www-form-urlencoded' \
---data-urlencode 'websiteUrl=https://www.jeffmendez.com'`}
-          </code>
+${route.encodedParams}`}
+                  </code>
+                </li>
+              )
+            })}
+          </ul>
         </Box>
 
-        <div className='border rounded inline-block px-4 py-1'>
+        <div className='border rounded inline-block px-4 py-2'>
           <p className='text-grey-600 text-lg'>
-            This document is going to be refactored soon as we restructure and
-            expose more of the main API.
+            By default, the {companyName} API Docs demonstrate using curl to
+            interact with the API over HTTP. In the example replace
+            a11ywatch.com with your website you want to target. Some clients are
+            a work in progress as we build out the core of our system. The
+            graphQl and gRPC docs will come soon.
           </p>
         </div>
 
@@ -197,7 +212,7 @@ function Api({ name }: PageProps) {
 export default metaSetter(
   { Api },
   {
-    description: `Use A11yWatch's API to get the accessibility uptime you need when you want. Rates are limited based on your membership plan.`,
+    description: `Use A11yWatch's API to get the web accessibility uptime you need when you want. Rates are limited based on your membership plan.`,
     gql: true,
   }
 )
