@@ -1,0 +1,181 @@
+import { exampleBase64 } from '@app/lib/mocks/example-base64'
+
+export const websiteParamDefs = {
+  url: {
+    type: 'string',
+    desc: 'The domain to add to your tracking list.',
+    optional: false,
+  },
+  customHeaders: {
+    type: 'string[{key: string, value: string}]',
+    desc: 'An array of objects with key:value par for header configurations.',
+    optional: true,
+  },
+  mobile: {
+    type: 'boolean',
+    desc: 'Is the testing done in mobile viewport?',
+    optional: true,
+  },
+  standard: {
+    type: 'string',
+    desc: 'The WCAG2.1 standard to use ex: WCAG2A, WCAG2AA, and WCAG2AAA.',
+    optional: true,
+  },
+}
+
+export const apiRoutes = [
+  {
+    pathName: 'login',
+    method: 'POST',
+    params: null,
+    info: 'Login to an existing account and retrieves an authentication token.',
+    title: 'Login',
+    encodedParams: `--data-urlencode 'email=example@email.com' \ --data-urlencode 'password=dwdwd'`,
+  },
+  {
+    pathName: 'register',
+    method: 'POST',
+    params: null,
+    info: 'Create a new account to use and retrieves an authentication token.',
+    title: 'Register',
+    encodedParams: `--data-urlencode 'email=example@email.com' \ --data-urlencode 'password=dwdwd'`,
+  },
+  {
+    pathName: 'crawl',
+    method: 'POST',
+    params: null,
+    info: 'Multi-page scan for a domain gather all issues.',
+    title: 'Crawl',
+    encodedParams: "--data-urlencode 'websiteUrl=https://a11ywatch.com'",
+  },
+  {
+    pathName: 'scan-simple',
+    method: 'POST',
+    params: null,
+    info: 'Scan a single page for issues.',
+    title: 'Scan',
+    encodedParams: "--data-urlencode 'websiteUrl=https://a11ywatch.com'",
+  },
+  {
+    pathName: 'scan-stream',
+    method: 'POST',
+    params: '',
+    info:
+      'Scan multi pages for issues as a stream [WIP - lazy stream to keep connection alive]. ',
+    title: 'Crawl Stream',
+    encodedParams: "--data-urlencode 'websiteUrl=https://a11ywatch.com'",
+  },
+  {
+    pathName: 'image-check',
+    method: 'POST',
+    params: null,
+    encodedParams: `--data-urlencode 'imageBase64=${exampleBase64}'`,
+    info: 'Try to determine an image using AI based on a base64 string.',
+    title: 'Image Classify',
+  },
+  {
+    pathName: 'user',
+    method: 'GET',
+    params: null,
+    encodedParams: '',
+    info: 'Retreive your user information details.',
+    title: 'User',
+  },
+  {
+    pathName: 'report?url=https://a11ywatch.com',
+    method: 'GET',
+    params: null,
+    encodedParams: '',
+    info: 'Get the last scan ran for a web page url.',
+    title: 'Last Scan',
+  },
+  {
+    pathName: 'iframe?url=https://a11ywatch.com',
+    method: 'GET',
+    params: '',
+    encodedParams: '',
+    info: 'Turn a url into a reverse engineered iframe.',
+    title: 'Iframe',
+  },
+  {
+    pathName: 'website',
+    method: 'POST',
+    params: websiteParamDefs,
+    encodedParams: "--data-urlencode 'websiteUrl=https://a11ywatch.com'",
+    info: 'Create a website to track and configure for crawling.',
+    title: 'Add Website',
+  },
+  {
+    pathName: 'website?domain=https://a11ywatch.com',
+    method: 'GET',
+    params: null,
+    encodedParams: '',
+    info: 'Retreive a web page information details.',
+    title: 'Website',
+  },
+  {
+    pathName: 'website',
+    method: 'PUT',
+    params: websiteParamDefs,
+    encodedParams: "--data-urlencode 'websiteUrl=https://a11ywatch.com'",
+    info: 'Update a website configuration.',
+    title: 'Update Website',
+  },
+  {
+    pathName: 'analytics?url=https://a11ywatch.com',
+    method: 'GET',
+    params: '',
+    encodedParams: '',
+    info: 'Retreive analytics for a web page.',
+    title: 'Analytics',
+  },
+  {
+    pathName: 'list/website?offset=0',
+    method: 'GET',
+    params: '',
+    encodedParams: '',
+    info:
+      'Retreive a list of websites paginated. Request is limited to 5 websites at a time.',
+    title: 'List Websites',
+  },
+  {
+    pathName: 'list/issue?offset=0&domain=www.a11ywatch.com',
+    method: 'GET',
+    params: {
+      offset: {
+        type: 'number',
+        desc: 'The page offset to grab the next set',
+        optional: true,
+      },
+      domain: {
+        type: 'string',
+        desc: 'The domain to get issues for',
+        optional: true,
+      },
+    },
+    encodedParams: '',
+    info:
+      'Retreive a list of issues paginated. Request is limited to 100 issues at a time.',
+    title: 'List Issues',
+  },
+  {
+    pathName: 'list/pages?offset=0',
+    method: 'GET',
+    params: {
+      offset: {
+        type: 'number',
+        desc: 'The page offset to grab the next set',
+        optional: true,
+      },
+      domain: {
+        type: 'string',
+        desc: 'The domain to get pages for',
+        optional: true,
+      },
+    },
+    encodedParams: '',
+    info:
+      'Retreive a list of pages paginated. Request is limited to 5 pages at a time.',
+    title: 'List Pages',
+  },
+]

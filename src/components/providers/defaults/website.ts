@@ -1,10 +1,9 @@
-import type { IssueData } from '@app/types'
 import { ApolloError } from 'apollo-client'
 
 export const sharedWebsiteDefaults = {
-  issueFeed: { data: [] as IssueData[], open: false },
+  issueFeed: { data: {}, open: false },
   loading: false,
-  mutatationLoading: false,
+  mutatationLoading: false as boolean,
   data: [],
   error: undefined as ApolloError | undefined,
   subscriptionData: {
@@ -12,6 +11,8 @@ export const sharedWebsiteDefaults = {
   },
   // issues only TODO: MOVE TO SEPERATE PROVIDER
   issueData: [],
+  pagesData: [],
+  pagesDataLoading: false,
   issueDataLoading: false,
   // visuals
   lighthouseVisible: true,
@@ -41,6 +42,12 @@ export const sharedWebsiteDefaults = {
     return _
   },
   onLoadMoreWebsites: (_: any): Promise<any> => {
+    return _
+  },
+  onLoadMoreIssues: (_: any): Promise<any> => {
+    return _
+  },
+  onLoadMorePages: (_: any): Promise<any> => {
     return _
   },
 }

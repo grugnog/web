@@ -33,6 +33,11 @@ const Application = ({ Component, pageProps, name }: InnerApp) => {
     scopedQuery = 'issues'
   }
 
+  if (nameLowerCased === 'pages') {
+    initialQuery = false
+    scopedQuery = 'pages'
+  }
+
   // Restful provider for API [Good for marketing sections]
   const RestWrapper = Component.rest ? RestWebsiteProviderWrapper : Fragment
 
@@ -81,7 +86,6 @@ export function MyApp({ Component, pageProps }: InnerApp) {
         document.cookie,
     })
 
-    // TODO: look into middleware initial request handler
     queueMicrotask(ping)
   }, [])
 

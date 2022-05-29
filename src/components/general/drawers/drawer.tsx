@@ -52,10 +52,12 @@ export function DrawerWrapperComponent({
   classes,
   dataSourceMap,
   sidePannelStyles,
+  authenticated,
 }: any) {
   return (
     <Fragment>
       <NavBar
+        authenticated={authenticated}
         title={title}
         position='fixed'
         className={`${classes.nav} ${classes.appBar} ${sidePannelStyles}`}
@@ -88,13 +90,12 @@ export function DrawerComponent({
   const { data: dataSourceMap, sendConfirmEmail } = userData()
   const { issueFeed } = useWebsiteContext()
 
+  // TODO: remove re-adjusting client for absulute position feed.
+  const { open } = issueFeed
+
   const user = dataSourceMap?.user as any
 
-  const sidePannelStyles = `${
-    issueFeed?.data?.length && issueFeed.open
-      ? `${classes.sidePanelPadding}`
-      : ''
-  }`
+  const sidePannelStyles = `${open ? `${classes.sidePanelPadding}` : ''}`
 
   return (
     <div className={classes.root}>
@@ -104,6 +105,7 @@ export function DrawerComponent({
         route={route}
         title={title}
         bottomButton={bottomButton}
+        authenticated={!!user}
         dataSourceMap={dataSourceMap}
         sidePannelStyles={sidePannelStyles}
       />

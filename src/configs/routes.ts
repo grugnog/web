@@ -175,11 +175,11 @@ export const LOGGIN_ROUTES = [
   '/dashboard',
   '/website-details',
   '/profile',
-  '/cdn',
   '/scripts',
   '/history',
   '/payments',
   '/website-analytics',
   '/issues',
   '/web-issues',
+  '/web-pages',
 ]

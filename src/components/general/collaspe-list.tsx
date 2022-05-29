@@ -266,7 +266,7 @@ export function CollaspeList({ dataSource, cdn }: any) {
   const entries = useMemo(() => Object.entries(dataSource), [dataSource])
 
   useEffect(() => {
-    if (entries?.length) {
+    if (entries?.length === 1) {
       setOpen(entries[0][0])
     }
   }, [entries, setOpen])

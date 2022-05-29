@@ -1,53 +1,13 @@
 import gql from 'graphql-tag'
 
 const GET_HISTORY = gql`
-  query getHistory($filter: String) {
+  query getHistory {
     user {
       id
       history {
-        id
+        _id
         url
         domain
-        cdnConnected
-        insight {
-          json
-        }
-        pageLoadTime {
-          duration
-          durationFormated
-          color
-        }
-        subDomains {
-          domain
-          url
-          adaScore
-          insight {
-            json
-          }
-          pageLoadTime {
-            duration
-            durationFormated
-            color
-          }
-          issues(filter: $filter) {
-            code
-            type
-            selector
-            message
-            context
-            recurrence
-          }
-        }
-        issues(filter: $filter) {
-          pageUrl
-          issues {
-            code
-            type
-            selector
-            message
-            context
-          }
-        }
       }
     }
   }

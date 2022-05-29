@@ -31,6 +31,11 @@ export function useMiniPlayer(toggleModalVisibility?: (a: any) => void) {
       toggleModalVisibility((m: any) => ({ ...m, open: false }))
     }
 
+    if (typeof data === 'object' && !Object.keys(data).length) {
+      // exit if incorrect handling
+      return
+    }
+
     client.writeData({
       data: {
         miniPlayer: {

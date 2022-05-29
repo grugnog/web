@@ -48,7 +48,7 @@ export function FeedIssueCardComponent({
           />
           <p
             className={`truncate text-sm font-bold ${
-              recurrence ? 'max-w-[60%]' : 'max-w-[70%]'
+              recurrence ? 'max-w-[60%]' : 'max-w-[93%]'
             }`}
           >
             {selector}
@@ -116,4 +116,5 @@ export function FeedIssueComponent({
   )
 }
 
+// Generic issue UI display to re-use across application
 export const FeedIssue = memo(FeedIssueComponent)

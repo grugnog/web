@@ -29,15 +29,16 @@ export const FeedHeadingComponent = ({
   return (
     <div className='flex px-2 place-items-center py-1 border border-x-0 border-t-0 h-15'>
       <IssueTitle pageUrl={issue.pageUrl} domain={issue?.domain} />
-      <IconButton onClick={onToggle}>
-        {sectionHidden ? (
-          <GrView title={`Toggle items visible for ${issue.pageUrl}`} />
-        ) : (
-          <GrHide title={`Toggle items hidden for ${issue.pageUrl}`} />
-        )}
+      <IconButton
+        onClick={onToggle}
+        title={`Toggle items ${sectionHidden ? 'visible' : 'hidden'} for ${
+          issue.pageUrl
+        }`}
+      >
+        {sectionHidden ? <GrView /> : <GrHide />}
       </IconButton>
-      <IconButton onClick={onScan}>
-        <GrSync title={`Re scan ${issue.pageUrl} and sync`} />
+      <IconButton onClick={onScan} title={`Scan ${issue.pageUrl} and sync`}>
+        <GrSync />
       </IconButton>
     </div>
   )

@@ -18,7 +18,6 @@ const TestViewContainer = observer(
         <TestOutIframe url={url} issue={issue} posRelative={posRelative} />
         <Fab
           direction='left'
-          autoFix
           issue={issue}
           script={script}
           marketing={marketing}

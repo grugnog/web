@@ -13,6 +13,7 @@ export const WebsiteProviderComponent: FC<{
   gqlFilter?: any
   scopedQuery?: string
 }> = ({ children, skip, gqlFilter = '', scopedQuery }) => {
+  // main top data state
   const state = useWebsiteData(gqlFilter, '', null, skip, scopedQuery)
 
   return <WebsiteProvider value={state}>{children}</WebsiteProvider>

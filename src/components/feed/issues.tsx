@@ -1,4 +1,4 @@
-import React, { memo, FC, useMemo, useCallback } from 'react'
+import React, { memo, FC, useCallback } from 'react'
 import { IconButton, Fade } from '@material-ui/core'
 import { useStyles } from '../general/styles'
 import { useWebsiteContext } from '../providers/website'
@@ -6,17 +6,21 @@ import { GrClose } from 'react-icons/gr'
 import { AppManager } from '@app/managers'
 import { FeedList } from './list'
 import { Website } from '@app/types'
+import { useMemo } from 'react'
 
 // side panel that appears fixed on the right of current issues of domain being. This returns a list of pages with a list of issues per page.
 const Feed: FC = () => {
   const classes = useStyles()
   const { issueFeed, setIssueFeedContent, scanWebsite } = useWebsiteContext()
+
   const { data, open } = issueFeed
 
-  const issues = useMemo(() => data ?? [], [data]) // memo issues as data source
+  const issues = useMemo(() => {
+    return Object.keys(data)
+  }, [data])
 
   const closeFeed = useCallback(() => {
-    setIssueFeedContent([], false)
+    setIssueFeedContent({}, false)
   }, [setIssueFeedContent])
 
   const onScanEvent = async (target: string) => {
@@ -30,50 +34,39 @@ const Feed: FC = () => {
     }
 
     // clone array to prevent mutation
-    const issuesClone = [...issues]
+    const issuesClone: any = { ...data }
 
     // replace issue feed section with new value
     if (webPage) {
       const { url, issuesInfo } = webPage
-
       // the current item in the feed
-      const pageIndex = issuesClone.findIndex(
-        (source) => source.pageUrl === url
-      )
-      const page = issuesClone[pageIndex]
-      const pageIssues = page?.issues || []
+      const page = issuesClone[url as any]
 
-      // old issues
-      const pageIssuesCount = pageIssues?.length ? pageIssues.length : 0
-      // new issues
-      const newIssuesCount = issuesInfo?.totalIssues ?? 0
+      if (page) {
+        // @ts-ignore
+        const pageIssues = page?.issues || page?.issue || []
+        // old issues
+        const pageIssuesCount = pageIssues?.length ? pageIssues.length : 0
+        // new issues
+        const newIssuesCount = issuesInfo?.totalIssues ?? 0
+        // did the issues on the page update
+        const issuesUpdated = pageIssuesCount !== newIssuesCount
+        const issueMessage = newIssuesCount > pageIssuesCount ? 'more' : 'less'
+        const issueDif = pageIssuesCount - newIssuesCount
 
-      // did the issues on the page update
-      const issuesUpdated = pageIssuesCount !== newIssuesCount
+        let message = 'No new issues found'
 
-      const issueMessage = newIssuesCount > pageIssuesCount ? 'more' : 'less'
+        if (issuesUpdated) {
+          message = `${issueDif} ${issueMessage} issue${
+            issueDif === 1 ? '' : 's'
+          } found`
+        }
 
-      const issueDif = pageIssuesCount - newIssuesCount
-
-      let message = 'No new issues found'
-
-      if (issuesUpdated) {
-        message = `${issueDif} ${issueMessage} issue${
-          issueDif === 1 ? '' : 's'
-        } found`
+        AppManager.toggleSnack(true, message, 'message')
       }
 
-      AppManager.toggleSnack(true, message, 'message')
-
-      // // TODO: find what issues do not exist in each array and remove
-      // if (!issue || newIssuesCount === 0) {
-      //   // issuesClone.splice(issueIndex, 1)
-      // } else if (issue && Array.isArray(issue)) {
-      //   page.issues = issue as any
-      // }
+      setIssueFeedContent(issuesClone, true)
     }
-
-    setIssueFeedContent(issuesClone, true)
   }
 
   return (
@@ -93,10 +86,17 @@ const Feed: FC = () => {
           </IconButton>
         </div>
         <ul>
-          {issues.map((issue, index) => {
+          {issues?.map((v, index) => {
+            // @ts-ignore
+            const issue = data[v] as any
+
+            if (!issue) {
+              return
+            }
+
             return (
               <FeedList
-                key={issue.pageUrl}
+                key={issue?.pageUrl}
                 onScanEvent={onScanEvent}
                 issue={issue}
                 isHidden={!!index}

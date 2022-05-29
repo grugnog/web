@@ -1,17 +1,17 @@
 import { observable, action } from 'mobx'
 
+const defaultSnackBar = {
+  title: '',
+  type: 'message',
+  open: false,
+}
+
 class AppManager {
   @observable
   overlay = false
 
-  defaultSnackBar = {
-    title: 'Auto fix applied',
-    type: 'message',
-    open: false,
-  }
-
   @observable
-  snackbar = this.defaultSnackBar
+  snackbar = defaultSnackBar
 
   // @observable
   // portals: string[] = []
@@ -48,7 +48,7 @@ class AppManager {
   }
 
   @action resetSnackbar = () => {
-    this.snackbar = this.defaultSnackBar
+    this.snackbar = { ...defaultSnackBar }
   }
 
   @action closeSnack = () => {

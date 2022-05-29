@@ -7,6 +7,7 @@ const SCAN_WEBSITE = gql`
       success
       message
       website {
+        _id
         url
         domain
         adaScore

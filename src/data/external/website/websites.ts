@@ -7,7 +7,7 @@ import {
   CRAWL_WEBSITE,
   SCAN_WEBSITE,
 } from '@app/mutations'
-import { GET_WEBSITES, GET_ISSUES, updateCache } from '@app/queries'
+import { GET_WEBSITES, GET_WEBSITES_INFO, updateCache } from '@app/queries'
 import {
   ISSUE_SUBSCRIPTION,
   CRAWL_COMPLETE_SUBSCRIPTION,
@@ -17,7 +17,13 @@ import { useIssueFeed } from '../../local'
 import type { OnSubscriptionDataOptions } from '@apollo/react-common'
 import type { Website } from '@app/types'
 
-// TODO: REFACTOR QUERIES
+/*
+ * This hook returns all the queries, mutations, and subscriptions between your Website with the graphs,
+ * Pages, and Issues with pagination.
+ * @example const {data} = useWebsiteData(); // returns websites
+ * @example const {data} = useWebsiteData('', 'www.somepage.com', null, false); bind to a website for mutations.
+ *
+ */
 export const useWebsiteData = (
   filter: string = '',
   url: string = '',
@@ -25,36 +31,54 @@ export const useWebsiteData = (
   skip: boolean = false,
   scopedQuery: string = ''
 ) => {
-  // TODO: move to UI hooks
+  const [_, forceUpdate] = useReducer((x) => x + 1, 0) // top level force update state
   const [lighthouseVisible, setLighthouseVisibility] = useState<boolean>(true)
+  const { issueFeed, setIssueFeedContent } = useIssueFeed()
 
-  const [_, forceUpdate] = useReducer((x) => x + 1, 0)
   const subscriptionVars = { userId: UserManager.getID }
   const variables = {
     filter,
     customHeaders,
     url,
   }
-  const { issueFeed, setIssueFeedContent } = useIssueFeed()
 
   // start of main queries for pages. Root gets all
   const { data, loading, refetch, error, fetchMore } = useQuery(GET_WEBSITES, {
     variables: {
       ...variables,
-      limit: 2,
+      limit: 5,
       offset: 0,
     },
-    skip,
+    skip: !!scopedQuery, // when scoped queries ignore the initial result
   })
 
   // Only get issues from websites
-  const { data: issuesResults, loading: issueDataLoading } = useQuery(
-    GET_ISSUES,
-    {
-      variables,
-      skip: scopedQuery !== 'issues',
-    }
-  )
+  const {
+    data: issuesResults,
+    loading: issueDataLoading,
+    fetchMore: fetchMoreIssues,
+  } = useQuery(GET_WEBSITES_INFO, {
+    variables: {
+      ...variables,
+      limit: 5,
+      offset: 0,
+    },
+    skip: scopedQuery !== 'issues',
+  })
+
+  // Get Website Pages
+  const {
+    data: pagesResults,
+    loading: pagesDataLoading,
+    fetchMore: fetchMorePages,
+  } = useQuery(GET_WEBSITES_INFO, {
+    variables: {
+      ...variables,
+      limit: 5,
+      offset: 0,
+    },
+    skip: scopedQuery !== 'pages',
+  })
 
   const [removeWebsite, { loading: removeLoading }] = useMutation(
     REMOVE_WEBSITE,
@@ -67,6 +91,8 @@ export const useWebsiteData = (
   const [updateWebsite, { data: updateData }] = useMutation(UPDATE_WEBSITE, {
     variables,
   })
+
+  // trigger events to gather issues
   const [crawl, { loading: crawlLoading }] = useMutation(CRAWL_WEBSITE)
   const [scan, { loading: scanLoading }] = useMutation(SCAN_WEBSITE)
 
@@ -79,20 +105,9 @@ export const useWebsiteData = (
     return issuesResults?.user?.websites || []
   }, [issuesResults])
 
-  const issueDataExists: boolean = !!issueFeed?.data
-
-  const crawlWebsite = async (params: any) => {
-    const canCrawl = await crawl(params)
-    if (canCrawl && issueDataExists) {
-      setIssueFeedContent([], false)
-    }
-  }
-
-  const scanWebsite = async (params: any) => {
-    const canScan = await scan(params)
-    // TODO: add handling for errors
-    return canScan?.data?.scanWebsite?.website
-  }
+  const pagesData = useMemo(() => {
+    return pagesResults?.user?.websites || []
+  }, [pagesResults])
 
   // website crawl finished
   const onCrawlCompleteSubscription = useCallback(
@@ -129,35 +144,21 @@ export const useWebsiteData = (
   const onIssueSubscription = useCallback(
     ({ subscriptionData }: OnSubscriptionDataOptions<any>) => {
       const newIssue = subscriptionData?.data?.issueAdded
+
       if (newIssue) {
-        queueMicrotask(() => {
-          // use apollo cache instead
-          const dataSource = websites.find(
-            (source: Website) => source.domain === newIssue.domain
-          )
+        // TODO: use issue feed instead of binding to website property
+        const dataSource = { ...issueFeed?.data }
 
-          if (dataSource) {
-            // MUTATION UPDATING WEBSITES
-            if (!dataSource.issueFeed) {
-              // temp map of all live issues
-              dataSource.issueFeed = {}
-            }
-            // move to object outside and clear on subscription from website crawl finished
-            dataSource.issueFeed[newIssue.pageUrl] = newIssue
-            dataSource.issues = Object.values(dataSource.issueFeed) // todo move to complete storing of issues key,value based
+        // move to object outside and clear on subscription from website crawl finished
+        dataSource[newIssue.pageUrl] = newIssue
 
-            const mainFeed = issueFeed?.data ?? []
-            mainFeed.push(newIssue)
+        setIssueFeedContent(dataSource, true)
 
-            setIssueFeedContent(mainFeed, true)
-
-            AppManager.toggleSnack(
-              true,
-              `Insight found on ${newIssue?.pageUrl}`,
-              'success'
-            )
-          }
-        })
+        AppManager.toggleSnack(
+          true,
+          `Insight found on ${newIssue?.pageUrl}`,
+          'success'
+        )
       }
     },
     [websites, issueFeed]
@@ -207,34 +208,82 @@ export const useWebsiteData = (
     }
   }, [addWebsiteData])
 
+  const updateQuery = (prev: any, { fetchMoreResult }: any) => {
+    if (!fetchMoreResult) {
+      return prev
+    }
+
+    if (!fetchMoreResult?.user?.websites?.length) {
+      AppManager.toggleSnack(true, 'No more websites exist.')
+      return prev
+    }
+
+    const websites = [
+      ...prev?.user?.websites,
+      ...fetchMoreResult?.user?.websites,
+    ]
+
+    return Object.assign({}, prev, {
+      user: {
+        ...prev?.user,
+        websites,
+      },
+    })
+  }
+
+  // EVENTS
+
+  const crawlWebsite = async (params: any) => {
+    const canCrawl = await crawl(params)
+
+    // reset the feed on new crawls.
+    if (canCrawl && !!issueFeed?.data) {
+      setIssueFeedContent({}, false)
+    }
+  }
+
+  const scanWebsite = async (params: any) => {
+    const canScan = await scan(params)
+    // TODO: add handling for errors
+    return canScan?.data?.scanWebsite?.website
+  }
+
   const onLoadMoreWebsites = async () => {
     try {
       await fetchMore({
         query: GET_WEBSITES,
         variables: {
-          offset: Number(websites.length || 0),
+          offset: Number(issueData.length || 0),
         },
-        updateQuery: (prev: any, { fetchMoreResult }: any) => {
-          if (!fetchMoreResult) {
-            return prev
-          }
+        updateQuery,
+      })
+    } catch (e) {
+      console.error(e)
+    }
+  }
 
-          if (!fetchMoreResult?.user?.websites?.length) {
-            AppManager.toggleSnack(true, 'No more websites exist.')
-            return prev
-          }
-          const websites = [
-            ...prev?.user?.websites,
-            ...fetchMoreResult?.user?.websites,
-          ]
-
-          return Object.assign({}, prev, {
-            user: {
-              ...prev?.user,
-              websites,
-            },
-          })
+  const onLoadMoreIssues = async () => {
+    try {
+      await fetchMoreIssues({
+        query: GET_WEBSITES_INFO,
+        variables: {
+          offset: Number(issueData.length || 0),
         },
+        updateQuery,
+      })
+    } catch (e) {
+      console.error(e)
+    }
+  }
+
+  const onLoadMorePages = async () => {
+    try {
+      await fetchMorePages({
+        query: GET_WEBSITES_INFO,
+        variables: {
+          offset: Number(pagesData.length || 0),
+        },
+        updateQuery,
       })
     } catch (e) {
       console.error(e)
@@ -245,18 +294,16 @@ export const useWebsiteData = (
     subscriptionData: {
       issueSubData,
     },
-    data: websites,
-    issueData: issueData,
-    issueDataLoading: issueDataLoading,
+    data: websites, // TODO: rename to websites.
+    issueData, // [scoped] collection of issues
+    pagesData, // [scoped] collection of pages
+    pagesDataLoading, // [scoped] pages loading
+    issueDataLoading, // [scoped] issues loading
     loading,
+    error, // general mutation error
     mutatationLoading:
-      removeLoading ||
-      addLoading ||
-      crawlLoading ||
-      scanLoading ||
-      issueDataLoading,
-    error,
-    issueFeed,
+      removeLoading || addLoading || crawlLoading || scanLoading,
+    issueFeed, // feed side panel that appears on the right
     lighthouseVisible,
     setLighthouseVisibility,
     removeWebsite,
@@ -266,6 +313,9 @@ export const useWebsiteData = (
     scanWebsite, // single page web scan
     updateWebsite,
     setIssueFeedContent,
+    // pagination
     onLoadMoreWebsites,
+    onLoadMoreIssues,
+    onLoadMorePages,
   }
 }

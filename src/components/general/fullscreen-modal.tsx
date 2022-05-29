@@ -23,6 +23,7 @@ import { GrClose } from 'react-icons/gr'
 import { Spacer } from './spacer'
 import { theme } from '@app-theme'
 import { AppManager } from '@app/managers'
+import { FeedIssue } from './feed/issue'
 
 const useStyles = makeStyles(() => ({
   menuButton: {
@@ -123,6 +124,27 @@ export function FullScreenModal({
 
     if (headerModal) {
       return <UpperInput data={data} url={url} />
+    }
+
+    // TODO: remove for different way of determine issues content.
+    const isFlatIssues =
+      data && Array.isArray(data) && data?.some((o) => 'domain' in o == false)
+
+    if (issuesModal && isFlatIssues) {
+      return (
+        <List>
+          {data?.map((item: any, listIndex: number) => {
+            return (
+              <FeedIssue
+                key={`${listIndex} ${item?.selector} ${item?.code}`}
+                error={error}
+                {...item}
+                pagesModal={pagesModal}
+              />
+            )
+          })}
+        </List>
+      )
     }
 
     // render the the list data exist

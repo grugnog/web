@@ -3,6 +3,7 @@ import gql from 'graphql-tag'
 export const issueFragments = gql`
   fragment IssueParts on Issue {
     pageUrl
+    _id
     issues {
       code
       type
@@ -16,6 +17,7 @@ export const issueFragments = gql`
 
 export const subdomainFragments = gql`
   fragment SubdomainParts on SubDomain {
+    _id
     domain
     url
     adaScore
@@ -23,6 +25,7 @@ export const subdomainFragments = gql`
     insight {
       json
     }
+    online
     pageLoadTime {
       duration
       durationFormated

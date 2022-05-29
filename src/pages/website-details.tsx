@@ -15,7 +15,7 @@ function WebsiteDetails() {
     <>
       <NavBar title={url} backButton notitle />
       {url ? <AdaIframe url={url} issue={issue} /> : null}
-      <Fab autoFix issue={issue} script={script} />
+      <Fab issue={issue} script={script} />
       <IssueModal issue={issue} />
     </>
   )

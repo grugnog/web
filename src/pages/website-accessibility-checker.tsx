@@ -4,7 +4,14 @@ import { CtaIntroRest } from '@app/components/cta/cta-intro-rest'
 import { metaSetter } from '@app/utils'
 import type { PageProps } from '@app/types'
 import { MarketingBottomTemporaryDrawer } from '@app/components/modal'
-import { GrAccessibility } from 'react-icons/gr'
+import {
+  GrAccessibility,
+  GrCloudSoftware,
+  GrPerformance,
+  GrCluster,
+} from 'react-icons/gr'
+import { DOMAIN_NAME } from '@app/configs'
+import { LinkPrefetch } from '@app/components/general/link'
 
 function WebsiteAccessibilityChecker({ name }: PageProps) {
   return (
@@ -49,95 +56,89 @@ function WebsiteAccessibilityChecker({ name }: PageProps) {
             </p>
           </div>
         </div>
-        <div className='px-4 py-6'>
-          <div className='p-3 border-2 rounded text-base flex space-x-3 place-items-center'>
-            <GrAccessibility className='grIcon h-[40px] w-[40px]' />
-            <p>
-              When it comes to a11y we have you covered on the automated and
-              manual portions. We can handle the parts where automatic fixes can
-              be applied to a degree. The manual aspects we give you a little
-              help to figure it out with recommendations. The steps we use
-              bridge the gaps that cause the most painful downtime when it comes
-              to testing.
-            </p>
+        <div className='place-items-center flex flex-col pb-6 pt-10'>
+          <div className='max-w-[800px] pb-4 px-3'>
+            <div className='flex flex-col p-3 md:flex-row border-2 rounded text-base gap-x-3 gap-y-1 place-items-center'>
+              <div>
+                <GrAccessibility className='grIcon h-[40px] w-[40px]' />
+              </div>
+              <p>
+                When it comes to a11y we have you covered on finding issues by
+                using a real browser to spin up your website. The steps used
+                help bridge gaps that cause the most painful downtime across
+                testing and go beyond code linting.
+              </p>
+            </div>
           </div>
-        </div>
-        <div className='px-4 max-w-[800px] space-y-2'>
-          <h3 className='py-2 text-2xl font-bold'>
-            Open-Source web accessibility tools for every situation
-          </h3>
-          <div>
-            <h4 className='text-xl font-bold'>
-              Accessibility checking at lightspeed
-            </h4>
-            <p className='text-lg'>
-              We built the system to utilize every drop of performance making it
-              possible to scan up to 1,000 pages within a minute. Even the
-              largest websites and E-commerce websites can run full multi page
-              reports with little downtime. Configure the crawler with the level
-              of WCAG standard, User Agent, page headers, and other properties
-              that help when crawling real world applications. We also helped
-              make the fastest{' '}
-              <a
-                href={'https://github.com/madeindjs/spider'}
-                target='_blank'
-                rel='noreferrer'
-                className='text-blue-600'
-              >
-                open-source
-              </a>{' '}
-              web crawler along with some other software libraries on Github.
-              Our system uses the package internally in a Rust lang based{' '}
-              <a
-                href={'https://github.com/a11ywatch/crawler'}
-                target='_blank'
-                rel='noreferrer'
-                className='text-blue-600'
-              >
-                micro-service
-              </a>{' '}
-              with some{' '}
-              <a
-                href={'https://grpc.io'}
-                target='_blank'
-                rel='noreferrer'
-                className='text-blue-600'
-              >
-                gRPC
-              </a>{' '}
-              adjustments.
-            </p>
-          </div>
-          <div>
-            <h4 className='text-xl font-bold'>
-              Universal accessibility platform and API
-            </h4>
-            <p className='text-lg'>
-              Every page on our website is built to handle across many platforms
-              and devices. We take a mobile approach so that our content can be
-              used on the go where ever, when ever on your smart phone or
-              tablet. Our API is made so that anything you can do on our
-              application can be done via network call to our system.
-            </p>
-          </div>
-          <div>
-            <h4 className='text-xl font-bold'>
-              Lighthouse and other web vitals included
-            </h4>
-            <p className='text-lg'>
-              Opt in to include insightful{' '}
-              <a
-                href={'https://developers.google.com/web/tools/lighthouse'}
-                target='_blank'
-                rel='noreferrer'
-                className='text-blue-600'
-              >
-                lighthouse
-              </a>{' '}
-              reports across all of your web pages beautifully in the dashboard.
-              View detailed core web vitals that can help improve your
-              accessibility, performance, and much more.
-            </p>
+          <div className='px-4 max-w-[800px] space-y-2'>
+            <h3 className='py-2 text-2xl font-bold'>
+              Open-Source tools designed for the job
+            </h3>
+            <div className='flex flex-col md:flex-row gap-x-6 gap-y-2 p-6 border rounded'>
+              <div className='flex place-items-center'>
+                <GrCluster className='grIcon h-[60px] w-[60px]' />
+              </div>
+              <div>
+                <h4 className='text-xl font-bold'>Target a broader audience</h4>
+                <p className='text-lg'>
+                  We built the system to utilize every drop of performance
+                  making it possible to scan up to 1,000 pages within a minute.
+                  Even the largest websites and E-commerce websites can run full
+                  multi page reports with little downtime. Configure the crawler
+                  with the level of WCAG standard, user agents, page headers,
+                  and other properties that help when crawling real world
+                  applications.
+                </p>
+              </div>
+            </div>
+            <div className='flex flex-col md:flex-row gap-x-6 gap-y-2 p-6 border rounded'>
+              <div className='flex place-items-center'>
+                <GrCloudSoftware className='grIcon h-[60px] w-[60px]' />
+              </div>
+              <div>
+                <h4 className='text-xl font-bold'>
+                  It gets you testing on the go
+                </h4>
+                <p className='text-lg'>
+                  Every page on our website is built to handle across many
+                  platforms and devices. We take a mobile approach so that our
+                  content can be used on the go where ever, when ever on your
+                  smart phone or tablet. Our{' '}
+                  <LinkPrefetch
+                    href={`${DOMAIN_NAME}/api-info`}
+                    className={'text-blue-700'}
+                  >
+                    API
+                  </LinkPrefetch>{' '}
+                  is made so that anything you can do on our application can be
+                  done outside of our domain.
+                </p>
+              </div>
+            </div>
+            <div className='flex flex-col md:flex-row gap-x-6 gap-y-2 p-6 border rounded'>
+              <div className='flex place-items-center'>
+                <GrPerformance className='grIcon h-[80px] w-[80px]' />
+              </div>
+              <div>
+                <h4 className='text-xl font-bold'>
+                  Web vitals that make a difference
+                </h4>
+                <p className='text-lg'>
+                  Opt in to include insightful{' '}
+                  <a
+                    href={'https://developers.google.com/web/tools/lighthouse'}
+                    target='_blank'
+                    rel='noreferrer'
+                    className='text-blue-700'
+                  >
+                    Google Lighthouse
+                  </a>{' '}
+                  reports across all of your web pages beautifully in the
+                  dashboard. View detailed core web vitals that can help improve
+                  your accessibility, performance, and much more.
+                </p>
+              </div>
+            </div>
           </div>
         </div>
       </MarketingDrawer>

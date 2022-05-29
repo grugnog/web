@@ -1,5 +1,5 @@
 import React, { SyntheticEvent } from 'react'
-import { InputBase, Fade, Button } from '@material-ui/core'
+import { InputBase, Button } from '@material-ui/core'
 import { alpha, makeStyles } from '@material-ui/core/styles'
 import { useSearchFilter, useSearch } from '@app/data'
 import { AppManager, HomeManager } from '@app/managers'
@@ -15,7 +15,7 @@ const useStyles = makeStyles((theme) => ({
     },
   }),
   submit: {
-    margin: 7,
+    border: 'none',
   },
   search: {
     position: 'relative',
@@ -28,6 +28,7 @@ const useStyles = makeStyles((theme) => ({
     width: '100%',
     display: 'flex',
     alignItems: 'center',
+    paddingRight: 6,
     [theme.breakpoints.up('sm')]: {
       marginLeft: theme.spacing(1),
       width: 'auto',
@@ -122,11 +123,14 @@ export function SearchBar({ placeholder, noWidth, cta }: any) {
           }}
           inputProps={{ 'aria-label': 'search your websites' }}
         />
-        <Fade in={!!ctaSearch} unmountOnExit>
-          <Button type='submit' className={classes.submit} disabled={!!loading}>
-            Submit
-          </Button>
-        </Fade>
+        <Button
+          type='submit'
+          className={classes.submit}
+          style={{ visibility: !!ctaSearch ? 'visible' : 'hidden' }}
+          disabled={!!loading}
+        >
+          Submit
+        </Button>
       </div>
     </form>
   )

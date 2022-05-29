@@ -9,6 +9,8 @@ interface AuthedMenu {
   isMobile?: boolean
   dataSourceMap?: any
 }
+
+// Side menu that appears on application routes
 export function AuthedMenuComponent({
   route,
   isMobile,

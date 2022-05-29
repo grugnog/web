@@ -124,19 +124,24 @@ class IframeManager {
   @action initIssueFix = (data: any) => {
     if (data?.issues && frameDom?.dom) {
       const issueMap = data?.issues?.filter((item: any) => {
-        const selector =
-          item?.selector.length &&
-          item?.selector[0] === '#' &&
-          !(item?.selector.indexOf(' ') >= 0)
-            ? 'getElementById'
-            : 'querySelector'
+        try {
+          const hasSelector = item?.selector?.length
 
-        if (item?.selector && frameDom.dom[selector]) {
-          const element = frameDom.dom[selector](item?.selector)
-          if (element) {
-            item.element = element
-            return item
+          let selector = 'querySelector'
+
+          if (hasSelector && item?.selector[0] === '#') {
+            selector = 'getElementById'
           }
+
+          if (item?.selector && frameDom.dom[selector]) {
+            const element = frameDom.dom[selector](item?.selector)
+            if (element) {
+              item.element = element
+              return item
+            }
+          }
+        } catch (e) {
+          console.error(e)
         }
       })
 

@@ -38,6 +38,7 @@ export function ReportViewComponentLeft({
   disablePlayground,
   printable,
   download,
+  authenticated,
 }: any) {
   const [hideMobile, setMobileHidden] = useState<boolean>(false)
   const classes = useStyles()
@@ -53,9 +54,16 @@ export function ReportViewComponentLeft({
       </Grid>
       <div className='flex space-x-2 place-items-center'>
         <Timer stop={!empty} />
-        <WebsiteSecondary {...website} pageIssueCount={1} />
+        <div className='max-w-[85%]'>
+          <WebsiteSecondary {...website} pageIssueCount={1} />
+        </div>
       </div>
-      <CtaCdn website={website} block disablePlayground={disablePlayground} />
+      <CtaCdn
+        website={website}
+        block
+        disablePlayground={disablePlayground}
+        authenticated={authenticated}
+      />
       <Spacer />
       <InfoBar website={website} printable={printable} download={download} />
       {website?.url ? (

@@ -1,14 +1,23 @@
 import type { PageProps } from '@app/types'
 import type { GetServerSideProps } from 'next'
-import React, { Fragment } from 'react'
+import React, { Fragment, useEffect, useState } from 'react'
 import Head from 'next/head'
 import { MarketingDrawer, PageTitle } from '@app/components/general'
 import { ReportView } from '@app/components/ada'
 import { metaSetter } from '@app/utils'
 import { getAPIRoute } from '@app/configs/api-route'
+import { UserManager } from '@app/managers'
 
 function Reports({ name, website }: PageProps) {
   const { url, domain } = website ?? { domain: '', url: 'Not Found' }
+  const [authenticated, setAuthed] = useState<boolean>(false)
+
+  // use non gql auth method
+  useEffect(() => {
+    if (UserManager.loggedIn) {
+      setAuthed(true)
+    }
+  }, [])
 
   return (
     <Fragment>
@@ -20,7 +29,12 @@ function Reports({ name, website }: PageProps) {
           key='description'
         />
       </Head>
-      <MarketingDrawer title={url || name} maxWidth='xl' initClosed={true}>
+      <MarketingDrawer
+        title={url || name}
+        maxWidth='xl'
+        initClosed={true}
+        authenticated={authenticated}
+      >
         <div className='sr-only'>
           <PageTitle>{`Report: ${domain || 'page'}`}</PageTitle>
         </div>
@@ -29,6 +43,7 @@ function Reports({ name, website }: PageProps) {
           disablePlayground={true}
           disableTabs
           download
+          authenticated={authenticated}
         />
       </MarketingDrawer>
     </Fragment>

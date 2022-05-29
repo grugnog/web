@@ -34,7 +34,7 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 )
 
-function CtaCdn({ website, disablePlayground }: any) {
+function CtaCdn({ website, disablePlayground, authenticated }: any) {
   const classes = useStyles()
   const noIssues =
     Number(website?.issues?.length || website?.issues?.issues?.length) === 0
@@ -64,7 +64,7 @@ function CtaCdn({ website, disablePlayground }: any) {
           <Typography variant={'subtitle2'}>{limitedResonse}</Typography>
         </div>
       ) : null}
-      {disablePlayground ? null : (
+      {disablePlayground || authenticated ? null : (
         <span className={classes.row} style={{ marginTop: 12 }}>
           <Button
             component={Link}

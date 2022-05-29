@@ -58,7 +58,7 @@ export function IssuesCellComponent({
       <ListItemText
         primary={url}
         className={'flex-1 truncate'}
-        secondary={`${issues.length} issues found`}
+        secondary={`${issues?.length} issues found`}
       />
       <ListItemSecondaryAction>
         <div>

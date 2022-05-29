@@ -23,8 +23,10 @@ export const scriptData = (url?: string | string[], skip?: boolean) => {
   const cdnUrl = scriptIncluded && `${SCRIPTS_CDN_URL_HOST}/${script?.cdnUrl}`
   const cdnUrlMinified =
     scriptIncluded && `${SCRIPTS_CDN_URL_HOST}/${script?.cdnUrlMinified}`
+
+  // adjust script to API endpoint
   const currentScript = scriptIncluded
-    ? Object.assign({}, script || {}, cdnUrl, cdnUrlMinified)
+    ? Object.assign({}, script || {}, { cdnUrl }, { cdnUrlMinified })
     : null
 
   return {

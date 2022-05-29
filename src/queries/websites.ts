@@ -1,7 +1,11 @@
 import gql from 'graphql-tag'
 import { UserManager, AppManager } from '@app/managers'
 import { MutationUpdaterFn } from 'apollo-client'
-import { issueFragments, websiteFragments } from '@app/apollo'
+import {
+  issueFragments,
+  websiteFragments,
+  subdomainFragments,
+} from '@app/apollo'
 import { User } from '@app/types'
 
 const GET_WEBSITES = gql`
@@ -28,9 +32,37 @@ export const GET_WEBSITES_LIST = gql`
   }
 `
 
-export const GET_ISSUES = gql`
+export const GET_WEBSITE_ISSUES = gql`
   ${issueFragments}
-  query getWebsites($filter: String, $limit: Int, $offset: Int) {
+  query getWebsiteIssues($url: String) {
+    website(url: $url) {
+      ... on Website {
+        _id
+        issues {
+          ...IssueParts
+        }
+      }
+    }
+  }
+`
+
+export const GET_WEBSITE_PAGES = gql`
+  ${subdomainFragments}
+  query getWebsitePages($url: String) {
+    website(url: $url) {
+      ... on Website {
+        _id
+        subDomains {
+          ...SubdomainParts
+        }
+      }
+    }
+  }
+`
+
+// generic list without frag
+export const GET_WEBSITES_INFO = gql`
+  query getWebsites($limit: Int, $offset: Int) {
     user {
       id
       websites(limit: $limit, offset: $offset) {
@@ -43,8 +75,29 @@ export const GET_ISSUES = gql`
             totalIssues
           }
         }
-        issues(filter: $filter) {
-          ...IssueParts
+      }
+    }
+  }
+`
+
+// TODO: refactor subDomains to pages query
+export const GET_PAGES = gql`
+  ${subdomainFragments}
+  query getWebsites($limit: Int, $offset: Int) {
+    user {
+      id
+      websites(limit: $limit, offset: $offset) {
+        ... on Website {
+          _id
+          url
+          domain
+          cdnConnected
+          issuesInfo {
+            totalIssues
+          }
+        }
+        subDomains {
+          ...SubdomainParts
         }
       }
     }
@@ -63,7 +116,7 @@ export const updateCache: {
     const variables = {
       userId: UserManager.getID,
       filter: '',
-      limit: 2,
+      limit: 5,
       offset: 0,
     }
 

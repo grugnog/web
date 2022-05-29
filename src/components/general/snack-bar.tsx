@@ -23,13 +23,6 @@ const upgradeRequired = (text: string) =>
   text === 'you need to upgrade your account to edit scripts'
 
 const SnackbarContainer = observer(({ store }: any) => {
-  const lowerCaseText = store?.snackbar?.title
-    ? String(store?.snackbar?.title).toLowerCase()
-    : ''
-
-  const needsUpgrade = upgradeRequired(lowerCaseText)
-  const marketingRedirect = lowerCaseText.includes('redirected to dashboard')
-
   const handleClose = (_: any, reason: string): any => {
     if (reason === 'clickaway') {
       return
@@ -39,9 +32,16 @@ const SnackbarContainer = observer(({ store }: any) => {
     }
   }
 
+  const lowerCaseText = store?.snackbar?.title
+    ? String(store?.snackbar?.title).toLowerCase()
+    : ''
+
+  const needsUpgrade = upgradeRequired(lowerCaseText)
+  const marketingRedirect = lowerCaseText.includes('redirected to dashboard')
+
   return (
     <MUISnackbar
-      open={store.snackbar.open}
+      open={!!store?.snackbar?.open}
       autoHideDuration={6000}
       onClose={handleClose}
       ContentProps={{
@@ -57,7 +57,7 @@ const SnackbarContainer = observer(({ store }: any) => {
             <p
               id='message-id'
               className={`text-lg line-clamp-2 ${
-                store.snackbar.type === 'error' ? 'text-red-500' : 'text-black'
+                store.snackbar.type === 'error' ? 'text-red-600' : 'text-black'
               }`}
             >
               {store.snackbar.title}

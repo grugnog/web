@@ -12,6 +12,7 @@ import {
   GrBug as BugReportIcon,
   GrHistory as HistoryIcon,
   GrApps as DashboardIcon,
+  GrCatalog as PageIcon,
 } from 'react-icons/gr'
 
 import { cellStyles } from '@app/styles/cells'
@@ -28,6 +29,8 @@ const renderIcon = (feature?: string, className?: string) => {
       return <DataUsageIcon />
     case 'Issues':
       return <BugReportIcon />
+    case 'Pages':
+      return <PageIcon />
     case 'Dashboard':
       return <DashboardIcon />
     case 'History':
@@ -55,6 +58,12 @@ const extraProps = (feature?: string, focused?: boolean, setEvents?: any) => {
     case 'Issues':
       return {
         href: focused ? '/' : '/web-issues',
+        component: Link,
+        color: 'inherit',
+      }
+    case 'Pages':
+      return {
+        href: focused ? '/' : '/web-pages',
         component: Link,
         color: 'inherit',
       }

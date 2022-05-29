@@ -87,7 +87,9 @@ function MoreOptionsBaseComponent({
           </MenuItem>
         ) : null}
         {lh ? (
-          <MenuItem onClick={handleMainClick(lh, 'Lighthouse', true)}>
+          <MenuItem
+            onClick={handleMainClick(JSON.stringify(lh), 'Lighthouse', true)}
+          >
             View Lighthouse
           </MenuItem>
         ) : null}

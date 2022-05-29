@@ -93,6 +93,7 @@ function Dashboard({ name }: PageProps) {
                 <Button
                   className={lhEnabled ? 'visible' : 'hidden'}
                   onClick={onLighthouseToggle}
+                  aria-expanded={lighthouseVisible}
                   aria-label={'Toggle lighthouse reports visibility.'}
                 >
                   {lighthouseVisible ? 'Hide' : 'Display'} Lighthouse

@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react'
-import { FormDialog, PageTitle, Drawer } from '@app/components/general'
+import { FormDialog, PageTitle, Drawer, Button } from '@app/components/general'
 import { List } from '@app/components/general/lists/websites-issues'
 import { useSearchFilter } from '@app/data'
 import { filterSort } from '@app/lib'
@@ -9,7 +9,13 @@ import { PageLoader } from '@app/components/placeholders'
 import { useWebsiteContext } from '@app/components/providers/website'
 
 function Issues({ name }: PageProps) {
-  const { issueData, issueDataLoading, refetch, error } = useWebsiteContext()
+  const {
+    issueData,
+    issueDataLoading,
+    refetch,
+    error,
+    onLoadMoreIssues,
+  } = useWebsiteContext()
   const { search } = useSearchFilter()
 
   // search local filtering
@@ -29,7 +35,7 @@ function Issues({ name }: PageProps) {
           emptyTitle={'No Websites Added'}
           error={error}
         >
-          <div className={'py-2 pb-2'}>
+          <div className={'py-2'}>
             <List
               data={source}
               loading={issueDataLoading}
@@ -38,6 +44,13 @@ function Issues({ name }: PageProps) {
               emptyHeaderTitle='No issues found'
               emptyHeaderSubTitle='Issues will appear here when they arise'
             />
+            {source.length > 1 ? (
+              <div className='flex place-content-center pt-8'>
+                <Button onClick={onLoadMoreIssues} className={'w-40'}>
+                  Load More
+                </Button>
+              </div>
+            ) : null}
           </div>
         </PageLoader>
       </Drawer>

@@ -1,4 +1,9 @@
-export { GET_WEBSITES, GET_ISSUES, updateCache } from './websites'
+export {
+  GET_WEBSITES,
+  GET_WEBSITES_INFO,
+  GET_PAGES,
+  updateCache,
+} from './websites'
 export { GET_USER } from './user'
 export { GET_FEATURES } from './features'
 export { GET_WEBSITE } from './website'

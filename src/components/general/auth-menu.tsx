@@ -39,7 +39,7 @@ function AuthMenuComponent({
   // simple logout
   const logout = async (e: any) => {
     e?.preventDefault()
-    setIssueFeedContent(null, false)
+    setIssueFeedContent({}, false)
 
     try {
       await logoutMutation()
@@ -74,7 +74,7 @@ function AuthMenuComponent({
 
   if (
     (!authenticated && LOGGIN_ROUTES.includes(router?.pathname)) ||
-    (authenticated && router?.pathname === '/api-info')
+    authenticated
   ) {
     return (
       <div>

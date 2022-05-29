@@ -4,7 +4,6 @@ import {
   Dialog,
   Toolbar,
   IconButton,
-  Typography,
   Grow,
   List,
 } from '@material-ui/core'
@@ -12,10 +11,10 @@ import { makeStyles } from '@material-ui/core/styles'
 import { DragHandler } from '@app/lib'
 import { useMiniPlayer } from '@app/data'
 import { NavBarTitle } from './navigation'
-import { WebsitePrimaryCell } from './cells'
 import type { MergedTheme } from '@app/theme'
 import { GrClose } from 'react-icons/gr'
 import { issueExtractor } from '@app/utils'
+import { FeedIssue } from './feed/issue'
 
 const useStyles = makeStyles((theme: MergedTheme) => ({
   root: {
@@ -23,10 +22,8 @@ const useStyles = makeStyles((theme: MergedTheme) => ({
   },
   appBar: {
     position: 'sticky',
-  },
-  title: {
-    marginLeft: theme.spacing(2),
-    flex: 1,
+    backgroundColor: '#000',
+    color: '#fff',
   },
   miniPlayer: {
     overflowX: 'hidden',
@@ -49,20 +46,6 @@ const useStyles = makeStyles((theme: MergedTheme) => ({
   transparent: {
     background: 'inherit',
   },
-  row: {
-    display: 'flex',
-    alignItems: 'center',
-    flex: 1,
-    overflow: 'hidden',
-  },
-  subTitle: {
-    maxWidth: '75vw',
-    textOverflow: 'ellipsis',
-    [theme.breakpoints.down('sm')]: {
-      maxWidth: '20vw',
-      marginLeft: 2,
-    },
-  },
 }))
 
 const GrowTransition = React.forwardRef(function GrowTransition(
@@ -78,6 +61,10 @@ export function IssueModal({ issue }: any) {
   const appBarRef = useRef(null)
   const { open, title } = miniPlayer
   const handler = new DragHandler(appBarRef?.current)
+
+  const onDragEvent = (e: any) => {
+    handler.dragMouseDown(e, appBarRef?.current)
+  }
 
   const pageIssues = issueExtractor(issue)
 
@@ -102,7 +89,7 @@ export function IssueModal({ issue }: any) {
       <AppBar
         className={classes.appBar}
         position='fixed'
-        onMouseDown={(e) => handler.dragMouseDown(e, appBarRef?.current)}
+        onMouseDown={onDragEvent}
       >
         <Toolbar>
           <IconButton
@@ -111,14 +98,14 @@ export function IssueModal({ issue }: any) {
             onClick={setMiniPlayerContent(false)}
             aria-label='close'
           >
-            <GrClose />
+            <GrClose className='grIcon text-white' />
           </IconButton>
-          <div className={classes.row}>
+          <div
+            className={`flex space-x-2 place-items-center place-content-between`}
+          >
             <NavBarTitle title={title} flex />
             {issue?.pageUrl ? (
-              <Typography variant='subtitle1' className={classes.subTitle}>
-                {issue?.pageUrl}
-              </Typography>
+              <p className='line-clamp-1 text-white text-xl'>{issue.pageUrl}</p>
             ) : null}
           </div>
         </Toolbar>
@@ -129,16 +116,13 @@ export function IssueModal({ issue }: any) {
             pageIssues?.length === 1 ? classes.noMaxHeight : ''
           }`}
         >
-          {pageIssues.map((item: any, listIndex: number) => {
+          {pageIssues?.map((item: any) => {
             return (
-              <li key={`${listIndex} ${item?.selector} ${item?.code}`}>
-                <WebsitePrimaryCell
-                  issuesModal
-                  error
-                  item={item}
-                  url={issue?.pageUrl}
-                />
-              </li>
+              <FeedIssue
+                {...item}
+                url={issue?.pageUrl}
+                key={`${item?.selector}-${item?.code}`}
+              />
             )
           })}
         </List>

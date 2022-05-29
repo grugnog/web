@@ -23,14 +23,22 @@ const MainFrame = observer(
 
     useEffect(() => {
       if (issue && frameDom?.dom && !iframeStore.issueInited) {
-        iframeStore.initIssueFix(issue)
+        try {
+          iframeStore.initIssueFix(issue)
+        } catch (e) {
+          console.error(e)
+        }
       }
     }, [iframeStore, issue])
 
     const loadFrame = (event: any) => {
       onLoad(event, { iframeRef })
       if (issue) {
-        iframeStore.initIssueFix(issue)
+        try {
+          iframeStore.initIssueFix(issue)
+        } catch (e) {
+          console.error(e)
+        }
       }
     }
 

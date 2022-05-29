@@ -1,21 +1,20 @@
-import { IssueData } from '@app/types'
 import { useCallback, useState } from 'react'
 
 const defaultState = {
-  data: [],
+  data: {},
   open: false,
 }
 
 export function useIssueFeed() {
-  const [data, setIssueFeed] = useState<{ open: boolean; data: IssueData[] }>(
+  const [data, setIssueFeed] = useState<{ open: boolean; data: any }>(
     defaultState
   )
 
   const setIssueFeedContent = useCallback(
-    (newIssues?: IssueData[], open: boolean = true) => {
+    (newIssues, open: boolean = true) => {
       setIssueFeed({
         open,
-        data: newIssues && newIssues?.length ? newIssues : [],
+        data: newIssues,
       })
     },
     [setIssueFeed]

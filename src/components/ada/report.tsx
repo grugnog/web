@@ -107,6 +107,7 @@ export function ReportViewComponent({
   disablePlayground,
   disableTabs,
   download,
+  authenticated,
 }: any) {
   const classes = useStyles()
   const empty = useMemo(() => Object.keys(website ?? {}).length <= 1, [website])
@@ -119,6 +120,7 @@ export function ReportViewComponent({
           closeButton={closeButton}
           printable
           download={download}
+          authenticated={authenticated}
         />
       </div>
       {empty ? (

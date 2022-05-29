@@ -73,9 +73,14 @@ const MFab = observer(({ iframeStore, issue, script, marketing }: any) => {
         </Tooltip>
       ) : null}
       {pageIssues?.length ? (
-        <Button className={classes.button} onClick={setMiniPlayerContent(true)}>
-          <GrStatusWarning className={classes.icon} />
-        </Button>
+        <Tooltip title='View page issues as list' placement='right'>
+          <Button
+            className={classes.button}
+            onClick={setMiniPlayerContent(true)}
+          >
+            <GrStatusWarning className={classes.icon} />
+          </Button>
+        </Tooltip>
       ) : null}
       {script?.cdnUrlMinified && pageIssues?.length && !autoFixEnabled ? (
         <Button

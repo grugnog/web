@@ -1,6 +1,12 @@
 import React, { Fragment, useState } from 'react'
-import { Container, Button, IconButton } from '@material-ui/core'
-import { NavBar, PageTitle, Link, Footer } from '@app/components/general'
+import { Container } from '@material-ui/core'
+import {
+  NavBar,
+  PageTitle,
+  Link,
+  Footer,
+  Button,
+} from '@app/components/general'
 import { Box } from '@a11ywatch/ui'
 import { TextSkeleton } from '@app/components/placeholders'
 import { UserManager, AppManager } from '@app/managers'
@@ -9,109 +15,7 @@ import { metaSetter } from '@app/utils'
 import type { PageProps } from '@app/types'
 import { GrCopy } from 'react-icons/gr'
 import { API_ENDPOINT, companyName } from '@app/configs'
-import { exampleBase64 } from '@app/lib/mocks/example-base64'
-
-const apiRoutes = [
-  {
-    pathName: 'login',
-    method: 'POST',
-    params: '',
-    info: 'Login to an existing account and retreives an authentication token.',
-    title: 'Login',
-    encodedParams: `--data-urlencode 'email=example@email.com' \ --data-urlencode 'password=dwdwd'`,
-  },
-  {
-    pathName: 'register',
-    method: 'POST',
-    params: '',
-    info: 'Create a new account to use and retreives an authentication token.',
-    title: 'Register',
-    encodedParams: `--data-urlencode 'email=example@email.com' \ --data-urlencode 'password=dwdwd'`,
-  },
-  {
-    pathName: 'crawl',
-    method: 'POST',
-    params: '',
-    info: 'Multi-page scan for a domain gather all issues.',
-    title: 'Crawl',
-    encodedParams: "--data-urlencode 'websiteUrl=https://a11ywatch.com'",
-  },
-  {
-    pathName: 'scan-simple',
-    method: 'POST',
-    params: '',
-    info: 'Scan a single page for issues.',
-    title: 'Scan',
-    encodedParams: "--data-urlencode 'websiteUrl=https://a11ywatch.com'",
-  },
-  {
-    pathName: 'scan-stream',
-    method: 'POST',
-    params: '',
-    info:
-      'Scan a single page for issues as a stream [WIP - lazy stream to keep connection alive]. ',
-    title: 'Scan Stream',
-    encodedParams: "--data-urlencode 'websiteUrl=https://a11ywatch.com'",
-  },
-  {
-    pathName: 'image-check',
-    method: 'POST',
-    params: '',
-    encodedParams: `--data-urlencode 'imageBase64=${exampleBase64}'`,
-    info: 'Try to determine an image using AI based on a base64 string.',
-    title: 'Image Classify',
-  },
-  {
-    pathName: 'report?url=https://a11ywatch.com',
-    method: 'GET',
-    params: '',
-    encodedParams: '',
-    info: 'Get the last scan ran for a web page url.',
-    title: 'Last Scan',
-  },
-  {
-    pathName: 'user',
-    method: 'GET',
-    params: '',
-    encodedParams: '',
-    info: 'Retreive your user information details.',
-    title: 'User',
-  },
-  {
-    pathName: 'website?domain=a11ywatch.com',
-    method: 'GET',
-    params: '',
-    encodedParams: '',
-    info: 'Retreive a web page information details.',
-    title: 'Website',
-  },
-  {
-    pathName: 'analytics?url=https://a11ywatch.com',
-    method: 'GET',
-    params: '',
-    encodedParams: '',
-    info: 'Retreive analytics for a web page.',
-    title: 'Analytics',
-  },
-  {
-    pathName: 'list/website?offset=0',
-    method: 'GET',
-    params: '',
-    encodedParams: '',
-    info:
-      'Retreive a list of websites paginated. Request is limited to 2 websites at a time.',
-    title: 'List Websites',
-  },
-  {
-    pathName: 'list/issue?offset=0&domain=www.a11ywatch.com',
-    method: 'GET',
-    params: '',
-    encodedParams: '',
-    info:
-      'Retreive a list of issues paginated. Request is limited to 100 issues at a time.',
-    title: 'List Issues',
-  },
-]
+import { apiRoutes } from '@app/templates/rest-api'
 
 const SectionTitle = ({ children, className, bold }: any) => {
   return (
@@ -153,13 +57,15 @@ function Api({ name }: PageProps) {
   // token
   const token = UserManager?.token ? UserManager.token.trim() : ''
 
+  const authed = !!data?.user
+
   return (
     <Fragment>
       <NavBar
-        backButton
+        backButton={authed}
         title={name.toUpperCase()}
         notitle
-        authenticated={!!data?.user}
+        authenticated={authed}
       />
       <Container maxWidth='xl'>
         <Box>
@@ -184,24 +90,29 @@ function Api({ name }: PageProps) {
             <TextSkeleton className={'p-2'} />
           ) : data?.user ? (
             <div className='py-2'>
+              <span id='toggle-key' className='sr-only'>
+                Toggle the visibility of your authentication token
+              </span>
               <Button
                 type='button'
                 onClick={toggleKey}
-                variant='outlined'
-                aria-label='Toggle api key visibility'
+                aria-labelledby={'togle-key'}
               >
-                {`${keyVisible ? 'HIDE' : 'VIEW'} TOKEN`}
+                {`${keyVisible ? 'Hide' : 'View'} Token`}
               </Button>
               {keyVisible ? (
                 <div className={`py-2 relative`}>
                   <div className='absolute right-2 -top-12 overflow-visible'>
-                    <IconButton
-                      aria-label='Copy your access token to clipboard'
+                    <span id='copy-text' className='sr-only'>
+                      Copy your authentication token to clipboard
+                    </span>
+                    <button
+                      className='p-3 rounded border-2'
+                      aria-labelledby='copy-text'
                       onClick={copyText(token)}
-                      color='default'
                     >
                       <GrCopy title='Copy to clipboard' />
-                    </IconButton>
+                    </button>
                   </div>
                   <p className='line-clamp-3'>{token}</p>
                 </div>
@@ -244,17 +155,105 @@ function Api({ name }: PageProps) {
           </h4>
           <ul className='space-y-3 py-2'>
             {apiRoutes.map((route: any, i) => {
+              const routeParams = route?.params
+              const params = routeParams ? Object.keys(routeParams) : null
+
+              const methodColor = (t: 'color' | 'border') => {
+                let c = ''
+
+                switch (route.method) {
+                  case 'POST':
+                    {
+                      c = t === 'color' ? 'text-green-700' : 'border-green-700'
+                    }
+                    break
+                  case 'GET':
+                    {
+                      c = t === 'color' ? 'text-blue-700' : 'border-blue-700'
+                    }
+                    break
+                  case 'PUT':
+                    {
+                      c =
+                        t === 'color' ? 'text-yellow-700' : 'border-yellow-700'
+                    }
+                    break
+                  case 'DELETE':
+                    {
+                      c = t === 'color' ? 'text-red-700' : 'border-red-700'
+                    }
+                    break
+                  default:
+                    {
+                      c = t === 'color' ? 'text-blue-700' : 'border-blue-700'
+                    }
+                    break
+                }
+
+                return c
+              }
               return (
                 <li
                   key={`api-route-${i}`}
                   className={'text-base border-2 p-3 rounded'}
                 >
-                  <h5 className='text-lg font-bold'>{route.title}</h5>
+                  <h5 className='text-xl font-bold text-gray-800'>
+                    {route.title}
+                  </h5>
                   <h6 className='text-base'>{route.info}</h6>
-                  <p className='italic text-blue-700'>Method: {route.method}</p>
-                  <p className='py-1'>
-                    Endpoint: {API_ENDPOINT}/{route.pathName}
+                  <p className='font-semibold'>
+                    {API_ENDPOINT}/{route.pathName}
                   </p>
+                  <div className='py-2'>
+                    <span
+                      className={`border rounded ${methodColor(
+                        'border'
+                      )} px-3 py-1 min-w-[60px] inline-block text-center`}
+                    >
+                      <span
+                        aria-label={`HTTP request method type ${route.method}`}
+                        className={`font-bold text-sm ${methodColor('color')}`}
+                      >
+                        {route.method}
+                      </span>
+                    </span>
+                  </div>
+                  {params ? (
+                    <div className='space-y-1 pb-2'>
+                      Params:
+                      {params?.map((item: any, i) => {
+                        const { desc, type, optional } = routeParams[item] ?? {
+                          desc: '',
+                          type: '',
+                          optional: false,
+                        }
+
+                        return (
+                          <span
+                            key={`params-${i}`}
+                            className={'block border rounded py-1 px-3'}
+                          >
+                            <span className='font-bold block'>
+                              {item}{' '}
+                              <span className='italic text-gray-700 text-xs'>
+                                {type}
+                              </span>
+                            </span>
+                            <span className='text-sm text-gray-800 block'>
+                              {desc}
+                            </span>
+                            <span
+                              className={`text-xs font-bold block ${
+                                optional ? 'text-gray-700' : 'text-red-700'
+                              }`}
+                            >
+                              {optional ? 'Optional' : 'Required'}
+                            </span>
+                          </span>
+                        )
+                      })}
+                    </div>
+                  ) : null}
                   <code className='border block p-2 rounded bg-black text-white text-base overflow-auto'>
                     {`curl --location --request ${
                       route.method ?? 'POST'
@@ -273,13 +272,16 @@ ${route.encodedParams}`}
           </ul>
         </Box>
 
-        <div className='border rounded inline-block px-4 py-2'>
+        <div className='border-2 rounded inline-block px-4 py-2'>
           <p className='text-grey-600 text-lg'>
             By default, the {companyName} API Docs demonstrate using curl to
-            interact with the API over HTTP. In the example replace
-            a11ywatch.com with your website you want to target. Some clients are
-            a work in progress as we build out the core of our system. The
-            graphQl and gRPC docs will come soon.
+            interact with the API over HTTP. Most routes allow params to be sent
+            from the url or the body. Its best to stick to using the body for
+            PUTS and POST request since some params are set to be arrays and
+            other none string shapes. In the example replace a11ywatch.com with
+            your website you want to target. Some clients are a work in progress
+            as we build out the core of our system. The graphQl and gRPC docs
+            will come soon.
           </p>
         </div>
 

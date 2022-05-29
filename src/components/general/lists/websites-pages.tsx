@@ -1,75 +1,32 @@
 import React, { FC, useState, useEffect, useCallback, memo } from 'react'
 import { useMiniPlayer } from '@app/data'
 import { FullScreenModal } from '../fullscreen-modal'
-import { FeedIssue } from '../feed/issue'
-import { useIssueData } from '@app/data/external/issues/issue'
+import { usePagesData } from '@app/data/external/pages/pages'
+import { WebsiteCellPages } from '../cells'
 import { InnerWrapper } from './list-wrapper'
 
-// return issues maped
-function IssuesWrapper(props: any) {
-  const [visible, setVisible] = useState<boolean>(false)
-
-  const onTogglelist = () => {
-    setVisible((v: boolean) => !v)
-  }
-
-  const totalIssues = props?.issues?.length
-
-  return (
-    <li>
-      <button
-        className={`border border-l-0 border-r-0 px-3 py-3 w-full text-left ${
-          visible ? 'rounded-b-none' : ''
-        }`}
-        onClick={onTogglelist}
-        aria-expanded={visible}
-        aria-label={`Toggle section visible for ${props?.pageUrl}`}
-      >
-        <div>
-          <div className={'text-2xl font-bold'}>{props?.pageUrl}</div>
-          <div>
-            {totalIssues} possible issue
-            {totalIssues === 1 ? '' : 's'}
-          </div>
-        </div>
-      </button>
-      <ul
-        aria-hidden={!visible}
-        className={`${visible ? 'visible' : 'hidden'} rounded-b`}
-      >
-        {props?.issues?.map(
-          (
-            { url, _id, code, selector, ...domainProps }: any,
-            index: number
-          ) => (
-            <div key={code + selector + index}>
-              <FeedIssue {...domainProps} selector={selector} code={code} />
-            </div>
-          )
-        )}
-      </ul>
-    </li>
-  )
+// return Pages maped
+function PagesWrapper(props: any) {
+  return <WebsiteCellPages {...props} />
 }
 
-// memo expensive issues
-const Issues = memo(IssuesWrapper)
+// memo expensive Pages
+const Pages = memo(PagesWrapper)
 
 const RenderInner: FC<any> = (props) => {
   const { pageUrl, generalProps } = props
-
-  const { data: issueSource, loading } = useIssueData(pageUrl)
+  const { data: pagesSource, loading } = usePagesData(pageUrl)
 
   return (
     <InnerWrapper
       {...props}
-      data={issueSource?.length}
+      data={pagesSource?.length}
       loading={loading}
       generalProps={generalProps}
     >
       <ul>
-        {issueSource?.map((page: any) => (
-          <Issues key={`${page._id}`} {...page} {...generalProps} />
+        {pagesSource?.map((page: any) => (
+          <Pages key={page._id} {...page} {...generalProps} />
         ))}
       </ul>
     </InnerWrapper>
@@ -107,7 +64,6 @@ const ListCell = ({
       <button
         className={`px-3 py-3 w-full text-left`}
         onClick={onTogglelist}
-        aria-expanded={visible}
         aria-label={`Toggle section visible for ${item?.domain}`}
       >
         <div>

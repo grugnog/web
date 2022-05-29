@@ -103,7 +103,9 @@ export const MiniPlayer: FunctionComponent<MiniPlayerProps> = (_) => {
               'flex flex-1 place-items-center space-x-2 place-content-between'
             }
           >
-            <p className='text-xl font-bold text-white'>{title}</p>
+            <p className='text-xl font-bold text-white truncate max-w-[70%]'>
+              {title}
+            </p>
             {title !== 'Lighthouse' ? (
               <div className='truncate'>
                 <Typography
@@ -125,7 +127,7 @@ export const MiniPlayer: FunctionComponent<MiniPlayerProps> = (_) => {
       ) : (
         <div>
           <AdaIframe url={data} miniPlayer />
-          <Fab autoFix />
+          <Fab />
         </div>
       )}
     </Dialog>
