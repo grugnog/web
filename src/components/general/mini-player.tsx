@@ -27,7 +27,7 @@ const useStyles = makeStyles(() => ({
   },
   appBar: {
     position: 'relative',
-    backgroundColor: '#000',
+    backgroundColor: '#0E1116',
   },
   miniPlayer: {
     overflow: 'hidden',

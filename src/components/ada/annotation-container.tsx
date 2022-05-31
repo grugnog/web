@@ -11,7 +11,7 @@ const useStyles = makeStyles(({ palette, spacing, shadows }: Theme) =>
       position: 'absolute',
       width: '400px',
       backgroundColor: palette.common.white,
-      border: '2px solid #000',
+      border: '2px solid #0E1116',
       boxShadow: shadows[5],
       overflow: 'hidden',
     },
@@ -53,7 +53,7 @@ export function AnnotationContainer({
   message,
   code,
   context,
-  recurrence
+  recurrence,
 }: any) {
   const classes = useStyles()
   const annotationRef = useRef()
@@ -118,7 +118,11 @@ export function AnnotationContainer({
         >
           {code}
         </Typography>
-        {recurrence ? <p className={'truncate text-sm font-bold py-2'}>Recurred: {recurrence} times</p> : null}
+        {recurrence ? (
+          <p className={'truncate text-sm font-bold py-2'}>
+            Recurred: {recurrence} times
+          </p>
+        ) : null}
         <Typography variant='subtitle1' className={classes.title} gutterBottom>
           {message}
         </Typography>

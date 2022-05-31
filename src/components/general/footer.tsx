@@ -161,7 +161,11 @@ const Footer = ({
             >
               {strings.appName}
             </Typography>
-            <Typography variant={'subtitle2'} color={'textSecondary'}>
+            <Typography
+              variant={'subtitle2'}
+              color={'textSecondary'}
+              component={'p'}
+            >
               Elevating accessibility for every website.
             </Typography>
             <ul

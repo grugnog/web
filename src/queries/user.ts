@@ -17,6 +17,27 @@ const GET_USER = gql`
         lastScanDate
         usageLimit
       }
+    }
+  }
+`
+
+const GET_USER_PROFILE = gql`
+  query getUserProfile {
+    user {
+      id
+      email
+      loggedIn
+      alertEnabled
+      role
+      activeSubscription
+      emailConfirmed
+      emailFilteredDates
+      passwordRequired
+      apiUsage {
+        usage
+        lastScanDate
+        usageLimit
+      }
       invoice {
         amount_due
         amount_paid
@@ -55,4 +76,4 @@ export const updateUserCache = {
   },
 }
 
-export { GET_USER }
+export { GET_USER, GET_USER_PROFILE }

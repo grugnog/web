@@ -12,7 +12,7 @@ interface Props {
 
 const style = {
   base: {
-    iconColor: '#000',
+    iconColor: '#0E1116',
     fontWeight: '500',
     fontFamily: theme.typography.fontFamily,
     fontSize: '20px',

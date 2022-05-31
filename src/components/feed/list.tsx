@@ -5,7 +5,8 @@ import { FeedHeading } from './heading'
 import type { FeedComponentProps } from './interface'
 import { FixedSizeList as List } from 'react-window'
 
-const listHeight = typeof window !== 'undefined' ? window.innerHeight / 3 : 500
+const listHeight =
+  typeof window !== 'undefined' ? window.innerHeight / 2.3 : 500
 
 // List of issues rendered.
 const FeedListComponent: FC<FeedComponentProps> = ({
@@ -40,13 +41,13 @@ const FeedListComponent: FC<FeedComponentProps> = ({
         className={`overflow-x-hidden${
           sectionHidden
             ? ' hidden'
-            : ' visible border border-t-0 border-l-0 border-r-0'
+            : ' visible border border-t-0 border-l-0 border-r-0 bg-[rgba(172,182,192,0.06)]'
         }`}
       >
         <List
           height={listHeight}
           itemCount={pageIssues.length}
-          itemSize={Math.max(listHeight / 1.38, 260)}
+          itemSize={Math.min(listHeight / 1.38, 260)}
           width={'100%'}
         >
           {Row}

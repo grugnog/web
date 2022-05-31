@@ -14,9 +14,9 @@ export const useStyles = makeStyles(
         overflowY: 'scroll',
         zIndex: 1002,
         backgroundColor: palette.common.white,
-        [breakpoints.down(1280)]: {
-          top: '50%',
-          height: '50vh',
+        [breakpoints.down('sm')]: {
+          top: '30%',
+          height: '70vh',
           width: '100vw',
           left: 0,
           position: 'fixed',

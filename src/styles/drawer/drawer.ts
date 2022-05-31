@@ -4,6 +4,7 @@ import { userModel } from '@app/data'
 export const drawerStyles = makeStyles((theme: Theme) => {
   const drawerWidth = userModel?.deviceType === 'mobile' ? '85%' : '250px'
   const breakDrawerWidth = 'sm'
+
   let extraBreakPoints = {
     shift: {
       [theme.breakpoints.down(breakDrawerWidth)]: {
@@ -153,15 +154,9 @@ export const drawerStyles = makeStyles((theme: Theme) => {
       overflow: 'hidden',
       textOverflow: 'ellipsis',
     },
-    topList: {
-      paddingLeft: 20,
-      [theme.breakpoints.down(420)]: {
-        paddingLeft: 15,
-      },
-    },
     sidePanelPadding: {
       paddingRight: '20vw',
-      [theme.breakpoints.down('md')]: {
+      [theme.breakpoints.down('sm')]: {
         paddingRight: 0,
       },
     },

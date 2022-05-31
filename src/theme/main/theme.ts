@@ -27,7 +27,7 @@ export const theme = (function () {
         borderRadius: '2px',
         border: '1px solid rgba(255, 255, 255, 0.12)',
         padding: '0px 30px',
-        color: '#000',
+        color: '#0E1116',
         fontWeight: 600,
       },
       h3: {

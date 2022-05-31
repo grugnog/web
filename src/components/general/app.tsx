@@ -86,6 +86,7 @@ export function MyApp({ Component, pageProps }: InnerApp) {
         document.cookie,
     })
 
+    // TODO: look into middleware initial request handler
     queueMicrotask(ping)
   }, [])
 

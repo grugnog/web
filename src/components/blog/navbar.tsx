@@ -9,7 +9,7 @@ import { companyName } from '@app/configs'
 
 const useStyles = makeStyles((theme) => ({
   container: {
-    backgroundColor: '#000',
+    backgroundColor: '#0E1116',
     color: theme.palette.background.default,
     overflow: 'hidden',
     zIndex: 1,
@@ -36,7 +36,7 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    color: '#000',
+    color: '#0E1116',
     [theme.breakpoints.down('sm')]: {
       display: 'none',
     },

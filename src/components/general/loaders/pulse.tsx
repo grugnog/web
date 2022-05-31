@@ -17,7 +17,7 @@ function Pulse({ visible, innerElement, backgroundColor, size }: any) {
 }
 
 Pulse.defaultProps = {
-  backgroundColor: '#000',
+  backgroundColor: '#0E1116',
   size: 40,
   styles: {},
   visible: false,

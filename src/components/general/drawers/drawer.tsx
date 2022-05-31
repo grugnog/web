@@ -109,7 +109,7 @@ export function DrawerComponent({
         dataSourceMap={dataSourceMap}
         sidePannelStyles={sidePannelStyles}
       />
-      <main className={classes.content}>
+      <main className={classes.content} id='main-content'>
         <div className={sidePannelStyles}>
           <div className={'pr-2 md:pr-4 md:pl-8 lg:pl-8 lg:pr-8'}>
             {children}

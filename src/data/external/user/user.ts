@@ -11,13 +11,24 @@ import {
 import { GET_USER, updateCache } from '@app/queries'
 import { AppManager, UserManager } from '@app/managers'
 import { EMAIL_VERIFIED_SUBSCRIPTION } from '@app/subscriptions'
+import { GET_USER_PROFILE } from '@app/queries/user'
 
-export const userData = (skip?: boolean) => {
+export const userData = (skip?: boolean, query?: 'profile') => {
   const variables = {}
+  const profileQuery = query === 'profile'
+
   const { data, loading } = useQuery(GET_USER, {
     variables,
-    skip,
+    skip: skip || profileQuery,
   })
+
+  const { data: profile, loading: profileLoading } = useQuery(
+    GET_USER_PROFILE,
+    {
+      variables,
+      skip: !profileQuery,
+    }
+  )
 
   const [
     updateUser,
@@ -90,12 +101,13 @@ export const userData = (skip?: boolean) => {
   }, [emailVerified])
 
   const model = Object.freeze({
-    data,
+    data: data || profile, // allow data or profile as main source
     forgotPasswordData,
     loading:
       loading ||
       updateUserLoading ||
       forgotPasswordLoading ||
+      profileLoading ||
       resetPasswordLoading,
     updateUser,
     updateUserData,

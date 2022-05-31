@@ -57,7 +57,7 @@ export function MarketingDrawerContainer({
           </div>
         </NavBar>
       )}
-      <main className={initClosed ? '' : classes.content}>
+      <main className={initClosed ? '' : classes.content} id='main-content'>
         {initClosed ? (
           children
         ) : (

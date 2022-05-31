@@ -115,15 +115,12 @@ export function WebsiteCellDashboardComponent({
 
   const parsedInsight = useMemo(() => {
     // TODO: Handles Deprecated pages
-    if (insight && insight?.json && insight.json !== `{"json":""}`) {
-      const parsed = JSON.parse(insight?.json)
-
-      if (parsed?.json) {
-        return JSON.parse(parsed.json)
-      }
-      return parsed
+    if (insight && insight?.json) {
+      try {
+        return JSON.parse(insight?.json)
+      } catch (_) {}
     }
-    return {}
+    return null
   }, [insight])
 
   const linkUrl = useMemo(
@@ -246,8 +243,12 @@ export function WebsiteCellDashboardComponent({
       </div>
       <div className={styles.spacing} />
       <div
-        className={`py-2 ${
-          pageInsights && lighthouseVisible ? 'visible' : 'hidden'
+        className={`${
+          parsedInsight &&
+          'lighthouseVersion' in parsedInsight &&
+          lighthouseVisible
+            ? 'visible'
+            : 'hidden'
         }`}
       >
         <ReportViewer json={parsedInsight} />

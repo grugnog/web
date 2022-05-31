@@ -23,11 +23,38 @@ export const websiteParamDefs = {
   },
 }
 
+const authParams = {
+  email: {
+    type: 'string',
+    desc: 'The email account to login with.',
+    optional: false,
+  },
+  password: {
+    type: 'string',
+    desc: 'The password to the email to login with.',
+    optional: false,
+  },
+}
+
+const crawlParams = {
+  url: {
+    type: 'string',
+    desc: 'The url to crawl and gather reports.',
+    optional: false,
+  },
+  pageInsights: {
+    type: 'string',
+    desc:
+      'Run with additional google lighthouse report. [Not required if configured]',
+    optional: true,
+  },
+}
+
 export const apiRoutes = [
   {
     pathName: 'login',
     method: 'POST',
-    params: null,
+    params: authParams,
     info: 'Login to an existing account and retrieves an authentication token.',
     title: 'Login',
     encodedParams: `--data-urlencode 'email=example@email.com' \ --data-urlencode 'password=dwdwd'`,
@@ -35,7 +62,7 @@ export const apiRoutes = [
   {
     pathName: 'register',
     method: 'POST',
-    params: null,
+    params: authParams,
     info: 'Create a new account to use and retrieves an authentication token.',
     title: 'Register',
     encodedParams: `--data-urlencode 'email=example@email.com' \ --data-urlencode 'password=dwdwd'`,
@@ -43,23 +70,23 @@ export const apiRoutes = [
   {
     pathName: 'crawl',
     method: 'POST',
-    params: null,
+    params: crawlParams,
     info: 'Multi-page scan for a domain gather all issues.',
     title: 'Crawl',
-    encodedParams: "--data-urlencode 'websiteUrl=https://a11ywatch.com'",
+    encodedParams: "--data-urlencode 'url=https://a11ywatch.com'",
   },
   {
     pathName: 'scan-simple',
     method: 'POST',
-    params: null,
+    params: crawlParams,
     info: 'Scan a single page for issues.',
     title: 'Scan',
-    encodedParams: "--data-urlencode 'websiteUrl=https://a11ywatch.com'",
+    encodedParams: "--data-urlencode 'url=https://a11ywatch.com'",
   },
   {
     pathName: 'scan-stream',
     method: 'POST',
-    params: '',
+    params: crawlParams,
     info:
       'Scan multi pages for issues as a stream [WIP - lazy stream to keep connection alive]. ',
     title: 'Crawl Stream',
@@ -68,7 +95,13 @@ export const apiRoutes = [
   {
     pathName: 'image-check',
     method: 'POST',
-    params: null,
+    params: {
+      imageBase64: {
+        type: 'string',
+        desc: 'A Base64 image to classify',
+        optional: false,
+      },
+    },
     encodedParams: `--data-urlencode 'imageBase64=${exampleBase64}'`,
     info: 'Try to determine an image using AI based on a base64 string.',
     title: 'Image Classify',
@@ -94,7 +127,7 @@ export const apiRoutes = [
     method: 'GET',
     params: '',
     encodedParams: '',
-    info: 'Turn a url into a reverse engineered iframe.',
+    info: 'Reverse engineer a website to iframe.',
     title: 'Iframe',
   },
   {

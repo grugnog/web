@@ -59,7 +59,7 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    color: '#000',
+    color: '#0E1116',
     [theme.breakpoints.down('sm')]: {
       display: 'none',
     },

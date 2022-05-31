@@ -22,7 +22,7 @@ const useStyles = makeStyles((theme: MergedTheme) => ({
   },
   appBar: {
     position: 'sticky',
-    backgroundColor: '#000',
+    backgroundColor: '#0E1116',
     color: '#fff',
   },
   miniPlayer: {

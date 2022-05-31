@@ -24,13 +24,13 @@ export const useStyles = makeStyles(({ breakpoints }: Theme) =>
     see: {
       background: 'none',
       boxShadow: 'none',
-      color: '#000',
+      color: '#0E1116',
       textTransform: 'none',
     },
     normal: {
       textTransform: 'none',
       minWidth: '150px',
-      color: '#000',
+      color: '#0E1116',
       ['&:hover']: {
         textDecoration: 'none',
       },

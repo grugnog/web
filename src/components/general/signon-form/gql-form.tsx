@@ -1,4 +1,10 @@
-import React, { useEffect, useRef, FunctionComponent, Fragment } from 'react'
+import React, {
+  useEffect,
+  FunctionComponent,
+  Fragment,
+  useState,
+  SyntheticEvent,
+} from 'react'
 import { GoogleLoginButton } from '../google-login'
 import { useRouter } from 'next/router'
 import {
@@ -17,6 +23,7 @@ import { AppManager, UserManager } from '@app/managers'
 import { Link } from '../link'
 import { LinearBottom } from '../loaders'
 import { withApollo } from '@app/apollo'
+import { DOMAIN_NAME } from '@app/configs'
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -73,8 +80,8 @@ const SignOnFormWrapper: FunctionComponent<SignOnProps> = ({
   const [signOnMutation, { data, loading }] = useMutation(
     loginView ? LOGIN : REGISTER
   )
-  const emailRef = useRef<any>(null)
-  const passwordRef = useRef<any>(null)
+  const [email, setEmail] = useState<string>('')
+  const [password, setPassword] = useState<string>('')
 
   useEffect(() => {
     if (data) {
@@ -102,10 +109,10 @@ const SignOnFormWrapper: FunctionComponent<SignOnProps> = ({
   const submit = async (e: any) => {
     e?.preventDefault()
     // @ts-ignore
-    if (!passwordRef?.current?.value || !emailRef?.current?.value) {
+    if (!password || !email) {
       AppManager.toggleSnack(
         true,
-        !emailRef?.current?.value
+        !password
           ? 'Please enter a password of at least 6 characters.'
           : 'Please check your email and password and try again.',
         'error'
@@ -114,17 +121,12 @@ const SignOnFormWrapper: FunctionComponent<SignOnProps> = ({
       try {
         await signOnMutation({
           variables: {
-            email: emailRef?.current?.value,
-            password: passwordRef?.current?.value,
+            email,
+            password,
           },
         })
       } catch (e) {
         console.error(e)
-      }
-
-      // @ts-ignore
-      if (passwordRef.current) {
-        passwordRef.current.value = ''
       }
     }
   }
@@ -134,13 +136,25 @@ const SignOnFormWrapper: FunctionComponent<SignOnProps> = ({
       await signOnMutation({
         variables: {
           email: response?.profileObj?.email,
-          password: '',
           googleId: response?.googleId,
+          password: '',
         },
       })
     } catch (e) {
       console.error(e)
     }
+  }
+
+  const onChangeEmailEvent = (
+    e: SyntheticEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    setEmail(e.currentTarget.value)
+  }
+
+  const onChangePasswordEvent = (
+    e: SyntheticEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    setPassword(e.currentTarget.value)
   }
 
   return (
@@ -175,11 +189,15 @@ const SignOnFormWrapper: FunctionComponent<SignOnProps> = ({
                   label='Email'
                   type='email'
                   margin='dense'
+                  inputProps={{
+                    'aria-invalid': email.length < 4,
+                  }}
+                  onChange={onChangeEmailEvent}
+                  value={email}
                   autoFocus={!home}
                   autoComplete='email'
                   variant='outlined'
                   required
-                  inputRef={emailRef}
                 />
                 <FormHelperText
                   id='my-email-text'
@@ -199,12 +217,14 @@ const SignOnFormWrapper: FunctionComponent<SignOnProps> = ({
                   margin='dense'
                   inputProps={{
                     minLength: '6',
+                    'aria-invalid': password.length < 4,
                   }}
+                  onChange={onChangePasswordEvent}
+                  value={password}
                   type='password'
                   autoComplete='current-password'
                   variant='outlined'
                   required
-                  inputRef={passwordRef}
                 />
                 <FormHelperText
                   id='my-password-text'
@@ -238,9 +258,9 @@ const SignOnFormWrapper: FunctionComponent<SignOnProps> = ({
           ) : null}
         </div>
         <div className={'text-xs text-center py-4'}>
-          This site is protected by the Google{' '}
+          This site is protected by the{' '}
           <Link href={'https://policies.google.com/privacy'}>
-            Privacy Policy
+            Google Privacy Policy
           </Link>{' '}
           and{' '}
           <Link href={'https://policies.google.com/terms'}>
@@ -248,7 +268,13 @@ const SignOnFormWrapper: FunctionComponent<SignOnProps> = ({
           </Link>{' '}
           apply. By clicking {`"Create account"`}, I agree to {`A11yWatch's `}
           <Link href={'/terms-of-service'}>TOS</Link> and{' '}
-          <Link href={'/privacy'}>Privacy Policy</Link>.
+          <Link
+            href={'/privacy'}
+            aria-label={`${DOMAIN_NAME} privacy policy statement.`}
+          >
+            Privacy Policy
+          </Link>
+          .
         </div>
       </Container>
       <LinearBottom loading={loading} />

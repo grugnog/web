@@ -26,7 +26,7 @@ import { useBillingDisplay } from '@app/data/formatters'
 
 const useStyles = makeStyles(() => ({
   cancel: {
-    border: '1px solid #000',
+    border: '1px solid #0E1116',
   },
   cancelBtn: {
     background: 'transparent',

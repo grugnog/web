@@ -24,7 +24,10 @@ import { useBillingDisplay } from '@app/data/formatters'
 
 const Profile: FC<PageProps> = ({ name }) => {
   const classes = useStyles()
-  const { data = {}, loading, updateUser, updateUserData } = userData()
+  const { data = {}, loading, updateUser, updateUserData } = userData(
+    true,
+    'profile'
+  )
   const [changePassword, setChangePassword] = useState<boolean>(false)
   const [currentPassword, setCurrentPassword] = useState<string>('')
   const [newPassword, setNewPassword] = useState<string>('')
@@ -129,13 +132,6 @@ const Profile: FC<PageProps> = ({ name }) => {
                 className={classes.email}
               />
             ) : null}
-            <ProfileCell
-              title={'Password'}
-              skeletonLoad={!user && loading}
-              className={classes.email}
-              titleClassName={'flex-1'}
-              subTitle={'******'}
-            ></ProfileCell>
 
             <div className='space-y-2 w-[250px] py-4'>
               {!user && loading ? (

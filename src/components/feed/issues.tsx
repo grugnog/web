@@ -38,9 +38,9 @@ const Feed: FC = () => {
 
     // replace issue feed section with new value
     if (webPage) {
-      const { url, issuesInfo } = webPage
+      const { url, domain, issuesInfo } = webPage
       // the current item in the feed
-      const page = issuesClone[url as any]
+      const page = domain && url && issuesClone[domain][url]
 
       if (page) {
         // @ts-ignore
@@ -73,7 +73,7 @@ const Feed: FC = () => {
     <Fade in={issues.length && open ? true : false}>
       <div className={`${classes.root} shadow`}>
         <div
-          className={`flex place-items-center px-3 py-1 border border-t-0 border-r-0 border-l-0 bg-gray-200`}
+          className={`flex place-items-center px-3 py-1 border border-t-0 border-r-0 border-l-0 bg-gray-100`}
         >
           <p className={`flex-1 text-lg font-semibold`}>Recent Issues</p>
           <IconButton
@@ -88,19 +88,30 @@ const Feed: FC = () => {
         <ul>
           {issues?.map((v, index) => {
             // @ts-ignore
-            const issue = data[v] as any
+            const website = data[v] as any
 
-            if (!issue) {
+            if (!website) {
               return
             }
 
             return (
-              <FeedList
-                key={issue?.pageUrl}
-                onScanEvent={onScanEvent}
-                issue={issue}
-                isHidden={!!index}
-              />
+              <li key={website._id + index}>
+                <ul>
+                  {Object.keys(website)?.map((d: any) => {
+                    // @ts-ignore
+                    const issue = data[v][d] as any
+
+                    return (
+                      <FeedList
+                        key={issue?.pageUrl}
+                        onScanEvent={onScanEvent}
+                        issue={issue}
+                        isHidden={!!index}
+                      />
+                    )
+                  })}
+                </ul>
+              </li>
             )
           })}
         </ul>

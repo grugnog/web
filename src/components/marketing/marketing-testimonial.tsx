@@ -67,7 +67,7 @@ export function MarketingTestimonial() {
           <div>
             <Typography
               variant='h4'
-              component='h5'
+              component='p'
               gutterBottom
               className={classes.title}
             >

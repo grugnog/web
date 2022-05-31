@@ -111,29 +111,22 @@ export const useWebsiteData = (
 
   // website crawl finished
   const onCrawlCompleteSubscription = useCallback(
-    ({ subscriptionData }: OnSubscriptionDataOptions<any>) => {
+    async ({ subscriptionData }: OnSubscriptionDataOptions<any>) => {
       const completedWebsite = subscriptionData?.data?.crawlComplete
       if (completedWebsite) {
-        queueMicrotask(() => {
-          // use apollo cache instead
-          const dataSource = websites.find(
-            (source: any) => source.domain === completedWebsite.domain
-          )
+        const adaScoreAverage = completedWebsite.adaScoreAverage
+        AppManager.toggleSnack(
+          true,
+          `Crawl finished for ${completedWebsite.domain}. Average score across pages ${adaScoreAverage}`,
+          'success'
+        )
+        forceUpdate()
 
-          if (dataSource) {
-            const adaScoreAverage = completedWebsite.adaScoreAverage
-            dataSource.adaScoreAverage = adaScoreAverage
-            AppManager.toggleSnack(
-              true,
-              `Crawl finished for ${completedWebsite.domain}. Average score across pages ${adaScoreAverage}`,
-              'success'
-            )
-            forceUpdate()
-          }
-        })
+        // TODO: only re-fetch website updated or send data required from subscription.
+        await refetch()
       }
     },
-    [websites]
+    [websites, refetch]
   )
 
   useSubscription(CRAWL_COMPLETE_SUBSCRIPTION, {
@@ -149,8 +142,12 @@ export const useWebsiteData = (
         // TODO: use issue feed instead of binding to website property
         const dataSource = { ...issueFeed?.data }
 
+        if (!dataSource[newIssue.domain]) {
+          dataSource[newIssue.domain] = {}
+        }
+
         // move to object outside and clear on subscription from website crawl finished
-        dataSource[newIssue.pageUrl] = newIssue
+        dataSource[newIssue.domain][newIssue.pageUrl] = newIssue
 
         setIssueFeedContent(dataSource, true)
 

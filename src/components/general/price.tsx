@@ -21,7 +21,7 @@ const highLight = (
     : ''
 
 const getPrimaryColor = (title: string) => {
-  let color = '#000'
+  let color = '#0E1116'
   if (title === 'Premium') {
     color = '#8956ef'
   } else if (title === 'Free') {
@@ -29,7 +29,7 @@ const getPrimaryColor = (title: string) => {
   } else if (title === 'Basic') {
     color = '#2b72e6'
   } else if (title === 'Enterprise') {
-    color = '#000'
+    color = '#0E1116'
   }
   return color
 }
@@ -63,6 +63,7 @@ function MainButton({
           backgroundColor: buttonColor,
           color: textColor,
           fontWeight: 800,
+          fontSize: '1.1rem',
         }}
         href={
           title === 'Enterprise'
@@ -202,13 +203,13 @@ function PriceWrapper({
                     <SubHeading className='text-3xl font-bold'>
                       <span>{title}</span>
                       {cost ? (
-                        <span className={'text-lg font-semibold block'}>
+                        <span className={'text-2xl font-semibold block'}>
                           {yearly ? costYearly : cost}
                         </span>
                       ) : null}
                     </SubHeading>
-                    <div className='py-2 max-w-[350px] lg:max-w-[380px]'>
-                      <p className='text-lg'>{subTitle}</p>
+                    <div className='py-2 lg max-w-[350px] xl:max-w-[380px]'>
+                      <p className='text-xl'>{subTitle}</p>
                     </div>
                   </div>
 

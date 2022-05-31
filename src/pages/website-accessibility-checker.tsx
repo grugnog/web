@@ -4,12 +4,7 @@ import { CtaIntroRest } from '@app/components/cta/cta-intro-rest'
 import { metaSetter } from '@app/utils'
 import type { PageProps } from '@app/types'
 import { MarketingBottomTemporaryDrawer } from '@app/components/modal'
-import {
-  GrAccessibility,
-  GrCloudSoftware,
-  GrPerformance,
-  GrCluster,
-} from 'react-icons/gr'
+import { GrCloudSoftware, GrPerformance, GrCluster } from 'react-icons/gr'
 import { DOMAIN_NAME } from '@app/configs'
 import { LinkPrefetch } from '@app/components/general/link'
 
@@ -33,7 +28,8 @@ function WebsiteAccessibilityChecker({ name }: PageProps) {
               to get site-wide monitoring and other web accessibility
               improvement tools right in the browser or your own servers. Theres
               multiple entry points to get started keeping your website
-              inclusive.
+              inclusive. All test are done using a live browser and a real dom
+              to run on.
             </p>
           </div>
           <div>
@@ -57,29 +53,16 @@ function WebsiteAccessibilityChecker({ name }: PageProps) {
           </div>
         </div>
         <div className='place-items-center flex flex-col pb-6 pt-10'>
-          <div className='max-w-[800px] pb-4 px-3'>
-            <div className='flex flex-col p-3 md:flex-row border-2 rounded text-base gap-x-3 gap-y-1 place-items-center'>
-              <div>
-                <GrAccessibility className='grIcon h-[40px] w-[40px]' />
-              </div>
-              <p>
-                When it comes to a11y we have you covered on finding issues by
-                using a real browser to spin up your website. The steps used
-                help bridge gaps that cause the most painful downtime across
-                testing and go beyond code linting.
-              </p>
-            </div>
-          </div>
           <div className='px-4 max-w-[800px] space-y-2'>
-            <h3 className='py-2 text-2xl font-bold'>
+            <h5 className='py-2 text-2xl font-bold'>
               Open-Source tools designed for the job
-            </h3>
+            </h5>
             <div className='flex flex-col md:flex-row gap-x-6 gap-y-2 p-6 border rounded'>
-              <div className='flex place-items-center'>
+              <div className='flex place-items-center px-6'>
                 <GrCluster className='grIcon h-[60px] w-[60px]' />
               </div>
               <div>
-                <h4 className='text-xl font-bold'>Target a broader audience</h4>
+                <h6 className='text-xl font-bold'>Target a broader audience</h6>
                 <p className='text-lg'>
                   We built the system to utilize every drop of performance
                   making it possible to scan up to 1,000 pages within a minute.
@@ -92,13 +75,13 @@ function WebsiteAccessibilityChecker({ name }: PageProps) {
               </div>
             </div>
             <div className='flex flex-col md:flex-row gap-x-6 gap-y-2 p-6 border rounded'>
-              <div className='flex place-items-center'>
+              <div className='flex place-items-center px-6'>
                 <GrCloudSoftware className='grIcon h-[60px] w-[60px]' />
               </div>
               <div>
-                <h4 className='text-xl font-bold'>
+                <h6 className='text-xl font-bold'>
                   It gets you testing on the go
-                </h4>
+                </h6>
                 <p className='text-lg'>
                   Every page on our website is built to handle across many
                   platforms and devices. We take a mobile approach so that our
@@ -116,13 +99,13 @@ function WebsiteAccessibilityChecker({ name }: PageProps) {
               </div>
             </div>
             <div className='flex flex-col md:flex-row gap-x-6 gap-y-2 p-6 border rounded'>
-              <div className='flex place-items-center'>
+              <div className='flex place-items-center px-6'>
                 <GrPerformance className='grIcon h-[80px] w-[80px]' />
               </div>
               <div>
-                <h4 className='text-xl font-bold'>
+                <h6 className='text-xl font-bold'>
                   Web vitals that make a difference
-                </h4>
+                </h6>
                 <p className='text-lg'>
                   Opt in to include insightful{' '}
                   <a
@@ -133,9 +116,9 @@ function WebsiteAccessibilityChecker({ name }: PageProps) {
                   >
                     Google Lighthouse
                   </a>{' '}
-                  reports across all of your web pages beautifully in the
-                  dashboard. View detailed core web vitals that can help improve
-                  your accessibility, performance, and much more.
+                  reports across all of your web pages in the dashboard. View
+                  detailed core web vitals that can help improve your
+                  accessibility, performance, SEO and much more.
                 </p>
               </div>
             </div>

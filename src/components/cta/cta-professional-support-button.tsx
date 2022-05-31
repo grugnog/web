@@ -20,7 +20,7 @@ const useStyles = makeStyles((theme) => ({
     borderBottomRightRadius: 0,
     textTransform: 'none',
     '&:hover': {
-      color: '#000',
+      color: '#0E1116',
       border: '1px solid #ccc',
     },
     [theme.breakpoints.down('sm')]: {

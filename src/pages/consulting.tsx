@@ -90,7 +90,7 @@ function Consulting({ name }: PageProps) {
         For more information on consulting please send a email to{' '}
         <a
           href={'mailto:support@a11ywatch.com'}
-          style={{ color: '#000', textDecoration: 'underline' }}
+          className={'text-blue-700 underline'}
         >
           support@a11ywatch.com
         </a>

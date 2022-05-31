@@ -32,6 +32,7 @@ function Dashboard({ name }: PageProps) {
     setLighthouseVisibility,
     lighthouseVisible,
     onLoadMoreWebsites,
+    issueFeed,
   } = useWebsiteContext()
 
   const websites: Website[] = useMemo(() => filterSort(data, search), [
@@ -133,6 +134,7 @@ function Dashboard({ name }: PageProps) {
               lighthouseVisible={lighthouseVisible}
               emptyHeaderTitle={'Welcome to A11yWatch'}
               emptyHeaderSubTitle={'Add a website to monitor below'}
+              issueFeed={issueFeed}
             />
             {websites.length > 1 ? (
               <div className='flex place-content-center pt-8'>

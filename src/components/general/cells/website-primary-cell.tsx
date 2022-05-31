@@ -19,7 +19,7 @@ const useStyles = makeStyles(() => ({
     maxWidth: '50vw',
     overflow: 'hidden',
     textOverflow: 'ellipsis',
-    color: '#000',
+    color: '#0E1116',
     flex: 1,
     fontSize: '1.1em',
     fontWeight: 600,

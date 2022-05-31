@@ -24,6 +24,7 @@ export function WebsiteList({
   setModal,
   mutatationLoading,
   lighthouseVisible,
+  issueFeed,
 }: any) {
   const [modal, setOpen] = useState(defaultModalState)
   const { setMiniPlayerContent } = useMiniPlayer(setOpen)
@@ -56,6 +57,7 @@ export function WebsiteList({
           setModal,
           mutatationLoading,
           lighthouseVisible,
+          issueFeed,
         }}
       />
       <FullScreenModal

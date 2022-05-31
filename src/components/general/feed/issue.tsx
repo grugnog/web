@@ -44,22 +44,22 @@ export function FeedIssueCardComponent({
       <div>
         <div className='flex space-x-2 items-center'>
           <div
-            className={`${getErrorColor(issueType + '')} w-3 h-3 rounded-full`}
+            className={`${getErrorColor(
+              issueType + ''
+            )} min-w-[0.75rem] min-h-[0.75rem] w-3 h-3 rounded-full`}
           />
-          <p
-            className={`truncate text-sm font-bold ${
-              recurrence ? 'max-w-[60%]' : 'max-w-[93%]'
-            }`}
-          >
+          <p className={`truncate text-sm font-bold max-w-[90%] flex-1`}>
             {selector}
           </p>
-          {recurrence ? (
-            <div className='px-2 bg-gray-200 rounded'>
-              <p className={'truncate text-sm font-bold'}>
-                Recurrence: {recurrence}
-              </p>
-            </div>
-          ) : null}
+          <div className='justify-end flex flex-shrink'>
+            {recurrence ? (
+              <div className='px-2 bg-gray-200 rounded'>
+                <p className={'truncate text-sm font-bold'}>
+                  Recurrence: {recurrence}
+                </p>
+              </div>
+            ) : null}
+          </div>
         </div>
       </div>
       <div>

@@ -19,6 +19,7 @@ export const RenderInner: FC<any> = ({
   handleClickOpen,
   handleClickOpenPlayer,
   lighthouseVisible,
+  issueFeed,
 }) => {
   if (!data.length) {
     if (loading) {
@@ -46,6 +47,7 @@ export const RenderInner: FC<any> = ({
       <WebSitesDashboard
         data={data}
         {...{
+          issueFeed,
           handleClickOpen,
           handleClickOpenPlayer,
           removePress,
