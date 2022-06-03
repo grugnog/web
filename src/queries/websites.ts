@@ -72,6 +72,8 @@ export const GET_WEBSITES_INFO = gql`
           domain
           cdnConnected
           issuesInfo {
+            adaScore
+            adaScoreAverage
             totalIssues
           }
         }
@@ -93,6 +95,8 @@ export const GET_PAGES = gql`
           domain
           cdnConnected
           issuesInfo {
+            adaScore
+            adaScoreAverage
             totalIssues
           }
         }

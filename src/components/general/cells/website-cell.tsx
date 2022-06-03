@@ -47,13 +47,14 @@ export function WebsiteCell(props: WebsiteCellProps) {
     handleClickOpenPlayer,
     issues,
     issuesInfo,
-    adaScore,
     cdnConnected,
     pageLoadTime,
     mutatationLoading,
     lastScanDate,
     pageHeaders,
   } = extra
+
+  const { adaScore } = issuesInfo ?? {}
 
   const handleMenu = (event: any) => {
     setAnchorEl(event?.currentTarget)

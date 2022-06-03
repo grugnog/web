@@ -9,12 +9,10 @@ export const CRAWL_WEBSITE = gql`
       website {
         url
         domain
-        adaScore
         cdnConnected
         lastScanDate
         userId
         online
-        adaScoreAverage
         mobile
         insight {
           json
@@ -29,7 +27,7 @@ export const CRAWL_WEBSITE = gql`
           color
         }
         issuesInfo {
-          adaScoreAverage
+          adaScore
           issuesFixedByCdn
           possibleIssuesFixedByCdn
           totalIssues

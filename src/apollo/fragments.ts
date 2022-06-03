@@ -20,7 +20,6 @@ export const subdomainFragments = gql`
     _id
     domain
     url
-    adaScore
     pageInsights
     insight {
       json
@@ -32,7 +31,7 @@ export const subdomainFragments = gql`
       color
     }
     issuesInfo {
-      adaScoreAverage
+      adaScore
       possibleIssuesFixedByCdn
       totalIssues
       issuesFixedByCdn
@@ -48,7 +47,6 @@ export const websiteFragments = gql`
     _id
     url
     domain
-    adaScore
     adaScoreAverage
     cdnConnected
     lastScanDate
@@ -67,6 +65,7 @@ export const websiteFragments = gql`
       cdnUrlMinified
     }
     issuesInfo {
+      adaScore
       adaScoreAverage
       possibleIssuesFixedByCdn
       totalIssues

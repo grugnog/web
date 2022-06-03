@@ -27,8 +27,17 @@ export const getBlogPage = async (pathname: string): Promise<BlogPageProps> => {
         const metaTags = htmlRoot.querySelectorAll(`meta`)
         const cssSheets = htmlRoot.querySelectorAll('style')
         const headTag = htmlRoot.querySelector(`head`)
-
+        const colophon = htmlRoot.getElementById('colophon')
         const authorPrefix = htmlRoot.querySelectorAll('.author-prefix')
+
+        const comments = htmlRoot.getElementById('comments')
+
+        if (colophon) {
+          colophon.remove()
+        }
+        if (comments) {
+          comments.remove()
+        }
 
         authorPrefix?.forEach((tag) => {
           tag.remove()

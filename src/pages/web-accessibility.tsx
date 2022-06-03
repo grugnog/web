@@ -16,6 +16,9 @@ const checklistLinks = [
   {
     href: 'https://www.section508.gov/test/testing-overview/',
   },
+  {
+    href: 'https://webflow.com/accessibility/checklist',
+  },
 ]
 
 const linkStyle = {

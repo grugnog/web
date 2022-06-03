@@ -151,7 +151,11 @@ function Api({ name }: PageProps) {
         <Box>
           <ul className='space-y-3 py-2'>
             {apiRoutes.map((ro) => {
-              const routeID = ro.title.replaceAll(' ', '').toLowerCase()
+              const routeID = String(ro.title)
+                ?.replace(' ', '')
+                ?.replace(' ', '')
+                ?.replace(' ', '')
+                .toLowerCase()
 
               return (
                 <li key={ro.title} id={routeID}>

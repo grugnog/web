@@ -123,7 +123,13 @@ export const MiniPlayer: FunctionComponent<MiniPlayerProps> = (_) => {
         </Toolbar>
       </AppBar>
       {title === 'Lighthouse' ? (
-        <ReportViewer json={data} id='fullscreen-lighthouse-report' />
+        <>
+          {data && 'lighthouseVersion' in data ? (
+            <ReportViewer json={data} id='fullscreen-lighthouse-report' />
+          ) : (
+            <div>Light house data not found.</div>
+          )}
+        </>
       ) : (
         <div>
           <AdaIframe url={data} miniPlayer />

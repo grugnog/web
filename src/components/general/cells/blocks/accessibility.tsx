@@ -4,17 +4,15 @@ import { GrAccessibility } from 'react-icons/gr'
 
 export const AccessibilityBoxWrapper = ({
   adaScore,
-  adaScoreAverage,
+  average = true,
 }: {
   adaScore?: number
-  adaScoreAverage?: number
+  average?: boolean
 }) => {
   return (
     <InfoBlock title={'Score'} icon={<GrAccessibility />}>
       {typeof adaScore === 'number'
-        ? `${Math.round(adaScore)}${
-            adaScoreAverage ? ` avg ${adaScoreAverage}` : ''
-          }`
+        ? `${adaScore ? `${average ? 'Average ' : ''}${adaScore}` : ''}`
         : 'N/A'}
     </InfoBlock>
   )

@@ -41,8 +41,6 @@ export function WebsiteCellDashboardComponent({
   handleClickOpenPlayer,
   issues,
   issuesInfo,
-  adaScore,
-  adaScoreAverage,
   cdnConnected,
   crawlWebsite,
   pageLoadTime,
@@ -169,6 +167,8 @@ export function WebsiteCellDashboardComponent({
       ? issues.length
       : issuesInfo?.pageCount
 
+  const { adaScoreAverage: adaScore } = issuesInfo ?? {}
+
   return (
     <li className={`border-4 px-3 pt-2 rounded overflow-hidden`}>
       <div className='flex space-x-2 place-items-center'>
@@ -216,10 +216,7 @@ export function WebsiteCellDashboardComponent({
       />
       <div className={styles.spacing} />
       <div className='grid grid-cols-1 gap-1 sm:grid-cols-3'>
-        <AccessibilityBox
-          adaScore={adaScore}
-          adaScoreAverage={adaScoreAverage}
-        />
+        <AccessibilityBox adaScore={adaScore} />
         <IssuesBox issues={errorCount} />
         <WarningsBox issues={warningCount} />
         <PagesBox count={pageIssueCount ?? 'N/A'} />
@@ -244,14 +241,12 @@ export function WebsiteCellDashboardComponent({
       <div className={styles.spacing} />
       <div
         className={`${
-          parsedInsight &&
-          'lighthouseVersion' in parsedInsight &&
-          lighthouseVisible
-            ? 'visible'
-            : 'hidden'
+          parsedInsight && lighthouseVisible ? 'visible' : 'hidden'
         }`}
       >
-        <ReportViewer json={parsedInsight} />
+        {parsedInsight && 'lighthouseVersion' in parsedInsight ? (
+          <ReportViewer json={parsedInsight} />
+        ) : null}
       </div>
     </li>
   )

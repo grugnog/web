@@ -13,6 +13,7 @@ const useStyles = makeStyles((theme) => ({
     color: theme.palette.background.default,
     overflow: 'hidden',
     zIndex: 1,
+    justifyContent: 'center',
     ...theme.mixins.toolbar,
   },
   menu: {
@@ -72,17 +73,13 @@ const NavBarComponent: FC<any> = ({
         component={component}
       >
         <Toolbar>
-          <div className={classes.toolbarInnerContainer}>
-            <Link
-              className={`${classes.menu} space-x-2 align-items-center text-normal text-black`}
-              href={BLOG_HREF}
-            >
-              <div className='invert'>
-                <SmallLogo />
-              </div>
-              <div className='pl-1 text-white'>{title}</div>
-            </Link>
-          </div>
+          <Link
+            className={`${classes.menu} space-x-2 align-items-center place-items-center text-normal text-black`}
+            href={BLOG_HREF}
+          >
+            <SmallLogo className='block invert' />
+            <div className='pl-1 text-white'>{title}</div>
+          </Link>
         </Toolbar>
       </AppBar>
     </Fragment>

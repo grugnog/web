@@ -32,6 +32,8 @@ const GET_WEBSITE = gql`
         value
       }
       issuesInfo {
+        adaScore
+        adaScoreAverage
         issuesFixedByCdn
         possibleIssuesFixedByCdn
         totalIssues

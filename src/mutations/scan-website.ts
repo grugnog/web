@@ -10,8 +10,6 @@ const SCAN_WEBSITE = gql`
         _id
         url
         domain
-        adaScore
-        adaScoreAverage
         cdnConnected
         cdn
         userId
@@ -32,6 +30,7 @@ const SCAN_WEBSITE = gql`
           value
         }
         issuesInfo {
+          adaScore
           issuesFixedByCdn
           possibleIssuesFixedByCdn
           totalIssues

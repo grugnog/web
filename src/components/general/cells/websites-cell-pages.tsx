@@ -30,8 +30,6 @@ export function WebsiteCellPagesComponent({
   handleClickOpenPlayer,
   issues,
   issuesInfo,
-  adaScore,
-  adaScoreAverage,
   cdnConnected,
   crawlWebsite,
   pageLoadTime,
@@ -44,6 +42,7 @@ export function WebsiteCellPagesComponent({
   lighthouseVisible,
 }: any) {
   const [anchorEl, setAnchorEl] = useState<any>(null)
+  const { adaScore } = issuesInfo ?? {}
 
   const handleMenu = useCallback(
     (event: any) => {
@@ -190,10 +189,7 @@ export function WebsiteCellPagesComponent({
       />
       <div className={styles.spacing} />
       <div className='grid grid-cols-1 gap-1 sm:grid-cols-3'>
-        <AccessibilityBox
-          adaScore={adaScore}
-          adaScoreAverage={adaScoreAverage}
-        />
+        <AccessibilityBox adaScore={adaScore} average={false} />
         <IssuesBox issues={errorCount} />
         <WarningsBox issues={warningCount} />
         <LoadTimeBox duration={pageLoadTime?.duration} />
@@ -209,7 +205,9 @@ export function WebsiteCellPagesComponent({
         }`}
         aria-expanded={pageInsights && lighthouseVisible}
       >
-        <ReportViewer json={parsedInsight} />
+        {pageInsights && 'lighthouseVersion' in pageInsights ? (
+          <ReportViewer json={parsedInsight} />
+        ) : null}
       </div>
     </li>
   )
