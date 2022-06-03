@@ -141,7 +141,7 @@ function CtaInput() {
       <button
         className={`${classes.submit} ${
           loading || !search ? 'text-gray-500' : ''
-        } hover:bg-black hover:text-white`}
+        } hover:bg-[#0E1116] hover:text-white`}
         type={'submit'}
         disabled={loading || !search}
         aria-label={loading ? 'Scanning website loading' : 'Analyze website'}

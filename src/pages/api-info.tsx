@@ -75,7 +75,7 @@ function Api({ name }: PageProps) {
             authorization header with the jwt format <b>Bearer TOKEN</b>.
           </p>
           <p className='text-lg'>
-            For more information check the API{' '}
+            For more information go to the{' '}
             <a
               href={'https://docs.a11ywatch.com/documentation/api'}
               target='_blank'
@@ -149,115 +149,146 @@ function Api({ name }: PageProps) {
         </Box>
 
         <Box>
-          <h3 className='text-2xl font-bold'>REST API Endpoints</h3>
-          <h4>
-            Example API endpoints for retreiving data and performing operations.
-          </h4>
           <ul className='space-y-3 py-2'>
-            {apiRoutes.map((route: any, i) => {
-              const routeParams = route?.params
-              const params = routeParams ? Object.keys(routeParams) : null
+            {apiRoutes.map((ro) => {
+              const routeID = ro.title.replaceAll(' ', '').toLowerCase()
 
-              const methodColor = (t: 'color' | 'border') => {
-                let c = ''
-
-                switch (route.method) {
-                  case 'POST':
-                    {
-                      c = t === 'color' ? 'text-green-700' : 'border-green-700'
-                    }
-                    break
-                  case 'GET':
-                    {
-                      c = t === 'color' ? 'text-blue-700' : 'border-blue-700'
-                    }
-                    break
-                  case 'PUT':
-                    {
-                      c =
-                        t === 'color' ? 'text-yellow-700' : 'border-yellow-700'
-                    }
-                    break
-                  case 'DELETE':
-                    {
-                      c = t === 'color' ? 'text-red-700' : 'border-red-700'
-                    }
-                    break
-                  default:
-                    {
-                      c = t === 'color' ? 'text-blue-700' : 'border-blue-700'
-                    }
-                    break
-                }
-
-                return c
-              }
               return (
-                <li
-                  key={`api-route-${i}`}
-                  className={'text-base border-2 p-3 rounded'}
-                >
-                  <h5 className='text-xl font-bold text-gray-800'>
-                    {route.title}
-                  </h5>
-                  <h6 className='text-base'>{route.info}</h6>
-                  <p className='font-semibold'>
-                    {API_ENDPOINT}/{route.pathName}
-                  </p>
-                  <div className='py-2'>
-                    <span
-                      className={`border rounded ${methodColor(
-                        'border'
-                      )} px-3 py-1 min-w-[60px] inline-block text-center`}
-                    >
-                      <span
-                        aria-label={`HTTP request method type ${route.method}`}
-                        className={`font-bold text-sm ${methodColor('color')}`}
-                      >
-                        {route.method}
-                      </span>
-                    </span>
+                <li key={ro.title} id={routeID}>
+                  <div className='py-4'>
+                    <div className='py-2 px-4 color-[#0E1116] border-l-4 border-[#0E1116] rounded'>
+                      <h3 className='text-3xl font-bold'>
+                        <a href={`#${routeID}`}>{ro.title}</a>
+                      </h3>
+                    </div>
                   </div>
-                  {params ? (
-                    <div className='space-y-1 pb-2'>
-                      Params:
-                      {params?.map((item: any, i) => {
-                        const { desc, type, optional } = routeParams[item] ?? {
-                          desc: '',
-                          type: '',
-                          optional: false,
+                  <ul className='space-y-3 py-2'>
+                    {ro.routes.map((route: any, i) => {
+                      const routeParams = route?.params
+                      const params = routeParams
+                        ? Object.keys(routeParams)
+                        : null
+
+                      const methodColor = (t: 'color' | 'border') => {
+                        let c = ''
+
+                        switch (route.method) {
+                          case 'POST':
+                            {
+                              c =
+                                t === 'color'
+                                  ? 'text-green-700'
+                                  : 'border-green-700'
+                            }
+                            break
+                          case 'GET':
+                            {
+                              c =
+                                t === 'color'
+                                  ? 'text-blue-700'
+                                  : 'border-blue-700'
+                            }
+                            break
+                          case 'PUT':
+                            {
+                              c =
+                                t === 'color'
+                                  ? 'text-yellow-700'
+                                  : 'border-yellow-700'
+                            }
+                            break
+                          case 'DELETE':
+                            {
+                              c =
+                                t === 'color'
+                                  ? 'text-red-700'
+                                  : 'border-red-700'
+                            }
+                            break
+                          default:
+                            {
+                              c =
+                                t === 'color'
+                                  ? 'text-blue-700'
+                                  : 'border-blue-700'
+                            }
+                            break
                         }
 
-                        return (
-                          <span
-                            key={`params-${i}`}
-                            className={'block border rounded py-1 px-3'}
-                          >
-                            <span className='font-bold block'>
-                              {item}{' '}
-                              <span className='italic text-gray-700 text-xs'>
-                                {type}
+                        return c
+                      }
+                      return (
+                        <li
+                          key={`api-route-${i}`}
+                          className={'text-base border-2 p-3 rounded'}
+                        >
+                          <h4 className='text-2xl font-bold text-gray-800'>
+                            {route.title}
+                          </h4>
+                          <h5 className='text-base'>{route.info}</h5>
+                          <p className='font-semibold'>
+                            {API_ENDPOINT}/{route.pathName}
+                          </p>
+                          <div className='py-2'>
+                            <span
+                              className={`border rounded ${methodColor(
+                                'border'
+                              )} px-3 py-1 min-w-[60px] inline-block text-center`}
+                            >
+                              <span
+                                aria-label={`HTTP request method type ${route.method}`}
+                                className={`font-bold text-sm ${methodColor(
+                                  'color'
+                                )}`}
+                              >
+                                {route.method}
                               </span>
                             </span>
-                            <span className='text-sm text-gray-800 block'>
-                              {desc}
-                            </span>
-                            <span
-                              className={`text-xs font-bold block ${
-                                optional ? 'text-gray-700' : 'text-red-700'
-                              }`}
-                            >
-                              {optional ? 'Optional' : 'Required'}
-                            </span>
-                          </span>
-                        )
-                      })}
-                    </div>
-                  ) : null}
-                  <code className='border block p-2 rounded bg-black text-white text-base overflow-auto'>
-                    {`curl --location --request ${
-                      route.method ?? 'POST'
-                    } '${API_ENDPOINT}/${route.pathName}' \
+                          </div>
+                          {params ? (
+                            <div className='space-y-1 pb-2'>
+                              Params:
+                              {params?.map((item: any, i) => {
+                                const { desc, type, optional } = routeParams[
+                                  item
+                                ] ?? {
+                                  desc: '',
+                                  type: '',
+                                  optional: false,
+                                }
+
+                                return (
+                                  <span
+                                    key={`params-${i}`}
+                                    className={'block border rounded py-1 px-3'}
+                                  >
+                                    <span className='font-bold block text-lg'>
+                                      {item}{' '}
+                                      <span className='text-gray-800 text-sm'>
+                                        {type}
+                                      </span>
+                                    </span>
+                                    <span className='text-sm text-gray-800 block'>
+                                      {desc}
+                                    </span>
+                                    <span
+                                      className={`text-xs font-bold block ${
+                                        optional
+                                          ? 'text-gray-700'
+                                          : 'text-red-700'
+                                      }`}
+                                    >
+                                      {optional ? 'Optional' : 'Required'}
+                                    </span>
+                                  </span>
+                                )
+                              })}
+                            </div>
+                          ) : null}
+                          <code className='border block p-2 rounded bg-[#0E1116] text-white text-base overflow-auto'>
+                            {`curl --location --request ${
+                              route.method ?? 'POST'
+                            } '${API_ENDPOINT}/${route.pathName}' \
 --header 'Authorization: ${keyVisible ? token : '$A11YWATCH_TOKEN'}'
 ${
   route.method === 'POST'
@@ -265,7 +296,11 @@ ${
     : ''
 } \
 ${route.encodedParams}`}
-                  </code>
+                          </code>
+                        </li>
+                      )
+                    })}
+                  </ul>
                 </li>
               )
             })}

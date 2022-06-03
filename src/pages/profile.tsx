@@ -213,7 +213,7 @@ const Profile: FC<PageProps> = ({ name }) => {
 
           <Link
             href='/payments'
-            className={`text-lg font-bold inline-block rounded bg-black text-white px-10 py-4 hover:bg-white hover:text-black hover:outline`}
+            className={`text-lg font-bold inline-block rounded bg-[#0E1116] text-white px-10 py-4 hover:bg-white hover:text-black hover:outline`}
           >
             Upgrade
           </Link>
