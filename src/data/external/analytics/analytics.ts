@@ -1,5 +1,5 @@
 import { useQuery } from '@apollo/react-hooks'
-import { GET_ANALYTICS } from '@app/queries'
+import { GET_ANALYTICS, GET_WEBSITE_ANALYTICS } from '@app/queries'
 
 export const analyticsData = (query: boolean = true) => {
   const { data, loading, refetch, error } = useQuery(GET_ANALYTICS, {
@@ -13,4 +13,19 @@ export const analyticsData = (query: boolean = true) => {
     refetch,
     error,
   }
+}
+
+export const useAnalyticsData = (url?: string | string[]) => {
+  const { data, loading, refetch, error } = useQuery(GET_WEBSITE_ANALYTICS, {
+    variables: { url },
+  })
+
+  const model = Object.freeze({
+    data: data?.website?.analytics,
+    loading: loading,
+    refetch,
+    error,
+  })
+
+  return model
 }

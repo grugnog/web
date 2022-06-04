@@ -86,3 +86,18 @@ export const websiteFragments = gql`
     }
   }
 `
+
+export const analyticsFragments = gql`
+  fragment AnalyticParts on Analytic {
+    _id
+    domain
+    pageUrl
+    adaScore
+    possibleIssuesFixedByCdn
+    totalIssues
+    issuesFixedByCdn
+    errorCount
+    warningCount
+    noticeCount
+  }
+`

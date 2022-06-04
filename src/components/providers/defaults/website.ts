@@ -12,8 +12,10 @@ export const sharedWebsiteDefaults = {
   // issues only TODO: MOVE TO SEPERATE PROVIDER
   issueData: [],
   pagesData: [],
+  analyticsData: [],
   pagesDataLoading: false,
   issueDataLoading: false,
+  analyticsDataLoading: false,
   // visuals
   lighthouseVisible: true,
   refetch: (_: any): Promise<any> => {

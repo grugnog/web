@@ -1,26 +1,19 @@
-import React, {
-  FC,
-  useState,
-  useEffect,
-  useCallback,
-  memo,
-  Fragment,
-} from 'react'
+import React, { FC, useState, useEffect, useCallback, memo } from 'react'
 import { useMiniPlayer } from '@app/data'
 import { FullScreenModal } from '../fullscreen-modal'
-import { FeedIssue } from '../feed/issue'
-import { useIssueData } from '@app/data/external/issues/issue'
 import { InnerWrapper } from './list-wrapper'
+import { AnalyticsCell } from '../cells/website-cell-analytics'
+import { useAnalyticsData } from '@app/data/external/analytics/analytics'
 
 // return issues maped
-function IssuesWrapper(props: any) {
+function AnalyticsWrapper(props: any) {
   const [visible, setVisible] = useState<boolean>(false)
 
   const onTogglelist = () => {
     setVisible((v: boolean) => !v)
   }
 
-  const totalIssues = props?.issues?.length
+  const totalIssues = props?.totalIssues
 
   return (
     <li>
@@ -40,32 +33,23 @@ function IssuesWrapper(props: any) {
           </div>
         </div>
       </button>
-      <ul
+      <div
         aria-hidden={!visible}
         className={`${visible ? 'visible' : 'hidden'} rounded-b`}
       >
-        {props?.issues?.map(
-          (
-            { url, _id, code, selector, ...domainProps }: any,
-            index: number
-          ) => (
-            <Fragment key={code + selector + index}>
-              <FeedIssue {...domainProps} selector={selector} code={code} />
-            </Fragment>
-          )
-        )}
-      </ul>
+        <AnalyticsCell {...props} />
+      </div>
     </li>
   )
 }
 
 // memo expensive issues
-const Issues = memo(IssuesWrapper)
+const Analytics = memo(AnalyticsWrapper)
 
 const RenderInner: FC<any> = (props) => {
   const { pageUrl, generalProps } = props
 
-  const { data: issueSource, loading } = useIssueData(pageUrl)
+  const { data: issueSource, loading } = useAnalyticsData(pageUrl)
 
   return (
     <InnerWrapper
@@ -76,7 +60,7 @@ const RenderInner: FC<any> = (props) => {
     >
       <ul>
         {issueSource?.map((page: any) => (
-          <Issues key={`${page._id}`} {...page} {...generalProps} />
+          <Analytics key={`${page._id}`} {...page} {...generalProps} />
         ))}
       </ul>
     </InnerWrapper>

@@ -80,6 +80,20 @@ export const useWebsiteData = (
     skip: scopedQuery !== 'pages',
   })
 
+  // Get Website Pages
+  const {
+    data: analyticsResults,
+    loading: analyticsDataLoading,
+    fetchMore: fetchMoreAnalytics,
+  } = useQuery(GET_WEBSITES_INFO, {
+    variables: {
+      ...variables,
+      limit: 5,
+      offset: 0,
+    },
+    skip: scopedQuery !== 'analytics',
+  })
+
   const [removeWebsite, { loading: removeLoading }] = useMutation(
     REMOVE_WEBSITE,
     updateCache
@@ -108,6 +122,10 @@ export const useWebsiteData = (
   const pagesData = useMemo(() => {
     return pagesResults?.user?.websites || []
   }, [pagesResults])
+
+  const analyticsData = useMemo(() => {
+    return analyticsResults?.user?.websites || []
+  }, [analyticsResults])
 
   // website crawl finished
   const onCrawlCompleteSubscription = useCallback(
@@ -287,6 +305,20 @@ export const useWebsiteData = (
     }
   }
 
+  const onLoadMoreAnalytics = async () => {
+    try {
+      await fetchMoreAnalytics({
+        query: GET_WEBSITES_INFO,
+        variables: {
+          offset: Number(pagesData.length || 0),
+        },
+        updateQuery,
+      })
+    } catch (e) {
+      console.error(e)
+    }
+  }
+
   return {
     subscriptionData: {
       issueSubData,
@@ -294,6 +326,8 @@ export const useWebsiteData = (
     data: websites, // TODO: rename to websites.
     issueData, // [scoped] collection of issues
     pagesData, // [scoped] collection of pages
+    analyticsData, // [scopred] collection of analytics
+    analyticsDataLoading,
     pagesDataLoading, // [scoped] pages loading
     issueDataLoading, // [scoped] issues loading
     loading,
@@ -314,5 +348,6 @@ export const useWebsiteData = (
     onLoadMoreWebsites,
     onLoadMoreIssues,
     onLoadMorePages,
+    onLoadMoreAnalytics,
   }
 }
