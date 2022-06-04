@@ -6,6 +6,7 @@ import {
   websiteFragments,
   subdomainFragments,
   analyticsFragments,
+  scriptsFragments,
 } from '@app/apollo'
 import { User } from '@app/types'
 
@@ -69,6 +70,20 @@ export const GET_WEBSITE_ANALYTICS = gql`
         _id
         analytics {
           ...AnalyticParts
+        }
+      }
+    }
+  }
+`
+
+export const GET_WEBSITE_SCRIPTS = gql`
+  ${scriptsFragments}
+  query getWebsiteScripts($url: String) {
+    website(url: $url) {
+      ... on Website {
+        _id
+        scripts {
+          ...ScriptParts
         }
       }
     }

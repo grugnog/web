@@ -80,7 +80,7 @@ export const useWebsiteData = (
     skip: scopedQuery !== 'pages',
   })
 
-  // Get Website Pages
+  // Get Website Analytics
   const {
     data: analyticsResults,
     loading: analyticsDataLoading,
@@ -92,6 +92,20 @@ export const useWebsiteData = (
       offset: 0,
     },
     skip: scopedQuery !== 'analytics',
+  })
+
+  // Get Scripts Pages
+  const {
+    data: scriptsResults,
+    loading: scriptsDataLoading,
+    fetchMore: fetchMoreScripts,
+  } = useQuery(GET_WEBSITES_INFO, {
+    variables: {
+      ...variables,
+      limit: 5,
+      offset: 0,
+    },
+    skip: scopedQuery !== 'scripts',
   })
 
   const [removeWebsite, { loading: removeLoading }] = useMutation(
@@ -114,18 +128,18 @@ export const useWebsiteData = (
   const websites = useMemo(() => {
     return data?.user?.websites || []
   }, [data])
-
   const issueData = useMemo(() => {
     return issuesResults?.user?.websites || []
   }, [issuesResults])
-
   const pagesData = useMemo(() => {
     return pagesResults?.user?.websites || []
   }, [pagesResults])
-
   const analyticsData = useMemo(() => {
     return analyticsResults?.user?.websites || []
   }, [analyticsResults])
+  const scriptsData = useMemo(() => {
+    return scriptsResults?.user?.websites || []
+  }, [scriptsResults])
 
   // website crawl finished
   const onCrawlCompleteSubscription = useCallback(
@@ -319,6 +333,20 @@ export const useWebsiteData = (
     }
   }
 
+  const onLoadMoreScripts = async () => {
+    try {
+      await fetchMoreScripts({
+        query: GET_WEBSITES_INFO,
+        variables: {
+          offset: Number(pagesData.length || 0),
+        },
+        updateQuery,
+      })
+    } catch (e) {
+      console.error(e)
+    }
+  }
+
   return {
     subscriptionData: {
       issueSubData,
@@ -326,8 +354,10 @@ export const useWebsiteData = (
     data: websites, // TODO: rename to websites.
     issueData, // [scoped] collection of issues
     pagesData, // [scoped] collection of pages
-    analyticsData, // [scopred] collection of analytics
-    analyticsDataLoading,
+    analyticsData, // [scoped] collection of analytics
+    scriptsData, // [scoped] collection of scripts
+    analyticsDataLoading, // [scoped] analytics loading]
+    scriptsDataLoading, // [scoped] scripts loading
     pagesDataLoading, // [scoped] pages loading
     issueDataLoading, // [scoped] issues loading
     loading,
@@ -349,5 +379,6 @@ export const useWebsiteData = (
     onLoadMoreIssues,
     onLoadMorePages,
     onLoadMoreAnalytics,
+    onLoadMoreScripts,
   }
 }

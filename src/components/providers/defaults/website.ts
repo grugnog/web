@@ -13,6 +13,8 @@ export const sharedWebsiteDefaults = {
   issueData: [],
   pagesData: [],
   analyticsData: [],
+  scriptsData: [],
+  scriptsDataLoading: false,
   pagesDataLoading: false,
   issueDataLoading: false,
   analyticsDataLoading: false,

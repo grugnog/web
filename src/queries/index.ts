@@ -3,6 +3,7 @@ export {
   GET_WEBSITES_INFO,
   GET_PAGES,
   GET_WEBSITE_ANALYTICS,
+  GET_WEBSITE_SCRIPTS,
   updateCache,
 } from './websites'
 export { GET_USER } from './user'

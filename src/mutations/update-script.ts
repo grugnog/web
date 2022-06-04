@@ -17,6 +17,7 @@ const UPDATE_SCRIPT = gql`
       success
       message
       script {
+        _id
         pageUrl
         domain
         script

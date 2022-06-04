@@ -27,6 +27,7 @@ export const UPDATE_WEBSITE = gql`
         userId
         mobile
         script {
+          _id
           script
         }
         standard

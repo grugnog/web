@@ -6,4 +6,5 @@ export {
   subdomainFragments,
   websiteFragments,
   analyticsFragments,
+  scriptsFragments,
 } from './fragments'

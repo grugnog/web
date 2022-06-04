@@ -18,6 +18,7 @@ const SCAN_WEBSITE = gql`
         online
         mobile
         script {
+          _id
           script
         }
         pageLoadTime {
@@ -39,6 +40,7 @@ const SCAN_WEBSITE = gql`
           limitedCount
         }
         script {
+          _id
           script
         }
         issue {

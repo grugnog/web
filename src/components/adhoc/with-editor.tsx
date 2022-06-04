@@ -1,12 +1,6 @@
 import { useState, useEffect, memo } from 'react'
-import dynamic from 'next/dynamic'
-
-const MonacoEditor = dynamic(import('@monaco-editor/react'), {
-  ssr: false,
-})
-const ReactSizeDetector = dynamic(import('react-resize-detector'), {
-  ssr: false,
-})
+import MonacoEditor from '@monaco-editor/react'
+import ReactSizeDetector from 'react-resize-detector'
 
 const WithEditorComponent = ({
   setScript,

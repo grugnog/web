@@ -2,8 +2,8 @@ import gql from 'graphql-tag'
 
 export const issueFragments = gql`
   fragment IssueParts on Issue {
-    pageUrl
     _id
+    pageUrl
     issues {
       code
       type
@@ -11,6 +11,24 @@ export const issueFragments = gql`
       message
       context
       recurrence
+    }
+  }
+`
+
+export const scriptsFragments = gql`
+  fragment ScriptParts on Script {
+    _id
+    pageUrl
+    domain
+    script
+    cdnUrl
+    cdnUrlMinified
+    cdnConnected
+    issueMeta {
+      skipContentIncluded
+    }
+    scriptMeta {
+      skipContentEnabled
     }
   }
 `
@@ -59,7 +77,7 @@ export const websiteFragments = gql`
       json
     }
     script {
-      id
+      _id
       script
       cdnUrl
       cdnUrlMinified

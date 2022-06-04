@@ -1,20 +1,31 @@
 import React, { useMemo } from 'react'
-import { PageTitle, Drawer, CollaspeList } from '@app/components/general'
-import { PageLoader } from '@app/components/placeholders'
-import { scriptsData, useSearchFilter } from '@app/data'
+import { FormDialog, PageTitle, Drawer, Button } from '@app/components/general'
+import { List } from '@app/components/general/lists/websites-scripts'
+import { useSearchFilter } from '@app/data'
 import { filterSort } from '@app/lib'
-import { groupBy, metaSetter } from '@app/utils'
+import { metaSetter } from '@app/utils'
 import type { PageProps } from '@app/types'
+import { PageLoader } from '@app/components/placeholders'
 import { useWebsiteContext } from '@app/components/providers/website'
 
+const emptyHeaderTitle = 'No scripts found'
+const emptyHeaderSubTitle =
+  'Scripts will appear here for basic or premium accounts.'
+
 function Scripts({ name }: PageProps) {
-  const { data: websiteData } = useWebsiteContext()
-  const { data, activeSubscription, loading } = scriptsData()
+  const {
+    scriptsData,
+    scriptsDataLoading,
+    refetch,
+    error,
+    onLoadMoreIssues,
+  } = useWebsiteContext()
   const { search } = useSearchFilter()
 
-  const dataSource = useMemo(
-    () => groupBy('domain')(filterSort(data, search)),
-    [data, search]
+  // search local filtering
+  const source = useMemo(
+    () => (Array.isArray(scriptsData) ? filterSort(scriptsData, search) : []),
+    [scriptsData, search]
   )
 
   return (
@@ -22,17 +33,32 @@ function Scripts({ name }: PageProps) {
       <Drawer title={name}>
         <PageTitle title={name} />
         <PageLoader
-          empty={Object.keys(dataSource).length === 0}
-          emptySubTitle={
-            activeSubscription
-              ? 'Scripts will appear here after your next scan if issues arise.'
-              : 'Scripts will appear here for basic or premium accounts.'
-          }
-          loading={loading}
-          hasWebsite={!!websiteData?.length}
-          goToPayments={!activeSubscription}
+          empty={scriptsData?.length === 0}
+          loading={scriptsDataLoading}
+          hasWebsite={!!scriptsData?.length}
+          emptyTitle={emptyHeaderTitle}
+          emptySubTitle={emptyHeaderSubTitle}
+          error={error}
         >
-          <CollaspeList dataSource={dataSource} loading={loading} cdn />
+          <div className={'py-2'}>
+            <List
+              data={source}
+              loading={scriptsDataLoading}
+              refetch={refetch}
+              BottomButton={FormDialog}
+              emptyHeaderTitle='No scripts found'
+              emptyHeaderSubTitle={
+                'Scripts will appear here for basic or premium accounts.'
+              }
+            />
+            {source.length > 1 ? (
+              <div className='flex place-content-center pt-8'>
+                <Button onClick={onLoadMoreIssues} className={'w-40'}>
+                  Load More
+                </Button>
+              </div>
+            ) : null}
+          </div>
         </PageLoader>
       </Drawer>
     </>

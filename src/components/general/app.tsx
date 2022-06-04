@@ -32,7 +32,6 @@ const Application = ({ Component, pageProps, name }: InnerApp) => {
     initialQuery = false
     scopedQuery = 'issues'
   }
-
   if (nameLowerCased === 'pages') {
     initialQuery = false
     scopedQuery = 'pages'
@@ -41,6 +40,11 @@ const Application = ({ Component, pageProps, name }: InnerApp) => {
     initialQuery = false
     scopedQuery = 'analytics'
   }
+  if (nameLowerCased === 'scripts') {
+    initialQuery = false
+    scopedQuery = 'scripts'
+  }
+
   // Restful provider for API [Good for marketing sections]
   const RestWrapper = Component.rest ? RestWebsiteProviderWrapper : Fragment
 

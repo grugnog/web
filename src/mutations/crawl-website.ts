@@ -18,6 +18,7 @@ export const CRAWL_WEBSITE = gql`
           json
         }
         script {
+          _id
           script
           cdnUrl
         }

@@ -1,9 +1,9 @@
 import { useQuery, useMutation } from '@apollo/react-hooks'
-import { GET_SCRIPTS, GET_SCRIPT } from '@app/queries'
+import { GET_SCRIPTS, GET_SCRIPT, GET_WEBSITE_SCRIPTS } from '@app/queries'
 import { UPDATE_SCRIPT } from '@app/mutations'
 import { SCRIPTS_CDN_URL_HOST } from '@app/configs'
 
-export const scriptData = (url?: string | string[], skip?: boolean) => {
+export const useScript = (url?: string | string[], skip?: boolean) => {
   const { data, loading, refetch } = useQuery(GET_SCRIPT, {
     variables: { filter: '', url },
     skip,
@@ -52,4 +52,19 @@ export const scriptsData = (skip?: boolean) => {
     loading: loading,
     refetch,
   }
+}
+
+export const useScriptsData = (url?: string | string[]) => {
+  const { data, loading, refetch, error } = useQuery(GET_WEBSITE_SCRIPTS, {
+    variables: { url },
+  })
+
+  const model = Object.freeze({
+    data: data?.website?.scripts,
+    loading: loading,
+    refetch,
+    error,
+  })
+
+  return model
 }

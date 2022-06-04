@@ -17,7 +17,7 @@ const GET_WEBSITE = gql`
         json
       }
       script {
-        id
+        _id
         script
         cdnUrl
         cdnUrlMinified
