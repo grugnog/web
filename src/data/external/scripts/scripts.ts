@@ -1,8 +1,9 @@
 import { useQuery, useMutation } from '@apollo/react-hooks'
-import { GET_SCRIPTS, GET_SCRIPT, GET_WEBSITE_SCRIPTS } from '@app/queries'
+import { GET_SCRIPT, GET_WEBSITE_SCRIPTS } from '@app/queries'
 import { UPDATE_SCRIPT } from '@app/mutations'
 import { SCRIPTS_CDN_URL_HOST } from '@app/configs'
 
+// single script queyr
 export const useScript = (url?: string | string[], skip?: boolean) => {
   const { data, loading, refetch } = useQuery(GET_SCRIPT, {
     variables: { filter: '', url },
@@ -34,23 +35,8 @@ export const useScript = (url?: string | string[], skip?: boolean) => {
     loading: loading,
     refetch,
     updateScript,
-    updateScriptData,
+    updateScriptData: updateScriptData?.updateScript?.script,
     scriptLoading,
-  }
-}
-
-export const scriptsData = (skip?: boolean) => {
-  const { data, loading, refetch } = useQuery(GET_SCRIPTS, {
-    variables: { filter: '' },
-    skip,
-  })
-  const { activeSubscription, scripts } = data?.user ?? {}
-
-  return {
-    activeSubscription,
-    data: scripts || [], // return the scripts as the primary data for hook
-    loading: loading,
-    refetch,
   }
 }
 

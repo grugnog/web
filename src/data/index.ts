@@ -4,7 +4,7 @@ export { userData } from './external/user/user'
 export { historyData } from './external/history/history'
 export { featuresData } from './external/user/features'
 export { analyticsData } from './external/analytics/analytics'
-export { scriptsData, scriptData } from './external/scripts/scripts'
+export { useScript } from './external/scripts/scripts'
 export { paymentsData } from './external/payments/payments'
 
 export {

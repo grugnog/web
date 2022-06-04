@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { Checkbox } from '@material-ui/core'
-import { Button } from '@a11ywatch/ui'
+import { Button } from '@app/components/general/button'
 import { a11yDark } from '@app/styles'
 import { EditableMixture } from '@app/components/mixtures/editable-mixture'
 import { CdnBlock } from '../blocks/cdn'
@@ -118,23 +118,27 @@ function ScriptCell({ source: sourceData }: any) {
           </div>
         ) : null}
         <>
-          <div style={{ flex: 1 }} />
-          <div className='flex flex-1 py-2 space-x-2 place-items-center'>
-            {editMode ? (
-              <Button onClick={submitEdit} className={'hover:text-green-600'}>
-                SAVE
-              </Button>
-            ) : null}
+          <div className='flex = py-2 space-x-2 place-items-center py-2'>
             {source?.cdnUrl ? (
-              <div className='flex-1 overflow-hidden'>
-                <CdnBlock
-                  cdn_url={cdnUrl}
-                  cdn_url_min={cdnUrlMinifed}
-                  hideUrl
-                />
-              </div>
+              <CdnBlock cdn_url={cdnUrl} cdn_url_min={cdnUrlMinifed} hideUrl />
             ) : null}
           </div>
+          {editMode ? (
+            <div className='flex space-x-2'>
+              <Button
+                onClick={submitEdit}
+                className={'text-green-800 border-green-800 font-bold border-2'}
+              >
+                Save
+              </Button>
+              <Button
+                onClick={onEditPress}
+                className={'text-gray-800 border-gray-800 font-bold border-2'}
+              >
+                Cancel
+              </Button>
+            </div>
+          ) : null}
         </>
       </div>
       <div className='relative'>

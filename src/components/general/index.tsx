@@ -30,7 +30,6 @@ export {
   WebsiteIssuesCell,
 } from './cells'
 export { ErrorBoundary } from './error-boundary'
-export { CollaspeList } from './collaspe-list'
 export { CollaspeListCdn } from './collaspe-list-cdn'
 export { UpgradeBanner } from './upgrade-banner'
 export { InputHeaders } from './input-headers'
