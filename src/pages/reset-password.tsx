@@ -147,13 +147,7 @@ function ResetPassword({ name }: PageProps) {
   }
 
   return (
-    <MarketingDrawer
-      title={name}
-      footerSpacing
-      maxWidth='sm'
-      emptyFooter
-      emptyNav
-    >
+    <MarketingDrawer title={name} footerSpacing maxWidth='sm'>
       <MarketingShortTitle />
       <PageTitle component={resetSent ? 'h3' : 'h1'}>{title}</PageTitle>
       <FormRender />

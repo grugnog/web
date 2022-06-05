@@ -119,5 +119,6 @@ export default metaSetter(
   { Reports },
   {
     gql: true,
+    description: 'Website detailed report with WCAG issues and how to fix.',
   }
 )

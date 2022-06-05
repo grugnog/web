@@ -62,5 +62,6 @@ export default metaSetter(
   { Issues },
   {
     gql: true,
+    description: 'Your list of websites with issues displayed.',
   }
 )

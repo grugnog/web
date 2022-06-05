@@ -11,8 +11,8 @@ export function MarketingProductIntro() {
         <div className={'flex flex-nowrap relative md:left-0 left-20'}>
           <div className='flex-1 rounded border relative -left-40 overflow-hidden'>
             <Image
-              height={500}
-              width={700}
+              height={250}
+              width={350}
               src={'/img/marketing_playground.png'}
               alt={'accessibility live test playground example with figma.com'}
               layout={'responsive'}
@@ -20,8 +20,8 @@ export function MarketingProductIntro() {
           </div>
           <div className='flex-1 rounded border relative right-32 overflow-hidden'>
             <Image
-              height={500}
-              width={700}
+              height={250}
+              width={350}
               src={'/img/marketing_dashboard.png'}
               alt={
                 'dashboard for accessibility insights with example using figma.com'

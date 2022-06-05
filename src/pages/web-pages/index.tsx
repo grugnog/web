@@ -62,5 +62,6 @@ export default metaSetter(
   { Pages },
   {
     gql: true,
+    description: 'Your pages displayed with web vitals.',
   }
 )

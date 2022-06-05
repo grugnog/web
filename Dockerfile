@@ -26,7 +26,7 @@ USER nextjs
 
 # You only need to copy next.config.js if you are NOT using the default configuration
 COPY --from=builder /app/next.config.js ./
-COPY --from=builder /app/next-sitemap.js ./
+COPY --from=builder /app/next-sitemap.config.js ./
 COPY --from=builder /app/tailwind.config.js ./
 COPY --from=builder /app/postcss.config.js ./
 COPY --from=builder /app/public ./public

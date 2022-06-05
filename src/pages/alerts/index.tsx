@@ -41,4 +41,11 @@ function Alerts({ name }: PageProps) {
   )
 }
 
-export default metaSetter({ Alerts }, { gql: true })
+export default metaSetter(
+  { Alerts },
+  {
+    gql: true,
+    description:
+      'Set the treshold on how you want to receive your email updates.',
+  }
+)

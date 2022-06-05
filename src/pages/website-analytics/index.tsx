@@ -63,5 +63,6 @@ export default metaSetter(
   { Analytics },
   {
     gql: true,
+    description: 'Your analytics on issues displayed visually using charts.',
   }
 )
