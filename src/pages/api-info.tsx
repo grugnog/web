@@ -75,7 +75,7 @@ function Api({ name }: PageProps) {
           </SectionTitle>
           <p className='text-lg'>
             In order to get started using the A11yWatch API you need to add a
-            authorization header with the jwt format <b>Bearer TOKEN</b>.
+            authorization header with the JWT format <b>Bearer TOKEN</b>.
           </p>
           <p className='text-lg'>
             For more information go to the{' '}
@@ -86,6 +86,15 @@ function Api({ name }: PageProps) {
               className='underline text-blue-600'
             >
               documentation
+            </a>
+            . You can also use the API in{' '}
+            <a
+              href={'https://api.a11ywatch.com/graphql'}
+              target='_blank'
+              rel='noreferrer'
+              className='underline text-blue-600'
+            >
+              graphQL
             </a>
             .
           </p>
@@ -193,8 +202,7 @@ function Api({ name }: PageProps) {
             PUTS and POST request since some params are set to be arrays and
             other none string shapes. In the example replace a11ywatch.com with
             your website you want to target. Some clients are a work in progress
-            as we build out the core of our system. The graphQl and gRPC docs
-            will come soon.
+            as we build out the core of our system.
           </p>
         </div>
 
