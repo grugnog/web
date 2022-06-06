@@ -49,7 +49,7 @@ export const useWebsiteData = (
       limit: 5,
       offset: 0,
     },
-    skip: !!scopedQuery, // when scoped queries ignore the initial result
+    skip: skip || !!scopedQuery, // when scoped queries ignore the initial result
   })
 
   // Only get issues from websites

@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react'
 import { observer } from 'mobx-react-lite'
-import { issueData, useScript } from '@app/data'
+import { issueData } from '@app/data'
 import { HomeManager } from '@app/managers'
 import { TestOutIframe } from '../ada/testout-iframe'
 import { Fab } from './fab'
@@ -11,17 +11,11 @@ const TestViewContainer = observer(
   ({ url: currentUrl, store, marketing, posRelative }: any) => {
     const url = encodeURIComponent(currentUrl ?? store?.getTestFrameUrl)
     const { issue } = issueData(url, !url)
-    const { script } = useScript(url, marketing)
 
     return (
       <Fragment>
         <TestOutIframe url={url} issue={issue} posRelative={posRelative} />
-        <Fab
-          direction='left'
-          issue={issue}
-          script={script}
-          marketing={marketing}
-        />
+        <Fab direction='left' issue={issue} marketing={marketing} />
         <OverlayPortalContainer />
         <IssueModal issue={issue} />
       </Fragment>
