@@ -23,6 +23,7 @@ export const SmallLogo = ({ className }: { className?: string }) => {
       width={'25.5'}
       height={'25.5'}
       className={className}
+      style={{ margin: 0 }}
     />
   )
 }

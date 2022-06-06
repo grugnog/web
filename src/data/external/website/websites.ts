@@ -34,6 +34,9 @@ export const useWebsiteData = (
   const [_, forceUpdate] = useReducer((x) => x + 1, 0) // top level force update state
   const [lighthouseVisible, setLighthouseVisibility] = useState<boolean>(true)
   const { issueFeed, setIssueFeedContent } = useIssueFeed()
+  const [activeCrawls, setActiveCrawl] = useState<
+    { [key: string]: boolean } | Record<string, any>
+  >({})
 
   const subscriptionVars = { userId: UserManager.getID }
   const variables = {
@@ -152,13 +155,16 @@ export const useWebsiteData = (
           `Crawl finished for ${completedWebsite.domain}. Average score across pages ${adaScoreAverage}`,
           'success'
         )
-        forceUpdate()
 
-        // TODO: only re-fetch website updated or send data required from subscription.
+        setActiveCrawl((v) => ({
+          ...v,
+          [completedWebsite.domain]: false,
+        }))
+
         await refetch()
       }
     },
-    [websites, refetch]
+    [websites, refetch, setActiveCrawl]
   )
 
   useSubscription(CRAWL_COMPLETE_SUBSCRIPTION, {
@@ -268,6 +274,21 @@ export const useWebsiteData = (
     // reset the feed on new crawls.
     if (canCrawl && !!issueFeed?.data) {
       setIssueFeedContent({}, false)
+    }
+
+    let domain = ''
+
+    try {
+      domain = new URL(params.variables.url).hostname
+    } catch (e) {
+      console.error(e)
+    }
+
+    if (domain) {
+      setActiveCrawl((v) => ({
+        ...v,
+        [domain]: true,
+      }))
     }
   }
 
@@ -380,5 +401,7 @@ export const useWebsiteData = (
     onLoadMorePages,
     onLoadMoreAnalytics,
     onLoadMoreScripts,
+    // other state
+    activeCrawls,
   }
 }

@@ -28,16 +28,7 @@ export const webflowRoutes: any = {
     pathName: 'blog/web-accessibility-checker',
   },
   // categories
-  'categories/accessibility': {
-    pathName: 'categories/accessibility',
-  },
-  'categories/api': {
-    pathName: 'categories/api',
-  },
-  'categories/wcag': {
-    pathName: 'categories/wcag',
-  },
-  'categories/engineering': {
-    pathName: 'categories/engineering',
-  },
+  'categories/': {},
+  // authors
+  'authors/': {},
 }

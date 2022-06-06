@@ -24,6 +24,7 @@ import {
 } from './blocks'
 import { MobileBox } from './blocks/mobile'
 import { Issue } from '@app/types'
+import { Timer } from '../timer'
 
 const styles = {
   title: 'text-xl md:text-3xl font-bold truncate',
@@ -55,6 +56,8 @@ export function WebsiteCellDashboardComponent({
   mobile,
   lighthouseVisible,
   standard,
+  activeCrawl,
+  crawlDuration,
 }: any) {
   const [anchorEl, setAnchorEl] = useState<any>(null)
 
@@ -172,7 +175,7 @@ export function WebsiteCellDashboardComponent({
   return (
     <li className={`border-4 px-3 pt-2 rounded overflow-hidden`}>
       <div className='flex space-x-2 place-items-center'>
-        <div className={`${styles.title} flex-1`}>
+        <div className={`${styles.title} flex-1 flex space-x-2`}>
           <Link
             title={`view in sandbox ${url}`}
             href={linkUrl}
@@ -180,6 +183,7 @@ export function WebsiteCellDashboardComponent({
           >
             {url}
           </Link>
+          <Timer stop={!activeCrawl} duration={crawlDuration} />
         </div>
         <div>
           <MoreOptions

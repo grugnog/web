@@ -9,6 +9,7 @@ export const sharedWebsiteDefaults = {
   subscriptionData: {
     issueSubData: null,
   },
+  activeCrawls: {},
   // issues only TODO: MOVE TO SEPERATE PROVIDER
   issueData: [],
   pagesData: [],

@@ -20,6 +20,7 @@ export const RenderInner: FC<any> = ({
   handleClickOpenPlayer,
   lighthouseVisible,
   issueFeed,
+  activeCrawls,
 }) => {
   if (!data.length) {
     if (loading) {
@@ -56,6 +57,7 @@ export const RenderInner: FC<any> = ({
           setModal,
           mutatationLoading: mutatationLoading,
           lighthouseVisible,
+          activeCrawls,
         }}
       />
     </ul>

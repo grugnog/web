@@ -42,6 +42,12 @@ export async function middleware(req: NextRequest, event: NextFetchEvent) {
     res = NextResponse.rewrite(url)
   }
 
+  if (req.nextUrl.pathname.startsWith('/reports/')) {
+    const url = req.nextUrl.clone()
+    url.pathname = `/reports${req.nextUrl.pathname.replace('/reports/', '/')}`
+    res = NextResponse.rewrite(url)
+  }
+
   if (!req.cookies[ID_COOKIE_NAME]) {
     res.cookie(ID_COOKIE_NAME, uuid, {
       sameSite: 'lax',

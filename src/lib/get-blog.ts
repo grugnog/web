@@ -1,3 +1,4 @@
+import { dev } from '@app/configs'
 import type { BlogPageProps } from '@app/types'
 import { webflowRoutes } from './webflow-routes'
 
@@ -7,12 +8,34 @@ const BLOG_WEBFLOW_URL =
 
 // determine if the path is from WP or webflow
 const getUrl = (p: string) => {
-  const path = p || '/'
+  let path = p || '/'
 
-  if (webflowRoutes[path]) {
-    const { pathName } = webflowRoutes[path]
-    return `${BLOG_WEBFLOW_URL}${pathName ? `/${pathName}` : ''}`
+  path = dev ? path : path.replace('blog/', '')
+
+  const containsAuthors = path.startsWith('authors/')
+  const containsCategories = path.startsWith('categories/')
+
+  let query = path
+
+  if (containsAuthors) {
+    query = 'authors/'
   }
+  if (containsCategories) {
+    query = 'categories/'
+  }
+
+  if (webflowRoutes[query]) {
+    const slug = webflowRoutes[query]
+
+    if ('pathName' in slug) {
+      const { pathName } = slug
+      return `${BLOG_WEBFLOW_URL}${pathName ? `/${pathName}` : ''}`
+    } else {
+      // allow entire slugs at url
+      return `${BLOG_WEBFLOW_URL}${path ? `/${path}` : ''}`
+    }
+  }
+
   return `${BLOG_URL}${path ? `/${path}` : ''}`
 }
 
@@ -49,6 +72,15 @@ export const getBlogPage = async (pathname: string): Promise<BlogPageProps> => {
         const bodyTag = htmlRoot.querySelector(`body`)
         const wfbadge = htmlRoot.querySelector(`.w-webflow-badge`)
 
+        // remove web font
+        const webfont = htmlRoot.querySelector(
+          `script[src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js"]`
+        )
+
+        if (webfont) {
+          webfont.remove()
+        }
+
         if (colophon) {
           colophon.remove()
         }
@@ -70,15 +102,18 @@ export const getBlogPage = async (pathname: string): Promise<BlogPageProps> => {
         startScripts?.forEach((tag) => {
           const { crossorigin, ...a } = tag.attributes
 
-          if (crossorigin) {
-            headScripts.push({
-              crossOrigin: crossorigin,
-              ...a,
-              children: tag.innerText,
-            })
-          } else {
-            headScripts.push({ ...tag.attributes, children: tag.innerText })
+          if (tag && tag?.innerText.includes('WebFont.load({') === false) {
+            if (crossorigin) {
+              headScripts.push({
+                crossOrigin: crossorigin,
+                ...a,
+                children: tag.innerText,
+              })
+            } else {
+              headScripts.push({ ...tag.attributes, children: tag.innerText })
+            }
           }
+
           tag.remove()
         })
 
@@ -88,14 +123,16 @@ export const getBlogPage = async (pathname: string): Promise<BlogPageProps> => {
         endingScripts?.forEach((tag) => {
           const { crossorigin, ...a } = tag.attributes
 
-          if (crossorigin) {
-            bodyScripts.push({
-              crossOrigin: crossorigin,
-              ...a,
-              children: tag.innerText,
-            })
-          } else {
-            bodyScripts.push({ ...tag.attributes, children: tag.innerText })
+          if (tag && tag?.innerText.includes('WebFont.load({') === false) {
+            if (crossorigin) {
+              bodyScripts.push({
+                crossOrigin: crossorigin,
+                ...a,
+                children: tag.innerText,
+              })
+            } else {
+              bodyScripts.push({ ...tag.attributes, children: tag.innerText })
+            }
           }
 
           tag.remove()
@@ -144,12 +181,13 @@ export const getBlogPage = async (pathname: string): Promise<BlogPageProps> => {
         htmlRoot.insertAdjacentHTML(
           'beforeend',
           `<style type="text/css">
-            h1.post-title {
-              font-size: 2rem;
-              font-weight: 800;
-            }
+
             article > .entry-wrapper > p {
               max-width: none;
+            }
+            h1 {
+              font-size: 2rem;
+              font-weight: 800;
             }
             h2 {
               font-size: 1.5rem;
@@ -175,7 +213,11 @@ export const getBlogPage = async (pathname: string): Promise<BlogPageProps> => {
               background-color: rgb(26, 26, 26);
               font-family: system-ui;
             }
-        </style>`
+            image {
+              margin: 0;
+            }
+        </style>
+        `
         )
 
         cssSheets.forEach((sheet) => {
@@ -192,8 +234,9 @@ export const getBlogPage = async (pathname: string): Promise<BlogPageProps> => {
         htmlRoot.removeWhitespace()
         headTag?.remove()
 
-        if (bodyTag && htmlTag) {
-          htmlTag?.replaceWith(bodyTag.firstChild)
+        if (htmlTag && bodyTag) {
+          bodyTag.tagName = 'div'
+          htmlTag?.replaceWith(bodyTag)
         }
 
         html = htmlRoot.innerHTML.replace(

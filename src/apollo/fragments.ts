@@ -76,12 +76,6 @@ export const websiteFragments = gql`
     insight {
       json
     }
-    script {
-      _id
-      script
-      cdnUrl
-      cdnUrlMinified
-    }
     issuesInfo {
       adaScore
       adaScoreAverage
@@ -102,6 +96,7 @@ export const websiteFragments = gql`
       durationFormated
       color
     }
+    crawlDuration
   }
 `
 

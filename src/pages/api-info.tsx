@@ -69,12 +69,12 @@ function Api({ name }: PageProps) {
       />
       <Container maxWidth='xl'>
         <Box>
-          <PageTitle title={'The Web Accessibility API'} />
+          <PageTitle title={'Web Accessibility API'} />
           <SectionTitle className={'text-lg font-bold'}>
             The free web accessibility API built to handle large workloads.
           </SectionTitle>
           <p className='text-lg'>
-            In order to get started using the A11yWatch API you need to add a
+            In order to get started using the A11yWatch API you need to add your
             authorization header with the JWT format <b>Bearer TOKEN</b>.
           </p>
           <p className='text-lg'>

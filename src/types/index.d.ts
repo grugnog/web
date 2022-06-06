@@ -488,7 +488,7 @@ export type Website = {
   url?: Maybe<Scalars['String']>
   user?: Maybe<User>
   userId?: Maybe<Scalars['Int']>
-  domain?: Maybe<Scalars['String']>
+  domain: Scalars['String']
   cdnConnected?: Maybe<Scalars['Boolean']>
   pageLoadTime?: Maybe<PageLoadTimeMeta>
   issues?: Maybe<Issue>

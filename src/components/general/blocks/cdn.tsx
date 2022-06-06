@@ -23,7 +23,7 @@ export function CdnBlockComponent({
           <>
             {hideMin ? (
               <div className={'border py-1 px-2 font-bold'}>
-                <p className='text-xm'>Source</p>
+                <p className='text-xs'>Source</p>
               </div>
             ) : null}
             <PrismLight language='html' style={a11yDark}>
@@ -34,7 +34,7 @@ export function CdnBlockComponent({
         {!hideMin && cdn_url_min ? (
           <>
             <div className={'border py-1 px-2 font-bold'}>
-              <p className='text-xm'>Minified</p>
+              <p className='text-xs'>Minified</p>
             </div>
             <PrismLight
               language='html'

@@ -6,7 +6,6 @@ type ExcludeProps = {
 
 const isWhitelisted = ({ pathname, pageName, url }: ExcludeProps) => {
   return (
-    pathname.includes('.') ||
     url.startsWith('/img/') ||
     pathname.startsWith('/src/') ||
     pathname.startsWith('/workbox-') ||
@@ -15,6 +14,13 @@ const isWhitelisted = ({ pathname, pageName, url }: ExcludeProps) => {
     url.endsWith('.svg') ||
     url.endsWith('.webp') ||
     url.endsWith('.wasm') ||
+    url.endsWith('.css') ||
+    url.endsWith('.mp4') ||
+    url.endsWith('.mp3') ||
+    url.endsWith('.ico') ||
+    url.endsWith('.png') ||
+    url.endsWith('.jpg') ||
+    url.endsWith('.jpeg') ||
     pathname === '/manifest.json' ||
     pathname === '/robots.txt' ||
     pageName === '/_offline'

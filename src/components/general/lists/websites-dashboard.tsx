@@ -1,25 +1,10 @@
-import React, { useMemo } from 'react'
+import React from 'react'
 import { WebsiteCellDashboard } from '@app/components/general/cells'
 import { Website } from '@app/types'
 
 // wrapper to memo feed item to cell
 const DashboardCellWrapper = (props: any) => {
-  const { feed, domain, _id, ...extra } = props
-
-  const issues = useMemo(() => {
-    let feedItem: any = {}
-    let items = []
-
-    if (feed && feed[domain + '']) {
-      feedItem = feed[domain + '']
-    }
-
-    if (feedItem) {
-      items = Object.keys(feedItem)?.map((ke: any) => feedItem[ke])
-    }
-
-    return items
-  }, [feed, domain])
+  const { domain, _id, issues, ...extra } = props
 
   return (
     <WebsiteCellDashboard
@@ -44,17 +29,32 @@ export function WebSitesDashboard({
   loading,
   lighthouseVisible,
   issueFeed,
+  activeCrawls,
 }: any) {
   const { data: feed } = issueFeed ?? { data: null }
 
   return (
     <>
       {data?.map(({ url, domain, _id, ...props }: Website, index: number) => {
+        const activeCrawl = activeCrawls && activeCrawls[domain]
+
+        let feedItem: any = {}
+        let items = []
+
+        if (feed && feed[domain + '']) {
+          feedItem = feed[domain + '']
+        }
+
+        if (feedItem) {
+          items = Object.keys(feedItem)?.map((ke: any) => feedItem[ke])
+        }
+
         return (
           <DashboardCellWrapper
             feed={feed}
             key={_id}
             _id={_id}
+            issues={items}
             domain={domain}
             handleClickOpen={handleClickOpen}
             url={url}
@@ -66,6 +66,7 @@ export function WebSitesDashboard({
             loading={loading}
             mutatationLoading={mutatationLoading}
             index={index}
+            activeCrawl={activeCrawl}
             lighthouseVisible={lighthouseVisible}
             {...props}
           />

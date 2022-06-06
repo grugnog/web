@@ -74,7 +74,7 @@ const NavBarComponent: FC<any> = ({
       >
         <Toolbar>
           <Link
-            className={`${classes.menu} space-x-2 align-items-center place-items-center text-normal text-black`}
+            className={`${classes.menu} space-x-2 align-items-center place-items-center place-content-center text-normal text-black`}
             href={BLOG_HREF}
           >
             <SmallLogo className='block invert' />
