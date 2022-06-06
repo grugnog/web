@@ -14,8 +14,9 @@ import { userData } from '@app/data'
 import { metaSetter } from '@app/utils'
 import type { PageProps } from '@app/types'
 import { GrCopy } from 'react-icons/gr'
-import { API_ENDPOINT, companyName } from '@app/configs'
+import { companyName } from '@app/configs'
 import { apiRoutes } from '@app/templates/rest-api'
+import { ApiCell } from '@app/components/general/cells/api-info-cell'
 
 const SectionTitle = ({ children, className, bold }: any) => {
   return (
@@ -34,7 +35,6 @@ function Api({ name }: PageProps) {
   const [keyVisible, setKey] = useState<boolean>(false)
   const { data = {}, loading } = userData()
   const { user } = data
-
   const toggleKey = () => setKey((c) => !c)
 
   // TODO: MOVE TO SS
@@ -69,7 +69,10 @@ function Api({ name }: PageProps) {
       />
       <Container maxWidth='xl'>
         <Box>
-          <PageTitle title={'API Documentation'} />
+          <PageTitle title={'The Web Accessibility API'} />
+          <SectionTitle className={'text-lg font-bold'}>
+            The free web accessibility API built to handle large workloads.
+          </SectionTitle>
           <p className='text-lg'>
             In order to get started using the A11yWatch API you need to add a
             authorization header with the jwt format <b>Bearer TOKEN</b>.
@@ -122,9 +125,7 @@ function Api({ name }: PageProps) {
         </Box>
 
         <Box className={'border rounded p-2'}>
-          <SectionTitle className={'text-lg font-bold'}>
-            REST Reference Examples
-          </SectionTitle>
+          <p className={'text-lg font-bold'}>REST Reference Examples</p>
           {!data?.user && loading ? (
             <TextSkeleton className={'p-2'} />
           ) : !data?.user ? (
@@ -168,139 +169,13 @@ function Api({ name }: PageProps) {
                   </div>
                   <ul className='space-y-3 py-2'>
                     {ro.routes.map((route: any, i) => {
-                      const routeParams = route?.params
-                      const params = routeParams
-                        ? Object.keys(routeParams)
-                        : null
-
-                      const methodColor = (t: 'color' | 'border') => {
-                        let c = ''
-
-                        switch (route.method) {
-                          case 'POST':
-                            {
-                              c =
-                                t === 'color'
-                                  ? 'text-green-700'
-                                  : 'border-green-700'
-                            }
-                            break
-                          case 'GET':
-                            {
-                              c =
-                                t === 'color'
-                                  ? 'text-blue-700'
-                                  : 'border-blue-700'
-                            }
-                            break
-                          case 'PUT':
-                            {
-                              c =
-                                t === 'color'
-                                  ? 'text-yellow-700'
-                                  : 'border-yellow-700'
-                            }
-                            break
-                          case 'DELETE':
-                            {
-                              c =
-                                t === 'color'
-                                  ? 'text-red-700'
-                                  : 'border-red-700'
-                            }
-                            break
-                          default:
-                            {
-                              c =
-                                t === 'color'
-                                  ? 'text-blue-700'
-                                  : 'border-blue-700'
-                            }
-                            break
-                        }
-
-                        return c
-                      }
                       return (
-                        <li
-                          key={`api-route-${i}`}
-                          className={'text-base border-2 p-3 rounded'}
-                        >
-                          <h4 className='text-2xl font-bold text-gray-800'>
-                            {route.title}
-                          </h4>
-                          <h5 className='text-base'>{route.info}</h5>
-                          <p className='font-semibold'>
-                            {API_ENDPOINT}/{route.pathName}
-                          </p>
-                          <div className='py-2'>
-                            <span
-                              className={`border rounded ${methodColor(
-                                'border'
-                              )} px-3 py-1 min-w-[60px] inline-block text-center`}
-                            >
-                              <span
-                                aria-label={`HTTP request method type ${route.method}`}
-                                className={`font-bold text-sm ${methodColor(
-                                  'color'
-                                )}`}
-                              >
-                                {route.method}
-                              </span>
-                            </span>
-                          </div>
-                          {params ? (
-                            <div className='space-y-1 pb-2'>
-                              {params?.map((item: any, i) => {
-                                const { desc, type, optional } = routeParams[
-                                  item
-                                ] ?? {
-                                  desc: '',
-                                  type: '',
-                                  optional: false,
-                                }
-
-                                return (
-                                  <span
-                                    key={`params-${i}`}
-                                    className={'block border rounded py-1 px-3'}
-                                  >
-                                    <span className='font-bold block text-lg'>
-                                      {item}{' '}
-                                      <span className='text-gray-800 text-sm'>
-                                        {type}
-                                      </span>
-                                    </span>
-                                    <span className='text-sm text-gray-800 block'>
-                                      {desc}
-                                    </span>
-                                    <span
-                                      className={`text-xs font-bold block ${
-                                        optional
-                                          ? 'text-gray-700'
-                                          : 'text-red-700'
-                                      }`}
-                                    >
-                                      {optional ? 'Optional' : 'Required'}
-                                    </span>
-                                  </span>
-                                )
-                              })}
-                            </div>
-                          ) : null}
-                          <code className='border block p-2 rounded bg-[#0E1116] text-white text-base overflow-auto'>
-                            {`curl --location --request ${
-                              route.method ?? 'POST'
-                            } '${API_ENDPOINT}/${route.pathName}' \
---header 'Authorization: ${keyVisible ? token : '$A11YWATCH_TOKEN'}'
-${
-  route.method === 'POST'
-    ? `\ --header 'Content-Type: application/x-www-form-urlencoded'`
-    : ''
-} \
-${route.encodedParams}`}
-                          </code>
-                        </li>
+                        <ApiCell
+                          key={`apiinfo-route-${i}`}
+                          route={route}
+                          token={token}
+                          keyVisible={keyVisible}
+                        />
                       )
                     })}
                   </ul>
@@ -332,8 +207,8 @@ ${route.encodedParams}`}
 export default metaSetter(
   { Api },
   {
-    title: 'API Documentation',
-    description: `Use A11yWatch's API to get the web accessibility uptime you need when you want. Rates are limited based on your membership plan.`,
+    title: 'Web Accessibility API  - A11yWatch',
+    description: `The web accessibility API for testing in real time. Rates are limited based on your membership plan.`,
     gql: true,
   }
 )

@@ -20,6 +20,12 @@ export const Routes = [
   },
   {
     nav: false,
+    href: 'https://github.com/a11ywatch',
+    name: 'Github',
+    type: 'resources',
+  },
+  {
+    nav: false,
     href: '/privacy',
     name: 'Privacy Policy',
     type: 'legal',
@@ -34,6 +40,12 @@ export const Routes = [
     nav: false,
     href: '/about',
     name: 'About',
+    type: 'company',
+  },
+  {
+    nav: false,
+    href: 'https://twitter.com/A11yWatcher',
+    name: 'Twitter',
     type: 'company',
   },
   {

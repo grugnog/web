@@ -218,7 +218,7 @@ export const apiRoutes = [
         },
         encodedParams: '',
         info:
-          'Retreive a list of issues paginated. Request is limited to 100 issues at a time.',
+          'Retreive a list of issues paginated. Request is limited to 5 pages with issues at a time.',
         title: 'List Issues',
       },
       {
@@ -240,6 +240,26 @@ export const apiRoutes = [
         info:
           'Retreive a list of pages paginated. Request is limited to 5 pages at a time.',
         title: 'List Pages',
+      },
+      {
+        pathName: 'list/analytics?offset=0&domain=www.a11ywatch.com',
+        method: 'GET',
+        params: {
+          offset: {
+            type: 'number',
+            desc: 'The page offset to grab the next set',
+            optional: true,
+          },
+          domain: {
+            type: 'string',
+            desc: 'The domain to get analytics for',
+            optional: true,
+          },
+        },
+        encodedParams: '',
+        info:
+          'Retreive a list of analytics paginated. Request is limited to 5 pages with issues at a time.',
+        title: 'List Analytics',
       },
     ],
   },

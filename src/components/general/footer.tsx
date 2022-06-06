@@ -7,7 +7,6 @@ import { strings } from '@app-strings'
 
 import { Link } from './link'
 import { FixedCopyRight } from './fixed-copy-right'
-import { GithubBadge, TwitterBadge } from '../badges'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -153,7 +152,7 @@ const Footer = ({
     >
       <Container maxWidth='lg'>
         <div className={classes.link}>
-          <div className={classes.blockContainer}>
+          <div className={`py-2 ${classes.blockContainer}`}>
             <Typography
               className={classes.logo}
               variant={'h4'}
@@ -168,17 +167,6 @@ const Footer = ({
             >
               Elevating accessibility for every website.
             </Typography>
-            <ul
-              className={`${classes.linkContainer} ${classes.socialContainer}`}
-            >
-              {[{ Icon: TwitterBadge }, { Icon: GithubBadge }].map(
-                ({ Icon }: any, i: number) => (
-                  <li className={classes.link} key={i}>
-                    <Icon inline />
-                  </li>
-                )
-              )}
-            </ul>
           </div>
           <SectionLinks title={'Explore'} />
           <SectionLinks title={'Resources'} />

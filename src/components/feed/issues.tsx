@@ -71,7 +71,7 @@ const Feed: FC = () => {
 
   return (
     <Fade in={issues.length && open ? true : false}>
-      <div className={`${classes.root} shadow`}>
+      <div className={`${classes.root} shadow`} aria-live='polite'>
         <div
           className={`flex place-items-center px-3 py-1 border border-t-0 border-r-0 border-l-0 bg-gray-100`}
         >

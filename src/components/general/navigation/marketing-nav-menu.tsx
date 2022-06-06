@@ -1,7 +1,8 @@
 import React, { useMemo } from 'react'
-import { List, ListItem } from '@material-ui/core'
+import { ListItem } from '@material-ui/core'
 import { Link } from '../link'
 import { MainRoutes, MobileRoutes } from './routes'
+import { GrGithub } from 'react-icons/gr'
 
 interface Props {
   home?: string
@@ -25,10 +26,10 @@ function MarketingNavMenu({
   ])
 
   return (
-    <List
+    <ul
       className={`${className}${
         classNameSpacing ? ` ${classNameSpacing}` : ''
-      }`}
+      } space-x-1`}
     >
       {routes.map(({ name, href }: { name: string; href: string }) => {
         const firstClassName = href === '/register' ? registerClassName : ''
@@ -57,7 +58,19 @@ function MarketingNavMenu({
           </li>
         )
       })}
-    </List>
+
+      <li className='flex px-4 pl-6' style={{ minWidth: 40 }}>
+        <a
+          href={'https://github.com/a11ywatch/a11ywatch'}
+          rel='noreferrer'
+          aria-label='A11yWatch on Github'
+          className='place-items-center flex'
+          target='_blank'
+        >
+          <GrGithub size={22} />
+        </a>
+      </li>
+    </ul>
   )
 }
 
