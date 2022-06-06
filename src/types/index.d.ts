@@ -491,8 +491,8 @@ export type Website = {
   domain?: Maybe<Scalars['String']>
   cdnConnected?: Maybe<Scalars['Boolean']>
   pageLoadTime?: Maybe<PageLoadTimeMeta>
-  issues?: Maybe<Array<Maybe<Issue>>>
-  issue?: Maybe<Array<Maybe<Issue>>>
+  issues?: Maybe<Issue>
+  issue?: Maybe<Array<Maybe<PageIssue>>>
   issuesInfo?: Maybe<IssueMeta>
   subDomains?: Maybe<Array<Maybe<SubDomain>>>
   script?: Maybe<Script>

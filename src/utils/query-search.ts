@@ -5,10 +5,9 @@ export const searchQuery = (
   url: string,
   insecureTransport?: boolean
 ): [string, boolean] => {
-  let squery = url
   let autoTPT = false
 
-  if (/^(http|https)/.test(squery)) {
+  if (/^(http|https)/.test(url)) {
     autoTPT = true
   }
 

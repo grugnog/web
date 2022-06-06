@@ -63,7 +63,7 @@ export function SearchBar({ placeholder, noWidth, cta }: any) {
   const { setSearchFilter } = useSearchFilter()
   const {
     search: ctaSearch = null,
-    setSearch = null,
+    setSearch,
     loading = false,
     toggleModal = null,
   } = useSearch()
@@ -72,13 +72,11 @@ export function SearchBar({ placeholder, noWidth, cta }: any) {
     e?.preventDefault()
 
     if (cta && ctaSearch) {
-      const searchUrl = String(ctaSearch).includes('http')
-        ? ctaSearch
-        : `http://${ctaSearch}`
-      setSearch && setSearch({ search: '' })
+      HomeManager.submit(null, ctaSearch)
 
-      HomeManager.submit(null, searchUrl)
-      toggleModal && toggleModal(true, searchUrl)
+      if (toggleModal) {
+        toggleModal(true, ctaSearch)
+      }
     } else {
       AppManager.toggleSnack(true, 'Please enter a valid website url', 'error')
     }
@@ -107,6 +105,10 @@ export function SearchBar({ placeholder, noWidth, cta }: any) {
     )
   }
 
+  const onSearchChangeEvent = (event: any) => {
+    setSearch({ search: event?.target?.value })
+  }
+
   return (
     <form className={classes.root} onSubmit={submit} noValidate>
       <div className={classes.search}>
@@ -118,10 +120,9 @@ export function SearchBar({ placeholder, noWidth, cta }: any) {
           classes={searchStyles}
           type={'search'}
           color={'primary'}
-          onChange={(event) => {
-            setSearch && setSearch({ search: event?.target?.value })
-          }}
+          onChange={onSearchChangeEvent}
           inputProps={{ 'aria-label': 'search your websites' }}
+          value={ctaSearch}
         />
         <Button
           type='submit'

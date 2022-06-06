@@ -251,7 +251,6 @@ function Api({ name }: PageProps) {
                           </div>
                           {params ? (
                             <div className='space-y-1 pb-2'>
-                              Params:
                               {params?.map((item: any, i) => {
                                 const { desc, type, optional } = routeParams[
                                   item

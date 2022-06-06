@@ -4,6 +4,7 @@ import { GrMoreVertical } from 'react-icons/gr'
 import { NextComposed } from '@app/components/general/link'
 import { TopMenu } from '@app/components/general/top-menu'
 import type { Website } from '@app/types'
+import { issueExtractor } from '@app/utils'
 
 export interface MoreOptionsProps extends Partial<Website> {
   removePress?(): void
@@ -30,7 +31,7 @@ export interface MoreOptionsProps extends Partial<Website> {
 function MoreOptionsBaseComponent({
   pageUrl,
   url,
-  issues,
+  issues: pageIssues,
   index,
   lh,
   children,
@@ -51,6 +52,8 @@ function MoreOptionsBaseComponent({
   }, [targetUrl])
 
   const menuId = `menu-appbar${index}`
+
+  const issues = issueExtractor(pageIssues)
 
   return (
     <>

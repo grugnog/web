@@ -155,8 +155,6 @@ export function ListComponent({
     mutatationLoading: mutatationLoading,
   }
 
-  console.log(emptyHeaderTitle, emptyHeaderSubTitle)
-
   return (
     <div className='space-y-2'>
       {data?.map((item: any) => (

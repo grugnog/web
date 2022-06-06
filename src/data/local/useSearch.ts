@@ -1,8 +1,5 @@
-import { useEffect } from 'react'
 import { useApolloClient, useQuery, useMutation } from '@apollo/react-hooks'
 import gql from 'graphql-tag'
-import { isUrl } from '@app/lib/is-url'
-import { logGraphErrors } from '@app/lib/log'
 import { SCAN_WEBSITE } from '@app/mutations'
 import { AppManager } from '@app/managers'
 import { searchQuery } from '@app/utils'
@@ -29,7 +26,7 @@ export function useSearch() {
   const { data } = useQuery(GET_SEARCH_STATE)
   const { search, bottomModal, website } = data?.ctaSearch || defaultState
 
-  const setSearch = (event: any) => {
+  const setSearch = (event: { search?: string }) => {
     client.writeData({
       data: {
         ctaSearch: {
@@ -44,21 +41,62 @@ export function useSearch() {
 
   const scanPage = async (event: any, text: string) => {
     event?.preventDefault()
+    const q = text || search
 
-    const [querySearch] = searchQuery(text || search)
+    const [querySearch, autoTPT] = searchQuery(q)
 
-    return await scanWebsite({
+    if (autoTPT) {
+      AppManager.toggleSnack(true, 'https:// automatically added to query.')
+    }
+
+    const results = (await scanWebsite({
       variables: {
         url: querySearch,
       },
-    }).catch(logGraphErrors)
+    })) as any
+
+    let data = results?.data
+
+    // Retry query as http if https autofilled [TODO: move autoquery detection to SS ]
+    if (!data && autoTPT) {
+      AppManager.toggleSnack(true, 'https:// failed retrying with http:// ...')
+      const [qf] = searchQuery(search, true)
+      try {
+        data = await scanWebsite({
+          variables: {
+            url: qf,
+          },
+        })
+      } catch (e) {
+        console.error(e)
+      }
+    }
+
+    if (!data?.scanWebsite?.success || !data) {
+      AppManager.toggleSnack(true, data?.scanWebsite?.message, 'error')
+      closeFeed()
+      return
+    }
+
+    const page = data?.scanWebsite?.website
+
+    client.writeData({
+      data: {
+        ctaSearch: {
+          search: q,
+          bottomModal: true,
+          website: JSON.stringify(page),
+          __typename: 'SearchWebsites',
+        },
+      },
+    })
   }
 
   const closeFeed = () => {
     client.writeData({
       data: {
         ctaSearch: {
-          search: '',
+          search: search,
           bottomModal: false,
           website: null,
           __typename: 'SearchWebsites',
@@ -72,9 +110,7 @@ export function useSearch() {
 
   // replace name to search
   const toggleModal = async (bottom: boolean, url: string) => {
-    const origin = isUrl(url)?.origin
-
-    if (!origin) {
+    if (!url) {
       AppManager.toggleSnack(
         true,
         'Please enter a valid website url starting with http:// or https://',
@@ -95,32 +131,11 @@ export function useSearch() {
     })
 
     try {
-      await scanPage(null, origin)
+      await scanPage(null, url)
     } catch (e) {
       console.error(data)
     }
   }
-
-  useEffect(() => {
-    if (crawlData?.scanWebsite) {
-      if (!crawlData?.scanWebsite?.success) {
-        AppManager.toggleSnack(true, crawlData?.scanWebsite?.message, 'error')
-        closeFeed()
-      } else {
-        const page = crawlData?.scanWebsite?.website
-        client.writeData({
-          data: {
-            ctaSearch: {
-              search,
-              bottomModal,
-              website: JSON.stringify(page),
-              __typename: 'SearchWebsites',
-            },
-          },
-        })
-      }
-    }
-  }, [crawlData])
 
   return {
     search,
