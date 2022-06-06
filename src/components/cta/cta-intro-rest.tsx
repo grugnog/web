@@ -23,7 +23,7 @@ function CtaIntroRest({ checker }: CtaIntroRest) {
           >
             {checker
               ? 'Real-Time Website Accessibility Checker'
-              : 'Web Accessibility Tool'}
+              : 'Web Accessibility Automation'}
           </Typography>
           <Typography
             variant='subtitle1'

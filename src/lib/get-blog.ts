@@ -1,6 +1,20 @@
 import type { BlogPageProps } from '@app/types'
+import { webflowRoutes } from './webflow-routes'
 
 const BLOG_URL = process.env.BLOG_URL || 'https://a11ywatch.wpcomstaging.com'
+const BLOG_WEBFLOW_URL =
+  process.env.BLOG_WEBFLOW_URL || 'https://a11ywatch-blog.webflow.io'
+
+// determine if the path is from WP or webflow
+const getUrl = (p: string) => {
+  const path = p || '/'
+
+  if (webflowRoutes[path]) {
+    const { pathName } = webflowRoutes[path]
+    return `${BLOG_WEBFLOW_URL}${pathName ? `/${pathName}` : ''}`
+  }
+  return `${BLOG_URL}${path ? `/${path}` : ''}`
+}
 
 // get wordpress page and parse content by themes
 export const getBlogPage = async (pathname: string): Promise<BlogPageProps> => {
@@ -13,7 +27,7 @@ export const getBlogPage = async (pathname: string): Promise<BlogPageProps> => {
   let title = ''
 
   try {
-    const res = await fetch(`${BLOG_URL}${pathname ? `/${pathname}` : ''}`)
+    const res = await fetch(getUrl(pathname))
     const { parseHtml } = await import('./parse-html')
 
     if (res && res?.ok) {
@@ -31,12 +45,18 @@ export const getBlogPage = async (pathname: string): Promise<BlogPageProps> => {
         const authorPrefix = htmlRoot.querySelectorAll('.author-prefix')
 
         const comments = htmlRoot.getElementById('comments')
+        const htmlTag = htmlRoot.querySelector(`html`)
+        const bodyTag = htmlRoot.querySelector(`body`)
+        const wfbadge = htmlRoot.querySelector(`.w-webflow-badge`)
 
         if (colophon) {
           colophon.remove()
         }
         if (comments) {
           comments.remove()
+        }
+        if (wfbadge) {
+          wfbadge.remove()
         }
 
         authorPrefix?.forEach((tag) => {
@@ -48,7 +68,17 @@ export const getBlogPage = async (pathname: string): Promise<BlogPageProps> => {
 
         // quickly remove top level head scripts
         startScripts?.forEach((tag) => {
-          headScripts.push({ ...tag.attributes, children: tag.innerText })
+          const { crossorigin, ...a } = tag.attributes
+
+          if (crossorigin) {
+            headScripts.push({
+              crossOrigin: crossorigin,
+              ...a,
+              children: tag.innerText,
+            })
+          } else {
+            headScripts.push({ ...tag.attributes, children: tag.innerText })
+          }
           tag.remove()
         })
 
@@ -56,12 +86,29 @@ export const getBlogPage = async (pathname: string): Promise<BlogPageProps> => {
         const endingScripts = htmlRoot.querySelectorAll(`script`)
 
         endingScripts?.forEach((tag) => {
-          bodyScripts.push({ ...tag.attributes, children: tag.innerText })
+          const { crossorigin, ...a } = tag.attributes
+
+          if (crossorigin) {
+            bodyScripts.push({
+              crossOrigin: crossorigin,
+              ...a,
+              children: tag.innerText,
+            })
+          } else {
+            bodyScripts.push({ ...tag.attributes, children: tag.innerText })
+          }
+
           tag.remove()
         })
 
         metaTags?.forEach((tag) => {
-          metas.push(tag.attributes)
+          const { crossorigin, ...a } = tag.attributes
+
+          if (crossorigin) {
+            metas.push({ crossOrigin: crossorigin, ...a })
+          } else {
+            metas.push(a)
+          }
           tag.remove()
         })
 
@@ -144,6 +191,10 @@ export const getBlogPage = async (pathname: string): Promise<BlogPageProps> => {
         titleElement?.remove()
         htmlRoot.removeWhitespace()
         headTag?.remove()
+
+        if (bodyTag && htmlTag) {
+          htmlTag?.replaceWith(bodyTag.firstChild)
+        }
 
         html = htmlRoot.innerHTML.replace(
           `<!doctype html><html lang="en-US">`,
