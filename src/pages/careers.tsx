@@ -58,11 +58,7 @@ function Careers({ name }: PageProps) {
           gutterBottom
           style={{ marginBottom: 20 }}
         >
-          To apply for this position, please attach a detailed resume that
-          demonstrates your qualifications and skill set pertaining to this
-          position. Applications without a resume will have a harder time to be
-          considered. We are looking for interns so feel free declare this
-          upfront.
+          Currently we are not actively hiring.
         </Typography>
         <Button
           component='a'
