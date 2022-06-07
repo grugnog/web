@@ -10,6 +10,7 @@ export const ADD_WEBSITE = gql`
     $mobile: Boolean
     $standard: String
     $ua: String
+    $actions: [PageActionsInput]
   ) {
     addWebsite(
       url: $url
@@ -18,6 +19,7 @@ export const ADD_WEBSITE = gql`
       mobile: $mobile
       standard: $standard
       ua: $ua
+      actions: $actions
     ) {
       website {
         ...WebsiteParts

@@ -33,6 +33,11 @@ interface FormDialogProps {
   buttonStyles?: string
 }
 
+// interface ActionsInput {
+//   path: string
+//   events: string // comma seperated values
+// }
+
 export function FormDialogWrapper({
   buttonTitle = 'Subscribe',
   okPress,
@@ -44,6 +49,7 @@ export function FormDialogWrapper({
   const [pageInsights, setPageInsights] = useState<boolean>(true)
   const [mobileViewport, setMobile] = useState<boolean>(false)
   const [ua, setUserAgent] = useState<string>('')
+
   const [standard, setWCAGStandard] = useState<StandardKeys>(
     Standard[1] as StandardKeys
   )
@@ -139,6 +145,7 @@ export function FormDialogWrapper({
         mobile: mobileViewport,
         ua,
         standard,
+        actions: null,
       }
 
       // CLOSE pre-optimistic prevent dialog unmount state error

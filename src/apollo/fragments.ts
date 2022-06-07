@@ -98,7 +98,7 @@ export const websiteFragments = gql`
     crawlDuration
     ua
     actions {
-      path
+      _id
       events
     }
   }

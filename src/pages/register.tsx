@@ -13,17 +13,19 @@ interface RegisterParams {
 }
 
 const getTitle = (params?: RegisterParams) => {
-  const { plan, yearly } = params ?? {}
+  const { plan: p, yearly } = params ?? {}
   const registerStart = 'A11yWatch - Register'
   const lengthText = `${yearly ? 'yearly' : 'monthly'} plan`
 
-  if (plan === 'Free') {
+  const plan = String(p).toLowerCase()
+
+  if (plan === 'free') {
     return `${registerStart} free ${lengthText}`
   }
-  if (plan === 'Basic') {
+  if (plan === 'basic') {
     return `${registerStart} basic ${lengthText}`
   }
-  if (plan === 'Premium') {
+  if (plan === 'premium') {
     return `${registerStart} premium ${lengthText}`
   }
 
@@ -31,20 +33,21 @@ const getTitle = (params?: RegisterParams) => {
 }
 
 const getDescription = (params?: RegisterParams) => {
-  const { plan, yearly } = params ?? {}
+  const { plan: p, yearly } = params ?? {}
   const registerStart =
     'Register with a11ywatch to get web accessibility insight on demand'
 
   const lengthText = `${yearly ? 'yearly' : 'monthly'} plan`
+  const plan = String(p).toLowerCase()
 
-  if (plan === 'Free') {
-    return `${registerStart} free ${lengthText}. Get the help making your website accessible.`
+  if (plan === 'free') {
+    return `${registerStart} free ${lengthText}. Get the help making your website target everyone.`
   }
-  if (plan === 'Basic') {
-    return `${registerStart} basic ${lengthText}. Get the support you need to make your website accessible`
+  if (plan === 'basic') {
+    return `${registerStart} basic ${lengthText}. Get the support you need to make your website inclusive.`
   }
-  if (plan === 'Premium') {
-    return `${registerStart} premium ${lengthText}. Get the best support you need to make your website accessible`
+  if (plan === 'premium') {
+    return `${registerStart} premium ${lengthText}. Get the best support you need to make your website accessible.`
   }
 
   return `${registerStart}.`
@@ -62,7 +65,6 @@ function Register({ name }: PageProps) {
           content={getDescription(router?.query)}
           key='description'
         />
-        {router?.query?.plan ? <meta name='robots' content='noindex' /> : null}
       </Head>
       <MarketingDrawer
         title={name}

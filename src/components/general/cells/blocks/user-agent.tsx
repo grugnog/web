@@ -36,18 +36,22 @@ export const UserAgentBoxWrapper = ({
     return () => clearTimeout(debounce)
   }, [ua, agent])
 
+  const uaLabel = `${url}-ua-id`
+
   return (
     <InfoBlock title={'UserAgent'} icon={<GrUser />}>
-      <label>
-        <input
-          className='py-1 focus:outline-none focus:border-r-2 focus:border-blue-300 hover:border-r-2'
-          onChange={onChangeUA}
-          value={ua}
-          id='ua'
-          placeholder='User Agent'
-          type='text'
-        />
+      <label htmlFor={uaLabel} className={'sr-only'}>
+        User Agent
       </label>
+      <input
+        className='py-1 focus:outline-none focus:border-r-2 focus:border-blue-300 hover:border-r-2'
+        onChange={onChangeUA}
+        value={ua}
+        id={uaLabel}
+        placeholder='User Agent'
+        type='text'
+        name={'user_agent'}
+      />
     </InfoBlock>
   )
 }

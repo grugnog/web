@@ -188,12 +188,12 @@ export function WebsiteCellDashboardComponent({
   // TODO: move to react context for SSR
   const activeSubscription = UserManager.freeAccount === false
 
-  const cdnUrl = cdnBase
-    ? `${SCRIPTS_CDN_URL_HOST}/${cdnBase}`
-    : 'Plan Required'
+  const notAvail = 'Not available on a Free plan.'
+
+  const cdnUrl = cdnBase ? `${SCRIPTS_CDN_URL_HOST}/${cdnBase}` : notAvail
   const cdnUrlMinifed = cdnBaseMin
     ? `${SCRIPTS_CDN_URL_HOST}/${cdnBaseMin}`
-    : 'Plan Required'
+    : notAvail
 
   return (
     <li className={`border-4 px-3 pt-2 rounded overflow-hidden`}>
@@ -253,7 +253,7 @@ export function WebsiteCellDashboardComponent({
         <HeadersBox pageHeaders={pageHeaders} />
         <LighthouseBox pageInsights={pageInsights} />
         <UserAgentBox ua={ua} url={url} />
-        <ActionsBox actions={actions} />
+        <ActionsBox actions={actions?.events} />
         <OnlineBox online={online} />
         <CustomCDNBox
           cdnUrl={activeSubscription ? cdnUrl : 'N/A'}
