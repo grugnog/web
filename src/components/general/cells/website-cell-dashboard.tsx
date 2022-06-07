@@ -252,7 +252,7 @@ export function WebsiteCellDashboardComponent({
         <StandardBox standard={standard} url={url} />
         <HeadersBox pageHeaders={pageHeaders} />
         <LighthouseBox pageInsights={pageInsights} />
-        <UserAgentBox ua={ua} />
+        <UserAgentBox ua={ua} url={url} />
         <ActionsBox actions={actions} />
         <OnlineBox online={online} />
         <CustomCDNBox

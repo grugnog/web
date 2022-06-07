@@ -21,13 +21,18 @@ export const StatusBadgeBoxWrapper = ({
 
   const statusBadgeLanguage = isMarkdown ? 'markdown' : 'html'
 
+  const labelId = `${domain}-form-markdown`
+
   return (
     <InfoBlock title={'Badge'} icon={<GrShield />}>
       <div className='flex pb-2 space-x-1'>
-        <span className='text-sm font-medium'>MARKDOWN</span>
+        <label className='text-sm font-medium' htmlFor={labelId}>
+          Markdown
+        </label>
         <input
           checked={isMarkdown}
           type='checkbox'
+          id={labelId}
           onChange={() => setMarkdown((minified: boolean) => !minified)}
           className={
             'outline-none relative inline-flex flex-shrink-0 h-4 w-7 rounded-full cursor-pointer transition-colors ease-in-out duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'

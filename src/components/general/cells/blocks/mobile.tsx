@@ -27,16 +27,21 @@ export const MobileBoxWrapper = ({
     }
   }
 
+  const labelId = `${url}-mobile-form`
+
   return (
     <InfoBlock
       title={'Mobile'}
       icon={<GrPhoneFlip className='grIcon' color='black' fill='black' />}
     >
       <div className='flex pb-2 space-x-1'>
-        <span className='text-sm font-medium'>MOBILE</span>
+        <label className='text-sm font-medium' htmlFor={labelId}>
+          Mobile
+        </label>
         <input
           checked={isMobile}
           type='checkbox'
+          id={labelId}
           onChange={onMobileEvent}
           className={
             'outline-none relative inline-flex flex-shrink-0 h-4 w-7 rounded-full cursor-pointer transition-colors ease-in-out duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'

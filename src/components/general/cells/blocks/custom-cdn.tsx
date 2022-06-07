@@ -19,7 +19,7 @@ export const CustomCDNBoxWrapper = ({
   return (
     <InfoBlock title={'CDN'} icon={<GrCloudSoftware />}>
       <div className='flex pb-2 space-x-1'>
-        <span className='text-sm font-medium'>MINIFIED</span>
+        <span className='text-sm font-medium'>Minified</span>
         <input
           checked={isMinified}
           type='checkbox'
