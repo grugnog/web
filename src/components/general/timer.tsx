@@ -1,6 +1,12 @@
 import React, { useState, useEffect } from 'react'
 import { Tooltip } from '@material-ui/core'
 
+const style = {
+  backgroundColor: 'rgba(0, 0, 0, 0.05)',
+  color: 'rgba(0, 0, 0, 0.7)',
+}
+
+// TODO: allow scan duration or crawl per setting based on property crawlDuration or scanDuration
 export const Timer = ({
   stop,
   duration,
@@ -20,19 +26,15 @@ export const Timer = ({
     return () => clearInterval(interval)
   }, [stop])
 
-  const style = {
-    backgroundColor: 'rgba(0, 0, 0, 0.05)',
-    color: 'rgba(0, 0, 0, 0.7)',
-  }
-
   const secs = seconds.toFixed(0)
   const defaultDuration = duration ? Number(duration / 1000).toFixed(0) : 0
 
   const displayTimer = seconds ? secs : defaultDuration
+  const displayTip = defaultDuration ? 'Site-wide crawl' : 'Scan'
 
   return (
     <Tooltip
-      title={`Scan duration ${displayTimer} seconds`}
+      title={`${displayTip} duration ${displayTimer} seconds`}
       placement={'right'}
     >
       <div

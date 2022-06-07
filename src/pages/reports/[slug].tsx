@@ -50,14 +50,15 @@ function Reports({ name, website }: PageProps) {
   )
 }
 
-const getWebsite = async (url: string) => {
+const getWebsite = async (url: string, jwt?: string) => {
   let website
   let res
 
-  const apiRoute = `${getAPIRoute('api', true)}/get-website?q=${url}`
-
   try {
-    res = await fetch(apiRoute)
+    res = await fetch(
+      `${getAPIRoute('api', true)}/get-website?q=${url}`,
+      jwt ? { headers: { Authorization: jwt } } : undefined
+    )
   } catch (e) {
     console.error(e)
   }
@@ -75,10 +76,11 @@ const getWebsite = async (url: string) => {
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const { slug } = context.params ?? {}
-
+  const { jwt } = context.req.cookies
   let url: string | undefined = ''
+  let website
 
-  // if its an array for dynamic routes [ old next.js v9 ]
+  // if its an array for dynamic routes.
   if (slug && Array.isArray(slug) && slug.length) {
     const [base] = slug
 
@@ -93,18 +95,14 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     url = url.replace('pageUrl=', '')
   }
 
-  console.log(`log url slug ${url}`)
-
   if (!url) {
     return {
       notFound: true,
     }
   }
 
-  let website
-
   try {
-    website = await getWebsite(url)
+    website = await getWebsite(url, jwt)
   } catch (e) {
     console.error(e)
   }

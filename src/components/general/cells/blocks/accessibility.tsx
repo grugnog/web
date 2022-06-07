@@ -11,9 +11,7 @@ export const AccessibilityBoxWrapper = ({
 }) => {
   return (
     <InfoBlock title={'Score'} icon={<GrAccessibility />}>
-      {typeof adaScore === 'number'
-        ? `${adaScore ? `${average ? 'Average ' : ''}${adaScore}` : ''}`
-        : 'N/A'}
+      {adaScore && average ? 'Average ' : ''} {adaScore || 'N/A'}
     </InfoBlock>
   )
 }

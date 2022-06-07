@@ -1,49 +1,51 @@
 import React from 'react'
 import { red, grey, yellow } from '@material-ui/core/colors'
-import { VictoryTheme, VictoryBar, VictoryChart } from 'victory'
+import { VictoryBar, VictoryChart } from 'victory'
 import type { Analytic } from '@app/types'
 import { theme } from '@app/theme'
 
+// determine chart color
 const getFill = (label: string) =>
-  label === 'Errors' ? red[600] : label === 'Warnings' ? yellow[600] : grey[600]
+  label === 'Errors' ? red[700] : label === 'Warnings' ? yellow[700] : grey[700]
 
-export function AnalyticsCell(source: Analytic) {
-  const chartEvent: any = {
-    target: 'data',
-    eventHandlers: {
-      onClick: (e: any) => {
-        e?.preventDefault()
-
-        return [
-          {
-            target: 'data',
-            mutation: ({ style }: any) => {
-              return style.fill === grey[800]
-                ? null
-                : {
-                    style: { fill: grey[800] },
-                  }
-            },
-          },
-          {
-            target: 'labels',
-            mutation: ({ text, datum }: any) => {
-              return typeof text === 'number'
-                ? { text: datum?.x }
-                : { text: datum?.y }
-            },
-          },
-        ]
+// click event for chart mutations
+const onChartClick = (e: any) => {
+  e?.preventDefault()
+  return [
+    {
+      target: 'data',
+      mutation: ({ style }: any) => {
+        return style.fill === grey[800]
+          ? null
+          : {
+              style: { fill: grey[800] },
+            }
       },
     },
-  }
+    {
+      target: 'labels',
+      mutation: ({ text, datum }: any) => {
+        return typeof text === 'number'
+          ? { text: datum?.x }
+          : { text: datum?.y }
+      },
+    },
+  ]
+}
 
+// chart events
+const chartEvent: any = {
+  target: 'data',
+  eventHandlers: {
+    onClick: onChartClick,
+  },
+}
+
+const chartLabels = ({ datum }: any) => datum.x
+
+export function AnalyticsCell(source: Analytic) {
   return (
-    <VictoryChart
-      theme={VictoryTheme.material}
-      domainPadding={{ x: 12 }}
-      height={180}
-    >
+    <VictoryChart domainPadding={{ x: 18 }} height={170}>
       <VictoryBar
         style={{
           data: {
@@ -52,11 +54,11 @@ export function AnalyticsCell(source: Analytic) {
             strokeWidth: 3,
           },
           parent: {
-            fontSize: 8,
+            fontSize: 14,
             fill: theme.palette.text.primary,
           },
           labels: {
-            fontSize: 7,
+            fontSize: 12,
             fill: ({ datum }: any) => getFill(datum.x),
           },
         }}
@@ -64,21 +66,23 @@ export function AnalyticsCell(source: Analytic) {
           {
             x: 'Errors',
             y: source.errorCount,
-            fill: red[500],
+            fill: red[800],
+            label: '',
           },
           {
             x: 'Warnings',
             y: source.warningCount,
-            fill: yellow[500],
+            fill: yellow[800],
+            label: '',
           },
           {
             x: 'Notices',
             y: source.noticeCount,
-            fill: grey[500],
+            fill: grey[800],
+            label: '',
           },
         ]}
-        // colorScale={[red[500], yellow[500], grey[500]]}
-        labels={({ datum }: any) => (datum.y && datum.x) || ''}
+        labels={chartLabels}
         events={[chartEvent]}
       />
     </VictoryChart>

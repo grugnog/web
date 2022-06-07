@@ -72,7 +72,6 @@ export const websiteFragments = gql`
     pageInsights
     mobile
     standard
-    ua
     insight {
       json
     }
@@ -97,6 +96,11 @@ export const websiteFragments = gql`
       color
     }
     crawlDuration
+    ua
+    actions {
+      path
+      events
+    }
   }
 `
 

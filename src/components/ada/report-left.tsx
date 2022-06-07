@@ -53,7 +53,7 @@ export function ReportViewComponentLeft({
         </Typography>
       </Grid>
       <div className='flex space-x-2 place-items-center'>
-        <Timer stop={!empty} />
+        <Timer stop={!empty} duration={website?.crawlDuration} />
         <div className='max-w-[85%]'>
           <WebsiteSecondary {...website} pageIssueCount={1} />
         </div>
@@ -65,7 +65,11 @@ export function ReportViewComponentLeft({
         authenticated={authenticated}
       />
       <Spacer />
-      <InfoBar website={website} printable={printable} download={download} />
+      <InfoBar
+        website={website}
+        printable={printable}
+        download={authenticated && download}
+      />
       {website?.url ? (
         <div className='hidden lg:block'>
           <div className='py-2 flex space-x-2 place-items-center border-b'>

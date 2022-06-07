@@ -42,15 +42,6 @@ export async function middleware(req: NextRequest, event: NextFetchEvent) {
     res = NextResponse.rewrite(url)
   }
 
-  if (req.nextUrl.pathname.startsWith('/reports/')) {
-    const url = req.nextUrl.clone()
-    const reportSlug = req.nextUrl.pathname.replace('/reports/', '')
-    // fix issue with nextjs not allowing domain handling
-    url.pathname = `/reports/pageUrl=${reportSlug}`
-
-    res = NextResponse.rewrite(url)
-  }
-
   if (!req.cookies[ID_COOKIE_NAME]) {
     res.cookie(ID_COOKIE_NAME, uuid, {
       sameSite: 'lax',

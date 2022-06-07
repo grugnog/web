@@ -89,7 +89,7 @@ function Api({ name }: PageProps) {
             </a>
             . You can also use the API in{' '}
             <a
-              href={'https://api.a11ywatch.com/graphql'}
+              href={'https://api.a11ywatch.com/playground'}
               target='_blank'
               rel='noreferrer'
               className='underline text-blue-600'

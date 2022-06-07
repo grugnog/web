@@ -7,7 +7,7 @@ type CellIssue = Partial<Issue> & {
 }
 
 export const codeFormatter = (code?: string) => {
-  const codeDisplay = code?.replaceAll('_', ' ')
+  const codeDisplay = code?.replace(/_+/g, '')
 
   const hrefCode = `https://www.w3.org/TR/WCAG20-TECHS/${codeDisplay
     ?.replace('.Fail', '')

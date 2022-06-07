@@ -25,6 +25,10 @@ import {
 import { MobileBox } from './blocks/mobile'
 import { Issue } from '@app/types'
 import { Timer } from '../timer'
+import { UserAgentBox } from './blocks/user-agent'
+import { ActionsBox } from './blocks/actions'
+import { CdnFixBox } from './blocks/cdn-fix'
+import { UserManager } from '@app/managers'
 
 const styles = {
   title: 'text-xl md:text-3xl font-bold truncate',
@@ -58,6 +62,8 @@ export function WebsiteCellDashboardComponent({
   standard,
   activeCrawl,
   crawlDuration,
+  ua,
+  actions,
 }: any) {
   const [anchorEl, setAnchorEl] = useState<any>(null)
 
@@ -100,13 +106,14 @@ export function WebsiteCellDashboardComponent({
     setAnchorEl(null)
   }
 
+  const cdnBase =
+    script?.cdnUrl ?? `${domain}/${domain.replace(/\./g, '-')}-ada-fix-0.js`
+
+  const cdnBaseMin =
+    script?.cdnUrlMinified ??
+    `${domain}/${domain.replace(/\./g, '-')}-ada-fix-0.min.js`
+
   // TODO: REMOVE ALL URL CLIENT APPENDING
-  const cdnUrl = script?.cdnUrl
-    ? `${SCRIPTS_CDN_URL_HOST}/${script?.cdnUrl}`
-    : 'N/A'
-  const cdnUrlMinifed = script?.cdnUrlMinified
-    ? `${SCRIPTS_CDN_URL_HOST}/${script?.cdnUrlMinified}`
-    : 'N/A'
   const statusBadgeUrl = `${STATUS_URL}/${encodeURIComponent(domain)}`
 
   const encodedUrl = encodeURIComponent(url)
@@ -130,7 +137,12 @@ export function WebsiteCellDashboardComponent({
   )
 
   // real time issue tracking [TODO: combine with website analytic data]
-  const { errorCount, warningCount, totalIssues } = useMemo(() => {
+  const {
+    errorCount,
+    warningCount,
+    totalIssues,
+    issuesFixedByCdn,
+  } = useMemo(() => {
     let errors = 0
     let warnings = 0
     let notices = 0
@@ -158,6 +170,7 @@ export function WebsiteCellDashboardComponent({
     }
 
     return {
+      issuesFixedByCdn: issuesInfo?.issuesFixedByCdn,
       errorCount: errors,
       warningCount: warnings,
       noticeCount: notices,
@@ -171,6 +184,16 @@ export function WebsiteCellDashboardComponent({
       : issuesInfo?.pageCount
 
   const { adaScoreAverage: adaScore } = issuesInfo ?? {}
+
+  // TODO: move to react context for SSR
+  const activeSubscription = UserManager.freeAccount === false
+
+  const cdnUrl = cdnBase
+    ? `${SCRIPTS_CDN_URL_HOST}/${cdnBase}`
+    : 'Plan Required'
+  const cdnUrlMinifed = cdnBaseMin
+    ? `${SCRIPTS_CDN_URL_HOST}/${cdnBaseMin}`
+    : 'Plan Required'
 
   return (
     <li className={`border-4 px-3 pt-2 rounded overflow-hidden`}>
@@ -219,19 +242,22 @@ export function WebsiteCellDashboardComponent({
         pageHeaders={pageHeaders}
       />
       <div className={styles.spacing} />
-      <div className='grid grid-cols-1 gap-1 sm:grid-cols-3'>
+      <div className='grid grid-cols-1 gap-1 md:grid-cols-3'>
         <AccessibilityBox adaScore={adaScore} />
         <IssuesBox issues={errorCount} />
         <WarningsBox issues={warningCount} />
+        <CdnFixBox issues={issuesFixedByCdn} />
         <PagesBox count={pageIssueCount ?? 'N/A'} />
         <LoadTimeBox duration={pageLoadTime?.duration} />
         <StandardBox standard={standard} url={url} />
         <HeadersBox pageHeaders={pageHeaders} />
         <LighthouseBox pageInsights={pageInsights} />
+        <UserAgentBox ua={ua} />
+        <ActionsBox actions={actions} />
         <OnlineBox online={online} />
         <CustomCDNBox
-          cdnUrl={cdnUrl}
-          cdnUrlMinifed={cdnUrlMinifed}
+          cdnUrl={activeSubscription ? cdnUrl : 'N/A'}
+          cdnUrlMinifed={activeSubscription ? cdnUrlMinifed : 'N/A'}
           cdnConnected={cdnConnected}
         />
         <StatusBadgeBox
