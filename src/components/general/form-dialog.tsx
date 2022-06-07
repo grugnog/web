@@ -10,6 +10,7 @@ import {
   FormControlLabel,
   IconButton,
   Tooltip,
+  FormLabel,
 } from '@material-ui/core'
 import { Button } from '@app/components/general'
 import { domainList as dmList } from '@app/utils'
@@ -42,7 +43,7 @@ export function FormDialogWrapper({
   const [https, setTransportType] = useState<boolean>(true)
   const [pageInsights, setPageInsights] = useState<boolean>(true)
   const [mobileViewport, setMobile] = useState<boolean>(false)
-  const [ua, _setUserAgent] = useState<string>('')
+  const [ua, setUserAgent] = useState<string>('')
   const [standard, setWCAGStandard] = useState<StandardKeys>(
     Standard[1] as StandardKeys
   )
@@ -92,22 +93,6 @@ export function FormDialogWrapper({
         AppManager.toggleSnack(
           true,
           'Please enter a valid website url.',
-          'error'
-        )
-        return
-      }
-
-      if (
-        websitUrl.endsWith('.png') ||
-        websitUrl.endsWith('.jpg') ||
-        websitUrl.endsWith('.gif') ||
-        websitUrl.endsWith('.mp4') ||
-        websitUrl.endsWith('.mp3')
-      ) {
-        //block resourcees
-        AppManager.toggleSnack(
-          true,
-          'Media resources are not allowed. Try to add a valid website url.',
           'error'
         )
         return
@@ -208,6 +193,10 @@ export function FormDialogWrapper({
     updateFormField,
   }
 
+  const onChangeUA = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setUserAgent(event.target.value)
+  }
+
   return (
     <Fragment>
       <Button onClick={handleClickOpen} className={buttonStyles}>
@@ -235,23 +224,25 @@ export function FormDialogWrapper({
               To add a website to your watchlist, please enter the website url
               below.
             </DialogContentText>
-            <TextField
-              autoFocus
-              onChange={onChangeText}
-              className={classes.input}
-              inputProps={{
-                className: classes.textInput,
-                minLength: 3,
-              }}
-              inputRef={inputRef}
-              color='secondary'
-              margin='dense'
-              value={websitUrl}
-              id='name'
-              placeholder='Url'
-              type='url'
-              required
-            />
+            <FormLabel>
+              <TextField
+                autoFocus
+                onChange={onChangeText}
+                className={classes.input}
+                inputProps={{
+                  className: classes.textInput,
+                  minLength: 3,
+                }}
+                inputRef={inputRef}
+                color='secondary'
+                margin='dense'
+                value={websitUrl}
+                id='name'
+                placeholder='Url'
+                type='url'
+                required
+              />
+            </FormLabel>
             <div
               className={`flex flex-1 place-items-center space-x-3 py-2 overflow-x-auto`}
             >
@@ -329,6 +320,18 @@ export function FormDialogWrapper({
                 standard={standard}
                 onStandardChange={onStandardChange}
               />
+              <FormLabel>
+                <TextField
+                  onChange={onChangeUA}
+                  className={classes.input}
+                  value={ua}
+                  color='secondary'
+                  margin='dense'
+                  id='ua'
+                  placeholder='User Agent'
+                  type='text'
+                />
+              </FormLabel>
             </div>
             {customHeader ? <InputHeaders {...inputProps} /> : null}
           </DialogContent>
