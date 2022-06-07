@@ -21,6 +21,7 @@ const isWhitelisted = ({ pathname, pageName, url }: ExcludeProps) => {
     url.endsWith('.png') ||
     url.endsWith('.jpg') ||
     url.endsWith('.jpeg') ||
+    url.endsWith('.xml') ||
     pathname === '/manifest.json' ||
     pathname === '/robots.txt' ||
     pageName === '/_offline'

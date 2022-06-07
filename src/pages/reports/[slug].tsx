@@ -85,11 +85,15 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     if (base) {
       url = base
     }
+  } else {
+    url = slug + ''
   }
 
   if (url.startsWith('pageUrl=')) {
     url = url.replace('pageUrl=', '')
   }
+
+  console.log(`log url slug ${url}`)
 
   if (!url) {
     return {
