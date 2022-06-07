@@ -26,7 +26,7 @@ export const Timer = ({
   }
 
   const secs = seconds.toFixed(0)
-  const defaultDuration = duration && Number(duration / 1000).toFixed(0)
+  const defaultDuration = duration ? Number(duration / 1000).toFixed(0) : 0
 
   const displayTimer = seconds ? secs : defaultDuration
 

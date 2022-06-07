@@ -44,7 +44,10 @@ export async function middleware(req: NextRequest, event: NextFetchEvent) {
 
   if (req.nextUrl.pathname.startsWith('/reports/')) {
     const url = req.nextUrl.clone()
-    url.pathname = `/reports${req.nextUrl.pathname.replace('/reports/', '/')}`
+    const reportSlug = req.nextUrl.pathname.replace('/reports/', '')
+    // fix issue with nextjs not allowing domain handling
+    url.pathname = `/reports/pageUrl=${reportSlug}`
+
     res = NextResponse.rewrite(url)
   }
 

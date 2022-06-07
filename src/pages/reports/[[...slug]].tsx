@@ -54,10 +54,7 @@ const getWebsite = async (url: string) => {
   let website
   let res
 
-  const apiRoute = `${getAPIRoute(
-    'api',
-    true
-  )}/get-website?q=${encodeURIComponent(url)}`
+  const apiRoute = `${getAPIRoute('api', true)}/get-website?q=${url}`
 
   try {
     res = await fetch(apiRoute)
@@ -79,24 +76,31 @@ const getWebsite = async (url: string) => {
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const { slug } = context.params ?? {}
 
-  if (!slug) {
+  let url: string | undefined = ''
+
+  // if its an array for dynamic routes [ old next.js v9 ]
+  if (slug && Array.isArray(slug) && slug.length) {
+    const [base] = slug
+
+    if (base) {
+      url = base
+    }
+  }
+
+  if (url.startsWith('pageUrl=')) {
+    url = url.replace('pageUrl=', '')
+  }
+
+  if (!url) {
     return {
       notFound: true,
     }
   }
 
-  let url: string | string[] = slug
-
-  // if its an array for dynamic routes [ old next.js v9 ]
-  if (Array.isArray(slug) && slug.length) {
-    ;[url] = slug
-  }
-
   let website
-  let targetUrl = url + ''
 
   try {
-    website = await getWebsite(targetUrl)
+    website = await getWebsite(url)
   } catch (e) {
     console.error(e)
   }
