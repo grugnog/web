@@ -11,6 +11,7 @@ export const ADD_WEBSITE = gql`
     $standard: String
     $ua: String
     $actions: [PageActionsInput]
+    $robots: Boolean
   ) {
     addWebsite(
       url: $url
@@ -20,6 +21,7 @@ export const ADD_WEBSITE = gql`
       standard: $standard
       ua: $ua
       actions: $actions
+      robots: $robots
     ) {
       website {
         ...WebsiteParts

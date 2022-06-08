@@ -37,10 +37,10 @@ function WebsiteAccessibilityChecker({ name }: PageProps) {
               Fast website inclusion results
             </h4>
             <p className='text-lg'>
-              Optimize your workflow on tackling web inclusion issues while
-              learning how to stay accessible for the long run. If you have
-              thousands of pages, A11yWatch was built with the speed in mind to
-              give you real time results with minimal downtime.
+              Optimize your workflow on tackling issues while learning how to
+              stay accessible for the long run. If you have thousands of pages,
+              A11yWatch was built with the speed in mind to give you real time
+              results with minimal downtime.
             </p>
           </div>
           <div>
@@ -52,74 +52,68 @@ function WebsiteAccessibilityChecker({ name }: PageProps) {
             </p>
           </div>
         </div>
-        <div className='place-items-center flex flex-col pb-6 pt-10'>
-          <div className='px-4 max-w-[800px] space-y-2'>
-            <h5 className='py-2 text-2xl font-bold'>
+        <div className='flex flex-col pb-6 pt-10'>
+          <div className='px-4 space-y-2'>
+            <h5 className='py-2 text-3xl font-bold'>
               Open-Source tools designed for the job
             </h5>
-            <div className='flex flex-col md:flex-row gap-x-6 gap-y-2 p-6 border rounded'>
-              <div className='flex place-items-center px-6'>
-                <GrCluster className='grIcon h-[60px] w-[60px]' />
+            <div className='grid lg:grid-cols-3 gap-y-6 gap-x-6 place-items-start'>
+              <div className='flex flex-col md:flex-row gap-x-1 gap-y-2 place-items-center'>
+                <div className='flex place-items-center pr-6'>
+                  <GrCluster className='grIcon h-[50px] w-[50px]' />
+                </div>
+                <div>
+                  <h6 className='text-xl font-bold'>
+                    Keep your content inclusive
+                  </h6>
+                  <p className='text-lg'>
+                    Configurable testing that helps with real applications.
+                  </p>
+                </div>
               </div>
-              <div>
-                <h6 className='text-xl font-bold'>Target a broader audience</h6>
-                <p className='text-lg'>
-                  We built the system to utilize every drop of performance
-                  making it possible to scan up to 1,000 pages within a minute.
-                  Even the largest websites and E-commerce websites can run full
-                  multi page reports with little downtime. Configure the crawler
-                  with the level of WCAG standard, user agents, page headers,
-                  and other properties that help when crawling real world
-                  applications.
-                </p>
+              <div className='flex flex-col md:flex-row gap-x-1 gap-y-2 place-items-center'>
+                <div className='flex place-items-center pr-6'>
+                  <GrCloudSoftware className='grIcon h-[50px] w-[50px]' />
+                </div>
+                <div>
+                  <h6 className='text-xl font-bold'>
+                    It gets you testing on the go
+                  </h6>
+                  <p className='text-lg'>
+                    Use the system on any device or consume the REST and GraphQl{' '}
+                    <LinkPrefetch
+                      href={`${DOMAIN_NAME}/api-info`}
+                      className={'text-blue-700'}
+                    >
+                      API
+                    </LinkPrefetch>{' '}
+                    .
+                  </p>
+                </div>
               </div>
-            </div>
-            <div className='flex flex-col md:flex-row gap-x-6 gap-y-2 p-6 border rounded'>
-              <div className='flex place-items-center px-6'>
-                <GrCloudSoftware className='grIcon h-[60px] w-[60px]' />
-              </div>
-              <div>
-                <h6 className='text-xl font-bold'>
-                  It gets you testing on the go
-                </h6>
-                <p className='text-lg'>
-                  Every page on our website is built to handle across many
-                  platforms and devices. We take a mobile approach so that our
-                  content can be used on the go where ever, when ever on your
-                  smart phone or tablet. Our{' '}
-                  <LinkPrefetch
-                    href={`${DOMAIN_NAME}/api-info`}
-                    className={'text-blue-700'}
-                  >
-                    API
-                  </LinkPrefetch>{' '}
-                  is made so that anything you can do on our application can be
-                  done outside of our domain.
-                </p>
-              </div>
-            </div>
-            <div className='flex flex-col md:flex-row gap-x-6 gap-y-2 p-6 border rounded'>
-              <div className='flex place-items-center px-6'>
-                <GrPerformance className='grIcon h-[80px] w-[80px]' />
-              </div>
-              <div>
-                <h6 className='text-xl font-bold'>
-                  Web vitals that make a difference
-                </h6>
-                <p className='text-lg'>
-                  Opt in to include insightful{' '}
-                  <a
-                    href={'https://developers.google.com/web/tools/lighthouse'}
-                    target='_blank'
-                    rel='noreferrer'
-                    className='text-blue-700'
-                  >
-                    Google Lighthouse
-                  </a>{' '}
-                  reports across all of your web pages in the dashboard. View
-                  detailed core web vitals that can help improve your
-                  accessibility, performance, SEO and much more.
-                </p>
+              <div className='flex flex-col md:flex-row gap-x-1 gap-y-2 place-items-center'>
+                <div className='flex place-items-center pr-6'>
+                  <GrPerformance className='grIcon h-[50px] w-[50px]' />
+                </div>
+                <div>
+                  <h6 className='text-xl font-bold'>
+                    Web vitals that make a difference
+                  </h6>
+                  <p className='text-lg'>
+                    Opt in to include insightful{' '}
+                    <a
+                      href={
+                        'https://developers.google.com/web/tools/lighthouse'
+                      }
+                      target='_blank'
+                      rel='noreferrer'
+                      className='text-blue-700'
+                    >
+                      Google Lighthouse
+                    </a>{' '}
+                    reports and other metrics.
+                  </p>
+                </div>
               </div>
             </div>
           </div>
@@ -133,6 +127,7 @@ function WebsiteAccessibilityChecker({ name }: PageProps) {
 export default metaSetter(
   { WebsiteAccessibilityChecker },
   {
+    title: 'Web Acessibility Evaluation Tool',
     description: `Check the accessibility of your web page today. Improve your web inclusion with accessibility testing, reports, monitoring, and much more.`,
     rest: true,
     intercom: true,

@@ -64,7 +64,7 @@ function WebAccessibility({ name }: PageProps) {
         .
       </Typography>
       <Typography variant='h4' component='h3' gutterBottom style={bold}>
-        Web Inclusion Principles
+        WCAG Principles
       </Typography>
       <Typography variant='subtitle1' component='p' gutterBottom>
         Application foundations that help improve your audience inclusion and

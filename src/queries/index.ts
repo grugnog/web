@@ -4,6 +4,7 @@ export {
   GET_PAGES,
   GET_WEBSITE_ANALYTICS,
   GET_WEBSITE_SCRIPTS,
+  GET_WEBSITE_PAGE_ACTIONS,
   updateCache,
 } from './websites'
 export { GET_USER } from './user'

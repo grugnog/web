@@ -1,6 +1,12 @@
 import React, { memo } from 'react'
 import { Chip, Tooltip } from '@material-ui/core'
-import { GrCalendar, GrCircleAlert, GrConfigure, GrMagic } from 'react-icons/gr'
+import {
+  GrCalendar,
+  GrCircleAlert,
+  GrConfigure,
+  GrMagic,
+  GrRobot,
+} from 'react-icons/gr'
 import { format } from 'date-fns'
 import { PageLoad } from './page-load'
 
@@ -19,6 +25,7 @@ export function WebsiteSecondaryComponent({
   pageLoadTime = {
     duration: 0,
   },
+  robots,
 }: any) {
   const { possibleIssuesFixedByCdn, issuesFixedByCdn, totalIssues } =
     issuesInfo ?? {}
@@ -70,6 +77,21 @@ export function WebsiteSecondaryComponent({
                 ? `${issuesFixedByCdn}/${totalIssues}`
                 : `${possibleIssuesFixedByCdn}/${totalIssues}`
             }
+          />
+        </Tooltip>
+      ) : null}
+      {typeof robots !== 'undefined' ? (
+        <Tooltip
+          title={
+            robots ? 'Respects robots.txt file' : 'Ignores robots.txt file'
+          }
+          placement={'right'}
+        >
+          <Chip
+            style={chipRootStyle}
+            size='small'
+            avatar={<GrRobot style={chipStyle} />}
+            label={robots ? 'Enabled' : 'Disabled'}
           />
         </Tooltip>
       ) : null}

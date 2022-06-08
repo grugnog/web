@@ -21,7 +21,8 @@ export default metaSetter(
   { Test },
   {
     title: 'WCAG web accessibility playground example',
-    description: 'Free website accessibility testing with A11yWatch',
+    description:
+      'Free website accessibility testing and live website viewer. View your website in realtime using the playground to visualize and fix issues.',
     gql: true,
   }
 )

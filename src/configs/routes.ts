@@ -26,6 +26,12 @@ export const Routes = [
   },
   {
     nav: false,
+    href: 'https://discord.com/invite/tmCzndrmMm',
+    name: 'Discord',
+    type: 'resources',
+  },
+  {
+    nav: false,
     href: '/privacy',
     name: 'Privacy Policy',
     type: 'legal',
@@ -193,5 +199,6 @@ export const LOGGIN_ROUTES = [
   '/website-analytics',
   '/issues',
   '/web-issues',
+  '/web-actions',
   '/web-pages',
 ]

@@ -14,17 +14,13 @@ function CtaIntroRest({ checker }: CtaIntroRest) {
 
   return (
     <SectionContainer>
-      <div className={`${classes.root}`}>
+      <div className={`${classes.root} px-4`}>
         <div className={`${classes.block}`}>
-          <Typography
-            variant='h1'
-            component={'h1'}
-            className={`${classes.intro} text-6xl md:text-7xl bg-cover bg-center`}
-          >
+          <h1 className={`${classes.intro} font-bold text-6xl md:text-7xl`}>
             {checker
               ? 'Real-Time Website Accessibility Checker'
-              : 'Web Accessibility Testing Tools'}
-          </Typography>
+              : 'Web Accessibility Testing Service'}
+          </h1>
           <Typography
             variant='subtitle1'
             component={'h2'}

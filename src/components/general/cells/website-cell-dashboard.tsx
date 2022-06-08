@@ -64,6 +64,8 @@ export function WebsiteCellDashboardComponent({
   crawlDuration,
   ua,
   actions,
+  actionsEnabled,
+  robots,
 }: any) {
   const [anchorEl, setAnchorEl] = useState<any>(null)
 
@@ -240,6 +242,7 @@ export function WebsiteCellDashboardComponent({
         pageLoadTime={pageLoadTime}
         lastScanDate={lastScanDate}
         pageHeaders={pageHeaders}
+        robots={robots}
       />
       <div className={styles.spacing} />
       <div className='grid grid-cols-1 gap-1 md:grid-cols-3'>
@@ -253,7 +256,7 @@ export function WebsiteCellDashboardComponent({
         <HeadersBox pageHeaders={pageHeaders} />
         <LighthouseBox pageInsights={pageInsights} />
         <UserAgentBox ua={ua} url={url} />
-        <ActionsBox actions={actions?.length} />
+        <ActionsBox actions={actionsEnabled || actions?.length} />
         <OnlineBox online={online} />
         <CustomCDNBox
           cdnUrl={activeSubscription ? cdnUrl : 'N/A'}

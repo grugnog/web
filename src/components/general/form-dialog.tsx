@@ -69,10 +69,10 @@ export function FormDialogWrapper({
   const [pageInsights, setPageInsights] = useState<boolean>(true)
   const [mobileViewport, setMobile] = useState<boolean>(false)
   const [ua, setUserAgent] = useState<string>('')
-
   const [standard, setWCAGStandard] = useState<StandardKeys>(
     Standard[1] as StandardKeys
   )
+  const [robots, setRobots] = useState<boolean>(true)
 
   const inputRef = useRef(null)
   const classes = useStyles()
@@ -185,6 +185,7 @@ export function FormDialogWrapper({
         ua,
         standard,
         actions: websiteActions,
+        robots,
       }
 
       // CLOSE pre-optimistic prevent dialog unmount state error
@@ -225,6 +226,7 @@ export function FormDialogWrapper({
       customHeader,
       customActionFields,
       customActions,
+      robots,
     ]
   )
 
@@ -246,7 +248,9 @@ export function FormDialogWrapper({
     headers.setCustomHeader((v: boolean) => !v)
   }
 
-  console.log(actions)
+  const onChangeRobotsEvent = () => {
+    setRobots((a: boolean) => !a)
+  }
 
   return (
     <Fragment>
@@ -383,6 +387,20 @@ export function FormDialogWrapper({
                   label='Actions'
                 />
               </Tooltip>
+              <Tooltip title={'Respect robots.txt file for crawling pages.'}>
+                <FormControlLabel
+                  classes={formLabelStyles}
+                  control={
+                    <Checkbox
+                      color='primary'
+                      checked={robots}
+                      value={robots}
+                      onChange={onChangeRobotsEvent}
+                    />
+                  }
+                  label='Robots'
+                />
+              </Tooltip>
               <WCAGSelectInput
                 standard={standard}
                 onStandardChange={onStandardChange}
@@ -391,11 +409,12 @@ export function FormDialogWrapper({
                 <TextField
                   onChange={onChangeUA}
                   className={classes.input}
+                  style={{ maxWidth: 100 }}
                   value={ua}
                   color='secondary'
                   margin='dense'
                   id='ua'
-                  placeholder='User Agent'
+                  placeholder='User-Agent'
                   type='text'
                 />
               </FormLabel>

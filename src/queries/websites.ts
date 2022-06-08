@@ -62,6 +62,21 @@ export const GET_WEBSITE_PAGES = gql`
   }
 `
 
+export const GET_WEBSITE_PAGE_ACTIONS = gql`
+  query getWebsitePageActions($url: String) {
+    website(url: $url) {
+      ... on Website {
+        _id
+        actions {
+          _id
+          path
+          events
+        }
+      }
+    }
+  }
+`
+
 export const GET_WEBSITE_ANALYTICS = gql`
   ${analyticsFragments}
   query getWebsiteAnalytics($url: String) {

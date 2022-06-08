@@ -97,11 +97,8 @@ export const websiteFragments = gql`
     }
     crawlDuration
     ua
-    actions {
-      _id
-      path
-      events
-    }
+    actionsEnabled
+    robots
   }
 `
 

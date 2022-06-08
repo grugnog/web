@@ -13,6 +13,7 @@ import {
   GrHistory as HistoryIcon,
   GrApps as DashboardIcon,
   GrCatalog as PageIcon,
+  GrAction as ActionIcon,
 } from 'react-icons/gr'
 
 import { cellStyles } from '@app/styles/cells'
@@ -33,6 +34,8 @@ const renderIcon = (feature?: string, className?: string) => {
       return <PageIcon />
     case 'Dashboard':
       return <DashboardIcon />
+    case 'Actions':
+      return <ActionIcon />
     case 'History':
       return <HistoryIcon />
     default:
@@ -76,6 +79,12 @@ const extraProps = (feature?: string, focused?: boolean, setEvents?: any) => {
     case 'Dashboard':
       return {
         href: '/',
+        component: Link,
+        color: 'inherit',
+      }
+    case 'Actions':
+      return {
+        href: focused ? '/' : '/web-actions',
         component: Link,
         color: 'inherit',
       }

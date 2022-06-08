@@ -36,6 +36,10 @@ const Application = ({ Component, pageProps, name }: InnerApp) => {
     initialQuery = false
     scopedQuery = 'pages'
   }
+  if (nameLowerCased === 'actions') {
+    initialQuery = false
+    scopedQuery = 'actions'
+  }
   if (nameLowerCased === 'analytics') {
     initialQuery = false
     scopedQuery = 'analytics'

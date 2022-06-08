@@ -29,6 +29,9 @@ export function routeTitle(route: string = '') {
     case 'Dashboard':
       title = 'Dashboard'
       break
+    case 'Actions':
+      title = 'Actions'
+      break
     case 'History':
       title = 'History'
       break

@@ -25,6 +25,7 @@ function InputActionsEventsComponent({
           const onStandardChange = (value: string) => {
             updateFormField(value, index, 'events')
             // use events setting here
+
             if (updateFormEvents) {
               updateFormEvents(customFields.map((item) => item.events))
             }

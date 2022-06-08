@@ -111,6 +111,20 @@ export const useWebsiteData = (
     skip: scopedQuery !== 'scripts',
   })
 
+  // Get Scripts Pages
+  const {
+    data: actionResults,
+    loading: actionsDataLoading,
+    fetchMore: fetchMoreActions,
+  } = useQuery(GET_WEBSITES_INFO, {
+    variables: {
+      ...variables,
+      limit: 5,
+      offset: 0,
+    },
+    skip: scopedQuery !== 'actions',
+  })
+
   const [removeWebsite, { loading: removeLoading }] = useMutation(
     REMOVE_WEBSITE,
     updateCache
@@ -143,6 +157,9 @@ export const useWebsiteData = (
   const scriptsData = useMemo(() => {
     return scriptsResults?.user?.websites || []
   }, [scriptsResults])
+  const actionsData = useMemo(() => {
+    return actionResults?.user?.websites || []
+  }, [actionResults])
 
   // website crawl finished
   const onCrawlCompleteSubscription = useCallback(
@@ -368,6 +385,20 @@ export const useWebsiteData = (
     }
   }
 
+  const onLoadMoreActions = async () => {
+    try {
+      await fetchMoreActions({
+        query: GET_WEBSITES_INFO,
+        variables: {
+          offset: Number(pagesData.length || 0),
+        },
+        updateQuery,
+      })
+    } catch (e) {
+      console.error(e)
+    }
+  }
+
   return {
     subscriptionData: {
       issueSubData,
@@ -377,10 +408,12 @@ export const useWebsiteData = (
     pagesData, // [scoped] collection of pages
     analyticsData, // [scoped] collection of analytics
     scriptsData, // [scoped] collection of scripts
+    actionsData, // [scopred] collection of actions
     analyticsDataLoading, // [scoped] analytics loading]
     scriptsDataLoading, // [scoped] scripts loading
     pagesDataLoading, // [scoped] pages loading
     issueDataLoading, // [scoped] issues loading
+    actionsDataLoading, // [scoped] issues loading
     loading,
     error, // general mutation error
     mutatationLoading:
@@ -401,6 +434,7 @@ export const useWebsiteData = (
     onLoadMorePages,
     onLoadMoreAnalytics,
     onLoadMoreScripts,
+    onLoadMoreActions,
     // other state
     activeCrawls,
   }

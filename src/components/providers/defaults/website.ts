@@ -15,9 +15,11 @@ export const sharedWebsiteDefaults = {
   pagesData: [],
   analyticsData: [],
   scriptsData: [],
+  actionsData: [],
   scriptsDataLoading: false,
   pagesDataLoading: false,
   issueDataLoading: false,
+  actionsDataLoading: false,
   analyticsDataLoading: false,
   // visuals
   lighthouseVisible: true,
@@ -53,6 +55,12 @@ export const sharedWebsiteDefaults = {
     return _
   },
   onLoadMorePages: (_: any): Promise<any> => {
+    return _
+  },
+  onLoadMoreAnalytics: (_: any): Promise<any> => {
+    return _
+  },
+  onLoadMoreActions: (_: any): Promise<any> => {
     return _
   },
 }
