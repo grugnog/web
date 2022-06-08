@@ -34,7 +34,7 @@ export const UserAgentBoxWrapper = ({
     }, 3000)
 
     return () => clearTimeout(debounce)
-  }, [ua, agent])
+  }, [ua, agent, url, updateWebsite])
 
   const uaLabel = `${url}-ua-id`
 

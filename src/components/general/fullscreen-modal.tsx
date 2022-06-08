@@ -17,7 +17,7 @@ import { Link } from './link'
 import { WebsitePrimaryCell } from './cells'
 import { Button } from './button'
 
-import { InputHeaders } from './input-headers'
+import { InputHeaders } from './forms/input-headers'
 import { useWebsiteData } from '@app/data'
 import { GrClose } from 'react-icons/gr'
 import { Spacer } from './spacer'

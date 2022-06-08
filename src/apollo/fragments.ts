@@ -99,6 +99,7 @@ export const websiteFragments = gql`
     ua
     actions {
       _id
+      path
       events
     }
   }

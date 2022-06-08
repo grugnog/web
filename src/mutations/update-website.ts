@@ -43,6 +43,7 @@ export const UPDATE_WEBSITE = gql`
         }
         actions {
           _id
+          path
           events
         }
         subDomains {

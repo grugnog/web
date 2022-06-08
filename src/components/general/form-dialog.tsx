@@ -12,11 +12,11 @@ import {
   Tooltip,
   FormLabel,
 } from '@material-ui/core'
-import { Button } from '@app/components/general'
+import { Button, InputActions } from '@app/components/general'
 import { domainList as dmList } from '@app/utils'
 import { GrClose } from 'react-icons/gr'
-import { InputHeaders } from './input-headers'
-import { useInputHeader } from './hooks'
+import { InputHeaders } from './forms/input-headers'
+import { useInputActions, useInputHeader } from './hooks'
 import { formDialogStyles as useStyles } from './styles'
 import { useWebsiteContext } from '../providers/website'
 import { AppManager } from '@app/managers'
@@ -38,6 +38,26 @@ interface FormDialogProps {
 //   events: string // comma seperated values
 // }
 
+interface InputHead {
+  key: string
+  value: string
+}
+
+// validate the headers inputs and send
+function validateHeaders(object: InputHead[]) {
+  const headers = []
+
+  for (const p of object) {
+    const { key, value } = p
+
+    if (key && value) {
+      headers.push(p)
+    }
+  }
+
+  return headers
+}
+
 export function FormDialogWrapper({
   buttonTitle = 'Subscribe',
   okPress,
@@ -57,14 +77,8 @@ export function FormDialogWrapper({
   const inputRef = useRef(null)
   const classes = useStyles()
 
-  const {
-    customHeader,
-    customFields,
-    removeFormField,
-    addFormField,
-    updateFormField,
-    setCustomHeader,
-  } = useInputHeader()
+  const headers = useInputHeader()
+  const actions = useInputActions()
 
   const { addWebsite } = useWebsiteContext()
 
@@ -90,6 +104,13 @@ export function FormDialogWrapper({
     setOpen(false)
     setUrl('')
   }, [setOpen, setUrl])
+
+  // fields
+  const customActions = actions.customActions
+  const customActionFields = actions.customFields
+  // headers
+  const customHeader = headers.customHeader
+  const customFields = headers.customFields
 
   const submit = useCallback(
     async (event: any) => {
@@ -136,7 +157,25 @@ export function FormDialogWrapper({
           : '.com'
 
       const websiteUrl = `${tpt}${urlBase}${cleanUrl}${ex}`.trim()
-      const websiteCustomHeaders = customHeader ? customFields : null
+
+      const websiteCustomHeaders = customHeader
+        ? validateHeaders(customFields)
+        : null
+
+      // make all paths start with slash
+      const websiteActions = customActions
+        ? customActionFields.map((items) => {
+            const pathName =
+              items.path && items.path[0] === '/'
+                ? items.path
+                : `/${items.path}`
+
+            return {
+              ...items,
+              path: pathName,
+            }
+          })
+        : null
 
       const params = {
         url: websiteUrl,
@@ -145,7 +184,7 @@ export function FormDialogWrapper({
         mobile: mobileViewport,
         ua,
         standard,
-        actions: null,
+        actions: websiteActions,
       }
 
       // CLOSE pre-optimistic prevent dialog unmount state error
@@ -177,13 +216,15 @@ export function FormDialogWrapper({
       addWebsite,
       okPress,
       websitUrl,
-      customFields,
-      customHeader,
       https,
       pageInsights,
       mobileViewport,
       standard,
       ua,
+      customFields,
+      customHeader,
+      customActionFields,
+      customActions,
     ]
   )
 
@@ -192,17 +233,20 @@ export function FormDialogWrapper({
     label: classes.formLabelText,
   }
 
-  const inputProps = {
-    customHeader,
-    customFields,
-    removeFormField,
-    addFormField,
-    updateFormField,
-  }
-
   const onChangeUA = (event: React.ChangeEvent<HTMLInputElement>) => {
     setUserAgent(event.target.value)
   }
+
+  // toggle actions form
+  const onChangeActionsEvent = () => {
+    actions.setCustomActions((v: boolean) => !v)
+  }
+  // toggle headers form
+  const onChangeHeadersEvent = () => {
+    headers.setCustomHeader((v: boolean) => !v)
+  }
+
+  console.log(actions)
 
   return (
     <Fragment>
@@ -317,10 +361,26 @@ export function FormDialogWrapper({
                       color='primary'
                       checked={customHeader}
                       value={customHeader}
-                      onChange={() => setCustomHeader(!customHeader)}
+                      onChange={onChangeHeadersEvent}
                     />
                   }
                   label='Headers'
+                />
+              </Tooltip>
+              <Tooltip
+                title={'Add custom actions to run on pages before test.'}
+              >
+                <FormControlLabel
+                  classes={formLabelStyles}
+                  control={
+                    <Checkbox
+                      color='primary'
+                      checked={customActions}
+                      value={customActions}
+                      onChange={onChangeActionsEvent}
+                    />
+                  }
+                  label='Actions'
                 />
               </Tooltip>
               <WCAGSelectInput
@@ -340,7 +400,8 @@ export function FormDialogWrapper({
                 />
               </FormLabel>
             </div>
-            {customHeader ? <InputHeaders {...inputProps} /> : null}
+            {customHeader ? <InputHeaders {...headers} /> : null}
+            {customActions ? <InputActions {...actions} /> : null}
           </DialogContent>
           <DialogActions style={{ padding: 0 }}>
             <Button
