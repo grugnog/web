@@ -39,6 +39,9 @@ export function FeedIssueCardComponent({
 }: CellIssue) {
   const { codeHref, codeDisplay } = codeFormatter(code)
 
+  const [m, rec] = message?.split('Recommendation:') || [message, '']
+  const [r, alts] = rec?.split('set the alt prop to -') || [rec, '']
+
   return (
     <div className='px-3 py-2 flex flex-col space-y-1 place-content-between h-[inherit]'>
       <div>
@@ -63,7 +66,16 @@ export function FeedIssueCardComponent({
         </div>
       </div>
       <div>
-        <p className={'text-base line-clamp-5 py-1'}>{message}</p>
+        <p className={'text-base line-clamp-5 py-1'}>
+          {m}
+          {rec ? (
+            <>
+              {` Recommendation:`}
+              {alts ? ` set the alt prop to ` : ''}
+              <p className='text-blue-600 font-bold inline'>{alts || r}</p>
+            </>
+          ) : null}
+        </p>
         <div className='pb-1'>
           <a
             href={codeHref}

@@ -9,7 +9,7 @@ export const useStyles = makeStyles(
         right: 0,
         top: 0,
         bottom: 0,
-        width: '20vw',
+        width: '24vw',
         minWidth: 260,
         overflowY: 'scroll',
         zIndex: 1002,

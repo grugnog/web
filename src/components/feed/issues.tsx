@@ -98,7 +98,6 @@ const Feed: FC = () => {
               <li key={website._id + index}>
                 <ul>
                   {Object.keys(website)?.map((d: any) => {
-                    // @ts-ignore
                     const issue = data[v][d] as any
 
                     return (

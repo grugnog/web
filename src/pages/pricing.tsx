@@ -3,6 +3,7 @@ import { Button, Typography } from '@material-ui/core'
 import { MarketingDrawer, PriceMemo, PageTitle } from '@app/components/general'
 import { metaSetter } from '@app/utils'
 import type { PageProps } from '@app/types'
+import { PricingCalculator } from '@app/components/general/pricing-calculator'
 
 function Pricing({ name }: PageProps) {
   return (
@@ -14,7 +15,10 @@ function Pricing({ name }: PageProps) {
         Choose a plan that best fits your needs.
       </Typography>
       <PriceMemo navigate blockFree pricingPage />
-      <div className='p-5 bg-gray-200 my-5 space-y-3 rounded'>
+      <div className='py-4'>
+        <PricingCalculator />
+      </div>
+      <div className='p-5 bg-gray-100 my-5 space-y-3 rounded'>
         <h5 className='text-xl font-bold'>For Partners</h5>
         <div className='text-lg'>
           Apply to become partners as an approved agency, technology services,

@@ -155,7 +155,7 @@ export const drawerStyles = makeStyles((theme: Theme) => {
       textOverflow: 'ellipsis',
     },
     sidePanelPadding: {
-      paddingRight: '20vw',
+      paddingRight: '24vw',
       [theme.breakpoints.down('sm')]: {
         paddingRight: 0,
       },

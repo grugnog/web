@@ -13,7 +13,7 @@ import {
   GrCompare,
   GrGithub,
   GrNotification,
-  GrSecure,
+  GrTip,
 } from 'react-icons/gr'
 
 const useStyles = makeStyles((theme) => ({
@@ -24,7 +24,6 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     overflow: 'hidden',
     minWidth: '23vw',
-    border: `1px solid ${theme.palette.divider}`,
     [theme.breakpoints.down('sm')]: {
       flex: 'none',
       marginLeft: 0,
@@ -48,13 +47,13 @@ const RenderIcon = ({ index, ...props }: any): any =>
           FeatureIcon = GrNotification
           break
         case 2:
-          FeatureIcon = GrCode
+          FeatureIcon = GrTip
           break
         case 3:
           FeatureIcon = GrCloud
           break
         case 4:
-          FeatureIcon = GrSecure
+          FeatureIcon = GrCode
           break
         case 5:
           FeatureIcon = GrCompare
@@ -78,7 +77,9 @@ function FeatureItem({ item, index }: { item: any; index: number }) {
   const classes = useStyles()
 
   return (
-    <div className={classes.paper}>
+    <div
+      className={`${classes.paper} sm:border border-b border-dashed border-gray-200`}
+    >
       <div className='flex space-x-2 pb-4 items-center'>
         <div className='flex rounded-3xl border w-10 h-10 justify-center items-center'>
           <RenderIcon index={index} fontSize='16px' />
@@ -95,19 +96,27 @@ function FeatureItem({ item, index }: { item: any; index: number }) {
   )
 }
 
-const CtaFeatures = () => {
+const CtaFeatures = ({ alternative }: { alternative?: boolean }) => {
   return (
-    <SectionContainer className={'bg-gray-100'}>
-      <div>
-        <SectionHeading>{strings.headers[2][0]}</SectionHeading>
-        <Typography variant='h6' component='p' gutterBottom>
-          {strings.headers[2][1]}
-        </Typography>
+    <SectionContainer>
+      <div className={alternative ? 'pb-2' : undefined}>
+        <SectionHeading>
+          {alternative ? 'Some more of the features.' : strings.headers[2][0]}
+        </SectionHeading>
+        {alternative ? null : (
+          <Typography variant='h6' component='p' gutterBottom>
+            {strings.headers[2][1]}
+          </Typography>
+        )}
       </div>
-      <Grid container>
-        {strings.features.map((item: any, index: number) => (
-          <FeatureItem item={item} index={index} key={item.id} />
-        ))}
+      <Grid container style={{ position: 'relative' }}>
+        <>
+          <div className='absolute -mt-2px -ml-2px inset-0 border border-white pointer-events-none' />
+
+          {strings.features.map((item: any, index: number) => (
+            <FeatureItem item={item} index={index} key={item.id} />
+          ))}
+        </>
       </Grid>
     </SectionContainer>
   )

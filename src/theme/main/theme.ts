@@ -38,7 +38,7 @@ export const theme = (function () {
       type: 'light',
       primary: { ...grey, main: '#707070' },
       secondary: {
-        main: '#3f3d56',
+        main: 'rgb(37, 99, 235)',
       },
       background: { default: '#fff' },
       warning: orange,

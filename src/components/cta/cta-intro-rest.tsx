@@ -17,11 +17,16 @@ function CtaIntroRest({ checker }: CtaIntroRest) {
       <div className={`${classes.root} px-4`}>
         <div className={`${classes.block}`}>
           <h1
-            className={`${classes.intro} font-bold text-5xl sm:text-7xl md:text-7xl max-w-[80vw]`}
+            className={`${classes.intro} font-bold text-5xl sm:text-7xl max-w-[90vw] py-3`}
           >
-            {checker
-              ? 'Real-Time Website Accessibility Checker'
-              : 'Web Accessibility Testing Service'}
+            {checker ? (
+              'Fast and insightful web accessibility evaluations'
+            ) : (
+              <>
+                Keep your website accessible{' '}
+                <b className='text-blue-600 underline'>always</b>
+              </>
+            )}
           </h1>
           <Typography
             variant='subtitle1'
@@ -30,8 +35,8 @@ function CtaIntroRest({ checker }: CtaIntroRest) {
             color={'textSecondary'}
           >
             {checker
-              ? 'Test your web page inclusion and vitals'
-              : 'Path to a pleasant diverse experience'}
+              ? 'Test your web page inclusion and vitals with the help of artificial intelligence (AI)'
+              : 'Path to a pleasant diverse experience that guides you along the way'}
           </Typography>
           <Button
             component={Link}

@@ -5,7 +5,6 @@ import {
   CtaIntroRest,
   CtaCustomers,
   CtaSignonForm,
-  CtaProfessionalSupportButton,
 } from '@app/components/cta'
 import {
   MarketingTestimonial,
@@ -21,7 +20,6 @@ function Index() {
   return (
     <Fragment>
       <MarketingDrawer navPosition={'relative'} maxWidth={'xl'} index>
-        <CtaProfessionalSupportButton />
         <CtaIntroRest />
         <MarketingProductIntro />
         <CtaFeatures />

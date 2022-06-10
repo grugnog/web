@@ -15,7 +15,7 @@ export function CtaSignonForm() {
     <VisibilitySensor partialVisibility onChange={onChange}>
       {({ isVisible }) => {
         return (
-          <SectionContainer className={'bg-gray-100'}>
+          <SectionContainer>
             <SignOnForm
               home
               googleLoginSkeleton={!loaded.current && !isVisible}

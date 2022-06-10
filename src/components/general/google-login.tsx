@@ -34,15 +34,16 @@ export const GoogleLoginButton = (props: GoogleLoginButton) => {
             size='small'
             style={{
               textTransform: 'none',
-              paddingLeft: 0,
-              paddingRight: '0.75rem',
+              paddingLeft: '0.725rem',
               fontSize: '0.875rem',
               borderWidth: 2,
               borderColor: '#e5e5e5',
+              display: 'flex',
+              placeContent: 'center',
             }}
             startIcon={<GoogleIcon className={classes.iconColor} src={''} />}
           >
-            {loginView ? 'Login' : 'Sign up with Google'}
+            {loginView ? 'Login with Google' : 'Sign up with Google'}
           </Button>
         )}
       />

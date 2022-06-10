@@ -23,12 +23,7 @@ export { SearchBar } from './searchbar'
 export { Pulse, LinearBottom } from './loaders'
 export { AuthMenu } from './auth-menu'
 export { Spacer } from './spacer'
-export {
-  RenderSecondary,
-  ProfileCell,
-  WebsiteSecondary,
-  WebsiteIssuesCell,
-} from './cells'
+export { RenderSecondary, ProfileCell, WebsiteSecondary } from './cells'
 export { ErrorBoundary } from './error-boundary'
 export { CollaspeListCdn } from './collaspe-list-cdn'
 export { UpgradeBanner } from './upgrade-banner'

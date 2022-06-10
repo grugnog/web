@@ -67,9 +67,9 @@ export const generateStrings = ({
       },
       {
         id: 4,
-        title: 'Secure',
+        title: 'API',
         detail:
-          'View your scripts with precision before you include them. Control what domains get access to your CDN to bring security in as needed.',
+          'Connect your software to handle issues via our API. Choose between REST, GraphQL, and gRPC to enhance your productivity.',
         reason: 'Basic',
       },
       {

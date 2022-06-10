@@ -48,17 +48,20 @@ function WebsiteAccessibilityChecker({ name }: PageProps) {
             <p className='text-lg'>
               Extending WCAG2.1 as the foundation, we also look at other areas
               of the guidelines that have yet to be introduced and other
-              additions that blend into web accessibility including WCAG3.0.
+              additions that blend into web accessibility including WCAG3.0. Get
+              recommended descriptions for missing alt tags that can included
+              directly into your code or injected with the help of{' '}
+              <strong>Machine Learning and AI</strong>.
             </p>
           </div>
         </div>
         <div className='flex flex-col pb-6 pt-10'>
           <div className='px-4 space-y-2'>
-            <h5 className='py-2 text-3xl font-bold'>
-              Open-Source tools designed for the job
+            <h5 className='py-2 pb-3 text-3xl font-bold'>
+              Open-Source tools that scale
             </h5>
             <div className='grid lg:grid-cols-3 gap-y-6 gap-x-6 place-items-start'>
-              <div className='flex flex-col md:flex-row gap-x-1 gap-y-2 place-items-center'>
+              <div className='flex gap-x-1 gap-y-2 place-items-center'>
                 <div className='flex place-items-center pr-6'>
                   <GrCluster className='grIcon h-[50px] w-[50px]' />
                 </div>
@@ -71,7 +74,7 @@ function WebsiteAccessibilityChecker({ name }: PageProps) {
                   </p>
                 </div>
               </div>
-              <div className='flex flex-col md:flex-row gap-x-1 gap-y-2 place-items-center'>
+              <div className='flex gap-x-1 gap-y-2 place-items-center'>
                 <div className='flex place-items-center pr-6'>
                   <GrCloudSoftware className='grIcon h-[50px] w-[50px]' />
                 </div>
@@ -91,7 +94,7 @@ function WebsiteAccessibilityChecker({ name }: PageProps) {
                   </p>
                 </div>
               </div>
-              <div className='flex flex-col md:flex-row gap-x-1 gap-y-2 place-items-center'>
+              <div className='flex gap-x-1 gap-y-2 place-items-center'>
                 <div className='flex place-items-center pr-6'>
                   <GrPerformance className='grIcon h-[50px] w-[50px]' />
                 </div>

@@ -41,7 +41,7 @@ export const navigationStyles = makeStyles((theme: Theme) => {
       },
     },
     content: {
-      paddingTop: '4.5%',
+      paddingTop: '2%',
       overflow: 'hidden',
     },
     classHiddenMobile: {

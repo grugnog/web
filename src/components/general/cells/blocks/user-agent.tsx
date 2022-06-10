@@ -22,7 +22,7 @@ export const UserAgentBoxWrapper = ({
       return
     }
     const debounce = setTimeout(async () => {
-      if (url) {
+      if (url !== ua) {
         try {
           await updateWebsite({
             variables: { url, ua },
@@ -31,7 +31,7 @@ export const UserAgentBoxWrapper = ({
           console.error(e)
         }
       }
-    }, 3000)
+    }, 2300)
 
     return () => clearTimeout(debounce)
   }, [ua, agent, url, updateWebsite])

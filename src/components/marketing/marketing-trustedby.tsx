@@ -34,7 +34,7 @@ const images: ImageProps[] = [
 
 function TrustBy() {
   return (
-    <SectionContainer className={'bg-gray-100'}>
+    <SectionContainer>
       <SectionHeading>Trusted by many businesses from all over</SectionHeading>
       <Typography variant='h6' component='p' gutterBottom>
         Used by small companies to Fortune 500.

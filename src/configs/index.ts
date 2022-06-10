@@ -8,7 +8,6 @@ export {
   APP_TYPE,
   STRIPE_KEY,
   SUPER_MODE,
-  API_URI_DOCKER,
   dev,
   cdn,
   companyName,

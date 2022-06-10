@@ -209,7 +209,7 @@ function PriceWrapper({
                       ) : null}
                     </SubHeading>
                     <div className='py-2 lg max-w-[350px] xl:max-w-[380px]'>
-                      <p className='text-xl'>{subTitle}</p>
+                      <p className='text-xl max-w-[320px]'>{subTitle}</p>
                     </div>
                   </div>
 

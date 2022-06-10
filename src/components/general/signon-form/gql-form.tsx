@@ -15,7 +15,6 @@ import {
   FormControl,
   FormHelperText,
 } from '@material-ui/core'
-
 import { makeStyles } from '@material-ui/core/styles'
 import { useMutation } from '@apollo/react-hooks'
 import { REGISTER, LOGIN } from '@app/mutations'
@@ -25,10 +24,11 @@ import { LinearBottom } from '../loaders'
 import { withApollo } from '@app/apollo'
 import { DOMAIN_NAME } from '@app/configs'
 import { GrGithub } from 'react-icons/gr'
+import { REST_API } from '@app/configs/app-config'
 
 const clientID = process.env.GITHUB_CLIENT_ID
 
-const redirectGithub = 'http://localhost:3280/github/callback'
+const redirectGithub = `${REST_API}/github/callback`
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -184,18 +184,18 @@ const SignOnFormWrapper: FunctionComponent<SignOnProps> = ({
               <a
                 className='inline-flex'
                 href={`https://github.com/login/oauth/authorize?client_id=${clientID}&redirect_uri=${redirectGithub}`}
-                target='_blank'
+                target='_parent'
                 rel='noreferrer'
               >
-                <div className='inline-flex gap-x-1.5 border-2 px-2.5 rounded place-items-center font-semibold w-[200px] text-sm'>
+                <div className='inline-flex gap-x-2 border-2 rounded place-items-center place-content-center font-semibold w-[200px] text-sm'>
                   <span className='block'>
                     <GrGithub
-                      className='grIcon w-5 h-5'
+                      className='grIcon w-[18px] h-[18px]'
                       height={40}
                       width={40}
                     />
                   </span>
-                  Sign up with Github
+                  {loginView ? 'Login' : 'Sign up'} with Github
                 </div>
               </a>
             ) : null}

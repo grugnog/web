@@ -29,6 +29,13 @@ function Faq({ name }: PageProps) {
       <Typography variant='body1'>
         {strings.appName} has multiple ways to get support.
       </Typography>
+      <Typography variant='h4' component='h2' gutterBottom style={bold}>
+        Can I upgrade or downgrade anytime I want?
+      </Typography>
+      <Typography variant='body1'>
+        Yes, upgrade and downgrades take effect immediately.
+      </Typography>
+
       <List aria-label={`support ${strings.appName}`} dense>
         <ListItem>
           <Typography variant='subtitle1' component='p'>

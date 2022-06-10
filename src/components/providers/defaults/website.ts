@@ -1,7 +1,7 @@
 import { ApolloError } from 'apollo-client'
 
 export const sharedWebsiteDefaults = {
-  issueFeed: { data: {}, open: false },
+  issueFeed: { data: {} as Record<string, any>, open: false },
   loading: false,
   mutatationLoading: false as boolean,
   data: [],

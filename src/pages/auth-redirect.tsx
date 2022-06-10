@@ -33,7 +33,7 @@ function AuthRedirect() {
         console.error(e)
       }
     },
-    [router]
+    [router, signOnMutation]
   )
 
   useEffect(() => {

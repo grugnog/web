@@ -6,7 +6,7 @@ const api = process.env.API || `http://${DEFAULT_API_URL}/graphql`
 
 const AppConfig = {
   graphQLUrl: api,
-  graphQLUrlDocker: process.env.API_URI_DOCKER || api,
+  graphQLUrlDocker: api,
   webSocketUrl: process.env.WEB_SOCKET_URL || `ws://${DEFAULT_API_URL}/graphql`,
 }
 
@@ -29,9 +29,7 @@ const SCRIPTS_CDN_URL_HOST = /localhost/.test(cdn)
   : `${cdn}/scripts`
 
 const SUPER_MODE = process.env.SUPER_MODE
-const API_URI_DOCKER = process.env.API_URI_DOCKER
 const DOMAIN_NAME = process.env.DOMAIN_NAME
-
 const companyName = process.env.COMPANY_NAME || 'A11yWatch'
 const twitterSite = process.env.TWITTER_SITE || '@a11ywatcher'
 
@@ -52,7 +50,6 @@ export {
   STATUS_URL,
   DOMAIN_NAME,
   dev,
-  API_URI_DOCKER,
   AppConfig,
   SCRIPTS_CDN_URL_HOST,
   INTERCOM_APPID,
