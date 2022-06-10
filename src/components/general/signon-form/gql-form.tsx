@@ -24,6 +24,11 @@ import { Link } from '../link'
 import { LinearBottom } from '../loaders'
 import { withApollo } from '@app/apollo'
 import { DOMAIN_NAME } from '@app/configs'
+import { GrGithub } from 'react-icons/gr'
+
+const clientID = process.env.GITHUB_CLIENT_ID
+
+const redirectGithub = 'http://localhost:3280/github/callback'
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -170,12 +175,37 @@ const SignOnFormWrapper: FunctionComponent<SignOnProps> = ({
           {(loginView && 'Login') || (home && 'Sign up for free') || 'Register'}
         </Typography>
         <div className={classes.paper}>
-          <GoogleLoginButton
-            loginView={loginView}
-            onSuccess={onGoogleAuth}
-            classes={classes}
-            skeleton={googleLoginSkeleton}
-          />
+          <div
+            className={
+              clientID ? 'space-y-2 flex flex-col place-items-center' : ''
+            }
+          >
+            {clientID ? (
+              <a
+                className='inline-flex'
+                href={`https://github.com/login/oauth/authorize?client_id=${clientID}&redirect_uri=${redirectGithub}`}
+                target='_blank'
+                rel='noreferrer'
+              >
+                <div className='inline-flex gap-x-1.5 border-2 px-2.5 rounded place-items-center font-semibold w-[200px] text-sm'>
+                  <span className='block'>
+                    <GrGithub
+                      className='grIcon w-5 h-5'
+                      height={40}
+                      width={40}
+                    />
+                  </span>
+                  Sign up with Github
+                </div>
+              </a>
+            ) : null}
+            <GoogleLoginButton
+              loginView={loginView}
+              onSuccess={onGoogleAuth}
+              classes={classes}
+              skeleton={googleLoginSkeleton}
+            />
+          </div>
           <Typography variant='overline' component='p' className={classes.or}>
             Or
           </Typography>

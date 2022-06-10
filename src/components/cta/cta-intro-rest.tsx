@@ -16,7 +16,9 @@ function CtaIntroRest({ checker }: CtaIntroRest) {
     <SectionContainer>
       <div className={`${classes.root} px-4`}>
         <div className={`${classes.block}`}>
-          <h1 className={`${classes.intro} font-bold text-6xl md:text-7xl`}>
+          <h1
+            className={`${classes.intro} font-bold text-5xl sm:text-7xl md:text-7xl max-w-[80vw]`}
+          >
             {checker
               ? 'Real-Time Website Accessibility Checker'
               : 'Web Accessibility Testing Service'}
