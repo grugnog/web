@@ -81,8 +81,6 @@ function Api({ name }: PageProps) {
             For more information go to the{' '}
             <a
               href={'https://docs.a11ywatch.com/documentation/api'}
-              target='_blank'
-              rel='noreferrer'
               className='underline text-blue-600'
             >
               documentation
@@ -90,8 +88,6 @@ function Api({ name }: PageProps) {
             . You can also use the API in{' '}
             <a
               href={'https://api.a11ywatch.com/playground'}
-              target='_blank'
-              rel='noreferrer'
               className='underline text-blue-600'
             >
               graphQL
