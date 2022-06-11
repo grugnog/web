@@ -14,7 +14,7 @@ function CtaIntroRest({ checker }: CtaIntroRest) {
 
   return (
     <SectionContainer>
-      <div className={`${classes.root} px-4`}>
+      <div className={`${classes.root} space-x-3`}>
         <div className={`${classes.block}`}>
           <h1
             className={`${classes.intro} font-bold text-5xl sm:text-7xl max-w-[90vw] py-3`}

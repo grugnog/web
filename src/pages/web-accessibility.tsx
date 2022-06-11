@@ -5,19 +5,23 @@ import { metaSetter } from '@app/utils'
 import type { PageProps } from '@app/types'
 
 const checklistLinks = [
-  { href: 'https://a11yproject.com/checklist' },
+  { href: 'https://a11yproject.com/checklist', name: 'A11y Checklist' },
   {
+    name: 'ADA Checklist',
     href:
       'https://medium.com/@krisrivenburgh/the-ada-checklist-website-compliance-guidelines-for-2019-in-plain-english-123c1d58fad9',
   },
   {
+    name: 'Accessibility Checklist',
+    href: 'https://webflow.com/accessibility/checklist',
+  },
+  {
+    name: 'Accessibility by Mozilla',
     href: 'https://developer.mozilla.org/en-US/docs/Web/Accessibility',
   },
   {
+    name: 'Section508 Testing',
     href: 'https://www.section508.gov/test/testing-overview/',
-  },
-  {
-    href: 'https://webflow.com/accessibility/checklist',
   },
 ]
 
@@ -103,7 +107,7 @@ function WebAccessibility({ name }: PageProps) {
         A couple of quick checklists to improve your contents accessibility.
       </Typography>
       <ul className='space-y-2 pb-2 list-disc px-2'>
-        {checklistLinks.map(({ href }: any) => {
+        {checklistLinks.map(({ href, name }: any) => {
           return (
             <li key={href}>
               <a
@@ -113,7 +117,7 @@ function WebAccessibility({ name }: PageProps) {
                 style={linkStyle}
                 rel='noreferrer'
               >
-                {href}
+                {name || href}
               </a>
             </li>
           )
