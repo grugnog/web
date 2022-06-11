@@ -25,11 +25,8 @@ function MarketingImage({ src, alt, ext = 'svg' }: ImageProps) {
 }
 const images: ImageProps[] = [
   { src: 'marketing_hulu', alt: 'Hulu logo' },
-  { src: 'marketing_supermajority', alt: 'SuperMajority logo' },
-  { src: 'marketing_arrow', alt: 'Arrow Electronics logo' },
   { src: 'marketing_blockchain', alt: 'BlockChain.com logo' },
-  { src: 'marketing_microsoft', alt: 'Microsoft logo' },
-  { src: 'marketing_escape', alt: 'Escapada Rural logo' },
+  { src: 'marketing_arrow', alt: 'Arrow Electronics logo' },
 ]
 
 function TrustBy() {
@@ -39,7 +36,7 @@ function TrustBy() {
       <Typography variant='h6' component='p' gutterBottom>
         Used by small companies to Fortune 500.
       </Typography>
-      <div className='px-4 sm:px-6 lg:px-8 border'>
+      <div className='border'>
         <div className='grid grid-cols-2 gap-0.5 md:grid-cols-3'>
           {images.map(({ src, alt, ext }: ImageProps, i: number) => (
             <MarketingImage src={src} ext={ext} alt={alt} key={`${i}_${ext}`} />
