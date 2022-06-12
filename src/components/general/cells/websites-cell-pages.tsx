@@ -26,7 +26,7 @@ export function WebsiteCellPagesComponent({
   url,
   removePress,
   handleClickOpen,
-  subDomains,
+  pages,
   handleClickOpenPlayer,
   issues,
   issuesInfo,
@@ -163,7 +163,7 @@ export function WebsiteCellPagesComponent({
             handleMainClick={handleMainClick}
             anchorEl={anchorEl}
             removePress={onRemovePress}
-            subDomains={subDomains}
+            pages={pages}
             pageHeaders={pageHeaders}
             index={index}
             pageInsights={pageInsights}

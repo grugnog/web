@@ -46,7 +46,7 @@ export const UPDATE_WEBSITE = gql`
           path
           events
         }
-        subDomains {
+        pages {
           domain
           url
           pageInsights

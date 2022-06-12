@@ -62,7 +62,7 @@ export type History = {
   url?: Maybe<Scalars['String']>
   user?: Maybe<User>
   issues?: Maybe<Array<Maybe<Issue>>>
-  subDomains?: Maybe<Array<Maybe<SubDomain>>>
+  pages?: Maybe<Array<Maybe<Pages>>>
   userId?: Maybe<Scalars['Int']>
   domain?: Maybe<Scalars['String']>
   cdnConnected?: Maybe<Scalars['Boolean']>
@@ -292,7 +292,7 @@ export type Query = {
   features?: Maybe<Array<Maybe<Feature>>>
   websites?: Maybe<Array<Maybe<Website>>>
   website?: Maybe<Website>
-  subDomains?: Maybe<Array<Maybe<SubDomain>>>
+  pages?: Maybe<Array<Maybe<Pages>>>
   issues?: Maybe<Array<Maybe<Issue>>>
   history?: Maybe<Array<Maybe<History>>>
   analytics?: Maybe<Array<Maybe<Analytic>>>
@@ -369,8 +369,8 @@ export type ScriptMetaInput = {
   translateEnabled?: Maybe<Scalars['Boolean']>
 }
 
-export type SubDomain = {
-  __typename?: 'SubDomain'
+export type Pages = {
+  __typename?: 'Pages'
   id?: Maybe<Scalars['ID']>
   url?: Maybe<Scalars['String']>
   user?: Maybe<User>
@@ -492,7 +492,7 @@ export type Website = {
   issues?: Maybe<Issue>
   issue?: Maybe<Array<Maybe<PageIssue>>>
   issuesInfo?: Maybe<IssueMeta>
-  subDomains?: Maybe<Array<Maybe<SubDomain>>>
+  pages?: Maybe<Array<Maybe<Pages>>>
   script?: Maybe<Script>
   lastScanDate?: Maybe<Scalars['String']>
   documentTitle?: Maybe<Scalars['String']>

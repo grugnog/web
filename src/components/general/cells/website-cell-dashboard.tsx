@@ -42,7 +42,7 @@ export function WebsiteCellDashboardComponent({
   url,
   removePress,
   handleClickOpen,
-  subDomains,
+  pages,
   handleClickOpenPlayer,
   issues,
   issuesInfo,
@@ -220,7 +220,7 @@ export function WebsiteCellDashboardComponent({
             handleMainClick={handleMainClick}
             anchorEl={anchorEl}
             removePress={onRemovePress}
-            subDomains={subDomains}
+            pages={pages}
             pageHeaders={pageHeaders}
             index={index}
             pageInsights={pageInsights}

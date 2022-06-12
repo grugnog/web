@@ -7,7 +7,7 @@ export const usePagesData = (url?: string | string[]) => {
   })
 
   const model = Object.freeze({
-    data: data?.website?.subDomains,
+    data: data?.website?.pages,
     loading: loading,
     refetch,
     error,

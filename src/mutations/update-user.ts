@@ -23,7 +23,7 @@ export const UPDATE_USER = gql`
           url
           id
           domain
-          subDomains {
+          pages {
             domain
             url
             issues {

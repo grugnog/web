@@ -54,8 +54,8 @@ export const GET_WEBSITE_PAGES = gql`
     website(url: $url) {
       ... on Website {
         _id
-        subDomains {
-          ...SubdomainParts
+        pages {
+          ...PagesParts
         }
       }
     }
@@ -127,7 +127,7 @@ export const GET_WEBSITES_INFO = gql`
   }
 `
 
-// TODO: refactor subDomains to pages query
+// TODO: refactor pages to pages query
 export const GET_PAGES = gql`
   ${subdomainFragments}
   query getWebsites($limit: Int, $offset: Int) {
@@ -145,8 +145,8 @@ export const GET_PAGES = gql`
             totalIssues
           }
         }
-        subDomains {
-          ...SubdomainParts
+        pages {
+          ...PagesParts
         }
       }
     }
@@ -214,7 +214,7 @@ export const updateCache: {
           .map((item: any) => {
             return {
               ...item,
-              subDomains: item.subDomains ?? [],
+              pages: item.pages ?? [],
               issues: item.issues ?? [],
             }
           })

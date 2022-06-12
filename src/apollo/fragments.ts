@@ -34,7 +34,7 @@ export const scriptsFragments = gql`
 `
 
 export const subdomainFragments = gql`
-  fragment SubdomainParts on SubDomain {
+  fragment PagesParts on Pages {
     _id
     domain
     url
