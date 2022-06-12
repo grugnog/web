@@ -40,7 +40,6 @@ export function FeedIssueCardComponent({
   const { codeHref, codeDisplay } = codeFormatter(code)
 
   const [m, rec] = message?.split('Recommendation:') || [message, '']
-  const [r, alts] = rec?.split('set the alt prop to -') || [rec, '']
 
   return (
     <div className='px-3 py-2 flex flex-col space-y-1 place-content-between h-[inherit]'>
@@ -71,8 +70,7 @@ export function FeedIssueCardComponent({
           {rec ? (
             <>
               {` Recommendation:`}
-              {alts ? ` set the alt prop to ` : ''}
-              <p className='text-blue-600 font-bold inline'>{alts || r}</p>
+              <p className='text-blue-600 font-bold inline'>{rec}</p>
             </>
           ) : null}
         </p>

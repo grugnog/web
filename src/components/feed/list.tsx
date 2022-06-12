@@ -1,4 +1,4 @@
-import React, { memo, useState, FC } from 'react'
+import React, { memo, useState, FC, useMemo } from 'react'
 import { IssueFeedCell } from '../general/cells'
 import { issueExtractor } from '@app/utils'
 import { FeedHeading } from './heading'
@@ -13,6 +13,7 @@ const FeedListComponent: FC<FeedComponentProps> = ({
   onScanEvent,
   issue,
   isHidden,
+  fullScreen,
 }) => {
   const [sectionHidden, onToggleSection] = useState<boolean>(!!isHidden)
   const pageIssues = issueExtractor(issue) // array of issues extract duplex types
@@ -29,6 +30,34 @@ const FeedListComponent: FC<FeedComponentProps> = ({
     )
   }
 
+  const itemSize = Math.min(listHeight / 1.38, 260)
+  const issueCount = pageIssues?.length
+
+  const listMainHeight = useMemo(() => {
+    return fullScreen
+      ? window.innerHeight
+      : issueCount === 1
+      ? itemSize
+      : listHeight
+  }, [fullScreen, itemSize, issueCount, listHeight])
+
+  if (fullScreen) {
+    return (
+      <ul
+        className={`overflow-hidden bg-[rgba(172,182,192,0.06)] w-full h-full`}
+      >
+        <List
+          height={listMainHeight}
+          itemCount={issueCount}
+          itemSize={itemSize}
+          width={'100%'}
+        >
+          {Row}
+        </List>
+      </ul>
+    )
+  }
+
   return (
     <li>
       <FeedHeading
@@ -37,6 +66,7 @@ const FeedListComponent: FC<FeedComponentProps> = ({
         sectionHidden={sectionHidden}
         issue={issue}
       />
+
       <ul
         className={`overflow-x-hidden${
           sectionHidden
@@ -45,9 +75,9 @@ const FeedListComponent: FC<FeedComponentProps> = ({
         }`}
       >
         <List
-          height={listHeight}
-          itemCount={pageIssues.length}
-          itemSize={Math.min(listHeight / 1.38, 260)}
+          height={listMainHeight}
+          itemCount={issueCount}
+          itemSize={itemSize}
           width={'100%'}
         >
           {Row}

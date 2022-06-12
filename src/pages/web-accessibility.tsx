@@ -208,7 +208,7 @@ function WebAccessibility({ name }: PageProps) {
             target='_blank'
             style={linkStyle}
           >
-            Inclusive Components Desion
+            Inclusive Components Design
           </a>
         </li>
       </ul>

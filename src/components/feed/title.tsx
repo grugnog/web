@@ -8,8 +8,8 @@ function IssueTitleComponent({
   domain: string
   pageUrl: string
 }) {
-  const tpt = pageUrl.startsWith('https://') ? 'https://' : 'http://'
-  const displayPath = pageUrl.replace(`${tpt}${domain}`, '') // trim the url with just the path name. [Faster than using new URL]
+  const tpt = pageUrl && pageUrl.startsWith('https://') ? 'https://' : 'http://'
+  const displayPath = pageUrl && pageUrl.replace(`${tpt}${domain}`, '') // trim the url with just the path name. [Faster than using new URL]
 
   return (
     <div className='flex-1 px-3 py-2 truncate'>

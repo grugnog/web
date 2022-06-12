@@ -212,7 +212,7 @@ export default metaSetter(
   { Api },
   {
     title: 'Web Accessibility API  - A11yWatch',
-    description: `The web accessibility API for testing in real time. Rates are limited based on your membership plan.`,
+    description: `The web accessibility API for testing in real time. Determine high precision image alts and other inclusive recommendations easily with REST, graphQL, or gRPC.`,
     gql: true,
   }
 )

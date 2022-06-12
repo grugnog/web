@@ -87,15 +87,14 @@ const Feed: FC = () => {
         </div>
         <ul>
           {issues?.map((v, index) => {
-            // @ts-ignore
             const website = data[v] as any
 
             if (!website) {
-              return
+              return null
             }
 
             return (
-              <li key={website._id + index}>
+              <li key={website._id}>
                 <ul>
                   {Object.keys(website)?.map((d: any) => {
                     const issue = data[v][d] as any

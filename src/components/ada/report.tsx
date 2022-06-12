@@ -1,19 +1,12 @@
 import React, { memo, useMemo } from 'react'
 import { makeStyles } from '@material-ui/core/styles'
-import { IssueList, WebsiteTabs, TestView } from '@app/components/general'
+import { WebsiteTabs, TestView } from '@app/components/general'
 import { ListSkeleton } from '@app/components/placeholders'
 import { ReportViewLeft } from './report-left'
 import { Website } from '@app/types'
+import { FeedList } from '../feed/list'
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    height: '100vh',
-    overflow: 'hidden',
-    display: 'flex',
-    [theme.breakpoints.down('sm')]: {
-      display: 'block',
-    },
-  },
+const useStyles = makeStyles(() => ({
   loading: {
     display: 'flex',
     justifyContent: 'center',
@@ -40,21 +33,6 @@ const useStyles = makeStyles((theme) => ({
       flex: 1,
     },
   },
-  title: {
-    flex: 1,
-    fontWeight: 600,
-    maxWidth: '95vw',
-    textOverflow: 'ellipsis',
-    whiteSpace: 'nowrap',
-    overflow: 'hidden',
-    paddingRight: 6,
-    paddingLeft: 6,
-  },
-  block: {
-    flex: 1,
-    display: 'block',
-    height: '100%',
-  },
 }))
 
 export function ReportEmptyView() {
@@ -72,9 +50,6 @@ export function ReportEmptyView() {
     </div>
   )
 }
-export function ReportBody({ website }: { website: Website }) {
-  return <IssueList website={website} printable className={'w-full'} />
-}
 
 export function ReportInner({
   website,
@@ -86,12 +61,12 @@ export function ReportInner({
   disableTabs?: boolean
 }) {
   if (disableTabs) {
-    return <ReportBody website={website} />
+    return <FeedList issue={website as any} isHidden={false} fullScreen />
   }
 
   return (
     <WebsiteTabs
-      issues={<IssueList website={website} printable />}
+      issues={<FeedList issue={website as any} isHidden={false} fullScreen />}
       playground={
         disablePlayground ? null : (
           <TestView url={website.url || ''} marketing posRelative />
@@ -109,11 +84,10 @@ export function ReportViewComponent({
   download,
   authenticated,
 }: any) {
-  const classes = useStyles()
   const empty = useMemo(() => Object.keys(website ?? {}).length <= 1, [website])
 
   return (
-    <div className={`${classes.root} border-t`}>
+    <div className={`block sm:flex h-[100vh] overflow-hidden border-t`}>
       <div className='border-r'>
         <ReportViewLeft
           website={website}

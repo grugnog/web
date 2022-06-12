@@ -16,7 +16,7 @@ export const FeedHeadingComponent = ({
 }) => {
   const onScan = async () => {
     try {
-      await onScanEvent(issue.pageUrl)
+      onScanEvent && (await onScanEvent(issue.pageUrl))
     } catch (e) {
       console.error(e)
     }
@@ -37,9 +37,11 @@ export const FeedHeadingComponent = ({
       >
         {sectionHidden ? <GrView /> : <GrHide />}
       </IconButton>
-      <IconButton onClick={onScan} title={`Scan ${issue.pageUrl} and sync`}>
-        <GrSync />
-      </IconButton>
+      {onScanEvent ? (
+        <IconButton onClick={onScan} title={`Scan ${issue.pageUrl} and sync`}>
+          <GrSync />
+        </IconButton>
+      ) : null}
     </div>
   )
 }
