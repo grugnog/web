@@ -10,7 +10,7 @@ import { FixedCopyRight } from './fixed-copy-right'
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    paddingTop: '6%',
+    paddingTop: '2%',
     overflow: 'hidden',
   },
   flex: {
@@ -145,55 +145,59 @@ const Footer = ({
   }
 
   return (
-    <footer
-      className={`${classes.root}${sticky ? ` ${classes.sticky}` : ''}${
-        footerSpacing ? ` ${classes.spacing}` : ''
-      }`}
-    >
-      <Container maxWidth='lg'>
-        <div className={classes.link}>
-          <div className={`py-2 ${classes.blockContainer}`}>
-            <Typography
-              className={classes.logo}
-              variant={'h4'}
-              color={'textSecondary'}
-            >
-              {strings.appName}
-            </Typography>
-            <Typography
-              variant={'subtitle2'}
-              color={'textSecondary'}
-              component={'p'}
-            >
-              Elevating accessibility for every website.
-            </Typography>
+    <>
+      <div className={`${footerSpacing ? ` ${classes.spacing}` : ''}`}>
+        <footer
+          className={`${classes.root}${
+            sticky ? ` ${classes.sticky}` : ''
+          } border-t`}
+        >
+          <Container maxWidth='lg'>
+            <div className={classes.link}>
+              <div className={`py-2 ${classes.blockContainer}`}>
+                <Typography
+                  className={classes.logo}
+                  variant={'h4'}
+                  color={'textSecondary'}
+                >
+                  {strings.appName}
+                </Typography>
+                <Typography
+                  variant={'subtitle2'}
+                  color={'textSecondary'}
+                  component={'p'}
+                >
+                  Elevating accessibility for every website.
+                </Typography>
+              </div>
+              <SectionLinks title={'Explore'} />
+              <SectionLinks title={'Resources'} />
+              <SectionLinks title={'Company'} />
+              <SectionLinks title={'Legal'} />
+            </div>
+            {APP_TYPE !== 'main' ? (
+              <div className={classes.linkContainer}>
+                <Typography variant={'body2'}>
+                  {strings.appName} Group ® Brands:
+                </Typography>
+                <Typography
+                  component={'a'}
+                  href={`https://www.${strings.appName.toLowerCase()}.com`}
+                  variant={'body2'}
+                  color={'secondary'}
+                  style={{ marginLeft: 6 }}
+                >
+                  {strings.appName}
+                </Typography>
+              </div>
+            ) : null}
+          </Container>
+          <div className='px-2 flex place-content-center'>
+            <FixedCopyRight />
           </div>
-          <SectionLinks title={'Explore'} />
-          <SectionLinks title={'Resources'} />
-          <SectionLinks title={'Company'} />
-          <SectionLinks title={'Legal'} />
-        </div>
-        {APP_TYPE !== 'main' ? (
-          <div className={classes.linkContainer}>
-            <Typography variant={'body2'}>
-              {strings.appName} Group ® Brands:
-            </Typography>
-            <Typography
-              component={'a'}
-              href={`https://www.${strings.appName.toLowerCase()}.com`}
-              variant={'body2'}
-              color={'secondary'}
-              style={{ marginLeft: 6 }}
-            >
-              {strings.appName}
-            </Typography>
-          </div>
-        ) : null}
-      </Container>
-      <div className='px-2 flex place-content-center'>
-        <FixedCopyRight />
+        </footer>
       </div>
-    </footer>
+    </>
   )
 }
 

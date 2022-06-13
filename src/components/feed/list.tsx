@@ -5,9 +5,6 @@ import { FeedHeading } from './heading'
 import type { FeedComponentProps } from './interface'
 import { FixedSizeList as List } from 'react-window'
 
-const listHeight =
-  typeof window !== 'undefined' ? window.innerHeight / 2.3 : 500
-
 // List of issues rendered.
 const FeedListComponent: FC<FeedComponentProps> = ({
   onScanEvent,
@@ -29,6 +26,9 @@ const FeedListComponent: FC<FeedComponentProps> = ({
       />
     )
   }
+
+  const listHeight =
+    typeof window !== 'undefined' ? window.innerHeight / 2.3 : 500
 
   const itemSize = Math.min(listHeight / 1.38, 260)
   const issueCount = pageIssues?.length

@@ -5,17 +5,28 @@ export const Routes = [
     name: 'Terms of Service',
     type: 'legal',
   },
-
+  {
+    nav: false,
+    href: '/inactivity-policy',
+    name: 'Inactivity Policy',
+    type: 'legal',
+  },
   {
     nav: false,
     href: '/brand-assets',
     name: 'Brand Assets / Logos',
-    type: 'resources',
+    type: 'company',
   },
   {
     nav: false,
     href: 'https://a11ywatch.blog',
     name: 'Blog',
+    type: 'company',
+  },
+  {
+    nav: false,
+    href: 'https://github.com/A11yWatch/a11ywatch/tree/main/cli',
+    name: 'Command-Line',
     type: 'resources',
   },
   {
@@ -58,7 +69,13 @@ export const Routes = [
     nav: false,
     href: '/roadmap',
     name: 'Roadmap',
-    type: 'explore',
+    type: 'company',
+  },
+  {
+    nav: false,
+    href: '/open-source',
+    name: 'Open Source Software',
+    type: 'resources',
   },
   {
     nav: false,
@@ -74,28 +91,22 @@ export const Routes = [
     type: 'explore',
   },
   {
-    nav: false,
-    href: '/consulting',
-    name: 'Consulting',
-    type: 'resources',
+    nav: true,
+    href: '/testout',
+    name: 'Try Out',
+    type: 'explore',
   },
   {
     nav: false,
-    href: 'https://docs.a11ywatch.com',
-    name: 'Docs',
-    type: 'resources',
+    href: '/consulting',
+    name: 'Consulting',
+    type: 'company',
   },
   {
     nav: false,
     href: '/website-accessibility-checker',
     name: 'Accessibility Scan',
     type: 'explore',
-  },
-  {
-    nav: false,
-    href: '/reset-password',
-    name: 'Reset Password',
-    type: 'resources',
   },
   {
     nav: false,
@@ -114,12 +125,6 @@ export const Routes = [
     href: '/pricing',
     name: 'Pricing',
     type: 'company',
-  },
-  {
-    nav: true,
-    href: '/testout',
-    name: 'Try Out',
-    type: 'explore',
   },
   {
     nav: false,
@@ -148,6 +153,12 @@ export const Routes = [
     href: '/careers',
     name: 'Careers',
     type: 'company',
+  },
+  {
+    nav: false,
+    href: 'https://docs.a11ywatch.com',
+    name: 'Documentation',
+    type: 'resources',
   },
 ]
 
