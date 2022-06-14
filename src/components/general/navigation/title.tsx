@@ -41,7 +41,7 @@ function NavBarTitle({
         className={'hover:no-underline'}
         title={`${companyName} Home`}
       >
-        <div className={classes.brand}>
+        <div className={`${classes.brand} space-x-1.5`}>
           <Logo />
           <div className={`text-2xl ${classes.title} ${classes.logoText}`}>
             {companyName}

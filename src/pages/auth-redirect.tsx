@@ -5,7 +5,7 @@ import { MarketingShortTitle } from '@app/components/marketing'
 import Head from 'next/head'
 import { useMutation } from '@apollo/react-hooks'
 import { REGISTER } from '@app/mutations'
-import { AppManager } from '@app/managers'
+import { AppManager, UserManager } from '@app/managers'
 
 function AuthRedirect() {
   const router = useRouter()
@@ -16,8 +16,7 @@ function AuthRedirect() {
     async ({ email, id }) => {
       try {
         if (email && id) {
-          // TODO: re-assign googleId with otherId or specfic id
-          await signOnMutation({
+          const data = await signOnMutation({
             variables: {
               email: email,
               githubId: id,
@@ -25,7 +24,13 @@ function AuthRedirect() {
             },
           })
 
-          await router.push('/')
+          console.log(data)
+          const authValue = data?.data?.register ?? data?.data?.login
+
+          if (authValue) {
+            UserManager.setUser(authValue)
+            await router.push('/')
+          }
         } else {
           AppManager.toggleSnack(true, 'Issue with redirect', 'error')
         }
@@ -44,14 +49,8 @@ function AuthRedirect() {
           Authorization: 'token ' + access_token,
         },
       })
-        // Parse the response as JSON
         .then((res) => res.json())
         .then(async (res) => {
-          if (res) {
-            const nameNode = document.createTextNode(`Welcome, ${res.name}`)
-            document.body.appendChild(nameNode)
-          }
-
           try {
             await onGithubAuth({ email: res.email, id: res.id })
           } catch (e) {
@@ -67,7 +66,7 @@ function AuthRedirect() {
         <meta name='robots' content='noindex' />
       </Head>
       <MarketingShortTitle />
-      <div>Redirecting to dashboard...</div>
+      <div className='p-4'>Redirecting to dashboard...</div>
     </>
   )
 }

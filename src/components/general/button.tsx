@@ -21,7 +21,7 @@ export const Button: React.FC<{
       type={type}
       disabled={disabled}
       className={[
-        'px-2 py-2 md:px-4 md:py-3 border rounded hover:bg-gray-200',
+        'px-2 py-2 md:px-4 md:py-3 border rounded hover:bg-gray-200 hover:shadow-md',
         className,
       ]
         .join(' ')
