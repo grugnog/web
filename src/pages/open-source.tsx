@@ -98,7 +98,7 @@ const getItems = async (): Promise<typeof OSSRoutes> => {
       items.push({
         name: props?.name,
         description: props?.description,
-        href: props?.url,
+        href: props?.html_url,
         stars: props?.stargazers_count,
         fullName: props?.full_name,
       })
@@ -115,6 +115,6 @@ export const getStaticProps: GetStaticProps = async () => {
     props: {
       items: items?.length ? items : OSSRoutes,
     },
-    revalidate: 3600 * 4, // every 4 hours
+    revalidate: 3600 * 6, // every 6 hours
   }
 }
