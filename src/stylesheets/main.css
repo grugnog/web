@@ -9,10 +9,16 @@ html {
   display: none !important;
 }
 
-a {
-  min-height: 42px;
+#__next a {
+  padding: 0.2em;
 }
 
 .grIcon > * {
   stroke: inherit;
+}
+
+@media (any-pointer: coarse) {
+  #__next a {
+    padding: 0.8em;
+  }
 }

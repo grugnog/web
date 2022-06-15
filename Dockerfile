@@ -14,11 +14,13 @@ ENV NODE_ENV production
 COPY . .
 COPY --from=deps /app/node_modules ./node_modules
 RUN yarn build
+# remove all dev modules
+RUN rm -R ./node_modules
+
 RUN yarn install --production
 
 FROM node:alpine AS runner
 WORKDIR /app
-
 
 RUN addgroup -g 1001 -S nodejs
 RUN adduser -S nextjs -u 1001

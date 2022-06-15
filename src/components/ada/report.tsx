@@ -1,10 +1,11 @@
-import React, { memo, useMemo } from 'react'
+import React, { memo, useMemo, useState } from 'react'
 import { makeStyles } from '@material-ui/core/styles'
 import { WebsiteTabs, TestView } from '@app/components/general'
 import { ListSkeleton } from '@app/components/placeholders'
 import { ReportViewLeft } from './report-left'
 import { Website } from '@app/types'
 import { FeedList } from '../feed/list'
+import { TestViewRest } from '../general/test-view-rest'
 
 const useStyles = makeStyles(() => ({
   loading: {
@@ -55,12 +56,24 @@ export function ReportInner({
   website,
   disablePlayground,
   disableTabs,
+  viewMode,
 }: {
   disablePlayground?: boolean
   website: Website
   disableTabs?: boolean
+  viewMode?: 'playground' | 'list'
 }) {
   if (disableTabs) {
+    if (viewMode === 'playground') {
+      return (
+        <TestViewRest
+          url={website.url || ''}
+          marketing
+          posRelative
+          website={website}
+        />
+      )
+    }
     return <FeedList issue={website as any} isHidden={false} fullScreen />
   }
 
@@ -84,7 +97,16 @@ export function ReportViewComponent({
   download,
   authenticated,
 }: any) {
+  const [leftViewMode, setViewMode] = useState<'list' | 'playground'>(
+    'playground'
+  )
   const empty = useMemo(() => Object.keys(website ?? {}).length <= 1, [website])
+
+  const onToggleViewModeEvent = () => {
+    setViewMode((mode: string) =>
+      mode === 'playground' ? 'list' : 'playground'
+    )
+  }
 
   return (
     <div className={`block sm:flex h-[100vh] overflow-hidden border-t`}>
@@ -95,6 +117,8 @@ export function ReportViewComponent({
           printable
           download={download}
           authenticated={authenticated}
+          viewMode={leftViewMode}
+          onToggleViewModeEvent={onToggleViewModeEvent}
         />
       </div>
       {empty ? (
@@ -104,6 +128,7 @@ export function ReportViewComponent({
           website={website}
           disablePlayground={disablePlayground}
           disableTabs={disableTabs}
+          viewMode={leftViewMode === 'playground' ? 'list' : 'playground'}
         />
       )}
     </div>

@@ -1,4 +1,4 @@
-import React, { memo, useState } from 'react'
+import React, { memo } from 'react'
 import { Grid, Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import { Spacer, Timer, TestViewRest } from '@app/components/general'
@@ -6,6 +6,7 @@ import { CtaCdn } from '@app/components/cta'
 import { strings } from '@app-strings'
 import { InfoBar } from './info-bar'
 import { WebsiteSecondary } from '../general/cells/render/website-secondary'
+import { FeedList } from '../feed/list'
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -32,6 +33,26 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
+const MainView = ({ website, viewMode }: any) => {
+  if (website?.url) {
+    if (viewMode && viewMode === 'list') {
+      return <FeedList issue={website as any} isHidden={false} fullScreen />
+    }
+    return (
+      <div className='hidden md:block'>
+        <TestViewRest
+          url={website.url || ''}
+          marketing
+          posRelative
+          website={website}
+        />
+      </div>
+    )
+  }
+
+  return null
+}
+
 export function ReportViewComponentLeft({
   website,
   closeButton,
@@ -39,8 +60,9 @@ export function ReportViewComponentLeft({
   printable,
   download,
   authenticated,
+  viewMode,
+  onToggleViewModeEvent,
 }: any) {
-  const [hideMobile, setMobileHidden] = useState<boolean>(false)
   const classes = useStyles()
   const empty = Object.keys(website ?? {}).length <= 1
 
@@ -69,31 +91,9 @@ export function ReportViewComponentLeft({
         website={website}
         printable={printable}
         download={authenticated && download}
+        onToggleViewModeEvent={onToggleViewModeEvent}
       />
-      {website?.url ? (
-        <div className='hidden lg:block'>
-          <div className='py-2 flex space-x-2 place-items-center border-b'>
-            <Typography variant={'body2'}>Live Website</Typography>
-            <button
-              onClick={() => setMobileHidden((h) => !h)}
-              className={'border rounded p-1 px-2'}
-            >
-              Toggle Viewer
-            </button>
-          </div>
-          <div
-            className={!hideMobile ? 'block' : 'hidden'}
-            aria-hidden={hideMobile}
-          >
-            <TestViewRest
-              url={website.url || ''}
-              marketing
-              posRelative
-              issues={website?.issue}
-            />
-          </div>
-        </div>
-      ) : null}
+      <MainView website={website} viewMode={viewMode} />
     </div>
   )
 }

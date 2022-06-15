@@ -10,12 +10,14 @@ interface InfoBarComponent {
   printable?: boolean
   website: Website
   download?: boolean // display the download button
+  onToggleViewModeEvent?: (a?: any) => void
 }
 
 export function InfoBarComponent({
   printable,
   website,
-  download = true,
+  download = false,
+  onToggleViewModeEvent,
 }: InfoBarComponent) {
   if (!printable) {
     return null
@@ -32,16 +34,18 @@ export function InfoBarComponent({
 
   return (
     <div className='flex py-2 space-x-2 border border-l-0 border-r-0'>
-      <Button className={'border'} onClick={onPrint}>
-        Print
-      </Button>
+      <Button onClick={onPrint}>Print</Button>
       {download ? (
         <Button
-          className={'border'}
           component={'a'}
           href={`${getAPIRoute()}/get-website?q=${website?.url}&download=true`}
         >
           Download
+        </Button>
+      ) : null}
+      {onToggleViewModeEvent ? (
+        <Button className={'border'} onClick={onToggleViewModeEvent}>
+          Change Primary View
         </Button>
       ) : null}
     </div>

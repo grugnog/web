@@ -5,6 +5,7 @@ import { WithSwipeModal as SwipeableTemporaryDrawer } from '@app/components/adho
 import type { PageProps } from '@app/types'
 import { metaSetter } from '@app/utils'
 
+// TODO: adjust page search ability to not use modal
 function Test({ name }: PageProps) {
   return (
     <Fragment>

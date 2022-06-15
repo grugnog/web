@@ -121,9 +121,12 @@ class IframeManager {
     })
   }
 
-  @action initIssueFix = (data: any) => {
-    if (data?.issues && frameDom?.dom) {
-      const issueMap = data?.issues?.filter((item: any) => {
+  @action initIssueFix = (data: any, url?: string) => {
+    const issues =
+      data && Array.isArray(data) ? data : data?.issues || data?.issue
+
+    if (issues && frameDom?.dom) {
+      const issueMap = issues?.filter((item: any) => {
         try {
           const hasSelector = item?.selector?.length
 
@@ -145,7 +148,7 @@ class IframeManager {
         }
       })
 
-      createAnnotations(issueMap, data.pageUrl)
+      createAnnotations(issueMap, url || data?.pageUrl)
       this.issueInited = true
     }
   }

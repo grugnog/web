@@ -3,17 +3,17 @@ import { observer } from 'mobx-react-lite'
 import { HomeManager } from '@app/managers'
 import { TestOutIframe } from '../ada/testout-iframe'
 import { OverlayPortalContainer } from './overlay'
-import { Issue } from '@app/types'
+import { Website } from '@app/types'
 
 const TestViewRestContainer = observer(
-  ({ url: currentUrl, store, posRelative, issues }: any) => {
+  ({ url: currentUrl, store, posRelative, website }: any) => {
     const url = encodeURIComponent(currentUrl ?? store?.getTestFrameUrl)
 
     return (
-      <>
-        <TestOutIframe url={url} issue={issues} posRelative={posRelative} />
+      <div className='w-full h-full'>
+        <TestOutIframe url={url} website={website} posRelative={posRelative} />
         <OverlayPortalContainer />
-      </>
+      </div>
     )
   }
 )
@@ -22,14 +22,14 @@ interface TestViewRestProps {
   marketing?: boolean
   url?: string
   posRelative?: boolean // iframe relative
-  issues?: { issues: Issue[]; pageUrl?: string }
+  website?: Website
 }
 
 export function TestViewRest({
   marketing,
   url,
   posRelative,
-  issues,
+  website,
 }: TestViewRestProps) {
   return (
     <TestViewRestContainer
@@ -37,7 +37,7 @@ export function TestViewRest({
       marketing={marketing}
       url={url}
       posRelative={posRelative}
-      issues={{ issues: issues, pageUrl: url }}
+      website={website}
     />
   )
 }

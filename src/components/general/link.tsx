@@ -41,21 +41,17 @@ export function MNLink({
   // remove material props that are passed
   const { variant, color, ...extra } = props
 
+  const cname = `text-base hover:underline${className ? ` ${className}` : ''}`
+
   if (/http|https/.test(href)) {
-    return (
-      <a
-        {...extra}
-        className={`text-lg hover:underline ${className}`}
-        href={href}
-      />
-    )
+    return <a {...extra} className={cname} href={href} />
   }
 
   if (shouldPrefetch) {
     return (
       <NextComposedPreFetch
         {...extra}
-        className={`text-lg hover:underline ${className}`}
+        className={cname}
         ref={innerRef}
         as={href}
         href={href}
@@ -66,7 +62,7 @@ export function MNLink({
   return (
     <NextComposed
       {...extra}
-      className={`text-lg hover:underline ${className}`}
+      className={cname}
       ref={innerRef}
       as={href}
       href={href}

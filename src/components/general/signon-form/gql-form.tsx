@@ -187,7 +187,7 @@ const SignOnFormWrapper: FunctionComponent<SignOnProps> = ({
                 target='_parent'
                 rel='noreferrer'
               >
-                <div className='inline-flex gap-x-2 border-2 rounded place-items-center place-content-center font-semibold w-[200px] text-sm'>
+                <div className='inline-flex gap-x-2 border-2 rounded place-items-center place-content-center font-semibold w-[200px] text-sm min-h-[40px]'>
                   <span className='block'>
                     <GrGithub
                       className='grIcon w-[18px] h-[18px]'

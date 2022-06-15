@@ -65,15 +65,15 @@ export function FeedIssueCardComponent({
         </div>
       </div>
       <div>
-        <p className={'text-base line-clamp-5 py-1'}>
+        <div className={'text-base line-clamp-5 py-1'}>
           {m}
           {rec ? (
             <>
               {` Recommendation:`}
-              <p className='text-blue-600 font-bold inline'>{rec}</p>
+              <div className='text-blue-600 font-bold inline'>{rec}</div>
             </>
           ) : null}
-        </p>
+        </div>
         <div className='pb-1'>
           <a
             href={codeHref}
