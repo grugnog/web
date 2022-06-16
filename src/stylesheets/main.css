@@ -9,7 +9,7 @@ html {
   display: none !important;
 }
 
-#__next a {
+a {
   padding: 0.2em;
 }
 
@@ -18,7 +18,7 @@ html {
 }
 
 @media (any-pointer: coarse) {
-  #__next a {
+  a {
     padding: 0.8em;
   }
 }
