@@ -59,7 +59,13 @@ function CtaIntroRest({ checker }: CtaIntroRest) {
       {checker ? null : (
         <div className={classes.join}>
           <p className='py-2'>JOIN THOUSANDS OF HIGHLY PRODUCTIVE TEAMS</p>
-          <Image src={'/img/wave.svg'} height={8} width={120} alt='' />
+          <Image
+            src={'/img/wave.svg'}
+            height={8}
+            width={120}
+            role='presentation'
+            aria-hidden={true}
+          />
           <a
             className={classes.bottomAnchor}
             href='#plans-section'
