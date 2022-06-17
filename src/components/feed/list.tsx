@@ -27,18 +27,14 @@ const FeedListComponent: FC<FeedComponentProps> = ({
     )
   }
 
-  const listHeight =
-    typeof window !== 'undefined' ? window.innerHeight / 2.3 : 500
+  // full height of screen for window
+  const listHeight = typeof window !== 'undefined' ? window.innerHeight : 500
 
-  const itemSize = Math.min(listHeight / 1.38, 260)
+  const itemSize = Math.max(listHeight / 6, 200) // try to fit 6 items per screen viewport
   const issueCount = pageIssues?.length
 
   const listMainHeight = useMemo(() => {
-    return fullScreen
-      ? window.innerHeight
-      : issueCount === 1
-      ? itemSize
-      : listHeight
+    return fullScreen ? listHeight : issueCount === 1 ? itemSize : listHeight
   }, [fullScreen, itemSize, issueCount, listHeight])
 
   if (fullScreen) {

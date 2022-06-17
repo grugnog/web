@@ -65,7 +65,7 @@ export function FeedIssueCardComponent({
         </div>
       </div>
       <div>
-        <div className={'text-base line-clamp-5 py-1'}>
+        <div className={'text-base line-clamp-4 py-1'}>
           {m}
           {rec ? (
             <>
@@ -87,7 +87,7 @@ export function FeedIssueCardComponent({
         </div>
       </div>
       <pre
-        className={`border text-black h-10 rounded overflow-x-hidden overflow-y-hidden hover:overflow-x-auto hover:overflow-y-auto p-2`}
+        className={`flex place-items-center border text-black h-10 rounded overflow-x-hidden overflow-y-hidden hover:overflow-x-auto hover:overflow-y-auto px-2 py-2`}
         style={{ tabSize: 4, backgroundColor: 'rgba(187,239,253,0.25)' }}
       >
         {context + ''}
