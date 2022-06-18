@@ -1,5 +1,4 @@
 import React, { memo } from 'react'
-import { ScriptDownloadButton } from '@app/components/general'
 import { PrismLight } from 'react-syntax-highlighter'
 import { a11yDark } from '@app/styles'
 
@@ -46,7 +45,6 @@ export function CdnBlockComponent({
           </>
         ) : null}
       </div>
-      <ScriptDownloadButton cdn_url={cdn_url} cdn_url_min={cdn_url_min} />
     </div>
   )
 }
