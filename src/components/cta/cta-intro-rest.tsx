@@ -63,7 +63,7 @@ function CtaIntroRest({ checker }: CtaIntroRest) {
             src={'/img/wave.svg'}
             height={8}
             width={120}
-            role='presentation'
+            alt=''
             aria-hidden={true}
           />
           <a

@@ -5,18 +5,18 @@ import { ThemeProvider } from '@material-ui/core/styles'
 import { strings } from '@app-strings'
 import { theme } from '@app-theme'
 import { initAppModel, userModel } from '@app/data'
-import { LOGGIN_ROUTES } from '@app/configs'
+import { INTERCOM_ENABLED, LOGGIN_ROUTES } from '@app/configs'
 import { ping, startIntercom } from '@app/utils'
 import { WebsiteProviderWrapper } from '@app/components/providers'
 import { RestWebsiteProviderWrapper } from '../providers/rest/rest-website'
 import { ErrorBoundary, SkipContent } from '@app/components/general'
 import type { InnerApp } from '@app/types/page'
 import { SnackBar } from './snack-bar'
-// import Script from 'next/script'
+import Script from 'next/script'
 
 const authRoutes = LOGGIN_ROUTES.map((route) => route.replace('/', ''))
 
-// const CRISP_WEBSITE_ID = process.env.CRISP_WEBSITE_ID
+const CRISP_WEBSITE_ID = process.env.CRISP_WEBSITE_ID
 
 const Application = ({ Component, pageProps, name }: InnerApp) => {
   // name is based off function name and not file name
@@ -105,7 +105,7 @@ export function MyApp({ Component, pageProps }: InnerApp) {
   }, [])
 
   useEffect(() => {
-    if (Component.intercom) {
+    if (Component.intercom && INTERCOM_ENABLED) {
       startIntercom()
     }
   }, [Component.intercom])
@@ -127,9 +127,9 @@ export function MyApp({ Component, pageProps }: InnerApp) {
         </ErrorBoundary>
         <SnackBar />
       </ThemeProvider>
-      {/* {!Component.intercom && CRISP_WEBSITE_ID ? (
-        <Script>{`window.$crisp=[];window.CRISP_WEBSITE_ID="${CRISP_WEBSITE_ID}";(function(){d=document;s=d.createElement("script");s.src="https://client.crisp.chat/l.js";s.async=1;d.getElementsByTagName("head")[0].appendChild(s);})();`}</Script>
-      ) : null} */}
+      {!Component.intercom && CRISP_WEBSITE_ID && !INTERCOM_ENABLED ? (
+        <Script id='crips_id'>{`window.$crisp=[];window.CRISP_WEBSITE_ID="${CRISP_WEBSITE_ID}";(function(){d=document;s=d.createElement("script");s.src="https://client.crisp.chat/l.js";s.async=1;d.getElementsByTagName("head")[0].appendChild(s);})();`}</Script>
+      ) : null}
     </Fragment>
   )
 }

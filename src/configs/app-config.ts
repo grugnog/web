@@ -12,7 +12,7 @@ const AppConfig = {
 
 // INTERCOM MESSAGER
 const INTERCOM_APPID = process.env.INTERCOM_APPID
-const INTERCOM_ENABLED = process.env.INTERCOM_ENABLED
+const INTERCOM_ENABLED = Boolean(process.env.INTERCOM_ENABLED) || false
 // GOOGLE AUTH
 const GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID
 // STRIPE
