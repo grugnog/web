@@ -141,11 +141,20 @@ export const getBlogPage = async (pathname: string): Promise<BlogPageProps> => {
         metaTags?.forEach((tag) => {
           const { crossorigin, ...a } = tag.attributes
 
-          if (crossorigin) {
-            metas.push({ crossOrigin: crossorigin, ...a })
-          } else {
-            metas.push(a)
+          const rel = a && 'rel' in a ? a.rel : '' // relative links to CMS not website
+
+          if (
+            !['apple-touch-icon', 'icon', 'manifest', 'shortcut icon'].includes(
+              rel
+            )
+          ) {
+            if (crossorigin) {
+              metas.push({ crossOrigin: crossorigin, ...a })
+            } else {
+              metas.push(a)
+            }
           }
+
           tag.remove()
         })
 

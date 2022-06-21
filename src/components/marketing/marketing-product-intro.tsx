@@ -13,7 +13,7 @@ export function MarketingProductIntro() {
             <Image
               height={250}
               width={350}
-              src={'/img/marketing_playground.jpg'}
+              src={'/img/marketing_playground.jpeg'}
               alt={'Accessibility live test playground example with figma.com'}
               layout={'responsive'}
             />
@@ -22,7 +22,7 @@ export function MarketingProductIntro() {
             <Image
               height={250}
               width={350}
-              src={'/img/marketing_dashboard.jpg'}
+              src={'/img/marketing_dashboard.jpeg'}
               alt={
                 'Dashboard for accessibility insights with example using figma.com'
               }
