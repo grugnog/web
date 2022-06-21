@@ -116,6 +116,11 @@ export function MyApp({ Component, pageProps }: InnerApp) {
         <meta charSet='utf-8' />
         <meta name='viewport' content='width=device-width, initial-scale=1' />
         <title key='title'>{title}</title>
+        <meta
+          property='og:title'
+          content={title || `Web Accessibility Service | ${strings.appName}`}
+          key='og:title'
+        />
         {description ? (
           <>
             <meta name='description' content={description} key='description' />

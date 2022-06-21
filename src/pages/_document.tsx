@@ -8,7 +8,6 @@ import Document, {
 import { ServerStyleSheets } from '@material-ui/core/styles'
 import { userModel, initAppModel } from '@app/data'
 import { DOMAIN_NAME, twitterSite } from '@app/configs'
-import { strings } from '@app/content/strings/a11y'
 import { theme } from '@app/theme'
 
 class MyDocument extends Document {
@@ -80,11 +79,10 @@ class MyDocument extends Document {
             content={`${DOMAIN_NAME}/img/intro-poster.png`}
           />
           <meta
-            property='og:title'
-            key={'og:title'}
-            content={`Web Accessibility Service | ${strings.appName}`}
+            property='og:url'
+            content={`${DOMAIN_NAME}${this.props.__NEXT_DATA__.page}`}
+            key={'og:url'}
           />
-          <meta property='og:url' content={DOMAIN_NAME} key={'og:url'} />
           <meta
             property='og:image'
             key={'og:image'}

@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from 'react'
+import React, { FC, Fragment, useState } from 'react'
 import { Container } from '@material-ui/core'
 import {
   NavBar,
@@ -12,13 +12,16 @@ import { TextSkeleton } from '@app/components/placeholders'
 import { UserManager, AppManager } from '@app/managers'
 import { userData } from '@app/data'
 import { metaSetter } from '@app/utils'
-import type { PageProps } from '@app/types'
 import { GrCopy } from 'react-icons/gr'
 import { companyName } from '@app/configs'
 import { apiRoutes } from '@app/templates/rest-api'
 import { ApiCell } from '@app/components/general/cells/api-info-cell'
 
-const SectionTitle = ({ children, className, bold }: any) => {
+const SectionTitle: FC<{ className?: string; bold?: boolean }> = ({
+  children,
+  className,
+  bold,
+}) => {
   return (
     <h2
       className={`text-3xl ${bold ? 'font-bold' : ''}${
@@ -31,7 +34,7 @@ const SectionTitle = ({ children, className, bold }: any) => {
 }
 
 // TODO: GENERATE DOCS FROM API
-function Api({ name }: PageProps) {
+function ApiInfo() {
   const [keyVisible, setKey] = useState<boolean>(false)
   const { data = {}, loading } = userData()
   const { user } = data
@@ -61,12 +64,7 @@ function Api({ name }: PageProps) {
 
   return (
     <Fragment>
-      <NavBar
-        backButton={authed}
-        title={name.toUpperCase()}
-        notitle
-        authenticated={authed}
-      />
+      <NavBar backButton={authed} authenticated={authed} />
       <Container maxWidth='xl'>
         <Box>
           <PageTitle title={'Web Accessibility API'} />
@@ -83,16 +81,13 @@ function Api({ name }: PageProps) {
               href={'https://docs.a11ywatch.com/documentation/api'}
               className='underline text-blue-600'
             >
-              documentation
+              REST
             </a>
-            . You can also use the API in{' '}
-            <a
-              href={'https://api.a11ywatch.com/playground'}
-              className='underline text-blue-600'
-            >
-              graphQL
-            </a>
-            .
+            or{' '}
+            <a href={'/playground'} className='underline text-blue-600'>
+              GraphQL
+            </a>{' '}
+            documentation.
           </p>
           {!data?.user && loading ? (
             <TextSkeleton className={'p-2'} />
@@ -209,9 +204,9 @@ function Api({ name }: PageProps) {
 }
 
 export default metaSetter(
-  { Api },
+  { ApiInfo },
   {
-    title: 'Web Accessibility API  - A11yWatch',
+    title: 'Web Accessibility API - A11yWatch',
     description: `The web accessibility API for testing in real time. Determine high precision image alts and other inclusive recommendations easily with REST, graphQL, or gRPC.`,
     gql: true,
   }

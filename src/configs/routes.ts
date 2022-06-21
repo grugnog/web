@@ -86,14 +86,14 @@ export const Routes = [
   },
   {
     nav: false,
-    href: '/api-info',
-    name: 'API',
+    href: 'https://github.com/a11ywatch',
+    name: 'Github',
     type: 'explore',
   },
   {
-    nav: false,
-    href: '/website-accessibility-checker',
-    name: 'Accessibility Scan',
+    nav: true,
+    href: '/pricing',
+    name: 'Pricing',
     type: 'explore',
   },
   {
@@ -104,14 +104,14 @@ export const Routes = [
   },
   {
     nav: false,
-    href: 'https://github.com/a11ywatch',
-    name: 'Github',
+    href: '/api-info',
+    name: 'API',
     type: 'explore',
   },
   {
-    nav: true,
-    href: '/pricing',
-    name: 'Pricing',
+    nav: false,
+    href: '/website-accessibility-checker',
+    name: 'Accessibility Scan',
     type: 'explore',
   },
   {

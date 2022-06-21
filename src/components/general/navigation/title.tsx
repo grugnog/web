@@ -34,7 +34,11 @@ function NavBarTitle({
 }: any) {
   const classes = useStyles()
 
-  if (marketing && !notitle) {
+  if (notitle) {
+    return null
+  }
+
+  if (marketing) {
     return (
       <Link
         href='/'

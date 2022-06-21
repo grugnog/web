@@ -102,13 +102,11 @@ const NavBarComponent = ({
         position === 'fixed' ? 'fixed left-0 right-0 shadow' : 'shadow-none'
       }`}
     >
-      <div className='relative flex items-center px-5 min-h-[inherit]'>
+      <div className='relative flex items-center place-content-around px-5 min-h-[inherit]'>
         {toolbar || children ? (
           toolbar || children
         ) : (
-          <div
-            className={`flex flex-1 place-content-center place-items-center`}
-          >
+          <div className={`flex flex-1 place-items-center`}>
             {backButton || !marketing ? (
               <IconButton
                 className={classes.menu}
