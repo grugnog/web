@@ -35,13 +35,13 @@ const getTitle = (params?: RegisterParams) => {
 const getDescription = (params?: RegisterParams) => {
   const { plan: p, yearly } = params ?? {}
   const registerStart =
-    'Register with a11ywatch to get web accessibility insight on demand'
+    'Register with A11yWatch to get web accessibility insight on demand'
 
   const lengthText = `${yearly ? 'yearly' : 'monthly'} plan`
   const plan = String(p).toLowerCase()
 
   if (plan === 'free') {
-    return `${registerStart} free ${lengthText}. Get the help making your website target everyone.`
+    return `${registerStart} free ${lengthText}. Get help making your website target everyone.`
   }
   if (plan === 'basic') {
     return `${registerStart} basic ${lengthText}. Get the support you need to make your website inclusive.`
@@ -59,7 +59,7 @@ function Register({ name }: PageProps) {
   return (
     <>
       <Head>
-        <title>{getTitle(router?.query)}</title>
+        <title key='title'>{getTitle(router?.query)}</title>
         <meta
           name='description'
           content={getDescription(router?.query)}
