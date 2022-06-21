@@ -44,7 +44,7 @@ function OpenSource({
           software.
         </p>
       </p>
-      <ul className='py-4 gap-y-4 gap-x-4 grid grid-cols-2'>
+      <ul className='py-4 gap-y-1 gap-x-4 grid grid-cols-2'>
         {items?.map((item) => (
           <li key={item.name}>
             <OSSCell item={item} />

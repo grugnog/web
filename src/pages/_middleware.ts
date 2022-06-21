@@ -30,10 +30,7 @@ export async function middleware(req: NextRequest, event: NextFetchEvent) {
 
   const currentHost = req.headers?.get('host')?.replace(ROOT_URL, '')
 
-  if (
-    /.blog/.test(currentHost + '') &&
-    /a11ywatch.com/.test(req.nextUrl.hostname) === false
-  ) {
+  if (/.blog/.test(currentHost + '')) {
     const url = req.nextUrl.clone()
     url.pathname = `/blog${req.nextUrl.pathname}`
     res = NextResponse.rewrite(url)

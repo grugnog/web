@@ -4,7 +4,10 @@ export const webflowRoutes: any = {
     pathName: '',
   },
   'from-next-js-to-astro': {
-    pathName: 'blog/from-next-js-to-astro',
+    pathName: 'blog/next-js-to-astro',
+  },
+  'next-js-to-astro': {
+    pathName: 'blog/next-js-to-astro',
   },
   'web-accessibility-monitoring': {
     pathName: 'blog/web-accessibility-monitoring',

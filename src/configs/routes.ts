@@ -31,12 +31,6 @@ export const Routes = [
   },
   {
     nav: false,
-    href: 'https://github.com/a11ywatch',
-    name: 'Github',
-    type: 'resources',
-  },
-  {
-    nav: false,
     href: 'https://discord.com/invite/tmCzndrmMm',
     name: 'Discord',
     type: 'resources',
@@ -79,6 +73,12 @@ export const Routes = [
   },
   {
     nav: false,
+    href: '/consulting',
+    name: 'Consulting',
+    type: 'company',
+  },
+  {
+    nav: false,
     href:
       'https://chrome.google.com/webstore/detail/a11ywatch/opefmkkmhchekgcmgneakbjafeckbaag?hl=en&authuser=0',
     name: 'Chrome Extension',
@@ -91,21 +91,21 @@ export const Routes = [
     type: 'explore',
   },
   {
-    nav: true,
-    href: '/testout',
-    name: 'Try Out',
+    nav: false,
+    href: '/website-accessibility-checker',
+    name: 'Accessibility Scan',
     type: 'explore',
   },
   {
     nav: false,
-    href: '/consulting',
-    name: 'Consulting',
-    type: 'company',
+    href: 'https://github.com/a11ywatch',
+    name: 'Github',
+    type: 'explore',
   },
   {
-    nav: false,
-    href: '/website-accessibility-checker',
-    name: 'Accessibility Scan',
+    nav: true,
+    href: '/pricing',
+    name: 'Pricing',
     type: 'explore',
   },
   {
@@ -119,12 +119,6 @@ export const Routes = [
     href: '/features',
     name: 'Features',
     type: 'resources',
-  },
-  {
-    nav: true,
-    href: '/pricing',
-    name: 'Pricing',
-    type: 'company',
   },
   {
     nav: false,

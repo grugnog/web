@@ -92,7 +92,7 @@ const NavLinks: FC<NavLinks> = ({ className, filterType, blog }) => {
         if (blog) {
           // re-wrote to main website
           if (link[0] === '/') {
-            link = `${DOMAIN_NAME}${link}`
+            href = `${DOMAIN_NAME}${link}`
           }
         }
 

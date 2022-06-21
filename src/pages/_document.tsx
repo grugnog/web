@@ -45,42 +45,62 @@ class MyDocument extends Document {
     return (
       <Html lang='en'>
         <Head>
-          <meta charSet='utf-8' key={'charset'} />
-          <meta name='viewport' content='width=device-width, initial-scale=1' />
           {process.env.NEXT_PUBLIC_DISABLE_SEO === '1' ? (
             <meta name='robots' content='noindex' />
           ) : null}
-          <meta name='description' key='description' />
-          <meta property='og:description' key='og:description' />
           <meta
             name='theme-color'
             content={theme.palette.primary.main}
             key={'theme-color'}
           />
           <meta name='mobile-web-app-capable' content='yes' />
-          <link rel='manifest' href='/manifest.json' />
-          <meta name='format-detection' content='telephone=no' />
-          <meta name='apple-mobile-web-app-capable' content='yes' />
-          <meta name='twitter:card' content='summary_large_image' />
-          <meta name='twitter:site' content={twitterSite} />
+          <link rel='manifest' href='/manifest.json' key={'manifest'} />
+          <meta
+            name='format-detection'
+            content='telephone=no'
+            key={'format-detection'}
+          />
+          <meta
+            name='apple-mobile-web-app-capable'
+            content='yes'
+            key={'apple-mobile-web-app-capable'}
+          />
+          <meta
+            name='twitter:card'
+            content='summary_large_image'
+            key={'twitter:card'}
+          />
+          <meta
+            name='twitter:site'
+            content={twitterSite}
+            key={'twitter:site'}
+          />
           <meta
             property='twitter:image'
             content={`${DOMAIN_NAME}/img/intro-poster.png`}
-            key={'twitter:image'}
           />
           <meta
             property='og:title'
             key={'og:title'}
             content={`Web Accessibility Service | ${strings.appName}`}
           />
-          <meta property='og:url' content={DOMAIN_NAME} />
+          <meta property='og:url' content={DOMAIN_NAME} key={'og:url'} />
           <meta
             property='og:image'
             key={'og:image'}
             content={`${DOMAIN_NAME}/img/intro-poster.png`}
           />
-          <link rel='apple-touch-icon' href='/img/apple-touch-icon.png' />
-          <link rel='icon' type='image/x-icon' href='/img/favicon.ico' />
+          <link
+            rel='apple-touch-icon'
+            href='/img/apple-touch-icon.png'
+            key={'apple-touch-icon'}
+          />
+          <link
+            rel='icon'
+            type='image/x-icon'
+            href='/img/favicon.ico'
+            key={'image/x-icon'}
+          />
         </Head>
         <Main />
         <NextScript />
