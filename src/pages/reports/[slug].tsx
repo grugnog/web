@@ -1,6 +1,6 @@
 import type { PageProps } from '@app/types'
 import type { GetServerSideProps } from 'next'
-import React, { Fragment, useEffect, useState } from 'react'
+import { Fragment, useEffect, useState } from 'react'
 import Head from 'next/head'
 import { MarketingDrawer, PageTitle } from '@app/components/general'
 import { ReportView } from '@app/components/ada'

@@ -98,6 +98,12 @@ export const Routes = [
   },
   {
     nav: false,
+    href: '/testout',
+    name: 'Try Out',
+    type: 'explore',
+  },
+  {
+    nav: false,
     href: 'https://github.com/a11ywatch',
     name: 'Github',
     type: 'explore',

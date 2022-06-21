@@ -1,10 +1,9 @@
-import React from 'react'
 import { SignOnForm, MarketingDrawer } from '@app/components/general'
 import { metaSetter } from '@app/utils'
 import type { PageProps } from '@app/types'
 import Head from 'next/head'
-import { useRouter } from 'next/router'
 import { MarketingShortTitle } from '@app/components/marketing'
+import type { GetServerSideProps } from 'next'
 
 type Plan = 'Free' | 'Basic' | 'Premium' | string
 interface RegisterParams {
@@ -13,11 +12,12 @@ interface RegisterParams {
 }
 
 const getTitle = (params?: RegisterParams) => {
-  const { plan: p, yearly } = params ?? {}
+  const { plan: p, yearly: y } = params ?? {}
+  const yearly = y ? String(y).toLowerCase() : ''
+  const plan = p ? String(p).toLowerCase() : ''
+
   const registerStart = 'A11yWatch - Register'
   const lengthText = `${yearly ? 'yearly' : 'monthly'} plan`
-
-  const plan = String(p).toLowerCase()
 
   if (plan === 'free') {
     return `${registerStart} free ${lengthText}`
@@ -33,12 +33,14 @@ const getTitle = (params?: RegisterParams) => {
 }
 
 const getDescription = (params?: RegisterParams) => {
-  const { plan: p, yearly } = params ?? {}
+  const { plan: p, yearly: y } = params ?? {}
+  const yearly = y ? String(y).toLowerCase() : ''
+  const plan = p ? String(p).toLowerCase() : ''
+
   const registerStart =
     'Register with A11yWatch to get web accessibility insight on demand'
 
   const lengthText = `${yearly ? 'yearly' : 'monthly'} plan`
-  const plan = String(p).toLowerCase()
 
   if (plan === 'free') {
     return `${registerStart} free ${lengthText}. Get help making your website target everyone.`
@@ -53,18 +55,16 @@ const getDescription = (params?: RegisterParams) => {
   return `${registerStart}.`
 }
 
-function Register({ name }: PageProps) {
-  const router = useRouter()
-
+function Register({
+  name,
+  title,
+  description,
+}: PageProps & { description: string; title: string }) {
   return (
     <>
       <Head>
-        <title key='title'>{getTitle(router?.query)}</title>
-        <meta
-          name='description'
-          content={getDescription(router?.query)}
-          key='description'
-        />
+        <title key='title'>{title}</title>
+        <meta name='description' content={description} key='description' />
       </Head>
       <MarketingDrawer
         title={name}
@@ -78,6 +78,22 @@ function Register({ name }: PageProps) {
       </MarketingDrawer>
     </>
   )
+}
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const { res, query } = context
+
+  res.setHeader('Cache-Control', 'public, s-maxage=604800, immutable')
+
+  const title = getTitle(query)
+  const description = getDescription(query)
+
+  return {
+    props: {
+      title,
+      description,
+    },
+  }
 }
 
 export default metaSetter({ Register })
