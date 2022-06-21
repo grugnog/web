@@ -71,9 +71,6 @@ const useStyles = makeStyles((theme) => ({
       fontWeight: '600',
     },
   },
-  spacing: {
-    paddingTop: '20vh',
-  },
 }))
 
 interface NavLinks {
@@ -90,13 +87,17 @@ const NavLinks: FC<NavLinks> = ({ className, filterType, blog }) => {
   return (
     <>
       {routes.map(({ href: link, name }: any) => {
-        const href =
-          blog && link !== `${DOMAIN_NAME?.replace('.com', '.blog')}`
-            ? `${DOMAIN_NAME}${link}`
-            : link
+        let href = link
+
+        if (blog) {
+          // re-wrote to main website
+          if (link[0] === '/') {
+            link = `${DOMAIN_NAME}${link}`
+          }
+        }
 
         return (
-          <li key={href + name}>
+          <li key={href}>
             <Link
               className={className}
               href={href}
@@ -112,15 +113,7 @@ const NavLinks: FC<NavLinks> = ({ className, filterType, blog }) => {
   )
 }
 
-const Footer = ({
-  sticky,
-  footerSpacing,
-  blog,
-}: {
-  sticky?: boolean
-  footerSpacing?: boolean
-  blog?: boolean
-}) => {
+const Footer = ({ sticky, blog }: { sticky?: boolean; blog?: boolean }) => {
   const classes = useStyles()
 
   const SectionLinks = ({ title }: { title: string }) => {
@@ -145,59 +138,55 @@ const Footer = ({
   }
 
   return (
-    <>
-      <div className={`${footerSpacing ? ` ${classes.spacing}` : ''}`}>
-        <footer
-          className={`${classes.root}${
-            sticky ? ` ${classes.sticky}` : ''
-          } border-t`}
-        >
-          <Container maxWidth='lg'>
-            <div className={classes.link}>
-              <div className={`py-2 ${classes.blockContainer}`}>
-                <Typography
-                  className={classes.logo}
-                  variant={'h4'}
-                  color={'textSecondary'}
-                >
-                  {strings.appName}
-                </Typography>
-                <Typography
-                  variant={'subtitle2'}
-                  color={'textSecondary'}
-                  component={'p'}
-                >
-                  Elevating accessibility for every website.
-                </Typography>
-              </div>
-              <SectionLinks title={'Explore'} />
-              <SectionLinks title={'Resources'} />
-              <SectionLinks title={'Company'} />
-              <SectionLinks title={'Legal'} />
-            </div>
-            {APP_TYPE !== 'main' ? (
-              <div className={classes.linkContainer}>
-                <Typography variant={'body2'}>
-                  {strings.appName} Group ® Brands:
-                </Typography>
-                <Typography
-                  component={'a'}
-                  href={`https://www.${strings.appName.toLowerCase()}.com`}
-                  variant={'body2'}
-                  color={'secondary'}
-                  style={{ marginLeft: 6 }}
-                >
-                  {strings.appName}
-                </Typography>
-              </div>
-            ) : null}
-          </Container>
-          <div className='px-2 flex place-content-center'>
-            <FixedCopyRight />
+    <footer
+      className={`${classes.root}${
+        sticky ? ` ${classes.sticky}` : ''
+      } border-t`}
+    >
+      <Container maxWidth='lg'>
+        <div className={classes.link}>
+          <div className={`py-2 ${classes.blockContainer}`}>
+            <Typography
+              className={classes.logo}
+              variant={'h4'}
+              color={'textSecondary'}
+            >
+              {strings.appName}
+            </Typography>
+            <Typography
+              variant={'subtitle2'}
+              color={'textSecondary'}
+              component={'p'}
+            >
+              Elevating accessibility for every website.
+            </Typography>
           </div>
-        </footer>
+          <SectionLinks title={'Explore'} />
+          <SectionLinks title={'Resources'} />
+          <SectionLinks title={'Company'} />
+          <SectionLinks title={'Legal'} />
+        </div>
+        {APP_TYPE !== 'main' ? (
+          <div className={classes.linkContainer}>
+            <Typography variant={'body2'}>
+              {strings.appName} Group ® Brands:
+            </Typography>
+            <Typography
+              component={'a'}
+              href={`https://www.${strings.appName.toLowerCase()}.com`}
+              variant={'body2'}
+              color={'secondary'}
+              style={{ marginLeft: 6 }}
+            >
+              {strings.appName}
+            </Typography>
+          </div>
+        ) : null}
+      </Container>
+      <div className='px-2 flex place-content-center'>
+        <FixedCopyRight />
       </div>
-    </>
+    </footer>
   )
 }
 

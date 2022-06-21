@@ -10,14 +10,16 @@ interface Props {
 
 function Mailto({ email, subject, body, className, children }: Props) {
   return (
-    <a
-      className={`underline ${className}`}
-      href={`mailto:${email}?subject=${
-        encodeURIComponent(subject) || ''
-      }&body=${encodeURIComponent(body) || ''}`}
-    >
-      {children}
-    </a>
+    <address>
+      <a
+        className={`underline ${className}`}
+        href={`mailto:${email}?subject=${
+          encodeURIComponent(subject) || ''
+        }&body=${encodeURIComponent(body) || ''}`}
+      >
+        {children}
+      </a>
+    </address>
   )
 }
 

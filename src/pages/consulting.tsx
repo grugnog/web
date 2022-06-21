@@ -88,12 +88,14 @@ function Consulting({ name }: PageProps) {
       </List>
       <Typography variant='body1' component='p' gutterBottom>
         For more information on consulting please send a email to{' '}
-        <a
-          href={'mailto:support@a11ywatch.com'}
-          className={'text-blue-700 underline'}
-        >
-          support@a11ywatch.com
-        </a>
+        <address>
+          <a
+            href={'mailto:support@a11ywatch.com'}
+            className={'text-blue-700 underline'}
+          >
+            support@a11ywatch.com
+          </a>
+        </address>
       </Typography>
     </MarketingDrawer>
   )

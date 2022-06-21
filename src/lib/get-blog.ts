@@ -62,6 +62,7 @@ export const getBlogPage = async (pathname: string): Promise<BlogPageProps> => {
         const titleElement = htmlRoot.querySelector('title')
         const blogLinks = htmlRoot.querySelectorAll(`link`)
         const metaTags = htmlRoot.querySelectorAll(`meta`)
+
         const cssSheets = htmlRoot.querySelectorAll('style')
         const headTag = htmlRoot.querySelector(`head`)
         const colophon = htmlRoot.getElementById('colophon')
@@ -141,13 +142,7 @@ export const getBlogPage = async (pathname: string): Promise<BlogPageProps> => {
         metaTags?.forEach((tag) => {
           const { crossorigin, ...a } = tag.attributes
 
-          const rel = a && 'rel' in a ? a.rel : '' // relative links to CMS not website
-
-          if (
-            !['apple-touch-icon', 'icon', 'manifest', 'shortcut icon'].includes(
-              rel
-            )
-          ) {
+          if (a && a?.name !== 'viewport') {
             if (crossorigin) {
               metas.push({ crossOrigin: crossorigin, ...a })
             } else {
@@ -159,7 +154,17 @@ export const getBlogPage = async (pathname: string): Promise<BlogPageProps> => {
         })
 
         blogLinks.forEach((link) => {
-          links.push(link.attributes)
+          const atr = link.attributes
+          const rel = atr && 'rel' in atr ? atr.rel : '' // relative links to CMS not website
+
+          if (
+            !['apple-touch-icon', 'icon', 'manifest', 'shortcut icon'].includes(
+              rel
+            )
+          ) {
+            links.push(link.attributes)
+          }
+
           link.remove()
         })
 
@@ -191,39 +196,17 @@ export const getBlogPage = async (pathname: string): Promise<BlogPageProps> => {
           'beforeend',
           `<style type="text/css">
 
-            article > .entry-wrapper > p {
-              max-width: none;
-            }
-            h1 {
-              font-size: 2rem;
-              font-weight: 800;
-            }
-            h2 {
-              font-size: 1.5rem;
+            main h4, h5, h6 {
               font-weight: 600;
-            }
-            h3 {
-              font-size: 1.25rem;
-              font-weight: 600;
-            }
-            #content, #comments {
-              padding-top: 20px;
-              padding-bottom: 20px;
-              overflow: hidden;
-            }
-            .light-background {
-              background-color: #fff;
               font-family: system-ui;
             }
-            .entry-date.published {
+            .entry-date.published, .blog-date {
               color: rgba(117, 117, 117, 1);
             }
-            .dark-background {
-              background-color: rgb(26, 26, 26);
-              font-family: system-ui;
-            }
-            image {
-              margin: 0;
+            main a {
+              color: rgb(37, 99, 235);
+              text-decoration: none;
+              padding: 0.2em;
             }
         </style>
         `

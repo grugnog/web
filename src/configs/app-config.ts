@@ -29,7 +29,8 @@ const SCRIPTS_CDN_URL_HOST = /localhost/.test(cdn)
   : `${cdn}/scripts`
 
 const SUPER_MODE = process.env.SUPER_MODE
-const DOMAIN_NAME = process.env.DOMAIN_NAME
+const DOMAIN_NAME =
+  process.env.NEXT_PUBLIC_DOMAIN_NAME || process.env.DOMAIN_NAME
 const companyName = process.env.COMPANY_NAME || 'A11yWatch'
 const twitterSite = process.env.TWITTER_SITE || '@a11ywatcher'
 

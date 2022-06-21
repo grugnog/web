@@ -4,7 +4,10 @@ const runtimeCaching = require('next-pwa/cache')
 
 const dev = process.env.NODE_ENV === 'development'
 // replace with only exact domain name without protocol
-const DOMAIN_NAME = process.env.DOMAIN_NAME || 'https://a11ywatch.com'
+const DOMAIN_NAME =
+  process.env.NEXT_PUBLIC_DOMAIN_NAME ||
+  process.env.DOMAIN_NAME ||
+  'https://a11ywatch.com'
 
 const env = {
   dev,
@@ -17,7 +20,7 @@ const env = {
   GOOGLE_CLIENT_ID: process.env.GOOGLE_CLIENT_ID,
   GITHUB_CLIENT_ID: process.env.GITHUB_CLIENT_ID,
   CRISP_WEBSITE_ID: process.env.CRISP_WEBSITE_ID,
-  DOMAIN_NAME,
+  NEXT_PUBLIC_DOMAIN_NAME: DOMAIN_NAME,
   INTERCOM_ENABLED: process.env.INTERCOM_ENABLED,
   SUPER_MODE: process.env.SUPER_MODE,
   DOCKER_CONTAINER: process.env.DOCKER_CONTAINER, // app is using docker runtime

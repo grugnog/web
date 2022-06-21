@@ -92,7 +92,9 @@ const Page: FC<BlogPageProps> = ({
       {children ? (
         children
       ) : (
-        <div className='light-background'>{parser(html)}</div>
+        <>
+          <main className='light-background'>{parser(html)}</main>
+        </>
       )}
       <Footer blog />
       {memoBodyScripts}

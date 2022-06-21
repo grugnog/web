@@ -41,39 +41,43 @@ function Contact({ name }: PageProps) {
         up along the way. {`Let's`} get started.
       </Typography>
       <div style={center}>
-        <a
-          href={'mailto:support@a11ywatch.com'}
-          className={'text-blue-500'}
-          style={{
-            textDecoration: 'none',
-          }}
-        >
-          <Box
-            style={circleStyle}
-            className={'bg-blue-500 text-white font-bold text-xl'}
+        <address>
+          <a
+            href={'mailto:support@a11ywatch.com'}
+            className={'text-blue-500'}
+            style={{
+              textDecoration: 'none',
+            }}
           >
-            <span>Drop us an email</span>
-          </Box>
-        </a>
+            <Box
+              style={circleStyle}
+              className={'bg-blue-500 text-white font-bold text-xl'}
+            >
+              <span>Drop us an email</span>
+            </Box>
+          </a>
+        </address>
         <Spacer height={22} />
         <Typography variant='subtitle2' component='span'>
           or
         </Typography>
         <Spacer height={22} />
-        <a
-          href={'tel:(863) 225-3695‬'}
-          className={'text-blue-500'}
-          style={{
-            textDecoration: 'none',
-          }}
-        >
-          <Box
-            style={circleStyle}
-            className={'bg-purple-500 text-white font-bold text-xl'}
+        <address>
+          <a
+            href={'tel:(863) 225-3695‬'}
+            className={'text-blue-500'}
+            style={{
+              textDecoration: 'none',
+            }}
           >
-            <span>Call Us</span>
-          </Box>
-        </a>
+            <Box
+              style={circleStyle}
+              className={'bg-purple-500 text-white font-bold text-xl'}
+            >
+              <span>Call Us</span>
+            </Box>
+          </a>
+        </address>
       </div>
     </MarketingDrawer>
   )

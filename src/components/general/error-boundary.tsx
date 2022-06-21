@@ -25,7 +25,12 @@ export class ErrorBoundary extends Component<{}, ErrorBoundaryState> {
         <>
           <div className={'p-10 bg-blue-400 text-white ring'}>
             <p className={'text-xl font-bold'}>
-              An error occured, please contact support at support@a11ywatch.com
+              An error occured, please contact support at{' '}
+              <address>
+                <a href={'mailto:support@a11ywatch.com'}>
+                  support@a11ywatch.com
+                </a>
+              </address>
             </p>
           </div>
           {this.props.children}

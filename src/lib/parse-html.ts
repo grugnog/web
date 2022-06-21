@@ -79,28 +79,24 @@ export const parseHtml = async (body: string) => {
   htmlRoot.insertAdjacentHTML(
     'beforeend',
     `<style type="text/css">
-            h1.post-title {
+            .light-background h1.post-title {
               font-size: 36px;
               font-weight: 800;
             }
-            article > .entry-wrapper > p {
+            .light-background article > .entry-wrapper > p {
               max-width: none;
             }
-            h2 {
+            .light-background h2 {
               font-size: 26px;
               font-weight: 600;
             }
-            #content, #comments {
+            .light-background #content, #comments {
               padding-top: 20px;
               padding-bottom: 20px;
               overflow: hidden;
             }
             .light-background {
               background-color: #fff;
-              font-family: system-ui;
-            }
-            .dark-background {
-              background-color: rgb(26, 26, 26);
               font-family: system-ui;
             }
         </style>`

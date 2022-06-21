@@ -57,7 +57,12 @@ export function MarketingDrawerContainer({
           </div>
         </NavBar>
       )}
-      <main className={initClosed ? '' : classes.content} id='main-content'>
+      <main
+        className={`${initClosed ? '' : classes.content}${
+          footerSpacing ? ' pb-[20vh]' : ''
+        }`}
+        id='main-content'
+      >
         {initClosed ? (
           children
         ) : (
@@ -69,9 +74,7 @@ export function MarketingDrawerContainer({
           </Container>
         )}
       </main>
-      {initClosed || emptyFooter ? null : (
-        <Footer footerSpacing={footerSpacing} />
-      )}
+      {initClosed || emptyFooter ? null : <Footer />}
     </Fragment>
   )
 }

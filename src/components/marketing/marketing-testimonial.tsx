@@ -67,7 +67,7 @@ export function MarketingTestimonial() {
           <div>
             <Typography
               variant='h4'
-              component='p'
+              component='blockquote'
               gutterBottom
               className={classes.title}
             >
@@ -75,8 +75,7 @@ export function MarketingTestimonial() {
             </Typography>
             <Typography
               variant='subtitle1'
-              component='p'
-              gutterBottom
+              component='cite'
               className={classes.subtitle}
             >
               {strings.testimonials[0].who}

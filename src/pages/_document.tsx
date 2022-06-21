@@ -45,10 +45,18 @@ class MyDocument extends Document {
     return (
       <Html lang='en'>
         <Head>
+          <meta charSet='utf-8' key={'charset'} />
+          <meta name='viewport' content='width=device-width, initial-scale=1' />
           {process.env.NEXT_PUBLIC_DISABLE_SEO === '1' ? (
             <meta name='robots' content='noindex' />
           ) : null}
-          <meta name='theme-color' content={theme.palette.primary.main} />
+          <meta name='description' key='description' />
+          <meta property='og:description' key='og:description' />
+          <meta
+            name='theme-color'
+            content={theme.palette.primary.main}
+            key={'theme-color'}
+          />
           <meta name='mobile-web-app-capable' content='yes' />
           <link rel='manifest' href='/manifest.json' />
           <meta name='format-detection' content='telephone=no' />
@@ -58,14 +66,17 @@ class MyDocument extends Document {
           <meta
             property='twitter:image'
             content={`${DOMAIN_NAME}/img/intro-poster.png`}
+            key={'twitter:image'}
           />
           <meta
             property='og:title'
+            key={'og:title'}
             content={`Web Accessibility Service | ${strings.appName}`}
           />
           <meta property='og:url' content={DOMAIN_NAME} />
           <meta
             property='og:image'
+            key={'og:image'}
             content={`${DOMAIN_NAME}/img/intro-poster.png`}
           />
           <link rel='apple-touch-icon' href='/img/apple-touch-icon.png' />
