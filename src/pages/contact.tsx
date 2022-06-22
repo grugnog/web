@@ -1,9 +1,9 @@
-import React from 'react'
 import { Typography } from '@material-ui/core'
 import { Box } from '@a11ywatch/ui'
 import { MarketingDrawer, Spacer, PageTitle } from '@app/components/general'
 import { strings } from '@app-strings'
 import { metaSetter } from '@app/utils'
+import type { CSSProperties } from 'react'
 import type { PageProps } from '@app/types'
 
 const center = {
@@ -11,7 +11,7 @@ const center = {
   justifyContent: 'center',
   alignItems: 'center',
   flexDirection: 'column',
-} as React.CSSProperties
+} as CSSProperties
 
 const circleStyle = Object.assign(
   {},

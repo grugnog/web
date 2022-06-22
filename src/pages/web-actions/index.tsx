@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react'
+import { useMemo } from 'react'
 import { FormDialog, PageTitle, Drawer, Button } from '@app/components/general'
 import { List } from '@app/components/general/lists/websites-pages-actions'
 import { useSearchFilter } from '@app/data'
@@ -8,7 +8,7 @@ import type { PageProps } from '@app/types'
 import { PageLoader } from '@app/components/placeholders'
 import { useWebsiteContext } from '@app/components/providers/website'
 
-function Actions({ name }: PageProps) {
+function WebActions({ name }: PageProps) {
   const {
     actionsData,
     actionsDataLoading,
@@ -63,7 +63,7 @@ function Actions({ name }: PageProps) {
 }
 
 export default metaSetter(
-  { Actions },
+  { WebActions },
   {
     gql: true,
     description: 'Your page actions to run during test.',

@@ -1,4 +1,3 @@
-import React from 'react'
 import { Button, Typography, List, ListItem } from '@material-ui/core'
 import { MarketingDrawer, PageTitle } from '@app/components/general'
 import { Box } from '@a11ywatch/ui'

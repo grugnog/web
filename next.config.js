@@ -21,11 +21,10 @@ const env = {
   GITHUB_CLIENT_ID: process.env.GITHUB_CLIENT_ID,
   CRISP_WEBSITE_ID: process.env.CRISP_WEBSITE_ID,
   NEXT_PUBLIC_DOMAIN_NAME: DOMAIN_NAME,
-  INTERCOM_ENABLED: process.env.INTERCOM_ENABLED,
-  SUPER_MODE: process.env.SUPER_MODE,
-  DOCKER_CONTAINER: process.env.DOCKER_CONTAINER, // app is using docker runtime
-  // single CDN for app assets
-  CDN: process.env.CDN,
+  INTERCOM_ENABLED: process.env.INTERCOM_ENABLED === 'true',
+  SUPER_MODE: process.env.SUPER_MODE === 'true',
+  DOCKER_CONTAINER: process.env.DOCKER_CONTAINER === 'true', // app is using docker runtime
+  CDN: process.env.CDN, // single CDN for app assets
 }
 
 let domains = ['images.unsplash.com']

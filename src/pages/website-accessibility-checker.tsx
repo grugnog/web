@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react'
+import { Fragment } from 'react'
 import { MarketingDrawer } from '@app/components/general'
 import { CtaIntroRest } from '@app/components/cta/cta-intro-rest'
 import { metaSetter } from '@app/utils'

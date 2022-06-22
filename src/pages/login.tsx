@@ -1,4 +1,3 @@
-import React from 'react'
 import { MarketingDrawer, SignOnForm } from '@app/components/general'
 import { MarketingShortTitle } from '@app/components/marketing'
 import { metaSetter } from '@app/utils'

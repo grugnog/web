@@ -1,4 +1,3 @@
-import React from 'react'
 import { MarketingDrawer, PageTitle, Logo } from '@app/components/general'
 import { strings } from '@app-strings'
 import { metaSetter } from '@app/utils'

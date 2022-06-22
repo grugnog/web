@@ -1,4 +1,3 @@
-import React from 'react'
 import { NavBar, IssueModal, Fab } from '@app/components/general'
 import { AdaIframe } from '@app/components/ada/ada-iframe'
 import { useRouter } from 'next/router'

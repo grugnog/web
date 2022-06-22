@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, SyntheticEvent, useState } from 'react'
+import { useRef, useEffect, SyntheticEvent, useState } from 'react'
 import { makeStyles } from '@material-ui/core/styles'
 import { TextField, FormControl, LinearProgress } from '@material-ui/core'
 import { AppManager, UserManager } from '@app/managers'

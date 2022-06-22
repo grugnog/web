@@ -41,21 +41,23 @@ export function AuthedMenuComponent({
   )
 
   return (
-    <List>
-      {features.map(({ feature }: any, index: number) => (
-        <FeaturesCell
-          key={index}
-          alertEnabled={!!enabledAlerts}
-          feature={feature}
-          index={index}
-          focused={route === feature}
-          events={events}
-          isMobile={isMobile}
-          setEvents={setEvents}
-          toggleAlert={index === 0 ? onAlertToggle : undefined}
-        />
-      ))}
-    </List>
+    <nav>
+      <List>
+        {features.map(({ feature }: any, index: number) => (
+          <FeaturesCell
+            key={index}
+            alertEnabled={!!enabledAlerts}
+            feature={feature}
+            index={index}
+            focused={route === feature}
+            events={events}
+            isMobile={isMobile}
+            setEvents={setEvents}
+            toggleAlert={index === 0 ? onAlertToggle : undefined}
+          />
+        ))}
+      </List>
+    </nav>
   )
 }
 

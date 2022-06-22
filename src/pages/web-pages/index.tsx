@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react'
+import { useMemo } from 'react'
 import { FormDialog, PageTitle, Drawer, Button } from '@app/components/general'
 import { List } from '@app/components/general/lists/websites-pages'
 import { useSearchFilter } from '@app/data'
@@ -8,7 +8,7 @@ import type { PageProps } from '@app/types'
 import { PageLoader } from '@app/components/placeholders'
 import { useWebsiteContext } from '@app/components/providers/website'
 
-function Pages({ name }: PageProps) {
+function WebPages({ name }: PageProps) {
   const {
     pagesData,
     pagesDataLoading,
@@ -59,9 +59,9 @@ function Pages({ name }: PageProps) {
 }
 
 export default metaSetter(
-  { Pages },
+  { WebPages },
   {
     gql: true,
-    description: 'Your pages displayed with web vitals.',
+    description: 'All of your pages displayed with web vitals.',
   }
 )

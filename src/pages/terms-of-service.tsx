@@ -1,4 +1,3 @@
-import React from 'react'
 import { Typography } from '@material-ui/core'
 import { PageTitle, Mailto, MarketingDrawer } from '@app/components/general'
 import { strings } from '@app-strings'

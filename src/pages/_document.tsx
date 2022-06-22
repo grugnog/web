@@ -79,11 +79,6 @@ class MyDocument extends Document {
             content={`${DOMAIN_NAME}/img/intro-poster.png`}
           />
           <meta
-            property='og:url'
-            content={`${DOMAIN_NAME}${this.props.__NEXT_DATA__.page}`}
-            key={'og:url'}
-          />
-          <meta
             property='og:image'
             key={'og:image'}
             content={`${DOMAIN_NAME}/img/intro-poster.png`}

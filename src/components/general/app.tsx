@@ -5,7 +5,7 @@ import { ThemeProvider } from '@material-ui/core/styles'
 import { strings } from '@app-strings'
 import { theme } from '@app-theme'
 import { initAppModel, userModel } from '@app/data'
-import { INTERCOM_ENABLED, LOGGIN_ROUTES } from '@app/configs'
+import { DOMAIN_NAME, INTERCOM_ENABLED, LOGGIN_ROUTES } from '@app/configs'
 import { ping, startIntercom } from '@app/utils'
 import { WebsiteProviderWrapper } from '@app/components/providers'
 import { RestWebsiteProviderWrapper } from '../providers/rest/rest-website'
@@ -13,6 +13,7 @@ import { ErrorBoundary, SkipContent } from '@app/components/general'
 import type { InnerApp } from '@app/types/page'
 import { SnackBar } from './snack-bar'
 import Script from 'next/script'
+import { buildScopeQuery } from '@app/utils/build-scope'
 
 const authRoutes = LOGGIN_ROUTES.map((route) => route.replace('/', ''))
 
@@ -27,30 +28,10 @@ const Application = ({ Component, pageProps, name }: InnerApp) => {
     authRoutes.includes(nameLowerCased.replace(/ /g, '-'))
 
   // TODO: USE META TO DETERMINE PROVIDER PULLING
-  let initialQuery = initialWebsiteQuery
-  let scopedQuery = ''
-
-  // run query without pages
-  if (nameLowerCased === 'issues') {
-    initialQuery = false
-    scopedQuery = 'issues'
-  }
-  if (nameLowerCased === 'pages') {
-    initialQuery = false
-    scopedQuery = 'pages'
-  }
-  if (nameLowerCased === 'actions') {
-    initialQuery = false
-    scopedQuery = 'actions'
-  }
-  if (nameLowerCased === 'analytics') {
-    initialQuery = false
-    scopedQuery = 'analytics'
-  }
-  if (nameLowerCased === 'scripts') {
-    initialQuery = false
-    scopedQuery = 'scripts'
-  }
+  const { initialQuery, scopedQuery } = buildScopeQuery(
+    nameLowerCased,
+    initialWebsiteQuery
+  )
 
   // Restful provider for API [Good for marketing sections]
   const RestWrapper = Component.rest ? RestWebsiteProviderWrapper : Fragment
@@ -110,6 +91,8 @@ export function MyApp({ Component, pageProps }: InnerApp) {
     }
   }, [Component.intercom])
 
+  const pathName = String(name).toLowerCase()
+
   return (
     <Fragment>
       <Head>
@@ -120,6 +103,13 @@ export function MyApp({ Component, pageProps }: InnerApp) {
           property='og:title'
           content={title || `Web Accessibility Service | ${strings.appName}`}
           key='og:title'
+        />
+        <meta
+          property='og:url'
+          content={`${DOMAIN_NAME}${
+            pathName === 'index' ? '' : `/${pathName.replace(/ /g, '-')}`
+          }`}
+          key={'og:url'}
         />
         {description ? (
           <>
@@ -140,7 +130,7 @@ export function MyApp({ Component, pageProps }: InnerApp) {
         </ErrorBoundary>
         <SnackBar />
       </ThemeProvider>
-      {!Component.intercom && CRISP_WEBSITE_ID && !INTERCOM_ENABLED ? (
+      {Component.intercom && CRISP_WEBSITE_ID && !INTERCOM_ENABLED ? (
         <Script id='crips_id'>{`window.$crisp=[];window.CRISP_WEBSITE_ID="${CRISP_WEBSITE_ID}";(function(){d=document;s=d.createElement("script");s.src="https://client.crisp.chat/l.js";s.async=1;d.getElementsByTagName("head")[0].appendChild(s);})();`}</Script>
       ) : null}
     </Fragment>

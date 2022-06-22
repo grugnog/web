@@ -1,4 +1,3 @@
-import React from 'react'
 import { Typography, List, ListItem } from '@material-ui/core'
 import { MarketingDrawer, PageTitle } from '@app/components/general'
 import { strings } from '@app-strings'

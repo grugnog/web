@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react'
+import { Fragment } from 'react'
 import { MarketingDrawer, Price } from '@app/components/general'
 import {
   CtaFeatures,

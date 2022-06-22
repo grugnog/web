@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react'
+import { useMemo } from 'react'
 import { FormDialog, PageTitle, Drawer, Button } from '@app/components/general'
 import { List } from '@app/components/general/lists/websites-issues'
 import { useSearchFilter } from '@app/data'
@@ -8,7 +8,7 @@ import type { PageProps } from '@app/types'
 import { PageLoader } from '@app/components/placeholders'
 import { useWebsiteContext } from '@app/components/providers/website'
 
-function Issues({ name }: PageProps) {
+function WebIssues({ name }: PageProps) {
   const {
     issueData,
     issueDataLoading,
@@ -59,7 +59,7 @@ function Issues({ name }: PageProps) {
 }
 
 export default metaSetter(
-  { Issues },
+  { WebIssues },
   {
     gql: true,
     description: 'Your list of websites with issues displayed.',
