@@ -18,13 +18,7 @@ const FeedListComponent: FC<FeedComponentProps> = ({
   const Row = ({ index, style }: any) => {
     const item = pageIssues[index]
 
-    return (
-      <IssueFeedCell
-        key={`${item.code}-${item.selector}-${issue.pageUrl}`}
-        item={item}
-        style={style}
-      />
-    )
+    return <IssueFeedCell item={item} style={style} />
   }
 
   // full height of screen for window

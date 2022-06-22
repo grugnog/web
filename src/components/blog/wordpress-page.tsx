@@ -28,6 +28,8 @@ const Page: FC<BlogPageProps> = ({
   headScripts,
   bodyScripts,
   children,
+  footer = true,
+  header = true,
 }) => {
   const memoHeadScripts = useMemo(
     () =>
@@ -88,15 +90,14 @@ const Page: FC<BlogPageProps> = ({
         })}
         {memoHeadScripts}
       </Head>
-      <NavBar title={`The ${companyName} Blog`} />
-      {children ? (
-        children
-      ) : (
-        <>
-          <main className='light-background'>{parser(html)}</main>
-        </>
-      )}
-      <Footer blog />
+      {header ? <NavBar title={`The ${companyName} Blog`} /> : null}
+
+      {children}
+      <main className='light-background'>
+        <>{html ? parser(html) : ''}</>
+      </main>
+
+      {footer ? <Footer blog /> : null}
       {memoBodyScripts}
     </>
   )

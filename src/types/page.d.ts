@@ -47,4 +47,7 @@ export interface BlogPageProps extends PageProps {
   metas: any[]
   headScripts: any[]
   bodyScripts: any[]
+  footer?: boolean
+  header?: boolean
+  children?: any
 }

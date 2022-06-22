@@ -1,4 +1,5 @@
-const BLOG_URL = process.env.BLOG_URL || 'https://a11ywatch.wpcomstaging.com'
+const BLOG_URL =
+  process.env.BLOG_WEBFLOW_URL || 'https://a11ywatch-blog.webflow.io'
 
 // cleanup wordpress page and parse html
 export const parseHtml = async (body: string) => {

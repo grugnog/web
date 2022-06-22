@@ -86,18 +86,20 @@ const Feed: FC = () => {
           </IconButton>
         </div>
         <ul>
-          {issues?.map((v, index) => {
-            const website = data[v] as any
+          {issues?.map((page, index) => {
+            const website = data[page] as any
 
             if (!website) {
               return null
             }
 
+            const pages = Object.keys(website)
+
             return (
-              <li key={website._id}>
+              <li key={page}>
                 <ul>
-                  {Object.keys(website)?.map((d: any) => {
-                    const issue = data[v][d] as any
+                  {pages?.map((d: any) => {
+                    const issue = data[page][d] as any
 
                     return (
                       <FeedList

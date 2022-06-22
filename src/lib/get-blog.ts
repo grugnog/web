@@ -1,46 +1,36 @@
-import { dev } from '@app/configs'
 import type { BlogPageProps } from '@app/types'
-import { webflowRoutes } from './webflow-routes'
 
-const BLOG_URL = process.env.BLOG_URL || 'https://a11ywatch.wpcomstaging.com'
 const BLOG_WEBFLOW_URL =
   process.env.BLOG_WEBFLOW_URL || 'https://a11ywatch-blog.webflow.io'
 
 // determine if the path is from WP or webflow
 const getUrl = (p: string) => {
-  let path = p || '/'
-
-  path = dev ? path : path.replace('blog/', '')
+  let path = p
 
   const containsAuthors = path.startsWith('authors/')
   const containsCategories = path.startsWith('categories/')
 
   let query = path
 
+  let baseFolder = 'blog/'
+
   if (containsAuthors) {
-    query = 'authors/'
+    baseFolder = 'authors/'
   }
   if (containsCategories) {
-    query = 'categories/'
+    baseFolder = 'categories/'
   }
 
-  if (webflowRoutes[query]) {
-    const slug = webflowRoutes[query]
-
-    if ('pathName' in slug) {
-      const { pathName } = slug
-      return `${BLOG_WEBFLOW_URL}${pathName ? `/${pathName}` : ''}`
-    } else {
-      // allow entire slugs at url
-      return `${BLOG_WEBFLOW_URL}${path ? `/${path}` : ''}`
-    }
-  }
-
-  return `${BLOG_URL}${path ? `/${path}` : ''}`
+  return `${BLOG_WEBFLOW_URL}${
+    query && query !== '/' ? `/${baseFolder}${query}` : ''
+  }`
 }
 
 // get wordpress page and parse content by themes
-export const getBlogPage = async (pathname: string): Promise<BlogPageProps> => {
+export const getBlogPage = async (
+  pathname: string,
+  directUrl?: boolean
+): Promise<BlogPageProps> => {
   const links: BlogPageProps['links'] = []
   const stylesheets: BlogPageProps['stylesheets'] = []
   const metas: BlogPageProps['metas'] = []
@@ -50,7 +40,7 @@ export const getBlogPage = async (pathname: string): Promise<BlogPageProps> => {
   let title = ''
 
   try {
-    const res = await fetch(getUrl(pathname))
+    const res = await fetch(directUrl ? pathname : getUrl(pathname))
     const { parseHtml } = await import('./parse-html')
 
     if (res && res?.ok) {
@@ -196,20 +186,49 @@ export const getBlogPage = async (pathname: string): Promise<BlogPageProps> => {
           'beforeend',
           `<style type="text/css">
 
-            main h4, h5, h6 {
-              font-weight: 600;
-              font-family: system-ui;
-            }
-            .entry-date.published, .blog-date {
-              color: rgba(117, 117, 117, 1);
-            }
-            main a {
-              color: rgb(37, 99, 235);
-              text-decoration: none;
-              padding: 0.2em;
-            }
-        </style>
-        `
+          ${
+            directUrl
+              ? `
+              body {
+                width: auto;
+              }
+
+              body .light-background {
+                width: 60em;
+                margin: 1em auto;
+                color: #222;
+                font-family: "Ubuntu", sans-serif;
+                padding-bottom: 4em;
+              }
+              
+              p {
+                padding-bottom: 3px;
+                padding-top: 3px;
+              }
+              h3 {
+                padding-top: 10px;
+                padding-bottom: 5px;
+                font-size: 1.3em;
+                font-weight: 500;
+              }
+
+          `
+              : ''
+          }
+              main h4, h5, h6 {
+                font-weight: 600;
+                font-family: system-ui;
+              }
+              .entry-date.published, .blog-date {
+                color: rgba(117, 117, 117, 1);
+              }
+              main a {
+                color: rgb(37, 99, 235);
+                text-decoration: none;
+                padding: 0.2em;
+              }
+          </style>
+          `
         )
 
         cssSheets.forEach((sheet) => {

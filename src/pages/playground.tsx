@@ -1,7 +1,8 @@
-import { AppConfig } from '@app/configs'
+import { AppConfig, companyName } from '@app/configs'
 import { metaSetter } from '@app/utils'
 
 import Head from 'next/head'
+import Link from 'next/link'
 import Script from 'next/script'
 
 function Playground() {
@@ -115,6 +116,19 @@ function Playground() {
       animation: fadeIn 0.5s ease-out forwards;
     }
 
+    @media only screen and (max-width: 800px) {
+      .hrcFBJ {
+        font-size: 12px !important;
+      }
+      .hrcFBJ > * {
+        width: 60px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: inline-block;
+      }
+    }
+
     .text {
       font-size: 32px;
       font-weight: 200;
@@ -124,6 +138,7 @@ function Playground() {
       -webkit-animation: fadeIn 0.5s ease-out forwards;
       animation: fadeIn 0.5s ease-out forwards;
     }
+
 
     .fadeOut {
         -webkit-animation: fadeOut 0.5s ease-out forwards;
@@ -204,6 +219,20 @@ function Playground() {
 
       <div id='playground-root' className='bg-[#172a3a]' />
 
+      <nav className='fixed bottom-0 left-[42%] md:left-[47%] mdright-[47%] text-white flex space-x-2 p-3'>
+        <h1 className='w-5 md:w-auto truncate text-gray-300'>
+          {companyName} graphQL playground
+        </h1>
+        <ul className='flex space-x-2'>
+          <li>
+            <Link href='/api-info'>REST</Link>
+          </li>
+          <li>
+            <a href='https://api.a11ywatch.com/grpc-docs'>gRPC</a>
+          </li>
+        </ul>
+      </nav>
+
       <Script
         strategy={'beforeInteractive'}
         src='/js/gql/middleware.js'
@@ -233,16 +262,6 @@ function Playground() {
                   title: ""
                 })
                 
-                const xpath = "//span[text()='Tracing']";
-                const matchingElement = document.evaluate(xpath, document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue;
-                
-                let a = document.createElement('a');
-                a.textContent = 'A11yWatch';
-                a.href = 'https://a11ywatch.com';
-                a.style.textDecoration = 'none';
-                a.style.marginRight = '12px';
-                
-                matchingElement.parentNode.insertBefore(a, matchingElement);
             })()
           `,
         }}
