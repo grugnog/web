@@ -83,9 +83,16 @@ function ApiInfo() {
             >
               REST
             </a>
-            or{' '}
+            ,{' '}
             <a href={'/playground'} className='underline text-blue-600'>
               GraphQL
+            </a>
+            , or{' '}
+            <a
+              href={'https://api.a11ywatch.com/grpc-docs'}
+              className='underline text-blue-600'
+            >
+              gRPC
             </a>{' '}
             documentation.
           </p>
@@ -193,7 +200,8 @@ function ApiInfo() {
             PUTS and POST request since some params are set to be arrays and
             other none string shapes. In the example replace a11ywatch.com with
             your website you want to target. Some clients are a work in progress
-            as we build out the core of our system.
+            as we build out the core of our system. At the moment gRPC endpoints
+            are only exposed to enterprise clients or local builds.
           </p>
         </div>
 
@@ -207,7 +215,7 @@ export default metaSetter(
   { ApiInfo },
   {
     title: 'Web Accessibility API - A11yWatch',
-    description: `The web accessibility API for testing in real time. Determine high precision image alts and other inclusive recommendations easily with REST, graphQL, or gRPC.`,
+    description: `The web accessibility API for testing in real time. Determine accurate image alts and other inclusive recommendations easily with REST, graphQL, or gRPC.`,
     gql: true,
   }
 )
