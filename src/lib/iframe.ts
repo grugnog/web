@@ -1,23 +1,18 @@
-import { initUrl } from '@a11ywatch/website-source-builder'
 import { IFRAME_ENDPOINT } from '@app/configs/next/iframe'
-
-let endpoint = IFRAME_ENDPOINT
 
 // fetch iframe reverse engineered website from API
 export const iframe = async (
   url: string,
   baseHref: string | string[] | true
 ) => {
-  const base = `/iframe?url=${encodeURIComponent(initUrl(url))}&baseHref=${
+  const base = `/iframe?url=${encodeURIComponent(url)}&baseHref=${
     baseHref || true
   }`
-
-  const path = `${endpoint}${base}`
 
   let data
 
   try {
-    data = await fetch(path)
+    data = await fetch(IFRAME_ENDPOINT + base)
   } catch (e) {
     console.error(e)
   }
