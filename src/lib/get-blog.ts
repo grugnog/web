@@ -3,27 +3,27 @@ import type { BlogPageProps } from '@app/types'
 const BLOG_WEBFLOW_URL =
   process.env.BLOG_WEBFLOW_URL || 'https://a11ywatch-blog.webflow.io'
 
-// determine if the path is from WP or webflow
-const getUrl = (p: string) => {
-  let path = p
-
-  const containsAuthors = path.startsWith('authors/')
-  const containsCategories = path.startsWith('categories/')
-
-  let query = path
-
-  let baseFolder = 'blog/'
-
-  if (containsAuthors) {
-    baseFolder = 'authors/'
-  }
-  if (containsCategories) {
-    baseFolder = 'categories/'
+// determine if the path is from WP or webflow [TODO: revalidate and just use query]
+const getUrl = (q: string) => {
+  if (q === '/' || !q) {
+    return BLOG_WEBFLOW_URL
   }
 
-  return `${BLOG_WEBFLOW_URL}${
-    query && query !== '/' ? `/${baseFolder}${query}` : ''
-  }`
+  const containsAuthors = q.startsWith('/authors/') || q.startsWith('authors/')
+  const containsCategories =
+    q.startsWith('/categories/') || q.startsWith('categories/')
+
+  let baseFolder = ''
+  let query = q
+
+  if (!(containsAuthors || containsCategories)) {
+    baseFolder = '/blog/'
+    query = `${query.replace('blog/', '')}`
+  }
+
+  return `${BLOG_WEBFLOW_URL}${`${baseFolder}${
+    query[0] === '/' ? query : `/${query}`
+  }`}`
 }
 
 // get wordpress page and parse content by themes
@@ -250,10 +250,9 @@ export const getBlogPage = async (
           htmlTag?.replaceWith(bodyTag)
         }
 
-        html = htmlRoot.innerHTML.replace(
-          `<!doctype html><html lang="en-US">`,
-          ''
-        )
+        html = htmlRoot.innerHTML
+          .replace(`<!doctype html><html lang="en-US">`, '')
+          .replace(`</html>`, '')
       }
     }
   } catch (e) {

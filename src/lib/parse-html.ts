@@ -9,7 +9,6 @@ export const parseHtml = async (body: string) => {
 
   const siteNavigationAnchor = htmlRoot.querySelector('#site-navigation a')
   const adminBar = htmlRoot.querySelector('#wpadminbar')
-  const blogAnchors = htmlRoot.querySelectorAll(`a[href^="${BLOG_URL}"]`)
   const footer = htmlRoot.querySelector('.footer-wrap')
   const navMenu = htmlRoot.querySelector('.menu-area')
   const statsScript = htmlRoot.querySelector(
@@ -54,17 +53,20 @@ export const parseHtml = async (body: string) => {
     }
   })
 
+  const blogAnchors = htmlRoot.querySelectorAll(
+    `a[href^="${BLOG_URL}"],a[href^="/"]`
+  )
   // manipulate links that are blog pages relativeness
   blogAnchors.forEach((link) => {
     const url = link.getAttribute('href') || ''
     if (url) {
-      link.setAttribute(
-        'href',
-        url.replace(
-          BLOG_URL,
-          process.env.NODE_ENV === 'development' ? '/blog' : ''
-        )
-      )
+      // convert all to relative
+      let urlBase = url.replace(BLOG_URL, '')
+
+      if (process.env.NODE_ENV === 'development') {
+        urlBase = `/blog${url}`
+      }
+      link.setAttribute('href', urlBase)
     }
   })
 

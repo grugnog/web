@@ -1,18 +1,18 @@
 // determine what queries a page can run initially via the route path
-export const buildScopeQuery = (nameLowerCased?: string, query?: boolean) => {
+export const buildScopeQuery = (nameLowerCased: string, query: boolean) => {
   let scopedQuery
   let initialQuery = query
 
   // run query without pages
-  if (nameLowerCased === 'web-issues') {
+  if (nameLowerCased === 'web issues') {
     initialQuery = false
     scopedQuery = 'issues'
   }
-  if (nameLowerCased === 'web-pages') {
+  if (nameLowerCased === 'web pages') {
     initialQuery = false
     scopedQuery = 'pages'
   }
-  if (nameLowerCased === 'web-actions') {
+  if (nameLowerCased === 'web actions') {
     initialQuery = false
     scopedQuery = 'actions'
   }

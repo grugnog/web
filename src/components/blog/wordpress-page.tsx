@@ -3,7 +3,6 @@ import React, { FC, Fragment, useMemo, memo } from 'react'
 import Head from 'next/head'
 import { Footer } from '@app/components/general/footer'
 import { NavBar } from '@app/components/blog/navbar'
-import { companyName } from '@app/configs/app-config'
 import parser from 'html-react-parser'
 
 const getProps = (props: any = {}) => {
@@ -90,7 +89,7 @@ const Page: FC<BlogPageProps> = ({
         })}
         {memoHeadScripts}
       </Head>
-      {header ? <NavBar title={`The ${companyName} Blog`} /> : null}
+      {header ? <NavBar title={'Blog'} /> : null}
 
       {children}
       <main className='light-background'>
