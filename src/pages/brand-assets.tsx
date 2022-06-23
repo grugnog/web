@@ -65,6 +65,6 @@ function BrandAssets({ name }: PageProps) {
 export default metaSetter(
   { BrandAssets },
   {
-    description: `Get ${strings.appName} brand assets here.`,
+    description: `Get ${strings.appName} brand assets here. Show your support by displaying a link with our logo on your website.`,
   }
 )

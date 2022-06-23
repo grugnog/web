@@ -57,7 +57,7 @@ function OpenSource({
 export default metaSetter(
   { OpenSource },
   {
-    description: `A list of Open-Source projects we contribute to.`,
+    description: `A list of Open-Source projects we contribute to. Some of the projects help make our system unique.`,
   }
 )
 

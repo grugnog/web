@@ -38,18 +38,18 @@ const getDescription = (params?: RegisterParams) => {
   const plan = p ? String(p).toLowerCase() : ''
 
   const registerStart =
-    'Register with A11yWatch to get web accessibility insight on demand'
+    'Register to get web accessibility insight on demand, dedicated monitoring, and more'
 
   const lengthText = `${yearly ? 'yearly' : 'monthly'} plan`
 
   if (plan === 'free') {
-    return `${registerStart} free ${lengthText}. Get help making your website target everyone.`
+    return `${registerStart} free. Get help making your website target everyone.`
   }
   if (plan === 'basic') {
-    return `${registerStart} basic ${lengthText}. Get the support you need to make your website inclusive.`
+    return `${registerStart} with the basic ${lengthText}. Get the support you need to make your website inclusive.`
   }
   if (plan === 'premium') {
-    return `${registerStart} premium ${lengthText}. Get the best support you need to make your website accessible.`
+    return `${registerStart} with the premium ${lengthText}. Get the best support you need to make your website accessible.`
   }
 
   return `${registerStart}.`

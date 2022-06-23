@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import { Typography } from '@material-ui/core'
 import { MarketingDrawer, PageTitle } from '@app/components/general'
-import { strings } from '@app-strings'
 import { metaSetter } from '@app/utils'
 import type { PageProps } from '@app/types'
 import { companyName } from '@app/configs'
@@ -138,7 +137,8 @@ function CreateCalculator({ name }: PageProps) {
 export default metaSetter(
   { CreateCalculator },
   {
-    description: `Calculator for enterprise plans at ${strings.appName}.`,
+    title: `Calculator reflecting enterprise cost - ${companyName}`,
+    description: `Calculator for enterprise plans at ${companyName}. Use this to get a estimation on what your cost would look like at different levels.`,
     intercom: true,
   }
 )

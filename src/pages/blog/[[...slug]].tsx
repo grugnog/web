@@ -1,4 +1,3 @@
-import React from 'react'
 import { metaSetter } from '@app/utils/meta-setter'
 import { getBlogPage } from '@app/lib/get-blog'
 import { WordPressPage } from '@app/components/blog/wordpress-page'
