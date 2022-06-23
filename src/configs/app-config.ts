@@ -21,6 +21,10 @@ const STRIPE_KEY =
 
 const APP_TYPE = process.env.APP_TYPE || 'main'
 
+// blog url endpoint
+const BLOG_WEBFLOW_URL =
+  process.env.BLOG_WEBFLOW_URL || 'https://a11ywatch-blog.webflow.io'
+
 // browser facing (proxy access from central api)
 const cdn = process.env.CDN || 'http://localhost:8090'
 
@@ -29,8 +33,13 @@ const SCRIPTS_CDN_URL_HOST = /localhost/.test(cdn)
   : `${cdn}/scripts`
 
 const SUPER_MODE = process.env.SUPER_MODE
+
+// the front-end domain name
 const DOMAIN_NAME =
-  process.env.NEXT_PUBLIC_DOMAIN_NAME || process.env.DOMAIN_NAME
+  process.env.NEXT_PUBLIC_DOMAIN_NAME ||
+  process.env.DOMAIN_NAME ||
+  'http://a11ywatch.com'
+
 const companyName = process.env.COMPANY_NAME || 'A11yWatch'
 const twitterSite = process.env.TWITTER_SITE || '@a11ywatcher'
 
@@ -47,6 +56,7 @@ export const REST_API = api.replace('/graphql', '')
 export const isA11yWatch = /a11ywatch/.test(REST_API)
 
 export {
+  BLOG_WEBFLOW_URL,
   BASE_GQL_URL,
   STATUS_URL,
   DOMAIN_NAME,

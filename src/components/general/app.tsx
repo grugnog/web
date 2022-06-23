@@ -14,6 +14,7 @@ import type { InnerApp } from '@app/types/page'
 import { SnackBar } from './snack-bar'
 import Script from 'next/script'
 import { buildScopeQuery } from '@app/utils/build-scope'
+import { BLOG_WEBFLOW_URL } from '@app/configs/app-config'
 
 const authRoutes = LOGGIN_ROUTES.map((route) => route.replace('/', ''))
 
@@ -93,21 +94,23 @@ export function MyApp({ Component, pageProps }: InnerApp) {
 
   const pathName = String(name).toLowerCase()
 
+  const metaTitle = title || `Web Accessibility Service | ${strings.appName}`
+  const domainName = pathName === 'blog' ? BLOG_WEBFLOW_URL : DOMAIN_NAME
+
   return (
     <Fragment>
       <Head>
-        <meta charSet='utf-8' />
+        <meta charSet='utf-8' key={'charset'} />
         <meta name='viewport' content='width=device-width, initial-scale=1' />
-        <title key='title'>{title}</title>
-        <meta
-          property='og:title'
-          content={title || `Web Accessibility Service | ${strings.appName}`}
-          key='og:title'
-        />
+        <title key='title'>{metaTitle}</title>
+        <meta property='og:title' content={metaTitle} key='og:title' />
+        <meta property='og:type' key='og:type' content='website' />
         <meta
           property='og:url'
-          content={`${DOMAIN_NAME}${
-            pathName === 'index' ? '' : `/${pathName.replace(/ /g, '-')}`
+          content={`${domainName}${
+            ['index', 'blog'].includes(pathName)
+              ? ''
+              : `/${pathName.replace(/ /g, '-')}`
           }`}
           key={'og:url'}
         />

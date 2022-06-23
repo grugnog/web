@@ -6,10 +6,6 @@ import Image from 'next/image'
 import { SectionContainer } from '../general'
 
 const useStyles = makeStyles((theme) => ({
-  container: {
-    alignItems: 'center',
-    display: 'flex',
-  },
   bigAvatar: {
     backgroundColor: '#020202',
     color: '#757575',
@@ -31,15 +27,6 @@ const useStyles = makeStyles((theme) => ({
       textAlign: 'center',
     },
   },
-  subtitle: {
-    fontSize: '1.7em',
-    color: '#5f6368',
-    [theme.breakpoints.down('sm')]: {
-      fontSize: '1.3em',
-      textAlign: 'center',
-      flex: 1,
-    },
-  },
 }))
 
 export function MarketingTestimonial() {
@@ -47,13 +34,8 @@ export function MarketingTestimonial() {
 
   return (
     <SectionContainer>
-      <Grid
-        container
-        spacing={3}
-        justifyContent='center'
-        className={classes.container}
-      >
-        <Grid item xs={12} sm={6}>
+      <Grid container spacing={3} justifyContent='center' alignItems='center'>
+        <Grid item xs={12} sm={4}>
           <Avatar className={classes.bigAvatar} variant='circular'>
             <Image
               alt={strings.testimonials[0].who}
@@ -64,7 +46,7 @@ export function MarketingTestimonial() {
           </Avatar>
         </Grid>
         <Grid item xs={12} sm={6} container>
-          <div>
+          <div className='text-center'>
             <Typography
               variant='h4'
               component='blockquote'
@@ -73,13 +55,9 @@ export function MarketingTestimonial() {
             >
               {strings.testimonials[0].title}
             </Typography>
-            <Typography
-              variant='subtitle1'
-              component='cite'
-              className={classes.subtitle}
-            >
+            <cite className='text-[#5f6368] text-center text-lg'>
               {strings.testimonials[0].who}
-            </Typography>
+            </cite>
           </div>
         </Grid>
       </Grid>

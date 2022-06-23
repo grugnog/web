@@ -45,36 +45,32 @@ export const CheckoutForm = ({ onToken, basic, price, disabled }: Props) => {
   }
 
   return (
-    <div className='flex place-content-center flex-1'>
-      <form
-        onSubmit={handleSubmit}
-        className={
-          'h-42 space-y-3 bg-gray-200 p-5 rounded w-full lg:w-1/3 md:1/2'
-        }
+    <form
+      onSubmit={handleSubmit}
+      className={'h-42 space-y-3 bg-gray-200 p-5 rounded w-full'}
+    >
+      <div className='text-2xl font-bold'>
+        Total{' '}
+        {new Intl.NumberFormat('en-US', {
+          style: 'currency',
+          currency: 'USD',
+        }).format(price / 100)}
+      </div>
+      <CardElement
+        options={{ disabled, style, classes: { focus: 'ring' } }}
+        className={'p-4 bg-white'}
+      />
+      <Button
+        variant='contained'
+        color='secondary'
+        type='submit'
+        disabled={disabled}
+        style={{
+          minWidth: 160,
+        }}
       >
-        <div className='text-2xl font-bold'>
-          Total{' '}
-          {new Intl.NumberFormat('en-US', {
-            style: 'currency',
-            currency: 'USD',
-          }).format(price / 100)}
-        </div>
-        <CardElement
-          options={{ disabled, style, classes: { focus: 'ring' } }}
-          className={'p-4 bg-white'}
-        />
-        <Button
-          variant='contained'
-          color='secondary'
-          type='submit'
-          disabled={disabled}
-          style={{
-            minWidth: 160,
-          }}
-        >
-          Start {basic ? 'Basic' : 'Premium'}
-        </Button>
-      </form>
-    </div>
+        Start {basic ? 'Basic' : 'Premium'}
+      </Button>
+    </form>
   )
 }

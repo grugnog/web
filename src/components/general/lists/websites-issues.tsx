@@ -33,7 +33,9 @@ function IssuesWrapper(props: any) {
         aria-label={`Toggle section visible for ${props?.pageUrl}`}
       >
         <div>
-          <div className={'text-2xl font-bold'}>{props?.pageUrl}</div>
+          <div className={'text-xl md:text-2xl font-bold truncate'}>
+            {props?.pageUrl}
+          </div>
           <div>
             {totalIssues} possible issue
             {totalIssues === 1 ? '' : 's'}
@@ -118,7 +120,7 @@ const ListCell = ({
         aria-label={`Toggle section visible for ${item?.domain}`}
       >
         <div>
-          <div className={'text-2xl font-bold'}>{item?.domain}</div>
+          <div className={'text-2xl md:text-3xl font-bold'}>{item?.domain}</div>
           <div>
             {totalIssues} possible issue
             {totalIssues === 1 ? '' : 's'}

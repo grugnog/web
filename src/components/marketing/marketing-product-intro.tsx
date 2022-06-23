@@ -1,6 +1,9 @@
 import React from 'react'
 import Image from 'next/image'
 
+const imageWidth = 958
+const imageHeight = 517.094
+
 export function MarketingProductIntro() {
   return (
     <section id='app-section' className='overflow-visible pb-20'>
@@ -11,8 +14,8 @@ export function MarketingProductIntro() {
         <div className={'flex flex-nowrap relative md:left-0 left-20'}>
           <div className='flex-1 rounded border relative -left-40 overflow-hidden'>
             <Image
-              height={250}
-              width={350}
+              height={imageHeight}
+              width={imageWidth}
               src={'/img/marketing_playground.jpeg'}
               alt={'Accessibility live test playground example with figma.com'}
               layout={'responsive'}
@@ -20,13 +23,14 @@ export function MarketingProductIntro() {
           </div>
           <div className='flex-1 rounded border relative right-32 overflow-hidden'>
             <Image
-              height={250}
-              width={350}
+              height={imageHeight}
+              width={imageWidth}
+              quality={100}
               src={'/img/marketing_dashboard.jpeg'}
+              layout={'responsive'}
               alt={
                 'Dashboard for accessibility insights with example using figma.com'
               }
-              layout={'responsive'}
             />
           </div>
         </div>

@@ -1,3 +1,4 @@
+import { DOMAIN_NAME } from '@app/configs'
 import type { BlogPageProps } from '@app/types'
 
 const BLOG_WEBFLOW_URL =
@@ -17,13 +18,13 @@ const getUrl = (q: string) => {
   let query = q
 
   if (!(containsAuthors || containsCategories)) {
-    baseFolder = '/blog/'
+    baseFolder = '/blog'
     query = `${query.replace('blog/', '')}`
   }
 
-  return `${BLOG_WEBFLOW_URL}${`${baseFolder}${
-    query[0] === '/' ? query : `/${query}`
-  }`}`
+  const targetBase = BLOG_WEBFLOW_URL + baseFolder
+
+  return targetBase + `${query[0] === '/' ? query : `/${query}`}`
 }
 
 // get wordpress page and parse content by themes
@@ -39,8 +40,10 @@ export const getBlogPage = async (
   let html = ''
   let title = ''
 
+  const websiteUrl = directUrl ? pathname : getUrl(pathname)
+
   try {
-    const res = await fetch(directUrl ? pathname : getUrl(pathname))
+    const res = await fetch(websiteUrl)
     const { parseHtml } = await import('./parse-html')
 
     if (res && res?.ok) {
@@ -130,13 +133,15 @@ export const getBlogPage = async (
         })
 
         metaTags?.forEach((tag) => {
-          const { crossorigin, ...a } = tag.attributes
+          const { crossorigin, charset, ...a } = tag.attributes
 
-          if (a && a?.name !== 'viewport') {
-            if (crossorigin) {
-              metas.push({ crossOrigin: crossorigin, ...a })
-            } else {
-              metas.push(a)
+          if (!charset) {
+            if (a && a?.name !== 'viewport') {
+              if (crossorigin) {
+                metas.push({ crossOrigin: crossorigin, ...a })
+              } else {
+                metas.push(a)
+              }
             }
           }
 
@@ -197,28 +202,46 @@ export const getBlogPage = async (
                 width: 60em;
                 margin: 1em auto;
                 color: #222;
-                font-family: "Ubuntu", sans-serif;
+                font-family: system-ui;
                 padding-bottom: 4em;
               }
-              
+            
               p {
                 padding-bottom: 3px;
                 padding-top: 3px;
-              }
-              h3 {
-                padding-top: 10px;
-                padding-bottom: 5px;
-                font-size: 1.3em;
-                font-weight: 500;
               }
 
           `
               : ''
           }
-              main h4, h5, h6 {
-                font-weight: 600;
-                font-family: system-ui;
+
+              h1 {
+                font-size: 2.25rem;
+                font-weight: 800;
               }
+              h2 {
+                font-size: 1.875rem;
+                font-weight: 800;
+              }
+              h3 {
+                font-size: 1.5rem;
+                font-weight: 800;
+                padding-top: 10px;
+                padding-bottom: 5px;
+              }
+              h4 {
+                font-size: 1.25rem;
+                font-weight: 700;
+              }
+              h5 {
+                font-size: 1.125rem;
+                font-weight: 600;
+              }
+              h6 {
+                font-size: 1rem;
+                font-weight: 500;
+              }
+
               .entry-date.published, .blog-date {
                 color: rgba(117, 117, 117, 1);
               }
@@ -259,6 +282,11 @@ export const getBlogPage = async (
     console.error(e)
   }
 
+  const targetUrl = websiteUrl.replace(
+    BLOG_WEBFLOW_URL,
+    DOMAIN_NAME?.replace('.com', '.blog')
+  )
+
   return {
     name: '',
     html,
@@ -268,5 +296,6 @@ export const getBlogPage = async (
     metas,
     bodyScripts,
     headScripts,
+    websiteUrl: targetUrl,
   }
 }

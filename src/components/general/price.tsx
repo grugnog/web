@@ -97,6 +97,7 @@ function PriceWrapper({
   premium = false,
   onClick,
   blockFree,
+  blockEnterprise,
   navigate,
   yearly: year,
   setYearly: setYear,
@@ -111,13 +112,15 @@ function PriceWrapper({
     onSetYear(params)
   }
 
-  const plans = useMemo(
-    () =>
-      priceConfig.plans.filter((item: any) =>
-        !blockFree ? item.title !== 'Free' : true
-      ),
-    [blockFree]
-  )
+  const plans = useMemo(() => {
+    const basePlans = priceConfig.plans
+      .filter((item: any) => (blockFree ? item.title !== 'Free' : true))
+      .filter((item: any) =>
+        blockEnterprise ? item.title !== 'Enterprise' : true
+      )
+
+    return basePlans
+  }, [blockFree, blockEnterprise])
 
   const SubHeading = ({ children, ...extra }: any) =>
     pricingPage ? (
@@ -134,7 +137,7 @@ function PriceWrapper({
       <h5 {...extra}>{children}</h5>
     )
 
-  const xlColumns = !onClick ? 'xl:grid-cols-4' : 'xl:grid-cols-3'
+  const xlColumns = !onClick ? 'xl:grid-cols-4' : `xl:grid-cols-${plans.length}`
 
   return (
     <div id='plans-section'>

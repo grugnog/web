@@ -23,7 +23,7 @@ function ScriptsWrapper(props: any) {
         aria-expanded={visible}
         aria-label={`Toggle section visible for ${props?.pageUrl}`}
       >
-        <div className={'text-2xl font-bold'}>{props?.pageUrl}</div>
+        <div className={'text-2xl md:text-3xl font-bold'}>{props?.pageUrl}</div>
       </button>
       <div
         aria-hidden={!visible}

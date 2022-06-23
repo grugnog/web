@@ -4,7 +4,7 @@ import { WordPressPage } from '@app/components/blog/wordpress-page'
 import type { BlogPageProps } from '@app/types'
 import type { GetStaticProps } from 'next'
 
-function Blogs(props: BlogPageProps) {
+function Blog(props: BlogPageProps) {
   return <WordPressPage {...props} />
 }
 
@@ -30,7 +30,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
 }
 
 export default metaSetter(
-  { Blogs },
+  { Blog },
   {
     gql: false,
     intercom: false,

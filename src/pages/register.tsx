@@ -46,10 +46,10 @@ const getDescription = (params?: RegisterParams) => {
     return `${registerStart} free. Get help making your website target everyone.`
   }
   if (plan === 'basic') {
-    return `${registerStart} with the basic ${lengthText}. Get the support you need to make your website inclusive.`
+    return `${registerStart} with the basic ${lengthText}.`
   }
   if (plan === 'premium') {
-    return `${registerStart} with the premium ${lengthText}. Get the best support you need to make your website accessible.`
+    return `${registerStart} with the premium ${lengthText}.`
   }
 
   return `${registerStart}.`

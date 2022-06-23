@@ -127,7 +127,14 @@ export function WebsiteCellDashboardComponent({
     // TODO: Handles Deprecated pages
     if (insight && insight?.json) {
       try {
-        return JSON.parse(insight?.json)
+        const parsedResult = JSON.parse(insight?.json)
+
+        if (parsedResult && 'lighthouseVersion' in parsedResult) {
+          return parsedResult
+          // return online results <-- tmp remove from endpoint
+        } else if (parsedResult) {
+          return parsedResult?.lighthouseResult
+        }
       } catch (_) {}
     }
     return null
@@ -279,9 +286,7 @@ export function WebsiteCellDashboardComponent({
           parsedInsight && lighthouseVisible ? 'visible' : 'hidden'
         }`}
       >
-        {parsedInsight && 'lighthouseVersion' in parsedInsight ? (
-          <ReportViewer json={parsedInsight} />
-        ) : null}
+        {parsedInsight ? <ReportViewer json={parsedInsight} /> : null}
       </div>
     </li>
   )

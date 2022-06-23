@@ -27,7 +27,7 @@ function Index() {
         <MarketingCli />
         <MarketingTestimonial />
         <MarketingTrustBy />
-        <Price blockFree navigate />
+        <Price navigate />
         <CtaSignonForm />
       </MarketingDrawer>
       <MarketingBottomTemporaryDrawer />

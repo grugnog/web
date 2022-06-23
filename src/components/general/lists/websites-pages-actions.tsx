@@ -27,7 +27,9 @@ const ActionCell = (props: any) => {
         aria-expanded={visible}
         aria-label={`Toggle section visible for ${props?.path}`}
       >
-        <div className={'text-2xl font-bold'}>{props?.path}</div>
+        <div className={'text-xl md:text-2xl font-bold truncate'}>
+          {props?.path}
+        </div>
       </button>
       <ul
         aria-hidden={!visible}
@@ -99,7 +101,7 @@ const ListCell = ({
         aria-label={`Toggle section visible for ${item?.domain}`}
       >
         <div>
-          <div className={'text-2xl font-bold'}>{item?.domain}</div>
+          <div className={'text-2xl md:text-3xl font-bold'}>{item?.domain}</div>
           <div>
             {totalIssues} possible issue
             {totalIssues === 1 ? '' : 's'}

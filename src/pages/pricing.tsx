@@ -14,7 +14,7 @@ function Pricing({ name }: PageProps) {
       <Typography component='h2' gutterBottom className={'text-lg'}>
         Choose a plan that best fits your needs.
       </Typography>
-      <PriceMemo navigate blockFree pricingPage />
+      <PriceMemo navigate pricingPage />
       <div className='py-4'>
         <PricingCalculator />
       </div>

@@ -67,7 +67,7 @@ const ListCell = ({
         aria-label={`Toggle section visible for ${item?.domain}`}
       >
         <div>
-          <div className={'text-2xl font-bold'}>{item?.domain}</div>
+          <div className={'text-2xl md:text-3xl font-bold'}>{item?.domain}</div>
           <div>
             {totalIssues} possible issue
             {totalIssues === 1 ? '' : 's'}

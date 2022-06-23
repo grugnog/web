@@ -60,9 +60,10 @@ const Page: FC<BlogPageProps> = ({
   return (
     <>
       <Head>
-        <title key='title'>
-          {title || `Blog${websiteUrl ? ` - ${websiteUrl}` : ''}`}
-        </title>
+        {title ? <title key='title'>{title}</title> : null}
+        {websiteUrl ? (
+          <meta property='og:url' key={'og:url'} content={websiteUrl} />
+        ) : null}
         <link rel='alternate' hrefLang='en' />
         {links?.map((node, index) => (
           <Fragment key={`${node?.id}-${index}`}>
@@ -70,11 +71,11 @@ const Page: FC<BlogPageProps> = ({
           </Fragment>
         ))}
         {metas?.map((node, index) => {
-          const nodeName = node && node?.name
+          const key = (node && node?.name) || node?.property || node?.charset
 
           return (
-            <Fragment key={`${nodeName}-${index}`}>
-              <meta key={nodeName} {...node} />
+            <Fragment key={`${key}-${index}`}>
+              <meta key={key} {...node} />
             </Fragment>
           )
         })}

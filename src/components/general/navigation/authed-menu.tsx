@@ -49,7 +49,7 @@ export function AuthedMenuComponent({
             alertEnabled={!!enabledAlerts}
             feature={feature}
             index={index}
-            focused={route === feature}
+            focused={route?.includes(feature)} // use page meta TODO
             events={events}
             isMobile={isMobile}
             setEvents={setEvents}

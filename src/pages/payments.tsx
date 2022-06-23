@@ -204,20 +204,34 @@ function Payments({ hideTitle = false, name }: PaymentProps) {
       <Container maxWidth='xl'>
         <Box className='py-2'>
           {hideTitle ? null : <PageTitle>Payment Details</PageTitle>}
+          <p className='text-xl font-bold'>{subTitle}</p>
           {loading && !data ? (
             <EmptyPayments subTitle={subTitle} />
           ) : (
             <div>
-              <p className='text-xl font-bold'>{subTitle}</p>
               {renderPayMentBoxes ? (
-                <PriceMemo
-                  priceOnly
-                  basic={state.basic || data?.role === 1}
-                  premium={state.premium || data?.role === 2}
-                  onClick={handleChange}
-                  setYearly={setYearly}
-                  yearly={yearly}
-                />
+                <div className='flex flex-col sm:flex-row place-items-center space-x-4 gap-y-4'>
+                  <div className='flex-1'>
+                    <PriceMemo
+                      priceOnly
+                      basic={state.basic || data?.role === 1}
+                      premium={state.premium || data?.role === 2}
+                      onClick={handleChange}
+                      setYearly={setYearly}
+                      yearly={yearly}
+                      blockFree
+                      blockEnterprise
+                    />
+                  </div>
+                  <div className='flex-1 max-w-[420px] md:max-w-[520px] place-content-center px-6 min-w-[350px] w-full'>
+                    <CheckoutForm
+                      onToken={onToken}
+                      basic={state.basic}
+                      price={Number(`${price}${priceMultiplyier}`)}
+                      disabled={Boolean(!state.basic && !state.premium)}
+                    />
+                  </div>
+                </div>
               ) : (
                 <div>
                   {nextPaymentDay ? (
@@ -232,8 +246,7 @@ function Payments({ hideTitle = false, name }: PaymentProps) {
                   </p>
                 </div>
               )}
-
-              <div className='py-10'>
+              <div>
                 {!renderPayMentBoxes ? (
                   <Button
                     title={'Cancel Subscription'}
@@ -243,14 +256,7 @@ function Payments({ hideTitle = false, name }: PaymentProps) {
                   >
                     Cancel Subscription
                   </Button>
-                ) : (
-                  <CheckoutForm
-                    onToken={onToken}
-                    basic={state.basic}
-                    price={Number(`${price}${priceMultiplyier}`)}
-                    disabled={Boolean(!state.basic && !state.premium)}
-                  />
-                )}
+                ) : null}
               </div>
             </div>
           )}

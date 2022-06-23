@@ -1,6 +1,5 @@
 import React, { useState, useMemo, useCallback, memo } from 'react'
 import { Link } from '../link'
-import { WebsiteSecondary } from './render'
 import ReportViewer from 'next-lighthouse'
 
 import {
@@ -15,8 +14,8 @@ import { Issue } from '@app/types'
 import { MoreOptionsBase } from './menu'
 
 const styles = {
-  title: 'text-xl md:text-3xl font-bold truncate',
-  spacing: 'py-2',
+  title: 'text-xl md:text-2xl font-bold truncate',
+  spacing: 'py-1',
   row: 'flex flex-1',
   metaBlock: 'px-2 py-1 border',
 }
@@ -33,7 +32,6 @@ export function WebsiteCellPagesComponent({
   cdnConnected,
   crawlWebsite,
   pageLoadTime,
-  lastScanDate,
   pageHeaders,
   index,
   online,
@@ -87,12 +85,17 @@ export function WebsiteCellPagesComponent({
     // TODO: Handles Deprecated pages
     if (insight && insight?.json) {
       try {
-        return JSON.parse(insight?.json)
-      } catch (e) {
-        console.error(e)
-      }
+        const parsedResult = JSON.parse(insight?.json)
+
+        if (parsedResult && 'lighthouseVersion' in parsedResult) {
+          return parsedResult
+          // return online results <-- tmp remove from endpoint
+        } else if (parsedResult) {
+          return parsedResult?.lighthouseResult
+        }
+      } catch (_) {}
     }
-    return {}
+    return null
   }, [insight])
 
   const linkUrl = useMemo(
@@ -101,7 +104,7 @@ export function WebsiteCellPagesComponent({
   )
 
   // real time issue tracking [TODO: combine with website analytic data]
-  const { errorCount, warningCount, totalIssues } = useMemo(() => {
+  const { errorCount, warningCount } = useMemo(() => {
     let errors = 0
     let warnings = 0
     let notices = 0
@@ -136,15 +139,14 @@ export function WebsiteCellPagesComponent({
     }
   }, [issues, issuesInfo])
 
-  const pageIssueCount =
-    issues?.length > issuesInfo?.pageCount
-      ? issues.length
-      : issuesInfo?.pageCount
-
   return (
     <li className={`border px-3 pt-2 overflow-hidden`}>
       <div className='flex space-x-2 place-items-center'>
-        <div className={`${styles.title} flex-1`}>
+        <div
+          className={`${styles.title} ${
+            cdnConnected ? 'text-blue-600' : ''
+          }flex-1`}
+        >
           <Link
             title={`view in sandbox ${url}`}
             href={linkUrl}
@@ -171,22 +173,6 @@ export function WebsiteCellPagesComponent({
           />
         </div>
       </div>
-      <WebsiteSecondary
-        issuesInfo={{
-          ...issuesInfo,
-          totalIssues:
-            totalIssues > issuesInfo?.totalIssues
-              ? totalIssues
-              : issuesInfo?.totalIssues,
-        }}
-        pageIssueCount={pageIssueCount}
-        cdnConnected={cdnConnected}
-        adaScore={adaScore}
-        issues={issues}
-        pageLoadTime={pageLoadTime}
-        lastScanDate={lastScanDate}
-        pageHeaders={pageHeaders}
-      />
       <div className={styles.spacing} />
       <div className='grid grid-cols-1 gap-1 sm:grid-cols-3'>
         <AccessibilityBox adaScore={adaScore} average={false} />
@@ -205,9 +191,7 @@ export function WebsiteCellPagesComponent({
         }`}
         aria-expanded={pageInsights && lighthouseVisible}
       >
-        {pageInsights && 'lighthouseVersion' in pageInsights ? (
-          <ReportViewer json={parsedInsight} />
-        ) : null}
+        {pageInsights ? <ReportViewer json={parsedInsight} /> : null}
       </div>
     </li>
   )

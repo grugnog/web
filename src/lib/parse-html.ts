@@ -63,7 +63,7 @@ export const parseHtml = async (body: string) => {
       // convert all to relative
       let urlBase = url.replace(BLOG_URL, '')
 
-      if (process.env.NODE_ENV === 'development') {
+      if (process.env.NODE_ENV === 'development' && !url.startsWith('/blog')) {
         urlBase = `/blog${url}`
       }
       link.setAttribute('href', urlBase)
@@ -82,16 +82,8 @@ export const parseHtml = async (body: string) => {
   htmlRoot.insertAdjacentHTML(
     'beforeend',
     `<style type="text/css">
-            .light-background h1.post-title {
-              font-size: 36px;
-              font-weight: 800;
-            }
             .light-background article > .entry-wrapper > p {
               max-width: none;
-            }
-            .light-background h2 {
-              font-size: 26px;
-              font-weight: 600;
             }
             .light-background #content, #comments {
               padding-top: 20px;
