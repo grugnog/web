@@ -202,7 +202,7 @@ export const apiRoutes = [
         title: 'List Websites',
       },
       {
-        pathName: 'list/issue?offset=0&domain=www.a11ywatch.com',
+        pathName: 'list/issue?offset=0&domain=a11ywatch.com',
         method: 'GET',
         params: {
           offset: {
@@ -242,7 +242,7 @@ export const apiRoutes = [
         title: 'List Pages',
       },
       {
-        pathName: 'list/analytics?offset=0&domain=www.a11ywatch.com',
+        pathName: 'list/analytics?offset=0&domain=a11ywatch.com',
         method: 'GET',
         params: {
           offset: {

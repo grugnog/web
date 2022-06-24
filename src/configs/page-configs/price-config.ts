@@ -26,6 +26,7 @@ const plans = [
     subTitle: 'Great for production level web applications',
     details: [
       'Everything in Free',
+      'Subdomain crawling',
       'Monitor up to 3 websites',
       '10 site-wide scans a day',
       'All pages checked daily',
@@ -43,6 +44,7 @@ const plans = [
     subTitle: 'Large workload websites and subdomains',
     details: [
       'Everything in Basic',
+      'TLD crawling',
       'Monitor up to 8 websites',
       '100 site-wide scans a day',
       'Editable scripts',
