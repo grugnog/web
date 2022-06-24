@@ -139,6 +139,8 @@ export function WebsiteCellPagesComponent({
     }
   }, [issues, issuesInfo])
 
+  const lhExists = parsedInsight && Object.keys(parsedInsight)?.length
+
   return (
     <li className={`border px-3 pt-2 overflow-hidden`}>
       <div className='flex space-x-2 place-items-center'>
@@ -169,7 +171,7 @@ export function WebsiteCellPagesComponent({
             pageHeaders={pageHeaders}
             index={index}
             pageInsights={pageInsights}
-            lh={Object.keys(parsedInsight).length ? parsedInsight : null}
+            lh={lhExists ? parsedInsight : null}
           />
         </div>
       </div>
@@ -180,7 +182,7 @@ export function WebsiteCellPagesComponent({
         <WarningsBox issues={warningCount} />
         <LoadTimeBox duration={pageLoadTime?.duration} />
         <LighthouseBox
-          pageInsights={pageInsights || !!Object.keys(parsedInsight).length}
+          pageInsights={pageInsights || (parsedInsight && !!lhExists)}
         />
         <OnlineBox online={online} />
       </div>
