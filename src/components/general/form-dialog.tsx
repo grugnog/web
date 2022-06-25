@@ -68,6 +68,9 @@ export function FormDialogWrapper({
   const [https, setTransportType] = useState<boolean>(true)
   const [pageInsights, setPageInsights] = useState<boolean>(true)
   const [mobileViewport, setMobile] = useState<boolean>(false)
+  const [subdomains, setSubdomains] = useState<boolean>(false)
+  const [tld, setTld] = useState<boolean>(false)
+
   const [ua, setUserAgent] = useState<string>('')
   const [standard, setWCAGStandard] = useState<StandardKeys>(
     Standard[1] as StandardKeys
@@ -186,6 +189,8 @@ export function FormDialogWrapper({
         standard,
         actions: websiteActions,
         robots,
+        subdomains,
+        tld,
       }
 
       // CLOSE pre-optimistic prevent dialog unmount state error
@@ -227,6 +232,8 @@ export function FormDialogWrapper({
       customActionFields,
       customActions,
       robots,
+      subdomains,
+      tld,
     ]
   )
 
@@ -250,6 +257,14 @@ export function FormDialogWrapper({
 
   const onChangeRobotsEvent = () => {
     setRobots((a: boolean) => !a)
+  }
+
+  const onChangeSubdomainsEvent = () => {
+    setSubdomains((a: boolean) => !a)
+  }
+
+  const onChangeTldEvent = () => {
+    setTld((a: boolean) => !a)
   }
 
   return (
@@ -276,8 +291,7 @@ export function FormDialogWrapper({
             className={`${classes.dialogPadding} overflow-hidden relative`}
           >
             <DialogContentText>
-              To add a website to your watchlist, please enter the website url
-              below.
+              To add a website to your watchlist, enter the website url below.
             </DialogContentText>
             <FormLabel>
               <TextField
@@ -299,7 +313,7 @@ export function FormDialogWrapper({
               />
             </FormLabel>
             <div
-              className={`flex flex-1 place-items-center space-x-3 py-2 overflow-x-auto`}
+              className={`flex flex-1 place-items-center space-x-3 overflow-x-auto pt-2 pb-1`}
             >
               <Tooltip title={'Use http or https for protocol on scans'}>
                 <FormControlLabel
@@ -353,6 +367,74 @@ export function FormDialogWrapper({
                   label='Mobile'
                 />
               </Tooltip>
+              <Tooltip title={'Respect robots.txt file for crawling pages.'}>
+                <FormControlLabel
+                  classes={formLabelStyles}
+                  control={
+                    <Checkbox
+                      color='primary'
+                      checked={robots}
+                      value={robots}
+                      onChange={onChangeRobotsEvent}
+                    />
+                  }
+                  label='Robots'
+                />
+              </Tooltip>
+              <Tooltip
+                title={'Allow crawling subdomains [Basic Plan Required].'}
+              >
+                <FormControlLabel
+                  classes={formLabelStyles}
+                  control={
+                    <Checkbox
+                      color='primary'
+                      checked={subdomains}
+                      value={subdomains}
+                      onChange={onChangeSubdomainsEvent}
+                    />
+                  }
+                  label='Subdomains'
+                />
+              </Tooltip>
+              <Tooltip
+                title={
+                  'Allow crawling all Top Level Domains [Premium Plan Required].'
+                }
+              >
+                <FormControlLabel
+                  classes={formLabelStyles}
+                  control={
+                    <Checkbox
+                      color='primary'
+                      checked={tld}
+                      value={tld}
+                      onChange={onChangeTldEvent}
+                    />
+                  }
+                  label='TLD'
+                />
+              </Tooltip>
+            </div>
+            <div
+              className={`flex flex-1 place-items-center space-x-3 overflow-x-auto pb-2`}
+            >
+              <Tooltip
+                title={'Add custom actions to run on pages before test.'}
+              >
+                <FormControlLabel
+                  classes={formLabelStyles}
+                  control={
+                    <Checkbox
+                      color='primary'
+                      checked={customActions}
+                      value={customActions}
+                      onChange={onChangeActionsEvent}
+                    />
+                  }
+                  label='Actions'
+                />
+              </Tooltip>
               <Tooltip
                 title={
                   'Add custom headers to use for authenticated pages or etc.'
@@ -371,36 +453,6 @@ export function FormDialogWrapper({
                   label='Headers'
                 />
               </Tooltip>
-              <Tooltip
-                title={'Add custom actions to run on pages before test.'}
-              >
-                <FormControlLabel
-                  classes={formLabelStyles}
-                  control={
-                    <Checkbox
-                      color='primary'
-                      checked={customActions}
-                      value={customActions}
-                      onChange={onChangeActionsEvent}
-                    />
-                  }
-                  label='Actions'
-                />
-              </Tooltip>
-              <Tooltip title={'Respect robots.txt file for crawling pages.'}>
-                <FormControlLabel
-                  classes={formLabelStyles}
-                  control={
-                    <Checkbox
-                      color='primary'
-                      checked={robots}
-                      value={robots}
-                      onChange={onChangeRobotsEvent}
-                    />
-                  }
-                  label='Robots'
-                />
-              </Tooltip>
               <WCAGSelectInput
                 standard={standard}
                 onStandardChange={onStandardChange}
@@ -409,7 +461,7 @@ export function FormDialogWrapper({
                 <TextField
                   onChange={onChangeUA}
                   className={classes.input}
-                  style={{ maxWidth: 100 }}
+                  style={{ maxWidth: 120 }}
                   value={ua}
                   color='secondary'
                   margin='dense'

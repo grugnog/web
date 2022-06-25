@@ -12,6 +12,7 @@ import {
 } from './blocks'
 import { Issue } from '@app/types'
 import { MoreOptionsBase } from './menu'
+import { useLighthouse } from '@app/data/formatters/use-lighthouse'
 
 const styles = {
   title: 'text-xl md:text-2xl font-bold truncate',
@@ -81,22 +82,7 @@ export function WebsiteCellPagesComponent({
     setAnchorEl(null)
   }
 
-  const parsedInsight = useMemo(() => {
-    // TODO: Handles Deprecated pages
-    if (insight && insight?.json) {
-      try {
-        const parsedResult = JSON.parse(insight?.json)
-
-        if (parsedResult && 'lighthouseVersion' in parsedResult) {
-          return parsedResult
-          // return online results <-- tmp remove from endpoint
-        } else if (parsedResult) {
-          return parsedResult?.lighthouseResult
-        }
-      } catch (_) {}
-    }
-    return null
-  }, [insight])
+  const parsedInsight = useLighthouse(insight)
 
   const linkUrl = useMemo(
     () => `/website-details?url=${encodeURIComponent(url)}`,

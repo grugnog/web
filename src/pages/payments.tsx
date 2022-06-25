@@ -73,18 +73,27 @@ function Payments({ hideTitle = false, name }: PaymentProps) {
 
   useEffect(() => {
     ;(async () => {
-      const stripePromise = await loadStripe(STRIPE_KEY)
-
-      if (stripePromise) {
-        setStripe(stripePromise)
+      if (!stripePromise) {
+        try {
+          const stripeObject = await loadStripe(STRIPE_KEY)
+          if (stripeObject) {
+            setStripe(stripeObject)
+          }
+        } catch (e) {
+          console.error(e)
+          AppManager.toggleSnack(
+            true,
+            'Error, Please contact support.',
+            'error'
+          )
+        }
       }
     })()
-
     // close the snackbar if routed from
     if (AppManager.snackbar.open) {
       AppManager.closeSnack()
     }
-  }, [])
+  }, [stripePromise])
 
   useEffect(() => {
     if (yearSet && yearSet !== 'undefined') {
@@ -198,6 +207,22 @@ function Payments({ hideTitle = false, name }: PaymentProps) {
     ? 'Account Info'
     : 'Pay yearly and get 2 months included.'
 
+  if (loading && !data) {
+    return (
+      <>
+        <NavBar title={name} backButton notitle />
+        <Box className='py-2'>
+          {hideTitle ? null : <PageTitle>Payment Details</PageTitle>}
+          <EmptyPayments subTitle={subTitle} />
+        </Box>
+      </>
+    )
+  }
+
+  const role = data?.role
+
+  const superMode = !data?.activeSubscription && role === 3
+
   return (
     <Elements stripe={stripePromise}>
       <NavBar title={name} backButton notitle />
@@ -205,61 +230,60 @@ function Payments({ hideTitle = false, name }: PaymentProps) {
         <Box className='py-2'>
           {hideTitle ? null : <PageTitle>Payment Details</PageTitle>}
           <p className='text-xl font-bold'>{subTitle}</p>
-          {loading && !data ? (
-            <EmptyPayments subTitle={subTitle} />
-          ) : (
-            <div>
-              {renderPayMentBoxes ? (
-                <div className='flex flex-col sm:flex-row place-items-center space-x-4 gap-y-4'>
-                  <div className='flex-1'>
-                    <PriceMemo
-                      priceOnly
-                      basic={state.basic || data?.role === 1}
-                      premium={state.premium || data?.role === 2}
-                      onClick={handleChange}
-                      setYearly={setYearly}
-                      yearly={yearly}
-                      blockFree
-                      blockEnterprise
-                    />
-                  </div>
-                  <div className='flex-1 max-w-[420px] md:max-w-[520px] place-content-center px-6 min-w-[350px] w-full'>
-                    <CheckoutForm
-                      onToken={onToken}
-                      basic={state.basic}
-                      price={Number(`${price}${priceMultiplyier}`)}
-                      disabled={Boolean(!state.basic && !state.premium)}
-                    />
-                  </div>
+          <div>
+            {superMode ? <h3>SUPER MODE ENABLED</h3> : null}
+            {renderPayMentBoxes ? (
+              <div className='flex flex-col sm:flex-row place-items-center space-x-4 gap-y-4'>
+                <div className='flex-1'>
+                  <PriceMemo
+                    priceOnly
+                    basic={state.basic || role === 1}
+                    premium={state.premium || role === 2}
+                    onClick={handleChange}
+                    setYearly={setYearly}
+                    yearly={yearly}
+                    blockFree
+                    blockEnterprise
+                  />
                 </div>
-              ) : (
-                <div>
-                  {nextPaymentDay ? (
-                    <p className='text-xl'> {paymentDate}</p>
-                  ) : null}
-                  <p className='text-xl font-bold'>Account Type</p>
-                  <p className='text-xl'>
-                    {`${
-                      paymentSubscription?.plan?.nickname ||
-                      getPlanName(paymentSubscription?.plan?.amount)
-                    } - $${paymentSubscription?.plan?.amount / 100 || ''}`}
-                  </p>
+                <div className='flex-1 max-w-[420px] md:max-w-[520px] place-content-center px-6 min-w-[350px] w-full'>
+                  <CheckoutForm
+                    onToken={onToken}
+                    basic={state.basic}
+                    price={Number(`${price}${priceMultiplyier}`)}
+                    disabled={Boolean(!state.basic && !state.premium)}
+                  />
                 </div>
-              )}
-              <div>
-                {!renderPayMentBoxes ? (
-                  <Button
-                    title={'Cancel Subscription'}
-                    type={'button'}
-                    onClick={handleModal(true)}
-                    className={classes.cancel}
-                  >
-                    Cancel Subscription
-                  </Button>
-                ) : null}
               </div>
+            ) : (
+              <div>
+                {nextPaymentDay ? (
+                  <p className='text-xl'> {paymentDate}</p>
+                ) : null}
+                <p className='text-xl font-bold'>Account Type</p>
+                <p className='text-xl'>
+                  {superMode
+                    ? 'SUPER'
+                    : `${
+                        paymentSubscription?.plan?.nickname ||
+                        getPlanName(paymentSubscription?.plan?.amount)
+                      } - $${paymentSubscription?.plan?.amount / 100 || ''}`}
+                </p>
+              </div>
+            )}
+            <div>
+              {data?.activeSubscription ? (
+                <Button
+                  title={'Cancel Subscription'}
+                  type={'button'}
+                  onClick={handleModal(true)}
+                  className={classes.cancel}
+                >
+                  Cancel Subscription
+                </Button>
+              ) : null}
             </div>
-          )}
+          </div>
         </Box>
       </Container>
       <Dialog
@@ -303,7 +327,7 @@ export default metaSetter(
   { Payments },
   {
     description:
-      'Payment plans that can be adjusted at any time. Scale with your team and your websites needs.',
+      'Payment plans that can be adjusted at any time. Scale with your team and your web needs.',
     gql: true,
     intercom: true,
   }

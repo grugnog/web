@@ -29,6 +29,7 @@ import { UserAgentBox } from './blocks/user-agent'
 import { ActionsBox } from './blocks/actions'
 import { CdnFixBox } from './blocks/cdn-fix'
 import { UserManager } from '@app/managers'
+import { useLighthouse } from '@app/data/formatters/use-lighthouse'
 
 const styles = {
   title: 'text-xl md:text-3xl font-bold truncate',
@@ -66,6 +67,8 @@ export function WebsiteCellDashboardComponent({
   actions,
   actionsEnabled,
   robots,
+  subdomains,
+  tld,
 }: any) {
   const [anchorEl, setAnchorEl] = useState<any>(null)
 
@@ -123,22 +126,7 @@ export function WebsiteCellDashboardComponent({
   const reportsLink = `${BASE_GQL_URL}/${encodedUrl}`
   const reportsPageLink = `/reports/${encodedUrl}`
 
-  const parsedInsight = useMemo(() => {
-    // TODO: Handles Deprecated pages
-    if (insight && insight?.json) {
-      try {
-        const parsedResult = JSON.parse(insight?.json)
-
-        if (parsedResult && 'lighthouseVersion' in parsedResult) {
-          return parsedResult
-          // return online results <-- tmp remove from endpoint
-        } else if (parsedResult) {
-          return parsedResult?.lighthouseResult
-        }
-      } catch (_) {}
-    }
-    return null
-  }, [insight])
+  const parsedInsight = useLighthouse(insight)
 
   const linkUrl = useMemo(
     () => `/website-details?url=${encodeURIComponent(url)}`,
@@ -232,11 +220,14 @@ export function WebsiteCellDashboardComponent({
             pages={pages}
             pageHeaders={pageHeaders}
             index={index}
+            subdomains={subdomains}
+            tld={tld}
             pageInsights={pageInsights}
           />
         </div>
       </div>
       <WebsiteSecondary
+        domain={domain}
         issuesInfo={{
           ...issuesInfo,
           totalIssues:
@@ -252,6 +243,8 @@ export function WebsiteCellDashboardComponent({
         lastScanDate={lastScanDate}
         pageHeaders={pageHeaders}
         robots={robots}
+        subdomains={subdomains}
+        tld={tld}
       />
       <div className={styles.spacing} />
       <div className='grid grid-cols-1 gap-1 md:grid-cols-3'>

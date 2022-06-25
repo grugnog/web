@@ -7,7 +7,7 @@ export const searchQuery = (
 ): [string, boolean] => {
   let autoTPT = false
 
-  if (/^(http|https)/.test(url)) {
+  if (/^(http|https)/.test(url) === false) {
     autoTPT = true
   }
 

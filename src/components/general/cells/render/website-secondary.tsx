@@ -5,10 +5,13 @@ import {
   GrCircleAlert,
   GrConfigure,
   GrMagic,
+  GrInherit,
   GrRobot,
+  GrHost,
 } from 'react-icons/gr'
 import { format } from 'date-fns'
 import { PageLoad } from './page-load'
+import { Website } from '@app/types'
 
 const chipStyle = { width: 12, height: 12 }
 const chipRootStyle = {
@@ -18,7 +21,7 @@ const chipRootStyle = {
 
 // TODO: REFACTOR WITH Secondary (BASE)
 export function WebsiteSecondaryComponent({
-  pageIssueCount = 0,
+  pageIssueCount = 0, // TODO: remove for issues info
   lastScanDate,
   issuesInfo,
   pageHeaders,
@@ -26,7 +29,9 @@ export function WebsiteSecondaryComponent({
     duration: 0,
   },
   robots,
-}: any) {
+  subdomains,
+  tld,
+}: Website & { pageIssueCount?: number; adaScore?: number }) {
   const { possibleIssuesFixedByCdn, issuesFixedByCdn, totalIssues } =
     issuesInfo ?? {}
 
@@ -49,10 +54,30 @@ export function WebsiteSecondaryComponent({
           />
         </Tooltip>
       ) : null}
-      {pageLoadTime?.duration ? (
+      {subdomains ? (
+        <Tooltip title={`Subdomains enabled for website`} placement={'right'}>
+          <Chip
+            size='small'
+            style={chipRootStyle}
+            avatar={<GrInherit style={chipStyle} />}
+            label={'Subdomains'}
+          />
+        </Tooltip>
+      ) : null}
+      {tld ? (
+        <Tooltip title={`TLD enabled for website`} placement={'right'}>
+          <Chip
+            size='small'
+            style={chipRootStyle}
+            avatar={<GrHost style={chipStyle} />}
+            label={'TLD'}
+          />
+        </Tooltip>
+      ) : null}
+      {pageLoadTime?.duration && pageLoadTime?.durationFormated ? (
         <PageLoad
-          durationFormated={pageLoadTime?.durationFormated}
-          duration={pageLoadTime?.duration}
+          durationFormated={pageLoadTime.durationFormated}
+          duration={pageLoadTime.duration}
           style={chipRootStyle}
           chipStyle={chipStyle}
         />

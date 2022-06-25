@@ -14,7 +14,7 @@ export function InputActionsComponent(props: any) {
 
   if (customActions) {
     return (
-      <>
+      <div className='border-t'>
         {customFields?.map((item: any, index: number) => {
           const onChangeFormPath = (event: any) => {
             updateFormField(event.target.value, index, 'path')
@@ -61,7 +61,7 @@ export function InputActionsComponent(props: any) {
             </div>
           )
         })}
-      </>
+      </div>
     )
   }
   return null

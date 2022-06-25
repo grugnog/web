@@ -65,13 +65,13 @@ export function useSearchRest() {
   )
 
   const scanPage = async () => {
+    setScan({ loading: true })
+
     const [querySearch, autoTPT] = searchQuery(search)
 
     if (autoTPT) {
       AppManager.toggleSnack(true, 'https:// automatically added to query.')
     }
-
-    setScan({ loading: true })
 
     let response
 
@@ -100,8 +100,6 @@ export function useSearchRest() {
       loading: false,
       data: response && response?.data ? response : undefined,
     })
-
-    return response
   }
 
   const closeModal = () => {

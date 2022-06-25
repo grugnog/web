@@ -99,6 +99,8 @@ export const websiteFragments = gql`
     ua
     actionsEnabled
     robots
+    subdomains
+    tld
   }
 `
 
