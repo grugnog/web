@@ -21,6 +21,20 @@ const GET_USER = gql`
   }
 `
 
+const GET_USER_SETTINGS = gql`
+  query getUser {
+    user {
+      id
+      email
+      alertEnabled
+      role
+      activeSubscription
+      passwordRequired
+      pageSpeedApiKey
+    }
+  }
+`
+
 const GET_USER_PROFILE = gql`
   query getUserProfile {
     user {
@@ -76,4 +90,4 @@ export const updateUserCache = {
   },
 }
 
-export { GET_USER, GET_USER_PROFILE }
+export { GET_USER, GET_USER_PROFILE, GET_USER_SETTINGS }

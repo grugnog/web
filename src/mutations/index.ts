@@ -11,6 +11,7 @@ export {
   CANCEL_SUBSCRIPTION,
   ADD_PAYMENT_SUBSCRIPTION,
   CONFIRM_EMAIL,
+  SET_PAGESPEED_KEY,
 } from './update-user'
 export { UPDATE_WEBSITE } from './update-website'
 export { CRAWL_WEBSITE } from './crawl-website'

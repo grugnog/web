@@ -106,6 +106,19 @@ export const CONFIRM_EMAIL = gql`
   }
 `
 
+export const SET_PAGESPEED_KEY = gql`
+  mutation SetPageSpeedKey($pageSpeedApiKey: String) {
+    setPageSpeedKey(pageSpeedApiKey: $pageSpeedApiKey) {
+      code
+      success
+      message
+      user {
+        id
+        pageSpeedApiKey
+      }
+    }
+  }
+`
 export const TOGGLE_ALERT = gql`
   mutation ToggleAlert($alertEnabled: Boolean) {
     toggleAlert(alertEnabled: $alertEnabled) {

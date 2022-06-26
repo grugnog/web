@@ -122,6 +122,11 @@ function AuthMenuComponent({
               Payments
             </MenuItem>
           ) : null}
+          {router?.pathname !== '/settings' ? (
+            <MenuItem component={Link} href={'/settings'} color={'inherit'}>
+              Settings
+            </MenuItem>
+          ) : null}
           <MenuItem onClick={logout}>Logout</MenuItem>
         </Menu>
       </div>
