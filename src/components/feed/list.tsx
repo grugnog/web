@@ -28,7 +28,13 @@ const FeedListComponent: FC<FeedComponentProps> = ({
   const issueCount = pageIssues?.length
 
   const listMainHeight = useMemo(() => {
-    return fullScreen ? listHeight : issueCount === 1 ? itemSize : listHeight
+    if (fullScreen) {
+      return listHeight
+    }
+    if (issueCount <= 6) {
+      return itemSize * issueCount
+    }
+    return listHeight
   }, [fullScreen, itemSize, issueCount, listHeight])
 
   if (fullScreen) {

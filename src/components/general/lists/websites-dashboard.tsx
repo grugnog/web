@@ -1,7 +1,7 @@
 import React from 'react'
 import { WebsiteCellDashboard } from '@app/components/general/cells'
 import { Website } from '@app/types'
-import { domainName } from '@app/lib/domain'
+import { getFeedItem } from '@app/lib'
 
 // wrapper to memo feed item to cell
 const DashboardCellWrapper = (props: any) => {
@@ -45,37 +45,8 @@ export function WebSitesDashboard({
         ) => {
           const activeCrawl = activeCrawls && activeCrawls[domain]
 
-          const feedItem =
-            feed && domain in feed
-              ? feed[domain]
-              : {
-                  [domain]: {},
-                }
-
-          const captureAll = tld || subdomains
-
-          if (captureAll) {
-            for (const key of feedKeys) {
-              if (domainName(key) === domainName(domain)) {
-                for (const item in feed[key]) {
-                  feedItem[item] = feed[key][item]
-                }
-              }
-            }
-          }
-
-          let items = []
-
-          if (feedItem) {
-            items = Object.keys(feedItem)
-              ?.map((ke: any) => {
-                if (Object.keys(feedItem[ke]).length) {
-                  return feedItem[ke]
-                }
-                return false
-              })
-              .filter(Boolean)
-          }
+          // move feed item outside iterations into website cell.
+          const items = getFeedItem(feed, feedKeys, { subdomains, tld, domain })
 
           return (
             <DashboardCellWrapper

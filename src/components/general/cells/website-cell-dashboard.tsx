@@ -73,7 +73,7 @@ export function WebsiteCellDashboardComponent({
   const [anchorEl, setAnchorEl] = useState<any>(null)
 
   const handleMenu = useCallback(
-    (event: any) => {
+    (event: React.SyntheticEvent<HTMLButtonElement>) => {
       setAnchorEl(event?.currentTarget)
     },
     [setAnchorEl]
