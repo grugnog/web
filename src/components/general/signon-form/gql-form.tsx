@@ -101,6 +101,7 @@ const SignOnFormWrapper: FunctionComponent<SignOnProps> = ({
           UserManager.setUser(user)
           ;(async () => {
             await router.push(urlRoute)
+            router.reload()
           })()
         } catch (e) {
           console.error(e)
