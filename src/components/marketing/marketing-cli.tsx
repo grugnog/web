@@ -34,29 +34,10 @@ export function MarketingCli() {
     <SectionContainer>
       <SectionHeading>Accessibility CLI</SectionHeading>
       <p className='text-lg pb-4 leading-10'>
-        Run A11yWatch on any machine using the Rust Command Line Interface. With{' '}
-        <a
-          href='https://www.rust-lang.org/tools/install'
-          target={'_blank'}
-          rel='noreferrer'
-          aria-label='Rust lang install link'
-          className='text-blue-600'
-        >
-          Rust
-        </a>{' '}
-        and{' '}
-        <a
-          href='https://www.docker.com/products/docker-desktop'
-          target={'_blank'}
-          rel='noreferrer'
-          aria-label='Docker install link'
-          className='text-blue-600'
-        >
-          Docker
-        </a>{' '}
-        build the suite anywhere. Get the CLI simply in shell using{' '}
+        Run A11yWatch on any machine using the Rust Command Line Interface. Get
+        the CLI simply in shell using{' '}
         <code className='text-gray-700 bg-gray-300 p-1'>
-          cargo install a11ywatch_cli
+          npm i a11ywatch-cli -g
         </code>
         .
       </p>
@@ -68,15 +49,16 @@ export function MarketingCli() {
             <div className='bg-white'>
               <div className='py-3 px-3 text-lg'>
                 <div className='text-gray-600'>
-                  <span className='text-gray-500'>~ </span> cargo install
-                  a11ywatch_cli
+                  <span className='text-gray-500'>~ </span> npm i a11ywatch-cli
+                  -g
                 </div>
                 <div className='text-gray-600'>
-                  <span className='text-gray-500'>~ </span> a11ywatch start
+                  <span className='text-gray-500'>~ </span>{' '}
+                  {`a11ywatch build && a11ywatch start`}
                 </div>
                 <div className='text-gray-800'>
                   <span className='text-gray-600'>~ </span> a11ywatch scan -u
-                  https://hbo.com
+                  https://www.w3.org
                   <span style={previewStyles}></span>
                 </div>
               </div>
