@@ -233,20 +233,18 @@ function Payments({ hideTitle = false, name }: PaymentProps) {
           <div>
             {superMode ? <h3>SUPER MODE ENABLED</h3> : null}
             {renderPayMentBoxes ? (
-              <div className='flex flex-col sm:flex-row place-items-center space-x-4 gap-y-4'>
-                <div className='flex-1'>
-                  <PriceMemo
-                    priceOnly
-                    basic={state.basic || role === 1}
-                    premium={state.premium || role === 2}
-                    onClick={handleChange}
-                    setYearly={setYearly}
-                    yearly={yearly}
-                    blockFree
-                    blockEnterprise
-                  />
-                </div>
-                <div className='flex-1 max-w-[420px] md:max-w-[520px] place-content-center px-6 min-w-[350px] w-full'>
+              <div className='flex flex-col sm:flex-row gap-x-4 gap-y-6 flex-wrap'>
+                <PriceMemo
+                  priceOnly
+                  basic={state.basic || role === 1}
+                  premium={state.premium || role === 2}
+                  onClick={handleChange}
+                  setYearly={setYearly}
+                  yearly={yearly}
+                  blockFree
+                  blockEnterprise
+                />
+                <div className='sm:w-full max-w-[805px] place-content-center place-items-center min-w-[350px] align-center flex'>
                   <CheckoutForm
                     onToken={onToken}
                     basic={state.basic}

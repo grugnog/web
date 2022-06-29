@@ -171,7 +171,7 @@ function PriceWrapper({
           Yearly billing
         </button>
       </div>
-      <div className={`grid gap-2 grid-cols-1 lg:grid-cols-2 ${xlColumns}`}>
+      <div className={`flex gap-2 nowrap ${xlColumns} md:overflow-x-auto`}>
         {plans.map(({ title, details, cost, costYearly, subTitle }: any) => {
           const clickEvent =
             title === 'Enterprise' && !navigate ? openMail : onClick
@@ -185,7 +185,7 @@ function PriceWrapper({
           return (
             <Component
               key={title}
-              className={`rounded flex flex-col justify-between ${highLight(
+              className={`min-w-[330px] rounded flex flex-1 flex-col justify-between ${highLight(
                 title,
                 'bg-blue-100 text-black',
                 {
