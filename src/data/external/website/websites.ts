@@ -194,7 +194,6 @@ export const useWebsiteData = (
       const newIssue = subscriptionData?.data?.issueAdded
 
       if (newIssue) {
-        // TODO: use issue feed instead of binding to website property
         const dataSource = { ...issueFeed?.data }
 
         if (!dataSource[newIssue.domain]) {
@@ -204,13 +203,15 @@ export const useWebsiteData = (
         // move to object outside and clear on subscription from website crawl finished
         dataSource[newIssue.domain][newIssue.pageUrl] = newIssue
 
-        setIssueFeedContent(dataSource, true)
+        setTimeout(() => {
+          setIssueFeedContent(dataSource, true)
 
-        AppManager.toggleSnack(
-          true,
-          `Insight found on ${newIssue?.pageUrl}`,
-          'success'
-        )
+          AppManager.toggleSnack(
+            true,
+            `Insight found on ${newIssue?.pageUrl}`,
+            'success'
+          )
+        }, 0)
       }
     },
     [websites, issueFeed]
@@ -248,8 +249,10 @@ export const useWebsiteData = (
 
         dataSource.pageInsights = updatedWebsite.pageInsights
 
-        // TODO: MOVE STATE MANAGE OUT OF APOLLO CACHE
-        forceUpdate()
+        setTimeout(() => {
+          // TODO: MOVE STATE MANAGE OUT OF APOLLO CACHE
+          forceUpdate()
+        }, 0)
       }
     }
   }, [updateData, forceUpdate])
