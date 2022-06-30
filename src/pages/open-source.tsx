@@ -8,8 +8,18 @@ import { GrStar } from 'react-icons/gr'
 
 function OSSCell({ item }: { item: typeof OSSRoutes[number] }) {
   return (
-    <a href={item.href} rel='noreferrer' target='_blank'>
-      <div className={`border-2 rounded py-4 px-4 hover:shadow-xl`}>
+    <a
+      href={item.href}
+      rel='noreferrer'
+      target='_blank'
+      style={{
+        padding: 0,
+        margin: 0,
+      }}
+    >
+      <div
+        className={`border-2 rounded py-4 px-4 w-full h-full hover:shadow-xl`}
+      >
         <div>
           <p className='text-xl font-bold'>{item.name}</p>
           <p className='text-lg text-gray-600'>{item.description}</p>
@@ -43,7 +53,7 @@ function OpenSource({
           software.
         </p>
       </p>
-      <ul className='py-4 gap-x-4 grid grid-cols-2'>
+      <ul className='py-2 gap-x-2 gap-y-2 grid grid-cols-2'>
         {items?.map((item) => (
           <li key={item.name}>
             <OSSCell item={item} />

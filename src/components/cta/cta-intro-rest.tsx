@@ -47,7 +47,7 @@ function CtaIntroRest({ checker }: CtaIntroRest) {
           </Button>
           <CtaInputRest />
         </div>
-        <div className={`${classes.block} ${classes.mobileHidden}`}>
+        <div className={`${classes.block}`}>
           <Image
             src={`/img/${checker ? 'browser-stats' : 'intro'}.svg`}
             height={500}

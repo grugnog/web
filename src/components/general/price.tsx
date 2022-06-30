@@ -171,7 +171,7 @@ function PriceWrapper({
           Yearly billing
         </button>
       </div>
-      <div className={`flex gap-2 nowrap ${xlColumns} md:overflow-x-auto`}>
+      <div className={`flex gap-2 nowrap ${xlColumns} overflow-x-auto`}>
         {plans.map(({ title, details, cost, costYearly, subTitle }: any) => {
           const clickEvent =
             title === 'Enterprise' && !navigate ? openMail : onClick

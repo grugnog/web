@@ -14,19 +14,31 @@ export const OSSRoutes = [
     stars: 0,
   },
   {
-    href: 'https://github.com/A11yWatch/mav',
+    href: 'https://github.com/A11yWatch/crawler',
+    name: 'Crawler',
+    description: 'A gRPC web indexer turbo charged for performance.',
+    fullName: 'a11ywatch/crawler',
+    stars: 0,
+  },
+  {
+    href: 'https://github.com/A11yWatch/rust-to-npm',
     name: 'Mav',
-    description:
-      'A gRPC image recognition service with Computer Vision and Tensorflow',
-    fullName: 'a11ywatch/mav',
+    description: 'Deploy a rust project to crates.io and npm in one command.',
+    fullName: 'a11ywatch/rust-to-npm',
+    stars: 0,
+  },
+  {
+    href: 'https://github.com/A11yWatch/github-actions',
+    name: 'Github Actions',
+    description: 'Multi-site web accessibility evaluator for Github Actions.',
+    fullName: 'a11yWatch/github-actions',
     stars: 0,
   },
   {
     href: 'https://github.com/A11yWatch/litepa11y',
-    name: 'LitePa11y',
-    description:
-      'Pa11y fork built for speed, portability, and extra enhancements',
-    fullName: 'a11yWatch/litepa11y',
+    name: 'Litepa11y',
+    description: 'sidecar with a lot of horsepower.',
+    fullName: 'a11yWatch/sidecar',
     stars: 0,
   },
 ]
