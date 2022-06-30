@@ -1,16 +1,24 @@
 import gql from 'graphql-tag'
 
+// exact page issue fragment
+export const pageIssuesFragments = gql`
+  fragment PageIssuesParts on PageIssue {
+    code
+    type
+    selector
+    message
+    context
+    recurrence
+  }
+`
+
 export const issueFragments = gql`
+  ${pageIssuesFragments}
   fragment IssueParts on Issue {
     _id
     pageUrl
     issues {
-      code
-      type
-      selector
-      message
-      context
-      recurrence
+      ...PageIssuesParts
     }
   }
 `

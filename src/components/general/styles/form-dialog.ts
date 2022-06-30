@@ -23,14 +23,12 @@ export const formDialogStyles = makeStyles((theme: MergedTheme) => ({
   formLabel: {
     padding: 0,
     margin: 0,
-    [theme.breakpoints.down('md')]: {
-      marginLeft: 'auto',
-    },
+    minWidth: 110,
   },
   formLabelText: {
     fontSize: '1.25rem',
     [theme.breakpoints.down('md')]: {
-      fontSize: '0.8rem',
+      fontSize: '1rem',
     },
   },
   inputSelect: {

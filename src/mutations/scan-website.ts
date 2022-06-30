@@ -1,5 +1,6 @@
 import gql from 'graphql-tag'
 
+// single page website scan
 const SCAN_WEBSITE = gql`
   mutation ScanWebsite($url: String) {
     scanWebsite(url: $url) {
@@ -38,10 +39,6 @@ const SCAN_WEBSITE = gql`
           errorCount
           warningCount
           limitedCount
-        }
-        script {
-          _id
-          script
         }
         issue {
           code

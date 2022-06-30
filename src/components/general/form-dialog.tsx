@@ -269,7 +269,11 @@ export function FormDialogWrapper({
 
   return (
     <Fragment>
-      <Button onClick={handleClickOpen} className={buttonStyles}>
+      <Button
+        onClick={handleClickOpen}
+        className={buttonStyles}
+        style={buttonStyles?.includes('border') ? { borderWidth: 4 } : null}
+      >
         {buttonTitle}
       </Button>
       <Dialog
@@ -307,7 +311,7 @@ export function FormDialogWrapper({
                 margin='dense'
                 value={websitUrl}
                 id='name'
-                placeholder='Url'
+                placeholder='Website url'
                 type='url'
                 required
               />
