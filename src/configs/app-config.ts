@@ -46,7 +46,7 @@ const twitterSite = process.env.TWITTER_SITE || '@a11ywatcher'
 // USED FOR REPORTS ( TODO REVISIT URL )
 const BASE_GQL_URL = `${AppConfig?.graphQLUrl
   ?.replace('api.', '')
-  ?.replace('8080', '3000')
+  ?.replace('3280', '3000')
   ?.replace('/graphql', '')}/reports`
 
 const STATUS_URL = AppConfig?.graphQLUrl?.replace('/graphql', '/status')
