@@ -1,0 +1,7 @@
+.env
+coverage
+.circleci
+tests
+Dockerfile
+Dockerfile.dev
+.next
