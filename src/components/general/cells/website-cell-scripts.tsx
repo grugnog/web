@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { Checkbox } from '@material-ui/core'
-import { Button } from '@app/components/general/button'
+import { Button } from '@app/components/general/buttons/button'
 import { a11yDark } from '@app/styles'
 import { EditableMixture } from '@app/components/mixtures/editable-mixture'
 import { CdnBlock } from '../blocks/cdn'

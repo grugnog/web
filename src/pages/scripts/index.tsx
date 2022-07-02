@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react'
-import { FormDialog, PageTitle, Drawer, Button } from '@app/components/general'
+import { FormDialog, PageTitle, Drawer } from '@app/components/general'
 import { List } from '@app/components/general/lists/websites-scripts'
 import { useSearchFilter } from '@app/data'
 import { filterSort } from '@app/lib'
@@ -7,6 +7,7 @@ import { metaSetter } from '@app/utils'
 import type { PageProps } from '@app/types'
 import { PageLoader } from '@app/components/placeholders'
 import { useWebsiteContext } from '@app/components/providers/website'
+import { LoadMoreButton } from '@app/components/general/buttons'
 
 const emptyHeaderTitle = 'No scripts found'
 const emptyHeaderSubTitle =
@@ -18,7 +19,7 @@ function Scripts({ name }: PageProps) {
     scriptsDataLoading,
     refetch,
     error,
-    onLoadMoreIssues,
+    onLoadMoreScripts,
   } = useWebsiteContext()
   const { search } = useSearchFilter()
 
@@ -51,13 +52,10 @@ function Scripts({ name }: PageProps) {
                 'Scripts will appear here for basic or premium accounts.'
               }
             />
-            {source.length > 1 ? (
-              <div className='flex place-content-center pt-8'>
-                <Button onClick={onLoadMoreIssues} className={'w-40'}>
-                  Load More
-                </Button>
-              </div>
-            ) : null}
+            <LoadMoreButton
+              visible={source.length > 1}
+              onLoadMoreEvent={onLoadMoreScripts}
+            />
           </div>
         </PageLoader>
       </Drawer>

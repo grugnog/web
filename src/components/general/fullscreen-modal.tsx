@@ -15,7 +15,7 @@ import { useInputHeader } from './hooks'
 
 import { Link } from './link'
 import { WebsitePrimaryCell } from './cells'
-import { Button } from './button'
+import { Button } from './buttons/button'
 
 import { InputHeaders } from './forms/input-headers'
 import { useWebsiteData } from '@app/data'

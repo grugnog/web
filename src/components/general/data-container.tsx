@@ -1,26 +1,25 @@
-import React, { FC } from 'react'
+import React from 'react'
 import { CardHeader } from '@material-ui/core'
 
 import { ListSkeleton } from '@app/components/placeholders'
-import { WebSitesDashboard } from '@app/components/general/lists/websites-dashboard'
 import { EmptyWebsiteForm } from '@app/components/general/website/empty-form'
 
-export const RenderInner: FC<any> = ({
+interface DataContainerProps {
+  data?: any
+  error?: boolean
+  loading?: boolean
+  emptyHeaderTitle?: string
+  emptyHeaderSubTitle?: string
+}
+
+// data container to handle loading main application pages
+export const DataContainer: React.FC<DataContainerProps> = ({
   data,
   error,
   loading,
-  removePress,
   emptyHeaderTitle,
-  emptyHeaderSubTitle = 'Add your website below',
-  refetch,
-  crawlWebsite,
-  setModal,
-  mutatationLoading,
-  handleClickOpen,
-  handleClickOpenPlayer,
-  lighthouseVisible,
-  issueFeed,
-  activeCrawls,
+  emptyHeaderSubTitle,
+  children,
 }) => {
   if (!data.length) {
     if (loading) {
@@ -43,21 +42,5 @@ export const RenderInner: FC<any> = ({
     )
   }
 
-  return (
-    <WebSitesDashboard
-      data={data}
-      {...{
-        issueFeed,
-        handleClickOpen,
-        handleClickOpenPlayer,
-        removePress,
-        refetch,
-        crawlWebsite,
-        setModal,
-        mutatationLoading: mutatationLoading,
-        lighthouseVisible,
-        activeCrawls,
-      }}
-    />
-  )
+  return <>{children || null}</>
 }

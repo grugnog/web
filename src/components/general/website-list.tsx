@@ -1,7 +1,8 @@
 import React, { Fragment, useState, useCallback } from 'react'
 import { useMiniPlayer } from '@app/data'
-import { RenderInner } from '@app/components/general/cells/render/website-inner'
 import { FullScreenModal } from './fullscreen-modal'
+import { DataContainer } from './data-container'
+import { WebSitesDashboard } from '@app/components/general/lists/websites-dashboard'
 
 const defaultModalState = {
   open: false,
@@ -41,27 +42,34 @@ export function WebsiteList({
     setOpen((m) => ({ ...m, open: false }))
   }, [setOpen])
 
+  // shared props between data container and main component
+  const sharedProps = {
+    data,
+    error,
+    loading,
+    removePress,
+    emptyHeaderTitle,
+    emptyHeaderSubTitle,
+  }
+
+  // website primary props
+  const websiteProps = {
+    handleClickOpen,
+    handleClickOpenPlayer: setMiniPlayerContent,
+    refetch,
+    crawlWebsite,
+    setModal,
+    mutatationLoading,
+    lighthouseVisible,
+    issueFeed,
+    activeCrawls,
+  }
+
   return (
     <Fragment>
-      <RenderInner
-        {...{
-          handleClickOpen: handleClickOpen,
-          handleClickOpenPlayer: setMiniPlayerContent,
-          data,
-          error,
-          loading,
-          removePress,
-          emptyHeaderTitle,
-          emptyHeaderSubTitle,
-          refetch,
-          crawlWebsite,
-          setModal,
-          mutatationLoading,
-          lighthouseVisible,
-          issueFeed,
-          activeCrawls,
-        }}
-      />
+      <DataContainer {...sharedProps}>
+        <WebSitesDashboard {...sharedProps} {...websiteProps} />
+      </DataContainer>
       <FullScreenModal
         {...modal}
         handleClose={handleClose}

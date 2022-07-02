@@ -1,5 +1,6 @@
 import { ApolloError } from 'apollo-client'
 
+// default provider data for application.
 export const sharedWebsiteDefaults = {
   issueFeed: { data: {} as Record<string, any>, open: false },
   loading: false,
@@ -61,6 +62,9 @@ export const sharedWebsiteDefaults = {
     return _
   },
   onLoadMoreActions: (_: any): Promise<any> => {
+    return _
+  },
+  onLoadMoreScripts: (_: any): Promise<any> => {
     return _
   },
 }

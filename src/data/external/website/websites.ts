@@ -318,12 +318,13 @@ export const useWebsiteData = (
     return canScan?.data?.scanWebsite?.website
   }
 
+  // dashboard page pagination
   const onLoadMoreWebsites = async () => {
     try {
       await fetchMore({
         query: GET_WEBSITES,
         variables: {
-          offset: Number(issueData.length || 0),
+          offset: Number(websites.length || 0),
         },
         updateQuery,
       })
@@ -332,6 +333,7 @@ export const useWebsiteData = (
     }
   }
 
+  // issue page pagination
   const onLoadMoreIssues = async () => {
     try {
       await fetchMoreIssues({
@@ -346,6 +348,7 @@ export const useWebsiteData = (
     }
   }
 
+  // pages page pagination
   const onLoadMorePages = async () => {
     try {
       await fetchMorePages({
@@ -360,12 +363,13 @@ export const useWebsiteData = (
     }
   }
 
+  // analytics page pagination
   const onLoadMoreAnalytics = async () => {
     try {
       await fetchMoreAnalytics({
         query: GET_WEBSITES_INFO,
         variables: {
-          offset: Number(pagesData.length || 0),
+          offset: Number(analyticsData.length || 0),
         },
         updateQuery,
       })
@@ -374,12 +378,13 @@ export const useWebsiteData = (
     }
   }
 
+  // scripts page pagination
   const onLoadMoreScripts = async () => {
     try {
       await fetchMoreScripts({
         query: GET_WEBSITES_INFO,
         variables: {
-          offset: Number(pagesData.length || 0),
+          offset: Number(scriptsData.length || 0),
         },
         updateQuery,
       })
@@ -388,12 +393,13 @@ export const useWebsiteData = (
     }
   }
 
+  // actions page pagination
   const onLoadMoreActions = async () => {
     try {
       await fetchMoreActions({
         query: GET_WEBSITES_INFO,
         variables: {
-          offset: Number(pagesData.length || 0),
+          offset: Number(actionsData.length || 0),
         },
         updateQuery,
       })

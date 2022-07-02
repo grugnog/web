@@ -14,6 +14,8 @@ import { _ONBOARDED } from '@app/lib/cookies/names'
 import { useWebsiteContext } from '@app/components/providers/website'
 import { WebsiteList } from '@app/components/general/website-list'
 import { SortableWebsiteList } from '@app/components/general/website'
+import Head from 'next/head'
+import { LoadMoreButton } from '@app/components/general/buttons'
 
 function Dashboard({ name }: PageProps) {
   const [sortModalVisible, setSortModalVisible] = useState<boolean>()
@@ -43,6 +45,7 @@ function Dashboard({ name }: PageProps) {
 
   const { issueSubData } = subscriptionData
 
+  // effect for first time user directing to alerts
   useEffect(() => {
     if (issueSubData && events && !events?.firstAdd) {
       setEvents({
@@ -77,13 +80,11 @@ function Dashboard({ name }: PageProps) {
   return (
     <>
       {lhEnabled ? (
-        <style>
-          {`
-          .lh-topbar__url, .report-icon--download {
-            display: none !important;
-          }
-      `}
-        </style>
+        <Head>
+          <style>
+            {`.lh-topbar__url, .report-icon--download { display: none !important; } `}
+          </style>
+        </Head>
       ) : null}
       <Drawer title={name}>
         <PageTitle
@@ -138,13 +139,10 @@ function Dashboard({ name }: PageProps) {
               issueFeed={issueFeed}
               activeCrawls={activeCrawls}
             />
-            {websites.length > 1 ? (
-              <div className='flex place-content-center pt-8'>
-                <Button onClick={onLoadMoreWebsites} className={'w-40'}>
-                  Load More
-                </Button>
-              </div>
-            ) : null}
+            <LoadMoreButton
+              visible={websites.length > 1}
+              onLoadMoreEvent={onLoadMoreWebsites}
+            />
           </div>
         )}
       </Drawer>
