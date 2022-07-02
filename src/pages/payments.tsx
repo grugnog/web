@@ -231,7 +231,7 @@ function Payments({ hideTitle = false, name }: PaymentProps) {
           {hideTitle ? null : <PageTitle>Payment Details</PageTitle>}
           <p className='text-xl font-bold'>{subTitle}</p>
           <div>
-            {superMode ? <h3>SUPER MODE ENABLED</h3> : null}
+            {superMode ? <h3>Enterprise Account</h3> : null}
             {renderPayMentBoxes ? (
               <div className='flex flex-col sm:flex-row gap-x-4 gap-y-6 flex-wrap'>
                 <PriceMemo
@@ -261,7 +261,7 @@ function Payments({ hideTitle = false, name }: PaymentProps) {
                 <p className='text-xl font-bold'>Account Type</p>
                 <p className='text-xl'>
                   {superMode
-                    ? 'SUPER'
+                    ? 'Enterprise'
                     : `${
                         paymentSubscription?.plan?.nickname ||
                         getPlanName(paymentSubscription?.plan?.amount)

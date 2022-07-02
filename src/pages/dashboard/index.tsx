@@ -156,7 +156,7 @@ function Dashboard({ name }: PageProps) {
 export default metaSetter(
   { Dashboard },
   {
-    intercom: false,
+    intercom: true,
     gql: true,
   }
 )
