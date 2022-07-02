@@ -29,9 +29,8 @@ export const StandardBoxWrapper = ({
       await updateWebsite({
         variables: { url, standard: value },
       })
-      AppManager.toggleSnack(true, `Updated website to ${value}`)
+      AppManager.toggleSnack(true, `Updated standard ${url} to ${value}`)
     } catch (e) {
-      console.error(e)
       // @ts-ignore
       AppManager.toggleSnack(true, e?.message)
     }
