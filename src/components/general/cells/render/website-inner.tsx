@@ -44,22 +44,20 @@ export const RenderInner: FC<any> = ({
   }
 
   return (
-    <ul className='space-y-2 py-2'>
-      <WebSitesDashboard
-        data={data}
-        {...{
-          issueFeed,
-          handleClickOpen,
-          handleClickOpenPlayer,
-          removePress,
-          refetch,
-          crawlWebsite,
-          setModal,
-          mutatationLoading: mutatationLoading,
-          lighthouseVisible,
-          activeCrawls,
-        }}
-      />
-    </ul>
+    <WebSitesDashboard
+      data={data}
+      {...{
+        issueFeed,
+        handleClickOpen,
+        handleClickOpenPlayer,
+        removePress,
+        refetch,
+        crawlWebsite,
+        setModal,
+        mutatationLoading: mutatationLoading,
+        lighthouseVisible,
+        activeCrawls,
+      }}
+    />
   )
 }
