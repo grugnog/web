@@ -130,7 +130,7 @@ function WebsiteAccessibilityChecker({ name }: PageProps) {
 export default metaSetter(
   { WebsiteAccessibilityChecker },
   {
-    title: 'Web Acessibility Tool',
+    title: 'Web Acessibility Checker',
     description: `Check the accessibility of your web page today. Improve your web inclusion with accessibility testing, reports, monitoring, and much more.`,
     rest: true,
     intercom: true,
