@@ -1,4 +1,4 @@
-import { useApolloClient, useQuery } from '@apollo/react-hooks'
+import { useQuery } from '@apollo/react-hooks'
 import gql from 'graphql-tag'
 
 const GET_MINI_PLAYER_STATE = gql`
@@ -18,8 +18,7 @@ const defultPlayer = {
 }
 
 export function useMiniPlayer(toggleModalVisibility?: (a: any) => void) {
-  const modalState = useQuery(GET_MINI_PLAYER_STATE)
-  const client = useApolloClient()
+  const { data, client } = useQuery(GET_MINI_PLAYER_STATE, { ssr: false })
 
   const setMiniPlayerContent = (
     open: boolean = false,
@@ -49,7 +48,7 @@ export function useMiniPlayer(toggleModalVisibility?: (a: any) => void) {
   }
 
   return {
-    miniPlayer: modalState?.data?.miniPlayer || defultPlayer,
+    miniPlayer: data?.miniPlayer || defultPlayer,
     setMiniPlayerContent,
   }
 }

@@ -1,5 +1,5 @@
-import { useEffect, useCallback } from 'react'
-import { useApolloClient, useQuery } from '@apollo/react-hooks'
+import { useEffect } from 'react'
+import { useLazyQuery } from '@apollo/react-hooks'
 import gql from 'graphql-tag'
 
 const GET_EVENTS_STATE = gql`
@@ -10,19 +10,29 @@ const GET_EVENTS_STATE = gql`
   }
 `
 
-const defaultState = {
-  firstAdd: null,
-}
-
+// get local event data - TODO: remove for register onboarding flow
 export function useEvents() {
-  const client = useApolloClient()
-  const { data } = useQuery(GET_EVENTS_STATE)
-  const events = data?.events || defaultState
+  const [load, { data, client }] = useLazyQuery(GET_EVENTS_STATE, {
+    onCompleted: () => {
+      const firstWebsiteAdded =
+        typeof localStorage !== 'undefined' &&
+        localStorage.getItem('firstWebsiteAdded')
 
-  const setEvents = useCallback(({ firstAdd }: any) => {
-    if (typeof localStorage !== 'undefined' && firstAdd && firstAdd !== 'set') {
+      if (firstWebsiteAdded) {
+        setEvents({ firstAdd: 'set' })
+      }
+    },
+  })
+
+  const events = data?.events ?? {
+    firstAdd: null,
+  }
+
+  const setEvents = ({ firstAdd }: any) => {
+    if (firstAdd && firstAdd !== 'set') {
       localStorage.setItem('firstWebsiteAdded', '1')
     }
+
     client.writeData({
       data: {
         events: {
@@ -32,14 +42,10 @@ export function useEvents() {
         },
       },
     })
-  }, [])
+  }
 
   useEffect(() => {
-    const firstWebsiteAdded = localStorage.getItem('firstWebsiteAdded')
-
-    if (firstWebsiteAdded) {
-      setEvents({ firstAdd: 'set' })
-    }
+    load()
   }, [])
 
   return {

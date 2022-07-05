@@ -37,11 +37,11 @@ const SectionTitle: FC<{ className?: string; bold?: boolean }> = ({
 function ApiInfo() {
   const [keyVisible, setKey] = useState<boolean>(false)
   const { data = {}, loading } = userData()
-  const { user } = data
+  const { user } = data ?? { user: null }
   const toggleKey = () => setKey((c) => !c)
 
   // TODO: MOVE TO SS
-  const apiLimit = !data?.user
+  const apiLimit = !user
     ? 0
     : user?.role === 0
     ? 3
@@ -59,12 +59,15 @@ function ApiInfo() {
 
   // token
   const token = UserManager?.token ? UserManager.token.trim() : ''
-
-  const authed = !!data?.user
+  const authed = !!user
 
   return (
     <Fragment>
-      <NavBar backButton={authed} authenticated={authed} />
+      <NavBar
+        backButton={authed}
+        authenticated={authed}
+        loading={loading && !authed}
+      />
       <Container maxWidth='xl'>
         <Box>
           <PageTitle title={'Web Accessibility API'} />
@@ -78,10 +81,10 @@ function ApiInfo() {
           <p className='text-lg'>
             For more information go to the{' '}
             <a
-              href={'https://docs.a11ywatch.com/documentation/api'}
+              href={'https://github.com/A11yWatch/a11ywatch/tree/main/clients'}
               className='underline text-blue-600'
             >
-              REST
+              OpenAPI
             </a>
             ,{' '}
             <a href={'/playground'} className='underline text-blue-600'>
@@ -132,7 +135,7 @@ function ApiInfo() {
         </Box>
 
         <Box className={'border rounded p-2'}>
-          <p className={'text-lg font-bold'}>REST Reference Examples</p>
+          <p className={'text-lg font-bold'}>OpenAPI Reference Examples</p>
           {!data?.user && loading ? (
             <TextSkeleton className={'p-2'} />
           ) : !data?.user ? (
@@ -141,7 +144,6 @@ function ApiInfo() {
                 Login
               </Link>{' '}
               to see your API limits and test requests using your account.
-              <p>Replace the sample API key with your actual API key.</p>
             </p>
           ) : (
             <>
@@ -168,8 +170,8 @@ function ApiInfo() {
               return (
                 <li key={ro.title} id={routeID}>
                   <div className='py-4'>
-                    <div className='py-2 px-4 text-[#0E1116] border-l-4 border-[#0E1116] rounded'>
-                      <h3 className='text-3xl font-bold'>
+                    <div className='py-2 pr-4 pl-1 md:pl-2 text-[#0E1116] border-l-4 border-[#0E1116] rounded'>
+                      <h3 className='text-2xl md:text-3xl font-bold'>
                         <a href={`#${routeID}`}>{ro.title}</a>
                       </h3>
                     </div>
@@ -214,8 +216,8 @@ function ApiInfo() {
 export default metaSetter(
   { ApiInfo },
   {
-    title: 'Web Accessibility API - A11yWatch',
-    description: `The web accessibility API for testing in real time. Determine accurate image alts and other inclusive recommendations easily with REST, graphQL, or gRPC.`,
+    title: 'Web Accessibility API',
+    description: `The web accessibility API for testing in real time. Determine accurate image alts and other inclusive recommendations easily with OpenAPI, graphQL, or gRPC.`,
     gql: true,
   }
 )

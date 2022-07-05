@@ -7,6 +7,7 @@ import { UserManager } from '@app/managers'
 export const paymentsData = () => {
   const { data, loading } = useQuery(GET_PAYMENTS, {
     variables: {},
+    ssr: false,
   })
 
   const [

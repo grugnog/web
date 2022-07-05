@@ -13,9 +13,20 @@ import type { PageProps, Website } from '@app/types'
 import { _ONBOARDED } from '@app/lib/cookies/names'
 import { useWebsiteContext } from '@app/components/providers/website'
 import { WebsiteList } from '@app/components/general/website-list'
-import { SortableWebsiteList } from '@app/components/general/website'
 import Head from 'next/head'
 import { LoadMoreButton } from '@app/components/general/buttons'
+import dynamic from 'next/dynamic'
+
+export const SortableWebsiteList = dynamic(
+  () =>
+    import('@app/components/general/website').then(
+      (mod) => mod.SortableWebsiteList
+    ) as any,
+  {
+    ssr: false,
+    loading: () => null,
+  }
+) as any
 
 function Dashboard({ name }: PageProps) {
   const [sortModalVisible, setSortModalVisible] = useState<boolean>()

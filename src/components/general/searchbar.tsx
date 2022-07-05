@@ -81,6 +81,9 @@ export function SearchBar({ placeholder, noWidth, cta }: any) {
       AppManager.toggleSnack(true, 'Please enter a valid website url', 'error')
     }
   }
+  const onSearchChangeEvent = (event: any) => {
+    setSearch({ search: event?.target?.value })
+  }
 
   const searchStyles = {
     input: classes.inputInput,
@@ -103,10 +106,6 @@ export function SearchBar({ placeholder, noWidth, cta }: any) {
         </div>
       </div>
     )
-  }
-
-  const onSearchChangeEvent = (event: any) => {
-    setSearch({ search: event?.target?.value })
   }
 
   return (

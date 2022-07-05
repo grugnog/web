@@ -5,6 +5,7 @@ export const analyticsData = (query: boolean = true) => {
   const { data, loading, refetch, error } = useQuery(GET_ANALYTICS, {
     variables: { filter: '' },
     skip: !query,
+    ssr: false,
   })
 
   return {
@@ -18,6 +19,7 @@ export const analyticsData = (query: boolean = true) => {
 export const useAnalyticsData = (url?: string | string[]) => {
   const { data, loading, refetch, error } = useQuery(GET_WEBSITE_ANALYTICS, {
     variables: { url },
+    ssr: false,
   })
 
   const model = Object.freeze({

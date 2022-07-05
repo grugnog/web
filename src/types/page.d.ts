@@ -29,6 +29,8 @@ export interface MetaData {
   intercom?: boolean
   /** Params for initial gql queries [todo update generic] */
   params?: any
+  /** Load wasm module for application */
+  wasm?: boolean
 }
 
 interface MetaFunction extends Partial<MetaData>, Function {}

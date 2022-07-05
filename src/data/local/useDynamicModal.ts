@@ -1,5 +1,5 @@
 import { useEffect, useCallback } from 'react'
-import { useApolloClient, useQuery } from '@apollo/react-hooks'
+import { useQuery } from '@apollo/react-hooks'
 import gql from 'graphql-tag'
 import { isSameDay } from 'date-fns'
 import { checkNotification } from '@app/lib'
@@ -41,8 +41,7 @@ const getLastAlertedDate = (setModal: (x: any) => void) => {
 }
 
 export function useDynamicModal() {
-  const client = useApolloClient()
-  const { data } = useQuery(GET_DYNAMIC_MODAL_STATE)
+  const { data, client } = useQuery(GET_DYNAMIC_MODAL_STATE, { ssr: false })
   const modelData = data?.modal || defaultProps
 
   const setModal = useCallback(

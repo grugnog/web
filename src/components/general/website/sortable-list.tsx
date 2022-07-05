@@ -8,6 +8,7 @@ export const SortableWebsiteList: FC<{ refetch: any }> = ({ refetch }) => {
   const { data, loading } = useQuery(GET_WEBSITES_LIST, {
     variables: { limit: 100 },
     fetchPolicy: 'network-only',
+    ssr: false,
   })
   const [sortWebsites] = useMutation(SORT_WEBSITES)
   const [hasSorted, setSorted] = useState<boolean>()

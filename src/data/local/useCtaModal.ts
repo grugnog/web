@@ -1,4 +1,4 @@
-import { useApolloClient, useQuery } from '@apollo/react-hooks'
+import { useQuery } from '@apollo/react-hooks'
 import gql from 'graphql-tag'
 
 const GET_CTA_MODAL_STATE = gql`
@@ -10,9 +10,9 @@ const GET_CTA_MODAL_STATE = gql`
 `
 
 export function useCtaModal() {
-  const client = useApolloClient()
-  const { data } = useQuery(GET_CTA_MODAL_STATE, {
+  const { data, client } = useQuery(GET_CTA_MODAL_STATE, {
     fetchPolicy: 'cache-only',
+    ssr: false,
   })
   const modalOpen = data?.modalData?.modalOpen || false
 

@@ -1,4 +1,4 @@
-import { useApolloClient, useQuery, useMutation } from '@apollo/react-hooks'
+import { useQuery, useMutation } from '@apollo/react-hooks'
 import gql from 'graphql-tag'
 import { SCAN_WEBSITE } from '@app/mutations'
 import { AppManager } from '@app/managers'
@@ -21,9 +21,8 @@ const defaultState = {
 }
 
 export function useSearch() {
-  const client = useApolloClient()
+  const { data, client } = useQuery(GET_SEARCH_STATE, { ssr: false })
   const [scanWebsite, { data: crawlData, loading }] = useMutation(SCAN_WEBSITE)
-  const { data } = useQuery(GET_SEARCH_STATE)
   const { search, bottomModal, website } = data?.ctaSearch || defaultState
 
   const setSearch = (event: { search?: string }) => {

@@ -1,4 +1,4 @@
-import { useApolloClient, useQuery } from '@apollo/react-hooks'
+import { useQuery } from '@apollo/react-hooks'
 import gql from 'graphql-tag'
 
 const GET_USER_STATE = gql`
@@ -18,8 +18,7 @@ const defaultState = {
 }
 
 export function useUser() {
-  const client = useApolloClient()
-  const { data } = useQuery(GET_USER_STATE)
+  const { data, client } = useQuery(GET_USER_STATE, { ssr: false })
   const user = data?.user || defaultState
 
   const setUserData = (userData: any) => () => {

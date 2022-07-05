@@ -6,6 +6,7 @@ export const historyData = () => {
   const { data, loading, refetch } = useQuery(GET_HISTORY, {
     variables: { filter: '' },
     fetchPolicy: 'no-cache',
+    ssr: false,
   })
   const [crawlWebsite, { loading: crawlLoading }] = useMutation(CRAWL_WEBSITE)
 

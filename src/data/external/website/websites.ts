@@ -53,6 +53,7 @@ export const useWebsiteData = (
       offset: 0,
     },
     skip: skip || !!scopedQuery, // when scoped queries ignore the initial result
+    ssr: false,
   })
 
   // Only get issues from websites
@@ -67,6 +68,7 @@ export const useWebsiteData = (
       offset: 0,
     },
     skip: scopedQuery !== 'issues',
+    ssr: false,
   })
 
   // Get Website Pages
@@ -81,6 +83,7 @@ export const useWebsiteData = (
       offset: 0,
     },
     skip: scopedQuery !== 'pages',
+    ssr: false,
   })
 
   // Get Website Analytics
@@ -95,6 +98,7 @@ export const useWebsiteData = (
       offset: 0,
     },
     skip: scopedQuery !== 'analytics',
+    ssr: false,
   })
 
   // Get Scripts Pages
@@ -109,6 +113,7 @@ export const useWebsiteData = (
       offset: 0,
     },
     skip: scopedQuery !== 'scripts',
+    ssr: false,
   })
 
   // Get Scripts Pages
@@ -122,6 +127,7 @@ export const useWebsiteData = (
       limit: 5,
       offset: 0,
     },
+    ssr: false,
     skip: scopedQuery !== 'actions',
   })
 

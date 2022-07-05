@@ -24,7 +24,6 @@ function AuthRedirect() {
             },
           })
 
-          console.log(data)
           const authValue = data?.data?.register ?? data?.data?.login
 
           if (authValue) {
@@ -32,7 +31,12 @@ function AuthRedirect() {
             await router.push('/')
           }
         } else {
-          AppManager.toggleSnack(true, 'Issue with redirect', 'error')
+          AppManager.toggleSnack(
+            true,
+            'Your Github email set to private. Update your email to public to login.',
+            'error'
+          )
+          router.push('/')
         }
       } catch (e) {
         console.error(e)

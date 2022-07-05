@@ -21,18 +21,6 @@ export const WebsiteProviderComponent: FC<{
 
 export const WebsiteProviderWrapper = withApollo(WebsiteProviderComponent)
 
-export function withWebsite(PageComponent: any) {
-  const WithWebsite = ({ ...pageProps }: any) => {
-    return (
-      <WebsiteProviderWrapper>
-        <PageComponent {...pageProps} />
-      </WebsiteProviderWrapper>
-    )
-  }
-
-  return WithWebsite
-}
-
 export function useWebsiteContext() {
   return useContext(AppContext)
 }

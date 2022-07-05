@@ -32,7 +32,10 @@ const createLink = (): ApolloLink => {
   })
 
   const errorLink = onError(({ graphQLErrors, networkError }: any) => {
-    if (typeof window !== 'undefined') {
+    if (
+      typeof window !== 'undefined' &&
+      window.location.pathname !== '/api-info'
+    ) {
       let graphErrors = ''
       graphQLErrors?.forEach(({ message }: { message?: string }) => {
         if (message) {

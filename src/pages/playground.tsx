@@ -225,7 +225,7 @@ function Playground() {
         </h1>
         <ul className='flex space-x-2'>
           <li>
-            <Link href='/api-info'>REST</Link>
+            <Link href='/api-info'>OpenAPI</Link>
           </li>
           <li>
             <a href='https://api.a11ywatch.com/grpc-docs'>gRPC</a>

@@ -1,4 +1,4 @@
-import { useApolloClient, useQuery } from '@apollo/react-hooks'
+import { useQuery } from '@apollo/react-hooks'
 import gql from 'graphql-tag'
 import { frameDom } from '@app/managers'
 import { toggleHighLight } from './iframe'
@@ -13,8 +13,9 @@ const GET_FIXFRAME_STATE = gql`
 `
 
 export function useIframe() {
-  const highLight = useQuery(GET_FIXFRAME_STATE).data?.displayHighlight || null
-  const client = useApolloClient()
+  const { data, client } = useQuery(GET_FIXFRAME_STATE)
+
+  const highLight = data?.displayHighlight || null
 
   const setFrameContent = (callBack: any) => {
     if (frameDom?.dom?.querySelectorAll) {

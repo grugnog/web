@@ -42,6 +42,16 @@ const crawlParams = {
     desc: 'The url to crawl and gather reports.',
     optional: false,
   },
+  subdomains: {
+    type: 'boolean',
+    desc: 'Include subdomains that match domain.',
+    optional: false,
+  },
+  tld: {
+    type: 'boolean',
+    desc: 'Include all TLD extensions that match domain.',
+    optional: false,
+  },
   pageInsights: {
     type: 'boolean',
     desc:
@@ -97,7 +107,7 @@ export const apiRoutes = [
         pathName: 'crawl-stream',
         method: 'POST',
         params: crawlParams,
-        info: 'Multi page scan for issues as a stream.',
+        info: 'Multi page scan for issues using streams.',
         title: 'Crawl Stream',
         encodedParams: "--data-urlencode 'websiteUrl=https://a11ywatch.com'",
       },

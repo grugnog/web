@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 import gql from 'graphql-tag'
-import { useApolloClient, useQuery } from '@apollo/react-hooks'
+import { useQuery } from '@apollo/react-hooks'
 import { frameDom } from '@app/managers'
 
 const GET_AUTOFIX_STATE = gql`
@@ -10,8 +10,7 @@ const GET_AUTOFIX_STATE = gql`
 `
 
 export function useAutoFix(script: any) {
-  const client = useApolloClient()
-  const { data } = useQuery(GET_AUTOFIX_STATE)
+  const { data, client } = useQuery(GET_AUTOFIX_STATE, { ssr: false })
   const autoFixEnabled = data?.autoFixEnabled
   const { dom } = frameDom
 

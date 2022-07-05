@@ -1,4 +1,4 @@
-import React, { useEffect, Fragment, memo } from 'react'
+import React, { useEffect, Fragment, FC } from 'react'
 import Head from 'next/head'
 import { CssBaseline } from '@material-ui/core'
 import { ThemeProvider } from '@material-ui/core/styles'
@@ -7,7 +7,10 @@ import { theme } from '@app-theme'
 import { initAppModel, userModel } from '@app/data'
 import { DOMAIN_NAME, INTERCOM_ENABLED, LOGGIN_ROUTES } from '@app/configs'
 import { ping, startIntercom } from '@app/utils'
-import { WebsiteProviderWrapper } from '@app/components/providers'
+import {
+  WASMContextProvider,
+  WebsiteProviderWrapper,
+} from '@app/components/providers'
 import { RestWebsiteProviderWrapper } from '../providers/rest/rest-website'
 import { ErrorBoundary, SkipContent } from '@app/components/general'
 import type { InnerApp } from '@app/types/page'
@@ -20,6 +23,7 @@ const authRoutes = LOGGIN_ROUTES.map((route) => route.replace('/', ''))
 
 const CRISP_WEBSITE_ID = process.env.CRISP_WEBSITE_ID
 
+// load the application with providers depending on component
 const Application = ({ Component, pageProps, name }: InnerApp) => {
   // name is based off function name and not file name
   const nameLowerCased = (name && String(name).toLowerCase()) || ''
@@ -38,8 +42,8 @@ const Application = ({ Component, pageProps, name }: InnerApp) => {
   const RestWrapper = Component.rest ? RestWebsiteProviderWrapper : Fragment
 
   // gQL provider for API
-  const GqlWrapper = Component.gql
-    ? ({ children }: { children: any }) => {
+  const GqlWrapper: FC = Component.gql
+    ? ({ children }) => {
         return (
           <WebsiteProviderWrapper
             skip={!initialQuery}
@@ -52,16 +56,23 @@ const Application = ({ Component, pageProps, name }: InnerApp) => {
       }
     : Fragment
 
+  // gQL provider for API
+  const WasmWrapper: FC = Component.wasm
+    ? ({ children }) => {
+        return <WASMContextProvider>{children}</WASMContextProvider>
+      }
+    : Fragment
+
   return (
-    <GqlWrapper>
-      <RestWrapper>
-        <Component {...pageProps} name={name} />
-      </RestWrapper>
-    </GqlWrapper>
+    <WasmWrapper>
+      <GqlWrapper>
+        <RestWrapper>
+          <Component {...pageProps} name={name} />
+        </RestWrapper>
+      </GqlWrapper>
+    </WasmWrapper>
   )
 }
-
-const MemoApp = memo(Application)
 
 export function MyApp({ Component, pageProps }: InnerApp) {
   const { description, title, name } = Component?.meta || strings?.meta
@@ -129,7 +140,11 @@ export function MyApp({ Component, pageProps }: InnerApp) {
         <CssBaseline />
         <SkipContent />
         <ErrorBoundary>
-          <MemoApp Component={Component} pageProps={pageProps} name={name} />
+          <Application
+            Component={Component}
+            pageProps={pageProps}
+            name={name}
+          />
         </ErrorBoundary>
         <SnackBar />
       </ThemeProvider>

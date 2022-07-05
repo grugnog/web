@@ -69,7 +69,7 @@ export const generateStrings = ({
         id: 4,
         title: 'API',
         detail:
-          'Connect your software to handle issues via our API. Choose between REST, GraphQL, and gRPC to enhance your productivity.',
+          'Connect your software to handle issues via our API. Choose between OpenAPI, GraphQL, and gRPC to enhance your productivity.',
         reason: 'Basic',
       },
       {

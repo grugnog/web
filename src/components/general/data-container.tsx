@@ -21,7 +21,7 @@ export const DataContainer: React.FC<DataContainerProps> = ({
   emptyHeaderSubTitle,
   children,
 }) => {
-  if (!data.length) {
+  if (!data?.length) {
     if (loading) {
       return <ListSkeleton />
     }

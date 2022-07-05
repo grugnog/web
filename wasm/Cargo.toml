@@ -1,0 +1,14 @@
+[package]
+name = "a11ywatch-web-wasm"
+version = "0.1.0"
+description = "a11ywatch web wasm bundle"
+edition = "2021"
+license = "MIT"
+repository = "https://github.com/a11ywatch/web/wasm"
+authors = ["Jeff Mendez <jeff@a11ywatch.com>"]
+
+[lib]
+crate-type = ["cdylib"]
+
+[dependencies]
+wasm-bindgen = "0.2"

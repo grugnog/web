@@ -1,4 +1,4 @@
-import { useApolloClient, useQuery } from '@apollo/react-hooks'
+import { useQuery } from '@apollo/react-hooks'
 import gql from 'graphql-tag'
 
 const GET_SEARCH_FILTER_STATE = gql`
@@ -10,9 +10,9 @@ const GET_SEARCH_FILTER_STATE = gql`
 `
 
 export function useSearchFilter() {
-  const client = useApolloClient()
-  const { data } = useQuery(GET_SEARCH_FILTER_STATE, {
+  const { data, client } = useQuery(GET_SEARCH_FILTER_STATE, {
     fetchPolicy: 'cache-only',
+    ssr: false,
   })
   const search = data?.searchFilter?.search || ''
 

@@ -1,6 +1,6 @@
-import React, { useCallback, memo, SyntheticEvent } from 'react'
+import React, { memo, SyntheticEvent } from 'react'
 import { List } from '@material-ui/core'
-import { featuresData, userModel, useEvents } from '@app/data'
+import { useFeaturesData, userModel, useEvents } from '@app/data'
 import { features } from '@app/configs'
 import { FeaturesCell } from '../cells'
 
@@ -11,34 +11,28 @@ interface AuthedMenu {
 }
 
 // Side menu that appears on application routes
-export function AuthedMenuComponent({
-  route,
-  isMobile,
-  dataSourceMap,
-}: AuthedMenu) {
-  const { toggleAlert, toggleAlertData } = featuresData()
+export function AuthedMenuComponent({ route, dataSourceMap }: AuthedMenu) {
   const { events, setEvents } = useEvents()
+  const { toggleAlert, toggleAlertData } = useFeaturesData()
+
   const enabledAlerts = userModel.alertEnabled({
     toggleCombiner: toggleAlertData?.toggleAlert?.alertEnabled,
     networkCombiner:
       !toggleAlertData?.toggleAlert && dataSourceMap?.user?.alertEnabled,
   })
 
-  const onAlertToggle = useCallback(
-    async (e?: SyntheticEvent<HTMLInputElement>) => {
-      try {
-        e?.stopPropagation()
-        await toggleAlert({
-          variables: {
-            alertEnabled: !enabledAlerts,
-          },
-        })
-      } catch (e) {
-        console.error(e)
-      }
-    },
-    [enabledAlerts, toggleAlert]
-  )
+  const onAlertToggle = async (e?: SyntheticEvent<HTMLInputElement>) => {
+    try {
+      e?.stopPropagation()
+      await toggleAlert({
+        variables: {
+          alertEnabled: !enabledAlerts,
+        },
+      })
+    } catch (e) {
+      console.error(e)
+    }
+  }
 
   return (
     <nav>
@@ -46,14 +40,13 @@ export function AuthedMenuComponent({
         {features.map(({ feature }: any, index: number) => (
           <FeaturesCell
             key={index}
-            alertEnabled={!!enabledAlerts}
+            alertEnabled={false}
             feature={feature}
             index={index}
             focused={route?.includes(feature)} // use page meta TODO
             events={events}
-            isMobile={isMobile}
             setEvents={setEvents}
-            toggleAlert={index === 0 ? onAlertToggle : undefined}
+            toggleAlert={onAlertToggle}
           />
         ))}
       </List>

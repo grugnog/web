@@ -6,6 +6,7 @@
     "dev:vercel": "NODE_OPTIONS='--inspect' vercel dev",
     "start": "next start -p ${PORT:=3000}",
     "build": "next build",
+    "build:wasm": "cd wasm && wasm-pack build --target bundler",
     "lint": "next lint",
     "fix": "prettier --write '**/*.{js,jsx}'",
     "clean": "npm run fix && npm run lint",
@@ -24,6 +25,7 @@
     "@monaco-editor/react": "^4.4.5",
     "@stripe/react-stripe-js": "^1.7.0",
     "@stripe/stripe-js": "^1.30.0",
+    "a11ywatch-web-wasm": "^0.1.0",
     "apollo-cache-inmemory": "1.6.6",
     "apollo-client": "2.6.10",
     "apollo-link-context": "1.0.20",
@@ -58,6 +60,10 @@
     "subscriptions-transport-ws": "0.11.0",
     "victory": "34.3.12",
     "with-cookie": "1.5.7"
+  },
+  "overrides": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
   },
   "devDependencies": {
     "@fullhuman/postcss-purgecss": "4.0.3",

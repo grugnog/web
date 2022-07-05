@@ -22,6 +22,7 @@ export const userData = (skip?: boolean, query?: 'profile' | 'settings') => {
   const { data, loading } = useQuery(GET_USER, {
     variables,
     skip: skip || profileQuery || settingsQuery,
+    ssr: false,
   })
 
   const { data: profile, loading: profileLoading } = useQuery(
@@ -29,6 +30,7 @@ export const userData = (skip?: boolean, query?: 'profile' | 'settings') => {
     {
       variables,
       skip: !profileQuery,
+      ssr: false,
     }
   )
 
@@ -37,6 +39,7 @@ export const userData = (skip?: boolean, query?: 'profile' | 'settings') => {
     {
       variables,
       skip: !settingsQuery,
+      ssr: false,
     }
   )
 

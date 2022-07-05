@@ -117,7 +117,6 @@ export function FeaturesCellComponent({
   index,
   toggleAlert,
   focused,
-  isMobile,
   events,
   setEvents,
 }: any) {
@@ -133,8 +132,7 @@ export function FeaturesCellComponent({
         <ListItemIcon>
           {renderIcon(
             focused ? 'Dashboard' : feature,
-            (index === 0 && alertEnabled && !isMobile && classes.alert) ||
-              undefined
+            (index === 0 && alertEnabled && classes.alert) || undefined
           )}
         </ListItemIcon>
         {focused ? 'Dashboard' : feature}
@@ -149,7 +147,7 @@ export function FeaturesCellComponent({
             onClick={toggleAlert}
           />
         ) : null}
-        {!isMobile ? renderGuide(index, events) : null}
+        {renderGuide(index, events)}
       </ListItem>
     </li>
   )

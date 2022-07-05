@@ -83,13 +83,13 @@ function WebsiteAccessibilityChecker({ name }: PageProps) {
                     It gets you testing on the go
                   </h6>
                   <p className='text-lg'>
-                    Use the system on any device or consume the REST and GraphQl{' '}
+                    Use the system on any device or consume the
                     <LinkPrefetch
                       href={`${DOMAIN_NAME}/api-info`}
                       className={'text-blue-700'}
                     >
-                      API
-                    </LinkPrefetch>{' '}
+                      OpenAPI, gRPC, and GraphQL endpoints
+                    </LinkPrefetch>
                     .
                   </p>
                 </div>

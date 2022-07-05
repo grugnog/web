@@ -8,6 +8,7 @@ import { Logo, NavBarTitle } from './navigation'
 import { Link } from './link'
 import { AuthMenu } from './auth-menu'
 import { GrLinkPrevious } from 'react-icons/gr'
+import { Skeleton } from '@material-ui/lab'
 
 const useStyles = makeStyles((theme) => ({
   flex: {
@@ -66,6 +67,28 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
+// start left button of the nav
+const LeftbuttonWrapper = ({
+  menu,
+  buttonProps,
+  marketing,
+  backButton,
+  loading,
+}: any) => {
+  if (loading) {
+    return (
+      <Skeleton height={30} width={30} className={menu} variant={'circle'} />
+    )
+  }
+  return backButton || !marketing ? (
+    <IconButton className={menu} {...buttonProps} title={'Navigate Home'}>
+      {backButton ? <GrLinkPrevious /> : <Logo />}
+    </IconButton>
+  ) : null
+}
+
+const Leftbutton = memo(LeftbuttonWrapper)
+
 const NavBarComponent = ({
   title = strings.appName,
   backButton,
@@ -77,6 +100,7 @@ const NavBarComponent = ({
   marketingLinks,
   notitle,
   authenticated,
+  loading,
 }: any) => {
   const classes = useStyles({ position })
   const router = useRouter()
@@ -107,15 +131,13 @@ const NavBarComponent = ({
           toolbar || children
         ) : (
           <div className={`flex flex-1 place-items-center`}>
-            {backButton || !marketing ? (
-              <IconButton
-                className={classes.menu}
-                {...buttonProps}
-                title={'Navigate Home'}
-              >
-                {backButton ? <GrLinkPrevious /> : <Logo />}
-              </IconButton>
-            ) : null}
+            <Leftbutton
+              loading={loading}
+              menu={classes.menu}
+              buttonProps={buttonProps}
+              backButton={backButton}
+              marketing={marketing}
+            />
             <NavBarTitle
               title={title}
               flex

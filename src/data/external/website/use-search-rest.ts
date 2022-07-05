@@ -47,7 +47,7 @@ interface Scan {
   loading: boolean
 }
 
-// TODO: USE REST CALL
+// TODO: USE OpenAPI CALL
 export function useSearchRest() {
   const [search, setQuery] = useState<string>('')
   const [{ data: scanState, loading }, setScan] = useState<Scan>({
