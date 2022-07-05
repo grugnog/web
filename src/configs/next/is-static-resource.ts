@@ -4,7 +4,7 @@ type ExcludeProps = {
   url: string
 }
 
-const isWhitelisted = ({ pathname, pageName, url }: ExcludeProps) => {
+const isWhitelisted = ({ pathname, url }: ExcludeProps) => {
   return (
     url.startsWith('/img/') ||
     pathname.startsWith('/src/') ||
@@ -24,7 +24,7 @@ const isWhitelisted = ({ pathname, pageName, url }: ExcludeProps) => {
     url.endsWith('.xml') ||
     pathname === '/manifest.json' ||
     pathname === '/robots.txt' ||
-    pageName === '/_offline'
+    pathname === '/_offline'
   )
 }
 

@@ -1,5 +1,5 @@
 import type { NextRequest, NextFetchEvent } from 'next/server'
-import { NextResponse } from 'next/server'
+import { NextResponse, userAgent } from 'next/server'
 import { isWhitelisted } from '@app/configs/next/is-static-resource'
 import { logPage } from '@app/request/log-page'
 
@@ -14,19 +14,18 @@ export async function middleware(req: NextRequest, event: NextFetchEvent) {
   const { pathname } = req.nextUrl
   const whiteListed = isWhitelisted({
     pathname,
-    pageName: req?.page?.name,
     url: req.url,
   })
-  const token = req.cookies[JWT_COOKIE_NAME]
+  const token = req.cookies.get(JWT_COOKIE_NAME)
 
   let res = NextResponse.next()
 
   // vercel build or static resource ignore middleware
-  if (whiteListed || req.cookies[`${VERCEL_PREFIX}${JWT_COOKIE_NAME}`]) {
+  if (whiteListed || req.cookies.get(`${VERCEL_PREFIX}${JWT_COOKIE_NAME}`)) {
     return res
   }
 
-  const uuid = req.cookies[ID_COOKIE_NAME] || crypto.randomUUID!()
+  const uuid = req.cookies.get(ID_COOKIE_NAME) || crypto.randomUUID!()
 
   const currentHost = req.headers?.get('host')?.replace(ROOT_URL, '')
 
@@ -42,8 +41,8 @@ export async function middleware(req: NextRequest, event: NextFetchEvent) {
     res = NextResponse.rewrite(url)
   }
 
-  if (!req.cookies[ID_COOKIE_NAME]) {
-    res.cookie(ID_COOKIE_NAME, uuid, {
+  if (!req.cookies.get(ID_COOKIE_NAME)) {
+    res.cookies.set(ID_COOKIE_NAME, uuid, {
       sameSite: 'lax',
       httpOnly: true,
       secure: process.env.NODE_ENV !== 'development',
@@ -52,10 +51,15 @@ export async function middleware(req: NextRequest, event: NextFetchEvent) {
 
   event.waitUntil(
     (async () => {
-      try {
-        await logPage(req, uuid)
-      } catch (e) {
-        console.error(e)
+      const ua = userAgent(req)
+      if (!ua?.isBot) {
+        try {
+          await logPage(req, uuid, ua)
+        } catch (e) {
+          console.error(e)
+        }
+      } else {
+        Promise.resolve()
       }
     })()
   )
