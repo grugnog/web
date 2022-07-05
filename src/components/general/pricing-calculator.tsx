@@ -19,10 +19,8 @@ export const PricingCalculator = () => {
             <h3 className='font-bold text-xl md:text-2xl'>
               {companyName} Pricing Calculator
             </h3>
-            <div className='text-sm md:text-base md:text-lg line-clamp-2'>
-              <p>
-                Calculate your&nbsp;{companyName} plans in a single estimate.
-              </p>
+            <div className='text-sm md:text-base md:text-lg line-clamp-2 py-1'>
+              <p>Calculate your plans in a single estimate.</p>
             </div>
             <div className='text-blue-600'>
               <p>

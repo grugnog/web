@@ -35,12 +35,12 @@ const calcCost = ({ websiteCount, apiCount, siteWideApiCount }: any) => {
   }
 
   if (apiCount) {
-    const apiBaseToDollar = Number(Math.round(apiCount / 500)) // per dollar
+    const apiBaseToDollar = Number(apiCount / 500) // per dollar
     total = total + apiBaseToDollar
   }
 
   if (siteWideApiCount) {
-    const apiBaseToDollar = Number(Math.round(apiCount / 100)) // per dollar
+    const apiBaseToDollar = Number(siteWideApiCount / 20) // per dollar
     total = total + apiBaseToDollar
   }
 
