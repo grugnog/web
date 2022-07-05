@@ -7,6 +7,7 @@ export const logPage = async (req: any, uuid: string, ua: any) => {
     'Content-Type': 'application/json',
     'User-Agent': '',
     Origin: req?.nextUrl?.origin || 'https://a11ywatch.com',
+    ['X-Forwarded-For']: req.ip,
   }
 
   if (ua) {

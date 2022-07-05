@@ -8,6 +8,10 @@ if (!process.env.IFRAME_URL && process.env.DOCKER_CONTAINER) {
 }
 
 // REMOVE GQL FROM STRING IF SINGLE ENDPOINT
-IFRAME_ENDPOINT = IFRAME_ENDPOINT.replace('/graphql', '')
+IFRAME_ENDPOINT = `${IFRAME_ENDPOINT.replace('/graphql', '')}`
+
+if (!IFRAME_ENDPOINT.includes('/api')) {
+  IFRAME_ENDPOINT = `${IFRAME_ENDPOINT}/api`
+}
 
 export { IFRAME_ENDPOINT }

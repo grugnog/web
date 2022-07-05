@@ -49,20 +49,23 @@ export async function middleware(req: NextRequest, event: NextFetchEvent) {
     })
   }
 
-  event.waitUntil(
-    (async () => {
-      const ua = userAgent(req)
-      if (!ua?.isBot) {
-        try {
-          await logPage(req, uuid, ua)
-        } catch (e) {
-          console.error(e)
+  // prevent page log on api routes
+  if (pathname !== '/api/iframe') {
+    event.waitUntil(
+      (async () => {
+        const ua = userAgent(req)
+        if (!ua?.isBot) {
+          try {
+            await logPage(req, uuid, ua)
+          } catch (e) {
+            console.error(e)
+          }
+        } else {
+          Promise.resolve()
         }
-      } else {
-        Promise.resolve()
-      }
-    })()
-  )
+      })()
+    )
+  }
 
   return res
 }
