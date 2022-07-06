@@ -7,7 +7,7 @@ interface Meta {
 
 export const metaSetter = (
   Component: Meta,
-  { title, description, gql, rest, intercom, params }: MetaData = {}
+  { title, description, gql, rest, intercom, params, wasm }: MetaData = {}
 ): MetaFunction => {
   const componentKeys = Object.keys(Component)
   const keyName = componentKeys?.length ? String(componentKeys[0]) : ''
@@ -32,6 +32,7 @@ export const metaSetter = (
   value.params = params
   // determine to show intercom on page
   value.intercom = intercom
+  value.wasm = wasm
 
   return value
 }
