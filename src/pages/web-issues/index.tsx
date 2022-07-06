@@ -59,7 +59,8 @@ function WebIssues({ name }: PageProps) {
 export default metaSetter(
   { WebIssues },
   {
-    gql: true,
     description: 'Your list of websites with issues displayed.',
+    gql: true,
+    wasm: true,
   }
 )

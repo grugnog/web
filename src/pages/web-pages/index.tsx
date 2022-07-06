@@ -59,7 +59,8 @@ function WebPages({ name }: PageProps) {
 export default metaSetter(
   { WebPages },
   {
-    gql: true,
     description: 'All of your pages displayed with web vitals.',
+    gql: true,
+    wasm: true,
   }
 )

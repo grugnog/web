@@ -1,5 +1,4 @@
 export { useMiniPlayer } from './useMiniPlayer'
-export { useIssueFeed } from './useIssueFeed'
 export { useUser } from './useUser'
 export { useSearchFilter } from './useSearchFilter'
 export { useCtaModal } from './useCtaModal'

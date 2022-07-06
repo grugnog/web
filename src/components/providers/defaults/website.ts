@@ -39,8 +39,8 @@ export const sharedWebsiteDefaults = {
   updateWebsite: (_: any): Promise<any> => {
     return _
   },
-  setIssueFeedContent: (_: any, _open: boolean): void => {
-    return _
+  setIssueFeedContent: (_open: boolean): void => {
+    return
   },
   scanWebsite: (_: any): Promise<any> => {
     return _

@@ -13,9 +13,10 @@ import {
   CRAWL_COMPLETE_SUBSCRIPTION,
 } from '@app/subscriptions'
 import { UserManager, AppManager } from '@app/managers'
-import { useIssueFeed } from '../../local'
 import type { OnSubscriptionDataOptions } from '@apollo/react-common'
 import type { Website } from '@app/types'
+import { useWasmContext } from '@app/components/providers'
+import { domainName } from '@app/lib/domain'
 
 /*
  * This hook returns all the queries, mutations, and subscriptions between your Website with the graphs,
@@ -31,9 +32,16 @@ export const useWebsiteData = (
   skip: boolean = false,
   scopedQuery: string = ''
 ) => {
+  const { feed } = useWasmContext()
   const [_, forceUpdate] = useReducer((x) => x + 1, 0) // top level force update state
   const [lighthouseVisible, setLighthouseVisibility] = useState<boolean>(true)
-  const { issueFeed, setIssueFeedContent } = useIssueFeed()
+  const [feedOpen, setIssueFeedContent] = useState<boolean>(false)
+
+  const issueFeed = {
+    open: feedOpen,
+    data: feed?.get_data() ?? {},
+  }
+
   const [activeCrawls, setActiveCrawl] = useState<
     { [key: string]: boolean } | Record<string, any>
   >({})
@@ -179,6 +187,7 @@ export const useWebsiteData = (
           'success'
         )
 
+        // TODO: check crawl tld and subdomain types for crawl targeting.
         setActiveCrawl((v) => ({
           ...v,
           [completedWebsite.domain]: false,
@@ -199,28 +208,18 @@ export const useWebsiteData = (
     ({ subscriptionData }: OnSubscriptionDataOptions<any>) => {
       const newIssue = subscriptionData?.data?.issueAdded
 
-      if (newIssue) {
-        const dataSource = { ...issueFeed?.data }
+      feed?.insert_website(newIssue)
+      setIssueFeedContent(true) // display content open
 
-        if (!dataSource[newIssue.domain]) {
-          dataSource[newIssue.domain] = {}
-        }
-
-        // move to object outside and clear on subscription from website crawl finished
-        dataSource[newIssue.domain][newIssue.pageUrl] = newIssue
-
-        setTimeout(() => {
-          setIssueFeedContent(dataSource, true)
-
-          AppManager.toggleSnack(
-            true,
-            `Insight found on ${newIssue?.pageUrl}`,
-            'success'
-          )
-        }, 0)
-      }
+      setTimeout(() => {
+        AppManager.toggleSnack(
+          true,
+          `Insight found on ${newIssue?.pageUrl}`,
+          'success'
+        )
+      }, 0)
     },
-    [websites, issueFeed]
+    [websites, issueFeed, feed]
   )
 
   const { data: issueSubData } = useSubscription(ISSUE_SUBSCRIPTION, {
@@ -295,26 +294,24 @@ export const useWebsiteData = (
   // EVENTS
 
   const crawlWebsite = async (params: any) => {
-    const canCrawl = await crawl(params)
-
-    // reset the feed on new crawls.
-    if (canCrawl && !!issueFeed?.data) {
-      setIssueFeedContent({}, false)
-    }
-
-    let domain = ''
-
     try {
-      domain = new URL(params.variables.url).hostname
+      await crawl(params)
+      let domain = ''
+
+      try {
+        domain = domainName(new URL(params.variables.url).hostname)
+      } catch (e) {
+        console.error(e)
+      }
+
+      if (domain) {
+        setActiveCrawl((v) => ({
+          ...v,
+          [domain]: true,
+        }))
+      }
     } catch (e) {
       console.error(e)
-    }
-
-    if (domain) {
-      setActiveCrawl((v) => ({
-        ...v,
-        [domain]: true,
-      }))
     }
   }
 
@@ -433,7 +430,7 @@ export const useWebsiteData = (
     error, // general mutation error
     mutatationLoading:
       removeLoading || addLoading || crawlLoading || scanLoading,
-    issueFeed, // feed side panel that appears on the right
+    issueFeed, // issue feed from wasm
     lighthouseVisible,
     setLighthouseVisibility,
     removeWebsite,

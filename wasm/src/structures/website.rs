@@ -15,6 +15,7 @@ pub struct PageLoadTime {
 }
 
 #[derive(Deserialize, Serialize, Debug, Default, Clone, Eq, Hash, PartialEq)]
+/// general website structure
 pub struct Website {
     pub url: String,
     pub domain: String,
@@ -29,4 +30,13 @@ pub struct Website {
     pub insight: Option<LightHouse>,
     #[serde(rename = "pageLoadTime")]
     pub page_load_time: PageLoadTime,
+}
+
+#[derive(Deserialize, Serialize, Debug, Default, Clone, Eq, Hash, PartialEq)]
+/// general issue structure from collection unmodified.
+pub struct PageIssue {
+    #[serde(rename = "pageUrl")]
+    pub page_url: String,
+    pub domain: String,
+    pub issues: Option<Vec<Issue>>
 }

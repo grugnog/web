@@ -63,7 +63,8 @@ function WebActions({ name }: PageProps) {
 export default metaSetter(
   { WebActions },
   {
+    description: 'Your web page actions to run during testing.',
     gql: true,
-    description: 'Your page actions to run during test.',
+    wasm: true,
   }
 )

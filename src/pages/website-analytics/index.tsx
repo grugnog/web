@@ -60,7 +60,8 @@ function Analytics({ name }: PageProps) {
 export default metaSetter(
   { Analytics },
   {
-    gql: true,
     description: 'Your analytics on issues displayed visually using charts.',
+    gql: true,
+    wasm: true,
   }
 )

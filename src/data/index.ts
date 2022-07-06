@@ -9,7 +9,6 @@ export { paymentsData } from './external/payments/payments'
 
 export {
   useMiniPlayer,
-  useIssueFeed,
   useSearchFilter,
   useUser,
   useCtaModal,

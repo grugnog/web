@@ -38,10 +38,17 @@ const Application = ({ Component, pageProps, name }: InnerApp) => {
     initialWebsiteQuery
   )
 
-  // Restful provider for API [Good for marketing sections]
+  // wasm provider
+  const WasmWrapper: FC = Component.wasm
+    ? ({ children }) => {
+        return <WASMContextProvider>{children}</WASMContextProvider>
+      }
+    : Fragment
+
+  // Restful/OpenAPI provider
   const RestWrapper = Component.rest ? RestWebsiteProviderWrapper : Fragment
 
-  // gQL provider for API
+  // gQL provider
   const GqlWrapper: FC = Component.gql
     ? ({ children }) => {
         return (
@@ -53,13 +60,6 @@ const Application = ({ Component, pageProps, name }: InnerApp) => {
             {children}
           </WebsiteProviderWrapper>
         )
-      }
-    : Fragment
-
-  // gQL provider for API
-  const WasmWrapper: FC = Component.wasm
-    ? ({ children }) => {
-        return <WASMContextProvider>{children}</WASMContextProvider>
       }
     : Fragment
 

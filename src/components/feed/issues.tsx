@@ -20,7 +20,7 @@ const Feed: FC = () => {
   }, [data])
 
   const closeFeed = useCallback(() => {
-    setIssueFeedContent({}, false)
+    setIssueFeedContent(false)
   }, [setIssueFeedContent])
 
   const onScanEvent = async (target: string) => {
@@ -65,7 +65,7 @@ const Feed: FC = () => {
         AppManager.toggleSnack(true, message, 'message')
       }
 
-      setIssueFeedContent(issuesClone, true)
+      setIssueFeedContent(true)
     }
   }
 

@@ -54,5 +54,6 @@ export default metaSetter(
   {
     description: 'Past websites that have been used.',
     gql: true,
+    wasm: true,
   }
 )

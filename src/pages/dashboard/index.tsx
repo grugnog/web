@@ -16,7 +16,6 @@ import { WebsiteList } from '@app/components/general/website-list'
 import Head from 'next/head'
 import { LoadMoreButton } from '@app/components/general/buttons'
 import dynamic from 'next/dynamic'
-// import { useWasmContext } from '@app/components/providers'
 
 export const SortableWebsiteList = dynamic(
   () =>
@@ -30,7 +29,6 @@ export const SortableWebsiteList = dynamic(
 ) as any
 
 function Dashboard({ name }: PageProps) {
-  // const { wasm } = useWasmContext()
   const [sortModalVisible, setSortModalVisible] = useState<boolean>()
   const { search } = useSearchFilter()
   const { events, setEvents } = useEvents()
@@ -169,6 +167,6 @@ export default metaSetter(
   {
     intercom: true,
     gql: true,
-    wasm: false,
+    wasm: true,
   }
 )

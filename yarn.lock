@@ -2754,10 +2754,10 @@
   dependencies:
     tslib "^1.9.3"
 
-a11ywatch-web-wasm@^0.1.0:
-  version "0.1.0"
-  resolved "https://registry.yarnpkg.com/a11ywatch-web-wasm/-/a11ywatch-web-wasm-0.1.0.tgz#2c3adc87ae12ee18f72ba952d99bf28deb235272"
-  integrity sha512-rafL0WbJmNbJCOYx+sBRAtWQNL/zYz6Eazi2WE/VZaI4WymZUHWW1tzWdk2VMsmgAxuYoIfJx0x6vdpZzUYuRA==
+a11ywatch-web-wasm@^0.1.2:
+  version "0.1.2"
+  resolved "https://registry.yarnpkg.com/a11ywatch-web-wasm/-/a11ywatch-web-wasm-0.1.2.tgz#3e5f9b73fdb0ae86c65d3d52bee86e81a33933f3"
+  integrity sha512-K0eaMreMPz2lcNuCdv/S3vMZVVoDObwDA6EIpMkwetTSF3yPl7AmXLo9ygJnDhpmDnp5yABdrQn4WzeyRY66YA==
 
 abab@^2.0.3, abab@^2.0.5:
   version "2.0.5"

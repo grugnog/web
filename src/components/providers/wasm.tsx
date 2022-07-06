@@ -1,5 +1,8 @@
 import { ReactNode, useContext, useEffect, useState } from 'react'
 import { createContext } from 'react'
+import type { Feed } from 'a11ywatch-web-wasm'
+
+type AppWasm = typeof import('a11ywatch-web-wasm')
 
 const initial: WASMContext = {}
 
@@ -13,7 +16,9 @@ export const WASMContextProvider: React.FC<WASMContextProviderProps> = ({
   useEffect(() => {
     ;(async () => {
       const wasm = await import('a11ywatch-web-wasm')
-      setState({ wasm })
+      const feed = wasm.Feed.new() // init top level feed
+
+      setState({ wasm, feed })
     })()
   }, [])
 
@@ -21,7 +26,8 @@ export const WASMContextProvider: React.FC<WASMContextProviderProps> = ({
 }
 
 interface WASMContext {
-  wasm?: typeof import('a11ywatch-web-wasm')
+  wasm?: AppWasm
+  feed?: Feed
 }
 
 interface WASMContextProviderProps {

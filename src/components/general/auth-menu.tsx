@@ -39,7 +39,7 @@ function AuthMenuComponent({
   // simple logout
   const logout = async (e: any) => {
     e?.preventDefault()
-    setIssueFeedContent({}, false)
+    setIssueFeedContent(false)
 
     try {
       await logoutMutation()
