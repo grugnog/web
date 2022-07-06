@@ -1,6 +1,6 @@
 use serde::{Deserialize, Serialize};
 
-#[derive(Serialize, Deserialize, Debug, Clone, Default)]
+#[derive(Serialize, Deserialize, Debug, Clone, Default, Eq, Hash, PartialEq)]
 pub struct Issue {
     #[serde(rename = "type")]
     pub issue_type: String,

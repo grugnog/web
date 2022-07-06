@@ -1,12 +1,12 @@
 use serde::{Deserialize, Serialize};
 use crate::structures::{Issue, IssueInfo};
 
-#[derive(Deserialize, Serialize, Debug, Default, Clone)]
+#[derive(Deserialize, Serialize, Debug, Default, Clone, Eq, Hash, PartialEq)]
 pub struct LightHouse {
     pub json: String,
 }
 
-#[derive(Deserialize, Serialize, Debug, Default, Clone)]
+#[derive(Deserialize, Serialize, Debug, Default, Clone, Eq, Hash, PartialEq)]
 pub struct PageLoadTime {
     pub duration: String,
     #[serde(rename = "durationFormated")]
@@ -14,7 +14,7 @@ pub struct PageLoadTime {
     pub color: String,
 }
 
-#[derive(Deserialize, Serialize, Debug, Default, Clone)]
+#[derive(Deserialize, Serialize, Debug, Default, Clone, Eq, Hash, PartialEq)]
 pub struct Website {
     pub url: String,
     pub domain: String,
