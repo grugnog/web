@@ -7,13 +7,16 @@ RUN yarn install --frozen-lockfile
 FROM node:alpine AS runner
 WORKDIR /app
 COPY . .
+COPY wasm wasm
 COPY --from=deps /app/node_modules ./node_modules
 
 EXPOSE 3000
 
 ENV PORT 3000
 ENV DOCKER_CONTAINER 1
-
 ENV NEXT_TELEMETRY_DISABLED 1
+
+# # comment and uncomment link when developing for wasm atm.
+# RUN cd ./wasm/pkg && npm link --force && cd ../.. && npm link a11ywatch-web-wasm --force
 
 CMD ["node_modules/.bin/next", "dev"]
