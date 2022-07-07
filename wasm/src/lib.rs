@@ -1,7 +1,7 @@
 extern crate serde;
 /// base generic domain structures.
 pub mod structures;
-use std::collections::HashMap;
+use hashbrown::HashMap;
 use wasm_bindgen::prelude::*;
 use crate::structures::website::{PageIssue};
 

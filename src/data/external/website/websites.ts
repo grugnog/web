@@ -411,6 +411,13 @@ export const useWebsiteData = (
     }
   }
 
+  const setFeed = (open: boolean) => {
+    if (!open) {
+      feed?.clear_data()
+    }
+    setIssueFeedContent(open)
+  }
+
   return {
     subscriptionData: {
       issueSubData,
@@ -439,7 +446,7 @@ export const useWebsiteData = (
     crawlWebsite,
     scanWebsite, // single page web scan
     updateWebsite,
-    setIssueFeedContent,
+    setIssueFeedContent: setFeed,
     // pagination
     onLoadMoreWebsites,
     onLoadMoreIssues,
