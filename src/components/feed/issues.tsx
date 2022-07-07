@@ -11,20 +11,35 @@ import { useWasmContext } from '../providers'
 
 const FeedItemWrapper = ({ website, onScanEvent, index, domain }: any) => {
   const [visible, setVisible] = useState<boolean>(index === 0)
-  const pages = Object.keys(website)
+  const [sorted, setSorted] = useState<string[]>([])
+
+  const p = website && Object.keys({ ...website })
+  const pages = sorted?.length ? [...new Set([...sorted, ...p])] : p
 
   const onHeadingToggleEvent = () => {
     setVisible((v) => !v)
   }
 
+  const onSortClick = () => {
+    setSorted(pages.sort())
+  }
+
   return (
     <li>
-      <button
-        className='p-4 border-b font-bold text-xl w-full text-left hover:bg-gray-200'
-        onClick={onHeadingToggleEvent}
-      >
-        {domain}
-      </button>
+      <div className='flex space-x-2'>
+        <button
+          className='p-4 border-b font-bold text-xl w-full text-left hover:bg-gray-200'
+          onClick={onHeadingToggleEvent}
+        >
+          {domain}
+        </button>
+        <button
+          className='p-4 border-b font-bold text-left hover:bg-gray-200'
+          onClick={onSortClick}
+        >
+          Sort
+        </button>
+      </div>
       <ul className={!visible ? 'hidden' : 'visible'} aria-hidden={!visible}>
         {pages?.map((d: any) => {
           const issue = website[d] as any
