@@ -6,9 +6,7 @@ import Document, {
   DocumentContext,
 } from 'next/document'
 import { ServerStyleSheets } from '@material-ui/core/styles'
-import { userModel, initAppModel } from '@app/data'
-import { DOMAIN_NAME, twitterSite } from '@app/configs'
-import { theme } from '@app/theme'
+import { initAppModel, userModel } from '@app/data'
 
 class MyDocument extends Document {
   static async getInitialProps(ctx: DocumentContext) {
@@ -43,58 +41,7 @@ class MyDocument extends Document {
   render() {
     return (
       <Html lang='en'>
-        <Head>
-          {process.env.NEXT_PUBLIC_DISABLE_SEO === '1' ? (
-            <meta name='robots' content='noindex' />
-          ) : null}
-          <meta
-            name='theme-color'
-            content={theme.palette.primary.main}
-            key={'theme-color'}
-          />
-          <meta name='mobile-web-app-capable' content='yes' />
-          <link rel='manifest' href='/manifest.json' key={'manifest'} />
-          <meta
-            name='format-detection'
-            content='telephone=no'
-            key={'format-detection'}
-          />
-          <meta
-            name='apple-mobile-web-app-capable'
-            content='yes'
-            key={'apple-mobile-web-app-capable'}
-          />
-          <meta
-            name='twitter:card'
-            content='summary_large_image'
-            key={'twitter:card'}
-          />
-          <meta
-            name='twitter:site'
-            content={twitterSite}
-            key={'twitter:site'}
-          />
-          <meta
-            property='twitter:image'
-            content={`${DOMAIN_NAME}/img/intro-poster.png`}
-          />
-          <meta
-            property='og:image'
-            key={'og:image'}
-            content={`${DOMAIN_NAME}/img/intro-poster.png`}
-          />
-          <link
-            rel='apple-touch-icon'
-            href='/img/apple-touch-icon.png'
-            key={'apple-touch-icon'}
-          />
-          <link
-            rel='icon'
-            type='image/x-icon'
-            href='/img/favicon.ico'
-            key={'image/x-icon'}
-          />
-        </Head>
+        <Head />
         <Main />
         <NextScript />
       </Html>
