@@ -51,7 +51,6 @@ theme.typography.h1 = h1(theme)
 theme.typography.h2 = h2(theme)
 theme.typography.body1 = h6(theme)
 theme.typography.h6 = h6(theme)
-
 theme.typography.subtitle1 = subtitle1(theme)
 
 export default theme

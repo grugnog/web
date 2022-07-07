@@ -1,13 +1,10 @@
-import React, { useEffect, Fragment, memo } from 'react'
+import React, { Fragment, memo } from 'react'
 import Head from 'next/head'
 import { CssBaseline } from '@material-ui/core'
 import { ThemeProvider } from '@material-ui/core/styles'
 import { strings } from '@app-strings'
 import { theme } from '@app-theme'
-import { initAppModel, userModel } from '@app/data'
 import { DOMAIN_NAME, INTERCOM_ENABLED } from '@app/configs'
-import { ping, startIntercom } from '@app/utils'
-
 import { ErrorBoundary, SkipContent } from '@app/components/general'
 import type { InnerApp } from '@app/types/page'
 import { SnackBar } from './snack-bar'
@@ -23,33 +20,6 @@ const Application = ({ Component, pageProps, name }: InnerApp) => {
 
 export function MyAppWrapper({ Component, pageProps }: InnerApp) {
   const { description, title, name } = Component?.meta || strings?.meta
-
-  useEffect(() => {
-    const jssStyles = document.querySelector('#jss-server-side')
-
-    if (jssStyles?.parentNode) {
-      jssStyles.parentNode.removeChild(jssStyles)
-    }
-
-    initAppModel()
-    userModel.initModel({
-      cookie:
-        typeof navigator !== 'undefined' &&
-        typeof document !== 'undefined' &&
-        navigator.cookieEnabled &&
-        document.cookie,
-    })
-
-    // TODO: look into middleware initial request handler
-    queueMicrotask(ping)
-  }, [])
-
-  useEffect(() => {
-    if (Component.intercom && INTERCOM_ENABLED) {
-      startIntercom()
-    }
-  }, [Component.intercom])
-
   const pathName = String(name).toLowerCase()
   const metaTitle = title || `Web Accessibility Service | ${strings.appName}`
   const domainName = pathName === 'blog' ? BLOG_WEBFLOW_URL : DOMAIN_NAME

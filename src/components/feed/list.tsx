@@ -15,11 +15,13 @@ const FeedListComponent: FC<FeedComponentProps> = ({
   const [sectionHidden, onToggleSection] = useState<boolean>(!!isHidden)
   const pageIssues = issueExtractor(issue) // array of issues extract duplex types
 
-  const Row = ({ index, style }: any) => {
-    const item = pageIssues[index]
-
-    return <IssueFeedCell item={item} style={style} />
-  }
+  const Row = ({
+    index,
+    style,
+  }: {
+    index: number
+    style?: React.CSSProperties
+  }) => <IssueFeedCell item={pageIssues[index]} style={style} />
 
   // full height of screen for window
   const listHeight = typeof window !== 'undefined' ? window.innerHeight : 500
@@ -64,6 +66,7 @@ const FeedListComponent: FC<FeedComponentProps> = ({
       />
 
       <ul
+        aria-hidden={sectionHidden}
         className={`overflow-x-hidden${
           sectionHidden
             ? ' hidden'

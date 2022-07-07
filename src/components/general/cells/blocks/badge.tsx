@@ -25,8 +25,8 @@ export const StatusBadgeBoxWrapper = ({
 
   return (
     <InfoBlock title={'Badge'} icon={<GrShield />}>
-      <div className='flex pb-2 space-x-1'>
-        <label className='text-sm font-medium' htmlFor={labelId}>
+      <div className='flex space-x-1'>
+        <label className='text-sm pb-2 font-medium' htmlFor={labelId}>
           Markdown
         </label>
         <input
@@ -50,16 +50,14 @@ export const StatusBadgeBoxWrapper = ({
           : `<a href="${reportsLink}"><img src="${statusBadgeUrl}" /></a>`}
       </PrismLight>
       {statusBadgeUrl && reportsPageLink ? (
-        <div className={`py-3`}>
-          <Link href={reportsPageLink}>
-            <img
-              src={statusBadgeUrl}
-              alt={`Status badge for ${domain}`}
-              width={112}
-              height={20}
-            />
-          </Link>
-        </div>
+        <Link href={reportsPageLink} className={'block py-2'}>
+          <img
+            src={statusBadgeUrl}
+            alt={`Status badge for ${domain}`}
+            width={112}
+            height={20}
+          />
+        </Link>
       ) : null}
     </InfoBlock>
   )

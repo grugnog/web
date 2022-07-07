@@ -1,4 +1,4 @@
-import React, { memo, FC, useCallback } from 'react'
+import React, { memo, FC, useState } from 'react'
 import { IconButton, Fade } from '@material-ui/core'
 import { useStyles } from '../general/styles'
 import { useWebsiteContext } from '../providers/website'
@@ -7,24 +7,61 @@ import { AppManager } from '@app/managers'
 import { FeedList } from './list'
 import { Website } from '@app/types'
 import { useMemo } from 'react'
+import { useWasmContext } from '../providers'
+
+const FeedItemWrapper = ({ website, onScanEvent, index, domain }: any) => {
+  const [visible, setVisible] = useState<boolean>(index === 0)
+  const pages = Object.keys(website)
+
+  const onHeadingToggleEvent = () => {
+    setVisible((v) => !v)
+  }
+
+  return (
+    <li>
+      <button
+        className='p-4 border-b font-bold text-xl w-full text-left hover:bg-gray-200'
+        onClick={onHeadingToggleEvent}
+      >
+        {domain}
+      </button>
+      <ul className={!visible ? 'hidden' : 'visible'} aria-hidden={!visible}>
+        {pages?.map((d: any) => {
+          const issue = website[d] as any
+
+          return (
+            <FeedList
+              key={issue?.pageUrl}
+              onScanEvent={onScanEvent}
+              issue={issue}
+              isHidden={!visible}
+            />
+          )
+        })}
+      </ul>
+    </li>
+  )
+}
+
+const FeedItem = memo(FeedItemWrapper)
 
 // side panel that appears fixed on the right of current issues of domain being. This returns a list of pages with a list of issues per page.
 const Feed: FC = () => {
   const classes = useStyles()
   const { issueFeed, setIssueFeedContent, scanWebsite } = useWebsiteContext()
-
   const { data, open } = issueFeed
+  const { feed } = useWasmContext()
 
   const issues = useMemo(() => {
     return Object.keys(data)
   }, [data])
 
-  const closeFeed = useCallback(() => {
+  const closeFeed = () => {
     setIssueFeedContent(false)
-  }, [setIssueFeedContent])
+  }
 
   const onScanEvent = async (target: string) => {
-    let webPage: Partial<Website> | null = null
+    let webPage: Website
 
     try {
       webPage = await scanWebsite({ variables: { url: target } })
@@ -33,22 +70,20 @@ const Feed: FC = () => {
       return
     }
 
-    // clone array to prevent mutation
-    const issuesClone: any = { ...data }
-
     // replace issue feed section with new value
     if (webPage) {
-      const { url, domain, issuesInfo } = webPage
       // the current item in the feed
-      const page = domain && url && issuesClone[domain][url]
+      const page = feed?.get_website({
+        domain: webPage?.domain,
+        pageUrl: target,
+      })
 
       if (page) {
-        // @ts-ignore
-        const pageIssues = page?.issues || page?.issue || []
+        const pageIssues = page?.issues || []
         // old issues
         const pageIssuesCount = pageIssues?.length ? pageIssues.length : 0
         // new issues
-        const newIssuesCount = issuesInfo?.totalIssues ?? 0
+        const newIssuesCount = webPage?.issuesInfo?.totalIssues ?? 0
         // did the issues on the page update
         const issuesUpdated = pageIssuesCount !== newIssuesCount
         const issueMessage = newIssuesCount > pageIssuesCount ? 'more' : 'less'
@@ -86,32 +121,17 @@ const Feed: FC = () => {
           </IconButton>
         </div>
         <ul>
-          {issues?.map((page, index) => {
-            const website = data[page] as any
-
-            if (!website) {
-              return null
-            }
-
-            const pages = Object.keys(website)
+          {issues?.map((domain, index) => {
+            const website = data[domain]
 
             return (
-              <li key={page}>
-                <ul>
-                  {pages?.map((d: any) => {
-                    const issue = data[page][d] as any
-
-                    return (
-                      <FeedList
-                        key={issue?.pageUrl}
-                        onScanEvent={onScanEvent}
-                        issue={issue}
-                        isHidden={!!index}
-                      />
-                    )
-                  })}
-                </ul>
-              </li>
+              <FeedItem
+                key={domain}
+                domain={domain}
+                index={index}
+                onScanEvent={onScanEvent}
+                website={website}
+              />
             )
           })}
         </ul>

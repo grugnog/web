@@ -1,4 +1,4 @@
-import React, { Fragment, FC } from 'react'
+import React, { Fragment, FC, useEffect } from 'react'
 
 import { LOGGIN_ROUTES } from '@app/configs'
 import {
@@ -9,6 +9,7 @@ import { RestWebsiteProviderWrapper } from '@app/components/providers/rest/rest-
 import type { InnerApp } from '@app/types/page'
 import { buildScopeQuery } from '@app/utils/build-scope'
 import { strings } from '@app/content/strings/a11y'
+import { initAppModel, userModel } from '@app/data'
 
 const authRoutes = LOGGIN_ROUTES.map((route) => route.replace('/', ''))
 
@@ -16,6 +17,23 @@ const authRoutes = LOGGIN_ROUTES.map((route) => route.replace('/', ''))
 const LayoutWrapper = ({ Component, pageProps }: InnerApp) => {
   const { name } = Component?.meta || strings?.meta
   const { wasm, gql } = Component
+
+  useEffect(() => {
+    const jssStyles = document.querySelector('#jss-server-side')
+
+    if (jssStyles?.parentNode) {
+      jssStyles.parentNode.removeChild(jssStyles)
+    }
+
+    initAppModel()
+    userModel.initModel({
+      cookie:
+        typeof navigator !== 'undefined' &&
+        typeof document !== 'undefined' &&
+        navigator.cookieEnabled &&
+        document.cookie,
+    })
+  }, [])
 
   // name is based off function name and not file name
   const nameLowerCased = (name && String(name).toLowerCase()) || ''

@@ -39,6 +39,8 @@ const styles = {
   metaBlock: 'px-2 py-1 border',
 }
 
+const notAvail = 'Not available on a Free plan.'
+
 // TODO: add types
 export function WebsiteCellDashboardComponent({
   url,
@@ -189,8 +191,6 @@ export function WebsiteCellDashboardComponent({
   // TODO: move to react context for SSR
   const activeSubscription = UserManager.freeAccount === false
 
-  const notAvail = 'Not available on a Free plan.'
-
   const cdnUrl = cdnBase ? `${SCRIPTS_CDN_URL_HOST}/${cdnBase}` : notAvail
   const cdnUrlMinifed = cdnBaseMin
     ? `${SCRIPTS_CDN_URL_HOST}/${cdnBaseMin}`
@@ -250,34 +250,42 @@ export function WebsiteCellDashboardComponent({
         subdomains={subdomains}
         tld={tld}
       />
-      <div className={styles.spacing} />
-      <div className='grid grid-cols-1 gap-1 md:grid-cols-3'>
-        <AccessibilityBox adaScore={adaScore} />
-        <IssuesBox issues={errorCount} />
-        <WarningsBox issues={warningCount} />
-        <CdnFixBox issues={issuesFixedByCdn} />
-        <PagesBox count={pageIssueCount ?? 'N/A'} />
-        <LoadTimeBox duration={pageLoadTime?.duration} />
-        <StandardBox standard={standard} url={url} />
-        <HeadersBox pageHeaders={pageHeaders} />
-        <LighthouseBox pageInsights={pageInsights} />
-        <UserAgentBox ua={ua} url={url} />
-        <ActionsBox actions={actionsEnabled || actions?.length} />
-        <OnlineBox online={online} />
-        <CustomCDNBox
-          cdnUrl={activeSubscription ? cdnUrl : 'N/A'}
-          cdnUrlMinifed={activeSubscription ? cdnUrlMinifed : 'N/A'}
-          cdnConnected={cdnConnected}
-        />
-        <StatusBadgeBox
-          reportsLink={reportsLink}
-          statusBadgeUrl={statusBadgeUrl}
-          domain={domain}
-          reportsPageLink={reportsPageLink}
-        />
-        <MobileBox mobile={mobile} url={url} />
+      <div className='py-3'>
+        <div className='grid grid-cols-1 md:grid-cols-3 divide-x border-t border-l border-r'>
+          <AccessibilityBox adaScore={adaScore} />
+          <IssuesBox issues={errorCount} />
+          <WarningsBox issues={warningCount} />
+        </div>
+        <div className='grid grid-cols-1 md:grid-cols-3 divide-x border-t border-l border-r'>
+          <CdnFixBox issues={issuesFixedByCdn} />
+          <PagesBox count={pageIssueCount ?? 'N/A'} />
+          <LoadTimeBox duration={pageLoadTime?.duration} />
+        </div>
+        <div className='grid grid-cols-1 md:grid-cols-3 divide-x border-t border-l border-r'>
+          <StandardBox standard={standard} url={url} />
+          <HeadersBox pageHeaders={pageHeaders} />
+          <LighthouseBox pageInsights={pageInsights} />
+        </div>
+        <div className='grid grid-cols-1 md:grid-cols-3 divide-x border-t border-l border-r'>
+          <UserAgentBox ua={ua} url={url} />
+          <ActionsBox actions={actionsEnabled || actions?.length} />
+          <OnlineBox online={online} />
+        </div>
+        <div className='grid grid-cols-1 md:grid-cols-3 divide-x border-t border-l border-r border-b'>
+          <CustomCDNBox
+            cdnUrl={activeSubscription ? cdnUrl : 'N/A'}
+            cdnUrlMinifed={activeSubscription ? cdnUrlMinifed : 'N/A'}
+            cdnConnected={cdnConnected}
+          />
+          <StatusBadgeBox
+            reportsLink={reportsLink}
+            statusBadgeUrl={statusBadgeUrl}
+            domain={domain}
+            reportsPageLink={reportsPageLink}
+          />
+          <MobileBox mobile={mobile} url={url} />
+        </div>
       </div>
-      <div className={styles.spacing} />
       <div
         className={`${
           parsedInsight && lighthouseVisible ? 'visible' : 'hidden'

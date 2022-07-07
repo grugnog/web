@@ -34,8 +34,8 @@ export const MobileBoxWrapper = ({
       title={'Mobile'}
       icon={<GrPhoneFlip className='grIcon' color='black' fill='black' />}
     >
-      <div className='flex pb-2 space-x-1'>
-        <label className='text-sm font-medium' htmlFor={labelId}>
+      <div className='flex space-x-1'>
+        <label className='text-sm pb-2 font-medium' htmlFor={labelId}>
           Mobile
         </label>
         <input
