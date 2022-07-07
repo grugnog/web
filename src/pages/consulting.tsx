@@ -85,7 +85,7 @@ function Consulting({ name }: PageProps) {
           )
         })}
       </List>
-      <Typography variant='body1' component='p' gutterBottom>
+      <Typography variant='body1' component='div' gutterBottom>
         For more information on consulting please send a email to{' '}
         <address>
           <a

@@ -48,7 +48,6 @@ const Analytics = memo(AnalyticsWrapper)
 
 const RenderInner: FC<any> = (props) => {
   const { pageUrl, generalProps } = props
-
   const { data: issueSource, loading } = useAnalyticsData(pageUrl)
 
   return (

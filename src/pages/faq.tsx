@@ -103,7 +103,7 @@ function Faq({ name }: PageProps) {
       <Typography variant='h4' component='h3' gutterBottom style={bold}>
         Contact Us
       </Typography>
-      <Typography>
+      <Typography component={'div'}>
         If you have any questions, please contact us at{' '}
         <Mailto
           email='support@a11ywatch.com'

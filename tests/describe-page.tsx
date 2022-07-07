@@ -1,6 +1,6 @@
 import React, { FC } from 'react'
 import { render, screen, act } from '@testing-library/react'
-import { MyApp } from '../src/components/general/app'
+import MyApp from '../src/pages/_app'
 
 interface Target {
   component?: FC

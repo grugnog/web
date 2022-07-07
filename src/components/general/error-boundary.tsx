@@ -24,14 +24,14 @@ export class ErrorBoundary extends Component<{}, ErrorBoundaryState> {
       return (
         <>
           <div className={'p-10 bg-blue-400 text-white ring'}>
-            <p className={'text-xl font-bold'}>
+            <div className={'text-xl font-bold'}>
               An error occured, please contact support at{' '}
               <address>
                 <a href={'mailto:support@a11ywatch.com'}>
                   support@a11ywatch.com
                 </a>
               </address>
-            </p>
+            </div>
           </div>
           {this.props.children}
         </>
