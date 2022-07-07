@@ -25,7 +25,6 @@ export function WebsiteList({
   setModal,
   mutatationLoading,
   lighthouseVisible,
-  issueFeed,
   activeCrawls,
 }: any) {
   const [modal, setOpen] = useState(defaultModalState)
@@ -61,7 +60,6 @@ export function WebsiteList({
     setModal,
     mutatationLoading,
     lighthouseVisible,
-    issueFeed,
     activeCrawls,
   }
 

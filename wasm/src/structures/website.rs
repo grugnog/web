@@ -30,6 +30,8 @@ pub struct Website {
     pub insight: Option<LightHouse>,
     #[serde(rename = "pageLoadTime")]
     pub page_load_time: PageLoadTime,
+    pub tld: bool,
+    pub subdomains: bool
 }
 
 #[derive(Deserialize, Serialize, Debug, Default, Clone, Eq, Hash, PartialEq)]

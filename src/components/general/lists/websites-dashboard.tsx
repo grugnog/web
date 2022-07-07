@@ -14,14 +14,8 @@ export function WebSitesDashboard({
   mutatationLoading,
   loading,
   lighthouseVisible,
-  issueFeed,
   activeCrawls,
 }: any) {
-  const { data: feed } = issueFeed ?? { data: null }
-
-  // extract keys before loop
-  const feedKeys = feed && Object.keys(feed)
-
   return (
     <ul className='space-y-2 py-2'>
       {data?.map(({ url, domain, _id, ...props }: Website, index: number) => {
@@ -29,8 +23,6 @@ export function WebSitesDashboard({
 
         return (
           <WebsiteCellDashboard
-            feed={feed}
-            feedKeys={feedKeys}
             key={_id}
             _id={_id}
             domain={domain}

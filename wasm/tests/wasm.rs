@@ -48,3 +48,19 @@ fn get_website() {
     
     assert_eq!(website.domain, "a11ywatch.com");
 }
+
+#[wasm_bindgen_test]
+fn get_website_item() {
+    let mut feed = Feed::new();
+    let value = JsValue::from_serde(&serde_json::json!({
+        "pageUrl": "https://a11ywatch.com/login",
+        "domain": "a11ywatch.com",
+        "issues": []
+    })).unwrap();
+    feed.insert_website(value.clone());
+
+    let website = feed.get_data_item("a11ywatch.com".to_string(), false);
+    let website: Vec<PageIssue> = JsValue::into_serde(&website).unwrap();
+
+    assert_eq!(website.is_empty(), false);
+}

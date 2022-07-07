@@ -45,7 +45,6 @@ function Dashboard({ name }: PageProps) {
     setLighthouseVisibility,
     lighthouseVisible,
     onLoadMoreWebsites,
-    issueFeed,
     activeCrawls,
   } = useWebsiteContext()
 
@@ -147,7 +146,6 @@ function Dashboard({ name }: PageProps) {
               lighthouseVisible={lighthouseVisible}
               emptyHeaderTitle={'Welcome to A11yWatch'}
               emptyHeaderSubTitle={'Add a website to monitor below'}
-              issueFeed={issueFeed}
               activeCrawls={activeCrawls}
             />
             <LoadMoreButton

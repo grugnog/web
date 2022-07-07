@@ -30,7 +30,7 @@ import { ActionsBox } from './blocks/actions'
 import { CdnFixBox } from './blocks/cdn-fix'
 import { UserManager } from '@app/managers'
 import { useLighthouse } from '@app/data/formatters/use-lighthouse'
-import { getFeedItem } from '@app/lib'
+import { useWasmContext } from '@app/components/providers'
 
 const styles = {
   title: 'text-xl md:text-3xl font-bold truncate',
@@ -70,15 +70,10 @@ export function WebsiteCellDashboardComponent({
   robots,
   subdomains,
   tld,
-  // local state
-  feed,
-  feedKeys,
 }: any) {
   const [anchorEl, setAnchorEl] = useState<any>(null)
-
-  // move feed item outside iterations into website cell.
-  const items = getFeedItem(feed, feedKeys, { subdomains, tld, domain })
-
+  const { feed } = useWasmContext()
+  const items = feed?.get_data_item(domain, tld || subdomains) ?? []
   const issues = items?.length ? items : currentIssues
 
   const handleMenu = useCallback(
