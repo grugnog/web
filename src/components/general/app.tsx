@@ -1,80 +1,27 @@
-import React, { useEffect, Fragment, FC } from 'react'
+import React, { useEffect, Fragment, memo } from 'react'
 import Head from 'next/head'
 import { CssBaseline } from '@material-ui/core'
 import { ThemeProvider } from '@material-ui/core/styles'
 import { strings } from '@app-strings'
 import { theme } from '@app-theme'
 import { initAppModel, userModel } from '@app/data'
-import { DOMAIN_NAME, INTERCOM_ENABLED, LOGGIN_ROUTES } from '@app/configs'
+import { DOMAIN_NAME, INTERCOM_ENABLED } from '@app/configs'
 import { ping, startIntercom } from '@app/utils'
-import {
-  WASMContextProvider,
-  WebsiteProviderWrapper,
-} from '@app/components/providers'
-import { RestWebsiteProviderWrapper } from '../providers/rest/rest-website'
+
 import { ErrorBoundary, SkipContent } from '@app/components/general'
 import type { InnerApp } from '@app/types/page'
 import { SnackBar } from './snack-bar'
 import Script from 'next/script'
-import { buildScopeQuery } from '@app/utils/build-scope'
 import { BLOG_WEBFLOW_URL } from '@app/configs/app-config'
-
-const authRoutes = LOGGIN_ROUTES.map((route) => route.replace('/', ''))
 
 const CRISP_WEBSITE_ID = process.env.CRISP_WEBSITE_ID
 
 // load the application with providers depending on component
 const Application = ({ Component, pageProps, name }: InnerApp) => {
-  // name is based off function name and not file name
-  const nameLowerCased = (name && String(name).toLowerCase()) || ''
-
-  const initialWebsiteQuery =
-    authRoutes.includes(nameLowerCased) ||
-    authRoutes.includes(nameLowerCased.replace(/ /g, '-'))
-
-  // TODO: USE META TO DETERMINE PROVIDER PULLING
-  const { initialQuery, scopedQuery } = buildScopeQuery(
-    nameLowerCased,
-    initialWebsiteQuery
-  )
-
-  // wasm provider
-  const WasmWrapper: FC = Component.wasm
-    ? ({ children }) => {
-        return <WASMContextProvider>{children}</WASMContextProvider>
-      }
-    : Fragment
-
-  // Restful/OpenAPI provider
-  const RestWrapper = Component.rest ? RestWebsiteProviderWrapper : Fragment
-
-  // gQL provider
-  const GqlWrapper: FC = Component.gql
-    ? ({ children }) => {
-        return (
-          <WebsiteProviderWrapper
-            skip={!initialQuery}
-            gqlFilter={Component?.params?.filter}
-            scopedQuery={scopedQuery}
-          >
-            {children}
-          </WebsiteProviderWrapper>
-        )
-      }
-    : Fragment
-
-  return (
-    <WasmWrapper>
-      <GqlWrapper>
-        <RestWrapper>
-          <Component {...pageProps} name={name} />
-        </RestWrapper>
-      </GqlWrapper>
-    </WasmWrapper>
-  )
+  return <Component {...pageProps} name={name} />
 }
 
-export function MyApp({ Component, pageProps }: InnerApp) {
+export function MyAppWrapper({ Component, pageProps }: InnerApp) {
   const { description, title, name } = Component?.meta || strings?.meta
 
   useEffect(() => {
@@ -104,7 +51,6 @@ export function MyApp({ Component, pageProps }: InnerApp) {
   }, [Component.intercom])
 
   const pathName = String(name).toLowerCase()
-
   const metaTitle = title || `Web Accessibility Service | ${strings.appName}`
   const domainName = pathName === 'blog' ? BLOG_WEBFLOW_URL : DOMAIN_NAME
 
@@ -154,3 +100,5 @@ export function MyApp({ Component, pageProps }: InnerApp) {
     </Fragment>
   )
 }
+
+export const MyApp = memo(MyAppWrapper)

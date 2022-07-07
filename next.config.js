@@ -97,11 +97,6 @@ module.exports = withPWA({
   images: {
     domains,
   },
-  experimental: {
-    images: {
-      layoutRaw: true,
-    },
-  },
   async headers() {
     return [
       {
