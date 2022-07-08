@@ -2,8 +2,8 @@ import React, { useRef } from 'react'
 import { Modal, Paper, Typography, IconButton } from '@material-ui/core'
 import { GrClose } from 'react-icons/gr'
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles'
-import { DragHandler } from '@app/lib'
 import { ToolTip } from './tool-tip'
+import Draggable from 'react-draggable'
 
 const useStyles = makeStyles(({ palette, spacing, shadows }: Theme) =>
   createStyles({
@@ -58,7 +58,6 @@ export function AnnotationContainer({
   const classes = useStyles()
   const annotationRef = useRef()
   const rootRef = useRef(null)
-  const handler = new DragHandler()
 
   const onClick = (event: any) => {
     event?.preventDefault()
@@ -81,65 +80,64 @@ export function AnnotationContainer({
       onClose={onClick}
       keepMounted
     >
-      <Paper
-        style={modalStyle}
-        className={classes.paper}
-        ref={annotationRef}
-        onMouseDown={(e: any) =>
-          handler.dragMouseDown(e, annotationRef.current)
-        }
-      >
-        <div className={classes.row}>
-          <Typography variant='h6' component='h3' className={classes.title}>
-            RECOMMENDED
-          </Typography>
-          <IconButton
-            edge='start'
-            color='inherit'
-            aria-label='close modal'
-            onClick={onClick}
-            style={{ marginRight: 6 }}
+      <Draggable handle={'.annotationHeader'} allowAnyClick={false}>
+        <Paper style={modalStyle} className={classes.paper} ref={annotationRef}>
+          <div className={`annotationHeader ${classes.row}`}>
+            <Typography variant='h6' component='h3' className={classes.title}>
+              RECOMMENDED
+            </Typography>
+            <IconButton
+              edge='start'
+              color='inherit'
+              aria-label='close modal'
+              onClick={onClick}
+              style={{ marginRight: 6 }}
+            >
+              <GrClose />
+            </IconButton>
+          </div>
+          <Typography
+            variant='body2'
+            className={classes.title}
+            style={{ fontWeight: 500 }}
+            gutterBottom
           >
-            <GrClose />
-          </IconButton>
-        </div>
-        <Typography
-          variant='body2'
-          className={classes.title}
-          style={{ fontWeight: 500 }}
-          gutterBottom
-        >
-          {context}
-        </Typography>
-        <Typography
-          variant='subtitle2'
-          className={`${classes.title} ${classes.maxSize}`}
-          gutterBottom
-        >
-          {code}
-        </Typography>
-        {recurrence ? (
-          <p className={'truncate text-sm font-bold py-2'}>
-            Recurred: {recurrence} times
-          </p>
-        ) : null}
-        <Typography variant='subtitle1' className={classes.title} gutterBottom>
-          {message}
-        </Typography>
-        {String(message)?.includes('contrast ratio') ? (
-          <ToolTip
-            visible={store.activeAnnotation}
-            source={source}
-            portalID={portalID}
-            elementParent={elementParent}
-            contrastRatio={contrastRatio}
-            message={message}
-            code={code}
-            context={context}
-            close={onClick}
-          />
-        ) : null}
-      </Paper>
+            {context}
+          </Typography>
+          <Typography
+            variant='subtitle2'
+            className={`${classes.title} ${classes.maxSize}`}
+            gutterBottom
+          >
+            {code}
+          </Typography>
+          {recurrence ? (
+            <p className={'truncate text-sm font-bold py-2'}>
+              Recurred: {recurrence} times
+            </p>
+          ) : null}
+          <Typography
+            variant='subtitle1'
+            className={classes.title}
+            gutterBottom
+          >
+            {message}
+          </Typography>
+          {String(message)?.includes('contrast ratio') ? (
+            <ToolTip
+              visible={store.activeAnnotation}
+              source={source}
+              portalID={portalID}
+              elementParent={elementParent}
+              contrastRatio={contrastRatio}
+              message={message}
+              code={code}
+              context={context}
+              close={onClick}
+            />
+          ) : null}
+        </Paper>
+      </Draggable>
     </Modal>
   )
 }

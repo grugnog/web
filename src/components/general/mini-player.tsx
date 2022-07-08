@@ -7,14 +7,13 @@ import {
   Typography,
 } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
-import { DragHandler } from '@app/lib'
 import { useMiniPlayer } from '@app/data'
 import { Fab } from './fab'
 import { Link } from './link'
 import { GrowTransition } from './grow'
 import { GrClose } from 'react-icons/gr'
-
 import dynamic from 'next/dynamic'
+import Draggable from 'react-draggable'
 
 const ReportViewer = dynamic(() => import('next-lighthouse')) as any
 const AdaIframe = dynamic(
@@ -52,7 +51,6 @@ export const MiniPlayer: FunctionComponent<MiniPlayerProps> = (_) => {
   const { miniPlayer, setMiniPlayerContent } = useMiniPlayer()
   const classes = useStyles()
   const appBarRef = useRef(null)
-  const handler = new DragHandler(appBarRef?.current)
 
   const { open, data, title } = useMemo(() => {
     // parse lighthouse data
@@ -62,80 +60,76 @@ export const MiniPlayer: FunctionComponent<MiniPlayerProps> = (_) => {
     return miniPlayer
   }, [miniPlayer])
 
-  const onMouseDownEvent = (e: any) => {
-    e?.preventDefault()
-    handler.dragMouseDown(e, appBarRef?.current)
-  }
-
   return (
-    <Dialog
-      fullScreen={false}
-      onMouseDown={onMouseDownEvent}
-      ref={appBarRef}
-      className={classes.miniPlayer}
-      fullWidth
-      open={open}
-      onClose={setMiniPlayerContent(false)}
-      TransitionComponent={GrowTransition as React.ComponentType}
-      hideBackdrop
-      disablePortal
-      disableEnforceFocus
-      disableAutoFocus
-      scroll={'paper'}
-      BackdropProps={{
-        classes: {
-          root: classes.transparent,
-        },
-      }}
-    >
-      <AppBar className={classes.appBar}>
-        <Toolbar>
-          <IconButton
-            edge='start'
-            color='secondary'
-            onClick={setMiniPlayerContent(false)}
-            aria-label='close'
-          >
-            <GrClose className='grIcon text-white' />
-          </IconButton>
-          <div
-            className={
-              'flex flex-1 place-items-center space-x-2 place-content-between'
-            }
-          >
-            <p className='text-xl font-bold text-white truncate max-w-[70%]'>
-              {title}
-            </p>
-            {title !== 'Lighthouse' ? (
-              <div className='truncate'>
-                <Typography
-                  variant='subtitle1'
-                  className={classes.subTitle}
-                  component={Link}
-                  color={'secondary'}
-                  href={`/website-details?url=${encodeURIComponent(data)}`}
-                >
-                  {data}
-                </Typography>
-              </div>
-            ) : null}
+    <Draggable handle={'.appBar'} allowAnyClick={false}>
+      <Dialog
+        fullScreen={false}
+        ref={appBarRef}
+        className={classes.miniPlayer}
+        fullWidth
+        open={open}
+        onClose={setMiniPlayerContent(false)}
+        TransitionComponent={GrowTransition as React.ComponentType}
+        hideBackdrop
+        disablePortal
+        disableEnforceFocus
+        disableAutoFocus
+        scroll={'paper'}
+        BackdropProps={{
+          classes: {
+            root: classes.transparent,
+          },
+        }}
+      >
+        <AppBar className={`appBar ${classes.appBar}`}>
+          <Toolbar>
+            <IconButton
+              edge='start'
+              color='secondary'
+              onClick={setMiniPlayerContent(false)}
+              aria-label='close'
+            >
+              <GrClose className='grIcon text-white' />
+            </IconButton>
+            <div
+              className={
+                'flex flex-1 place-items-center space-x-2 place-content-between'
+              }
+            >
+              <p className='text-xl font-bold text-white truncate max-w-[70%]'>
+                {title}
+              </p>
+              {title !== 'Lighthouse' ? (
+                <div className='truncate'>
+                  <Typography
+                    variant='subtitle1'
+                    className={classes.subTitle}
+                    component={Link}
+                    color={'secondary'}
+                    href={`/website-details?url=${encodeURIComponent(data)}`}
+                  >
+                    {data}
+                  </Typography>
+                </div>
+              ) : null}
+            </div>
+          </Toolbar>
+        </AppBar>
+        {title === 'Lighthouse' ? (
+          <>
+            {data && 'lighthouseVersion' in data ? (
+              <ReportViewer json={data} id='fullscreen-lighthouse-report' />
+            ) : (
+              <div>Light house data not found.</div>
+            )}
+          </>
+        ) : (
+          <div>
+            <AdaIframe url={data} miniPlayer />
+            <Fab />
           </div>
-        </Toolbar>
-      </AppBar>
-      {title === 'Lighthouse' ? (
-        <>
-          {data && 'lighthouseVersion' in data ? (
-            <ReportViewer json={data} id='fullscreen-lighthouse-report' />
-          ) : (
-            <div>Light house data not found.</div>
-          )}
-        </>
-      ) : (
-        <div>
-          <AdaIframe url={data} miniPlayer />
-          <Fab />
-        </div>
-      )}
-    </Dialog>
+        )}
+      </Dialog>
+    </Draggable>
   )
 }

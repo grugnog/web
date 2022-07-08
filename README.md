@@ -3,7 +3,8 @@
 [![A11yWatch](https://circleci.com/gh/A11yWatch/web.svg?style=svg)](https://circleci.com/gh/A11yWatch/web)
 [![Maintainability](https://api.codeclimate.com/v1/badges/702d7d7ce56b7e28bcf4/maintainability)](https://codeclimate.com/github/A11yWatch/web/maintainability)
 [![codecov](https://codecov.io/gh/A11yWatch/web/branch/main/graph/badge.svg?token=0LZKQ2H848)](https://codecov.io/gh/A11yWatch/web)
-[![A11yWatch](https://api.a11ywatch.com/status/a11ywatch.com?style=svg?maxAge=3600)](https://a11ywatch.com/reports/a11ywatch.com)
+
+<!-- [![A11yWatch](https://api.a11ywatch.com/status/a11ywatch.com?style=svg)](https://a11ywatch.com/reports/a11ywatch.com) -->
 
 a11ywatch website
 

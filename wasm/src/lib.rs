@@ -1,4 +1,6 @@
 extern crate serde;
+extern crate console_error_panic_hook;
+
 /// base generic domain structures.
 pub mod structures;
 use hashbrown::HashMap;
@@ -18,7 +20,11 @@ pub struct Feed {
 #[wasm_bindgen]
 impl Feed {
     // start a new feed
-    pub fn new() -> Feed { Default::default() }
+    pub fn new() -> Feed {
+        console_error_panic_hook::set_once();
+ 
+        Default::default()
+    }
     /// get a single website from the hashmap of hashmaps
     pub fn get_website(&self, website: JsValue) -> JsValue {
         let website: PageIssue = website.into_serde().unwrap();

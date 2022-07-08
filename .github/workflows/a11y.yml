@@ -1,0 +1,15 @@
+name: A11yWatchBot
+on: [pull_request]
+jobs:
+  run-container:
+    name: End to End
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v3
+      - name: A11yWatch website scan
+        uses: a11ywatch/github-action@v1.9.4
+        with:
+          WEBSITE_URL: https://a11ywatch.com
+          FAIL_TOTAL_COUNT: 1250
+          SITE_WIDE: true
+          TLD: true
