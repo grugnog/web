@@ -47,7 +47,7 @@
     "next": "12.2.2",
     "next-intercom": "0.1.4",
     "next-lighthouse": "^1.0.7",
-    "next-pwa": "5.5.2",
+    "next-pwa": "5.5.4",
     "node-html-parser": "5.3.3",
     "react": "18.2.0",
     "react-beautiful-dnd": "^13.1.0",
