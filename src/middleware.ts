@@ -29,15 +29,15 @@ export async function middleware(req: NextRequest, event: NextFetchEvent) {
 
   const currentHost = req.headers?.get('host')?.replace(ROOT_URL, '')
 
-  if (/.blog/.test(currentHost + '')) {
-    const url = req.nextUrl.clone()
-    url.pathname = `/blog${req.nextUrl.pathname}`
-    res = NextResponse.rewrite(url)
-  }
-
   if (token && req.nextUrl.pathname === '/') {
     const url = req.nextUrl.clone()
     url.pathname = `/dashboard${req.nextUrl.pathname}`
+    res = NextResponse.rewrite(url)
+  }
+
+  if (/.blog/.test(currentHost + '')) {
+    const url = req.nextUrl.clone()
+    url.pathname = `/blog${req.nextUrl.pathname}`
     res = NextResponse.rewrite(url)
   }
 
@@ -50,7 +50,7 @@ export async function middleware(req: NextRequest, event: NextFetchEvent) {
   }
 
   // prevent page log on api routes
-  if (pathname !== '/api/iframe') {
+  if (['/api/iframe', '/_next/image'].includes(pathname) === false) {
     event.waitUntil(
       (async () => {
         const ua = userAgent(req)
