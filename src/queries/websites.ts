@@ -34,13 +34,19 @@ export const GET_WEBSITES_LIST = gql`
   }
 `
 
+// issues paginated
 export const GET_WEBSITE_ISSUES = gql`
   ${issueFragments}
-  query getWebsiteIssues($url: String, $limit: Int, $offset: Int) {
+  query getWebsiteIssues(
+    $url: String
+    $limit: Int
+    $offset: Int
+    $all: Boolean
+  ) {
     website(url: $url) {
       ... on Website {
         _id
-        issues(limit: $limit, offset: $offset) {
+        issues(limit: $limit, offset: $offset, all: $all) {
           ...IssueParts
         }
       }
@@ -48,20 +54,7 @@ export const GET_WEBSITE_ISSUES = gql`
   }
 `
 
-export const GET_WEBSITE_PAGES = gql`
-  ${subdomainFragments}
-  query getWebsitePages($url: String) {
-    website(url: $url) {
-      ... on Website {
-        _id
-        pages {
-          ...PagesParts
-        }
-      }
-    }
-  }
-`
-
+// pages paginated
 export const GET_WEBSITE_PAGES_PAGINATED = gql`
   ${subdomainFragments}
   query getWebsitePagesPaginated($url: String, $limit: Int, $offset: Int) {
@@ -130,6 +123,8 @@ export const GET_WEBSITES_INFO = gql`
           url
           domain
           cdnConnected
+          tld
+          subdomains
           issuesInfo {
             adaScore
             adaScoreAverage

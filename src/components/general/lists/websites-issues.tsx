@@ -11,6 +11,7 @@ import { FullScreenModal } from '../fullscreen-modal'
 import { FeedIssue } from '../feed/issue'
 import { useIssueData } from '@app/data/external/issues/issue'
 import { InnerWrapper } from './list-wrapper'
+import { LoadMoreButton } from '../buttons'
 
 // return issues maped
 function IssuesWrapper(props: any) {
@@ -66,21 +67,31 @@ const Issues = memo(IssuesWrapper)
 
 const RenderInner: FC<any> = (props) => {
   const { pageUrl, generalProps } = props
-  const { data: issueSource, loading } = useIssueData(pageUrl)
+  const all = props?.data?.subdomains || props?.data.tld
+
+  const { data: issueSource, loading, onLoadMore } = useIssueData(pageUrl, all)
 
   return (
-    <InnerWrapper
-      {...props}
-      data={issueSource?.length}
-      loading={loading}
-      generalProps={generalProps}
-    >
-      <ul>
-        {issueSource?.map((page: any) => (
-          <Issues key={`${page._id}`} {...page} {...generalProps} />
-        ))}
-      </ul>
-    </InnerWrapper>
+    <>
+      <InnerWrapper
+        {...props}
+        data={issueSource?.length}
+        loading={loading}
+        generalProps={generalProps}
+      >
+        <ul>
+          {issueSource?.map((page: any) => (
+            <Issues key={`${page._id}`} {...page} {...generalProps} />
+          ))}
+        </ul>
+      </InnerWrapper>
+      <div className='pb-8'>
+        <LoadMoreButton
+          visible={issueSource?.length > 1}
+          onLoadMoreEvent={onLoadMore}
+        />
+      </div>
+    </>
   )
 }
 

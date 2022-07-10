@@ -21,6 +21,7 @@ import {
 } from '@app/configs/app-config'
 import Head from 'next/head'
 import { useStaticRendering as enableMobxStaticRendering } from 'mobx-react-lite'
+import { SkipContent, SnackBar } from './general'
 
 if (typeof window === 'undefined') {
   enableMobxStaticRendering(true)
@@ -178,7 +179,9 @@ export default function Layout({ children, ...props }: any) {
       </Head>
       <ThemeProvider theme={theme}>
         <CssBaseline />
+        <SkipContent />
         <LayoutWrapper {...props}>{children}</LayoutWrapper>
+        <SnackBar />
       </ThemeProvider>
       {intercom && CRISP_WEBSITE_ID ? (
         <Script id='crips_id'>{`window.$crisp=[];window.CRISP_WEBSITE_ID="${CRISP_WEBSITE_ID}";(function(){d=document;s=d.createElement("script");s.src="https://client.crisp.chat/l.js";s.async=1;d.getElementsByTagName("head")[0].appendChild(s);})();`}</Script>

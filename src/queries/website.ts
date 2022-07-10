@@ -13,6 +13,8 @@ const GET_WEBSITE = gql`
       online
       pageInsights
       mobile
+      tld
+      subdomains
       insight {
         json
       }

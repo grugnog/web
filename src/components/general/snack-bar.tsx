@@ -23,6 +23,13 @@ const upgradeRequired = (text: string) =>
   text === 'you need to upgrade your account to edit scripts'
 
 const SnackbarContainer = observer(({ store }: any) => {
+  const lowerCaseText = store?.snackbar?.title
+    ? String(store?.snackbar?.title).toLowerCase()
+    : ''
+
+  const needsUpgrade = upgradeRequired(lowerCaseText)
+  const marketingRedirect = lowerCaseText.includes('redirected to dashboard')
+
   const handleClose = (_: any, reason: string): any => {
     if (reason === 'clickaway') {
       return
@@ -31,13 +38,6 @@ const SnackbarContainer = observer(({ store }: any) => {
       store.closeSnack()
     }
   }
-
-  const lowerCaseText = store?.snackbar?.title
-    ? String(store?.snackbar?.title).toLowerCase()
-    : ''
-
-  const needsUpgrade = upgradeRequired(lowerCaseText)
-  const marketingRedirect = lowerCaseText.includes('redirected to dashboard')
 
   return (
     <MUISnackbar
