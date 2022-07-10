@@ -6,6 +6,7 @@ export {
   GET_WEBSITE_SCRIPTS,
   GET_WEBSITE_PAGE_ACTIONS,
   updateCache,
+  GET_WEBSITE_PAGES_PAGINATED,
 } from './websites'
 export { GET_USER } from './user'
 export { GET_FEATURES } from './features'

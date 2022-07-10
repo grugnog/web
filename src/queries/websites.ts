@@ -36,11 +36,11 @@ export const GET_WEBSITES_LIST = gql`
 
 export const GET_WEBSITE_ISSUES = gql`
   ${issueFragments}
-  query getWebsiteIssues($url: String) {
+  query getWebsiteIssues($url: String, $limit: Int, $offset: Int) {
     website(url: $url) {
       ... on Website {
         _id
-        issues {
+        issues(limit: $limit, offset: $offset) {
           ...IssueParts
         }
       }
@@ -55,6 +55,20 @@ export const GET_WEBSITE_PAGES = gql`
       ... on Website {
         _id
         pages {
+          ...PagesParts
+        }
+      }
+    }
+  }
+`
+
+export const GET_WEBSITE_PAGES_PAGINATED = gql`
+  ${subdomainFragments}
+  query getWebsitePagesPaginated($url: String, $limit: Int, $offset: Int) {
+    website(url: $url) {
+      ... on Website {
+        _id
+        pages(limit: $limit, offset: $offset) {
           ...PagesParts
         }
       }

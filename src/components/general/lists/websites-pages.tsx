@@ -4,6 +4,7 @@ import { FullScreenModal } from '../fullscreen-modal'
 import { usePagesData } from '@app/data/external/pages/pages'
 import { WebsiteCellPages } from '../cells'
 import { InnerWrapper } from './list-wrapper'
+import { LoadMoreButton } from '../buttons'
 
 // return Pages maped
 function PagesWrapper(props: any) {
@@ -15,21 +16,29 @@ const Pages = memo(PagesWrapper)
 
 const RenderInner: FC<any> = (props) => {
   const { pageUrl, generalProps } = props
-  const { data: pagesSource, loading } = usePagesData(pageUrl)
+  const { data: pagesSource, loading, onLoadMorePages } = usePagesData(pageUrl)
 
   return (
-    <InnerWrapper
-      {...props}
-      data={pagesSource?.length}
-      loading={loading}
-      generalProps={generalProps}
-    >
-      <ul>
-        {pagesSource?.map((page: any) => (
-          <Pages key={page._id} {...page} {...generalProps} />
-        ))}
-      </ul>
-    </InnerWrapper>
+    <>
+      <InnerWrapper
+        {...props}
+        data={pagesSource?.length}
+        loading={loading}
+        generalProps={generalProps}
+      >
+        <ul>
+          {pagesSource?.map((page: any) => (
+            <Pages key={page._id} {...page} {...generalProps} />
+          ))}
+        </ul>
+      </InnerWrapper>
+      <div className='pb-8'>
+        <LoadMoreButton
+          visible={pagesSource?.length > 1}
+          onLoadMoreEvent={onLoadMorePages}
+        />
+      </div>
+    </>
   )
 }
 

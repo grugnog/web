@@ -66,7 +66,6 @@ const Issues = memo(IssuesWrapper)
 
 const RenderInner: FC<any> = (props) => {
   const { pageUrl, generalProps } = props
-
   const { data: issueSource, loading } = useIssueData(pageUrl)
 
   return (
