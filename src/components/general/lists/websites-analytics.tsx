@@ -4,6 +4,7 @@ import { FullScreenModal } from '../fullscreen-modal'
 import { InnerWrapper } from './list-wrapper'
 import { AnalyticsCell } from '../cells/website-cell-analytics'
 import { useAnalyticsData } from '@app/data/external/analytics/analytics'
+import { LoadMoreButton } from '../buttons'
 
 // return issues maped
 function AnalyticsWrapper(props: any) {
@@ -48,21 +49,31 @@ const Analytics = memo(AnalyticsWrapper)
 
 const RenderInner: FC<any> = (props) => {
   const { pageUrl, generalProps } = props
-  const { data: issueSource, loading } = useAnalyticsData(pageUrl)
+  const { data: analyticsSource, loading, onLoadMore } = useAnalyticsData(
+    pageUrl
+  )
 
   return (
-    <InnerWrapper
-      {...props}
-      data={issueSource?.length}
-      loading={loading}
-      generalProps={generalProps}
-    >
-      <ul>
-        {issueSource?.map((page: any) => (
-          <Analytics key={`${page._id}`} {...page} {...generalProps} />
-        ))}
-      </ul>
-    </InnerWrapper>
+    <>
+      <InnerWrapper
+        {...props}
+        data={analyticsSource?.length}
+        loading={loading}
+        generalProps={generalProps}
+      >
+        <ul>
+          {analyticsSource?.map((page: any) => (
+            <Analytics key={`${page._id}`} {...page} {...generalProps} />
+          ))}
+        </ul>
+      </InnerWrapper>
+      <div className='pb-8'>
+        <LoadMoreButton
+          visible={analyticsSource?.length > 1}
+          onLoadMoreEvent={onLoadMore}
+        />
+      </div>
+    </>
   )
 }
 

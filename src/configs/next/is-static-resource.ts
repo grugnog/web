@@ -11,6 +11,8 @@ const isWhitelisted = ({ pathname, url }: ExcludeProps) => {
       '/_next/image',
       '/js/gql/middleware.js.map',
       '/img/',
+      '/en',
+      '/home',
     ].includes(pathname) ||
     pathname.startsWith('/workbox-') ||
     pathname.startsWith('/src/') ||

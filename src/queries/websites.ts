@@ -86,11 +86,16 @@ export const GET_WEBSITE_PAGE_ACTIONS = gql`
 
 export const GET_WEBSITE_ANALYTICS = gql`
   ${analyticsFragments}
-  query getWebsiteAnalytics($url: String) {
+  query getWebsiteAnalytics(
+    $url: String
+    $limit: Int
+    $offset: Int
+    $all: Boolean
+  ) {
     website(url: $url) {
       ... on Website {
         _id
-        analytics {
+        analytics(limit: $limit, offset: $offset, all: $all) {
           ...AnalyticParts
         }
       }

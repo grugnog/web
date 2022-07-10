@@ -19,7 +19,7 @@ export const issueData = (url?: string | string[], skip?: boolean) => {
   return model
 }
 
-// get issues pagined by website
+// get issues paginated by website
 export const useIssueData = (url?: string | string[], all?: boolean) => {
   const variables = { url, limit: 15, offset: 0, all }
 

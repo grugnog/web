@@ -1,4 +1,5 @@
 import { useQuery } from '@apollo/react-hooks'
+import { AppManager } from '@app/managers'
 import { GET_ANALYTICS, GET_WEBSITE_ANALYTICS } from '@app/queries'
 
 export const analyticsData = (query: boolean = true) => {
@@ -15,18 +16,60 @@ export const analyticsData = (query: boolean = true) => {
     error,
   }
 }
+// get analytics paginated by website
+export const useAnalyticsData = (url?: string | string[], all?: boolean) => {
+  const variables = { url, limit: 15, offset: 0, all }
+  const { data, loading, refetch, error, fetchMore: fetchMorePages } = useQuery(
+    GET_WEBSITE_ANALYTICS,
+    {
+      variables,
+      ssr: false,
+    }
+  )
 
-export const useAnalyticsData = (url?: string | string[]) => {
-  const { data, loading, refetch, error } = useQuery(GET_WEBSITE_ANALYTICS, {
-    variables: { url },
-    ssr: false,
-  })
+  const updateQuery = (prev: any, { fetchMoreResult }: any) => {
+    if (!fetchMoreResult || !fetchMoreResult?.website?.analytics?.length) {
+      AppManager.toggleSnack(true, 'No more analytics exist.')
+      return prev
+    }
+
+    const analytics = [
+      ...prev?.website?.analytics,
+      ...fetchMoreResult?.website?.analytics,
+    ]
+
+    return Object.assign({}, prev, {
+      website: {
+        ...prev?.website,
+        analytics,
+      },
+    })
+  }
+
+  const analytics = data?.website?.analytics
+
+  // pages page pagination
+  const onLoadMore = async () => {
+    try {
+      await fetchMorePages({
+        query: GET_WEBSITE_ANALYTICS,
+        variables: {
+          ...variables,
+          offset: Number(analytics.length || 0),
+        },
+        updateQuery,
+      })
+    } catch (e) {
+      console.error(e)
+    }
+  }
 
   const model = Object.freeze({
-    data: data?.website?.analytics,
+    data: analytics,
     loading: loading,
     refetch,
     error,
+    onLoadMore,
   })
 
   return model
