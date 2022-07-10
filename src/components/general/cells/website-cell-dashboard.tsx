@@ -28,9 +28,9 @@ import { Timer } from '../timer'
 import { UserAgentBox } from './blocks/user-agent'
 import { ActionsBox } from './blocks/actions'
 import { CdnFixBox } from './blocks/cdn-fix'
-import { UserManager } from '@app/managers'
 import { useLighthouse } from '@app/data/formatters/use-lighthouse'
 import { useWasmContext } from '@app/components/providers'
+import { useAuthContext } from '@app/components/providers/auth'
 
 const styles = {
   title: 'text-xl md:text-3xl font-bold truncate',
@@ -74,6 +74,7 @@ export function WebsiteCellDashboardComponent({
   tld,
 }: any) {
   const [anchorEl, setAnchorEl] = useState<any>(null)
+  const { activeSubscription } = useAuthContext() // TODO: move to provider top level
   const { feed } = useWasmContext()
   const items = feed?.get_data_item(domain, tld || subdomains) ?? []
   const issues = items?.length ? items : currentIssues
@@ -188,9 +189,6 @@ export function WebsiteCellDashboardComponent({
 
   const { adaScoreAverage: adaScore } = issuesInfo ?? {}
 
-  // TODO: move to react context for SSR
-  const activeSubscription = UserManager.freeAccount === false
-
   const cdnUrl = cdnBase ? `${SCRIPTS_CDN_URL_HOST}/${cdnBase}` : notAvail
   const cdnUrlMinifed = cdnBaseMin
     ? `${SCRIPTS_CDN_URL_HOST}/${cdnBaseMin}`
@@ -273,8 +271,10 @@ export function WebsiteCellDashboardComponent({
         </div>
         <div className='grid grid-cols-1 md:grid-cols-3 divide-x border-t border-l border-r border-b'>
           <CustomCDNBox
-            cdnUrl={activeSubscription ? cdnUrl : 'N/A'}
-            cdnUrlMinifed={activeSubscription ? cdnUrlMinifed : 'N/A'}
+            cdnUrl={activeSubscription ? cdnUrl : '[Paid plan required]'}
+            cdnUrlMinifed={
+              activeSubscription ? cdnUrlMinifed : '[Paid plan required]'
+            }
             cdnConnected={cdnConnected}
           />
           <StatusBadgeBox

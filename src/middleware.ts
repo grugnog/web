@@ -49,23 +49,20 @@ export async function middleware(req: NextRequest, event: NextFetchEvent) {
     })
   }
 
-  // prevent page log on api routes
-  if (['/api/iframe', '/_next/image'].includes(pathname) === false) {
-    event.waitUntil(
-      (async () => {
-        const ua = userAgent(req)
-        if (!ua?.isBot) {
-          try {
-            await logPage(req, uuid, ua)
-          } catch (e) {
-            console.error(e)
-          }
-        } else {
-          Promise.resolve()
+  event.waitUntil(
+    (async () => {
+      const ua = userAgent(req)
+      if (!ua?.isBot) {
+        try {
+          await logPage(req, uuid, ua)
+        } catch (e) {
+          console.error(e)
         }
-      })()
-    )
-  }
+      } else {
+        Promise.resolve()
+      }
+    })()
+  )
 
   return res
 }

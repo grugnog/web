@@ -2,6 +2,7 @@ import React, { Fragment, FC, useEffect } from 'react'
 
 import { LOGGIN_ROUTES } from '@app/configs'
 import {
+  AuthProviderWrapper,
   WASMContextProvider,
   WebsiteProviderWrapper,
 } from '@app/components/providers'
@@ -85,11 +86,13 @@ const LayoutWrapper = ({ Component, pageProps }: InnerApp) => {
 
   return (
     <WASMContextProvider load={wasm}>
-      <GqlWrapper>
-        <RestWrapper>
-          <Component {...pageProps} name={name} />
-        </RestWrapper>
-      </GqlWrapper>
+      <AuthProviderWrapper load={wasm}>
+        <GqlWrapper>
+          <RestWrapper>
+            <Component {...pageProps} name={name} />
+          </RestWrapper>
+        </GqlWrapper>
+      </AuthProviderWrapper>
     </WASMContextProvider>
   )
 }

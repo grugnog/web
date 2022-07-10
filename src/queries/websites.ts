@@ -100,11 +100,16 @@ export const GET_WEBSITE_ANALYTICS = gql`
 
 export const GET_WEBSITE_SCRIPTS = gql`
   ${scriptsFragments}
-  query getWebsiteScripts($url: String) {
+  query getWebsiteScripts(
+    $url: String
+    $limit: Int
+    $offset: Int
+    $all: Boolean
+  ) {
     website(url: $url) {
       ... on Website {
         _id
-        scripts {
+        scripts(limit: $limit, offset: $offset, all: $all) {
           ...ScriptParts
         }
       }

@@ -4,6 +4,7 @@ import { FullScreenModal } from '../fullscreen-modal'
 import { InnerWrapper } from './list-wrapper'
 import { useScriptsData } from '@app/data/external/scripts/scripts'
 import { ScriptCell } from '../cells'
+import { LoadMoreButton } from '../buttons'
 
 // return Scripts maped
 function ScriptsWrapper(props: any) {
@@ -40,21 +41,34 @@ const Scripts = memo(ScriptsWrapper)
 
 const RenderInner: FC<any> = (props) => {
   const { pageUrl, generalProps } = props
-  const { data: issueSource, loading } = useScriptsData(pageUrl)
+  const all = props?.data?.subdomains || props?.data.tld
+
+  const { data: scriptSource, loading, onLoadMore } = useScriptsData(
+    pageUrl,
+    all
+  )
 
   return (
-    <InnerWrapper
-      {...props}
-      data={issueSource?.length}
-      loading={loading}
-      generalProps={generalProps}
-    >
-      <ul>
-        {issueSource?.map((page: any) => (
-          <Scripts key={page._id} {...page} {...generalProps} />
-        ))}
-      </ul>
-    </InnerWrapper>
+    <>
+      <InnerWrapper
+        {...props}
+        data={scriptSource?.length}
+        loading={loading}
+        generalProps={generalProps}
+      >
+        <ul>
+          {scriptSource?.map((page: any) => (
+            <Scripts key={page._id} {...page} {...generalProps} />
+          ))}
+        </ul>
+      </InnerWrapper>
+      <div className='pb-8'>
+        <LoadMoreButton
+          visible={scriptSource?.length > 1}
+          onLoadMoreEvent={onLoadMore}
+        />
+      </div>
+    </>
   )
 }
 

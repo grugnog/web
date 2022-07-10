@@ -2,6 +2,7 @@ import { useQuery, useMutation } from '@apollo/react-hooks'
 import { GET_SCRIPT, GET_WEBSITE_SCRIPTS } from '@app/queries'
 import { UPDATE_SCRIPT } from '@app/mutations'
 import { SCRIPTS_CDN_URL_HOST } from '@app/configs'
+import { AppManager } from '@app/managers'
 
 // single script queyr
 export const useScript = (url?: string | string[], skip?: boolean) => {
@@ -40,16 +41,61 @@ export const useScript = (url?: string | string[], skip?: boolean) => {
   }
 }
 
-export const useScriptsData = (url?: string | string[]) => {
-  const { data, loading, refetch, error } = useQuery(GET_WEBSITE_SCRIPTS, {
-    variables: { url },
-  })
+// get scripts paginated by website
+export const useScriptsData = (url?: string | string[], all?: boolean) => {
+  const variables = { url, limit: 15, offset: 0, all }
+
+  const { data, loading, refetch, error, fetchMore: fetchMorePages } = useQuery(
+    GET_WEBSITE_SCRIPTS,
+    {
+      variables,
+      ssr: false,
+    }
+  )
+
+  const updateQuery = (prev: any, { fetchMoreResult }: any) => {
+    if (!fetchMoreResult || !fetchMoreResult?.website?.scripts?.length) {
+      AppManager.toggleSnack(true, 'No more scripts exist.')
+      return prev
+    }
+
+    const scripts = [
+      ...prev?.website?.scripts,
+      ...fetchMoreResult?.website?.scripts,
+    ]
+
+    return Object.assign({}, prev, {
+      website: {
+        ...prev?.website,
+        scripts,
+      },
+    })
+  }
+
+  const pages = data?.website?.scripts
+
+  // pages scripts pagination
+  const onLoadMore = async () => {
+    try {
+      await fetchMorePages({
+        query: GET_WEBSITE_SCRIPTS,
+        variables: {
+          ...variables,
+          offset: Number(pages.length || 0),
+        },
+        updateQuery,
+      })
+    } catch (e) {
+      console.error(e)
+    }
+  }
 
   const model = Object.freeze({
-    data: data?.website?.scripts,
+    data: pages,
     loading: loading,
     refetch,
     error,
+    onLoadMore,
   })
 
   return model
