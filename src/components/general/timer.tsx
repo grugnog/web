@@ -22,6 +22,8 @@ export const Timer = ({
     }, 1000)
     if (stop) {
       clearInterval(interval)
+    } else if (!stop && duration) {
+      setSeconds(0)
     }
     return () => clearInterval(interval)
   }, [stop])

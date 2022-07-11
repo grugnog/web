@@ -16,7 +16,7 @@ import { UserManager, AppManager } from '@app/managers'
 import type { OnSubscriptionDataOptions } from '@apollo/react-common'
 import type { Website } from '@app/types'
 import { useWasmContext } from '@app/components/providers'
-import { domainName } from '@app/lib/domain'
+// import { domainName } from '@app/lib/domain'
 
 /*
  * This hook returns all the queries, mutations, and subscriptions between your Website with the graphs,
@@ -296,13 +296,15 @@ export const useWebsiteData = (
   const crawlWebsite = async (params: any) => {
     try {
       await crawl(params)
+
       let domain = ''
 
       try {
-        domain = domainName(new URL(params.variables.url).hostname)
+        domain = new URL(params.variables.url).hostname
       } catch (e) {
         console.error(e)
       }
+      console.log(domain)
 
       if (domain) {
         setActiveCrawl((v) => ({
@@ -418,6 +420,21 @@ export const useWebsiteData = (
     setIssueFeedContent(open)
   }
 
+  const addWebPage = async (params: any) => {
+    try {
+      const { data: ds } = (await addWebsiteMutation(params)) ?? { data: null }
+
+      if (ds?.addWebsite?.success && ds?.addWebsite?.website?.domain) {
+        setActiveCrawl((v) => ({
+          ...v,
+          [ds.addWebsite.website.domain]: true,
+        }))
+      }
+    } catch (e) {
+      console.error(e)
+    }
+  }
+
   return {
     subscriptionData: {
       issueSubData,
@@ -441,7 +458,7 @@ export const useWebsiteData = (
     lighthouseVisible,
     setLighthouseVisibility,
     removeWebsite,
-    addWebsite: addWebsiteMutation,
+    addWebsite: addWebPage,
     refetch,
     crawlWebsite,
     scanWebsite, // single page web scan
