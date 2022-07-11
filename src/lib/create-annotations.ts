@@ -25,7 +25,7 @@ export const createAnnotations = (issueMap: any, url: string) => {
       createPortal(createElement(Overlay, {}), overlayElement)
     )
 
-    issueMap?.forEach((item: any) => {
+    issueMap.forEach((item: any) => {
       const el = item?.element
 
       if (el) {

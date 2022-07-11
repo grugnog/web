@@ -62,14 +62,13 @@ function Payments({ hideTitle = false, name }: PaymentProps) {
     basic: true,
     premium: false,
   })
+  const { billingtitle } = useBillingDisplay(data?.invoice)
   const [yearly, setYearly] = useState<boolean>(false)
   const [open, setOpen] = useState<boolean>(false)
   const [stripePromise, setStripe] = useState<Stripe | null>(null)
 
   const plan = String(router?.query?.plan).toLocaleLowerCase() as string
   const yearSet = String(router?.query?.yearly)
-
-  const { billingtitle } = useBillingDisplay(data?.invoice)
 
   useEffect(() => {
     ;(async () => {

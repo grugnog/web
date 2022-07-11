@@ -1,4 +1,4 @@
-import React, { useRef } from 'react'
+import { useRef } from 'react'
 import { Modal, Paper, Typography, IconButton } from '@material-ui/core'
 import { GrClose } from 'react-icons/gr'
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles'

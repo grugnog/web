@@ -1,4 +1,4 @@
-import React, { useEffect, useCallback } from 'react'
+import { useEffect, useCallback } from 'react'
 import { metaSetter } from '@app/utils'
 import { useRouter } from 'next/router'
 import { MarketingShortTitle } from '@app/components/marketing'

@@ -1,8 +1,7 @@
-import React, { useEffect, memo, useRef, useCallback } from 'react'
+import { useEffect, memo, useRef, useCallback } from 'react'
 import { fixes, row, reccList } from '@app/stylesheets/main.module.css'
 import { IframeManager } from '@app/managers'
 import { Button } from '@material-ui/core/'
-import { makeStyles } from '@material-ui/core/styles'
 
 const dataSource = [
   0.05,
@@ -25,17 +24,6 @@ const dataSource = [
   0.5,
 ]
 
-const useStyles = makeStyles(() => ({
-  colorItem: {
-    flex: 1,
-    minWidth: '55px',
-    width: '100%',
-    height: '100%',
-    border: 0,
-    borderRadius: 0,
-  },
-}))
-
 const toggleItem = (
   item: any,
   source?: any,
@@ -56,7 +44,6 @@ const ReccomendedItem = memo(
     autoFixSource,
     portalID,
   }: any) => {
-    const classes = useStyles()
     const onClick = () => {
       toggleItem(item, source, type)
       IframeManager.removePortal(portalID)
@@ -110,8 +97,14 @@ const ReccomendedItem = memo(
           onClick={onClick}
           style={{
             background: item,
+            flex: 1,
+            minWidth: '55px',
+            width: '100%',
+            height: '100%',
+            border: 0,
+            borderRadius: 0,
           }}
-          className={`${fixes} ${classes.colorItem}`}
+          className={fixes}
           aria-label={`${item} color`}
         >
           {''}

@@ -37,8 +37,6 @@ function WebView() {
   const { url } = router?.query
   const { authed } = useAuthContext()
 
-  console.log(authed)
-
   return (
     <>
       <NavBar

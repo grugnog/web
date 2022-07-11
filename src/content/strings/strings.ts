@@ -54,7 +54,7 @@ export const generateStrings = ({
         id: 2,
         title: 'Recommendations',
         detail:
-          'Get tips on how to improve your app so all users have a pleasant experience. Bring accessibility changes into production safer.',
+          'Get tips on how to improve your app so all users have a pleasant experience. Inject code fixes automatically into your source.',
         reason: 'Basic',
       },
       {

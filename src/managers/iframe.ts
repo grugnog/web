@@ -94,7 +94,7 @@ class IframeManager {
   }
 
   @computed get Portals() {
-    return this.portals.filter((item: any) => item)
+    return this.portals
   }
 
   @computed get issuesWithFix() {
@@ -128,16 +128,16 @@ class IframeManager {
     if (issues && frameDom?.dom) {
       const issueMap = issues?.filter((item: any) => {
         try {
-          const hasSelector = item?.selector?.length
-
           let selector = 'querySelector'
+          let query = item?.selector ? item.selector.trim() : ''
 
-          if (hasSelector && item?.selector[0] === '#') {
+          if (query[0] === '#' && query.includes(' ') === false) {
             selector = 'getElementById'
           }
 
           if (item?.selector && frameDom.dom[selector]) {
             const element = frameDom.dom[selector](item?.selector)
+
             if (element) {
               item.element = element
               return item

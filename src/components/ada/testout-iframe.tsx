@@ -1,4 +1,4 @@
-import React, { Fragment, useRef, useEffect } from 'react'
+import { Fragment, useRef, useEffect } from 'react'
 import { observer } from 'mobx-react-lite'
 import { toJS } from 'mobx'
 import { mainFixed, mainFrame } from '@app/stylesheets/index.module.css'
@@ -79,8 +79,10 @@ const MainFrame = observer(
 const Portals = observer(({ store }: any) => toJS(store.Portals))
 
 const Container = observer(({ store }: { store: typeof IframeManager }) => {
+  const frameProps = store?.selectedAnnotation ? store.selectedAnnotation : {}
+
   return store.portals?.length ? (
-    <AnnotationContainer store={store} {...store.selectedAnnotation} />
+    <AnnotationContainer store={store} {...frameProps} />
   ) : null
 })
 

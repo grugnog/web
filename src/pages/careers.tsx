@@ -11,10 +11,10 @@ function Careers({ name }: PageProps) {
     'Graphql',
     'Node.js',
     'Skilled at technical problem solving.',
-    'Care for accessibility or willing to learn more',
+    'Care for accessibility or willing to learn more.',
     'Must be able to communicate effectively and work with team members and members of other functional teams to coordinate and meet deliverables.',
-    'Rust - nice to have some of our main services are built using this',
-    'BS in Technology or Related Field - nice to have but not needed',
+    'Rust - nice to have some of our main services are built in it.',
+    'BS in Technology or Related Field - nice to have but not needed.',
   ]
   return (
     <MarketingDrawer title={name}>
