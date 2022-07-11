@@ -1,11 +1,4 @@
-import React, {
-  FC,
-  useState,
-  useEffect,
-  useCallback,
-  memo,
-  Fragment,
-} from 'react'
+import { FC, useState, useEffect, useCallback, memo, Fragment } from 'react'
 import { useMiniPlayer } from '@app/data'
 import { FullScreenModal } from '../fullscreen-modal'
 import { FeedIssue } from '../feed/issue'
@@ -48,10 +41,7 @@ function IssuesWrapper(props: any) {
         className={`${visible ? 'visible' : 'hidden'} rounded-b`}
       >
         {props?.issues?.map(
-          (
-            { url, _id, code, selector, ...domainProps }: any,
-            index: number
-          ) => (
+          ({ url, code, selector, ...domainProps }: any, index: number) => (
             <Fragment key={code + selector + index}>
               <FeedIssue {...domainProps} selector={selector} code={code} />
             </Fragment>
@@ -65,11 +55,13 @@ function IssuesWrapper(props: any) {
 // memo expensive issues
 const Issues = memo(IssuesWrapper)
 
-const RenderInner: FC<any> = (props) => {
-  const { pageUrl, generalProps } = props
-  const all = props?.data?.subdomains || props?.data.tld
+const RenderInnerIssuesWrapper: FC<any> = (props) => {
+  const { data: issueSource, loading, onLoadMore } = useIssueData(
+    props.pageUrl,
+    props?.data?.subdomains || props?.data?.tld
+  )
 
-  const { data: issueSource, loading, onLoadMore } = useIssueData(pageUrl, all)
+  const { generalProps } = props
 
   return (
     <>
@@ -94,6 +86,8 @@ const RenderInner: FC<any> = (props) => {
     </>
   )
 }
+
+export const RenderInnerIssues = memo(RenderInnerIssuesWrapper)
 
 const defaultModalState = {
   open: false,
@@ -138,7 +132,7 @@ const ListCell = ({
         </div>
       </button>
       {visible ? (
-        <RenderInner
+        <RenderInnerIssues
           data={item}
           pageUrl={item.url}
           loading={loading}

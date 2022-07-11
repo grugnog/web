@@ -47,16 +47,20 @@ const ActionCell = (props: any) => {
   )
 }
 
-const RenderInner: FC<any> = (props) => {
+export const RenderInnerPageActions: FC<any> = (props) => {
   const { pageUrl, generalProps } = props
   const { data: pagesSource, loading } = usePageActionsData(pageUrl)
+
+  const actionsExist = pagesSource?.length
 
   return (
     <InnerWrapper
       {...props}
-      data={pagesSource?.length}
+      data={actionsExist}
       loading={loading}
       generalProps={generalProps}
+      emptyHeaderTitle={'No page actions'}
+      emptyHeaderSubTitle={'Create page actions on website monitor add.'}
     >
       <ul>
         {pagesSource?.map((page: any) => (
@@ -109,7 +113,7 @@ const ListCell = ({
         </div>
       </button>
       {visible ? (
-        <RenderInner
+        <RenderInnerPageActions
           data={item}
           pageUrl={item.url}
           loading={loading}

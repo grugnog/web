@@ -9,7 +9,7 @@ import { PageLoader } from '@app/components/placeholders'
 import { useWebsiteContext } from '@app/components/providers/website'
 import { LoadMoreButton } from '@app/components/general/buttons'
 
-function WebPages({ name }: PageProps) {
+export function WebPages({ name }: PageProps) {
   const {
     pagesData,
     pagesDataLoading,

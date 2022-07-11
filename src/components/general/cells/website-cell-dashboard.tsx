@@ -31,6 +31,7 @@ import { CdnFixBox } from './blocks/cdn-fix'
 import { useLighthouse } from '@app/data/formatters/use-lighthouse'
 import { useWasmContext } from '@app/components/providers'
 import { useAuthContext } from '@app/components/providers/auth'
+import { GrChannel } from 'react-icons/gr'
 
 const styles = {
   title: 'text-xl md:text-3xl font-bold truncate',
@@ -135,10 +136,15 @@ export function WebsiteCellDashboardComponent({
 
   const parsedInsight = useLighthouse(insight)
 
+  // playground link
   const linkUrl = useMemo(
     () => `/website-details?url=${encodeURIComponent(url)}`,
     [url]
   )
+  // direct view link
+  const linkView = useMemo(() => `/web-view?url=${encodeURIComponent(url)}`, [
+    url,
+  ])
 
   // real time issue tracking [TODO: combine with website analytic data]
   const {
@@ -196,20 +202,56 @@ export function WebsiteCellDashboardComponent({
 
   return (
     <li className={`border-4 px-3 pt-2 rounded overflow-hidden`}>
-      <div className='flex space-x-2'>
-        <div
-          className={`${styles.title} flex-1 flex space-x-2 place-items-center`}
-        >
-          <Link
-            title={`view in sandbox ${url}`}
-            href={linkUrl}
-            className={styles.title}
-          >
-            {url}
-          </Link>
-          <Timer stop={!activeCrawl} duration={crawlDuration} />
-        </div>
-        <div>
+      <div>
+        <div className='flex space-x-1 place-items-center place-content-between'>
+          <div className='flex space-x-4 place-items-center'>
+            <div>
+              <div
+                className={`${styles.title} flex space-x-4 place-items-center`}
+              >
+                <Link
+                  title={`view details ${url}`}
+                  href={linkView}
+                  className={styles.title}
+                >
+                  {url}
+                </Link>
+              </div>
+              <WebsiteSecondary
+                domain={domain}
+                issuesInfo={{
+                  ...issuesInfo,
+                  totalIssues:
+                    totalIssues > issuesInfo?.totalIssues
+                      ? totalIssues
+                      : issuesInfo?.totalIssues,
+                }}
+                pageIssueCount={pageIssueCount}
+                cdnConnected={cdnConnected}
+                adaScore={adaScore}
+                issues={issues}
+                pageLoadTime={pageLoadTime}
+                lastScanDate={lastScanDate}
+                pageHeaders={pageHeaders}
+                robots={robots}
+                subdomains={subdomains}
+                tld={tld}
+              />
+            </div>
+            <Link
+              title={`view in sandbox ${url}`}
+              href={linkUrl}
+              className={'hover:bg-gray-200'}
+            >
+              <GrChannel />
+            </Link>
+            <div className='pl-1 border-l'>
+              <div className='pl-3'>
+                <Timer stop={!activeCrawl} duration={crawlDuration} />
+              </div>
+            </div>
+          </div>
+
           <MoreOptions
             url={url}
             issues={issues}
@@ -228,26 +270,6 @@ export function WebsiteCellDashboardComponent({
           />
         </div>
       </div>
-      <WebsiteSecondary
-        domain={domain}
-        issuesInfo={{
-          ...issuesInfo,
-          totalIssues:
-            totalIssues > issuesInfo?.totalIssues
-              ? totalIssues
-              : issuesInfo?.totalIssues,
-        }}
-        pageIssueCount={pageIssueCount}
-        cdnConnected={cdnConnected}
-        adaScore={adaScore}
-        issues={issues}
-        pageLoadTime={pageLoadTime}
-        lastScanDate={lastScanDate}
-        pageHeaders={pageHeaders}
-        robots={robots}
-        subdomains={subdomains}
-        tld={tld}
-      />
       <div className='py-3'>
         <div className='grid grid-cols-1 md:grid-cols-3 divide-x border-t border-l border-r'>
           <AccessibilityBox adaScore={adaScore} />

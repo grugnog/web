@@ -7,16 +7,21 @@ type ExcludeProps = {
 const isWhitelisted = ({ pathname, url }: ExcludeProps) => {
   return (
     [
-      '/api/iframe',
+      /// nextjs excludes
       '/_next/image',
       '/js/gql/middleware.js.map',
       '/img/',
       '/en',
       '/home',
     ].includes(pathname) ||
+    pathname.startsWith('/api/') ||
+    pathname.startsWith('/backup/') ||
+    pathname.startsWith('/backups/') ||
+    pathname.startsWith('/bak/') ||
+    pathname.startsWith('/restore/') ||
+    pathname.startsWith('/old/') ||
     pathname.startsWith('/workbox-') ||
     pathname.startsWith('/src/') ||
-    pathname.startsWith('/api/') ||
     pathname === '/manifest.json' ||
     pathname === '/robots.txt' ||
     pathname === '/_offline' ||
@@ -26,9 +31,13 @@ const isWhitelisted = ({ pathname, url }: ExcludeProps) => {
     url.endsWith('.webp') ||
     url.endsWith('.wasm') ||
     url.endsWith('.css') ||
+    url.endsWith('.tar') ||
     url.endsWith('.mp4') ||
+    url.endsWith('.sql') ||
+    url.endsWith('.rar') ||
     url.endsWith('.mp3') ||
     url.endsWith('.ico') ||
+    url.endsWith('.zip') ||
     url.endsWith('.png') ||
     url.endsWith('.jpg') ||
     url.endsWith('.jpeg') ||

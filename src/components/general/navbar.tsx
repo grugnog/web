@@ -1,4 +1,4 @@
-import React, { memo } from 'react'
+import React, { FC, memo } from 'react'
 import { useRouter } from 'next/router'
 
 import { IconButton } from '@material-ui/core'
@@ -89,7 +89,22 @@ const LeftbuttonWrapper = ({
 
 const Leftbutton = memo(LeftbuttonWrapper)
 
-const NavBarComponent = ({
+// navbar props
+interface NavProps {
+  title?: string | string[]
+  backButton?: boolean
+  marketing?: boolean
+  toolbar?: any
+  className?: string
+  position?: 'fixed' | 'absolute' | 'relative' | 'static' // navbar position
+  marketingLinks?: any
+  notitle?: boolean
+  authenticated?: boolean
+  loading?: boolean
+  children?: any
+}
+
+const NavBarComponent: FC<NavProps> = ({
   title = strings.appName,
   backButton,
   marketing,
@@ -101,7 +116,7 @@ const NavBarComponent = ({
   notitle,
   authenticated,
   loading,
-}: any) => {
+}) => {
   const classes = useStyles({ position })
   const router = useRouter()
 

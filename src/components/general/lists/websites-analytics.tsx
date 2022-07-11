@@ -47,7 +47,7 @@ function AnalyticsWrapper(props: any) {
 // memo expensive issues
 const Analytics = memo(AnalyticsWrapper)
 
-const RenderInner: FC<any> = (props) => {
+export const RenderInnerAnalytics: FC<any> = (props) => {
   const { pageUrl, generalProps } = props
   const { data: analyticsSource, loading, onLoadMore } = useAnalyticsData(
     pageUrl
@@ -120,7 +120,7 @@ const ListCell = ({
         </div>
       </button>
       {visible ? (
-        <RenderInner
+        <RenderInnerAnalytics
           data={item}
           pageUrl={item.url}
           loading={loading}

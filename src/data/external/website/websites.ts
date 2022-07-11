@@ -269,11 +269,7 @@ export const useWebsiteData = (
   }, [addWebsiteData])
 
   const updateQuery = (prev: any, { fetchMoreResult }: any) => {
-    if (!fetchMoreResult) {
-      return prev
-    }
-
-    if (!fetchMoreResult?.user?.websites?.length) {
+    if (!fetchMoreResult || !fetchMoreResult?.user?.websites?.length) {
       AppManager.toggleSnack(true, 'No more websites exist.')
       return prev
     }
@@ -292,7 +288,6 @@ export const useWebsiteData = (
   }
 
   // EVENTS
-
   const crawlWebsite = async (params: any) => {
     try {
       await crawl(params)
@@ -304,7 +299,6 @@ export const useWebsiteData = (
       } catch (e) {
         console.error(e)
       }
-      console.log(domain)
 
       if (domain) {
         setActiveCrawl((v) => ({
@@ -413,13 +407,16 @@ export const useWebsiteData = (
     }
   }
 
+  // toggle the feed menu
   const setFeed = (open: boolean) => {
+    // clear feed data on close
     if (!open) {
       feed?.clear_data()
     }
     setIssueFeedContent(open)
   }
 
+  // add a website to monitor
   const addWebPage = async (params: any) => {
     try {
       const { data: ds } = (await addWebsiteMutation(params)) ?? { data: null }

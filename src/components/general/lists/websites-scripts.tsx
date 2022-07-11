@@ -39,9 +39,9 @@ function ScriptsWrapper(props: any) {
 // memo expensiveScripts
 const Scripts = memo(ScriptsWrapper)
 
-const RenderInner: FC<any> = (props) => {
+export const RenderInnerScripts: FC<any> = (props) => {
   const { pageUrl, generalProps } = props
-  const all = props?.data?.subdomains || props?.data.tld
+  const all = props?.data?.subdomains || props?.data?.tld
 
   const { data: scriptSource, loading, onLoadMore } = useScriptsData(
     pageUrl,
@@ -116,7 +116,7 @@ const ListCell = ({
         </div>
       </button>
       {visible ? (
-        <RenderInner
+        <RenderInnerScripts
           data={item}
           pageUrl={item.url}
           loading={loading}

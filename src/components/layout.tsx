@@ -1,4 +1,4 @@
-import React, { Fragment, FC, useEffect } from 'react'
+import { useEffect } from 'react'
 
 import { LOGGIN_ROUTES } from '@app/configs'
 import {
@@ -34,7 +34,7 @@ const CRISP_WEBSITE_ID = process.env.CRISP_WEBSITE_ID
 // load the application with providers depending on component
 const LayoutWrapper = ({ Component, pageProps }: InnerApp) => {
   const { name } = Component?.meta || strings?.meta
-  const { wasm, gql } = Component
+  const { wasm, gql, rest } = Component
 
   useEffect(() => {
     const jssStyles = document.querySelector('#jss-server-side')
@@ -66,32 +66,19 @@ const LayoutWrapper = ({ Component, pageProps }: InnerApp) => {
     initialWebsiteQuery
   )
 
-  // Restful/OpenAPI provider
-  const RestWrapper = Component.rest ? RestWebsiteProviderWrapper : Fragment
-
-  // gQL provider
-  const GqlWrapper: FC = gql
-    ? ({ children }) => {
-        return (
-          <WebsiteProviderWrapper
-            skip={!initialQuery}
-            gqlFilter={Component?.params?.filter}
-            scopedQuery={scopedQuery}
-          >
-            {children}
-          </WebsiteProviderWrapper>
-        )
-      }
-    : Fragment
-
   return (
     <WASMContextProvider load={wasm}>
-      <AuthProviderWrapper load={wasm}>
-        <GqlWrapper>
-          <RestWrapper>
+      <AuthProviderWrapper load={wasm || gql || rest}>
+        <WebsiteProviderWrapper
+          skip={!initialQuery}
+          gqlFilter={Component?.params?.filter}
+          scopedQuery={scopedQuery}
+          gql={gql}
+        >
+          <RestWebsiteProviderWrapper rest={rest}>
             <Component {...pageProps} name={name} />
-          </RestWrapper>
-        </GqlWrapper>
+          </RestWebsiteProviderWrapper>
+        </WebsiteProviderWrapper>
       </AuthProviderWrapper>
     </WASMContextProvider>
   )

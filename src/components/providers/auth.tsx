@@ -8,7 +8,7 @@ const AppContext = createContext({
 
 export const AuthProvider = AppContext.Provider
 
-// Determine the initial account type via load
+// Determine the initial account type via load client-side
 export const AuthProviderWrapper: FC<{ load?: boolean }> = ({
   children,
   load,

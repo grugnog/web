@@ -14,7 +14,7 @@ function PagesWrapper(props: any) {
 // memo expensive Pages
 const Pages = memo(PagesWrapper)
 
-const RenderInner: FC<any> = (props) => {
+export const RenderInnerPages: FC<any> = (props) => {
   const { pageUrl, generalProps } = props
   const { data: pagesSource, loading, onLoadMorePages } = usePagesData(pageUrl)
 
@@ -63,6 +63,7 @@ const ListCell = ({
   const onTogglelist = () => {
     setVisible((v: boolean) => !v)
   }
+
   const totalIssues = item?.issuesInfo?.totalIssues
 
   return (
@@ -84,7 +85,7 @@ const ListCell = ({
         </div>
       </button>
       {visible ? (
-        <RenderInner
+        <RenderInnerPages
           data={item}
           pageUrl={item.url}
           loading={loading}

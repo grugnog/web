@@ -1,4 +1,4 @@
-import React, { createContext, useContext, FC } from 'react'
+import { createContext, useContext, FC, Fragment, memo } from 'react'
 import { useSearchRest } from '@app/data'
 import { restWebsiteDefaults } from '../defaults'
 
@@ -6,7 +6,7 @@ const AppContext = createContext(restWebsiteDefaults)
 
 export const RestWebsiteProvider = AppContext.Provider
 
-export const RestWebsiteProviderWrapper: FC = ({ children }) => {
+export const RestWebsiteProviderWrapperMain: FC = ({ children }) => {
   const sharedState = useSearchRest()
 
   return (
@@ -14,17 +14,22 @@ export const RestWebsiteProviderWrapper: FC = ({ children }) => {
   )
 }
 
-export function withRestWebsite(PageComponent: any) {
-  const WithRestWebsite = ({ ...pageProps }: any) => {
-    return (
-      <RestWebsiteProviderWrapper>
-        <PageComponent {...pageProps} />
-      </RestWebsiteProviderWrapper>
-    )
+export const RestWebsiteProviderWrapperContext: FC<{ rest?: boolean }> = ({
+  children,
+  rest,
+}) => {
+  if (!rest) {
+    return <Fragment>{children}</Fragment>
   }
 
-  return WithRestWebsite
+  return (
+    <RestWebsiteProviderWrapperMain>{children}</RestWebsiteProviderWrapperMain>
+  )
 }
+
+export const RestWebsiteProviderWrapper: FC<{ rest?: boolean }> = memo(
+  RestWebsiteProviderWrapperContext
+)
 
 export function useRestWebsiteContext() {
   return useContext(AppContext)

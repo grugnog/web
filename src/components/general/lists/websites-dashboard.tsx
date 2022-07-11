@@ -18,7 +18,7 @@ export function WebSitesDashboard({
 }: any) {
   return (
     <ul className='space-y-2 py-2'>
-      {data?.map(({ url, domain, _id, ...props }: Website, index: number) => {
+      {data?.map(({ domain, _id, ...props }: Website, index: number) => {
         const activeCrawl = activeCrawls && activeCrawls[domain]
 
         return (
@@ -27,7 +27,6 @@ export function WebSitesDashboard({
             _id={_id}
             domain={domain}
             handleClickOpen={handleClickOpen}
-            url={url}
             removePress={removePress}
             refetch={refetch}
             handleClickOpenPlayer={handleClickOpenPlayer}

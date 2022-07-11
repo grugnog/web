@@ -251,7 +251,6 @@ function Playground() {
                 loadingWrapper.classList.add('fadeOut');
                 root.classList.add('playgroundIn');
 
-                console.log(GraphQLPlayground)
                 GraphQLPlayground.init(root, {
                   endpoint: '${AppConfig.graphQLUrl}',
                   settings: {

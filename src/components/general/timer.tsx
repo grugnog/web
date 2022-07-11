@@ -26,7 +26,7 @@ export const Timer = ({
       setSeconds(0)
     }
     return () => clearInterval(interval)
-  }, [stop])
+  }, [stop, duration])
 
   const secs = seconds.toFixed(0)
   const defaultDuration = duration ? Number(duration / 1000).toFixed(0) : 0
