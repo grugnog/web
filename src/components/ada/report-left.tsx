@@ -1,4 +1,4 @@
-import React, { memo } from 'react'
+import { memo } from 'react'
 import { Grid, Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import { Spacer, Timer, TestViewRest } from '@app/components/general'
@@ -33,13 +33,14 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
+// rendered only on desktop
 const MainView = ({ website, viewMode }: any) => {
   if (website?.url) {
     if (viewMode && viewMode === 'list') {
       return <FeedList issue={website as any} isHidden={false} fullScreen />
     }
     return (
-      <div className='hidden md:block'>
+      <div>
         <TestViewRest
           url={website.url || ''}
           marketing
@@ -93,7 +94,9 @@ export function ReportViewComponentLeft({
         download={authenticated && download}
         onToggleViewModeEvent={onToggleViewModeEvent}
       />
-      <MainView website={website} viewMode={viewMode} />
+      <div className='hidden md:block'>
+        <MainView website={website} viewMode={viewMode} />
+      </div>
     </div>
   )
 }
