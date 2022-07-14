@@ -32,6 +32,7 @@ import { useLighthouse } from '@app/data/formatters/use-lighthouse'
 import { useWasmContext } from '@app/components/providers'
 import { useAuthContext } from '@app/components/providers/auth'
 import { GrChannel } from 'react-icons/gr'
+import { ErrorBoundary } from '../error-boundary'
 
 const styles = {
   title: 'text-xl md:text-3xl font-bold truncate',
@@ -77,6 +78,8 @@ export function WebsiteCellDashboardComponent({
   const [anchorEl, setAnchorEl] = useState<any>(null)
   const { activeSubscription } = useAuthContext() // TODO: move to provider top level
   const { feed } = useWasmContext()
+  const parsedInsight = useLighthouse(insight)
+
   const items = feed?.get_data_item(domain, tld || subdomains) ?? []
   const issues = items?.length ? items : currentIssues
 
@@ -133,8 +136,6 @@ export function WebsiteCellDashboardComponent({
 
   const reportsLink = `${BASE_GQL_URL}/${encodedUrl}`
   const reportsPageLink = `/reports/${encodedUrl}`
-
-  const parsedInsight = useLighthouse(insight)
 
   // playground link
   const linkUrl = useMemo(
@@ -313,7 +314,11 @@ export function WebsiteCellDashboardComponent({
           parsedInsight && lighthouseVisible ? 'visible' : 'hidden'
         }`}
       >
-        {parsedInsight ? <ReportViewer json={parsedInsight} /> : null}
+        {parsedInsight ? (
+          <ErrorBoundary>
+            <ReportViewer json={parsedInsight} />
+          </ErrorBoundary>
+        ) : null}
       </div>
     </li>
   )

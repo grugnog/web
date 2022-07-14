@@ -1,4 +1,4 @@
-import React, { Fragment, useState, useCallback } from 'react'
+import { Fragment, useState, useCallback } from 'react'
 import { useMiniPlayer } from '@app/data'
 import { FullScreenModal } from './fullscreen-modal'
 import { DataContainer } from './data-container'
