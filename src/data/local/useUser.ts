@@ -21,11 +21,11 @@ export function useUser() {
   const { data, client } = useQuery(GET_USER_STATE, { ssr: false })
   const user = data?.user || defaultState
 
-  const setUserData = (userData: any) => () => {
+  const setUserData = (useUserData: any) => () => {
     client.writeData({
       data: {
         user: {
-          ...userData,
+          ...useUserData,
           __typename: 'User',
         },
       },

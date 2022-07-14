@@ -39,7 +39,7 @@ export const useWebsiteData = (
 
   const issueFeed = {
     open: feedOpen,
-    data: feed?.get_data() ?? {},
+    data: (feed && feed?.get_data()) ?? {},
   }
 
   const [activeCrawls, setActiveCrawl] = useState<

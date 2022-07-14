@@ -1,6 +1,6 @@
 import React, { Fragment, memo } from 'react'
 import dynamic from 'next/dynamic'
-import { userData } from '@app/data'
+import { useUserData } from '@app/data'
 import { drawerStyles } from '@app/styles/drawer'
 import { NavBarTitle, AuthedMenu } from '../navigation'
 import { SearchBar } from '../searchbar'
@@ -87,15 +87,14 @@ export function DrawerComponent({
   bottomButton,
 }: any) {
   const classes = drawerStyles()
-  const { data: dataSourceMap, sendConfirmEmail } = userData()
+  const { data: dataSourceMap, sendConfirmEmail } = useUserData()
   const { issueFeed } = useWebsiteContext()
 
-  // TODO: remove re-adjusting client for absulute position feed.
   const { open } = issueFeed
 
   const user = dataSourceMap?.user as any
 
-  const sidePannelStyles = `${open ? `${classes.sidePanelPadding}` : ''}`
+  const sidePannelStyles = open ? `${classes.sidePanelPadding}` : ''
 
   return (
     <div className={classes.root}>

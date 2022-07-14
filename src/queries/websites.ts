@@ -124,7 +124,7 @@ export const GET_WEBSITE_SCRIPTS = gql`
 
 // generic list without frag
 export const GET_WEBSITES_INFO = gql`
-  query getWebsites($limit: Int, $offset: Int) {
+  query getWebsitesInfo($limit: Int, $offset: Int) {
     user {
       id
       websites(limit: $limit, offset: $offset) {
@@ -149,7 +149,7 @@ export const GET_WEBSITES_INFO = gql`
 // TODO: refactor pages to pages query
 export const GET_PAGES = gql`
   ${subdomainFragments}
-  query getWebsites($limit: Int, $offset: Int) {
+  query getWebsitesPages($limit: Int, $offset: Int) {
     user {
       id
       websites(limit: $limit, offset: $offset) {
@@ -198,7 +198,7 @@ export const updateCache: {
       const user = query?.user
       const { websites } = user ?? { websites: [] }
 
-      let newWebSites = updateCache.last.length ? updateCache.last : websites
+      let newWebSites = updateCache?.last?.length ? updateCache.last : websites
 
       const { addWebsite, removeWebsite } = data
 
@@ -222,7 +222,7 @@ export const updateCache: {
         }
 
         const pages = newWebSites
-          .reduce((acc: any, current: any) => {
+          ?.reduce((acc: any, current: any) => {
             const x = acc.find((item: any) => item.url === current.url)
             if (!x) {
               return acc.concat([current])
@@ -230,11 +230,11 @@ export const updateCache: {
               return acc
             }
           }, [])
-          .map((item: any) => {
+          ?.map((item: any) => {
             return {
               ...item,
-              pages: item.pages ?? [],
-              issues: item.issues ?? [],
+              pages: item?.pages ?? [],
+              issues: item?.issues ?? [],
             }
           })
 

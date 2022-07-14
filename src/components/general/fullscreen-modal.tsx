@@ -57,8 +57,8 @@ function UpperInput({ data, url }: any) {
 
   const customHeaders = customFields?.map((item: any) => {
     return {
-      key: item.key,
-      value: item.value,
+      key: item?.key,
+      value: item?.value,
     }
   })
 

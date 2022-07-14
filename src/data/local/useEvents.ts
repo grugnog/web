@@ -45,7 +45,11 @@ export function useEvents() {
   }
 
   useEffect(() => {
-    load()
+    try {
+      load()
+    } catch (e) {
+      console.error(e)
+    }
   }, [])
 
   return {

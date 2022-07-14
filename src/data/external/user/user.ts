@@ -14,7 +14,7 @@ import { AppManager, UserManager } from '@app/managers'
 import { EMAIL_VERIFIED_SUBSCRIPTION } from '@app/subscriptions'
 import { GET_USER_PROFILE, GET_USER_SETTINGS } from '@app/queries/user'
 
-export const userData = (skip?: boolean, query?: 'profile' | 'settings') => {
+export const useUserData = (skip?: boolean, query?: 'profile' | 'settings') => {
   const variables = {}
   const profileQuery = query === 'profile'
   const settingsQuery = query === 'settings'

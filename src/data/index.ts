@@ -1,6 +1,6 @@
 export { websiteData, useWebsiteData, useSearchRest } from './external/website'
 export { issueData } from './external/issues/issue'
-export { userData } from './external/user/user'
+export { useUserData } from './external/user/user'
 export { historyData } from './external/history/history'
 export { useFeaturesData } from './external/user/features'
 export { analyticsData } from './external/analytics/analytics'

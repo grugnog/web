@@ -2,7 +2,7 @@ import { useRef, useEffect, SyntheticEvent, useState } from 'react'
 import { makeStyles } from '@material-ui/core/styles'
 import { TextField, FormControl, LinearProgress } from '@material-ui/core'
 import { AppManager, UserManager } from '@app/managers'
-import { userData } from '@app/data'
+import { useUserData } from '@app/data'
 import { MarketingDrawer, PageTitle } from '@app/components/general'
 import { useRouter } from 'next/router'
 import { metaSetter } from '@app/utils'
@@ -27,7 +27,7 @@ function ResetPassword({ name }: PageProps) {
     forgotPasswordData,
     resetPassword,
     resetPasswordData,
-  } = userData(true)
+  } = useUserData(true)
 
   const emailRef = useRef<{ value: string }>(null)
   const resetRef = useRef<{ value: string }>(null)

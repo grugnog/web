@@ -16,7 +16,7 @@ import {
 import { Box } from '@a11ywatch/ui'
 import { TextSkeleton } from '@app/components/placeholders'
 import { AppManager } from '@app/managers'
-import { userData } from '@app/data'
+import { useUserData } from '@app/data'
 import { metaSetter } from '@app/utils'
 import { useProfileStyles as useStyles } from '@app/styles/pages/profile'
 import type { PageProps } from '@app/types'
@@ -24,7 +24,7 @@ import { useBillingDisplay } from '@app/data/formatters'
 
 const Profile: FC<PageProps> = ({ name }) => {
   const classes = useStyles()
-  const { data = {}, loading, updateUser, updateUserData } = userData(
+  const { data = {}, loading, updateUser, updateUserData } = useUserData(
     true,
     'profile'
   )

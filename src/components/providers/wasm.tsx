@@ -16,12 +16,17 @@ export const WASMContextProviderWrapper: React.FC<WASMContextProviderProps> = ({
 
   useEffect(() => {
     if (load && state && !state?.wasm) {
-      ;(async () => {
-        const wasm = await import('a11ywatch-web-wasm')
-        const feed = wasm.Feed.new() // init top level feed
+      try {
+        ;(async () => {
+          const wasm = await import('a11ywatch-web-wasm')
+          const feed = wasm.Feed.new() // init top level feed
 
-        setState({ wasm, feed })
-      })()
+          setState({ wasm, feed })
+        })()
+      } catch (e) {
+        // TODO: add fallback js bundle if wasm fails to load or bind it to the initial wasm package.
+        console.error(e)
+      }
     }
   }, [load, state])
 

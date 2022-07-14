@@ -22,7 +22,7 @@ export const StandardBoxWrapper = ({
   const onStandardChange = async (
     event: React.ChangeEvent<HTMLSelectElement>
   ) => {
-    const value = event.target.value as keyof typeof Standard
+    const value = event?.target?.value as keyof typeof Standard
     setStandard(value)
 
     try {

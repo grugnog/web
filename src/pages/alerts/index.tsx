@@ -3,7 +3,7 @@ import React from 'react'
 import { PageTitle, LinearBottom, Drawer } from '@app/components/general'
 
 import { WeekSelect } from '@app/components/alerts'
-import { userData } from '@app/data'
+import { useUserData } from '@app/data'
 import { metaSetter } from '@app/utils'
 import type { PageProps } from '@app/types'
 
@@ -14,7 +14,7 @@ function Alerts({ name }: PageProps) {
     filterEmailDatesLoading,
     data, // user
     loading,
-  } = userData()
+  } = useUserData()
 
   if (!data && !loading) {
     return (

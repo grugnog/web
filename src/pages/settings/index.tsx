@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { PageTitle, Drawer } from '@app/components/general'
-import { userData } from '@app/data'
+import { useUserData } from '@app/data'
 import { metaSetter } from '@app/utils'
 import type { PageProps } from '@app/types'
 
@@ -10,7 +10,7 @@ function Settings({ name }: PageProps) {
     settings: data, // user
     loading,
     onConfirmLighthouse,
-  } = userData(true, 'settings')
+  } = useUserData(true, 'settings')
 
   const onSetLighthouseCode = (e: React.SyntheticEvent<HTMLInputElement>) => {
     setPageSpeed(e.currentTarget.value)

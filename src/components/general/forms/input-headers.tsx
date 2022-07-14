@@ -39,7 +39,7 @@ export function InputHeadersComponent({
                 color='secondary'
                 margin='dense'
                 className='flex-1'
-                value={item.value}
+                value={item?.value}
                 placeholder={inputValueName}
                 onChange={(event: any) =>
                   updateFormField(
@@ -50,7 +50,7 @@ export function InputHeadersComponent({
                 }
                 required
               />
-              {customFields.length > 1 ? (
+              {customFields?.length > 1 ? (
                 <IconButton
                   aria-label='add header field'
                   onClick={() => removeFormField(index)}
@@ -58,7 +58,7 @@ export function InputHeadersComponent({
                   <GrSubtractCircle />
                 </IconButton>
               ) : null}
-              {index === customFields.length - 1 ? (
+              {index === customFields?.length - 1 ? (
                 <IconButton
                   aria-label='add header field'
                   onClick={addFormField}

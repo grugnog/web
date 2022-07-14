@@ -37,6 +37,16 @@ export function RenderSecondaryComponent({
     color: 'rgba(0, 0, 0, 0.7)',
   }
 
+  const headers = useMemo(
+    () =>
+      pageHeaders && pageHeaders.length
+        ? pageHeaders
+            ?.filter((item: any) => item.key)
+            ?.map((item: any) => ({ [item.key]: item?.value }))
+        : [],
+    [pageHeaders]
+  )
+
   return (
     <div className={'flex space-x-2'}>
       {mainIssues && adaScore !== 100 ? (
@@ -94,11 +104,9 @@ export function RenderSecondaryComponent({
           />
         </Tooltip>
       ) : null}
-      {pageHeaders && pageHeaders?.length ? (
+      {headers && headers?.length ? (
         <Tooltip
-          title={`Custom headers ${JSON.stringify(
-            pageHeaders.map((item: any) => ({ [item.key]: item.value }))
-          )}`}
+          title={`Custom headers ${JSON.stringify(headers)}`}
           placement={'right'}
         >
           <Chip

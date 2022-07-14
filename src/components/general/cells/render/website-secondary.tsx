@@ -1,4 +1,4 @@
-import React, { memo } from 'react'
+import React, { memo, useMemo } from 'react'
 import { Chip, Tooltip } from '@material-ui/core'
 import {
   GrCalendar,
@@ -34,6 +34,16 @@ export function WebsiteSecondaryComponent({
 }: Website & { pageIssueCount?: number; adaScore?: number }) {
   const { possibleIssuesFixedByCdn, issuesFixedByCdn, totalIssues } =
     issuesInfo ?? {}
+
+  const headers = useMemo(
+    () =>
+      pageHeaders && pageHeaders.length
+        ? pageHeaders
+            ?.filter((item: any) => item.key)
+            ?.map((item: any) => ({ [item.key]: item?.value }))
+        : [],
+    [pageHeaders]
+  )
 
   return (
     <div className={'flex space-x-2 overflow-x-hidden hover:overflow-x-auto'}>
@@ -130,19 +140,17 @@ export function WebsiteSecondaryComponent({
           />
         </Tooltip>
       ) : null}
-      {pageHeaders && pageHeaders?.length ? (
+      {headers && headers?.length ? (
         <Tooltip
-          title={`Custom headers ${JSON.stringify(
-            pageHeaders.map((item: any) => ({ [item.key]: item.value }))
-          )}`}
+          title={`Custom headers ${JSON.stringify(headers)}`}
           placement={'right'}
         >
           <Chip
             style={chipRootStyle}
             size='small'
             avatar={<GrConfigure style={chipStyle} />}
-            label={`${pageHeaders?.length} custom header${
-              pageHeaders?.length === 1 ? '' : 's'
+            label={`${headers?.length} custom header${
+              headers?.length === 1 ? '' : 's'
             }`}
           />
         </Tooltip>

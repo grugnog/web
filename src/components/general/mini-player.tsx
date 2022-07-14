@@ -55,7 +55,10 @@ export const MiniPlayer: FunctionComponent<MiniPlayerProps> = (_) => {
   const { open, data, title } = useMemo(() => {
     // parse lighthouse data
     if (miniPlayer?.title === 'Lighthouse') {
-      return { ...miniPlayer, data: JSON.parse(miniPlayer?.data) }
+      return {
+        ...miniPlayer,
+        data: miniPlayer?.data ? JSON.parse(miniPlayer?.data) : null,
+      }
     }
     return miniPlayer
   }, [miniPlayer])

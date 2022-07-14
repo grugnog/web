@@ -22,7 +22,7 @@ export const paymentsData = () => {
 
   const user = data?.user || {}
   const newUser = updateUserData?.updateUserData?.user || {}
-  const userData = Object.assign({}, user, newUser)
+  const useUserData = Object.assign({}, user, newUser)
 
   useMemo(() => {
     if (newUser?.role !== user?.role && newUser?.jwt) {
@@ -31,7 +31,7 @@ export const paymentsData = () => {
   }, [newUser])
 
   const model = Object.freeze({
-    data: (Object.keys(userData).length && userData) || null,
+    data: (Object.keys(useUserData).length && useUserData) || null,
     loading: loading || addPaymentLoading || cancelSubscriptionLoading,
     addSubscription,
     cancelSubscription,

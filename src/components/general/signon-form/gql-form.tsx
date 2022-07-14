@@ -1,4 +1,4 @@
-import React, {
+import {
   useEffect,
   FunctionComponent,
   Fragment,
@@ -99,10 +99,16 @@ const SignOnFormWrapper: FunctionComponent<SignOnProps> = ({
             : '/'
 
           UserManager.setUser(user)
-          ;(async () => {
-            await router.push(urlRoute)
-            router.reload()
-          })()
+
+          setTimeout(() => {
+            router.push(urlRoute).catch((e) => {
+              AppManager.toggleSnack(
+                true,
+                `An error occured on route updating, please try to reload: ${e}.`,
+                'error'
+              )
+            })
+          }, 0)
         } catch (e) {
           console.error(e)
         }
@@ -114,7 +120,6 @@ const SignOnFormWrapper: FunctionComponent<SignOnProps> = ({
 
   const submit = async (e: any) => {
     e?.preventDefault()
-    // @ts-ignore
     if (!password || !email) {
       AppManager.toggleSnack(
         true,

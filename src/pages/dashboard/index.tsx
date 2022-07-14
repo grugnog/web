@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useMemo, useState } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 import {
   Button,
   PageTitle,
@@ -56,8 +56,11 @@ function Dashboard({ name }: PageProps) {
   const { issueSubData } = subscriptionData
 
   useEffect(() => {
-    queueMicrotask(ping)
-
+    try {
+      queueMicrotask(ping)
+    } catch (e) {
+      console.error(e)
+    }
     // effect for first time user directing to alerts
     if (issueSubData && events && !events?.firstAdd) {
       setEvents({
@@ -85,7 +88,7 @@ function Dashboard({ name }: PageProps) {
     setLighthouseVisibility((visible: boolean) => !visible)
   }, [setLighthouseVisibility])
 
-  const lhEnabled = websites?.some((web) => web.pageInsights)
+  const lhEnabled = websites?.some((web) => web?.pageInsights)
 
   const onWebsiteSort = () => setSortModalVisible((v) => !v)
 
@@ -151,7 +154,7 @@ function Dashboard({ name }: PageProps) {
               activeCrawls={activeCrawls}
             />
             <LoadMoreButton
-              visible={websites.length > 1}
+              visible={websites?.length > 1}
               onLoadMoreEvent={onLoadMoreWebsites}
             />
           </div>

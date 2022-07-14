@@ -10,7 +10,7 @@ import {
 import { Box } from '@a11ywatch/ui'
 import { TextSkeleton } from '@app/components/placeholders'
 import { UserManager, AppManager } from '@app/managers'
-import { userData } from '@app/data'
+import { useUserData } from '@app/data'
 import { metaSetter } from '@app/utils'
 import { GrCopy } from 'react-icons/gr'
 import { companyName } from '@app/configs'
@@ -36,7 +36,7 @@ const SectionTitle: FC<{ className?: string; bold?: boolean }> = ({
 // TODO: GENERATE DOCS FROM API
 function ApiInfo() {
   const [keyVisible, setKey] = useState<boolean>(false)
-  const { data = {}, loading } = userData()
+  const { data = {}, loading } = useUserData()
   const { user } = data ?? { user: null }
   const toggleKey = () => setKey((c) => !c)
 

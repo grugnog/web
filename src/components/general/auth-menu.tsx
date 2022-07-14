@@ -49,16 +49,6 @@ function AuthMenuComponent({
 
     UserManager.clearUser()
 
-    if (router.pathname !== '/') {
-      try {
-        await router.push('/')
-      } catch (e) {
-        console.error(e)
-      }
-    } else {
-      router.reload()
-    }
-
     try {
       await client?.resetStore()
     } catch (e) {
@@ -69,6 +59,16 @@ function AuthMenuComponent({
       await client?.clearStore()
     } catch (e) {
       console.error(e)
+    }
+
+    if (router?.pathname !== '/') {
+      try {
+        await router.push('/')
+      } catch (e) {
+        console.error(e)
+      }
+    } else {
+      router.reload()
     }
   }
 

@@ -66,5 +66,6 @@ export default metaSetter(
     description: 'Your web page actions to run during testing.',
     gql: true,
     wasm: true,
+    intercom: true,
   }
 )

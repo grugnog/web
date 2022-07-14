@@ -14,7 +14,7 @@ export const UserAgentBoxWrapper = ({
   const { updateWebsite } = useWebsiteContext()
 
   const onChangeUA = (e: React.ChangeEvent<any>) => {
-    setUa(e.target.value)
+    setUa(e?.target?.value)
   }
 
   useEffect(() => {
