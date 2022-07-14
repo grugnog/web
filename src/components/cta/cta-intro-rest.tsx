@@ -23,8 +23,8 @@ function CtaIntroRest({ checker }: CtaIntroRest) {
               'Fast and insightful web accessibility evaluations'
             ) : (
               <>
-                Keep your website accessible{' '}
-                <b className='text-blue-600 underline'>always</b>
+                Build your next{' '}
+                <b className='text-blue-600 underline'>website</b> the right way
               </>
             )}
           </h1>
@@ -35,8 +35,8 @@ function CtaIntroRest({ checker }: CtaIntroRest) {
             color={'textSecondary'}
           >
             {checker
-              ? 'Test your web page inclusion and vitals with the help of artificial intelligence (AI)'
-              : 'Path to a pleasant diverse experience that guides you along the way'}
+              ? 'Test your web page inclusion and vitals fast'
+              : 'Path to a pleasant diverse experience for everyone'}
           </Typography>
           <Button
             component={Link}

@@ -1,4 +1,4 @@
-import { useCallback, memo, useState } from 'react'
+import { useCallback, memo, useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
 
 import { IconButton, MenuItem, Menu, Tooltip } from '@material-ui/core'
@@ -26,7 +26,7 @@ function AuthMenuComponent({
 }: Props) {
   const router = useRouter()
   const [anchorEl, setAnchorEl] = useState<any>(null)
-  const [logoutMutation, { client }] = useMutation(LOGOUT, {
+  const [logoutMutation, { data, client }] = useMutation(LOGOUT, {
     ignoreResults: true,
   })
   const { setIssueFeedContent } = useWebsiteContext()
@@ -38,6 +38,18 @@ function AuthMenuComponent({
     [setAnchorEl]
   )
 
+  useEffect(() => {
+    if (data) {
+      ;async () => {
+        try {
+          await client?.clearStore()
+        } catch (e) {
+          console.error(e)
+        }
+      }
+    }
+  }, [data, client])
+
   // simple logout
   const logout = async (e: any) => {
     e?.preventDefault()
@@ -45,25 +57,12 @@ function AuthMenuComponent({
 
     try {
       await logoutMutation()
-    } catch (e) {
-      console.error(e)
-    }
-
-    UserManager.clearUser()
-
-    try {
-      await client?.clearStore()
+      UserManager.clearUser()
     } catch (e) {
       console.error(e)
     }
 
     window.location.pathname = '/'
-
-    // try {
-    //   await client?.resetStore()
-    // } catch (e) {
-    //   console.error(e)
-    // }
   }
 
   if (

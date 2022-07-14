@@ -1,12 +1,7 @@
 import { memo } from 'react'
 import { useLighthouse } from '@app/data/formatters/use-lighthouse'
 import { ErrorBoundary } from './error-boundary'
-import dynamic from 'next/dynamic'
-import { Suspense } from 'react'
-
-const ReportViewer = dynamic(() => import('next-lighthouse'), {
-  suspense: true,
-}) as any
+import ReportViewer from 'next-lighthouse'
 
 export function LighthouseComponent({ insight, lighthouseVisible }: any) {
   const parsedInsight = useLighthouse(insight)
@@ -18,9 +13,7 @@ export function LighthouseComponent({ insight, lighthouseVisible }: any) {
           parsedInsight && lighthouseVisible ? 'visible' : 'hidden'
         }`}
       >
-        <Suspense fallback={`Loading...`}>
-          <ReportViewer json={parsedInsight} />
-        </Suspense>
+        <ReportViewer json={parsedInsight} />
       </div>
     </ErrorBoundary>
   ) : null

@@ -28,7 +28,6 @@ function AuthRedirect() {
 
           if (authValue) {
             UserManager.setUser(authValue)
-            await router.push('/')
           }
         } else {
           AppManager.toggleSnack(
@@ -36,13 +35,13 @@ function AuthRedirect() {
             'Your Github email set to private. Update your email to public to login.',
             'error'
           )
-          router.push('/')
         }
+        window.location.pathname = '/'
       } catch (e) {
         console.error(e)
       }
     },
-    [router, signOnMutation]
+    [signOnMutation]
   )
 
   useEffect(() => {
@@ -58,8 +57,11 @@ function AuthRedirect() {
           try {
             await onGithubAuth({ email: res.email, id: res.id })
           } catch (e) {
-            console.error(e)
+            AppManager.toggleSnack(true, `${e}`, 'error')
           }
+        })
+        .catch((e) => {
+          AppManager.toggleSnack(true, `${e}`, 'error')
         })
     }
   }, [access_token, onGithubAuth])
