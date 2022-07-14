@@ -1,17 +1,7 @@
 import { Fragment } from 'react'
 import { MarketingDrawer, Price } from '@app/components/general'
-import {
-  CtaFeatures,
-  CtaIntroRest,
-  CtaCustomers,
-  CtaSignonForm,
-} from '@app/components/cta'
-import {
-  MarketingTestimonial,
-  MarketingTrustBy,
-  MarketingCli,
-  MarketingProductIntro,
-} from '@app/components/marketing'
+import { CtaFeatures, CtaIntroRest } from '@app/components/cta'
+import { MarketingTrustBy, MarketingCli } from '@app/components/marketing'
 import { metaSetter } from '@app/utils'
 import { strings } from '@app-strings'
 import { MarketingBottomTemporaryDrawer } from '@app/components/modal'
@@ -21,14 +11,10 @@ function Index() {
     <Fragment>
       <MarketingDrawer navPosition={'relative'} maxWidth={'xl'} index>
         <CtaIntroRest />
-        <MarketingProductIntro />
         <CtaFeatures />
-        <CtaCustomers />
         <MarketingCli />
-        <MarketingTestimonial />
-        <MarketingTrustBy />
         <Price navigate />
-        <CtaSignonForm />
+        <MarketingTrustBy />
       </MarketingDrawer>
       <MarketingBottomTemporaryDrawer />
     </Fragment>

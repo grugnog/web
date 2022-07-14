@@ -14,8 +14,8 @@ import { GrowTransition } from './grow'
 import { GrClose } from 'react-icons/gr'
 import dynamic from 'next/dynamic'
 import Draggable from 'react-draggable'
+import { Lighthouse } from './lighthouse'
 
-const ReportViewer = dynamic(() => import('next-lighthouse')) as any
 const AdaIframe = dynamic(
   () => import('../ada/ada-iframe').then((mod) => mod.AdaIframe) as any
 ) as any
@@ -120,8 +120,12 @@ export const MiniPlayer: FunctionComponent<MiniPlayerProps> = (_) => {
         </AppBar>
         {title === 'Lighthouse' ? (
           <>
-            {data && 'lighthouseVersion' in data ? (
-              <ReportViewer json={data} id='fullscreen-lighthouse-report' />
+            {data && 'json' in data ? (
+              <Lighthouse
+                insight={data}
+                id='fullscreen-lighthouse-report'
+                lighthouseVisible
+              />
             ) : (
               <div>Light house data not found.</div>
             )}

@@ -96,4 +96,4 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   }
 }
 
-export default metaSetter({ Register })
+export default metaSetter({ Register }, { gql: true })

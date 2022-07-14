@@ -7,11 +7,7 @@ export const useLighthouse = (insight: any) => {
       try {
         const parsedResult = JSON.parse(insight?.json)
 
-        if (
-          parsedResult &&
-          ('lighthouseVersion' in parsedResult ||
-            'requestedUrl' in parsedResult)
-        ) {
+        if (parsedResult && 'lighthouseVersion' in parsedResult) {
           return parsedResult
           // return online results <-- tmp remove from endpoint
         } else {

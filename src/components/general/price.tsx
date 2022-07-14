@@ -1,4 +1,4 @@
-import React, { memo, useMemo, useState } from 'react'
+import { memo, useMemo, useState } from 'react'
 import { Button } from '@material-ui/core'
 import { SectionContainer } from '@app/components/general'
 import { priceConfig } from '@app/configs'
@@ -151,7 +151,7 @@ function PriceWrapper({
           </p>
         </>
       ) : null}
-      <div className='flex sm:mt-6 py-4 space-x-1'>
+      <div className='flex space-x-1 pb-2'>
         <button
           type='button'
           onClick={() => {

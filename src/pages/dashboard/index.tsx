@@ -92,12 +92,15 @@ function Dashboard({ name }: PageProps) {
 
   const onWebsiteSort = () => setSortModalVisible((v) => !v)
 
+  // TODO: fix lighthouse allowing multiple websites at once.
   return (
     <>
       {lhEnabled ? (
         <Head>
           <style>
-            {`.lh-topbar__url, .report-icon--download { display: none !important; } `}
+            {`.lh-root .lh-topbar__url, .report-icon--download ${
+              data?.length >= 2 ? ', .lh-tools' : ''
+            } { display: none !important; } `}
           </style>
         </Head>
       ) : null}

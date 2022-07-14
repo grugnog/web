@@ -32,7 +32,7 @@ export function MarketingCli() {
 
   return (
     <SectionContainer>
-      <SectionHeading>Accessibility CLI</SectionHeading>
+      <SectionHeading>Command Line Interface</SectionHeading>
       <p className='text-lg pb-4 leading-10'>
         Run A11yWatch on any machine using the Rust Command Line Interface. Get
         the CLI simply in shell using{' '}

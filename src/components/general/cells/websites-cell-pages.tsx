@@ -1,6 +1,5 @@
-import React, { useState, useMemo, useCallback, memo } from 'react'
+import { useState, useMemo, useCallback, memo } from 'react'
 import { Link } from '../link'
-import ReportViewer from 'next-lighthouse'
 
 import {
   AccessibilityBox,
@@ -12,7 +11,7 @@ import {
 } from './blocks'
 import { Issue } from '@app/types'
 import { MoreOptionsBase } from './menu'
-import { useLighthouse } from '@app/data/formatters/use-lighthouse'
+import { Lighthouse } from '../lighthouse'
 
 const styles = {
   title: 'text-xl md:text-2xl font-bold truncate',
@@ -82,8 +81,6 @@ export function WebsiteCellPagesComponent({
     setAnchorEl(null)
   }
 
-  const parsedInsight = useLighthouse(insight)
-
   const linkUrl = useMemo(
     () => `/website-details?url=${encodeURIComponent(url)}`,
     [url]
@@ -125,7 +122,7 @@ export function WebsiteCellPagesComponent({
     }
   }, [issues, issuesInfo])
 
-  const lhExists = parsedInsight && Object.keys(parsedInsight)?.length
+  const lhExists = insight && Object.keys(insight)?.length
 
   return (
     <li className={`border px-3 pt-2 overflow-hidden`}>
@@ -157,7 +154,7 @@ export function WebsiteCellPagesComponent({
             pageHeaders={pageHeaders}
             index={index}
             pageInsights={pageInsights}
-            lh={lhExists ? parsedInsight : null}
+            lh={lhExists ? insight : null}
           />
         </div>
       </div>
@@ -167,9 +164,7 @@ export function WebsiteCellPagesComponent({
         <IssuesBox issues={errorCount} />
         <WarningsBox issues={warningCount} />
         <LoadTimeBox duration={pageLoadTime?.duration} />
-        <LighthouseBox
-          pageInsights={pageInsights || (parsedInsight && !!lhExists)}
-        />
+        <LighthouseBox pageInsights={insight || (insight && !!lhExists)} />
         <OnlineBox online={online} />
       </div>
       <div className={styles.spacing} />
@@ -177,9 +172,9 @@ export function WebsiteCellPagesComponent({
         className={`py-2 ${
           pageInsights && lighthouseVisible ? 'visible' : 'hidden'
         }`}
-        aria-expanded={pageInsights && lighthouseVisible}
+        aria-expanded={insight && lighthouseVisible}
       >
-        {pageInsights ? <ReportViewer json={parsedInsight} /> : null}
+        {insight ? <Lighthouse insight={insight} /> : null}
       </div>
     </li>
   )

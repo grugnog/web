@@ -14,6 +14,8 @@ const isWhitelisted = ({ pathname, url }: ExcludeProps) => {
       '/en',
       '/home',
     ].includes(pathname) ||
+    pathname.startsWith('/website-details') || // iframe route
+    pathname.startsWith('/testout') || // iframe route
     pathname.startsWith('/api/') ||
     pathname.startsWith('/backup/') ||
     pathname.startsWith('/backups/') ||
@@ -41,7 +43,8 @@ const isWhitelisted = ({ pathname, url }: ExcludeProps) => {
     url.endsWith('.png') ||
     url.endsWith('.jpg') ||
     url.endsWith('.jpeg') ||
-    url.endsWith('.xml')
+    url.endsWith('.xml') ||
+    url.endsWith('.env')
   )
 }
 

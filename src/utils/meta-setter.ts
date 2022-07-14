@@ -5,6 +5,7 @@ interface Meta {
   [name: string]: MetaFunction
 }
 
+// meta enhance a component with providers and meta tags
 export const metaSetter = (
   Component: Meta,
   { title, description, gql, rest, intercom, params, wasm }: MetaData = {}

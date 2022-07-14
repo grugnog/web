@@ -1,4 +1,4 @@
-import React, { memo } from 'react'
+import { memo } from 'react'
 import { List } from '@material-ui/core'
 import { useStyles } from './styles'
 import { RenderIssuesList } from './cells/render/issues-list'

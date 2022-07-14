@@ -17,7 +17,7 @@ function CtaIntroRest({ checker }: CtaIntroRest) {
       <div className={`${classes.root} space-x-3`}>
         <div className={`${classes.block}`}>
           <h1
-            className={`${classes.intro} font-bold text-5xl sm:text-7xl max-w-[90vw] py-3`}
+            className={`${classes.intro} font-bold text-5xl sm:text-7xl max-w-[90vw] py-3 lg:max-w-[48vw]`}
           >
             {checker ? (
               'Fast and insightful web accessibility evaluations'

@@ -268,8 +268,8 @@ function Payments({ hideTitle = false, name }: PaymentProps) {
                 </p>
               </div>
             )}
-            <div>
-              {data?.activeSubscription ? (
+            {data?.activeSubscription ? (
+              <div className='py-3'>
                 <Button
                   title={'Cancel Subscription'}
                   type={'button'}
@@ -278,8 +278,8 @@ function Payments({ hideTitle = false, name }: PaymentProps) {
                 >
                   Cancel Subscription
                 </Button>
-              ) : null}
-            </div>
+              </div>
+            ) : null}
           </div>
         </Box>
       </Container>
@@ -290,12 +290,12 @@ function Payments({ hideTitle = false, name }: PaymentProps) {
         aria-describedby='alert-dialog-description'
       >
         <DialogTitle id='alert-dialog-title'>
-          {'Cancel your subscription? You can always re-sub later on.'}
+          Cancel your subscription?
         </DialogTitle>
         <DialogContent>
           <DialogContentText id='alert-dialog-description'>
             Confirm cancel for {data?.role === 1 ? 'basic' : 'premium'}{' '}
-            subscription.
+            subscription. You can always re-sub later on.
           </DialogContentText>
         </DialogContent>
         <DialogActions>
@@ -306,12 +306,7 @@ function Payments({ hideTitle = false, name }: PaymentProps) {
           >
             No
           </Button>
-          <Button
-            onClick={cancelConfirm}
-            color='primary'
-            variant='contained'
-            type='submit'
-          >
+          <Button onClick={cancelConfirm} color='secondary' variant='outlined'>
             Confirm Cancel
           </Button>
         </DialogActions>

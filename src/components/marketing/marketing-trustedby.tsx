@@ -1,7 +1,5 @@
-import React, { memo } from 'react'
+import React from 'react'
 import Image from 'next/image'
-import { Typography } from '@material-ui/core'
-import { SectionHeading } from '../text'
 import { SectionContainer } from '../general'
 
 interface ImageProps {
@@ -29,14 +27,13 @@ const images: ImageProps[] = [
   { src: 'marketing_arrow', alt: 'Arrow Electronics logo' },
 ]
 
-function TrustBy() {
+export function MarketingTrustBy() {
   return (
     <SectionContainer>
-      <SectionHeading>Trusted by many businesses from all over</SectionHeading>
-      <Typography variant='h6' component='p' gutterBottom>
-        Used by small companies to Fortune 500.
-      </Typography>
-      <div className='border'>
+      <div className='text-center pb-3 text-lg text-gray-700 font-bold'>
+        Trusted by many businesses from all over
+      </div>
+      <div className='border rounded'>
         <div className='grid grid-cols-2 gap-0.5 md:grid-cols-3'>
           {images.map(({ src, alt, ext }: ImageProps, i: number) => (
             <MarketingImage src={src} ext={ext} alt={alt} key={`${i}_${ext}`} />
@@ -46,5 +43,3 @@ function TrustBy() {
     </SectionContainer>
   )
 }
-
-export const MarketingTrustBy = memo(TrustBy)

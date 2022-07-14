@@ -6769,10 +6769,10 @@ next-intercom@0.1.4:
   resolved "https://registry.npmjs.org/next-intercom/-/next-intercom-0.1.4.tgz"
   integrity sha512-B71WlnXu9jpthtTpJNt9c/hIYoxnBz7G3xtta2ke3Pb4wDz4WZBlScmZaKkmSuH1U5S4szsisOTZr3f2iB0y/w==
 
-next-lighthouse@^1.0.7:
-  version "1.0.7"
-  resolved "https://registry.npmjs.org/next-lighthouse/-/next-lighthouse-1.0.7.tgz"
-  integrity sha512-tozI2x7LarNSKPYPM9QbcfkBFAINmXMxvxFONYKbiYQgwTIH4Q2h+1hvRv0jzYhpAmMh68aP46L2flVNnyqjfg==
+next-lighthouse@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/next-lighthouse/-/next-lighthouse-1.1.0.tgz#fc2dccc73cd8f29eec240378ac890d1798560718"
+  integrity sha512-bK9v6st1PesCQKTBG27q5XdUkzL+r2ke6y22Ata7Z33H9yO5LCL+fNSbIBQgX7j7zqFl0HC1XstMbH3cDeZspg==
 
 next-pwa@5.5.4:
   version "5.5.4"

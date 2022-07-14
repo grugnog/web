@@ -1,14 +1,5 @@
 import React from 'react'
 import { Typography } from '@material-ui/core'
-import { makeStyles } from '@material-ui/core/styles'
-
-const useStyles = makeStyles((t) => ({
-  title: {
-    [t.breakpoints.down('sm')]: {
-      marginTop: 3,
-    },
-  },
-}))
 
 export function Heading({
   children,
@@ -23,14 +14,11 @@ export function Heading({
   bold?: boolean
   gutterBottom?: boolean
 }) {
-  const { title } = useStyles()
-
   return (
     <Typography
       variant={variant}
       component={component}
       gutterBottom={gutterBottom}
-      className={title}
       style={{ fontWeight: bold ? 600 : 400 }}
     >
       {children}
