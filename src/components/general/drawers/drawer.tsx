@@ -12,6 +12,7 @@ import { IssueFeed } from '../../feed'
 import { FormDialog } from '../form-dialog'
 import { DynamicModal } from '../../modal'
 import { MiniPlayer } from '../mini-player'
+import { useAuthContext } from '@app/components/providers/auth'
 
 const UpgradeBanner = dynamic(
   () =>
@@ -89,7 +90,7 @@ export function DrawerComponent({
   const classes = drawerStyles()
   const { data: dataSourceMap, sendConfirmEmail } = useUserData()
   const { issueFeed } = useWebsiteContext()
-
+  const { authed } = useAuthContext()
   const { open } = issueFeed
 
   const user = dataSourceMap?.user as any
@@ -104,7 +105,7 @@ export function DrawerComponent({
         route={route}
         title={title}
         bottomButton={bottomButton}
-        authenticated={!!user}
+        authenticated={authed}
         dataSourceMap={dataSourceMap}
         sidePannelStyles={sidePannelStyles}
       />

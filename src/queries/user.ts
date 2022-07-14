@@ -22,7 +22,7 @@ const GET_USER = gql`
 `
 
 const GET_USER_SETTINGS = gql`
-  query getUser {
+  query getUserSettings {
     user {
       id
       email

@@ -1,5 +1,4 @@
 import { useQuery, useMutation, useSubscription } from '@apollo/react-hooks'
-import { useMemo } from 'react'
 
 import {
   UPDATE_USER,
@@ -16,6 +15,7 @@ import { GET_USER_PROFILE, GET_USER_SETTINGS } from '@app/queries/user'
 
 export const useUserData = (skip?: boolean, query?: 'profile' | 'settings') => {
   const variables = {}
+
   const profileQuery = query === 'profile'
   const settingsQuery = query === 'settings'
 
@@ -126,16 +126,20 @@ export const useUserData = (skip?: boolean, query?: 'profile' | 'settings') => {
     }
   }
 
-  useMemo(() => {
-    if (emailVerified) {
-      if (data?.user) {
-        data.user.emailConfirmed = true
+  const u = data || profile
+
+  const dataSet = u
+    ? {
+        ...u,
+        user: {
+          ...u?.user,
+          emailConfirmed: u?.user?.emailConfirmed || emailVerified,
+        },
       }
-    }
-  }, [emailVerified])
+    : {}
 
   const model = Object.freeze({
-    data: data || profile, // allow data or profile as main source
+    data: dataSet, // allow data or profile as main source
     forgotPasswordData,
     loading:
       loading ||
