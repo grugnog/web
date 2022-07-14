@@ -7,7 +7,6 @@ import {
   BASE_GQL_URL,
   STATUS_URL,
 } from '@app/configs/app-config'
-import ReportViewer from 'next-lighthouse'
 
 import {
   AccessibilityBox,
@@ -28,11 +27,10 @@ import { Timer } from '../timer'
 import { UserAgentBox } from './blocks/user-agent'
 import { ActionsBox } from './blocks/actions'
 import { CdnFixBox } from './blocks/cdn-fix'
-import { useLighthouse } from '@app/data/formatters/use-lighthouse'
 import { useWasmContext } from '@app/components/providers'
 import { useAuthContext } from '@app/components/providers/auth'
 import { GrChannel } from 'react-icons/gr'
-import { ErrorBoundary } from '../error-boundary'
+import { Lighthouse } from '../lighthouse'
 
 const styles = {
   title: 'text-xl md:text-3xl font-bold truncate',
@@ -78,7 +76,6 @@ export function WebsiteCellDashboardComponent({
   const [anchorEl, setAnchorEl] = useState<any>(null)
   const { activeSubscription } = useAuthContext() // TODO: move to provider top level
   const { feed } = useWasmContext()
-  const parsedInsight = useLighthouse(insight)
 
   const items = feed?.get_data_item(domain, tld || subdomains) ?? []
   const issues = items?.length ? items : currentIssues
@@ -309,17 +306,9 @@ export function WebsiteCellDashboardComponent({
           <MobileBox mobile={mobile} url={url} />
         </div>
       </div>
-      <div
-        className={`${
-          parsedInsight && lighthouseVisible ? 'visible' : 'hidden'
-        }`}
-      >
-        {parsedInsight ? (
-          <ErrorBoundary>
-            <ReportViewer json={parsedInsight} />
-          </ErrorBoundary>
-        ) : null}
-      </div>
+      {insight && lighthouseVisible ? (
+        <Lighthouse insight={insight} lighthouseVisible={lighthouseVisible} />
+      ) : null}
     </li>
   )
 }

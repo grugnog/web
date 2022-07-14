@@ -1,4 +1,4 @@
-import React from 'react'
+import { Fragment } from 'react'
 import { WebsiteCellDashboard } from '@app/components/general/cells'
 import { Website } from '@app/types'
 
@@ -16,16 +16,22 @@ export function WebSitesDashboard({
   lighthouseVisible,
   activeCrawls,
 }: any) {
+  if (!data?.length) {
+    return (
+      <Fragment>
+        <div>No websites exist</div>
+      </Fragment>
+    )
+  }
+
   return (
     <ul className='space-y-2 py-2'>
-      {data?.map(({ domain, _id, ...props }: Website, index: number) => {
-        const activeCrawl = activeCrawls && activeCrawls[domain]
+      {data?.map((props: Website, index: number) => {
+        const activeCrawl = activeCrawls && activeCrawls[props.domain]
 
         return (
           <WebsiteCellDashboard
-            key={_id}
-            _id={_id}
-            domain={domain}
+            key={props._id}
             handleClickOpen={handleClickOpen}
             removePress={removePress}
             refetch={refetch}
@@ -34,9 +40,9 @@ export function WebSitesDashboard({
             setModal={setModal}
             loading={loading}
             mutatationLoading={mutatationLoading}
-            index={index}
-            activeCrawl={activeCrawl}
             lighthouseVisible={lighthouseVisible}
+            activeCrawl={activeCrawl}
+            index={index}
             {...props}
           />
         )

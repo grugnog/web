@@ -2,7 +2,7 @@ import { useMemo } from 'react'
 
 // format lighthouse data returned
 export const useLighthouse = (insight: any) => {
-  return useMemo(() => {
+  const data = useMemo(() => {
     if (insight && insight?.json) {
       try {
         const parsedResult = JSON.parse(insight?.json)
@@ -14,8 +14,6 @@ export const useLighthouse = (insight: any) => {
         ) {
           return parsedResult
           // return online results <-- tmp remove from endpoint
-        } else if (parsedResult && 'lighthouseResult' in parsedResult) {
-          return parsedResult?.lighthouseResult
         } else {
           return null
         }
@@ -26,4 +24,6 @@ export const useLighthouse = (insight: any) => {
     }
     return null
   }, [insight])
+
+  return data
 }

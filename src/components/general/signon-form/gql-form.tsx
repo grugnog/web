@@ -96,19 +96,11 @@ const SignOnFormWrapper: FunctionComponent<SignOnProps> = ({
           const plan = String(router?.query?.plan).toLocaleLowerCase() as string
           const urlRoute = ['basic', 'premium'].includes(plan)
             ? `/payments?plan=${plan}`
-            : '/'
+            : '/dashboard'
 
           UserManager.setUser(user)
 
-          setTimeout(() => {
-            router.push(urlRoute).catch((e) => {
-              AppManager.toggleSnack(
-                true,
-                `An error occured on route updating, please try to reload: ${e}.`,
-                'error'
-              )
-            })
-          }, 0)
+          window.location.pathname = urlRoute
         } catch (e) {
           console.error(e)
         }

@@ -26,7 +26,9 @@ function AuthMenuComponent({
 }: Props) {
   const router = useRouter()
   const [anchorEl, setAnchorEl] = useState<any>(null)
-  const [logoutMutation, { client }] = useMutation(LOGOUT)
+  const [logoutMutation, { client }] = useMutation(LOGOUT, {
+    ignoreResults: true,
+  })
   const { setIssueFeedContent } = useWebsiteContext()
 
   const handleMenu = useCallback(
@@ -50,26 +52,18 @@ function AuthMenuComponent({
     UserManager.clearUser()
 
     try {
-      await client?.resetStore()
-    } catch (e) {
-      console.error(e)
-    }
-
-    try {
       await client?.clearStore()
     } catch (e) {
       console.error(e)
     }
 
-    if (router?.pathname !== '/') {
-      try {
-        await router.push('/')
-      } catch (e) {
-        console.error(e)
-      }
-    } else {
-      router.reload()
-    }
+    window.location.pathname = '/'
+
+    // try {
+    //   await client?.resetStore()
+    // } catch (e) {
+    //   console.error(e)
+    // }
   }
 
   if (
