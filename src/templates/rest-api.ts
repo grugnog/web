@@ -265,11 +265,42 @@ export const apiRoutes = [
             desc: 'The domain to get analytics for',
             optional: true,
           },
+          pageUrl: {
+            type: 'string',
+            desc: 'The exact page url to get analytics for',
+            optional: true,
+          },
         },
         encodedParams: '',
         info:
           'Retreive a list of analytics paginated. Request is limited to 5 pages with issues at a time.',
         title: 'List Analytics',
+      },
+
+      {
+        pathName: 'list/pagespeed?offset=0&domain=a11ywatch.com',
+        method: 'GET',
+        params: {
+          offset: {
+            type: 'number',
+            desc: 'The page offset to grab the next set',
+            optional: true,
+          },
+          domain: {
+            type: 'string',
+            desc: 'The domain to get analytics for',
+            optional: true,
+          },
+          pageUrl: {
+            type: 'string',
+            desc: 'The exact page url to get analytics for',
+            optional: true,
+          },
+        },
+        encodedParams: '',
+        info:
+          'Retreive a list of pagespeed results paginated. Request is limited to 5 pages with issues at a time.',
+        title: 'List PageSpeed',
       },
     ],
   },

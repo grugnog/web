@@ -17,6 +17,10 @@ const GET_USER = gql`
         lastScanDate
         usageLimit
       }
+      scanInfo {
+        lastScanDate
+        totalUptime
+      }
     }
   }
 `
@@ -51,6 +55,10 @@ const GET_USER_PROFILE = gql`
         usage
         lastScanDate
         usageLimit
+      }
+      scanInfo {
+        lastScanDate
+        totalUptime
       }
       invoice {
         amount_due

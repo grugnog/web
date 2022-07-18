@@ -16,7 +16,6 @@ import { UserManager, AppManager } from '@app/managers'
 import type { OnSubscriptionDataOptions } from '@apollo/react-common'
 import type { Website } from '@app/types'
 import { useWasmContext } from '@app/components/providers'
-// import { domainName } from '@app/lib/domain'
 
 /*
  * This hook returns all the queries, mutations, and subscriptions between your Website with the graphs,
@@ -179,21 +178,36 @@ export const useWebsiteData = (
   const onCrawlCompleteSubscription = useCallback(
     async ({ subscriptionData }: OnSubscriptionDataOptions<any>) => {
       const completedWebsite = subscriptionData?.data?.crawlComplete
+
+      // website did not complete due to time elasped across pages
       if (completedWebsite) {
-        const adaScoreAverage = completedWebsite.adaScoreAverage
-        AppManager.toggleSnack(
-          true,
-          `Crawl finished for ${completedWebsite.domain}. Average score across pages ${adaScoreAverage}`,
-          'success'
-        )
+        setTimeout(async () => {
+          const adaScoreAverage = completedWebsite.adaScoreAverage
 
-        // TODO: check crawl tld and subdomain types for crawl targeting.
-        setActiveCrawl((v) => ({
-          ...v,
-          [completedWebsite.domain]: false,
-        }))
+          if (completedWebsite.shutdown) {
+            AppManager.toggleSnack(
+              true,
+              `Crawl did not complete for ${completedWebsite.domain}. Upgrade your account for a larger scan uptime.`,
+              'error'
+            )
+          } else {
+            AppManager.toggleSnack(
+              true,
+              `Crawl finished for ${completedWebsite.domain}. Average score across pages ${adaScoreAverage}`,
+              'success'
+            )
+          }
 
-        await refetch()
+          // TODO: check crawl tld and subdomain types for crawl targeting.
+          setActiveCrawl((v) => ({
+            ...v,
+            [completedWebsite.domain]: false,
+          }))
+
+          await refetch().catch((e) => {
+            console.error(e)
+          })
+        }, 500)
       }
     },
     [websites, refetch, setActiveCrawl]

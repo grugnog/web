@@ -5,6 +5,7 @@ const CRAWL_COMPLETE_SUBSCRIPTION = gql`
     crawlComplete(userId: $userId) {
       domain
       adaScoreAverage
+      shutdown
     }
   }
 `

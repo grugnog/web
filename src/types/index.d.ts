@@ -342,7 +342,7 @@ export type QueryIssueArgs = {
 export type ScanInformation = {
   __typename?: 'ScanInformation'
   lastScanDate?: Maybe<Scalars['String']>
-  scanAttempts?: Maybe<Scalars['Int']>
+  totalUptime?: Maybe<Scalars['Int']>
 }
 
 export type Script = {
