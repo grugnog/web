@@ -505,6 +505,7 @@ export type Website = {
   subdomains?: Maybe<Scalars['Boolean']>
   robots?: Maybe<Scalars['Boolean']>
   tld?: Maybe<Scalars['Boolean']>
+  shutdown?: Maybe<Scalars['Boolean']>
 }
 
 export type WebsiteIssuesArgs = {

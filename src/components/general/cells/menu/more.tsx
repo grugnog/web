@@ -1,4 +1,4 @@
-import React, { memo, useCallback } from 'react'
+import { memo, useCallback } from 'react'
 import { MenuItem } from '@material-ui/core'
 import { AppManager } from '@app/managers'
 import { useWebsiteContext } from '@app/components/providers/website'
@@ -17,6 +17,7 @@ function MoreOptionsComponent(props: MoreOptionsProps) {
     handleMainClick,
     handleClose,
     pageInsights,
+    shutdown,
   } = props
 
   const toggleLighthouse = useCallback(async () => {
@@ -50,6 +51,15 @@ function MoreOptionsComponent(props: MoreOptionsProps) {
   return (
     <>
       <MoreOptionsBase {...props} index={index}>
+        {shutdown ? (
+          <MenuItem
+            style={{ color: '#10b981' }}
+            component={'a'}
+            href={'/payments'}
+          >
+            Upgrade
+          </MenuItem>
+        ) : null}
         {typeof crawlWebsite === 'function' && !history ? (
           <MenuItem onClick={onWebsiteCrawl}>Scan</MenuItem>
         ) : null}

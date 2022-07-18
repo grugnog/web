@@ -8,7 +8,7 @@ import {
 } from '@app/components/general'
 import { useDynamicModal, useSearchFilter, useEvents } from '@app/data'
 import { filterSort } from '@app/lib'
-import { metaSetter, ping } from '@app/utils'
+import { metaSetter } from '@app/utils'
 import type { PageProps, Website } from '@app/types'
 import { _ONBOARDED } from '@app/lib/cookies/names'
 import { useWebsiteContext } from '@app/components/providers/website'
@@ -56,11 +56,6 @@ function Dashboard({ name }: PageProps) {
   const { issueSubData } = subscriptionData
 
   useEffect(() => {
-    try {
-      queueMicrotask(ping)
-    } catch (e) {
-      console.error(e)
-    }
     // effect for first time user directing to alerts
     if (issueSubData && events && !events?.firstAdd) {
       setEvents({

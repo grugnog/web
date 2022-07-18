@@ -1,4 +1,4 @@
-import React, { memo, useMemo } from 'react'
+import { memo, useMemo } from 'react'
 import { IconButton, MenuItem } from '@material-ui/core'
 import { GrMoreVertical } from 'react-icons/gr'
 import { NextComposed } from '@app/components/general/link'
@@ -25,6 +25,7 @@ export interface MoreOptionsProps extends Partial<Website> {
   children?: any
   url?: string | null // base url or domain
   pageUrl?: string | null // main target for page
+  shutdown?: boolean | null // did the website complete the scan
 }
 
 // Base of more options ...

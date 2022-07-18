@@ -1,5 +1,4 @@
 import { useEffect } from 'react'
-
 import { LOGGIN_ROUTES } from '@app/configs'
 import {
   AuthProviderWrapper,
@@ -23,6 +22,7 @@ import {
 import Head from 'next/head'
 import { useStaticRendering as enableMobxStaticRendering } from 'mobx-react-lite'
 import { SkipContent, SnackBar } from './general'
+import { ping } from '@app/utils'
 
 if (typeof window === 'undefined') {
   enableMobxStaticRendering(true)
@@ -44,6 +44,9 @@ const LayoutWrapper = ({ Component, pageProps }: InnerApp) => {
     }
 
     initAppModel()
+
+    queueMicrotask(ping)
+
     userModel.initModel({
       cookie:
         typeof navigator !== 'undefined' &&

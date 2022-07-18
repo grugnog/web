@@ -72,6 +72,7 @@ export function WebsiteCellDashboardComponent({
   robots,
   subdomains,
   tld,
+  shutdown,
 }: any) {
   const [anchorEl, setAnchorEl] = useState<any>(null)
   const { activeSubscription } = useAuthContext() // TODO: move to provider top level
@@ -199,7 +200,11 @@ export function WebsiteCellDashboardComponent({
     : notAvail
 
   return (
-    <li className={`border-4 px-3 pt-2 rounded overflow-hidden`}>
+    <li
+      className={`border-4 px-3 pt-2 rounded overflow-hidden${
+        shutdown ? ' border-red-500' : ''
+      }`}
+    >
       <div>
         <div className='flex space-x-1 place-items-center place-content-between'>
           <div className='flex space-x-4 place-items-center'>
@@ -234,6 +239,7 @@ export function WebsiteCellDashboardComponent({
                 robots={robots}
                 subdomains={subdomains}
                 tld={tld}
+                shutdown={shutdown}
               />
             </div>
             <Link
@@ -265,6 +271,7 @@ export function WebsiteCellDashboardComponent({
             subdomains={subdomains}
             tld={tld}
             pageInsights={pageInsights}
+            shutdown={shutdown}
           />
         </div>
       </div>

@@ -109,6 +109,7 @@ export const websiteFragments = gql`
     robots
     subdomains
     tld
+    shutdown
   }
 `
 

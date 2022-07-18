@@ -8,6 +8,7 @@ import {
   GrInherit,
   GrRobot,
   GrHost,
+  GrPowerShutdown,
 } from 'react-icons/gr'
 import { format } from 'date-fns'
 import { PageLoad } from './page-load'
@@ -31,6 +32,7 @@ export function WebsiteSecondaryComponent({
   robots,
   subdomains,
   tld,
+  shutdown,
 }: Website & { pageIssueCount?: number; adaScore?: number }) {
   const { possibleIssuesFixedByCdn, issuesFixedByCdn, totalIssues } =
     issuesInfo ?? {}
@@ -47,6 +49,19 @@ export function WebsiteSecondaryComponent({
 
   return (
     <div className={'flex space-x-2 overflow-x-hidden hover:overflow-x-auto'}>
+      {shutdown ? (
+        <Tooltip
+          title={`Website scan did not complete. Upgrade your account to increase your duration or pay per usage.`}
+          placement={'right'}
+        >
+          <Chip
+            size='small'
+            style={chipRootStyle}
+            avatar={<GrPowerShutdown style={chipStyle} />}
+            label={'Shutdown'}
+          />
+        </Tooltip>
+      ) : null}
       {pageIssueCount ? (
         <Tooltip
           title={`${totalIssues} possible issue${
