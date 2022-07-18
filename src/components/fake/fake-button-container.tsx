@@ -34,7 +34,7 @@ function FakeButtonContainer({ title }: { title?: string }) {
   const { container, close, zoom, minimize } = useStyles()
 
   return (
-    <div className='flex flex-1 place-items-center relative py-2'>
+    <div className='flex flex-1 place-items-center relative py-2 bg-[#2A2A2A] text-white rounded-t'>
       <span className={container}>
         <span className={close} />
         <span className={minimize} />

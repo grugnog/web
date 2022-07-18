@@ -124,6 +124,15 @@ const Profile: FC<PageProps> = ({ name }) => {
               subTitle={user?.alertEnabled ? 'Yes' : 'No'}
               className={classes.email}
             />
+            <ProfileCell
+              title={'Uptime Used'}
+              skeletonLoad={!user && loading}
+              subTitle={`${(user?.scanInfo?.totalUptime
+                ? Number(user.scanInfo.totalUptime) / 1000
+                : 0
+              ).toFixed(0)}s`}
+              className={classes.email}
+            />
             {user?.activeSubscription ? (
               <ProfileCell
                 title={billingHeadDisplay}

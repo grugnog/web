@@ -10,11 +10,10 @@ const plans = [
     details: [
       'Monitor 1 website',
       'Daily email reports',
-      '60 seconds of accessibility scans daily (50 - 3,000 pages)',
+      '30 seconds of accessibility scans daily (35 - 2,000 pages)',
       'Root page checked daily',
       VISUAL_PLAYGROUND,
       '3 private API request a day',
-      'API',
       'Lighthouse on root page',
       'Limited support',
     ],

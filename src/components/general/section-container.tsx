@@ -7,7 +7,7 @@ const SectionContainer: FC<{
 }> = ({ children, className, gapY = true, ...props }) => {
   return (
     <section
-      className={['overflow-visible', gapY ? 'py-12' : '', 'px-4', className]
+      className={['overflow-visible', gapY ? 'py-10' : '', 'px-4', className]
         .join(' ')
         .trim()}
       {...props}

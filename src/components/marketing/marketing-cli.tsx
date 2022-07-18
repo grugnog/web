@@ -42,8 +42,8 @@ export function MarketingCli() {
         .
       </p>
       <div className='space-y-4'>
-        <div className='flex flex-wrap space-x-5 space-y-4'>
-          <div className='flex-1 bg-white rounded sm:w-1/3 shadow'>
+        <div className='flex flex-wrap gap-x-5 space-y-4 place-items-center'>
+          <div className='flex-1 rounded sm:w-1/3 shadow-xl'>
             <FakeButtonContainer title='Bash' />
             <div className='border-b' />
             <div className='bg-white'>

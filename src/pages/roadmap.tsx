@@ -74,11 +74,7 @@ function RoadMap({ name }: PageProps) {
             alt={'edit your code with accuracy'}
           />
         </PaperSection>
-        <PaperSection
-          style={{
-            border: `2px solid ${theme.palette.secondary.main}`,
-          }}
-        >
+        <PaperSection>
           <div className='pb-2'>
             <Heading>Compilation Fixes</Heading>
             <Heading variant='h6' component='h4' bold={false}>
@@ -91,7 +87,11 @@ function RoadMap({ name }: PageProps) {
           </div>
           <Image src='/img/source_code.svg' alt='source code visual' />
         </PaperSection>
-        <PaperSection>
+        <PaperSection
+          style={{
+            border: `2px solid ${theme.palette.secondary.main}`,
+          }}
+        >
           <div className='pb-2'>
             <Heading>Development Code Generation</Heading>
             <Heading variant='h6' component='h4' bold={false}>
