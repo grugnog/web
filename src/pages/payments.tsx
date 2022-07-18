@@ -23,6 +23,7 @@ import { loadStripe, Stripe } from '@stripe/stripe-js'
 import { STRIPE_KEY } from '@app/configs/app-config'
 import { EmptyPayments } from '@app/components/empty'
 import { useBillingDisplay } from '@app/data/formatters'
+import { GrCreditCard, GrPaypal, GrVisa } from 'react-icons/gr'
 
 const useStyles = makeStyles(() => ({
   cancel: {
@@ -204,7 +205,7 @@ function Payments({ hideTitle = false, name }: PaymentProps) {
 
   const subTitle = !renderPayMentBoxes
     ? 'Account Info'
-    : 'Pay yearly and get 2 months included.'
+    : 'Get the right plan for you.'
 
   if (loading && !data) {
     return (
@@ -213,6 +214,13 @@ function Payments({ hideTitle = false, name }: PaymentProps) {
         <Box className='py-2'>
           {hideTitle ? null : <PageTitle>Payment Details</PageTitle>}
           <EmptyPayments subTitle={subTitle} />
+          {renderPayMentBoxes ? (
+            <div>
+              <span className='px-2 py-1 rounded bg-yellow-400 font-bold'>
+                Save 10%
+              </span>
+            </div>
+          ) : null}
         </Box>
       </>
     )
@@ -229,10 +237,10 @@ function Payments({ hideTitle = false, name }: PaymentProps) {
         <Box className='py-2'>
           {hideTitle ? null : <PageTitle>Payment Details</PageTitle>}
           <p className='text-xl font-bold'>{subTitle}</p>
+          {superMode ? <h3>Enterprise Account</h3> : null}
           <div>
-            {superMode ? <h3>Enterprise Account</h3> : null}
             {renderPayMentBoxes ? (
-              <div className='flex flex-col sm:flex-row gap-x-4 gap-y-6 flex-wrap'>
+              <div className='space-y-3'>
                 <PriceMemo
                   priceOnly
                   basic={state.basic || role === 1}
@@ -243,13 +251,26 @@ function Payments({ hideTitle = false, name }: PaymentProps) {
                   blockFree
                   blockEnterprise
                 />
-                <div className='sm:w-full max-w-[805px] place-content-center place-items-center min-w-[350px] align-center flex'>
+
+                <div className='sm:w-full place-content-center place-items-center min-w-[350px] align-center'>
                   <CheckoutForm
                     onToken={onToken}
                     basic={state.basic}
                     price={Number(`${price}${priceMultiplyier}`)}
                     disabled={Boolean(!state.basic && !state.premium)}
                   />
+                </div>
+                <div className='hidden lg:flex gap-1 max-w-xs'>
+                  <div className='border rounded px-1 py-1 flex-1 flex items-center justify-center bg-white'>
+                    <GrVisa className='grIcon text-black' />
+                  </div>
+
+                  <div className='border rounded px-1 py-1 flex-1 flex items-center justify-center bg-white'>
+                    <GrCreditCard className='grIcon text-black' />
+                  </div>
+                  <div className='border rounded px-1 py-1 flex-1 flex items-center justify-center bg-white'>
+                    <GrPaypal className='grIcon text-black' />
+                  </div>
                 </div>
               </div>
             ) : (

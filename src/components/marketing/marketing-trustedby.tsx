@@ -34,7 +34,7 @@ export function MarketingTrustBy() {
         Trusted by many businesses from all over
       </div>
       <div className='border rounded'>
-        <div className='grid grid-cols-2 gap-0.5 md:grid-cols-3'>
+        <div className='grid grid-cols-3 gap-0.5'>
           {images.map(({ src, alt, ext }: ImageProps, i: number) => (
             <MarketingImage src={src} ext={ext} alt={alt} key={`${i}_${ext}`} />
           ))}

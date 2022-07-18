@@ -1,4 +1,3 @@
-import React from 'react'
 import { Button, Typography } from '@material-ui/core'
 import { MarketingDrawer, PriceMemo, PageTitle } from '@app/components/general'
 import { metaSetter } from '@app/utils'

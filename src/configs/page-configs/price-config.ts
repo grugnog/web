@@ -28,7 +28,7 @@ const plans = [
       'Everything in Free',
       'Subdomain crawling',
       'Monitor up to 3 websites',
-      '300 seconds of accessibility scans daily (250 - 20,000 pages)',
+      '300 seconds of accessibility scans daily (300 - 20,000 pages)',
       'All pages checked daily',
       TRUSTED_CDN,
       'Custom scripts',

@@ -140,7 +140,7 @@ function PriceWrapper({
   const xlColumns = !onClick ? 'xl:grid-cols-4' : `xl:grid-cols-${plans.length}`
 
   return (
-    <div id='plans-section'>
+    <>
       {typeof onClick === 'undefined' && !pricingPage ? (
         <>
           <SectionHeading style={onClick ? { fontWeight: 200 } : {}}>
@@ -151,7 +151,7 @@ function PriceWrapper({
           </p>
         </>
       ) : null}
-      <div className='flex space-x-1 pb-2'>
+      <div className='flex space-x-1 pb-2 place-items-center'>
         <button
           type='button'
           onClick={() => {
@@ -170,95 +170,120 @@ function PriceWrapper({
         >
           Yearly billing
         </button>
+        {!pricingPage ? (
+          <button
+            type='button'
+            onClick={() => {
+              setYearly(true)
+            }}
+          >
+            <div>
+              <span className='px-2 py-2.5 rounded bg-yellow-400 font-bold truncate'>
+                Save 10%
+              </span>
+            </div>
+          </button>
+        ) : null}
       </div>
-      <div className={`flex gap-2 nowrap ${xlColumns} overflow-x-auto`}>
-        {plans.map(({ title, details, cost, costYearly, subTitle }: any) => {
-          const clickEvent =
-            title === 'Enterprise' && !navigate ? openMail : onClick
-          const onPriceClick = clickEvent ? () => clickEvent(title) : undefined
+      <div className='flex flex-col flex-1'>
+        <div
+          id='plans-section'
+          className={`flex flex-1 gap-2 nowrap ${xlColumns} overflow-x-auto`}
+        >
+          {plans.map(({ title, details, cost, costYearly, subTitle }: any) => {
+            const clickEvent =
+              title === 'Enterprise' && !navigate ? openMail : onClick
+            const onPriceClick = clickEvent
+              ? () => clickEvent(title)
+              : undefined
 
-          const Component = clickEvent ? 'button' : 'div'
-          const textColor = getPrimaryColor(title)
+            const Component = clickEvent ? 'button' : 'div'
+            const textColor = getPrimaryColor(title)
 
-          const planRequired = title !== 'Free'
+            const planRequired = title !== 'Free'
 
-          return (
-            <Component
-              key={title}
-              className={`min-w-[330px] rounded flex flex-1 flex-col justify-between ${highLight(
-                title,
-                'bg-blue-100 text-black',
-                {
-                  premium,
-                  basic,
-                }
-              )} border border-gray-300 ${
-                clickEvent ? `hover:bg-blue-100` : ''
-              } rounded`}
-              onClick={onPriceClick}
-            >
-              <>
-                <div className='w-full'>
-                  <div
-                    className='text-left w-full flex-col text-white px-8 py-3'
-                    style={{ backgroundColor: textColor }}
-                  >
-                    <SubHeading className='text-3xl font-bold'>
-                      <span>{title}</span>
-                      {cost ? (
-                        <span className={'text-2xl font-semibold block'}>
-                          {yearly ? costYearly : cost}
-                        </span>
-                      ) : null}
-                    </SubHeading>
-                    <div className='py-2 lg max-w-[350px] xl:max-w-[380px]'>
-                      <p className='text-xl max-w-[320px]'>{subTitle}</p>
+            return (
+              <Component
+                key={title}
+                className={`min-w-[330px] rounded flex flex-1 flex-col justify-between ${highLight(
+                  title,
+                  'bg-blue-100 text-black',
+                  {
+                    premium,
+                    basic,
+                  }
+                )} border border-gray-300 ${
+                  clickEvent ? `hover:bg-blue-100` : ''
+                } rounded`}
+                onClick={onPriceClick}
+              >
+                <>
+                  <div className='w-full'>
+                    <div
+                      className='text-left w-full flex-col text-white px-8 py-3'
+                      style={{ backgroundColor: textColor }}
+                    >
+                      <SubHeading className='text-3xl font-bold'>
+                        <span>{title}</span>
+                        {cost ? (
+                          <span className={'text-2xl font-semibold block'}>
+                            {yearly ? costYearly : cost}
+                          </span>
+                        ) : null}
+                      </SubHeading>
+                      <div className='lg max-w-[350px] xl:max-w-[380px]'>
+                        <p className='text-xl max-w-[320px]'>{subTitle}</p>
+                      </div>
+                    </div>
+
+                    <ul className='px-4 space-y-1 py-4'>
+                      {details?.map((item: string, i: number) => (
+                        <li
+                          className={
+                            'flex gap-x-3 place-items-center text-left'
+                          }
+                          key={`${item}-${i}`}
+                          aria-hidden={!String(item).trim()}
+                        >
+                          <div
+                            className='rounded-xl text-white stroke-white'
+                            style={{
+                              backgroundColor: textColor,
+                            }}
+                          >
+                            {planRequired && i === 0 ? (
+                              <GrFormUp className='grIcon' />
+                            ) : (
+                              <GrFormCheckmark className='grIcon' />
+                            )}
+                          </div>
+                          <Description className='text-base'>
+                            {item}
+                          </Description>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                  <div className='px-4 py-2 w-full'>
+                    <MainButton
+                      title={title}
+                      navigate={navigate}
+                      yearly={yearly}
+                    />
+                    <div
+                      className='pt-1 text-center'
+                      style={{ fontSize: '0.95em' }}
+                    >
+                      {title !== 'Free' ? 'Cancel anytime.' : 'Forever Free'}
                     </div>
                   </div>
-
-                  <ul className='px-4 space-y-1 py-4'>
-                    {details?.map((item: string, i: number) => (
-                      <li
-                        className={'flex gap-x-3 place-items-center text-left'}
-                        key={`${item}-${i}`}
-                        aria-hidden={!String(item).trim()}
-                      >
-                        <div
-                          className='rounded-xl text-white stroke-white'
-                          style={{
-                            backgroundColor: textColor,
-                          }}
-                        >
-                          {planRequired && i === 0 ? (
-                            <GrFormUp className='grIcon' />
-                          ) : (
-                            <GrFormCheckmark className='grIcon' />
-                          )}
-                        </div>
-                        <Description className='text-lg'>{item}</Description>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-                <div className='px-4 py-2 w-full'>
-                  <MainButton
-                    title={title}
-                    navigate={navigate}
-                    yearly={yearly}
-                  />
-                  <div
-                    className='pt-1 text-center'
-                    style={{ fontSize: '0.95em' }}
-                  >
-                    {title !== 'Free' ? 'Cancel anytime.' : 'Forever Free'}
-                  </div>
-                </div>
-              </>
-            </Component>
-          )
-        })}
+                </>
+              </Component>
+            )
+          })}
+        </div>
       </div>
-    </div>
+    </>
   )
 }
 
