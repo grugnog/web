@@ -2,7 +2,6 @@ import { setCookie } from 'with-cookie'
 import { parseCookie } from '@app/lib/cookies'
 import { _ALERTS_ENABLED, _JWT, _ONBOARDED } from '@app/lib/cookies/names'
 import { parseJwt } from '@app/lib/auth'
-import { shutdownIntercom } from 'next-intercom'
 import { User } from '@app/types'
 
 const defaultExp = 365
@@ -48,8 +47,6 @@ const userModel = {
     try {
       this.jwt = ''
       this.email = ''
-
-      shutdownIntercom()
     } catch (e) {
       console.error(e)
     }

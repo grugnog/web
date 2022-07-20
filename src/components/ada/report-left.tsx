@@ -40,14 +40,12 @@ const MainView = ({ website, viewMode }: any) => {
       return <FeedList issue={website as any} isHidden={false} fullScreen />
     }
     return (
-      <div>
-        <TestViewRest
-          url={website.url || ''}
-          marketing
-          posRelative
-          website={website}
-        />
-      </div>
+      <TestViewRest
+        url={website.url || ''}
+        marketing
+        posRelative
+        website={website}
+      />
     )
   }
 

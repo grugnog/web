@@ -1,30 +1,18 @@
-import { IFRAME_ENDPOINT } from '@app/configs/next/iframe'
+import { IFRAME_ENDPOINT } from '../configs/next/iframe'
 
 // fetch iframe reverse engineered website from API
 export const iframe = async (
   url: string,
-  baseHref: string | string[] | true,
-  req: any
+  baseHref: string | string[] | true
 ) => {
   const base = `/iframe?url=${encodeURIComponent(url)}&baseHref=${
     baseHref || true
   }`
 
   let data
-  const authorization = req.cookies.get('authorization')
 
   try {
-    const cookies = req?.cookies
-    data = await fetch(IFRAME_ENDPOINT + base, {
-      headers: {
-        ...req.headers,
-        Authorization: authorization,
-        Cookie: cookies,
-        ['x-forwarded-for']: req.ip,
-        ['User-Agent']: req.headers['user-agent'],
-      },
-      // redirect: 'manual',
-    })
+    data = await fetch(IFRAME_ENDPOINT + base)
   } catch (e) {
     console.error(e)
   }

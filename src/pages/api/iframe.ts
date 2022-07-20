@@ -1,8 +1,10 @@
-import { iframe } from '@app/lib/iframe'
-import type { NextApiRequest } from 'next'
+import { iframe } from '../../lib/iframe'
 
-export default async function handler(req: NextApiRequest) {
-  let iframeSource
+export const config = {
+  runtime: 'experimental-edge',
+}
+
+export default async function handler(req: any) {
   let url
   let baseHref
   if (req.url) {
@@ -15,11 +17,7 @@ export default async function handler(req: NextApiRequest) {
     }
   }
 
-  try {
-    iframeSource = await iframe(url + ' ' || '', baseHref || '', req)
-  } catch (e) {
-    console.error(e)
-  }
+  const iframeSource = await iframe(url + ' ' || '', baseHref || '')
 
   return new Response(iframeSource, {
     status: 200,
@@ -28,8 +26,4 @@ export default async function handler(req: NextApiRequest) {
       // 'cache-control': 'public, s-maxage=1200, stale-while-revalidate=600',
     },
   })
-}
-
-export const config = {
-  runtime: 'experimental-edge',
 }

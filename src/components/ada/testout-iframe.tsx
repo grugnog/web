@@ -14,7 +14,9 @@ const MainFrame = observer(
     const iframeRef = useRef(null)
 
     useEffect(() => {
-      onLoad(null, { iframeRef })
+      setTimeout(() => {
+        onLoad(null, { iframeRef })
+      }, 0)
     }, [])
 
     useEffect(() => {
@@ -33,14 +35,16 @@ const MainFrame = observer(
     }, [iframeStore, issue, url])
 
     const loadFrame = (event: any) => {
-      onLoad(event, { iframeRef })
-      if (issue) {
-        try {
-          iframeStore.initIssueFix(issue, url)
-        } catch (e) {
-          console.error(e)
+      setTimeout(() => {
+        onLoad(event, { iframeRef })
+        if (issue) {
+          try {
+            iframeStore.initIssueFix(issue, url)
+          } catch (e) {
+            console.error(e)
+          }
         }
-      }
+      }, 0)
     }
 
     const iframeSrc = homeStore.getIframeSource(url)

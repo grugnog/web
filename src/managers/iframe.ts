@@ -125,7 +125,7 @@ class IframeManager {
     const issues =
       data && Array.isArray(data) ? data : data?.issues || data?.issue
 
-    if (issues && frameDom?.dom) {
+    if (issues?.length && frameDom?.dom) {
       const issueMap = issues?.filter((item: any) => {
         try {
           let selector = 'querySelector'

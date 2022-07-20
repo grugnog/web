@@ -1,19 +1,25 @@
 import { NavBar, IssueModal, Fab } from '@app/components/general'
-import { AdaIframe } from '@app/components/ada/ada-iframe'
 import { useRouter } from 'next/router'
 import { issueData, useScript } from '@app/data'
+import { AdaIframe } from '@app/components/ada/ada-iframe'
 import { metaSetter } from '@app/utils'
+import { GetServerSideProps } from 'next'
 
-function WebsiteDetails() {
+// add ssr for initial website url
+function WebsiteDetails({ url: initUrl }: { url: string }) {
   const router = useRouter()
+
   const { url } = router?.query
-  const { issue } = issueData(url, !url)
-  const { script } = useScript(url, !url)
+
+  const baseUrl = url || initUrl
+
+  const { issue } = issueData(baseUrl, !baseUrl)
+  const { script } = useScript(baseUrl, !baseUrl)
 
   return (
     <>
-      <NavBar title={url} backButton notitle />
-      {url ? <AdaIframe url={url} issue={issue} /> : null}
+      <NavBar title={baseUrl} backButton notitle />
+      <AdaIframe url={baseUrl} issue={issue} />
       <Fab issue={issue} script={script} />
       <IssueModal issue={issue} />
     </>
@@ -27,3 +33,13 @@ export default metaSetter(
     gql: true,
   }
 )
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const { url } = context.query ?? {}
+
+  return {
+    props: {
+      url,
+    },
+  }
+}

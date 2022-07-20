@@ -45,7 +45,6 @@
     "mobx-persist": "0.4.1",
     "mobx-react-lite": "2.2.2",
     "next": "12.2.2",
-    "next-intercom": "0.1.4",
     "next-lighthouse": "^1.1.0",
     "next-pwa": "5.5.4",
     "node-html-parser": "5.3.3",
