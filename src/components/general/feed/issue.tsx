@@ -1,6 +1,8 @@
-import React, { memo } from 'react'
+import { memo } from 'react'
 import { getErrorColor } from '@app/lib/base-colors'
 import { Issue } from '@app/types'
+import SyntaxHighlighter from 'react-syntax-highlighter'
+import { docco } from 'react-syntax-highlighter/dist/cjs/styles/hljs'
 
 type CellIssue = Partial<Issue> & {
   hidden?: boolean //the entire section is hidden
@@ -86,12 +88,9 @@ export function FeedIssueCardComponent({
           </a>
         </div>
       </div>
-      <pre
-        className={`flex place-items-center border text-black h-10 rounded overflow-x-hidden overflow-y-hidden hover:overflow-x-auto hover:overflow-y-auto px-2 py-2`}
-        style={{ tabSize: 4, backgroundColor: 'rgba(187,239,253,0.25)' }}
-      >
-        {context + ''}
-      </pre>
+      <SyntaxHighlighter language='html' style={docco}>
+        {context}
+      </SyntaxHighlighter>
     </div>
   )
 }

@@ -1,7 +1,12 @@
-import type { NextRequest, NextFetchEvent } from 'next/server'
-import { NextResponse, userAgent } from 'next/server'
+import {
+  NextResponse,
+  userAgent,
+  NextRequest,
+  NextFetchEvent,
+} from 'next/server'
 import { isWhitelisted } from '@app/configs/next/is-static-resource'
 import { logPage } from '@app/request/log-page'
+import { IFRAME_ENDPOINT } from '@app/configs/next/iframe'
 
 const ID_COOKIE_NAME = 'uuid'
 const JWT_COOKIE_NAME = 'jwt'
@@ -29,15 +34,28 @@ export async function middleware(req: NextRequest, event: NextFetchEvent) {
 
   const currentHost = req.headers?.get('host')?.replace(ROOT_URL, '')
 
-  if (token && req.nextUrl.pathname === '/') {
-    const url = req.nextUrl.clone()
-    url.pathname = `/dashboard${req.nextUrl.pathname}`
-    res = NextResponse.rewrite(url)
-  }
+  let blockAnalytics = false
 
   if (/.blog/.test(currentHost + '')) {
     const url = req.nextUrl.clone()
     url.pathname = `/blog${req.nextUrl.pathname}`
+    res = NextResponse.rewrite(url)
+  } else if (req.nextUrl.pathname === '/api/iframe') {
+    const { searchParams } = req.nextUrl
+    const u = searchParams.get('url')
+    const base = searchParams.get('baseHref')
+
+    if (u) {
+      blockAnalytics = true
+      const b =
+        IFRAME_ENDPOINT +
+        `/iframe?url=${encodeURIComponent(u)}&baseHref=${base || true}`
+
+      res = NextResponse.rewrite(b)
+    }
+  } else if (token && req.nextUrl.pathname === '/') {
+    const url = req.nextUrl.clone()
+    url.pathname = `/dashboard${req.nextUrl.pathname}`
     res = NextResponse.rewrite(url)
   }
 
@@ -49,20 +67,22 @@ export async function middleware(req: NextRequest, event: NextFetchEvent) {
     })
   }
 
-  event.waitUntil(
-    (async () => {
-      const ua = userAgent(req)
-      if (!ua?.isBot) {
-        try {
-          await logPage(req, uuid, ua)
-        } catch (e) {
-          console.error(e)
+  if (!blockAnalytics) {
+    event.waitUntil(
+      (async () => {
+        const ua = userAgent(req)
+        if (!ua?.isBot) {
+          try {
+            await logPage(req, uuid, ua)
+          } catch (e) {
+            console.error(e)
+          }
+        } else {
+          Promise.resolve()
         }
-      } else {
-        Promise.resolve()
-      }
-    })()
-  )
+      })()
+    )
+  }
 
   return res
 }

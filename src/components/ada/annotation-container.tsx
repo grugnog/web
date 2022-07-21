@@ -82,7 +82,7 @@ export function AnnotationContainer({
     >
       <Draggable handle={'.annotationHeader'} allowAnyClick={false}>
         <Paper style={modalStyle} className={classes.paper} ref={annotationRef}>
-          <div className={`annotationHeader ${classes.row}`}>
+          <div className={`annotationHeader ${classes.row} border-b`}>
             <Typography variant='h6' component='h3' className={classes.title}>
               RECOMMENDED
             </Typography>

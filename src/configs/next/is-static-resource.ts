@@ -16,7 +16,7 @@ const isWhitelisted = ({ pathname, url }: ExcludeProps) => {
     ].includes(pathname) ||
     pathname.startsWith('/website-details') || // iframe route
     pathname.startsWith('/testout') || // iframe route
-    pathname.startsWith('/api/') ||
+    // pathname.startsWith('/api/') ||
     pathname.startsWith('/backup/') ||
     pathname.startsWith('/backups/') ||
     pathname.startsWith('/bak/') ||
@@ -24,7 +24,8 @@ const isWhitelisted = ({ pathname, url }: ExcludeProps) => {
     pathname.startsWith('/old/') ||
     pathname.startsWith('/workbox-') ||
     pathname.startsWith('/src/') ||
-    pathname === '/manifest.json' ||
+    pathname.endsWith('.js') ||
+    pathname.endsWith('.json') ||
     pathname === '/robots.txt' ||
     pathname === '/_offline' ||
     url.endsWith('.js') ||
