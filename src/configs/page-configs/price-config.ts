@@ -45,7 +45,7 @@ const plans = [
       'Everything in Basic',
       'TLD crawling',
       'Monitor up to 8 websites',
-      '600 seconds of accessibility scans daily (500 - 40,000 pages)',
+      '800 seconds of accessibility scans daily (625 - 40,000 pages)',
       'Editable scripts',
       '500 private API request a day',
       'Advanced AI API calls for alt tag recognition',

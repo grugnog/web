@@ -109,7 +109,7 @@ function CreateCalculator({ name }: PageProps) {
           </div>
           <div className='space-y-2'>
             <label htmlFor='api-calls-sitewide' className='block font-bold'>
-              Pages per website
+              Average page count
             </label>
             <input
               type='number'
