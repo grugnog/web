@@ -173,15 +173,12 @@ function PriceWrapper({
         {!pricingPage ? (
           <button
             type='button'
+            className='px-2 py-1 rounded bg-yellow-400 font-bold truncate'
             onClick={() => {
               setYearly(true)
             }}
           >
-            <div>
-              <span className='px-2 py-2.5 rounded bg-yellow-400 font-bold truncate'>
-                Save 10%
-              </span>
-            </div>
+            Save 10%
           </button>
         ) : null}
       </div>

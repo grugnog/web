@@ -202,7 +202,7 @@ export function WebsiteCellDashboardComponent({
   return (
     <li
       className={`border-4 px-3 pt-2 rounded overflow-hidden${
-        shutdown ? ' border-red-500' : ''
+        shutdown ? ' border-gray-500' : ''
       }`}
     >
       <div>

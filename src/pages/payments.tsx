@@ -214,13 +214,6 @@ function Payments({ hideTitle = false, name }: PaymentProps) {
         <Box className='py-2'>
           {hideTitle ? null : <PageTitle>Payment Details</PageTitle>}
           <EmptyPayments subTitle={subTitle} />
-          {renderPayMentBoxes ? (
-            <div>
-              <span className='px-2 py-1 rounded bg-yellow-400 font-bold'>
-                Save 10%
-              </span>
-            </div>
-          ) : null}
         </Box>
       </>
     )

@@ -14,9 +14,22 @@ function Pricing({ name }: PageProps) {
         Choose a plan that best fits your needs.
       </Typography>
       <PriceMemo navigate pricingPage />
-      <div className='py-4'>
-        <PricingCalculator />
+      <div className='py-4 text-center'>
+        <p>
+          The accessibility scan duration is measured strictly based on the time
+          it takes for the DOM to load.
+        </p>
+        <p>
+          All scans are ran in parallel so 30 seconds may be equal to 1 second
+          in real time.
+        </p>
+        <p className={'text-blue-600 font-bold'}>
+          The faster your website is the more uptime you get.
+        </p>
       </div>
+
+      <PricingCalculator />
+
       <div className='p-5 bg-gray-100 my-5 space-y-3 rounded'>
         <h5 className='text-xl font-bold'>For Partners</h5>
         <div className='text-lg'>

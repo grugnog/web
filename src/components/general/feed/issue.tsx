@@ -76,7 +76,7 @@ export function FeedIssueCardComponent({
             </>
           ) : null}
         </div>
-        <div className='pb-1'>
+        <div className='pb-1 truncate max-w-[88vw] overflow-hidden'>
           <a
             href={codeHref}
             title={`view technique for ${codeDisplay}`}

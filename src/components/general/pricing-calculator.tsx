@@ -1,9 +1,9 @@
-import React from 'react'
+import { FC } from 'react'
 import { companyName, dev, DOMAIN_NAME } from '@app/configs'
 import { GrMoney } from 'react-icons/gr'
 import { Link } from './link'
 
-export const PricingCalculator = () => {
+export const PricingCalculator: FC = () => {
   // TODO: replace with localhost domain name with port
   return (
     <Link
@@ -22,11 +22,9 @@ export const PricingCalculator = () => {
             <div className='text-sm md:text-base md:text-lg line-clamp-2 py-1'>
               <p>Calculate your plans in a single estimate.</p>
             </div>
-            <div className='text-blue-600'>
-              <p>
-                <b>Create your custom estimate now&nbsp;»</b>
-              </p>
-            </div>
+            <p className='text-blue-600 font-semibold'>
+              Create your custom estimate now&nbsp;»
+            </p>
           </div>
         </div>
       </div>

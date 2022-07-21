@@ -28,13 +28,6 @@ export const generateStrings = ({
     usersUsing: 'Used on here',
     customersWhy:
       'Get live results on any website like Twitter, Github, and Dropbox.',
-    testimonials: [
-      {
-        title:
-          'A11yWatch is lightning fast. Build designs that bring accessibility in mind before and after deployment. Always stay up to date with the latest issues as they arise.',
-        who: 'Gilbert Bagaoisan, Head of Design at ZeeMee',
-      },
-    ],
     features: [
       {
         id: 0,

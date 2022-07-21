@@ -38,7 +38,7 @@ function RoadMap({ name }: PageProps) {
             The phases we have set are according to difficulty and time it will
             take for the solution. We have rough estimates to better our
             judgement on when we can provide the features to come. We are
-            currently on Phase 3.
+            currently on Phase 4.
           </Heading>
         </PaperSection>
         <PaperSection>

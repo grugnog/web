@@ -35,12 +35,12 @@ const calcCost = ({ websiteCount, apiCount, siteWideApiCount }: any) => {
   }
 
   if (apiCount) {
-    const apiBaseToDollar = Number(apiCount / 500) // per dollar
+    const apiBaseToDollar = Number(apiCount / 125) // 0.0085 cents per avg
     total = total + apiBaseToDollar
   }
 
   if (siteWideApiCount) {
-    const apiBaseToDollar = Number(siteWideApiCount / 20) // per dollar
+    const apiBaseToDollar = (websiteCount || 1) * Number(siteWideApiCount / 300) // 0.0033 cents pet avg
     total = total + apiBaseToDollar
   }
 
@@ -53,7 +53,7 @@ const calcCost = ({ websiteCount, apiCount, siteWideApiCount }: any) => {
 function CreateCalculator({ name }: PageProps) {
   const [websiteCount, setWebsiteCount] = useState<number>(8)
   const [apiCount, setApiCount] = useState<number>(500)
-  const [siteWideApiCount, setSiteWideApiCount] = useState<number>(100)
+  const [siteWideApiCount, setSiteWideApiCount] = useState<number>(75)
 
   const mountlyCost = calcCost({ websiteCount, apiCount, siteWideApiCount })
 
@@ -109,7 +109,7 @@ function CreateCalculator({ name }: PageProps) {
           </div>
           <div className='space-y-2'>
             <label htmlFor='api-calls-sitewide' className='block font-bold'>
-              Daily Site wide scans
+              Pages per website
             </label>
             <input
               type='number'
