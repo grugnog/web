@@ -151,7 +151,7 @@ function PriceWrapper({
           </p>
         </>
       ) : null}
-      <div className='flex space-x-1 pb-2 place-items-center'>
+      <div className='flex space-x-1 place-items-center'>
         <button
           type='button'
           onClick={() => {
@@ -217,7 +217,7 @@ function PriceWrapper({
                 <>
                   <div className='w-full'>
                     <div
-                      className='text-left w-full flex-col text-white px-8 py-3'
+                      className='text-left w-full flex-col text-white px-8 py-2 pb-3'
                       style={{ backgroundColor: textColor }}
                     >
                       <SubHeading className='text-3xl font-bold'>
@@ -233,7 +233,7 @@ function PriceWrapper({
                       </div>
                     </div>
 
-                    <ul className='px-4 space-y-1 py-4'>
+                    <ul className='px-4 space-y-1 py-2'>
                       {details?.map((item: string, i: number) => (
                         <li
                           className={
@@ -261,19 +261,15 @@ function PriceWrapper({
                       ))}
                     </ul>
                   </div>
-                  <div className='px-4 py-2 w-full'>
-                    <MainButton
-                      title={title}
-                      navigate={navigate}
-                      yearly={yearly}
-                    />
-                    <div
-                      className='pt-1 text-center'
-                      style={{ fontSize: '0.95em' }}
-                    >
-                      {title !== 'Free' ? 'Cancel anytime.' : 'Forever Free'}
+                  {navigate ? (
+                    <div className='px-4 py-2 w-full'>
+                      <MainButton
+                        title={title}
+                        navigate={navigate}
+                        yearly={yearly}
+                      />
                     </div>
-                  </div>
+                  ) : null}
                 </>
               </Component>
             )

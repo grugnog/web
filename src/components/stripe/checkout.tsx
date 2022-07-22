@@ -47,30 +47,38 @@ export const CheckoutForm = ({ onToken, basic, price, disabled }: Props) => {
   return (
     <form
       onSubmit={handleSubmit}
-      className={'h-42 space-y-3 bg-gray-200 p-5 rounded w-full'}
+      className={
+        'h-42 space-y-3 border border-[#2A2A2A] px-4 pt-2 pb-3 rounded w-full'
+      }
     >
-      <div className='text-2xl font-bold'>
+      <div className='text-3xl font-bold'>
         Total{' '}
         {new Intl.NumberFormat('en-US', {
           style: 'currency',
           currency: 'USD',
         }).format(price / 100)}
       </div>
-      <CardElement
-        options={{ disabled, style, classes: { focus: 'ring' } }}
-        className={'p-4 bg-white'}
-      />
-      <Button
-        variant='contained'
-        color='secondary'
-        type='submit'
-        disabled={disabled}
-        style={{
-          minWidth: 160,
-        }}
-      >
-        Start {basic ? 'Basic' : 'Premium'}
-      </Button>
+      <div className='space-y-4'>
+        <CardElement
+          options={{
+            disabled,
+            style,
+            classes: { focus: 'border-blue-400 shadow-md shadow-blue-600' },
+          }}
+          className={'p-4 bg-white border'}
+        />
+        <Button
+          variant='contained'
+          color='secondary'
+          type='submit'
+          disabled={disabled}
+          style={{
+            minWidth: 160,
+          }}
+        >
+          Start {basic ? 'Basic' : 'Premium'}
+        </Button>
+      </div>
     </form>
   )
 }

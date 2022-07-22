@@ -44,6 +44,7 @@ type Plan = {
   premium: boolean
 }
 
+// determine the plan name
 const getPlanName = (plan: number): string => {
   let tier = 'Basic'
   if ([999, 9999].includes(plan)) {
@@ -55,6 +56,7 @@ const getPlanName = (plan: number): string => {
   return tier
 }
 
+// move plan and yearset SSR
 function Payments({ hideTitle = false, name }: PaymentProps) {
   const classes = useStyles()
   const router = useRouter()
@@ -72,8 +74,8 @@ function Payments({ hideTitle = false, name }: PaymentProps) {
   const yearSet = String(router?.query?.yearly)
 
   useEffect(() => {
-    ;(async () => {
-      if (!stripePromise) {
+    if (!stripePromise) {
+      ;(async () => {
         try {
           const stripeObject = await loadStripe(STRIPE_KEY)
           if (stripeObject) {
@@ -87,8 +89,8 @@ function Payments({ hideTitle = false, name }: PaymentProps) {
             'error'
           )
         }
-      }
-    })()
+      })()
+    }
     // close the snackbar if routed from
     if (AppManager.snackbar.open) {
       AppManager.closeSnack()
@@ -99,13 +101,10 @@ function Payments({ hideTitle = false, name }: PaymentProps) {
     if (yearSet && yearSet !== 'undefined') {
       setYearly(true)
     }
-  }, [setYearly, yearSet])
-
-  useEffect(() => {
     if (plan && plan !== 'undefined') {
       setState({ basic: false, premium: false, [plan]: plan })
     }
-  }, [setState, plan])
+  }, [yearSet, plan])
 
   const handleChange = (newState: any) => {
     setState({
@@ -121,6 +120,7 @@ function Payments({ hideTitle = false, name }: PaymentProps) {
     }
   }
 
+  // on valid payment handling
   const onToken = async (token: any) => {
     try {
       if (token) {
@@ -151,10 +151,12 @@ function Payments({ hideTitle = false, name }: PaymentProps) {
     }
   }
 
+  // open payment modal
   const handleModal = (modalOpen: boolean) => () => {
     setOpen(modalOpen)
   }
 
+  // cancel the payment subscription
   const cancelConfirm = async () => {
     let res
     try {
@@ -193,6 +195,10 @@ function Payments({ hideTitle = false, name }: PaymentProps) {
 
   const renderPayMentBoxes = data?.role === 0 && !data.activeSubscription
 
+  const subTitle = !renderPayMentBoxes
+    ? 'Account Info'
+    : 'Get the right plan for you.'
+
   const paymentSubscription = data?.paymentSubscription
   const nextPaymentDay =
     paymentSubscription?.current_period_end &&
@@ -203,22 +209,6 @@ function Payments({ hideTitle = false, name }: PaymentProps) {
   const priceMultiplyier = yearly ? 9 : ''
   const paymentDate = `Next payment will occur on ${billingtitle}`
 
-  const subTitle = !renderPayMentBoxes
-    ? 'Account Info'
-    : 'Get the right plan for you.'
-
-  if (loading && !data) {
-    return (
-      <>
-        <NavBar title={name} backButton notitle />
-        <Box className='py-2'>
-          {hideTitle ? null : <PageTitle>Payment Details</PageTitle>}
-          <EmptyPayments subTitle={subTitle} />
-        </Box>
-      </>
-    )
-  }
-
   const role = data?.role
 
   const superMode = !data?.activeSubscription && role === 3
@@ -227,73 +217,92 @@ function Payments({ hideTitle = false, name }: PaymentProps) {
     <Elements stripe={stripePromise}>
       <NavBar title={name} backButton notitle />
       <Container maxWidth='xl'>
-        <Box className='py-2'>
+        <Box className='py-2 md:flex md:flex-col content-center items-center'>
           {hideTitle ? null : <PageTitle>Payment Details</PageTitle>}
-          <p className='text-xl font-bold'>{subTitle}</p>
-          {superMode ? <h3>Enterprise Account</h3> : null}
-          <div>
-            {renderPayMentBoxes ? (
-              <div className='space-y-3'>
-                <PriceMemo
-                  priceOnly
-                  basic={state.basic || role === 1}
-                  premium={state.premium || role === 2}
-                  onClick={handleChange}
-                  setYearly={setYearly}
-                  yearly={yearly}
-                  blockFree
-                  blockEnterprise
-                />
-
-                <div className='sm:w-full place-content-center place-items-center min-w-[350px] align-center'>
-                  <CheckoutForm
-                    onToken={onToken}
-                    basic={state.basic}
-                    price={Number(`${price}${priceMultiplyier}`)}
-                    disabled={Boolean(!state.basic && !state.premium)}
-                  />
-                </div>
-                <div className='hidden lg:flex gap-1 max-w-xs'>
-                  <div className='border rounded px-1 py-1 flex-1 flex items-center justify-center bg-white'>
-                    <GrVisa className='grIcon text-black' />
-                  </div>
-
-                  <div className='border rounded px-1 py-1 flex-1 flex items-center justify-center bg-white'>
-                    <GrCreditCard className='grIcon text-black' />
-                  </div>
-                  <div className='border rounded px-1 py-1 flex-1 flex items-center justify-center bg-white'>
-                    <GrPaypal className='grIcon text-black' />
-                  </div>
-                </div>
-              </div>
+          <div className='max-w-[1200px]'>
+            {loading && !data ? (
+              <EmptyPayments subTitle={subTitle} />
             ) : (
-              <div>
-                {nextPaymentDay ? (
-                  <p className='text-xl'> {paymentDate}</p>
-                ) : null}
-                <p className='text-xl font-bold'>Account Type</p>
-                <p className='text-xl'>
-                  {superMode
-                    ? 'Enterprise'
-                    : `${
-                        paymentSubscription?.plan?.nickname ||
-                        getPlanName(paymentSubscription?.plan?.amount)
-                      } - $${paymentSubscription?.plan?.amount / 100 || ''}`}
-                </p>
-              </div>
+              <>
+                <p className='text-xl font-bold'>{subTitle}</p>
+                {superMode ? (
+                  <div>
+                    <h3 className='text-2xl pb-2'>Enterprise Account</h3>
+                    <div className='border p-4 rounded'>
+                      <p>
+                        If you need changes to your account contact support.
+                      </p>
+                    </div>
+                  </div>
+                ) : (
+                  <div>
+                    {renderPayMentBoxes ? (
+                      <div className='space-y-3'>
+                        <PriceMemo
+                          priceOnly
+                          basic={state.basic || role === 1}
+                          premium={state.premium || role === 2}
+                          onClick={handleChange}
+                          setYearly={setYearly}
+                          yearly={yearly}
+                          blockFree
+                          blockEnterprise
+                        />
+                        <div className='sm:w-full place-content-center place-items-center min-w-[350px] align-center'>
+                          <CheckoutForm
+                            onToken={onToken}
+                            basic={state.basic}
+                            price={Number(`${price}${priceMultiplyier}`)}
+                            disabled={Boolean(!state.basic && !state.premium)}
+                          />
+                        </div>
+                        <div className='hidden lg:flex gap-1 max-w-xs'>
+                          <div className='border rounded px-1 py-1 flex-1 flex items-center justify-center bg-white'>
+                            <GrVisa className='grIcon text-black' />
+                          </div>
+
+                          <div className='border rounded px-1 py-1 flex-1 flex items-center justify-center bg-white'>
+                            <GrCreditCard className='grIcon text-black' />
+                          </div>
+                          <div className='border rounded px-1 py-1 flex-1 flex items-center justify-center bg-white'>
+                            <GrPaypal className='grIcon text-black' />
+                          </div>
+                        </div>
+                      </div>
+                    ) : (
+                      <div>
+                        {nextPaymentDay ? (
+                          <p className='text-xl'> {paymentDate}</p>
+                        ) : null}
+                        <p className='text-xl font-bold'>Account Type</p>
+                        <p className='text-xl'>
+                          {superMode
+                            ? 'Enterprise'
+                            : `${
+                                paymentSubscription?.plan?.nickname ||
+                                getPlanName(paymentSubscription?.plan?.amount)
+                              } - $${
+                                paymentSubscription?.plan?.amount / 100 || ''
+                              }`}
+                        </p>
+                      </div>
+                    )}
+                    {data?.activeSubscription ? (
+                      <div className='py-3'>
+                        <Button
+                          title={'Cancel Subscription'}
+                          type={'button'}
+                          onClick={handleModal(true)}
+                          className={classes.cancel}
+                        >
+                          Cancel Subscription
+                        </Button>
+                      </div>
+                    ) : null}
+                  </div>
+                )}
+              </>
             )}
-            {data?.activeSubscription ? (
-              <div className='py-3'>
-                <Button
-                  title={'Cancel Subscription'}
-                  type={'button'}
-                  onClick={handleModal(true)}
-                  className={classes.cancel}
-                >
-                  Cancel Subscription
-                </Button>
-              </div>
-            ) : null}
           </div>
         </Box>
       </Container>
