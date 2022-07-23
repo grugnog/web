@@ -1,11 +1,11 @@
-export { websiteData, useWebsiteData, useSearchRest } from './external/website'
-export { issueData } from './external/issues/issue'
+export { useWebsite, useWebsiteData, useSearchRest } from './external/website'
+export { useIssue } from './external/issues/issue'
 export { useUserData } from './external/user/user'
-export { historyData } from './external/history/history'
+export { useHistory } from './external/history/history'
 export { useFeaturesData } from './external/user/features'
-export { analyticsData } from './external/analytics/analytics'
+export { useAnalytics } from './external/analytics/analytics'
 export { useScript } from './external/scripts/scripts'
-export { paymentsData } from './external/payments/payments'
+export { usePayments } from './external/payments/payments'
 
 export {
   useMiniPlayer,

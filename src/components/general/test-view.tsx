@@ -1,6 +1,6 @@
-import React, { Fragment } from 'react'
+import { Fragment } from 'react'
 import { observer } from 'mobx-react-lite'
-import { issueData } from '@app/data'
+import { useIssue } from '@app/data'
 import { HomeManager } from '@app/managers'
 import { TestOutIframe } from '../ada/testout-iframe'
 import { Fab } from './fab'
@@ -10,7 +10,7 @@ import { OverlayPortalContainer } from './overlay'
 const TestViewContainer = observer(
   ({ url: currentUrl, store, marketing, posRelative }: any) => {
     const url = encodeURIComponent(currentUrl ?? store?.getTestFrameUrl)
-    const { issue } = issueData(url, !url)
+    const { issue } = useIssue(url, !url)
 
     return (
       <Fragment>

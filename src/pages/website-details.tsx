@@ -1,6 +1,6 @@
 import { NavBar, IssueModal, Fab } from '@app/components/general'
 import { useRouter } from 'next/router'
-import { issueData, useScript } from '@app/data'
+import { useIssue, useScript } from '@app/data'
 import { AdaIframe } from '@app/components/ada/ada-iframe'
 import { metaSetter } from '@app/utils'
 import { GetServerSideProps } from 'next'
@@ -13,7 +13,7 @@ function WebsiteDetails({ url: initUrl }: { url: string }) {
 
   const baseUrl = url || initUrl
 
-  const { issue } = issueData(baseUrl, !baseUrl)
+  const { issue } = useIssue(baseUrl, !baseUrl)
   const { script } = useScript(baseUrl, !baseUrl)
 
   return (

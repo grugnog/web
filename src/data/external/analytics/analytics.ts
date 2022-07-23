@@ -2,7 +2,8 @@ import { useQuery } from '@apollo/react-hooks'
 import { AppManager } from '@app/managers'
 import { GET_ANALYTICS, GET_WEBSITE_ANALYTICS } from '@app/queries'
 
-export const analyticsData = (query: boolean = true) => {
+// get a single page analytics [NOT USED]
+export const useAnalytics = (query: boolean = true) => {
   const { data, loading, refetch, error } = useQuery(GET_ANALYTICS, {
     variables: { filter: '' },
     skip: !query,
@@ -16,6 +17,7 @@ export const analyticsData = (query: boolean = true) => {
     error,
   }
 }
+
 // get analytics paginated by website
 export const useAnalyticsData = (url?: string | string[], all?: boolean) => {
   const variables = { url, limit: 15, offset: 0, all }

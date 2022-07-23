@@ -1,7 +1,8 @@
 import { useQuery } from '@apollo/react-hooks'
 import { GET_WEBSITE } from '@app/queries'
 
-const websiteData = (url: string, query: boolean = true) => {
+// get a single website data [NOT USED]
+const useWebsite = (url: string, query: boolean = true) => {
   const { data, loading, refetch } = useQuery(GET_WEBSITE, {
     variables: { url },
     skip: !query,
@@ -16,4 +17,4 @@ const websiteData = (url: string, query: boolean = true) => {
   return model
 }
 
-export { websiteData }
+export { useWebsite }

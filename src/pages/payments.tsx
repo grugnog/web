@@ -12,7 +12,7 @@ import {
 import { makeStyles } from '@material-ui/core/styles'
 import { NavBar, PriceMemo, PageTitle } from '@app/components/general'
 import { Box } from '@a11ywatch/ui'
-import { paymentsData } from '@app/data'
+import { usePayments } from '@app/data'
 import { metaSetter } from '@app/utils'
 import type { PageProps } from '@app/types'
 import { useRouter } from 'next/router'
@@ -60,7 +60,7 @@ const getPlanName = (plan: number): string => {
 function Payments({ hideTitle = false, name }: PaymentProps) {
   const classes = useStyles()
   const router = useRouter()
-  const { data, loading, addSubscription, cancelSubscription } = paymentsData()
+  const { data, loading, addSubscription, cancelSubscription } = usePayments()
   const [state, setState] = useState<Plan>({
     basic: true,
     premium: false,

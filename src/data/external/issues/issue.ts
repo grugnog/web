@@ -3,7 +3,8 @@ import { GET_ISSUE } from '@app/queries'
 import { GET_WEBSITE_ISSUES } from '@app/queries/websites'
 import { AppManager } from '@app/managers'
 
-export const issueData = (url?: string | string[], skip?: boolean) => {
+// get a single page issue
+export const useIssue = (url?: string | string[], skip?: boolean) => {
   const { data, loading, refetch, error } = useQuery(GET_ISSUE, {
     variables: { url },
     skip: !url || skip,

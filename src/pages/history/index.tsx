@@ -1,4 +1,4 @@
-import React from 'react'
+import { Fragment } from 'react'
 import {
   List,
   FormDialog,
@@ -7,7 +7,7 @@ import {
   Drawer,
   Spacer,
 } from '@app/components/general'
-import { historyData, useSearchFilter } from '@app/data'
+import { useHistory, useSearchFilter } from '@app/data'
 import { filterSort } from '@app/lib'
 import { metaSetter } from '@app/utils'
 import type { PageProps } from '@app/types'
@@ -16,12 +16,12 @@ import { useWebsiteContext } from '@app/components/providers/website'
 
 const History = ({ name }: PageProps) => {
   const { data: websiteData } = useWebsiteContext()
-  const { data, loading, refetch, crawlWebsite } = historyData()
+  const { data, loading, refetch } = useHistory()
   const { search } = useSearchFilter()
   const listData = filterSort(data, search)
 
   return (
-    <>
+    <Fragment>
       <Drawer title={name}>
         <PageTitle title={name} />
         <Spacer height={'8px'} />
@@ -36,7 +36,6 @@ const History = ({ name }: PageProps) => {
             data={listData}
             loading={loading}
             refetch={refetch}
-            crawlWebsite={crawlWebsite}
             BottomButton={FormDialog}
             history
             emptyHeaderTitle='No websites found'
@@ -45,7 +44,7 @@ const History = ({ name }: PageProps) => {
         </PageLoader>
       </Drawer>
       <LinearBottom loading={loading} />
-    </>
+    </Fragment>
   )
 }
 

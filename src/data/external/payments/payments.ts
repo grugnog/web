@@ -4,7 +4,8 @@ import { ADD_PAYMENT_SUBSCRIPTION, CANCEL_SUBSCRIPTION } from '@app/mutations'
 import { GET_PAYMENTS, updateCache } from '@app/queries'
 import { UserManager } from '@app/managers'
 
-export const paymentsData = () => {
+// get a user payments
+export const usePayments = () => {
   const { data, loading } = useQuery(GET_PAYMENTS, {
     variables: {},
     ssr: false,
