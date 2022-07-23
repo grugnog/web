@@ -29,7 +29,7 @@ export const usePayments = () => {
     if (newUser?.role !== user?.role && newUser?.jwt) {
       UserManager.setJwt(newUser.jwt)
     }
-  }, [newUser])
+  }, [newUser, user?.role])
 
   const model = Object.freeze({
     data: (Object.keys(useUserData).length && useUserData) || null,
