@@ -1,12 +1,14 @@
-import React from 'react'
+import { PropsWithChildren } from 'react'
 
-export const Button: React.FC<{
+type ButtonProps = PropsWithChildren<{
   onClick?: any
   className?: string
   disabled?: boolean
   type?: 'button' | 'submit' | 'reset'
   style?: any
-}> = ({
+}>
+
+export const Button: React.FC<ButtonProps> = ({
   children,
   onClick,
   className = '',

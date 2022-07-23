@@ -1,10 +1,17 @@
-import { FC } from 'react'
+import { FC, PropsWithChildren } from 'react'
 
-const SectionContainer: FC<{
+type SectionContainerProps = PropsWithChildren<{
   className?: string
   id?: string
   gapY?: boolean
-}> = ({ children, className, gapY = true, ...props }) => {
+}>
+
+const SectionContainer: FC<SectionContainerProps> = ({
+  children,
+  className,
+  gapY = true,
+  ...props
+}) => {
   return (
     <section
       className={['overflow-visible', gapY ? 'py-10' : '', 'px-4', className]

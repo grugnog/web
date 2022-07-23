@@ -84,9 +84,11 @@ export function FeedIssueCardComponent({
           </>
         ) : null}
       </div>
-      <SyntaxHighlighter language='html' style={docco}>
-        {context}
-      </SyntaxHighlighter>
+      {context ? (
+        <SyntaxHighlighter language='html' style={docco}>
+          {context}
+        </SyntaxHighlighter>
+      ) : null}
     </div>
   )
 }

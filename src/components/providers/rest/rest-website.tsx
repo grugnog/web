@@ -1,4 +1,11 @@
-import { createContext, useContext, FC, Fragment, memo } from 'react'
+import {
+  createContext,
+  useContext,
+  FC,
+  PropsWithChildren,
+  Fragment,
+  memo,
+} from 'react'
 import { useSearchRest } from '@app/data'
 import { restWebsiteDefaults } from '../defaults'
 
@@ -6,7 +13,11 @@ const AppContext = createContext(restWebsiteDefaults)
 
 export const RestWebsiteProvider = AppContext.Provider
 
-export const RestWebsiteProviderWrapperMain: FC = ({ children }) => {
+type RestProps = PropsWithChildren<{
+  rest?: boolean
+}>
+
+export const RestWebsiteProviderWrapperMain: FC<RestProps> = ({ children }) => {
   const sharedState = useSearchRest()
 
   return (
@@ -14,7 +25,7 @@ export const RestWebsiteProviderWrapperMain: FC = ({ children }) => {
   )
 }
 
-export const RestWebsiteProviderWrapperContext: FC<{ rest?: boolean }> = ({
+export const RestWebsiteProviderWrapperContext: FC<RestProps> = ({
   children,
   rest,
 }) => {
@@ -27,7 +38,7 @@ export const RestWebsiteProviderWrapperContext: FC<{ rest?: boolean }> = ({
   )
 }
 
-export const RestWebsiteProviderWrapper: FC<{ rest?: boolean }> = memo(
+export const RestWebsiteProviderWrapper: FC<RestProps> = memo(
   RestWebsiteProviderWrapperContext
 )
 

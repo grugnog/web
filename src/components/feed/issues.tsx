@@ -1,5 +1,13 @@
-import { memo, FC, useState, useCallback } from 'react'
-import { IconButton, Fade } from '@material-ui/core'
+import {
+  memo,
+  FC,
+  useDeferredValue,
+  useState,
+  useCallback,
+  useRef,
+  useEffect,
+} from 'react'
+import { Fade } from '@material-ui/core'
 import { useStyles } from '../general/styles'
 import { useWebsiteContext } from '../providers/website'
 import { GrClose } from 'react-icons/gr'
@@ -10,12 +18,7 @@ import { useMemo } from 'react'
 import { useWasmContext } from '../providers'
 
 // per page list
-const FeedListPageWrapper = ({
-  website,
-  pageName,
-  onScanEvent,
-  visible,
-}: any) => {
+const FeedListPageWrapper = ({ website, pageName, onScanEvent }: any) => {
   const issue = website[pageName]
 
   return (
@@ -23,66 +26,97 @@ const FeedListPageWrapper = ({
       key={issue?.pageUrl}
       onScanEvent={onScanEvent}
       issue={issue}
-      isHidden={!visible}
+      isHidden={true}
     />
   )
 }
 
 const FeedPage = memo(FeedListPageWrapper)
 
-const FeedItemWrapper = ({ feed, onScanEvent, index, domain }: any) => {
-  const [visible, setVisible] = useState<boolean>(index === 0)
-  const [sorted, setSorted] = useState<string[]>([])
-
-  const website = feed[domain]
-
-  const websitePages = useMemo(() => {
-    return website && Object.keys(website)
-  }, [website])
-
-  // prevent sorting
-  const pages = useMemo(
-    () =>
-      sorted?.length
-        ? [...new Set([...sorted, ...websitePages])]
-        : websitePages,
-    [sorted, websitePages]
+const PageList = ({ pages, website, onScanEvent }: any) => {
+  return (
+    <>
+      {pages?.map((pageName: string) => (
+        <FeedPage
+          key={`${website?.domain}-${pageName}`}
+          onScanEvent={onScanEvent}
+          pageName={pageName}
+          website={website}
+        />
+      ))}
+    </>
   )
+}
+
+const FeedButton = ({ domain, onHeadingToggleEvent, onSortClick }: any) => {
+  return (
+    <div className='flex'>
+      <button
+        className='p-4 border-b font-bold text-xl w-full text-left hover:bg-gray-200'
+        onClick={onHeadingToggleEvent}
+      >
+        {domain}
+      </button>
+      <button
+        className='p-4 border-b font-bold text-left hover:bg-gray-200'
+        onClick={onSortClick}
+      >
+        Sort
+      </button>
+    </div>
+  )
+}
+
+const FeedButtonMemo = memo(FeedButton)
+
+const FeedItemWrapper = ({ feed, onScanEvent, index, domain }: any) => {
+  const website = feed[domain] // TODO: defer
+
+  const [visible, setVisible] = useState<boolean>(index === 0)
+  const [_sorted, setSorted] = useState<boolean>(false)
+
+  // keep tracking of the pages in order
+  const refPages = useRef<Record<string, string>>({})
+  const pages = useDeferredValue(Object.keys(refPages.current))
+
+  useEffect(() => {
+    if (website) {
+      Object.assign(refPages.current, website)
+    }
+  }, [website])
 
   const onHeadingToggleEvent = () => {
     setVisible((v) => !v)
   }
 
   const onSortClick = () => {
-    setSorted(pages.sort())
+    const ordered = Object.keys(refPages.current)
+      .sort()
+      .reduce((obj: any, key) => {
+        obj[key] = refPages.current[key]
+        return obj
+      }, {})
+    refPages.current = ordered
+
+    setSorted((s) => !s)
   }
+
+  const pagesList = useMemo(
+    () => (
+      <PageList pages={pages} website={website} onScanEvent={onScanEvent} />
+    ),
+    [pages, website, onScanEvent]
+  )
 
   return (
     <li>
-      <div className='flex space-x-2'>
-        <button
-          className='p-4 border-b font-bold text-xl w-full text-left hover:bg-gray-200'
-          onClick={onHeadingToggleEvent}
-        >
-          {domain}
-        </button>
-        <button
-          className='p-4 border-b font-bold text-left hover:bg-gray-200'
-          onClick={onSortClick}
-        >
-          Sort
-        </button>
-      </div>
+      <FeedButtonMemo
+        domain={domain}
+        onHeadingToggleEvent={onHeadingToggleEvent}
+        onSortClick={onSortClick}
+      />
       <ul className={!visible ? 'hidden' : 'visible'} aria-hidden={!visible}>
-        {pages?.map((d: any) => (
-          <FeedPage
-            key={`${website?.domain}-${d}`}
-            onScanEvent={onScanEvent}
-            visible={visible}
-            pageName={d}
-            website={website}
-          />
-        ))}
+        {pagesList}
       </ul>
     </li>
   )
@@ -108,13 +142,12 @@ const Feed: FC = () => {
 
   const onScanEvent = useCallback(
     async (target: string) => {
-      let webPage: Website
+      let webPage: Website | null = null
 
       try {
         webPage = await scanWebsite({ variables: { url: target } })
       } catch (e) {
         console.error(e)
-        return
       }
 
       // replace issue feed section with new value
@@ -126,20 +159,18 @@ const Feed: FC = () => {
         })
 
         if (page) {
-          const pageIssues = page?.issues || []
           // old issues
-          const pageIssuesCount = pageIssues?.length ? pageIssues.length : 0
+          const pageIssuesCount = page?.issues?.length || 0
           // new issues
-          const newIssuesCount = webPage?.issuesInfo?.totalIssues ?? 0
-          // did the issues on the page update
-          const issuesUpdated = pageIssuesCount !== newIssuesCount
-          const issueMessage =
-            newIssuesCount > pageIssuesCount ? 'more' : 'less'
-          const issueDif = pageIssuesCount - newIssuesCount
+          const newIssuesCount = webPage?.issuesInfo?.totalIssues || 0
 
           let message = 'No new issues found'
 
-          if (issuesUpdated) {
+          // issue count updated
+          if (pageIssuesCount !== newIssuesCount) {
+            const issueDif = pageIssuesCount - newIssuesCount
+            const issueMessage =
+              newIssuesCount > pageIssuesCount ? 'more' : 'less'
             message = `${issueDif} ${issueMessage} issue${
               issueDif === 1 ? '' : 's'
             } found`
@@ -151,24 +182,24 @@ const Feed: FC = () => {
         setIssueFeedContent(true)
       }
     },
-    [feed]
+    [feed, scanWebsite, setIssueFeedContent]
   )
 
   return (
     <Fade in={issues.length && open ? true : false}>
       <div className={`${classes.root} shadow`} aria-live='polite'>
         <div
-          className={`flex place-items-center px-3 py-1 border border-t-0 border-r-0 border-l-0 bg-gray-100`}
+          className={`flex place-items-center px-3 py-1 h-14 border border-t-0 border-r-0 border-l-0 bg-gray-100`}
         >
           <p className={`flex-1 text-lg font-semibold`}>Recent Issues</p>
-          <IconButton
-            edge='start'
-            color='inherit'
+          <button
             onClick={closeFeed}
             aria-label='close'
+            title='close issue feed'
+            className='p-3 hover:bg-gray-200 rounded-2xl'
           >
             <GrClose />
-          </IconButton>
+          </button>
         </div>
         <ul>
           {issues?.map((domain, index) => (

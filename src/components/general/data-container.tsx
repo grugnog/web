@@ -1,19 +1,19 @@
-import React from 'react'
+import { FC, PropsWithChildren } from 'react'
 import { CardHeader } from '@material-ui/core'
 
 import { ListSkeleton } from '@app/components/placeholders'
 import { EmptyWebsiteForm } from '@app/components/general/website/empty-form'
 
-interface DataContainerProps {
+type DataContainerProps = PropsWithChildren<{
   data?: any
   error?: boolean
   loading?: boolean
   emptyHeaderTitle?: string
   emptyHeaderSubTitle?: string
-}
+}>
 
 // data container to handle loading main application pages
-export const DataContainer: React.FC<DataContainerProps> = ({
+export const DataContainer: FC<DataContainerProps> = ({
   data,
   error,
   loading,

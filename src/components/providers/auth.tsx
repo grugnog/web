@@ -1,5 +1,12 @@
 import { UserManager } from '@app/managers'
-import { createContext, useContext, FC, useState, useEffect } from 'react'
+import {
+  createContext,
+  useContext,
+  FC,
+  useState,
+  useEffect,
+  PropsWithChildren,
+} from 'react'
 
 const AppContext = createContext({
   activeSubscription: false,
@@ -9,7 +16,7 @@ const AppContext = createContext({
 export const AuthProvider = AppContext.Provider
 
 // Determine the initial account type via load client-side
-export const AuthProviderWrapper: FC<{ load?: boolean }> = ({
+export const AuthProviderWrapper: FC<PropsWithChildren<{ load?: boolean }>> = ({
   children,
   load,
 }) => {

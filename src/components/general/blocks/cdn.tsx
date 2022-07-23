@@ -1,4 +1,4 @@
-import React, { memo } from 'react'
+import { memo } from 'react'
 import { PrismLight } from 'react-syntax-highlighter'
 import { a11yDark } from '@app/styles'
 
@@ -25,7 +25,7 @@ export function CdnBlockComponent({
                 <p className='text-xs'>Source</p>
               </div>
             ) : null}
-            <PrismLight language='html' style={a11yDark}>
+            <PrismLight language='html' style={a11yDark as any}>
               {`<script src="${cdn_url}"></script>`}
             </PrismLight>
           </>
@@ -37,7 +37,7 @@ export function CdnBlockComponent({
             </div>
             <PrismLight
               language='html'
-              style={a11yDark}
+              style={a11yDark as any}
               className={`max-h-[50vh] mb-0`}
             >
               {`<script src="${cdn_url_min}" crossorigin="anonymous"></script>`}

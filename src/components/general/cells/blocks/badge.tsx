@@ -41,7 +41,7 @@ export const StatusBadgeBoxWrapper = ({
       </div>
       <PrismLight
         language={statusBadgeLanguage}
-        style={prismStyles}
+        style={prismStyles as any}
         onClick={copyClipboard}
         className={'hover:bg-blue-500 hover:text-white cursor-pointer'}
       >

@@ -1,7 +1,7 @@
 import React from 'react'
 import { Grow } from '@material-ui/core'
 
-function Transition(props: unknown, ref: any) {
+function Transition(props: Record<string, any> = {}, ref: any) {
   return <Grow ref={ref} style={{ overflowY: 'hidden' }} {...props} />
 }
 

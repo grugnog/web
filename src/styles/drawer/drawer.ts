@@ -110,7 +110,7 @@ export const drawerStyles = makeStyles((theme: Theme) => {
     content: {
       flexGrow: 1,
       paddingTop: theme.mixins.toolbar.minHeight,
-      paddingBottom: theme.spacing(3),
+      paddingBottom: theme.spacing(1),
       transition: theme.transitions.create('margin', {
         easing: theme.transitions.easing.sharp,
         duration: theme.transitions.duration.leavingScreen,

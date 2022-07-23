@@ -1,5 +1,5 @@
+import { FC, PropsWithChildren, Fragment, useMemo, memo } from 'react'
 import type { BlogPageProps } from '@app/types/page'
-import React, { FC, Fragment, useMemo, memo } from 'react'
 import Head from 'next/head'
 import { Footer } from '@app/components/general/footer'
 import { NavBar } from '@app/components/blog/navbar'
@@ -17,7 +17,7 @@ const getProps = (props: any = {}) => {
   return mainProps
 }
 
-const Page: FC<BlogPageProps> = ({
+const Page: FC<PropsWithChildren<BlogPageProps>> = ({
   html,
   websiteUrl,
   title,

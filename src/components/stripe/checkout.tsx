@@ -48,7 +48,7 @@ export const CheckoutForm = ({ onToken, basic, price, disabled }: Props) => {
     <form
       onSubmit={handleSubmit}
       className={
-        'h-42 space-y-3 border border-[#2A2A2A] px-4 pt-2 pb-3 rounded w-full'
+        'h-42 space-y-3 border-2 border-[#2A2A2A] px-4 pt-2 pb-3 rounded w-full'
       }
     >
       <div className='text-3xl font-bold'>

@@ -1,6 +1,5 @@
-import { Button } from './button'
-
 import React from 'react'
+import { Button } from './button'
 
 // load more content if exist
 export const LoadMoreButton: React.FC<{

@@ -1,14 +1,14 @@
-import React from 'react'
+import { PropsWithChildren } from 'react'
 
-interface Props {
+type MailProps = PropsWithChildren<{
   email: string
   subject: string
   body: string
   children?: string | Node
   className?: any
-}
+}>
 
-function Mailto({ email, subject, body, className, children }: Props) {
+function Mailto({ email, subject, body, className, children }: MailProps) {
   return (
     <address>
       <a

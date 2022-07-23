@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react'
+import { Fragment } from 'react'
 import { Typography } from '@material-ui/core'
 import { strings } from '@app-strings'
 import { SectionHeading } from '../text'

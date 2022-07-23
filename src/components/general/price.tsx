@@ -2,9 +2,10 @@ import { memo, useMemo, useState } from 'react'
 import { Button } from '@material-ui/core'
 import { SectionContainer } from '@app/components/general'
 import { priceConfig } from '@app/configs'
+
+import { GrFormCheckmark, GrFormUp } from 'react-icons/gr'
 import { SectionHeading } from '../text'
 import { Link } from './link'
-import { GrFormCheckmark, GrFormUp } from 'react-icons/gr'
 
 const getStyles = (inactive: boolean) =>
   inactive
@@ -151,7 +152,7 @@ function PriceWrapper({
           </p>
         </>
       ) : null}
-      <div className='flex space-x-1 place-items-center'>
+      <div className='flex space-x-1 place-items-center pb-2'>
         <button
           type='button'
           onClick={() => {
@@ -170,17 +171,15 @@ function PriceWrapper({
         >
           Yearly billing
         </button>
-        {!pricingPage ? (
-          <button
-            type='button'
-            className='px-2 py-1 rounded bg-yellow-400 font-bold truncate'
-            onClick={() => {
-              setYearly(true)
-            }}
-          >
-            Save 10%
-          </button>
-        ) : null}
+        <button
+          type='button'
+          className='px-2 py-1 rounded bg-yellow-400 font-bold truncate'
+          onClick={() => {
+            setYearly(true)
+          }}
+        >
+          Save +15%
+        </button>
       </div>
       <div className='flex flex-col flex-1'>
         <div
@@ -204,13 +203,15 @@ function PriceWrapper({
                 key={title}
                 className={`min-w-[330px] rounded flex flex-1 flex-col justify-between ${highLight(
                   title,
-                  'bg-blue-100 text-black',
+                  'bg-gray-800 text-white',
                   {
                     premium,
                     basic,
                   }
-                )} border border-gray-300 ${
-                  clickEvent ? `hover:bg-blue-100` : ''
+                )}  border border-[#2A2A2A] border-t-[4px] border-2 ${
+                  clickEvent
+                    ? `hover:border-blue-700 hover:opacity-95 active:opacity-90 active:opacity-100 active:border-[#2A2A2A]`
+                    : ''
                 } rounded`}
                 onClick={onPriceClick}
               >

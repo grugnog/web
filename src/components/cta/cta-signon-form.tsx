@@ -13,7 +13,7 @@ export function CtaSignonForm() {
 
   return (
     <VisibilitySensor partialVisibility onChange={onChange}>
-      {({ isVisible }) => {
+      {({ isVisible }: { isVisible: boolean }) => {
         return (
           <SectionContainer>
             <SignOnForm

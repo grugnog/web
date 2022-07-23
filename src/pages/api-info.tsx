@@ -1,4 +1,4 @@
-import React, { FC, Fragment, useState } from 'react'
+import React, { FC, Fragment, PropsWithChildren, useState } from 'react'
 import { Container } from '@material-ui/core'
 import {
   NavBar,
@@ -17,11 +17,10 @@ import { companyName } from '@app/configs'
 import { apiRoutes } from '@app/templates/rest-api'
 import { ApiCell } from '@app/components/general/cells/api-info-cell'
 
-const SectionTitle: FC<{ className?: string; bold?: boolean }> = ({
-  children,
-  className,
-  bold,
-}) => {
+const SectionTitle: FC<PropsWithChildren<{
+  className?: string
+  bold?: boolean
+}>> = ({ children, className, bold }) => {
   return (
     <h2
       className={`text-3xl ${bold ? 'font-bold' : ''}${

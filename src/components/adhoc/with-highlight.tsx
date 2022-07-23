@@ -1,8 +1,6 @@
-import React from 'react'
-import dynamic from 'next/dynamic'
 import { makeStyles } from '@material-ui/core/styles'
-import { TextSkeleton } from '@app/components/placeholders'
 import { a11yDark } from '@app/styles'
+import { PrismLight } from 'react-syntax-highlighter'
 
 const useStyles = makeStyles(() => ({
   code: {
@@ -19,28 +17,11 @@ const useStyles = makeStyles(() => ({
   },
 }))
 
-const SyntaxHighlighter = dynamic(
-  () =>
-    import('react-syntax-highlighter').then(
-      ({ PrismLight }: { PrismLight: React.ReactNode }) => PrismLight
-    ) as any,
-  {
-    ssr: false,
-    loading: () => (
-      <TextSkeleton
-        width={'100%'}
-        height={29}
-        style={{ marginTop: 12, marginBottom: 12 }}
-      />
-    ),
-  }
-) as any
-
-function WithHighlight({ setScript, children, ...extraProps }: any) {
+const WithHighlight = ({ setScript, children, ...extraProps }: any) => {
   const classes = useStyles()
 
   return (
-    <SyntaxHighlighter
+    <PrismLight
       style={a11yDark}
       className={classes.code}
       language='html'
@@ -48,9 +29,8 @@ function WithHighlight({ setScript, children, ...extraProps }: any) {
       {...extraProps}
     >
       {children}
-    </SyntaxHighlighter>
+    </PrismLight>
   )
 }
-WithHighlight.displayName = 'WithHighlight'
 
 export { WithHighlight }

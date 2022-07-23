@@ -16,7 +16,7 @@ ENV PORT 3000
 ENV DOCKER_CONTAINER 1
 ENV NEXT_TELEMETRY_DISABLED 1
 
-# # uncomment/comment link when developing for wasm atm.
-# RUN cd ./wasm/pkg && npm link --force && cd ../.. && npm link a11ywatch-web-wasm --force
+# link the wasm bundle
+RUN cd ./wasm/pkg && npm link --force && cd ../.. && npm link a11ywatch-web-wasm --force
 
 CMD ["node_modules/.bin/next", "dev"]

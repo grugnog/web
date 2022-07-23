@@ -1,4 +1,4 @@
-import React, { useState, useRef, SyntheticEvent, useCallback } from 'react'
+import { useState, useRef, SyntheticEvent, useCallback } from 'react'
 import { InputLabel, InputBase } from '@material-ui/core'
 import {
   alpha,

@@ -18,7 +18,7 @@ const plans = [
       'Limited support',
     ],
     cost: '$0/month',
-    costYearly: '$0/year',
+    costYearly: '$0/month',
   },
   {
     title: 'Basic',
@@ -35,8 +35,8 @@ const plans = [
       '100 private API request a day',
       'Email support',
     ],
-    cost: '$9.99/month',
-    costYearly: '$99.99/year',
+    cost: '$10/month',
+    costYearly: '$8/month',
   },
   {
     title: 'Premium',
@@ -52,8 +52,8 @@ const plans = [
       'Lighthouse on all pages',
       'Dedicated support',
     ],
-    cost: '$19.99/month',
-    costYearly: '$199.99/year',
+    cost: '$20/month',
+    costYearly: '$16/month',
   },
   {
     title: 'Enterprise',

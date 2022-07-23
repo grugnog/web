@@ -31,8 +31,7 @@ export const StandardBoxWrapper = ({
       })
       AppManager.toggleSnack(true, `Updated standard ${url} to ${value}`)
     } catch (e) {
-      // @ts-ignore
-      AppManager.toggleSnack(true, e?.message)
+      AppManager.toggleSnack(true, e)
     }
   }
 

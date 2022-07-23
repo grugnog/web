@@ -264,7 +264,6 @@ export const useWebsiteData = (
         `Insight found on ${newIssue?.pageUrl}`,
         'success'
       )
-
       if (newIssue && !feedOpen) {
         setIssueFeedContent(true) // display content open
       }

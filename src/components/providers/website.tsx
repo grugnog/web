@@ -1,4 +1,11 @@
-import { Fragment, createContext, useContext, FC, memo } from 'react'
+import {
+  Fragment,
+  PropsWithChildren,
+  createContext,
+  useContext,
+  FC,
+  memo,
+} from 'react'
 import { useWebsiteData } from '@app/data'
 import { sharedWebsiteDefaults } from './defaults'
 import { withApollo } from '@app/apollo'
@@ -7,12 +14,12 @@ const AppContext = createContext(sharedWebsiteDefaults)
 
 export const WebsiteProvider = AppContext.Provider
 
-interface GqlProps {
+type GqlProps = PropsWithChildren<{
   skip?: boolean
   gqlFilter?: any
   scopedQuery?: string
   gql?: boolean
-}
+}>
 
 // skip fetching the website query
 export const WebsiteProviderComponent: FC<GqlProps> = ({

@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useCallback, useEffect } from 'react'
 import gql from 'graphql-tag'
 import { useQuery } from '@apollo/react-hooks'
 import { frameDom } from '@app/managers'
@@ -14,13 +14,16 @@ export function useAutoFix(script: any) {
   const autoFixEnabled = data?.autoFixEnabled
   const { dom } = frameDom
 
-  const setAutoFix = (enabled: any) => {
-    client.writeData({
-      data: {
-        autoFixEnabled: enabled,
-      },
-    })
-  }
+  const setAutoFix = useCallback(
+    (enabled: any) => {
+      client.writeData({
+        data: {
+          autoFixEnabled: enabled,
+        },
+      })
+    },
+    [client]
+  )
 
   useEffect(() => {
     if (dom && script?.cdnUrl) {
@@ -33,7 +36,7 @@ export function useAutoFix(script: any) {
         setAutoFix(true)
       }
     }
-  }, [dom, script])
+  }, [dom, script, setAutoFix])
 
   return {
     autoFixEnabled,

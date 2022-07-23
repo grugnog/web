@@ -15,6 +15,7 @@ const FeedListComponent: FC<FeedComponentProps> = ({
   const [sectionHidden, onToggleSection] = useState<boolean>(!!isHidden)
   const pageIssues = issueExtractor(issue) // array of issues extract duplex types
 
+  // TODO: memo row cell out of render
   const Row = ({
     index,
     style,
@@ -39,6 +40,10 @@ const FeedListComponent: FC<FeedComponentProps> = ({
     return listHeight
   }, [fullScreen, itemSize, issueCount, listHeight])
 
+  if (!issue) {
+    return null
+  }
+
   if (fullScreen) {
     return (
       <ul
@@ -62,26 +67,24 @@ const FeedListComponent: FC<FeedComponentProps> = ({
         onScanEvent={onScanEvent}
         onToggleSection={onToggleSection}
         sectionHidden={sectionHidden}
-        issue={issue}
+        pageUrl={issue.pageUrl}
+        domain={issue.domain}
+        totalIssues={issue.issues?.length || 0}
       />
-
-      <ul
-        aria-hidden={sectionHidden}
-        className={`overflow-x-hidden${
-          sectionHidden
-            ? ' hidden'
-            : ' visible border border-t-0 border-l-0 border-r-0 bg-[rgba(172,182,192,0.06)]'
-        }`}
-      >
-        <List
-          height={listMainHeight}
-          itemCount={issueCount}
-          itemSize={itemSize}
-          width={'100%'}
+      {sectionHidden ? null : (
+        <ul
+          className={`overflow-x-hidden border border-t-0 border-l-0 border-r-0 bg-[rgba(172,182,192,0.06)]`}
         >
-          {Row}
-        </List>
-      </ul>
+          <List
+            height={listMainHeight}
+            itemCount={issueCount}
+            itemSize={itemSize}
+            width={'100%'}
+          >
+            {Row}
+          </List>
+        </ul>
+      )}
     </li>
   )
 }

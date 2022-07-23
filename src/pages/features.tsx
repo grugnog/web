@@ -1,4 +1,4 @@
-import { FC } from 'react'
+import { FC, PropsWithChildren } from 'react'
 import {
   MarketingDrawer,
   Section,
@@ -10,7 +10,7 @@ import type { PageProps } from '@app/types'
 import Image from 'next/image'
 import { CtaFeatures } from '@app/components/cta'
 
-const FeatureHeading: FC = ({ children }) => {
+const FeatureHeading: FC<PropsWithChildren> = ({ children }) => {
   return (
     <Heading component='h4' bold={false}>
       {children}
@@ -18,7 +18,7 @@ const FeatureHeading: FC = ({ children }) => {
   )
 }
 
-const GeneralHeading: FC = ({ children }) => {
+const GeneralHeading: FC<PropsWithChildren> = ({ children }) => {
   return (
     <Heading variant='h4' component='h3'>
       {children}

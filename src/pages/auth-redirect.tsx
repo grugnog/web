@@ -13,7 +13,7 @@ function AuthRedirect() {
   const access_token = router.query?.access_token
 
   const onGithubAuth = useCallback(
-    async ({ email, id }) => {
+    async ({ email, id }: { email: string; id: number }) => {
       try {
         if (email && id) {
           const data = await signOnMutation({

@@ -1,4 +1,4 @@
-import React, { FC } from 'react'
+import React, { FC, PropsWithChildren } from 'react'
 
 const styles = {
   infoContainer: 'px-2 py-2 flex flex-col flex-1 text-base justify start',
@@ -8,11 +8,18 @@ const styles = {
   row: 'flex place-items-center space-x-2',
 }
 
-export const InfoBlock: FC<{
+type BaseProps = PropsWithChildren<{
   title: string
   titleButton?: React.ReactElement
   icon?: any
-}> = ({ children, title, titleButton, icon = null }) => {
+}>
+
+export const InfoBlock: FC<BaseProps> = ({
+  children,
+  title,
+  titleButton,
+  icon = null,
+}) => {
   return (
     <div
       className={`${styles.infoContainer}${
