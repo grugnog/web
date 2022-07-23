@@ -36,11 +36,6 @@ export const useWebsiteData = (
   const [lighthouseVisible, setLighthouseVisibility] = useState<boolean>(true)
   const [feedOpen, setIssueFeedContent] = useState<boolean>(false)
 
-  const issueFeed = {
-    open: feedOpen,
-    data: (feed && feed?.get_data()) ?? {},
-  }
-
   const [activeCrawls, setActiveCrawl] = useState<
     { [key: string]: boolean } | Record<string, any>
   >({})
@@ -210,37 +205,8 @@ export const useWebsiteData = (
         }, 500)
       }
     },
-    [websites, refetch, setActiveCrawl]
+    [refetch, setActiveCrawl]
   )
-
-  useSubscription(CRAWL_COMPLETE_SUBSCRIPTION, {
-    variables: subscriptionVars,
-    onSubscriptionData: onCrawlCompleteSubscription,
-  })
-
-  const onIssueSubscription = useCallback(
-    ({ subscriptionData }: OnSubscriptionDataOptions<any>) => {
-      const newIssue = subscriptionData?.data?.issueAdded
-
-      feed?.insert_website(newIssue)
-      setIssueFeedContent(true) // display content open
-
-      setTimeout(() => {
-        AppManager.toggleSnack(
-          true,
-          `Insight found on ${newIssue?.pageUrl}`,
-          'success'
-        )
-      }, 0)
-    },
-    [websites, issueFeed, feed]
-  )
-
-  const { data: issueSubData } = useSubscription(ISSUE_SUBSCRIPTION, {
-    variables: subscriptionVars,
-    onSubscriptionData: onIssueSubscription,
-    skip,
-  })
 
   useEffect(() => {
     const updatedWebsite = updateData && updateData?.updateWebsite?.website
@@ -274,13 +240,43 @@ export const useWebsiteData = (
         }, 0)
       }
     }
-  }, [updateData, forceUpdate])
+  }, [websites, updateData, forceUpdate])
 
   useEffect(() => {
     if (addWebsiteData && !addWebsiteData?.addWebsite?.success) {
       AppManager.toggleSnack(true, addWebsiteData.addWebsite.message)
     }
   }, [addWebsiteData])
+
+  useSubscription(CRAWL_COMPLETE_SUBSCRIPTION, {
+    variables: subscriptionVars,
+    onSubscriptionData: onCrawlCompleteSubscription,
+  })
+
+  const onIssueSubscription = useCallback(
+    ({ subscriptionData }: OnSubscriptionDataOptions<any>) => {
+      const newIssue = subscriptionData?.data?.issueAdded
+
+      feed?.insert_website(newIssue)
+
+      AppManager.toggleSnack(
+        true,
+        `Insight found on ${newIssue?.pageUrl}`,
+        'success'
+      )
+
+      if (newIssue && !feedOpen) {
+        setIssueFeedContent(true) // display content open
+      }
+    },
+    [feed, feedOpen]
+  )
+
+  const { data: issueSubData } = useSubscription(ISSUE_SUBSCRIPTION, {
+    variables: subscriptionVars,
+    onSubscriptionData: onIssueSubscription,
+    skip,
+  })
 
   const updateQuery = (prev: any, { fetchMoreResult }: any) => {
     if (!fetchMoreResult || !fetchMoreResult?.user?.websites?.length) {
@@ -332,7 +328,7 @@ export const useWebsiteData = (
   }
 
   // dashboard page pagination
-  const onLoadMoreWebsites = async () => {
+  const onLoadMoreWebsites = useCallback(async () => {
     try {
       await fetchMore({
         query: GET_WEBSITES,
@@ -344,10 +340,10 @@ export const useWebsiteData = (
     } catch (e) {
       console.error(e)
     }
-  }
+  }, [websites, fetchMore])
 
   // issue page pagination
-  const onLoadMoreIssues = async () => {
+  const onLoadMoreIssues = useCallback(async () => {
     try {
       await fetchMoreIssues({
         query: GET_WEBSITES_INFO,
@@ -359,10 +355,10 @@ export const useWebsiteData = (
     } catch (e) {
       console.error(e)
     }
-  }
+  }, [issueData, fetchMoreIssues])
 
   // pages page pagination
-  const onLoadMorePages = async () => {
+  const onLoadMorePages = useCallback(async () => {
     try {
       await fetchMorePages({
         query: GET_WEBSITES_INFO,
@@ -374,10 +370,10 @@ export const useWebsiteData = (
     } catch (e) {
       console.error(e)
     }
-  }
+  }, [pagesData, fetchMorePages])
 
   // analytics page pagination
-  const onLoadMoreAnalytics = async () => {
+  const onLoadMoreAnalytics = useCallback(async () => {
     try {
       await fetchMoreAnalytics({
         query: GET_WEBSITES_INFO,
@@ -389,10 +385,10 @@ export const useWebsiteData = (
     } catch (e) {
       console.error(e)
     }
-  }
+  }, [analyticsData, fetchMoreAnalytics])
 
   // scripts page pagination
-  const onLoadMoreScripts = async () => {
+  const onLoadMoreScripts = useCallback(async () => {
     try {
       await fetchMoreScripts({
         query: GET_WEBSITES_INFO,
@@ -404,10 +400,10 @@ export const useWebsiteData = (
     } catch (e) {
       console.error(e)
     }
-  }
+  }, [scriptsData, fetchMoreScripts])
 
   // actions page pagination
-  const onLoadMoreActions = async () => {
+  const onLoadMoreActions = useCallback(async () => {
     try {
       await fetchMoreActions({
         query: GET_WEBSITES_INFO,
@@ -419,14 +415,12 @@ export const useWebsiteData = (
     } catch (e) {
       console.error(e)
     }
-  }
+  }, [actionsData, fetchMoreActions])
 
   // toggle the feed menu
   const setFeed = (open: boolean) => {
     // clear feed data on close
-    if (!open) {
-      feed?.clear_data()
-    }
+    !open && feed?.clear_data()
     setIssueFeedContent(open)
   }
 
@@ -444,6 +438,13 @@ export const useWebsiteData = (
     } catch (e) {
       console.error(e)
     }
+  }
+
+  const issueFeed = {
+    open: feedOpen,
+    get data() {
+      return feed?.get_data() ?? {}
+    },
   }
 
   return {

@@ -21,18 +21,28 @@ export const usePayments = () => {
     { loading: cancelSubscriptionLoading },
   ] = useMutation(CANCEL_SUBSCRIPTION)
 
-  const user = data?.user || {}
-  const newUser = updateUserData?.updateUserData?.user || {}
-  const useUserData = Object.assign({}, user, newUser)
+  const user = data?.user
+  const newUser = updateUserData?.updateUserData?.user
+
+  // merge user between updates
+  const useUserData = useMemo(() => {
+    if (user) {
+      return user
+    }
+    if (user && newUser) {
+      return Object.assign({}, user, newUser)
+    }
+    return null
+  }, [user, newUser])
 
   useMemo(() => {
-    if (newUser?.role !== user?.role && newUser?.jwt) {
+    if (newUser?.role) {
       UserManager.setJwt(newUser.jwt)
     }
-  }, [newUser, user?.role])
+  }, [newUser])
 
   const model = Object.freeze({
-    data: (Object.keys(useUserData).length && useUserData) || null,
+    data: useUserData,
     loading: loading || addPaymentLoading || cancelSubscriptionLoading,
     addSubscription,
     cancelSubscription,

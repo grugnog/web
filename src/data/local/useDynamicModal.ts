@@ -59,7 +59,7 @@ export function useDynamicModal() {
         },
       })
     },
-    []
+    [client]
   )
 
   useEffect(() => {
@@ -78,7 +78,7 @@ export function useDynamicModal() {
         })
       }
     }
-  }, [])
+  }, [setModal, client])
 
   return {
     modelData,

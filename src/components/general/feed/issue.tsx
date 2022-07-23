@@ -44,49 +44,45 @@ export function FeedIssueCardComponent({
   const [m, rec] = message?.split('Recommendation:') || [message, '']
 
   return (
-    <div className='px-3 py-2 flex flex-col space-y-1 place-content-between h-[inherit]'>
-      <div>
-        <div className='flex space-x-2 items-center'>
-          <div
-            className={`${getErrorColor(
-              issueType + ''
-            )} min-w-[0.75rem] min-h-[0.75rem] w-3 h-3 rounded-full`}
-          />
-          <p className={`truncate text-sm font-bold max-w-[90%] flex-1`}>
-            {selector}
-          </p>
-          <div className='justify-end flex flex-shrink'>
-            {recurrence ? (
-              <div className='px-2 bg-gray-200 rounded'>
-                <p className={'truncate text-sm font-bold'}>
-                  Recurrence: {recurrence}
-                </p>
-              </div>
-            ) : null}
-          </div>
-        </div>
-      </div>
-      <div>
-        <div className={'text-base line-clamp-4 py-1'}>
-          {m}
-          {rec ? (
-            <>
-              {` Recommendation:`}
-              <div className='text-blue-600 font-bold inline'>{rec}</div>
-            </>
+    <div className='px-3 py-1.5 flex flex-col space-y-1 place-content-between h-[inherit]'>
+      <div className='flex space-x-2 items-center'>
+        <div
+          className={`${getErrorColor(
+            issueType + ''
+          )} min-w-[0.75rem] min-h-[0.75rem] w-3 h-3 rounded-full`}
+        />
+        <p className={`truncate text-sm font-bold max-w-[90%] flex-1`}>
+          {selector}
+        </p>
+        <div className='justify-end flex flex-shrink'>
+          {recurrence ? (
+            <div className='px-2 bg-gray-200 rounded'>
+              <p className={'truncate text-sm font-bold'}>
+                Recurrence: {recurrence}
+              </p>
+            </div>
           ) : null}
         </div>
-        <div className='pb-1 truncate max-w-[88vw] overflow-hidden'>
-          <a
-            href={codeHref}
-            title={`view technique for ${codeDisplay}`}
-            target='_blank'
-            rel='noreferrer'
-            className='text-blue-800 text-xs italic hover:underline'
-          >
-            {codeDisplay}
-          </a>
-        </div>
+      </div>
+      <div className='truncate max-w-[88vw] overflow-hidden'>
+        <a
+          href={codeHref}
+          title={`view technique for ${codeDisplay}`}
+          target='_blank'
+          rel='noreferrer'
+          className='text-blue-800 text-xs italic hover:underline'
+        >
+          {codeDisplay}
+        </a>
+      </div>
+      <div className={'text-base line-clamp-4'}>
+        {m}
+        {rec ? (
+          <>
+            {` Recommendation:`}
+            <div className='text-blue-600 font-bold inline'>{rec}</div>
+          </>
+        ) : null}
       </div>
       <SyntaxHighlighter language='html' style={docco}>
         {context}

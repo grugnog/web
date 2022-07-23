@@ -50,7 +50,7 @@ export function useEvents() {
     } catch (e) {
       console.error(e)
     }
-  }, [])
+  }, [load])
 
   return {
     events,
