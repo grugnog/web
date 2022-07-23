@@ -1,5 +1,5 @@
-import React, { FC, useState, useEffect, useCallback, memo } from 'react'
-import { List as MUList, CardHeader } from '@material-ui/core'
+import { FC, useState, useEffect, useCallback, memo } from 'react'
+import { CardHeader } from '@material-ui/core'
 
 import { useMiniPlayer } from '@app/data'
 import { ListSkeleton } from '../placeholders'
@@ -117,12 +117,9 @@ export function ListComponent({
     // ERROR PAGE to display errors ( not actual network error )
     if (data?.length) {
       return (
-        <MUList
-          className={`border rounded`}
-          style={{ paddingTop: 0, paddingBottom: 0 }}
-        >
+        <ul className={`border rounded`}>
           <WebSites data={data} {...generalProps} />
-        </MUList>
+        </ul>
       )
     }
 

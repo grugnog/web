@@ -9,6 +9,7 @@ const GET_SEARCH_FILTER_STATE = gql`
   }
 `
 
+// use apollo cache for global search state
 export function useSearchFilter() {
   const { data, client } = useQuery(GET_SEARCH_FILTER_STATE, {
     fetchPolicy: 'cache-only',

@@ -1,13 +1,11 @@
-import { useMemo } from 'react'
 import { FormDialog, PageTitle, Drawer } from '@app/components/general'
 import { List } from '@app/components/general/lists/websites-issues'
-import { useSearchFilter } from '@app/data'
-import { filterSort } from '@app/lib'
 import { metaSetter } from '@app/utils'
 import type { PageProps } from '@app/types'
 import { PageLoader } from '@app/components/placeholders'
 import { useWebsiteContext } from '@app/components/providers/website'
 import { LoadMoreButton } from '@app/components/general/buttons'
+import { useFilterSort } from '@app/data/local'
 
 function WebIssues({ name }: PageProps) {
   const {
@@ -17,13 +15,7 @@ function WebIssues({ name }: PageProps) {
     error,
     onLoadMoreIssues,
   } = useWebsiteContext()
-  const { search } = useSearchFilter()
-
-  // search local filtering
-  const source = useMemo(
-    () => (Array.isArray(issueData) ? filterSort(issueData, search) : []),
-    [issueData, search]
-  )
+  const { sortedData } = useFilterSort(issueData)
 
   return (
     <>
@@ -38,7 +30,7 @@ function WebIssues({ name }: PageProps) {
         >
           <div className={'py-2'}>
             <List
-              data={source}
+              data={sortedData}
               loading={issueDataLoading}
               refetch={refetch}
               BottomButton={FormDialog}
@@ -46,7 +38,7 @@ function WebIssues({ name }: PageProps) {
               emptyHeaderSubTitle='Issues will appear here when they arise'
             />
             <LoadMoreButton
-              visible={source.length > 1}
+              visible={sortedData.length > 1}
               onLoadMoreEvent={onLoadMoreIssues}
             />
           </div>

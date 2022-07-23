@@ -15,6 +15,7 @@ const useStyles = makeStyles(() => ({
     ['&:hover']: {
       textDecoration: 'none',
     },
+    borderBottom: '1px solid #ccc',
   },
   title: {
     maxWidth: '50vw',
@@ -35,6 +36,7 @@ interface WebsiteCellProps extends Partial<Website> {
   history: boolean // history page
 }
 
+// OLD WEBSITE CELL [TODO: remove]
 export function WebsiteCell(props: WebsiteCellProps) {
   const classes = useStyles()
   const [anchorEl, setAnchorEl] = useState<any>(null)
@@ -97,11 +99,13 @@ export function WebsiteCell(props: WebsiteCellProps) {
       color={'inherit'}
       className={classes.root}
     >
-      <RenderAvatar
-        cdnConnected={cdnConnected}
-        adaScore={adaScore}
-        error={false}
-      />
+      {history ? null : (
+        <RenderAvatar
+          cdnConnected={cdnConnected}
+          adaScore={adaScore}
+          error={false}
+        />
+      )}
       <div>
         <ListItemText
           primary={url}
