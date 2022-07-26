@@ -1,10 +1,10 @@
-import React, { Fragment, memo } from 'react'
+import { Fragment, memo } from 'react'
 import { Container } from '@material-ui/core'
 import { navigationStyles } from '@app/styles/navigation'
 import { strings } from '@app-strings'
 import { NavBarTitle, MarketingNavMenu } from '../navigation'
 import { SearchBar } from '../searchbar'
-import { NavBar } from '../navbar'
+import { NavBar } from '../navigation/navbar'
 import { Footer } from '../footer'
 import { Link } from '../link'
 
@@ -22,6 +22,8 @@ export function MarketingDrawerContainer({
   authenticated,
 }: any) {
   const classes = navigationStyles()
+
+  const padding = index ? 0 : '0.25rem'
 
   return (
     <Fragment>
@@ -68,7 +70,7 @@ export function MarketingDrawerContainer({
         ) : (
           <Container
             maxWidth={maxWidth}
-            style={index ? { paddingLeft: 0, paddingRight: 0 } : undefined}
+            style={{ paddingLeft: padding, paddingRight: padding }}
           >
             {children}
           </Container>

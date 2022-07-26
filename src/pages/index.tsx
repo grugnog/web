@@ -1,6 +1,6 @@
 import { Fragment } from 'react'
 import { MarketingDrawer, Price } from '@app/components/general'
-import { CtaFeatures, CtaIntroRest, CtaNodejs } from '@app/components/cta'
+import { CtaFeatures, CtaIntroRest, CtaJavascript } from '@app/components/cta'
 import { MarketingTrustBy, MarketingCli } from '@app/components/marketing'
 import { metaSetter } from '@app/utils'
 import { strings } from '@app-strings'
@@ -13,7 +13,7 @@ function Index() {
         <CtaIntroRest />
         <CtaFeatures />
         <MarketingCli />
-        <CtaNodejs />
+        <CtaJavascript />
         <Price navigate />
         <MarketingTrustBy />
       </MarketingDrawer>

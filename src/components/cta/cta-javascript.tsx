@@ -13,13 +13,14 @@ const dataMultiPage = await multiPageScan({ url: "https://a11ywatch.com", subdom
 console.log(dataMultiPage)
 `
 
-export const CtaNodejs = () => {
+export const CtaJavascript = () => {
   return (
     <SectionContainer>
       <div className='place-content-center place-items-center flex flex-col'>
-        <h3 className='font-bold text-3xl'>Node.js Integration</h3>
+        <h3 className='font-bold text-3xl'>Javascript Integration</h3>
         <h4 className='pb-2 text-xl'>
-          Use npm or your favorite node.js package manager to install the suite.
+          Use npm or your favorite javascript package manager to install the
+          suite.
         </h4>
         <div className='flex flex-col border-4 border-[#2A2A2A] max-w-[96vw] rounded px-4 py-3'>
           <div className='flex flex-wrap gap-x-5 gap-y-4 place-items-center'>

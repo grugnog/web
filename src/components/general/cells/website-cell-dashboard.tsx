@@ -127,25 +127,7 @@ export function WebsiteCellDashboardComponent({
     script?.cdnUrlMinified ??
     `${domain}/${domain.replace(/\./g, '-')}-ada-fix-0.min.js`
 
-  // TODO: REMOVE ALL URL CLIENT APPENDING
-  const statusBadgeUrl = `${STATUS_URL}/${encodeURIComponent(domain)}`
-
-  const encodedUrl = encodeURIComponent(url)
-
-  const reportsLink = `${BASE_GQL_URL}/${encodedUrl}`
-  const reportsPageLink = `/reports/${encodedUrl}`
-
-  // playground link
-  const linkUrl = useMemo(
-    () => `/website-details?url=${encodeURIComponent(url)}`,
-    [url]
-  )
-  // direct view link
-  const linkView = useMemo(() => `/web-view?url=${encodeURIComponent(url)}`, [
-    url,
-  ])
-
-  // real time issue tracking [TODO: combine with website analytic data]
+  // real time issue tracking
   const {
     errorCount,
     warningCount,
@@ -159,7 +141,6 @@ export function WebsiteCellDashboardComponent({
     if (issues?.length) {
       issues.forEach((iss: any) => {
         const pageIssues = iss?.issues
-
         pageIssues?.forEach((page: Issue) => {
           if (page?.type === 'error') {
             errors++
@@ -186,6 +167,30 @@ export function WebsiteCellDashboardComponent({
       totalIssues: errors + warnings + notices,
     }
   }, [issues, issuesInfo])
+
+  const {
+    statusBadgeUrl,
+    reportsLink,
+    reportsPageLink,
+    linkUrl,
+    linkView,
+  } = useMemo(() => {
+    // TODO: REMOVE ALL URL CLIENT APPENDING
+    const encodedUrl = encodeURIComponent(url)
+    const statusBadgeUrl = `${STATUS_URL}/${encodeURIComponent(domain)}`
+
+    const reportsLink = `${BASE_GQL_URL}/${encodedUrl}`
+    const reportsPageLink = `/reports/${encodedUrl}`
+
+    return {
+      statusBadgeUrl,
+      encodedUrl,
+      reportsLink,
+      reportsPageLink,
+      linkUrl: `/website-details?url=${encodedUrl}`,
+      linkView: `/web-view?url=${encodedUrl}`,
+    }
+  }, [domain, url])
 
   const pageIssueCount =
     issues?.length > issuesInfo?.pageCount

@@ -1,7 +1,7 @@
 export { Link } from './link'
 export { SectionContainer } from './section-container'
 export { Footer } from './footer'
-export { NavBar } from './navbar'
+export { NavBar } from './navigation/navbar'
 export { Logo, SmallLogo, NavBarTitle } from './navigation'
 export { TestView } from './test-view'
 export { SnackBar } from './snack-bar'

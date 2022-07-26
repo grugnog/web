@@ -1,4 +1,4 @@
-import React, { memo, SyntheticEvent } from 'react'
+import { memo, SyntheticEvent } from 'react'
 import { List } from '@material-ui/core'
 import { useFeaturesData, userModel, useEvents } from '@app/data'
 import { features } from '@app/configs'

@@ -119,9 +119,6 @@ export const drawerStyles = makeStyles((theme: Theme) => {
       [theme.breakpoints.down(breakDrawerWidth)]: {
         marginLeft: `-13%`,
       },
-      [theme.breakpoints.down('sm')]: {
-        paddingLeft: theme.spacing(1) - 3,
-      },
     },
     contentShift: {
       transition: theme.transitions.create('margin', {

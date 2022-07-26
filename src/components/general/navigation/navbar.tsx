@@ -1,12 +1,10 @@
-import React, { FC, memo } from 'react'
-import { useRouter } from 'next/router'
-
+import { FC, memo, SyntheticEvent } from 'react'
 import { IconButton } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import { strings } from '@app-strings'
-import { Logo, NavBarTitle } from './navigation'
-import { Link } from './link'
-import { AuthMenu } from './auth-menu'
+import { Logo, NavBarTitle } from '.'
+import { Link } from '../link'
+import { AuthMenu } from '../auth-menu'
 import { GrLinkPrevious } from 'react-icons/gr'
 import { Skeleton } from '@material-ui/lab'
 
@@ -118,17 +116,16 @@ const NavBarComponent: FC<NavProps> = ({
   loading,
 }) => {
   const classes = useStyles({ position })
-  const router = useRouter()
 
   const buttonProps = !backButton
     ? { href: '/', component: Link }
     : {
-        onClick: async (e: any) => {
+        onClick: async (e: SyntheticEvent<HTMLButtonElement>) => {
           e?.preventDefault()
           if (backButton) {
-            router.back()
+            history.back()
           } else {
-            await router.push('/')
+            window.location.href = '/'
           }
         },
       }
@@ -141,7 +138,7 @@ const NavBarComponent: FC<NavProps> = ({
         position === 'fixed' ? 'fixed left-0 right-0 shadow' : 'shadow-none'
       }`}
     >
-      <div className='relative flex items-center place-content-around px-5 min-h-[inherit]'>
+      <div className='relative flex items-center place-content-around px-4 min-h-[inherit]'>
         {toolbar || children ? (
           toolbar || children
         ) : (

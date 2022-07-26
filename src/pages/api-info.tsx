@@ -67,7 +67,10 @@ function ApiInfo() {
         authenticated={authed}
         loading={loading && !authed}
       />
-      <Container maxWidth='xl'>
+      <Container
+        maxWidth='xl'
+        style={{ paddingLeft: '1rem', paddingRight: '1rem' }}
+      >
         <Box>
           <PageTitle title={'Web Accessibility API'} />
           <SectionTitle className={'text-lg font-bold'}>

@@ -1,10 +1,10 @@
-import React, { Fragment, memo } from 'react'
-import dynamic from 'next/dynamic'
+import { Fragment, memo } from 'react'
 import { useUserData } from '@app/data'
+import { UpgradeBanner } from '@app/components/general/upgrade-banner'
 import { drawerStyles } from '@app/styles/drawer'
 import { NavBarTitle, AuthedMenu } from '../navigation'
 import { SearchBar } from '../searchbar'
-import { NavBar } from '../navbar'
+import { NavBar } from '../navigation/navbar'
 import { FixedCopyRight } from '../fixed-copy-right'
 import { ConfirmEmail } from '../../alerts'
 import { useWebsiteContext } from '../../providers/website'
@@ -13,16 +13,6 @@ import { FormDialog } from '../form-dialog'
 import { DynamicModal } from '../../modal'
 import { MiniPlayer } from '../mini-player'
 import { useAuthContext } from '@app/components/providers/auth'
-
-const UpgradeBanner = dynamic(
-  () =>
-    import('@app/components/general/upgrade-banner').then(
-      (mod) => mod.UpgradeBanner
-    ) as any,
-  {
-    ssr: false,
-  }
-)
 
 function MainDrawerContainerComponent({ route, dataSourceMap, classes }: any) {
   return (

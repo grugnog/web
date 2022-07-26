@@ -1,19 +1,19 @@
-import React from 'react'
+import { useEffect, useState } from 'react'
 import { UserManager } from '@app/managers'
 import { Link } from './link'
 
-const styles = {
-  container: 'p-3 z-1 w-full flex place-content-center',
-  text: 'text-sm md:text-normal text-gray-500 font-semibold',
-}
-
 const UpgradeBanner = () => {
-  // TODO: MOBILE VISUAL UPGRADE ICON
-  return UserManager.freeAccount ? (
+  const [needsUpdate, setUpgrade] = useState<boolean>(false)
+
+  useEffect(() => {
+    setUpgrade(UserManager.freeAccount)
+  }, [])
+
+  return needsUpdate ? (
     <div className='hidden md:block'>
       <div className='h-20' />
-      <div className={styles.container}>
-        <div className={styles.text}>
+      <div className={'p-3 z-1 w-full flex place-content-center'}>
+        <div className={'text-sm md:text-normal text-gray-500 font-semibold'}>
           Upgrade your account to add multiple websites, multi page lighthouse
           reports, custom script fixes, and more.{' '}
           <Link href={'/payments'} style={{ color: '#3b82f6' }}>
