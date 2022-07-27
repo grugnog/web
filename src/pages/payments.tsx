@@ -237,7 +237,7 @@ function Payments({ hideTitle = false, name }: PaymentProps) {
                 ) : (
                   <div>
                     {renderPayMentBoxes ? (
-                      <div className='space-y-3'>
+                      <div className='gap-y-2 py-1'>
                         <PriceMemo
                           priceOnly
                           basic={state.basic || role === 1}

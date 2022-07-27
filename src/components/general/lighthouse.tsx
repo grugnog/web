@@ -14,8 +14,7 @@ export function LighthouseComponent({
   const lhId = useMemo(() => {
     if (!id && parsedInsight) {
       try {
-        const { hostname } = new URL(parsedInsight?.requestedUrl)
-        const domain = hostname
+        const domain = parsedInsight?.requestedUrl
           .replace('https://', '')
           .replace('http://', '')
           .replace(/\./g, '-')
@@ -29,17 +28,13 @@ export function LighthouseComponent({
     return id
   }, [parsedInsight, id])
 
+  if (!parsedInsight && !lighthouseVisible) {
+    return null
+  }
+
   return (
     <ErrorBoundary>
-      <div
-        className={`ease-in ${
-          parsedInsight && lighthouseVisible
-            ? 'visible opacity-1'
-            : 'hidden opacity-0'
-        }`}
-      >
-        <ReportViewer json={parsedInsight} initFeatures={false} id={lhId} />
-      </div>
+      <ReportViewer json={parsedInsight} initFeatures={false} id={lhId} />
     </ErrorBoundary>
   )
 }

@@ -1,18 +1,10 @@
-import React, { FC, useState, useEffect, useCallback, memo } from 'react'
+import { FC, useState, useEffect, useCallback, memo } from 'react'
 import { useMiniPlayer } from '@app/data'
 import { FullScreenModal } from '../fullscreen-modal'
 import { usePagesData } from '@app/data/external/pages/pages'
 import { WebsiteCellPages } from '../cells'
 import { InnerWrapper } from './list-wrapper'
 import { LoadMoreButton } from '../buttons'
-
-// return Pages maped
-function PagesWrapper(props: any) {
-  return <WebsiteCellPages {...props} />
-}
-
-// memo expensive Pages
-const Pages = memo(PagesWrapper)
 
 export const RenderInnerPages: FC<any> = (props) => {
   const { pageUrl, generalProps } = props
@@ -28,7 +20,7 @@ export const RenderInnerPages: FC<any> = (props) => {
       >
         <ul>
           {pagesSource?.map((page: any) => (
-            <Pages key={page._id} {...page} {...generalProps} />
+            <WebsiteCellPages key={page._id} {...page} {...generalProps} />
           ))}
         </ul>
       </InnerWrapper>

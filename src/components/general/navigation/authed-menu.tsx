@@ -4,14 +4,14 @@ import { useFeaturesData, userModel, useEvents } from '@app/data'
 import { features } from '@app/configs'
 import { FeaturesCell } from '../cells'
 
-interface AuthedMenu {
+type AuthedMenuProps = {
   route?: string
   isMobile?: boolean
   dataSourceMap?: any
 }
 
 // Side menu that appears on application routes
-export function AuthedMenuComponent({ route, dataSourceMap }: AuthedMenu) {
+export function AuthedMenuComponent({ route, dataSourceMap }: AuthedMenuProps) {
   const { events, setEvents } = useEvents()
   const { toggleAlert, toggleAlertData } = useFeaturesData()
 

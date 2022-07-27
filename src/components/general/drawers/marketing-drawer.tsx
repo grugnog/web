@@ -20,10 +20,11 @@ export function MarketingDrawerContainer({
   emptyFooter,
   emptyNav,
   authenticated,
+  loading,
 }: any) {
   const classes = navigationStyles()
 
-  const padding = index ? 0 : '0.25rem'
+  const padding = index ? 0 : '1rem'
 
   return (
     <Fragment>
@@ -33,6 +34,7 @@ export function MarketingDrawerContainer({
           marketing
           className={classes.appBar}
           authenticated={authenticated}
+          loading={loading}
           marketingLinks={
             <MarketingNavMenu
               home={`/${String(title).toLowerCase()}`}

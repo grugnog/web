@@ -211,8 +211,8 @@ export function WebsiteCellDashboardComponent({
       }`}
     >
       <div>
-        <div className='flex space-x-1 place-items-center place-content-between'>
-          <div className='flex space-x-4 place-items-center'>
+        <div className='flex gap-x-1 place-items-center place-content-between'>
+          <div className='flex gap-3 place-items-center flex-wrap'>
             <div>
               <div
                 className={`${styles.title} flex space-x-4 place-items-center`}

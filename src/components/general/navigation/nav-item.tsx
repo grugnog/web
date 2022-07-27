@@ -1,34 +1,31 @@
 import { FC, memo } from 'react'
 import { Button } from '@material-ui/core'
-import { Link } from './link'
+import { Link } from '../link'
 
-interface Props {
+type NavItemProps = {
   href?: string
   name?: string
   className?: string
   as?: string
   route?: string
-  registerClassName?: string
-  loginClassName?: string
 }
 
-export const NavItemComponent: FC<Props> = ({
+export const NavItemComponent: FC<NavItemProps> = ({
   href,
   name,
   className,
   as,
   route,
-  registerClassName = '',
-  loginClassName = '',
 }) => {
-  const home = `/${href}` === route
+  const home = `/${href}` === route // display home route
+
   return (
     <Button
       href={home ? '/' : href}
       as={as}
       component={Link}
       variant={name === 'Register' ? 'outlined' : 'text'}
-      className={`${className} ${registerClassName} ${loginClassName} font-sm`}
+      className={`${className} font-sm`}
     >
       {home ? 'Home' : name}
     </Button>

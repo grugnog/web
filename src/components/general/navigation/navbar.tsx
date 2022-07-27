@@ -1,4 +1,4 @@
-import { FC, memo, SyntheticEvent } from 'react'
+import { PropsWithChildren, FC, memo, SyntheticEvent } from 'react'
 import { IconButton, IconButtonProps } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import { strings } from '@app-strings'
@@ -26,29 +26,6 @@ const useStyles = makeStyles((theme) => ({
       marginRight: theme.spacing(1),
     },
   },
-  iconButton: {
-    background: 'transparent',
-    boxShadow: 'none',
-    marginLeft: theme.spacing(2),
-    overflow: 'hidden',
-    fontSize: 13,
-    [theme.breakpoints.down('sm')]: {
-      fontSize: 12,
-    },
-  },
-  register: {
-    minWidth: 90.6562,
-    [theme.breakpoints.down('sm')]: {
-      minWidth: 'auto',
-    },
-  },
-  login: {
-    minWidth: 90.6562,
-    [theme.breakpoints.down('sm')]: {
-      minWidth: 'auto',
-      marginLeft: 0,
-    },
-  },
 }))
 
 type LeftbuttonWrapperProps = {
@@ -64,13 +41,12 @@ const LeftbuttonWrapper = ({
   buttonProps,
   marketing,
   backButton,
-}: LeftbuttonWrapperProps) => {
-  return backButton || !marketing ? (
+}: LeftbuttonWrapperProps) =>
+  backButton || !marketing ? (
     <IconButton className={menu} {...buttonProps} title={'Navigate Home'}>
       {backButton ? <GrLinkPrevious /> : <Logo />}
     </IconButton>
   ) : null
-}
 
 const Leftbutton = memo(LeftbuttonWrapper)
 
@@ -86,10 +62,9 @@ interface NavProps {
   notitle?: boolean
   authenticated?: boolean
   loading?: boolean
-  children?: any
 }
 
-const NavBarComponent: FC<NavProps> = ({
+const NavBarComponent: FC<PropsWithChildren<NavProps>> = ({
   title = strings.appName,
   backButton,
   marketing,
@@ -100,6 +75,7 @@ const NavBarComponent: FC<NavProps> = ({
   marketingLinks,
   notitle,
   authenticated,
+  loading,
 }) => {
   const classes = useStyles({ position })
 
@@ -143,15 +119,12 @@ const NavBarComponent: FC<NavProps> = ({
             />
           </div>
         )}
-        {!authenticated && marketingLinks ? (
+        {loading ? (
+          <div className='h-15 w-15 bg-gray-300 rounded'></div>
+        ) : !authenticated && marketingLinks ? (
           marketingLinks
         ) : (
-          <AuthMenu
-            className={classes.iconButton}
-            registerClassName={classes.register}
-            loginClassName={classes.login}
-            authenticated={authenticated}
-          />
+          <AuthMenu authenticated={authenticated} />
         )}
       </div>
     </nav>

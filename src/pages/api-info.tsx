@@ -1,11 +1,10 @@
-import React, { FC, Fragment, PropsWithChildren, useState } from 'react'
+import React, { FC, PropsWithChildren, useState } from 'react'
 import { Container } from '@material-ui/core'
 import {
-  NavBar,
   PageTitle,
   Link,
-  Footer,
   Button,
+  MarketingDrawer,
 } from '@app/components/general'
 import { Box } from '@a11ywatch/ui'
 import { TextSkeleton } from '@app/components/placeholders'
@@ -61,12 +60,7 @@ function ApiInfo() {
   const authed = !!user
 
   return (
-    <Fragment>
-      <NavBar
-        backButton={authed}
-        authenticated={authed}
-        loading={loading && !authed}
-      />
+    <MarketingDrawer authenticated={authed} loading={loading}>
       <Container
         maxWidth='xl'
         style={{ paddingLeft: '1rem', paddingRight: '1rem' }}
@@ -208,10 +202,8 @@ function ApiInfo() {
             are only exposed to enterprise clients or local builds.
           </p>
         </div>
-
-        <Footer />
       </Container>
-    </Fragment>
+    </MarketingDrawer>
   )
 }
 

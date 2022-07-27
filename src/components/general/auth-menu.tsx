@@ -1,35 +1,35 @@
-import { useCallback, memo, useState, useEffect } from 'react'
+import { useCallback, memo, useEffect, useState, SyntheticEvent } from 'react'
 import { useRouter } from 'next/router'
 
 import { IconButton, MenuItem, Menu, Tooltip } from '@material-ui/core'
 import { Link } from './link'
 import { UserManager } from '@app/managers'
 import { LOGGIN_ROUTES } from '@app/configs'
-import { NavLinks } from './nav-links'
 import { useMutation } from '@apollo/react-hooks'
 import { LOGOUT } from '@app/mutations'
 import { useWebsiteContext } from '../providers/website'
 import { CgProfile } from 'react-icons/cg'
+import { NavItem } from './navigation/nav-item'
 
-interface Props {
-  loginClassName?: string
-  className?: string
-  registerClassName?: string
+type AuthMenuComponentProps = {
   authenticated?: boolean // user logged in
 }
 
-function AuthMenuComponent({
-  loginClassName,
-  className,
-  registerClassName,
-  authenticated,
-}: Props) {
+function AuthMenuComponent({ authenticated }: AuthMenuComponentProps) {
   const router = useRouter()
   const [anchorEl, setAnchorEl] = useState<any>(null)
   const [logoutMutation, { data, client }] = useMutation(LOGOUT, {
     ignoreResults: true,
   })
   const { setIssueFeedContent } = useWebsiteContext()
+
+  useEffect(() => {
+    if (data) {
+      ;async () => {
+        await client?.clearStore().catch((e) => console.error(e))
+      }
+    }
+  }, [data, client])
 
   const handleMenu = useCallback(
     (event?: any) => {
@@ -38,20 +38,8 @@ function AuthMenuComponent({
     [setAnchorEl]
   )
 
-  useEffect(() => {
-    if (data) {
-      ;async () => {
-        try {
-          await client?.clearStore()
-        } catch (e) {
-          console.error(e)
-        }
-      }
-    }
-  }, [data, client])
-
   // simple logout
-  const logout = async (e: any) => {
+  const logout = async (e: SyntheticEvent<HTMLButtonElement>) => {
     e?.preventDefault()
     setIssueFeedContent(false)
 
@@ -86,41 +74,42 @@ function AuthMenuComponent({
           open={!!anchorEl}
           onClose={() => handleMenu()}
           anchorEl={anchorEl}
-          anchorOrigin={{
-            vertical: 'top',
-            horizontal: 'right',
-          }}
-          transformOrigin={{
-            vertical: 'top',
-            horizontal: 'right',
-          }}
         >
           {router?.pathname !== '/profile' ? (
-            <MenuItem component={Link} href={'/profile'} color={'inherit'}>
-              Profile
+            <MenuItem>
+              <Link href={'/profile'}>Profile</Link>
             </MenuItem>
           ) : null}
           {router?.pathname !== '/dashboard' ? (
-            <MenuItem component={Link} href={'/'} color={'inherit'}>
-              Dashboard
+            <MenuItem>
+              <Link href={'/'}>Dashboard</Link>
             </MenuItem>
           ) : null}
           {router?.pathname !== '/api-info' ? (
-            <MenuItem component={Link} href={'/api-info'} color={'inherit'}>
-              API
+            <MenuItem>
+              <Link href={'/api-info'}>API</Link>
             </MenuItem>
           ) : null}
           {router?.pathname !== '/payments' ? (
-            <MenuItem component={Link} href={'/payments'} color={'inherit'}>
-              Payments
+            <MenuItem>
+              <Link href={'/payments'}>Payments</Link>
             </MenuItem>
           ) : null}
           {router?.pathname !== '/settings' ? (
-            <MenuItem component={Link} href={'/settings'} color={'inherit'}>
-              Settings
+            <MenuItem>
+              <Link href={'/settings'}>Settings</Link>
             </MenuItem>
           ) : null}
-          <MenuItem onClick={logout}>Logout</MenuItem>
+          <MenuItem style={{ padding: 0 }}>
+            <button
+              onClick={logout}
+              className={
+                'text-center w-full text-red-600 text-base px-5 py-2 m-0'
+              }
+            >
+              Logout
+            </button>
+          </MenuItem>
         </Menu>
       </div>
     )
@@ -129,20 +118,8 @@ function AuthMenuComponent({
   // when not authed return login or register
   return (
     <>
-      <NavLinks
-        className={className}
-        registerClassName={registerClassName}
-        loginClassName={loginClassName}
-        route={router?.pathname}
-        href={'/login'}
-        name={'Login'}
-      />
-      <NavLinks
-        className={className}
-        registerClassName={registerClassName}
-        loginClassName={loginClassName}
-        route={router?.pathname}
-      />
+      <NavItem route={router?.pathname} href={'/login'} name={'Login'} />
+      <NavItem route={router?.pathname} href={'/register'} name={'Register'} />
     </>
   )
 }

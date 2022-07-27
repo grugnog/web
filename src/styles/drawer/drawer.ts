@@ -117,7 +117,8 @@ export const drawerStyles = makeStyles((theme: Theme) => {
       }),
       overflow: 'auto',
       [theme.breakpoints.down(breakDrawerWidth)]: {
-        marginLeft: `-13%`,
+        paddingLeft: '0.4rem',
+        // marginLeft: `-13%`,
       },
     },
     contentShift: {
@@ -135,9 +136,6 @@ export const drawerStyles = makeStyles((theme: Theme) => {
       [theme.breakpoints.down('sm')]: {
         fontSize: 16,
       },
-    },
-    flex: {
-      flex: 1,
     },
     menuRoot: {
       display: 'flex',
