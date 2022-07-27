@@ -1,17 +1,13 @@
 import { FC, memo, SyntheticEvent } from 'react'
-import { IconButton } from '@material-ui/core'
+import { IconButton, IconButtonProps } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import { strings } from '@app-strings'
 import { Logo, NavBarTitle } from '.'
 import { Link } from '../link'
 import { AuthMenu } from '../auth-menu'
 import { GrLinkPrevious } from 'react-icons/gr'
-import { Skeleton } from '@material-ui/lab'
 
 const useStyles = makeStyles((theme) => ({
-  flex: {
-    flex: 1,
-  },
   container: ({
     position,
   }: {
@@ -53,17 +49,14 @@ const useStyles = makeStyles((theme) => ({
       marginLeft: 0,
     },
   },
-  ghIcon: {
-    marginLeft: 18,
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    color: '#0E1116',
-    [theme.breakpoints.down('sm')]: {
-      display: 'none',
-    },
-  },
 }))
+
+type LeftbuttonWrapperProps = {
+  menu?: string // menu css
+  buttonProps: IconButtonProps
+  marketing?: boolean
+  backButton?: boolean // display a go back button
+}
 
 // start left button of the nav
 const LeftbuttonWrapper = ({
@@ -71,13 +64,7 @@ const LeftbuttonWrapper = ({
   buttonProps,
   marketing,
   backButton,
-  loading,
-}: any) => {
-  if (loading) {
-    return (
-      <Skeleton height={30} width={30} className={menu} variant={'circle'} />
-    )
-  }
+}: LeftbuttonWrapperProps) => {
   return backButton || !marketing ? (
     <IconButton className={menu} {...buttonProps} title={'Navigate Home'}>
       {backButton ? <GrLinkPrevious /> : <Logo />}
@@ -113,7 +100,6 @@ const NavBarComponent: FC<NavProps> = ({
   marketingLinks,
   notitle,
   authenticated,
-  loading,
 }) => {
   const classes = useStyles({ position })
 
@@ -144,7 +130,6 @@ const NavBarComponent: FC<NavProps> = ({
         ) : (
           <div className={`flex flex-1 place-items-center`}>
             <Leftbutton
-              loading={loading}
               menu={classes.menu}
               buttonProps={buttonProps}
               backButton={backButton}
@@ -162,7 +147,7 @@ const NavBarComponent: FC<NavProps> = ({
           marketingLinks
         ) : (
           <AuthMenu
-            className={`${classes.iconButton}`}
+            className={classes.iconButton}
             registerClassName={classes.register}
             loginClassName={classes.login}
             authenticated={authenticated}
