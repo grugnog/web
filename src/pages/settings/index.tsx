@@ -59,9 +59,7 @@ function Settings({ name }: PageProps) {
         <p>{`It’s`} free but limited to a daily quota.</p>
         <div className='py-2'>
           <a
-            href={
-              'https://help.ahrefs.com/en/articles/5369589-how-to-see-core-web-vitals-and-other-speed-metrics-in-site-audit-tool'
-            }
+            href={'https://developers.google.com/speed'}
             target={'_blank'}
             rel={'noreferrer'}
             className={'text-blue-600'}

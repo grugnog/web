@@ -105,6 +105,13 @@ function Dashboard({ name }: PageProps) {
           rightButton={
             !!data?.length ? (
               <div className='flex flex-wrap gap-x-2 gap-y-1'>
+                <Button
+                  onClick={onRemoveAllWebsitePress}
+                  className={'text-red-600'}
+                  aria-label={'Remove all websites'}
+                >
+                  Remove All
+                </Button>
                 <FormDialog buttonTitle={`Subscribe`} />
                 <Button
                   className={lhEnabled ? 'visible' : 'hidden'}
@@ -113,12 +120,6 @@ function Dashboard({ name }: PageProps) {
                   aria-label={'Toggle lighthouse reports visibility.'}
                 >
                   {lighthouseVisible ? 'Hide' : 'Display'} Lighthouse
-                </Button>
-                <Button
-                  onClick={onRemoveAllWebsitePress}
-                  aria-label={'Remove all websites'}
-                >
-                  Remove All
                 </Button>
                 {data?.length >= 2 ? (
                   <Button

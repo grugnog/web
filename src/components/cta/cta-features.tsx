@@ -1,10 +1,10 @@
 import React from 'react'
-import { Grid, Typography } from '@material-ui/core'
+import { Typography } from '@material-ui/core'
 import { strings } from '@app-strings'
 import { makeStyles } from '@material-ui/core/styles'
 import { SectionHeading } from '../text'
 
-import { SectionContainer } from '../general'
+import { Link, SectionContainer } from '../general'
 import {
   GrAccessibility,
   GrAggregate,
@@ -78,7 +78,7 @@ function FeatureItem({ item, index }: { item: any; index: number }) {
 
   return (
     <div
-      className={`${classes.paper} sm:border border-b border-dashed border-gray-200`}
+      className={`${classes.paper} sm:border border-b border-dashed border-gray-400`}
     >
       <div className='flex space-x-2 pb-4 items-center'>
         <div className='flex rounded-3xl border w-10 h-10 justify-center items-center'>
@@ -96,7 +96,13 @@ function FeatureItem({ item, index }: { item: any; index: number }) {
   )
 }
 
-const CtaFeatures = ({ alternative }: { alternative?: boolean }) => {
+const CtaFeatures = ({
+  alternative,
+  all,
+}: {
+  alternative?: boolean
+  all?: boolean
+}) => {
   return (
     <SectionContainer>
       <div className={alternative ? 'pb-2' : undefined}>
@@ -109,15 +115,22 @@ const CtaFeatures = ({ alternative }: { alternative?: boolean }) => {
           </Typography>
         )}
       </div>
-      <Grid container style={{ position: 'relative' }}>
+      <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-1'>
         <>
-          <div className='absolute -mt-2px -ml-2px inset-0 border border-white pointer-events-none' />
-
-          {strings.features.map((item: any, index: number) => (
-            <FeatureItem item={item} index={index} key={item.id} />
-          ))}
+          {strings.features
+            .filter((_, i) => {
+              return all ? true : i < 6
+            })
+            .map((item: any, index: number) => (
+              <FeatureItem item={item} index={index} key={item.id} />
+            ))}
         </>
-      </Grid>
+      </div>
+      {all ? null : (
+        <div className='flex py-5 place-content-center text-center underline'>
+          <Link href={'/features'}>Learn More</Link>
+        </div>
+      )}
     </SectionContainer>
   )
 }

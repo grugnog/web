@@ -4,17 +4,19 @@ type SectionContainerProps = PropsWithChildren<{
   className?: string
   id?: string
   gapY?: boolean
+  gapX?: boolean
 }>
 
 const SectionContainer: FC<SectionContainerProps> = ({
   children,
   className,
   gapY = true,
+  gapX = true,
   ...props
 }) => {
   return (
     <section
-      className={['overflow-visible', gapY ? 'py-10' : '', 'px-4', className]
+      className={[gapY ? 'mt-14' : '', gapX ? 'px-4' : '', className]
         .join(' ')
         .trim()}
       {...props}

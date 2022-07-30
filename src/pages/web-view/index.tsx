@@ -45,7 +45,7 @@ function WebView() {
         authenticated={authed}
         loading={false}
       />
-      <div className='px-2 py-6 space-y-2'>
+      <div className='px-6 py-6 space-y-2'>
         <PageTitle>{url}</PageTitle>
         <WebCell title={'Issues'}>
           <RenderInnerIssues pageUrl={url} />

@@ -9,56 +9,32 @@ import {
   DialogContentText,
   DialogTitle,
 } from '@material-ui/core'
-import { makeStyles } from '@material-ui/core/styles'
-import { NavBar, PriceMemo, PageTitle } from '@app/components/general'
+import { useRouter } from 'next/router'
 import { Box } from '@a11ywatch/ui'
+
+import { CheckoutForm } from '@app/components/stripe/checkout'
+import { StripeBadges } from '@app/components/stripe/badges'
+import { NavBar, PriceMemo, PageTitle } from '@app/components/general'
 import { usePayments } from '@app/data'
 import { metaSetter } from '@app/utils'
-import type { PageProps } from '@app/types'
-import { useRouter } from 'next/router'
 import { UserManager, AppManager } from '@app/managers'
-import { CheckoutForm } from '@app/components/stripe/checkout'
-import { Elements } from '@stripe/react-stripe-js'
-import { loadStripe, Stripe } from '@stripe/stripe-js'
-import { STRIPE_KEY } from '@app/configs/app-config'
 import { EmptyPayments } from '@app/components/empty'
 import { useBillingDisplay } from '@app/data/formatters'
-import { GrCreditCard, GrPaypal, GrVisa } from 'react-icons/gr'
-
-const useStyles = makeStyles(() => ({
-  cancel: {
-    border: '1px solid #0E1116',
-  },
-  cancelBtn: {
-    background: 'transparent',
-    boxShadow: 'none',
-  },
-}))
+import type { PageProps } from '@app/types'
+import { StripProvider } from '@app/components/stripe/stripe-provider'
 
 interface PaymentProps extends PageProps {
   hideTitle?: boolean
 }
 
+// determine what plan was used if routed via home
 type Plan = {
   basic: boolean
   premium: boolean
 }
 
-// determine the plan name
-const getPlanName = (plan: number): string => {
-  let tier = 'Basic'
-  if ([999, 9999].includes(plan)) {
-    tier = 'Basic'
-  }
-  if ([9999, 1999].includes(plan)) {
-    tier = 'Premium'
-  }
-  return tier
-}
-
 // move plan and yearset SSR
 function Payments({ hideTitle = false, name }: PaymentProps) {
-  const classes = useStyles()
   const router = useRouter()
   const { data, loading, addSubscription, cancelSubscription } = usePayments()
   const [state, setState] = useState<Plan>({
@@ -68,40 +44,16 @@ function Payments({ hideTitle = false, name }: PaymentProps) {
   const { billingtitle } = useBillingDisplay(data?.invoice)
   const [yearly, setYearly] = useState<boolean>(false)
   const [open, setOpen] = useState<boolean>(false)
-  const [stripePromise, setStripe] = useState<Stripe | null>(null)
 
+  // router plan query
   const plan = String(router?.query?.plan).toLocaleLowerCase() as string
   const yearSet = String(router?.query?.yearly)
 
   useEffect(() => {
-    if (!stripePromise) {
-      ;(async () => {
-        try {
-          const stripeObject = await loadStripe(STRIPE_KEY)
-          if (stripeObject) {
-            setStripe(stripeObject)
-          }
-        } catch (e) {
-          console.error(e)
-          AppManager.toggleSnack(
-            true,
-            'Error, Please contact support.',
-            'error'
-          )
-        }
-      })()
-    }
-    // close the snackbar if routed from
-    if (AppManager.snackbar.open) {
-      AppManager.closeSnack()
-    }
-  }, [stripePromise])
-
-  useEffect(() => {
-    if (yearSet && yearSet !== 'undefined') {
+    if (yearSet !== 'undefined') {
       setYearly(true)
     }
-    if (plan && plan !== 'undefined') {
+    if (plan !== 'undefined') {
       setState({ basic: false, premium: false, [plan]: plan })
     }
   }, [yearSet, plan])
@@ -120,7 +72,7 @@ function Payments({ hideTitle = false, name }: PaymentProps) {
     }
   }
 
-  // on valid payment handling
+  // on valid payment handling re-set current token
   const onToken = async (token: any) => {
     try {
       if (token) {
@@ -136,6 +88,7 @@ function Payments({ hideTitle = false, name }: PaymentProps) {
             yearly,
           },
         })
+
         const jwt = res?.data?.addPaymentSubscription?.user.jwt
 
         if (jwt) {
@@ -211,33 +164,26 @@ function Payments({ hideTitle = false, name }: PaymentProps) {
 
   const role = data?.role
 
+  // TODO: remove role block
   const superMode = !data?.activeSubscription && role === 3
 
   return (
-    <Elements stripe={stripePromise}>
+    <>
       <NavBar title={name} backButton notitle />
-      <Container maxWidth='xl'>
+      <Container>
         <Box className='py-2 md:flex md:flex-col content-center items-center'>
           {hideTitle ? null : <PageTitle>Payment Details</PageTitle>}
-          <div className='max-w-[1200px]'>
+          <div className='max-w-[1200px] py-5'>
             {loading && !data ? (
               <EmptyPayments subTitle={subTitle} />
             ) : (
               <>
                 <p className='text-xl font-bold'>{subTitle}</p>
-                {superMode ? (
-                  <div>
-                    <h3 className='text-2xl pb-2'>Enterprise Account</h3>
-                    <div className='border p-4 rounded'>
-                      <p>
-                        If you need changes to your account contact support.
-                      </p>
-                    </div>
-                  </div>
-                ) : (
+
+                {superMode ? null : (
                   <div>
                     {renderPayMentBoxes ? (
-                      <div className='gap-y-2 py-1'>
+                      <div className='space-y-2 py-1'>
                         <PriceMemo
                           priceOnly
                           basic={state.basic || role === 1}
@@ -249,25 +195,16 @@ function Payments({ hideTitle = false, name }: PaymentProps) {
                           blockEnterprise
                         />
                         <div className='sm:w-full place-content-center place-items-center min-w-[350px] align-center'>
-                          <CheckoutForm
-                            onToken={onToken}
-                            basic={state.basic}
-                            price={Number(`${price}${priceMultiplyier}`)}
-                            disabled={Boolean(!state.basic && !state.premium)}
-                          />
+                          <StripProvider>
+                            <CheckoutForm
+                              onToken={onToken}
+                              basic={state.basic}
+                              price={Number(`${price}${priceMultiplyier}`)}
+                              disabled={Boolean(!state.basic && !state.premium)}
+                            />
+                          </StripProvider>
                         </div>
-                        <div className='hidden lg:flex gap-1 max-w-xs'>
-                          <div className='border rounded px-1 py-1 flex-1 flex items-center justify-center bg-white'>
-                            <GrVisa className='grIcon text-black' />
-                          </div>
-
-                          <div className='border rounded px-1 py-1 flex-1 flex items-center justify-center bg-white'>
-                            <GrCreditCard className='grIcon text-black' />
-                          </div>
-                          <div className='border rounded px-1 py-1 flex-1 flex items-center justify-center bg-white'>
-                            <GrPaypal className='grIcon text-black' />
-                          </div>
-                        </div>
+                        <StripeBadges />
                       </div>
                     ) : (
                       <div>
@@ -275,25 +212,20 @@ function Payments({ hideTitle = false, name }: PaymentProps) {
                           <p className='text-xl'> {paymentDate}</p>
                         ) : null}
                         <p className='text-xl font-bold'>Account Type</p>
-                        <p className='text-xl'>
+                        <p className='text-xl capitalize'>
                           {superMode
                             ? 'Enterprise'
-                            : `${
-                                paymentSubscription?.plan?.nickname ||
-                                getPlanName(paymentSubscription?.plan?.amount)
-                              } - $${
+                            : `${paymentSubscription?.plan?.nickname} - $${
                                 paymentSubscription?.plan?.amount / 100 || ''
                               }`}
                         </p>
                       </div>
                     )}
                     {data?.activeSubscription ? (
-                      <div className='py-3'>
+                      <div className='py-20'>
                         <Button
-                          title={'Cancel Subscription'}
-                          type={'button'}
                           onClick={handleModal(true)}
-                          className={classes.cancel}
+                          variant={'outlined'}
                         >
                           Cancel Subscription
                         </Button>
@@ -301,6 +233,15 @@ function Payments({ hideTitle = false, name }: PaymentProps) {
                     ) : null}
                   </div>
                 )}
+
+                {data?.activeSubscription ? (
+                  <div className='border p-4 rounded'>
+                    <p>
+                      If you need changes to your account contact or update your
+                      payment info please contact support.
+                    </p>
+                  </div>
+                ) : null}
               </>
             )}
           </div>
@@ -322,19 +263,13 @@ function Payments({ hideTitle = false, name }: PaymentProps) {
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button
-            onClick={handleModal(false)}
-            variant='contained'
-            className={classes.cancelBtn}
-          >
+          <Button onClick={handleModal(false)} variant='contained'>
             No
           </Button>
-          <Button onClick={cancelConfirm} color='secondary' variant='outlined'>
-            Confirm Cancel
-          </Button>
+          <Button onClick={cancelConfirm}>Confirm Cancel</Button>
         </DialogActions>
       </Dialog>
-    </Elements>
+    </>
   )
 }
 

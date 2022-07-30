@@ -4,14 +4,14 @@ import { makeStyles } from '@material-ui/core/styles'
 
 const useStyles = makeStyles((theme) => ({
   title: {
-    fontSize: '3.4rem',
+    fontSize: '3.2rem',
     fontWeight: 800,
     textOverflow: 'ellipsis',
     [theme.breakpoints.down('md')]: {
       fontSize: '2.6rem',
     },
     [theme.breakpoints.down('sm')]: {
-      fontSize: '2.21rem',
+      fontSize: '1.3rem',
       maxWidth: '95vw',
     },
   },

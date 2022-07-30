@@ -10,7 +10,7 @@ import { Link } from './link'
 const getStyles = (inactive: boolean) =>
   inactive
     ? 'relative w-1/3 px-2 border rounded-md py-2 text-sm font-medium text-gray-700 whitespace-nowrap focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:z-10 sm:w-auto sm:px-8 hover:shadow-xl'
-    : 'relative w-1/3 px-2 rounded-md shadow-sm py-2 text-sm font-medium text-white bg-[#0E1116] whitespace-nowrap focus:outline-none focus:ring-2 focus:ring-gray-500 focus:z-10 sm:w-auto sm:px-8'
+    : 'relative w-1/3 px-2 rounded-md shadow-sm py-2 text-sm font-medium text-white bg-[#2A2A2A] whitespace-nowrap focus:outline-none focus:ring-2 focus:ring-gray-500 focus:z-10 sm:w-auto sm:px-8'
 
 const highLight = (
   name: string = '',

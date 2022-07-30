@@ -1,4 +1,4 @@
-import { Button, Typography } from '@material-ui/core'
+import { Button } from '@material-ui/core'
 import { MarketingDrawer, PriceMemo, PageTitle } from '@app/components/general'
 import { metaSetter } from '@app/utils'
 import type { PageProps } from '@app/types'
@@ -7,12 +7,10 @@ import { PricingCalculator } from '@app/components/general/pricing-calculator'
 function Pricing({ name }: PageProps) {
   return (
     <MarketingDrawer title={name} maxWidth={'xl'}>
-      <PageTitle className={'w-3/4'}>
-        The simplest accessibility solution, for the simplest price.
-      </PageTitle>
-      <Typography component='h2' gutterBottom className={'text-lg'}>
-        Choose a plan that best fits your needs.
-      </Typography>
+      <PageTitle className={'w-3/4'}>The right plan just for you.</PageTitle>
+      <h2 className={'text-base pb-2'}>
+        Choose a plan that best fits your needs. Pay yearly, get 2 months free.
+      </h2>
       <PriceMemo navigate pricingPage />
       <div className='py-4 text-center'>
         <p>

@@ -62,7 +62,7 @@ export function MarketingDrawerContainer({
         </NavBar>
       )}
       <main
-        className={`${initClosed ? '' : classes.content}${
+        className={`pb-10 ${initClosed ? '' : classes.content}${
           footerSpacing ? ' pb-[20vh]' : ''
         }`}
         id='main-content'

@@ -1,5 +1,5 @@
 import { Fragment } from 'react'
-import { MarketingDrawer, Price } from '@app/components/general'
+import { MarketingDrawer } from '@app/components/general'
 import { CtaFeatures, CtaIntroRest, CtaJavascript } from '@app/components/cta'
 import { MarketingTrustBy, MarketingCli } from '@app/components/marketing'
 import { metaSetter } from '@app/utils'
@@ -11,10 +11,9 @@ function Index() {
     <Fragment>
       <MarketingDrawer navPosition={'relative'} maxWidth={'xl'} index>
         <CtaIntroRest />
+        <CtaJavascript />
         <CtaFeatures />
         <MarketingCli />
-        <CtaJavascript />
-        <Price navigate />
         <MarketingTrustBy />
       </MarketingDrawer>
       <MarketingBottomTemporaryDrawer />
@@ -27,7 +26,7 @@ export default metaSetter(
   {
     rest: true,
     intercom: true,
-    title: `${strings.appName}: the all around web accessibility tool.`,
+    title: `The all around web accessibility tool.`,
     description: `Build accessible websites with tools that monitor, fix, and guide web accessibility efficiency with ${strings.appName}`,
   }
 )

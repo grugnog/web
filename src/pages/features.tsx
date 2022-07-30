@@ -131,7 +131,7 @@ function Features({ name }: PageProps) {
         </div>
       </div>
       <Section>
-        <CtaFeatures alternative />
+        <CtaFeatures alternative all />
       </Section>
     </MarketingDrawer>
   )

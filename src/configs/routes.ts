@@ -1,6 +1,12 @@
 export const Routes = [
   {
     nav: false,
+    href: '/faq',
+    name: 'FAQ',
+    type: 'resources',
+  },
+  {
+    nav: false,
     href: '/terms-of-service',
     name: 'Terms of Service',
     type: 'legal',
@@ -91,15 +97,15 @@ export const Routes = [
     type: 'explore',
   },
   {
-    nav: true,
-    href: '/pricing',
-    name: 'Pricing',
-    type: 'explore',
-  },
-  {
     nav: false,
     href: '/testout',
     name: 'Try Out',
+    type: 'explore',
+  },
+  {
+    nav: true,
+    href: '/pricing',
+    name: 'Pricing',
     type: 'explore',
   },
   {
@@ -133,12 +139,6 @@ export const Routes = [
     type: 'resources',
   },
   {
-    nav: false,
-    href: '/faq',
-    name: 'FAQ',
-    type: 'resources',
-  },
-  {
     nav: true,
     href: '/login',
     name: 'Login',
@@ -148,12 +148,12 @@ export const Routes = [
     href: '/register',
     name: 'Register',
   },
-  {
-    nav: false,
-    href: '/careers',
-    name: 'Careers',
-    type: 'company',
-  },
+  // {
+  //   nav: false,
+  //   href: '/careers',
+  //   name: 'Careers',
+  //   type: 'company',
+  // },
   {
     nav: false,
     href: 'https://docs.a11ywatch.com',

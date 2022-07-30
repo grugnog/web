@@ -1,6 +1,5 @@
 import SyntaxHighlighter from 'react-syntax-highlighter'
-import { docco } from 'react-syntax-highlighter/dist/cjs/styles/hljs'
-import { CurlButtonContainer } from '../fake/curl-button-container'
+import { a11yDark } from 'react-syntax-highlighter/dist/cjs/styles/hljs'
 import { SectionContainer } from '../general'
 
 const codeString = `import { scan, multiPageScan } from "@a11ywatch/a11ywatch";
@@ -22,15 +21,10 @@ export const CtaJavascript = () => {
           Use npm or your favorite javascript package manager to install the
           suite.
         </h4>
-        <div className='flex flex-col border-4 border-[#2A2A2A] max-w-[96vw] rounded px-6 py-3'>
-          <div className='flex flex-wrap gap-x-5 gap-y-4 place-items-center'>
-            <div className='flex-1 rounded sm:w-1/3 shadow-xl'>
-              <CurlButtonContainer />
-            </div>
-            <SyntaxHighlighter language='javascript' style={docco}>
-              {codeString}
-            </SyntaxHighlighter>
-          </div>
+        <div className='flex flex-col border-4 border-[#2A2A2A] bg-[#0E1116] max-w-[96vw] rounded px-4 py-3'>
+          <SyntaxHighlighter language='javascript' style={a11yDark}>
+            {codeString}
+          </SyntaxHighlighter>
         </div>
       </div>
     </SectionContainer>
