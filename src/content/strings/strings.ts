@@ -33,7 +33,7 @@ export const generateStrings = ({
         id: 0,
         title: 'On-Demand',
         detail:
-          'Target WCAG issues spot on helping to figure out problems at hand. View detailed reports and vitals on your website.',
+          'Target WCAG issues spot on helping to figure out problems at hand. View detailed reports and vitals on your website with ease.',
         reason: 'Stop waisting time with figuring out what your ada issues are',
       },
       {
@@ -62,14 +62,14 @@ export const generateStrings = ({
         id: 4,
         title: 'API',
         detail:
-          'Connect your software to handle issues via our API. Choose between OpenAPI, GraphQL, and gRPC to enhance your productivity.',
+          'Connect your software to handle issues via our API. Choose between OpenAPI, GraphQL, and gRPC to communicate.',
         reason: 'Basic',
       },
       {
         id: 5,
         title: 'Live Viewer',
         detail:
-          'View the issues in the browser and experiment with fixes in real time. Adjust colors and accessibility properties to leverage productivity.',
+          'View the issues in the browser and experiment with fixes in real time. Adjust colors and accessibility properties for productivity.',
         reason: 'Basic',
       },
       {

@@ -14,7 +14,7 @@ const plans = [
       'Root page checked daily',
       VISUAL_PLAYGROUND,
       '3 private API request a day',
-      'Lighthouse on root page',
+      'PageSpeed Insights on root page',
       'Limited support',
     ],
     cost: '$0/month',
@@ -40,7 +40,7 @@ const plans = [
   },
   {
     title: 'Premium',
-    subTitle: 'Large workload websites and pages',
+    subTitle: 'Large workload websites and subdomains',
     details: [
       'Everything in Basic',
       '8 source hostnames',
@@ -49,7 +49,7 @@ const plans = [
       'Editable scripts',
       '500 private API request a day',
       'Advanced AI API calls for alt tag recognition',
-      'Lighthouse on all pages',
+      'PageSpeed Insights on all pages',
       'Dedicated support',
     ],
     cost: '$20/month',

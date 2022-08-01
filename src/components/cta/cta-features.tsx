@@ -1,7 +1,6 @@
 import React from 'react'
 import { Typography } from '@material-ui/core'
 import { strings } from '@app-strings'
-import { makeStyles } from '@material-ui/core/styles'
 import { SectionHeading } from '../text'
 
 import { Link, SectionContainer } from '../general'
@@ -15,24 +14,6 @@ import {
   GrNotification,
   GrTip,
 } from 'react-icons/gr'
-
-const useStyles = makeStyles((theme) => ({
-  paper: {
-    padding: theme.spacing(3),
-    flex: 1,
-    flexDirection: 'column',
-    display: 'flex',
-    overflow: 'hidden',
-    minWidth: '23vw',
-    [theme.breakpoints.down('sm')]: {
-      flex: 'none',
-      marginLeft: 0,
-      marginRight: 0,
-      marginBottom: '3px',
-      width: '100%',
-    },
-  },
-}))
 
 const RenderIcon = ({ index, ...props }: any): any =>
   React.createElement(
@@ -74,11 +55,9 @@ const RenderIcon = ({ index, ...props }: any): any =>
   )
 
 function FeatureItem({ item, index }: { item: any; index: number }) {
-  const classes = useStyles()
-
   return (
     <div
-      className={`${classes.paper} sm:border border-b border-dashed border-gray-400`}
+      className={`py-3 flex flex-col flex-1 border-b border-dashed border-gray-400 sm:px-3 sm:border`}
     >
       <div className='flex space-x-2 pb-4 items-center'>
         <div className='flex rounded-3xl border w-10 h-10 justify-center items-center'>

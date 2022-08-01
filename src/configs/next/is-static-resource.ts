@@ -17,6 +17,7 @@ const isWhitelisted = ({ pathname, url }: ExcludeProps) => {
     pathname.startsWith('/website-details') || // iframe route
     pathname.startsWith('/testout') || // iframe route
     // pathname.startsWith('/api/') ||
+    pathname.startsWith('/reports/') ||
     pathname.startsWith('/backup/') ||
     pathname.startsWith('/backups/') ||
     pathname.startsWith('/bak/') ||

@@ -16,12 +16,10 @@ export const logPage = async (req: any, uuid: string, ua: any) => {
     ['X-Forwarded-For']: ip || req.ip,
     ['X-Forwarded-ID']: uuid,
     ['X-Forwarded-Path']: req?.nextUrl?.pathname,
-    // ['DNT']: req.headers.get("DNT") not enabled since no tracking information is used.
   }
 
   await fetch(`${API_ROUTE}/log/page`, {
     method: 'POST',
     headers,
-    redirect: 'manual',
   })
 }

@@ -1,6 +1,7 @@
 import React, { memo, useState } from 'react'
 
 import { API_ENDPOINT } from '@app/configs'
+import { GrCopy } from 'react-icons/gr'
 
 const methodColor = (method: string, t: 'color' | 'border') => {
   let c = ''
@@ -36,7 +37,15 @@ const methodColor = (method: string, t: 'color' | 'border') => {
   return c
 }
 
-const ApiCellComponent = ({ route, keyVisible, token }: any) => {
+type ApiCellProps = {
+  route?: any
+  keyVisible?: boolean
+  token?: string // api token to prefill curls,
+  id?: string // id to use for dom,
+}
+
+// API doc collaspe cell with copy curl
+const ApiCellComponent = ({ route, keyVisible, token, id }: ApiCellProps) => {
   const [sectionVisible, setSectionVisible] = useState<boolean>(false)
   const onToggleSection = () => {
     setSectionVisible((e) => !e)
@@ -45,6 +54,24 @@ const ApiCellComponent = ({ route, keyVisible, token }: any) => {
   const routeParams = route?.params
 
   const params = routeParams ? Object.keys(routeParams) : null
+
+  const curlCommand = `curl --location --request ${
+    route.method ?? 'POST'
+  } '${API_ENDPOINT}/${route.pathName}' \
+--header 'Authorization: ${keyVisible ? token : '$A11YWATCH_TOKEN'}'
+${
+  route.method === 'POST'
+    ? `\ --header 'Content-Type: application/x-www-form-urlencoded'`
+    : ''
+} \
+${route.encodedParams}`
+
+  const copyText = (
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ): void => {
+    e?.preventDefault()
+    navigator.clipboard.writeText(curlCommand)
+  }
 
   return (
     <li className={'text-base border-2 rounded'}>
@@ -99,12 +126,12 @@ const ApiCellComponent = ({ route, keyVisible, token }: any) => {
                   className={'block border rounded py-1 px-3'}
                 >
                   <span className='block text-lg'>
-                    {item} <span className='text-green-700'>{type}</span>
+                    {item} <span className='text-sky-700'>{type}</span>
                   </span>
                   <span className='text-sm text-gray-800 block'>{desc}</span>
                   <span
                     className={`text-xs font-bold block ${
-                      optional ? 'text-gray-700' : 'text-red-700'
+                      optional ? 'text-gray-700' : 'text-red-800'
                     }`}
                   >
                     {optional ? 'Optional' : 'Required'}
@@ -114,18 +141,23 @@ const ApiCellComponent = ({ route, keyVisible, token }: any) => {
             })}
           </div>
         ) : null}
-        <code className='border block p-2 rounded bg-[#0E1116] text-white text-base overflow-auto'>
-          {`curl --location --request ${
-            route.method ?? 'POST'
-          } '${API_ENDPOINT}/${route.pathName}' \
---header 'Authorization: ${keyVisible ? token : '$A11YWATCH_TOKEN'}'
-${
-  route.method === 'POST'
-    ? `\ --header 'Content-Type: application/x-www-form-urlencoded'`
-    : ''
-} \
-${route.encodedParams}`}
-        </code>
+        <div className='border block px-3 py-1 rounded bg-[#0E1116] text-white text-base relative flex place-items-center gap-x-3'>
+          <code className='flex-1 text-white text-base overflow-auto py-2'>
+            {curlCommand}
+          </code>
+          <div>
+            <span id={id + 'copy-text'} className='sr-only'>
+              Copy the curl command to clipboard
+            </span>
+            <button
+              className='py-1 px-3 rounded border-2'
+              aria-labelledby={id + 'copy-text'}
+              onClick={copyText}
+            >
+              <GrCopy title='Copy to clipboard' className='grIcon text-white' />
+            </button>
+          </div>
+        </div>
       </div>
     </li>
   )

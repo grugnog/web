@@ -1,5 +1,4 @@
 import React, { FC, PropsWithChildren, useState } from 'react'
-import { Container } from '@material-ui/core'
 import {
   PageTitle,
   Link,
@@ -61,13 +60,10 @@ function ApiInfo() {
 
   return (
     <MarketingDrawer authenticated={authed} loading={loading}>
-      <Container
-        maxWidth='xl'
-        style={{ paddingLeft: '1rem', paddingRight: '1rem' }}
-      >
+      <div>
         <Box>
           <PageTitle title={'Web Accessibility API'} />
-          <SectionTitle className={'text-lg font-bold'}>
+          <SectionTitle className={'text-lg font-semibold'}>
             The free web accessibility API built to handle large workloads.
           </SectionTitle>
           <p className='text-lg'>
@@ -130,29 +126,31 @@ function ApiInfo() {
           ) : null}
         </Box>
 
-        <Box className={'border rounded p-2'}>
-          <p className={'text-lg font-bold'}>OpenAPI Reference Examples</p>
-          {!data?.user && loading ? (
-            <TextSkeleton className={'p-2'} />
-          ) : !data?.user ? (
-            <p className={'pb-2 text-lg'}>
-              <Link href={'/login'} className={'underline'}>
-                Login
-              </Link>{' '}
-              to see your API limits and test requests using your account.
-            </p>
-          ) : (
-            <>
-              <p className='text-lg'>
-                Daily Allowed Usage {user?.apiUsage?.usage || 0}/{apiLimit}
+        <div className='py-2'>
+          <Box className={'border rounded p-2'}>
+            <p className={'text-lg font-bold'}>OpenAPI Reference Examples</p>
+            {!data?.user && loading ? (
+              <TextSkeleton className={'p-2'} />
+            ) : !data?.user ? (
+              <p className={'pb-2 text-lg'}>
+                <Link href={'/login'} className={'underline'}>
+                  Login
+                </Link>{' '}
+                to see your API limits and test requests using your account.
               </p>
-              <p className={'text-sm'}>
-                Your limit will reset on your next API request if {`it's`} the
-                next day.
-              </p>
-            </>
-          )}
-        </Box>
+            ) : (
+              <>
+                <p className='text-lg'>
+                  Daily Allowed Usage {user?.apiUsage?.usage || 0}/{apiLimit}
+                </p>
+                <p className={'text-sm'}>
+                  Your limit will reset on your next API request if {`it's`} the
+                  next day.
+                </p>
+              </>
+            )}
+          </Box>
+        </div>
 
         <Box>
           <ul className='space-y-3 py-2'>
@@ -174,12 +172,15 @@ function ApiInfo() {
                   </div>
                   <ul className='space-y-3 py-2'>
                     {ro.routes.map((route: any, i) => {
+                      const routeKey = `apiinfo-route-${i}`
+
                       return (
                         <ApiCell
-                          key={`apiinfo-route-${i}`}
-                          route={route}
+                          key={routeKey}
                           token={token}
+                          route={route}
                           keyVisible={keyVisible}
+                          id={routeKey}
                         />
                       )
                     })}
@@ -202,7 +203,7 @@ function ApiInfo() {
             are only exposed to enterprise clients or local builds.
           </p>
         </div>
-      </Container>
+      </div>
     </MarketingDrawer>
   )
 }
