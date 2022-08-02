@@ -1,47 +1,8 @@
-import { useRef } from 'react'
-import { Modal, Paper, Typography, IconButton } from '@material-ui/core'
-import { GrClose } from 'react-icons/gr'
-import { makeStyles, createStyles, Theme } from '@material-ui/core/styles'
-import { ToolTip } from './tool-tip'
+import { Modal } from '@material-ui/core'
 import Draggable from 'react-draggable'
+import { GrClose } from 'react-icons/gr'
 
-const useStyles = makeStyles(({ palette, spacing, shadows }: Theme) =>
-  createStyles({
-    paper: {
-      position: 'absolute',
-      width: '400px',
-      backgroundColor: palette.common.white,
-      border: '2px solid #0E1116',
-      boxShadow: shadows[5],
-      overflow: 'hidden',
-    },
-    row: {
-      display: 'flex',
-      alignItems: 'center',
-      flex: 1,
-      overflow: 'hidden',
-    },
-    title: {
-      flex: 1,
-      pointerEvents: 'none',
-      marginLeft: spacing(2),
-      marginRight: spacing(2),
-    },
-    maxSize: {
-      fontWeight: 300,
-      maxWidth: '80%',
-      overflow: 'hidden',
-      textOverflow: 'ellipsis',
-      whiteSpace: 'nowrap',
-    },
-  })
-)
-
-let modalStyle = {
-  position: 'sticky' as 'sticky',
-  left: 0,
-  top: 0,
-}
+import { ToolTip } from './tool-tip'
 
 export function AnnotationContainer({
   store,
@@ -55,74 +16,67 @@ export function AnnotationContainer({
   context,
   recurrence,
 }: any) {
-  const classes = useStyles()
-  const annotationRef = useRef()
-  const rootRef = useRef(null)
-
-  const onClick = (event: any) => {
+  const onClose = (event: any) => {
+    store.setActiveAnnotation(null)
     event?.preventDefault()
     event?.stopPropagation()
-
-    modalStyle = {
-      position: 'sticky',
-      left: event?.pageX,
-      top: event?.pageY,
-    }
-    store.setActiveAnnotation(null)
   }
+
+  const textBaseStyle = 'flex-1'
 
   return (
     <Modal
-      aria-labelledby='simple-modal-title'
-      aria-describedby='simple-modal-description'
-      open={store.activeAnnotation}
-      container={() => rootRef.current}
-      onClose={onClick}
+      disableAutoFocus
       keepMounted
+      onClose={onClose}
+      open={store?.activeAnnotation}
+      aria-labelledby='rec-modal-title'
+      aria-describedby='rec-modal-description'
     >
-      <Draggable handle={'.annotationHeader'} allowAnyClick={false}>
-        <Paper style={modalStyle} className={classes.paper} ref={annotationRef}>
-          <div className={`annotationHeader ${classes.row} border-b`}>
-            <Typography variant='h6' component='h3' className={classes.title}>
-              RECOMMENDED
-            </Typography>
-            <IconButton
-              edge='start'
-              color='inherit'
+      <Draggable
+        handle={'#annotationHeader'}
+        cancel={'#annotationCancel'}
+        allowAnyClick={false}
+      >
+        <div
+          className={
+            'absolute w-[320px] md:w-[400px] bg-white border rounded shadow-lg'
+          }
+        >
+          <div
+            id={'annotationHeader'}
+            className={`flex place-items-center border-b py-2 px-2`}
+          >
+            <h3 className={`flex-1 text-lg`}>Recommended</h3>
+            <button
+              id={'annotationCancel'}
               aria-label='close modal'
-              onClick={onClick}
-              style={{ marginRight: 6 }}
+              onClick={onClose}
+              className={'pointer-none px-1 py-2'}
             >
               <GrClose />
-            </IconButton>
+            </button>
           </div>
-          <Typography
-            variant='body2'
-            className={classes.title}
-            style={{ fontWeight: 500 }}
-            gutterBottom
-          >
-            {context}
-          </Typography>
-          <Typography
-            variant='subtitle2'
-            className={`${classes.title} ${classes.maxSize}`}
-            gutterBottom
-          >
-            {code}
-          </Typography>
-          {recurrence ? (
-            <p className={'truncate text-sm font-bold py-2'}>
-              Recurred: {recurrence} times
+          <div className='px-2'>
+            <p
+              id='rec-modal-title'
+              className={`${textBaseStyle} font-bold py-2`}
+            >
+              {context}
             </p>
-          ) : null}
-          <Typography
-            variant='subtitle1'
-            className={classes.title}
-            gutterBottom
-          >
-            {message}
-          </Typography>
+            <p
+              id='rec-modal-description'
+              className={`${textBaseStyle} pb-2 text-sm truncate font-light`}
+            >
+              {code}
+            </p>
+            {recurrence ? (
+              <p className={'truncate text-sm font-bold py-2'}>
+                Recurred: {recurrence} times
+              </p>
+            ) : null}
+            <p className={`${textBaseStyle} pb-2`}>{message}</p>
+          </div>
           {String(message)?.includes('contrast ratio') ? (
             <ToolTip
               visible={store.activeAnnotation}
@@ -133,10 +87,10 @@ export function AnnotationContainer({
               message={message}
               code={code}
               context={context}
-              close={onClick}
+              close={onClose}
             />
           ) : null}
-        </Paper>
+        </div>
       </Draggable>
     </Modal>
   )

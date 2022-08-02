@@ -1,4 +1,4 @@
-import React, { Fragment, forwardRef, useRef, useEffect } from 'react'
+import { Fragment, forwardRef, useRef, useEffect } from 'react'
 import {
   fixedFrame,
   mainFrame,

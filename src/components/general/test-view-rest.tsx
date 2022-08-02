@@ -7,11 +7,13 @@ import { Website } from '@app/types'
 
 const TestViewRestContainer = observer(
   ({ url: currentUrl, store, posRelative, website }: any) => {
-    const url = encodeURIComponent(currentUrl ?? store?.getTestFrameUrl)
-
     return (
       <div className='w-full h-full'>
-        <TestOutIframe url={url} website={website} posRelative={posRelative} />
+        <TestOutIframe
+          url={currentUrl ?? store?.getTestFrameUrl}
+          website={website}
+          posRelative={posRelative}
+        />
         <OverlayPortalContainer />
       </div>
     )

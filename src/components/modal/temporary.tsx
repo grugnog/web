@@ -1,4 +1,4 @@
-import React, { memo } from 'react'
+import { memo } from 'react'
 import { Drawer, IconButton } from '@material-ui/core'
 import { useSearch } from '@app/data'
 import { GrClose } from 'react-icons/gr'
