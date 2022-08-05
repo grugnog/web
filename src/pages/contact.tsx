@@ -1,6 +1,11 @@
 import { Typography } from '@material-ui/core'
 import { Box } from '@a11ywatch/ui'
-import { MarketingDrawer, Spacer, PageTitle } from '@app/components/general'
+import {
+  MarketingDrawer,
+  Spacer,
+  PageTitle,
+  Link,
+} from '@app/components/general'
 import { strings } from '@app-strings'
 import { metaSetter } from '@app/utils'
 import type { CSSProperties } from 'react'
@@ -78,6 +83,15 @@ function Contact({ name }: PageProps) {
             </Box>
           </a>
         </address>
+
+        <div className={'py-2'}>
+          <Typography variant='body1' component='div' gutterBottom>
+            If you want to learn more about open positions.
+          </Typography>
+          <Link href={'/careers'} className={'text-blue-700 underline'}>
+            Careers
+          </Link>
+        </div>
       </div>
     </MarketingDrawer>
   )

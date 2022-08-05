@@ -21,8 +21,12 @@ export const CtaJavascript = () => {
           Use npm or your favorite javascript package manager to install the
           suite.
         </h4>
-        <div className='flex flex-col border-4 border-[#2A2A2A] bg-[#0E1116] max-w-[96vw] rounded px-4 py-3'>
-          <SyntaxHighlighter language='javascript' style={a11yDark}>
+        <div className='flex flex-col bg-[#0e1116] max-w-[96vw] rounded px-4 py-3'>
+          <SyntaxHighlighter
+            language='javascript'
+            style={a11yDark}
+            customStyle={{ backgroundColor: '#0e1116' }}
+          >
             {codeString}
           </SyntaxHighlighter>
         </div>
