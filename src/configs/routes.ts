@@ -79,6 +79,12 @@ export const Routes = [
   },
   {
     nav: false,
+    href: '/why-us',
+    name: 'Why us?',
+    type: 'resources',
+  },
+  {
+    nav: false,
     href: '/consulting',
     name: 'Consulting',
     type: 'company',

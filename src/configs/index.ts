@@ -18,7 +18,7 @@ export {
 export { getAPIRoute, API_ENDPOINT } from './api-route'
 export { Routes, LoggedInRoutes, LOGGIN_ROUTES } from './routes'
 export { features } from './features'
-export { priceConfig } from './page-configs'
+export { priceConfig, featuresConfig } from './page-configs'
 export { PRIVATE_KEY, PUBLIC_KEY } from './keys'
 export { isWhitelisted } from './next/is-static-resource'
 export { OSSRoutes } from './oss-list'
