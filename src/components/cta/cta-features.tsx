@@ -12,6 +12,7 @@ import {
   GrCompare,
   GrGithub,
   GrNotification,
+  GrTime,
   GrTip,
 } from 'react-icons/gr'
 
@@ -44,6 +45,9 @@ const RenderIcon = ({ index, ...props }: any): any =>
           break
         case 7:
           FeatureIcon = GrGithub
+          break
+        case 8:
+          FeatureIcon = GrTime
           break
         default:
           FeatureIcon = 'div'

@@ -42,18 +42,26 @@ function Features({ name }: PageProps) {
       <div className={row}>
         <div className={paper}>
           <Section>
-            <GeneralHeading>
-              Accessibility Insights and Web Vitals
-            </GeneralHeading>
+            <GeneralHeading>Web Accessibility and Vitals Fast</GeneralHeading>
             <FeatureHeading>
               Our inclusion insight reporter and monitor scans for problems with
               recommended solutions that are tuned for your website including
               WCAG 2.0 and beyond. Get notified when new issues occur with
-              detailed information on what happened. The reporter runs on all
-              your pages on your domain. Control how often you need the reporter
-              to run to get alerted along your schedule. Get Google Lighthouse
-              reports on all of your pages at once to bring web vitals and other
-              metrics that help make a website inclusive.
+              detailed information on what happened on all your pages. Control
+              how often you need the reporter to run to get alerted along your
+              schedule. Get Google Lighthouse reports on all of your pages at
+              once. We are the only web accessibility service capable of
+              handling large websites with thousands of pages, for more info
+              check out the
+              <a
+                href='https://github.com/a11ywatch/github-actions/pull/34'
+                target={'_blank'}
+                rel={'noreferrer'}
+                className={'text-blue-600 underline'}
+              >
+                benches
+              </a>
+              .
             </FeatureHeading>
             <div className={paperStyle}>
               <Image
@@ -141,6 +149,6 @@ export default metaSetter(
   { Features },
   {
     description:
-      'Features that are on the service and useful for building better websites.',
+      'Main features that are on the service that are useful for building better websites for everyone.',
   }
 )

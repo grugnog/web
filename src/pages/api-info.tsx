@@ -83,10 +83,7 @@ function ApiInfo() {
               GraphQL
             </a>
             , or{' '}
-            <a
-              href={'https://api.a11ywatch.com/grpc-docs'}
-              className='underline text-blue-600'
-            >
+            <a href={'/grpc-docs'} className='underline text-blue-600'>
               gRPC
             </a>{' '}
             documentation.

@@ -2,7 +2,6 @@ import { useEffect, useCallback } from 'react'
 import { metaSetter } from '@app/utils'
 import { useRouter } from 'next/router'
 import { MarketingShortTitle } from '@app/components/marketing'
-import Head from 'next/head'
 import { useMutation } from '@apollo/react-hooks'
 import { REGISTER } from '@app/mutations'
 import { AppManager, UserManager } from '@app/managers'
@@ -68,9 +67,6 @@ function AuthRedirect() {
 
   return (
     <>
-      <Head>
-        <meta name='robots' content='noindex' />
-      </Head>
       <MarketingShortTitle />
       <div className='p-4'>Redirecting to dashboard...</div>
     </>

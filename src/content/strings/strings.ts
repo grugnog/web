@@ -86,6 +86,13 @@ export const generateStrings = ({
           'Every line of code to power this project is fully open-source and available on GitHub. Easily fork the project and run on your own server with docker.',
         reason: 'Basic',
       },
+      {
+        id: 8,
+        title: 'Speed',
+        detail:
+          'Reports run so fast that we can handle 10,000 pages within 10 mins on 8gb mem linux. The speed of the reports at this rate becomes a feature when you compare with others.',
+        reason: 'Basic',
+      },
     ],
     alerts: {
       enableNotificationsTitle: 'Would you like to enable notifications?',

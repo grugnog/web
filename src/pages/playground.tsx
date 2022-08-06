@@ -228,7 +228,7 @@ function Playground() {
             <Link href='/api-info'>OpenAPI</Link>
           </li>
           <li>
-            <a href='https://api.a11ywatch.com/grpc-docs'>gRPC</a>
+            <Link href='/grpc-docs'>gRPC</Link>
           </li>
         </ul>
       </nav>

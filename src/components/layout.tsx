@@ -126,6 +126,7 @@ export default function Layout({ children, ...props }: any) {
         {process.env.NEXT_PUBLIC_DISABLE_SEO === '1' ? (
           <meta name='robots' content='noindex' />
         ) : null}
+
         <meta
           name='theme-color'
           content={theme.palette.primary.main}
