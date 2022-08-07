@@ -1,11 +1,11 @@
 import {
+  // userAgent,
   NextResponse,
-  userAgent,
   NextRequest,
-  NextFetchEvent,
+  // NextFetchEvent,
 } from 'next/server'
 import { isWhitelisted } from '@app/configs/next/is-static-resource'
-import { logPage } from '@app/request/log-page'
+// import { logPage } from '@app/request/log-page'
 import { IFRAME_ENDPOINT } from '@app/configs/next/iframe'
 
 const ID_COOKIE_NAME = 'uuid'
@@ -15,7 +15,7 @@ const VERCEL_PREFIX = `_vercel_`
 
 const ROOT_URL = `.${process.env.ROOT_URL}`
 
-export async function middleware(req: NextRequest, event: NextFetchEvent) {
+export async function middleware(req: NextRequest) {
   const { pathname } = req.nextUrl
   const whiteListed = isWhitelisted({
     pathname,
@@ -34,8 +34,6 @@ export async function middleware(req: NextRequest, event: NextFetchEvent) {
 
   const currentHost = req.headers?.get('host')?.replace(ROOT_URL, '')
 
-  let blockAnalytics = false
-
   if (/.blog/.test(currentHost + '')) {
     const url = req.nextUrl.clone()
     url.pathname = `/blog${req.nextUrl.pathname}`
@@ -46,7 +44,6 @@ export async function middleware(req: NextRequest, event: NextFetchEvent) {
     const base = searchParams.get('baseHref')
 
     if (u) {
-      blockAnalytics = true
       const b =
         IFRAME_ENDPOINT +
         `/iframe?url=${encodeURIComponent(u)}&baseHref=${base || true}`
@@ -67,22 +64,22 @@ export async function middleware(req: NextRequest, event: NextFetchEvent) {
     })
   }
 
-  if (!blockAnalytics) {
-    event.waitUntil(
-      (async () => {
-        const ua = userAgent(req)
-        if (!ua?.isBot) {
-          try {
-            await logPage(req, uuid, ua)
-          } catch (e) {
-            console.error(e)
-          }
-        } else {
-          Promise.resolve()
-        }
-      })()
-    )
-  }
+  // if (!blockAnalytics) {
+  //   event.waitUntil(
+  //     (async () => {
+  //       const ua = userAgent(req)
+  //       if (!ua?.isBot) {
+  //         try {
+  //           await logPage(req, uuid, ua)
+  //         } catch (e) {
+  //           console.error(e)
+  //         }
+  //       } else {
+  //         Promise.resolve()
+  //       }
+  //     })()
+  //   )
+  // }
 
   return res
 }

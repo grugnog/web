@@ -10,18 +10,17 @@ function Privacy({ name }: PageProps) {
       <PageTitle>Privacy Policy</PageTitle>
       <Typography variant='body1' component='p' gutterBottom>
         The data that is collected is used within our service to improve your
-        experience. All data is secure and safe coming from our service. None of
-        the data collected from A11yWatch is being shared with any 3rd party
-        service.
+        experience and only that. All data is secure and safe coming from our
+        service. None of the data collected from A11yWatch is being shared with
+        any 3rd party service.
       </Typography>
       <Spacer height={'20px'} />
       <Typography variant='h4' component='h2' gutterBottom>
         Analytics
       </Typography>
       <Typography variant='body1' component='p' gutterBottom>
-        We care about your privacy and value every aspect of it. Tracking is
-        respected through the request header DNT that your browser adds to your
-        out going network calls.
+        We care about your privacy and value every aspect of it. We do not
+        perform any type of tracking across our services.
       </Typography>
     </MarketingDrawer>
   )
