@@ -1,11 +1,5 @@
-import {
-  // userAgent,
-  NextResponse,
-  NextRequest,
-  // NextFetchEvent,
-} from 'next/server'
+import { NextResponse, NextRequest } from 'next/server'
 import { isWhitelisted } from '@app/configs/next/is-static-resource'
-// import { logPage } from '@app/request/log-page'
 import { IFRAME_ENDPOINT } from '@app/configs/next/iframe'
 
 const ID_COOKIE_NAME = 'uuid'
@@ -63,23 +57,6 @@ export async function middleware(req: NextRequest) {
       secure: process.env.NODE_ENV !== 'development',
     })
   }
-
-  // if (!blockAnalytics) {
-  //   event.waitUntil(
-  //     (async () => {
-  //       const ua = userAgent(req)
-  //       if (!ua?.isBot) {
-  //         try {
-  //           await logPage(req, uuid, ua)
-  //         } catch (e) {
-  //           console.error(e)
-  //         }
-  //       } else {
-  //         Promise.resolve()
-  //       }
-  //     })()
-  //   )
-  // }
 
   return res
 }
