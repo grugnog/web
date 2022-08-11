@@ -27,6 +27,7 @@ const checklistLinks = [
 const linkStyle = {
   fontSize: 16,
   fontWeight: 600,
+  textDecoration: 'underline',
 }
 
 function WebAccessibility({ name }: PageProps) {
@@ -265,7 +266,7 @@ function WebAccessibility({ name }: PageProps) {
         </li>
       </ul>
       <h4 className='text-xl font-bold'>More Resources</h4>
-      <ul className='space-y-2 pb-2 list-disc px-6'>
+      <ul className='space-y-2 py-2 list-disc px-6'>
         <li>
           <a
             className={'text-blue-600'}
