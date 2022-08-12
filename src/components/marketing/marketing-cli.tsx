@@ -6,7 +6,7 @@ const infoDetails = [
   {
     title: 'Local, CI, or Remote',
     subTitle:
-      'Want to host A11yWatch on your own? In one command start the project with docker or directly on the machine. Tear up or down the project in seconds with our slim multi-staged binary builds or via Terraform.',
+      'Want to host A11yWatch on your own? In one command start the project with docker or directly on the machine. Tear up or down the project in seconds with our slim binary builds or via Terraform.',
   },
   {
     title: 'Parallel Website Testing',
@@ -55,7 +55,7 @@ export function MarketingCli() {
                 </div>
                 <div className='text-gray-300'>
                   <span className='text-gray-400 select-none'>~ </span>{' '}
-                  a11ywatch scan -u https://hbo.com
+                  a11ywatch crawl -u a11ywatch.com
                   <span style={previewStyles}></span>
                 </div>
               </div>

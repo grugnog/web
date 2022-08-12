@@ -1,7 +1,6 @@
 export { getOrdinalSuffix } from './ordinal-suffix'
 export { domainList } from './domain-ext'
 export { printElement } from './print'
-export { domInteractive } from './dom-load-time'
 export { groupBy } from './group-by'
 export { ping } from './analytics'
 export { metaSetter } from './meta-setter'

@@ -16,8 +16,9 @@ export const domainList = [
   '.club',
   '.ninja',
   '.tech',
-  '.xyz',
   '.hub',
+  '.sh',
   '.star',
+  '.xyz',
   // '',
 ]

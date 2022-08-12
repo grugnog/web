@@ -93,6 +93,17 @@ function WebAccessibility({ name }: PageProps) {
             WCAG Standards
           </a>
         </li>
+        <li>
+          <a
+            className={'text-blue-600'}
+            target='_blank'
+            href={'https://www.w3.org/TR/WCAG21/'}
+            rel='noreferrer'
+            style={linkStyle}
+          >
+            WCAG 2.1 Guidelines
+          </a>
+        </li>
       </ul>
       <h3 className='text-xl font-bold'>Accessibility Checklist</h3>
       <Typography variant='subtitle1' component='p' gutterBottom>

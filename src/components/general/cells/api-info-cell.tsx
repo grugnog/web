@@ -81,7 +81,7 @@ ${route.encodedParams}`
         aria-label={`toggle section visible for ${route.title}`}
       >
         <div>
-          <p className='text-2xl font-bold text-gray-800'>{route.title}</p>
+          <p className='text-2xl font-extrabold text-gray-800'>{route.title}</p>
           <p className='text-base'>{route.info}</p>
         </div>
       </button>
@@ -89,8 +89,8 @@ ${route.encodedParams}`
         className={`${sectionVisible ? 'visible border-t' : 'hidden'} p-3 py-2`}
         aria-hidden={!sectionVisible}
       >
-        <div className='pb-2 space-y-2'>
-          <p className='text-lg'>
+        <div className='pb-2 space-y-2 overflow-hidden'>
+          <p className='text-lg line-clamp-2 font-semibold'>
             {API_ENDPOINT}/{route.pathName}
           </p>
 

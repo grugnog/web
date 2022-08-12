@@ -63,6 +63,7 @@ const crawlParams = {
 export const apiRoutes = [
   {
     title: 'Authentication & User',
+    id: 'authentication&user',
     routes: [
       {
         pathName: 'user',
@@ -94,6 +95,7 @@ export const apiRoutes = [
   },
   {
     title: 'Report Actions',
+    id: 'report_actions',
     routes: [
       {
         pathName: 'crawl',
@@ -124,6 +126,7 @@ export const apiRoutes = [
 
   {
     title: 'Images',
+    id: 'images',
     routes: [
       {
         pathName: 'image-check',
@@ -143,6 +146,7 @@ export const apiRoutes = [
   },
   {
     title: 'Website Management',
+    id: 'website_management',
     routes: [
       {
         pathName: 'website',
@@ -188,6 +192,7 @@ export const apiRoutes = [
   },
   {
     title: 'Iframe Website',
+    id: 'iframe_website',
     routes: [
       {
         pathName: 'iframe?url=https://a11ywatch.com',
@@ -201,6 +206,7 @@ export const apiRoutes = [
   },
   {
     title: 'List Results',
+    id: 'list_results',
     routes: [
       {
         pathName: 'list/website?offset=0',

@@ -54,9 +54,12 @@ class UserManager {
     userModel.logIn(user)
   }
 
+  // get the authenication token.
   @computed get token() {
     return (
-      (typeof userModel !== 'undefined' && userModel?.jwt) || this?.user?.jwt
+      (typeof userModel !== 'undefined' && userModel?.jwt) ||
+      this?.user?.jwt ||
+      ''
     )
   }
 

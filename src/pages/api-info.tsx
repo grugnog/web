@@ -30,21 +30,29 @@ const SectionTitle: FC<PropsWithChildren<{
   )
 }
 
+// determine the api limit
+const getApiLimit = (role: number) => {
+  if (typeof role === 'number') {
+    if (!role) {
+      return 3
+    }
+    if (role === 1) {
+      return 100
+    }
+    if (role === 2) {
+      return 500
+    }
+  }
+  return 0
+}
+
 // TODO: GENERATE DOCS FROM API
 function ApiInfo() {
   const [keyVisible, setKey] = useState<boolean>(false)
   const { data = {}, loading } = useUserData()
   const { user } = data ?? { user: null }
-  const toggleKey = () => setKey((c) => !c)
 
-  // TODO: MOVE TO SS
-  const apiLimit = !user
-    ? 0
-    : user?.role === 0
-    ? 3
-    : user?.role === 1
-    ? 100
-    : 500
+  const toggleKey = () => setKey((c) => !c)
 
   const copyText = (text: string) => (
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>
@@ -55,8 +63,11 @@ function ApiInfo() {
   }
 
   // token
-  const token = UserManager?.token ? UserManager.token.trim() : ''
+  const token = UserManager.token
   const authed = !!user
+
+  // TODO: MOVE TO SS
+  const apiLimit = getApiLimit(user?.role)
 
   return (
     <MarketingDrawer authenticated={authed} loading={loading}>
@@ -152,18 +163,12 @@ function ApiInfo() {
         <Box>
           <ul className='space-y-3 py-2'>
             {apiRoutes.map((ro) => {
-              const routeID = String(ro.title)
-                ?.replace(' ', '')
-                ?.replace(' ', '')
-                ?.replace(' ', '')
-                .toLowerCase()
-
               return (
-                <li key={ro.title} id={routeID}>
+                <li key={ro.title} id={ro.id}>
                   <div className='py-4'>
                     <div className='py-2 pr-4 pl-1 md:pl-2 text-[#0E1116] border-l-4 border-[#0E1116] rounded'>
                       <h3 className='text-2xl md:text-3xl font-bold'>
-                        <a href={`#${routeID}`}>{ro.title}</a>
+                        <a href={`#${ro.id}`}>{ro.title}</a>
                       </h3>
                     </div>
                   </div>

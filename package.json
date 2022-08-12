@@ -1,6 +1,6 @@
 {
   "name": "@a11ywatch/web",
-  "version": "0.4.2",
+  "version": "0.4.3",
   "scripts": {
     "dev": "NODE_OPTIONS='--inspect' next dev",
     "dev:vercel": "NODE_OPTIONS='--inspect' vercel dev",
@@ -44,7 +44,7 @@
     "mobx": "5.15.7",
     "mobx-persist": "0.4.1",
     "mobx-react-lite": "2.2.2",
-    "next": "12.2.4",
+    "next": "12.2.5",
     "next-lighthouse": "^1.1.0",
     "next-pwa": "5.5.5",
     "node-html-parser": "5.3.3",
