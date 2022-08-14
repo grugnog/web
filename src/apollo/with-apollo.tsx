@@ -1,6 +1,7 @@
 import React from 'react'
 import fetcher from 'isomorphic-unfetch'
-import { split, ApolloLink } from 'apollo-link'
+import { ApolloLink, split } from 'apollo-link' // yarn add apollo-link
+
 import { getMainDefinition } from 'apollo-utilities'
 import { ApolloProvider } from '@apollo/react-hooks'
 import { ApolloClient } from 'apollo-client'
@@ -8,10 +9,10 @@ import { InMemoryCache } from 'apollo-cache-inmemory'
 import { createHttpLink } from 'apollo-link-http'
 import { setContext } from 'apollo-link-context'
 import { onError } from 'apollo-link-error'
-import { SubscriptionClient } from 'subscriptions-transport-ws'
 import { UserManager, AppManager } from '@app/managers'
 import { AppConfig, dev } from '@app/configs/app-config'
 import { resolvers } from './resolvers'
+import { WebSocketLink } from './ws-link'
 
 const createLink = (): ApolloLink => {
   const httpLink = createHttpLink({
@@ -78,12 +79,10 @@ const createLink = (): ApolloLink => {
   let httpSplit = httpLink
 
   if (typeof window !== 'undefined') {
-    const wsLink = new SubscriptionClient(AppConfig.webSocketUrl + '', {
-      reconnect: true,
-      inactivityTimeout: 30000,
-      minTimeout: 10000,
+    const wsLink = new WebSocketLink({
+      url: AppConfig.webSocketUrl + '',
       connectionParams: {
-        credentials: 'include',
+        authorization: UserManager?.token ? `Bearer ${UserManager?.token}` : '',
       },
     })
 
