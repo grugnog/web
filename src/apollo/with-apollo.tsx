@@ -21,7 +21,7 @@ const createLink = (): ApolloLink => {
         ? AppConfig.graphQLUrlDocker
         : AppConfig.graphQLUrl,
     fetch: fetcher,
-    credentials: 'include',
+    // credentials: 'include',
   })
 
   const authLink = setContext((_: any, { headers }: any) => {
