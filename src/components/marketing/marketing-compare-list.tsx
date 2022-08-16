@@ -90,9 +90,9 @@ function FeatureWrapper() {
             />
             <TableRow rows={['CI pipelines', 'true', 'true', 'true']} />
             <TableRow
-              rows={['Command Line Interface', 'true', 'true', 'true']}
+              rows={['Command Line Interface', 'true', 'true', 'maybe']}
             />
-            <TableRow rows={['Monitoring', 'true', 'true', 'true']} />
+            <TableRow rows={['Monitoring', 'true', 'true', 'maybe']} />
             <TableRow rows={['Cross site testing', 'true', 'maybe', 'maybe']} />
             <TableRow
               rows={['Custom actions to run on pages', 'true', 'true', 'false']}
@@ -168,7 +168,7 @@ function FeatureWrapper() {
             <TableRow
               rows={[
                 'https://www.coinbase.com - 5,900 pages',
-                '13 mins',
+                '7 mins',
                 '48 hours+',
                 '60 hours+',
               ]}
@@ -176,7 +176,7 @@ function FeatureWrapper() {
             <TableRow
               rows={[
                 'https://www.hbo.com - 7,500 pages',
-                '18 mins',
+                '9 mins',
                 '55 hours+',
                 '72 hours+',
               ]}
@@ -222,7 +222,7 @@ function FeatureWrapper() {
             <TableRow
               rows={[
                 'WCAG',
-                '50%-71% extends Pa11y',
+                '50%-61% extends Pa11y',
                 '40%-57% uses Axe or HTML_CodeSniffer',
                 '57%',
               ]}

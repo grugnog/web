@@ -3,7 +3,7 @@ import { exampleBase64 } from '@app/lib/mocks/example-base64'
 export const websiteParamDefs = {
   url: {
     type: 'string',
-    desc: 'The domain to add to your tracking list.',
+    desc: 'The website url.',
     optional: false,
   },
   customHeaders: {
@@ -45,12 +45,12 @@ const crawlParams = {
   subdomains: {
     type: 'boolean',
     desc: 'Include subdomains that match domain.',
-    optional: false,
+    optional: true,
   },
   tld: {
     type: 'boolean',
     desc: 'Include all TLD extensions that match domain.',
-    optional: false,
+    optional: true,
   },
   pageInsights: {
     type: 'boolean',
@@ -98,10 +98,21 @@ export const apiRoutes = [
     id: 'report_actions',
     routes: [
       {
+        pathName: 'scan-simple',
+        method: 'POST',
+        params: {
+          url: crawlParams.url,
+          pageInsights: crawlParams.pageInsights,
+        },
+        info: 'Scan a single page for issues.',
+        title: 'Scan',
+        encodedParams: "--data-urlencode 'url=https://a11ywatch.com'",
+      },
+      {
         pathName: 'crawl',
         method: 'POST',
         params: crawlParams,
-        info: 'Multi-page scan for a domain gather all issues.',
+        info: 'Multi page scan for issues.',
         title: 'Crawl',
         encodedParams: "--data-urlencode 'url=https://a11ywatch.com'",
       },
@@ -112,14 +123,6 @@ export const apiRoutes = [
         info: 'Multi page scan for issues using streams.',
         title: 'Crawl Stream',
         encodedParams: "--data-urlencode 'websiteUrl=https://a11ywatch.com'",
-      },
-      {
-        pathName: 'scan-simple',
-        method: 'POST',
-        params: crawlParams,
-        info: 'Scan a single page for issues.',
-        title: 'Scan',
-        encodedParams: "--data-urlencode 'url=https://a11ywatch.com'",
       },
     ],
   },
@@ -134,12 +137,12 @@ export const apiRoutes = [
         params: {
           imageBase64: {
             type: 'string',
-            desc: 'A Base64 image to classify',
+            desc: 'A Base64 image to classify.',
             optional: false,
           },
         },
         encodedParams: `--data-urlencode 'imageBase64=${exampleBase64}'`,
-        info: 'Try to determine an image using AI based on a base64 string.',
+        info: 'Describe an image.',
         title: 'Image Classify',
       },
     ],
@@ -159,7 +162,9 @@ export const apiRoutes = [
       {
         pathName: 'website?domain=https://a11ywatch.com',
         method: 'GET',
-        params: null,
+        params: {
+          url: websiteParamDefs.url,
+        },
         encodedParams: '',
         info: 'Retreive a web page information details.',
         title: 'Website',
@@ -168,17 +173,40 @@ export const apiRoutes = [
         pathName: 'website',
         method: 'PUT',
         params: websiteParamDefs,
-        encodedParams: "--data-urlencode 'websiteUrl=https://a11ywatch.com'",
+        encodedParams: "--data-urlencode 'url=https://a11ywatch.com'",
         info: 'Update a website configuration.',
         title: 'Update Website',
+      },
+      {
+        pathName: 'website',
+        method: 'DELETE',
+        params: {
+          url: {
+            ...websiteParamDefs.url,
+            optional: true,
+          },
+          domain: {
+            type: 'string',
+            desc: 'The domain name of the website.',
+            optional: true,
+          },
+          deleteMany: {
+            type: 'boolean',
+            desc: 'Delete all websites and related data.',
+            optional: true,
+          },
+        },
+        encodedParams: "--data-urlencode 'domain=a11ywatch.com'",
+        info: 'Delete a website and all related data.',
+        title: 'Delete Website',
       },
       {
         pathName: 'report?url=https://a11ywatch.com',
         method: 'GET',
         params: null,
         encodedParams: '',
-        info: 'Get the last scan ran for a web page url.',
-        title: 'Last Scan',
+        info: 'Get the last report ran for a web page url.',
+        title: 'Report',
       },
       {
         pathName: 'analytics?url=https://a11ywatch.com',
@@ -213,8 +241,7 @@ export const apiRoutes = [
         method: 'GET',
         params: '',
         encodedParams: '',
-        info:
-          'Retreive a list of websites paginated. Request is limited to 5 websites at a time.',
+        info: 'Retreive a list of websites paginated.',
         title: 'List Websites',
       },
       {
@@ -233,8 +260,7 @@ export const apiRoutes = [
           },
         },
         encodedParams: '',
-        info:
-          'Retreive a list of issues paginated. Request is limited to 5 pages with issues at a time.',
+        info: 'Retreive a list of issues paginated.',
         title: 'List Issues',
       },
       {
@@ -253,8 +279,7 @@ export const apiRoutes = [
           },
         },
         encodedParams: '',
-        info:
-          'Retreive a list of pages paginated. Request is limited to 5 pages at a time.',
+        info: 'Retreive a list of pages paginated.',
         title: 'List Pages',
       },
       {
@@ -278,8 +303,7 @@ export const apiRoutes = [
           },
         },
         encodedParams: '',
-        info:
-          'Retreive a list of analytics paginated. Request is limited to 5 pages with issues at a time.',
+        info: 'Retreive a list of analytics paginated.',
         title: 'List Analytics',
       },
 
@@ -304,8 +328,7 @@ export const apiRoutes = [
           },
         },
         encodedParams: '',
-        info:
-          'Retreive a list of pagespeed results paginated. Request is limited to 5 pages with issues at a time.',
+        info: 'Retreive a list of pagespeed results paginated.',
         title: 'List PageSpeed',
       },
     ],

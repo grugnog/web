@@ -25,6 +25,6 @@ export default metaSetter(
   {
     title: 'Why Us?',
     description:
-      'The benefits of A11yWatch compared amongst other web accessibility tools and services. See the facts on why you should pick us with.',
+      'The benefits of A11yWatch compared amongst other web accessibility tools and services. See the facts on why you should pick us.',
   }
 )
