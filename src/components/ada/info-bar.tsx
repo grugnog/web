@@ -3,8 +3,7 @@ import { Button } from '@material-ui/core'
 import { printElement } from '@app/utils'
 import { getAPIRoute } from '@app/configs'
 import type { Website } from '@app/types'
-
-const CTA_LIST_ID = 'cta-issue-list'
+import { feedListID } from '../feed/list'
 
 interface InfoBarComponent {
   printable?: boolean
@@ -29,7 +28,7 @@ export function InfoBarComponent({
 
   const onPrint = (e: React.SyntheticEvent<HTMLButtonElement>) => {
     e?.preventDefault()
-    printElement(CTA_LIST_ID, website)
+    printElement(feedListID, website)
   }
 
   return (

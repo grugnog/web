@@ -5,6 +5,8 @@ import { FeedHeading } from './heading'
 import type { FeedComponentProps } from './interface'
 import { FixedSizeList as List } from 'react-window'
 
+export const feedListID = 'issue-list'
+
 // List of issues rendered.
 const FeedListComponent: FC<FeedComponentProps> = ({
   onScanEvent,
@@ -47,6 +49,7 @@ const FeedListComponent: FC<FeedComponentProps> = ({
   if (fullScreen) {
     return (
       <ul
+        id={feedListID}
         className={`overflow-hidden bg-[rgba(172,182,192,0.06)] w-full h-full`}
       >
         <List
@@ -62,7 +65,7 @@ const FeedListComponent: FC<FeedComponentProps> = ({
   }
 
   return (
-    <li>
+    <li id={feedListID}>
       <FeedHeading
         onScanEvent={onScanEvent}
         onToggleSection={onToggleSection}

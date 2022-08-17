@@ -4,8 +4,25 @@ import { WebsiteTabs, TestView } from '@app/components/general'
 import { ListSkeleton } from '@app/components/placeholders'
 import { ReportViewLeft } from './report-left'
 import { Website } from '@app/types'
-import { FeedList } from '../feed/list'
-import { TestViewRest } from '../general/test-view-rest'
+import dynamic from 'next/dynamic'
+
+const TestViewRest = dynamic(
+  () =>
+    import('../general/test-view-rest').then((mod) => mod.TestViewRest) as any,
+  { ssr: false, loading: () => <div>Loading playground...</div> }
+) as any
+
+const FeedList = dynamic(
+  () => import('../feed/list').then((mod) => mod.FeedList) as any,
+  {
+    ssr: false,
+    loading: () => (
+      <div className='flex place-items-center p-4'>
+        Loading report details...
+      </div>
+    ),
+  }
+) as any
 
 const useStyles = makeStyles(() => ({
   loading: {
@@ -63,6 +80,7 @@ export function ReportInner({
   disableTabs?: boolean
   viewMode?: 'playground' | 'list'
 }) {
+  // no tabs rendered
   if (disableTabs) {
     if (viewMode === 'playground') {
       return (
