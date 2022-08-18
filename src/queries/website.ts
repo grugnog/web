@@ -7,7 +7,6 @@ const GET_WEBSITE = gql`
       url
       userId
       domain
-      adaScore
       cdnConnected
       timestamp
       online

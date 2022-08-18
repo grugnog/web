@@ -119,7 +119,7 @@ export type IssueMeta = {
   errorCount?: Maybe<Scalars['Int']>
   warningCount?: Maybe<Scalars['Int']>
   limitedCount?: Maybe<Scalars['Int']>
-  adaScore?: number
+  adaScore?: Maybe<Scalars['Float']>
 }
 
 export type Mutation = {

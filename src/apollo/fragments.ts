@@ -73,7 +73,6 @@ export const websiteFragments = gql`
     _id
     url
     domain
-    adaScoreAverage
     cdnConnected
     lastScanDate
     online
