@@ -174,7 +174,7 @@ function ApiInfo() {
                   </div>
                   <ul className='space-y-3 py-2'>
                     {ro.routes.map((route: any, i) => {
-                      const routeKey = `apiinfo-route-${i}`
+                      const routeKey = `api-info-route-${i}`
 
                       return (
                         <ApiCell

@@ -58,13 +58,10 @@ const ApiCellComponent = ({ route, keyVisible, token, id }: ApiCellProps) => {
   const curlCommand = `curl --location --request ${
     route.method ?? 'POST'
   } '${API_ENDPOINT}/${route.pathName}' \
---header 'Authorization: ${keyVisible ? token : '$A11YWATCH_TOKEN'}'
+--header 'Authorization: ${keyVisible ? token : '$A11YWATCH_TOKEN'}' \
 ${
-  route.method === 'POST'
-    ? `\ --header 'Content-Type: application/x-www-form-urlencoded'`
-    : ''
-} \
-${route.encodedParams}`
+  route.method === 'POST' ? `--header 'Content-Type: application/json' ` : ''
+} \ ${route.encodedParams}`
 
   const copyText = (
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>
