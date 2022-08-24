@@ -104,7 +104,7 @@ function AuthMenuComponent({ authenticated }: AuthMenuComponentProps) {
             <button
               onClick={logout}
               className={
-                'text-center w-full text-red-600 text-base px-5 py-2 m-0 border-t'
+                'text-center w-full text-red-800 text-base px-5 py-2 m-0 border-t'
               }
             >
               Logout

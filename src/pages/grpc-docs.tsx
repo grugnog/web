@@ -88,11 +88,15 @@ function GrpcDocs({ name }: PageProps) {
       #toc-container ul {
         list-style-type: none;
         padding-left: 1em;
+        padding-top: 0.5em;
+        padding-bottom: 0.5em;
         line-height: 180%;
         margin: 0;
       }
       #toc > li > a {
         font-weight: bold;
+        padding-bottom: 0.3em;
+        padding-top: 0.3em;
       }
 
       .file-heading {
@@ -114,23 +118,19 @@ function GrpcDocs({ name }: PageProps) {
         width: 1.6em;
         height: 1.6em;
         display: inline-block;
-
         line-height: 1.6em;
         text-align: center;
         font-weight: bold;
-        font-size: 60%;
-
-        color: #89ba48;
-        background-color: #dff0c8;
-
+        color: #fff;
+        background-color: rgb(22 101 52);
         margin: 0.5ex 1em 0.5ex -1em;
         border: 1px solid #fbfbfb;
-        border-radius: 1ex;
+        border-radius: 1.5ex;
       }`}
         </style>
       </Head>
       <MarketingDrawer title={name} footerSpacing maxWidth='xl'>
-        <PageTitle>gRPC Protocol Documentation</PageTitle>
+        <PageTitle id='title'>gRPC Protocol Documentation</PageTitle>
         <div className='py-4'>
           <div className='border-t border-b py-2'>
             <h2 className='text-lg'>Table of Contents</h2>
@@ -140,7 +140,7 @@ function GrpcDocs({ name }: PageProps) {
         <div id='toc-container'>
           <ul id='toc'>
             <li>
-              <a href='#proto%2fcdn.proto'>proto/cdn.proto</a>
+              <a href='#proto/cdn.proto'>proto/cdn.proto</a>
               <ul>
                 <li>
                   <a href='#.ResourceParams'>
@@ -163,7 +163,7 @@ function GrpcDocs({ name }: PageProps) {
             </li>
 
             <li>
-              <a href='#proto%2fcrawler.proto'>proto/crawler.proto</a>
+              <a href='#proto/crawler.proto'>proto/crawler.proto</a>
               <ul>
                 <li>
                   <a href='#crawler.ScanReply'>
@@ -186,7 +186,7 @@ function GrpcDocs({ name }: PageProps) {
             </li>
 
             <li>
-              <a href='#proto%2fhealth.proto'>proto/health.proto</a>
+              <a href='#proto/health.proto'>proto/health.proto</a>
               <ul>
                 <li>
                   <a href='#health.HealthCheckReply'>
@@ -209,7 +209,7 @@ function GrpcDocs({ name }: PageProps) {
             </li>
 
             <li>
-              <a href='#proto%2fmav.proto'>proto/mav.proto</a>
+              <a href='#proto/mav.proto'>proto/mav.proto</a>
               <ul>
                 <li>
                   <a href='#.Img'>
@@ -232,7 +232,7 @@ function GrpcDocs({ name }: PageProps) {
             </li>
 
             <li>
-              <a href='#proto%2fpagemind.proto'>proto/pagemind.proto</a>
+              <a href='#proto/pagemind.proto'>proto/pagemind.proto</a>
               <ul>
                 <li>
                   <a href='#.Headers'>
@@ -315,7 +315,7 @@ function GrpcDocs({ name }: PageProps) {
             </li>
 
             <li>
-              <a href='#proto%2fwebsite.proto'>proto/website.proto</a>
+              <a href='#proto/website.proto'>proto/website.proto</a>
               <ul>
                 <li>
                   <a href='#website.Empty'>

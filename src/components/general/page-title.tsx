@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { PropsWithChildren } from 'react'
 import { Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 
@@ -15,24 +15,28 @@ const useStyles = makeStyles((theme) => ({
       maxWidth: '95vw',
     },
   },
-  row: {
-    display: 'flex',
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
   topBlock: {
     overflow: 'hidden',
     paddingTop: 8,
   },
 }))
 
+type PageTitleProps = {
+  title?: string
+  rightButton?: JSX.Element | null
+  component?: 'h1' | 'h2' | 'h3'
+  className?: string
+  id?: string
+}
+
 function PageTitle({
   title = '',
-  rightButton = false,
-  children,
+  rightButton = null,
   component = 'h1',
+  children,
   className = '',
-}: any) {
+  id,
+}: PropsWithChildren<PageTitleProps>) {
   const classes = useStyles()
   const renderTitle = title || children
 
@@ -43,24 +47,28 @@ function PageTitle({
   if (rightButton) {
     return (
       <div
-        className={`${className ? `${className} ` : ''}${classes.row} ${
+        className={`${className ? `${className} ` : ''}flex items-center ${
           classes.topBlock
         } justify-between flex-wrap`}
       >
-        <Typography
-          variant='h4'
-          component={component}
-          className={classes.title}
-        >
-          {renderTitle}
-        </Typography>
-        {rightButton}
+        <>
+          <Typography
+            variant='h4'
+            component={component}
+            className={classes.title}
+          >
+            {renderTitle}
+          </Typography>
+          {rightButton}
+        </>
       </div>
     )
   }
+
   return (
     <Typography
       variant='h4'
+      id={id}
       component={component}
       className={`${className ? `${className} ` : ''}${classes.title} ${
         classes.topBlock
