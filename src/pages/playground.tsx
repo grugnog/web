@@ -219,15 +219,15 @@ function Playground() {
 
       <div id='playground-root' className='bg-[#172a3a]' />
 
-      <nav className='fixed bottom-0 left-[42%] md:left-[47%] mdright-[47%] text-white flex space-x-2 p-3'>
-        <h1 className='w-5 md:w-auto truncate text-gray-300'>
+      <nav className='fixed bottom-0 left-[42%] md:left-[47%] mdright-[47%] text-white flex space-x-2 p-2 font-bold'>
+        <h1 className='w-5 md:w-auto truncate text-base'>
           {companyName} graphQL playground
         </h1>
-        <ul className='flex space-x-2'>
-          <li>
+        <ul className='flex space-x-2 px-4'>
+          <li className='underline'>
             <Link href='/api-info'>OpenAPI</Link>
           </li>
-          <li>
+          <li className='underline'>
             <Link href='/grpc-docs'>gRPC</Link>
           </li>
         </ul>
