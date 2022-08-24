@@ -48,7 +48,11 @@ export function WebsiteSecondaryComponent({
   )
 
   return (
-    <div className={'flex space-x-2 overflow-x-hidden hover:overflow-x-auto'}>
+    <div
+      className={
+        'flex space-x-2 overflow-x-hidden hover:overflow-x-auto max-w-[60vw]'
+      }
+    >
       {shutdown ? (
         <Tooltip
           title={`Website scan did not complete. Upgrade your account to increase your duration or pay per usage.`}
