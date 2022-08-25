@@ -1,4 +1,4 @@
-import { AppConfig, companyName } from '@app/configs'
+import { AppConfig } from '@app/configs'
 import { metaSetter } from '@app/utils'
 
 import Head from 'next/head'
@@ -219,18 +219,18 @@ function Playground() {
 
       <div id='playground-root' className='bg-[#172a3a]' />
 
-      <nav className='fixed bottom-0 left-[42%] md:left-[47%] mdright-[47%] text-white flex space-x-2 p-2 font-bold'>
-        <h1 className='w-5 md:w-auto truncate text-base'>
-          {companyName} graphQL playground
-        </h1>
-        <ul className='flex space-x-2 px-4'>
-          <li className='underline'>
-            <Link href='/api-info'>OpenAPI</Link>
-          </li>
-          <li className='underline'>
-            <Link href='/grpc-docs'>gRPC</Link>
-          </li>
-        </ul>
+      <nav className='fixed bottom-0 left-[42%] md:left-[47%] font-bold'>
+        <div className='text-[#767676] flex space-x-1 py-2 place-items-center'>
+          <h1 className='w-5 md:w-auto truncate text-lg'>graphQL playground</h1>
+          <ul className='flex space-x-2 px-4'>
+            <li className='underline'>
+              <Link href='/api-info'>OpenAPI</Link>
+            </li>
+            <li className='underline'>
+              <Link href='/grpc-docs'>gRPC</Link>
+            </li>
+          </ul>
+        </div>
       </nav>
 
       <Script

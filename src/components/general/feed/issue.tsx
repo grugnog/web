@@ -40,7 +40,6 @@ export function FeedIssueCardComponent({
   recurrence,
 }: CellIssue) {
   const { codeHref, codeDisplay } = codeFormatter(code)
-
   const [m, rec] = message?.split('Recommendation:') || [message, '']
 
   return (
@@ -75,7 +74,7 @@ export function FeedIssueCardComponent({
           {codeDisplay}
         </a>
       </div>
-      <div className={'text-base line-clamp-4'}>
+      <div className={'line-clamp-4'}>
         {m}
         {rec ? (
           <>

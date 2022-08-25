@@ -1,4 +1,4 @@
-import React, { memo, SyntheticEvent, useCallback, useState } from 'react'
+import React, { memo, SyntheticEvent, useState } from 'react'
 import { IconButton } from '@material-ui/core'
 import { GrDown, GrUp } from 'react-icons/gr'
 import { FeedIssueCard } from '../feed/issue'
@@ -18,13 +18,10 @@ export function IssueFeedCellComponent({
 }) {
   const [issueView, setIssueView] = useState<boolean>(true)
 
-  const onToggleIssue = useCallback(
-    (e: SyntheticEvent<HTMLButtonElement>) => {
-      e?.preventDefault()
-      setIssueView((v) => !v)
-    },
-    [setIssueView]
-  )
+  const onToggleIssue = (e: SyntheticEvent<HTMLButtonElement>) => {
+    e?.preventDefault()
+    setIssueView((v) => !v)
+  }
 
   return (
     <li

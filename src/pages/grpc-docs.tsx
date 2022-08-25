@@ -143,19 +143,19 @@ function GrpcDocs({ name }: PageProps) {
               <a href='#proto/cdn.proto'>proto/cdn.proto</a>
               <ul>
                 <li>
-                  <a href='#.ResourceParams'>
+                  <a href='#ResourceParams'>
                     <span className='badge'>M</span>ResourceParams
                   </a>
                 </li>
 
                 <li>
-                  <a href='#.ScriptStatus'>
+                  <a href='#ScriptStatus'>
                     <span className='badge'>M</span>ScriptStatus
                   </a>
                 </li>
 
                 <li>
-                  <a href='#.Cdn'>
+                  <a href='#Cdn'>
                     <span className='badge'>S</span>Cdn
                   </a>
                 </li>
@@ -212,19 +212,19 @@ function GrpcDocs({ name }: PageProps) {
               <a href='#proto/mav.proto'>proto/mav.proto</a>
               <ul>
                 <li>
-                  <a href='#.Img'>
+                  <a href='#Img'>
                     <span className='badge'>M</span>Img
                   </a>
                 </li>
 
                 <li>
-                  <a href='#.ParseParams'>
+                  <a href='#ParseParams'>
                     <span className='badge'>M</span>ParseParams
                   </a>
                 </li>
 
                 <li>
-                  <a href='#.Mav'>
+                  <a href='#Mav'>
                     <span className='badge'>S</span>Mav
                   </a>
                 </li>
@@ -235,79 +235,79 @@ function GrpcDocs({ name }: PageProps) {
               <a href='#proto/pagemind.proto'>proto/pagemind.proto</a>
               <ul>
                 <li>
-                  <a href='#.Headers'>
+                  <a href='#Headers'>
                     <span className='badge'>M</span>Headers
                   </a>
                 </li>
 
                 <li>
-                  <a href='#.IssueMeta'>
+                  <a href='#IssueMeta'>
                     <span className='badge'>M</span>IssueMeta
                   </a>
                 </li>
 
                 <li>
-                  <a href='#.Issues'>
+                  <a href='#Issues'>
                     <span className='badge'>M</span>Issues
                   </a>
                 </li>
 
                 <li>
-                  <a href='#.IssuesInfo'>
+                  <a href='#IssuesInfo'>
                     <span className='badge'>M</span>IssuesInfo
                   </a>
                 </li>
 
                 <li>
-                  <a href='#.Page'>
+                  <a href='#Page'>
                     <span className='badge'>M</span>Page
                   </a>
                 </li>
 
                 <li>
-                  <a href='#.PageLoadTime'>
+                  <a href='#PageLoadTime'>
                     <span className='badge'>M</span>PageLoadTime
                   </a>
                 </li>
 
                 <li>
-                  <a href='#.Problem'>
+                  <a href='#Problem'>
                     <span className='badge'>M</span>Problem
                   </a>
                 </li>
 
                 <li>
-                  <a href='#.ScanParams'>
+                  <a href='#ScanParams'>
                     <span className='badge'>M</span>ScanParams
                   </a>
                 </li>
 
                 <li>
-                  <a href='#.Script'>
+                  <a href='#Script'>
                     <span className='badge'>M</span>Script
                   </a>
                 </li>
 
                 <li>
-                  <a href='#.ScriptMeta'>
+                  <a href='#ScriptMeta'>
                     <span className='badge'>M</span>ScriptMeta
                   </a>
                 </li>
 
                 <li>
-                  <a href='#.ScriptParams'>
+                  <a href='#ScriptParams'>
                     <span className='badge'>M</span>ScriptParams
                   </a>
                 </li>
 
                 <li>
-                  <a href='#.Web'>
+                  <a href='#Web'>
                     <span className='badge'>M</span>Web
                   </a>
                 </li>
 
                 <li>
-                  <a href='#.Pagemind'>
+                  <a href='#Pagemind'>
                     <span className='badge'>S</span>Pagemind
                   </a>
                 </li>
@@ -355,7 +355,7 @@ function GrpcDocs({ name }: PageProps) {
             <a href='#title'>Top</a>
           </div>
 
-          <h4 className='py-3 border-b border-t font-bold' id='.ResourceParams'>
+          <h4 className='py-3 border-b border-t font-bold' id='ResourceParams'>
             ResourceParams
           </h4>
 
@@ -406,12 +406,12 @@ function GrpcDocs({ name }: PageProps) {
             </tbody>
           </table>
 
-          <h4 className='py-3 border-b border-t font-bold' id='.ScriptStatus'>
+          <h4 className='py-3 border-b border-t font-bold' id='ScriptStatus'>
             ScriptStatus
           </h4>
           <p className='py-2'>status message [TODO]</p>
 
-          <h4 className='py-3 border-b border-t font-bold' id='.Cdn'>
+          <h4 className='py-3 border-b border-t font-bold' id='Cdn'>
             Cdn
           </h4>
           <p className='py-2'>
@@ -430,10 +430,10 @@ function GrpcDocs({ name }: PageProps) {
               <tr>
                 <td>AddScript</td>
                 <td>
-                  <a href='#ResourceParams'>.ResourceParams</a>
+                  <a href='#ResourceParams'>ResourceParams</a>
                 </td>
                 <td>
-                  <a href='#ScriptStatus'>.ScriptStatus</a>
+                  <a href='#ScriptStatus'>ScriptStatus</a>
                 </td>
                 <td>
                   <p></p>
@@ -695,7 +695,7 @@ function GrpcDocs({ name }: PageProps) {
             <a href='#title'>Top</a>
           </div>
 
-          <h4 className='py-3 border-b border-t font-bold' id='.Img'>
+          <h4 className='py-3 border-b border-t font-bold' id='Img'>
             Img
           </h4>
           <p className='py-2'>the image returned as a readable text</p>
@@ -734,7 +734,7 @@ function GrpcDocs({ name }: PageProps) {
             </tbody>
           </table>
 
-          <h4 className='py-3 border-b border-t font-bold' id='.ParseParams'>
+          <h4 className='py-3 border-b border-t font-bold' id='ParseParams'>
             ParseParams
           </h4>
           <p className='py-2'>params to use on image parsing.</p>
@@ -806,7 +806,7 @@ function GrpcDocs({ name }: PageProps) {
             </tbody>
           </table>
 
-          <h4 className='py-3 border-b border-t font-bold' id='.Mav'>
+          <h4 className='py-3 border-b border-t font-bold' id='Mav'>
             Mav
           </h4>
           <p className='py-2'>
@@ -826,10 +826,10 @@ function GrpcDocs({ name }: PageProps) {
               <tr>
                 <td>ParseImg</td>
                 <td>
-                  <a href='#ParseParams'>.ParseParams</a>
+                  <a href='#ParseParams'>ParseParams</a>
                 </td>
                 <td>
-                  <a href='#Img'>.Img</a>
+                  <a href='#Img'>Img</a>
                 </td>
                 <td>
                   <p></p>
@@ -843,7 +843,7 @@ function GrpcDocs({ name }: PageProps) {
             <a href='#title'>Top</a>
           </div>
 
-          <h4 className='py-3 border-b border-t font-bold' id='.Headers'>
+          <h4 className='py-3 border-b border-t font-bold' id='Headers'>
             Headers
           </h4>
 
@@ -883,7 +883,7 @@ function GrpcDocs({ name }: PageProps) {
             </tbody>
           </table>
 
-          <h4 className='py-3 border-b border-t font-bold' id='.IssueMeta'>
+          <h4 className='py-3 border-b border-t font-bold' id='IssueMeta'>
             IssueMeta
           </h4>
           <p className='py-2'>
@@ -915,7 +915,7 @@ function GrpcDocs({ name }: PageProps) {
             </tbody>
           </table>
 
-          <h4 className='py-3 border-b border-t font-bold' id='.Issues'>
+          <h4 className='py-3 border-b border-t font-bold' id='Issues'>
             Issues
           </h4>
           <p className='py-2'>the generic issues structure</p>
@@ -976,7 +976,7 @@ function GrpcDocs({ name }: PageProps) {
             </tbody>
           </table>
 
-          <h4 className='py-3 border-b border-t font-bold' id='.IssuesInfo'>
+          <h4 className='py-3 border-b border-t font-bold' id='IssuesInfo'>
             IssuesInfo
           </h4>
           <p className='py-2'>
@@ -1085,7 +1085,7 @@ function GrpcDocs({ name }: PageProps) {
             </tbody>
           </table>
 
-          <h4 className='py-3 border-b border-t font-bold' id='.Page'>
+          <h4 className='py-3 border-b border-t font-bold' id='Page'>
             Page
           </h4>
           <p className='py-2'>page model of all helpful insight</p>
@@ -1149,7 +1149,12 @@ function GrpcDocs({ name }: PageProps) {
               <tr>
                 <td>insight</td>
                 <td>
-                  <a href='#google.protobuf.Struct'>google.protobuf.Struct</a>
+                  <a
+                    href='https://developers.google.com/protocol-buffers/docs/reference/google.protobuf'
+                    rel='noopener'
+                  >
+                    google.protobuf.Struct
+                  </a>
                 </td>
                 <td></td>
                 <td>
@@ -1181,7 +1186,7 @@ function GrpcDocs({ name }: PageProps) {
             </tbody>
           </table>
 
-          <h4 className='py-3 border-b border-t font-bold' id='.PageLoadTime'>
+          <h4 className='py-3 border-b border-t font-bold' id='PageLoadTime'>
             PageLoadTime
           </h4>
           <p className='py-2'>how fast the page loaded.</p>
@@ -1231,7 +1236,7 @@ function GrpcDocs({ name }: PageProps) {
             </tbody>
           </table>
 
-          <h4 className='py-3 border-b border-t font-bold' id='.Problem'>
+          <h4 className='py-3 border-b border-t font-bold' id='Problem'>
             Problem
           </h4>
           <p className='py-2'>
@@ -1339,7 +1344,7 @@ function GrpcDocs({ name }: PageProps) {
             </tbody>
           </table>
 
-          <h4 className='py-3 border-b border-t font-bold' id='.ScanParams'>
+          <h4 className='py-3 border-b border-t font-bold' id='ScanParams'>
             ScanParams
           </h4>
           <p className='py-2'>the params to configure testing and output</p>
@@ -1502,7 +1507,7 @@ function GrpcDocs({ name }: PageProps) {
             </tbody>
           </table>
 
-          <h4 className='py-3 border-b border-t font-bold' id='.Script'>
+          <h4 className='py-3 border-b border-t font-bold' id='Script'>
             Script
           </h4>
           <p className='py-2'>
@@ -1617,7 +1622,7 @@ function GrpcDocs({ name }: PageProps) {
             </tbody>
           </table>
 
-          <h4 className='py-3 border-b border-t font-bold' id='.ScriptMeta'>
+          <h4 className='py-3 border-b border-t font-bold' id='ScriptMeta'>
             ScriptMeta
           </h4>
           <p className='py-2'>script meta adjustments</p>
@@ -1645,7 +1650,7 @@ function GrpcDocs({ name }: PageProps) {
             </tbody>
           </table>
 
-          <h4 className='py-3 border-b border-t font-bold' id='.ScriptParams'>
+          <h4 className='py-3 border-b border-t font-bold' id='ScriptParams'>
             ScriptParams
           </h4>
           <p className='py-2'>upsert script params</p>
@@ -1706,7 +1711,7 @@ function GrpcDocs({ name }: PageProps) {
             </tbody>
           </table>
 
-          <h4 className='py-3 border-b border-t font-bold' id='.Web'>
+          <h4 className='py-3 border-b border-t font-bold' id='Web'>
             Web
           </h4>
           <p className='py-2'>
@@ -1771,7 +1776,7 @@ function GrpcDocs({ name }: PageProps) {
             </tbody>
           </table>
 
-          <h4 className='py-3 border-b border-t font-bold' id='.Pagemind'>
+          <h4 className='py-3 border-b border-t font-bold' id='Pagemind'>
             Pagemind
           </h4>
           <p className='py-2'>Accessibility and page metrics [50052].</p>
