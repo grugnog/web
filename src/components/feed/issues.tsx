@@ -18,7 +18,12 @@ import { useMemo } from 'react'
 import { useWasmContext } from '../providers'
 
 // per page list
-const FeedListPageWrapper = ({ website, pageName, onScanEvent }: any) => {
+const FeedListPageWrapper = ({
+  website,
+  pageName,
+  onScanEvent,
+  highlightErrors,
+}: any) => {
   const issue = website[pageName]
 
   return (
@@ -27,13 +32,22 @@ const FeedListPageWrapper = ({ website, pageName, onScanEvent }: any) => {
       onScanEvent={onScanEvent}
       issue={issue}
       isHidden={true}
+      highlightErrors={highlightErrors}
     />
   )
 }
 
 const FeedPage = memo(FeedListPageWrapper)
 
-const PageList = ({ pages, website, onScanEvent }: any) => {
+const PageList = ({
+  pages,
+  website,
+  onScanEvent,
+  highlightErrors,
+}: Partial<FeedItemProps> & {
+  pages: any[]
+  website: any
+}) => {
   return (
     <>
       {pages?.map((pageName: string) => (
@@ -42,6 +56,7 @@ const PageList = ({ pages, website, onScanEvent }: any) => {
           onScanEvent={onScanEvent}
           pageName={pageName}
           website={website}
+          highlightErrors={highlightErrors}
         />
       ))}
     </>
@@ -69,15 +84,25 @@ const FeedButton = ({ domain, onHeadingToggleEvent, onSortClick }: any) => {
 
 const FeedButtonMemo = memo(FeedButton)
 
-const FeedItemWrapper = ({ feed, onScanEvent, index, domain }: any) => {
-  const website = feed[domain] // TODO: defer
-
+type FeedItemProps = {
+  feed: Record<string, any>
+  domain: string
+  onScanEvent?: (_: any, __: any) => any
+  index?: number
+  highlightErrors?: boolean
+}
+const FeedItemWrapper = ({
+  feed,
+  onScanEvent,
+  index,
+  domain,
+}: FeedItemProps) => {
   const [visible, setVisible] = useState<boolean>(index === 0)
   const [_sorted, setSorted] = useState<boolean>(false)
-
   // keep tracking of the pages in order
   const refPages = useRef<Record<string, string>>({})
   const pages = useDeferredValue(Object.keys(refPages.current))
+  const website = feed[domain] // TODO: defer
 
   useEffect(() => {
     if (website) {
@@ -103,7 +128,12 @@ const FeedItemWrapper = ({ feed, onScanEvent, index, domain }: any) => {
 
   const pagesList = useMemo(
     () => (
-      <PageList pages={pages} website={website} onScanEvent={onScanEvent} />
+      <PageList
+        pages={pages}
+        website={website}
+        onScanEvent={onScanEvent}
+        highlightErrors
+      />
     ),
     [pages, website, onScanEvent]
   )
@@ -209,6 +239,7 @@ const Feed: FC = () => {
               domain={domain}
               index={index}
               onScanEvent={onScanEvent}
+              highlightErrors
             />
           ))}
         </ul>

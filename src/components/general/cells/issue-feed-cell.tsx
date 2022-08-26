@@ -1,4 +1,4 @@
-import React, { memo, SyntheticEvent, useState } from 'react'
+import { memo, SyntheticEvent, useState } from 'react'
 import { IconButton } from '@material-ui/core'
 import { GrDown, GrUp } from 'react-icons/gr'
 import { FeedIssueCard } from '../feed/issue'
@@ -25,7 +25,7 @@ export function IssueFeedCellComponent({
 
   return (
     <li
-      className='border border-t-0 border-l-0 border-r-0 h-[inherit]'
+      className={'border border-t-0 border-l-0 border-r-0 h-[inherit]'}
       style={style}
     >
       {!hideSelector ? null : (

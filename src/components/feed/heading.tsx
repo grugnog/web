@@ -1,7 +1,9 @@
 import { memo } from 'react'
-import { GrDown, GrSync, GrUp } from 'react-icons/gr'
+import { GrFlag, GrCompliance, GrDown, GrSync, GrUp } from 'react-icons/gr'
 import { IssueTitle } from './title'
 import type { FeedComponentProps } from './interface'
+
+const thumbSize = { width: 12, height: 12 }
 
 // heading block for feed entry displaying website title that can toggle parent list.
 export const FeedHeadingComponent = ({
@@ -11,12 +13,14 @@ export const FeedHeadingComponent = ({
   pageUrl,
   sectionHidden,
   totalIssues,
+  highLight,
 }: Partial<FeedComponentProps> & {
   onToggleSection(x: (x: boolean) => boolean): void
   sectionHidden?: boolean
   domain: string
   pageUrl: string
   totalIssues: number
+  highLight?: boolean
 }) => {
   const onScan = async () => {
     try {
@@ -30,12 +34,37 @@ export const FeedHeadingComponent = ({
     onToggleSection((v: boolean) => !v)
   }
 
+  const hlight = highLight || totalIssues === 0
+
   return (
-    <div className='flex pl-2 space-x-1  border border-x-0 border-t-0 h-15'>
+    <div className={'flex pl-2 space-x-1  border border-x-0 border-t-0 h-15'}>
       <div className='flex-1 px-2 py-2 truncate space-y-1'>
         <IssueTitle pageUrl={pageUrl} domain={domain} />
-        <div className='text-sm text-[#707070]'>
-          {totalIssues} issue{totalIssues === 1 ? '' : 's'}
+        <div className='flex space-x-1 place-items-center text-[#707070] text-sm'>
+          <div
+            className={
+              hlight
+                ? "after:content-['_*_'] after:relative after:top-0.5"
+                : undefined
+            }
+          >
+            {totalIssues} issue{totalIssues === 1 ? '' : 's'}
+          </div>
+          {hlight ? (
+            highLight ? (
+              <GrFlag
+                style={thumbSize}
+                className={'grIcon'}
+                title={'Page contains errors'}
+              />
+            ) : (
+              <GrCompliance
+                style={thumbSize}
+                className={'grIcon'}
+                title={'Page passes all tests'}
+              />
+            )
+          ) : null}
         </div>
       </div>
       <div className='flex'>

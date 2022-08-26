@@ -13,6 +13,7 @@ const FeedListComponent: FC<FeedComponentProps> = ({
   issue,
   isHidden,
   fullScreen,
+  highlightErrors,
 }) => {
   const [sectionHidden, onToggleSection] = useState<boolean>(!!isHidden)
   const pageIssues = issueExtractor(issue) // array of issues extract duplex types
@@ -64,6 +65,9 @@ const FeedListComponent: FC<FeedComponentProps> = ({
     )
   }
 
+  const highLight =
+    highlightErrors && issue.issues?.length && issue.issues[0]?.type === 'error'
+
   return (
     <li id={feedListID}>
       <FeedHeading
@@ -73,6 +77,7 @@ const FeedListComponent: FC<FeedComponentProps> = ({
         pageUrl={issue.pageUrl}
         domain={issue.domain}
         totalIssues={issue.issues?.length || 0}
+        highLight={!!highLight}
       />
       {sectionHidden ? null : (
         <ul

@@ -56,6 +56,9 @@ const theme = {
     height: {
       inherit: 'inherit',
     },
+    content: {
+      before: 'before',
+    },
   },
 }
 

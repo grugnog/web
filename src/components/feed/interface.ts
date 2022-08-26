@@ -7,4 +7,5 @@ export interface FeedComponentProps {
   issue: IssueData
   isHidden?: boolean // determine if the section inits hidden
   fullScreen?: boolean
+  highlightErrors?: boolean // highlight errors in the ui
 }
