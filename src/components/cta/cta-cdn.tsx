@@ -9,42 +9,27 @@ const useStyles = makeStyles((theme: Theme) =>
       marginLeft: '3px',
       marginRight: '5px',
     },
-    row: {
-      display: 'flex',
-      position: 'relative',
-      alignItems: 'center',
-    },
     register: {
       color: theme.palette.secondary.main,
       borderColor: theme.palette.secondary.main,
     },
-    report: {
-      color: theme.palette.primary.main,
-    },
     text: {
       fontWeight: 'bold',
       marginRight: '12px',
-    },
-    limited: {
-      padding: theme.spacing(1),
-      borderRadius: '3px',
-      border: `2px solid ${theme.palette.primary.main}`,
-      marginTop: theme.spacing(1),
     },
   })
 )
 
 function CtaCdn({ website, disablePlayground, authenticated }: any) {
   const classes = useStyles()
+
   const noIssues =
     Number(website?.issues?.length || website?.issues?.issues?.length) === 0
-
   const totalIssuesOnPage = website?.issuesInfo?.totalIssues ?? '_'
-  const shouldBlock = disablePlayground
   const limitedResonse = website?.issuesInfo?.limitedCount
     ? `This is a limited API response showing ${website.issuesInfo.limitedCount}/${totalIssuesOnPage} issues for the current page, sign in to see the full report across all pages.`
     : !website?.issues && 'Gathering details'
-  const moreInfo = shouldBlock
+  const moreInfo = disablePlayground
     ? `Get all your pages issues at once and more after signing in`
     : ''
 
@@ -59,13 +44,15 @@ function CtaCdn({ website, disablePlayground, authenticated }: any) {
           {moreInfo}
         </Typography>
       ) : null}
-      {limitedResonse ? (
-        <div className={classes.limited}>
-          <Typography variant={'subtitle2'}>{limitedResonse}</Typography>
+      <div className='pt-3 pb-2'>
+        <div className={'border-2 rounded border-gray-500 p-2'}>
+          <p className='text-base text-grey-700'>
+            {limitedResonse || 'Scan Complete'}
+          </p>
         </div>
-      ) : null}
+      </div>
       {disablePlayground || authenticated ? null : (
-        <span className={classes.row} style={{ marginTop: 12 }}>
+        <div className={'flex align-center pt-3'}>
           <Button
             component={Link}
             href={'/login'}
@@ -84,7 +71,7 @@ function CtaCdn({ website, disablePlayground, authenticated }: any) {
           >
             Register
           </Button>
-        </span>
+        </div>
       )}
       {noIssues ? <Typography>No issues found, great job!</Typography> : null}
     </Fragment>
