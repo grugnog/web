@@ -115,7 +115,7 @@ function FeatureWrapper() {
               rows={['Dynamic TLD testing', 'true', 'false', 'false']}
             />
             <TableRow
-              rows={['Parallel website testing', 'true', 'false', 'false']}
+              rows={['Concurrent website testing', 'true', 'false', 'false']}
             />
             <TableRow
               rows={[

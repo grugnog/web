@@ -1,4 +1,11 @@
-import React, { FC, useCallback, useState, useEffect, Fragment } from 'react'
+import React, {
+  FC,
+  useCallback,
+  useState,
+  useReducer,
+  useEffect,
+  Fragment,
+} from 'react'
 import {
   Container,
   Typography,
@@ -22,16 +29,60 @@ import { useProfileStyles as useStyles } from '@app/styles/pages/profile'
 import type { PageProps } from '@app/types'
 import { useBillingDisplay } from '@app/data/formatters'
 
+interface PasswordState {
+  newPassword?: string
+  currentPassword?: string
+  changePassword: boolean // display the change password form
+}
+
+const initialPasswordState: PasswordState = {
+  newPassword: '',
+  currentPassword: '',
+  changePassword: false,
+}
+
+interface PasswordAction {
+  payload?: string
+  type: 'toggleVisiblility' | 'mutateCurrent' | 'mutateNew' | 'reset'
+}
+
+type PasswordReducer = (
+  state: PasswordState,
+  action: PasswordAction
+) => PasswordState
+
+const passwordReducer: PasswordReducer = (state, action) => {
+  const { payload } = action
+  switch (action.type) {
+    case 'toggleVisiblility': {
+      return { ...state, changePassword: !state.changePassword }
+    }
+    case 'mutateCurrent': {
+      return { ...state, currentPassword: payload }
+    }
+    case 'mutateNew': {
+      return { ...state, newPassword: payload }
+    }
+    case 'reset': {
+      return { ...initialPasswordState }
+    }
+    default: {
+      return state
+    }
+  }
+}
+
 const Profile: FC<PageProps> = ({ name }) => {
   const classes = useStyles()
   const { data = {}, loading, updateUser, updateUserData } = useUserData(
     true,
     'profile'
   )
-  // todo: reducer
-  const [changePassword, setChangePassword] = useState<boolean>(false)
-  const [currentPassword, setCurrentPassword] = useState<string>('')
-  const [newPassword, setNewPassword] = useState<string>('')
+
+  const [
+    { changePassword, currentPassword, newPassword },
+    dispatch,
+  ] = useReducer(passwordReducer, Object.assign({}, initialPasswordState))
 
   // todo: reducer
   const [changeEmail, setChangeEmail] = useState<boolean>(false)
@@ -44,16 +95,16 @@ const Profile: FC<PageProps> = ({ name }) => {
 
   const onChangeCurrent = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
-      setCurrentPassword(e.target.value)
+      dispatch({ type: 'mutateCurrent', payload: e.target.value })
     },
-    [setCurrentPassword]
+    [dispatch]
   )
 
   const onChangeNew = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
-      setNewPassword(e.target.value)
+      dispatch({ type: 'mutateNew', payload: e.target.value })
     },
-    [setNewPassword]
+    [dispatch]
   )
 
   const onChangeEmail = useCallback(
@@ -93,8 +144,8 @@ const Profile: FC<PageProps> = ({ name }) => {
   )
 
   const togglePassword = useCallback(() => {
-    setChangePassword((p) => !p)
-  }, [setChangePassword])
+    dispatch({ type: 'toggleVisiblility' })
+  }, [dispatch])
 
   const toggleEmail = useCallback(() => {
     setChangeEmail((p) => !p)
@@ -107,20 +158,13 @@ const Profile: FC<PageProps> = ({ name }) => {
         updateUserData?.updateUser?.message,
         'success'
       )
-      setCurrentPassword('')
-      setNewPassword('')
+
+      dispatch({ type: 'reset' })
+
       setNewEmail('')
       setChangeEmail(false)
-      setChangePassword(false)
     }
-  }, [
-    updateUserData,
-    setCurrentPassword,
-    setNewPassword,
-    setNewEmail,
-    setChangeEmail,
-    setChangePassword,
-  ])
+  }, [updateUserData, dispatch, setNewEmail, setChangeEmail])
 
   const email = updateUserData?.updateUser?.user?.email ?? user?.email
 
@@ -320,7 +364,6 @@ const Profile: FC<PageProps> = ({ name }) => {
               </>
             </div>
           </div>
-
           <Link
             href='/payments'
             className={`text-lg font-bold inline-block rounded bg-[#0E1116] text-white px-10 py-4 hover:bg-white hover:text-black hover:outline`}

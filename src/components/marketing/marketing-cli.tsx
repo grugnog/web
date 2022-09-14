@@ -9,7 +9,7 @@ const infoDetails = [
       'Want to host A11yWatch on your own? In one command start the project with docker or directly on the machine. Tear up or down the project in seconds with our slim binary builds or via Terraform.',
   },
   {
-    title: 'Parallel Website Testing',
+    title: 'Concurrent Website Testing',
     subTitle: `Get reports for thousands of pages in seconds with real browsers. Get spot on results with up to 55% of all web accessibility issues handled with recommendations.`,
   },
   {

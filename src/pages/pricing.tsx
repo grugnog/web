@@ -18,7 +18,7 @@ function Pricing({ name }: PageProps) {
           it takes for the DOM to load.
         </p>
         <p>
-          All scans are ran in parallel so 30 seconds may be equal to 1 second
+          All scans are ran in concurrent so 30 seconds may be equal to 1 second
           in real time.
         </p>
         <p className={'text-blue-600 font-bold'}>

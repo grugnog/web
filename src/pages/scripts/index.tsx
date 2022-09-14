@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react'
+import { useMemo } from 'react'
 import { FormDialog, PageTitle, Drawer } from '@app/components/general'
 import { List } from '@app/components/general/lists/websites-scripts'
 import { useSearchFilter } from '@app/data'
@@ -70,6 +70,5 @@ export default metaSetter(
       'Custom scripts to fix your web page. All scripts are optimized for your website specifically.',
     gql: true,
     wasm: true,
-    intercom: true,
   }
 )
