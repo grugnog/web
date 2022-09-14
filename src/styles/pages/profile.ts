@@ -11,7 +11,7 @@ export const useProfileStyles = makeStyles(() => ({
     marginRight: 70,
   },
   submit: {
-    minWidth: 170,
+    minWidth: 175,
   },
   form: {
     display: 'flex',

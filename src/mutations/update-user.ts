@@ -5,11 +5,13 @@ export const UPDATE_USER = gql`
     $password: String
     $newPassword: String
     $stripeToken: String
+    $email: String
   ) {
     updateUser(
       password: $password
       newPassword: $newPassword
       stripeToken: $stripeToken
+      email: $email
     ) {
       code
       success
@@ -19,9 +21,10 @@ export const UPDATE_USER = gql`
         id
         activeSubscription
         role
+        email
         websites {
           url
-          id
+          _id
           domain
           pages {
             domain

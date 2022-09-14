@@ -28,9 +28,14 @@ const Profile: FC<PageProps> = ({ name }) => {
     true,
     'profile'
   )
+  // todo: reducer
   const [changePassword, setChangePassword] = useState<boolean>(false)
   const [currentPassword, setCurrentPassword] = useState<string>('')
   const [newPassword, setNewPassword] = useState<string>('')
+
+  // todo: reducer
+  const [changeEmail, setChangeEmail] = useState<boolean>(false)
+  const [newEmail, setNewEmail] = useState<string>('')
 
   const { user } = data
   const { invoice } = user ?? {}
@@ -51,6 +56,13 @@ const Profile: FC<PageProps> = ({ name }) => {
     [setNewPassword]
   )
 
+  const onChangeEmail = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      setNewEmail(e.target.value)
+    },
+    [setNewEmail]
+  )
+
   const updatePassword = useCallback(
     async (e: React.FormEvent) => {
       e.preventDefault()
@@ -66,9 +78,27 @@ const Profile: FC<PageProps> = ({ name }) => {
     [updateUser, currentPassword, newPassword]
   )
 
+  const updateEmail = useCallback(
+    async (e: React.FormEvent) => {
+      e.preventDefault()
+      await updateUser({
+        variables: {
+          email: newEmail,
+        },
+      }).catch((e) => {
+        console.error(e)
+      })
+    },
+    [updateUser, newEmail]
+  )
+
   const togglePassword = useCallback(() => {
     setChangePassword((p) => !p)
   }, [setChangePassword])
+
+  const toggleEmail = useCallback(() => {
+    setChangeEmail((p) => !p)
+  }, [setChangeEmail])
 
   useEffect(() => {
     if (updateUserData?.updateUser?.success) {
@@ -79,8 +109,20 @@ const Profile: FC<PageProps> = ({ name }) => {
       )
       setCurrentPassword('')
       setNewPassword('')
+      setNewEmail('')
+      setChangeEmail(false)
+      setChangePassword(false)
     }
-  }, [updateUserData, setCurrentPassword, setNewPassword])
+  }, [
+    updateUserData,
+    setCurrentPassword,
+    setNewPassword,
+    setNewEmail,
+    setChangeEmail,
+    setChangePassword,
+  ])
+
+  const email = updateUserData?.updateUser?.user?.email ?? user?.email
 
   return (
     <Fragment>
@@ -101,7 +143,7 @@ const Profile: FC<PageProps> = ({ name }) => {
             <ProfileCell
               title={'Email'}
               skeletonLoad={!user && loading}
-              subTitle={user?.email}
+              subTitle={email}
               className={classes.email}
             />
             <ProfileCell
@@ -146,77 +188,136 @@ const Profile: FC<PageProps> = ({ name }) => {
               {!user && loading ? (
                 <TextSkeleton width='8%' />
               ) : (
-                <div className={classes.row}>
+                <>
                   {changePassword ? (
-                    <Fade in={changePassword}>
-                      <form
-                        onSubmit={updatePassword}
-                        noValidate
-                        className={`flex flex-col p-2 bg-gray-100 border rounded`}
-                      >
-                        <TextField
-                          autoFocus
-                          onChange={onChangeCurrent}
-                          color='secondary'
-                          inputProps={{
-                            minLength: 6,
-                            pattern: 'password',
-                          }}
-                          autoComplete='current-password'
-                          value={currentPassword}
-                          id='current_password'
-                          placeholder='Current Password'
-                          type='password'
-                          required
-                        />
-                        <TextField
-                          onChange={onChangeNew}
-                          color='secondary'
-                          inputProps={{
-                            minLength: 6,
-                            pattern: 'password',
-                          }}
-                          autoComplete='new-password'
-                          value={newPassword}
-                          id='new_password'
-                          placeholder='New Password'
-                          type='password'
-                          required
-                        />
-                        <Spacer />
-                        <div className='flex space-x-2'>
-                          <Button
-                            onClick={togglePassword}
-                            className={classes.submit}
-                            type='button'
-                          >
-                            Cancel
-                          </Button>
+                    <div className={classes.row}>
+                      <Fade in={changePassword}>
+                        <form
+                          onSubmit={updatePassword}
+                          noValidate
+                          className={`flex flex-col p-2 bg-gray-100 border rounded`}
+                        >
+                          <TextField
+                            autoFocus
+                            onChange={onChangeCurrent}
+                            color='secondary'
+                            inputProps={{
+                              minLength: 6,
+                              pattern: 'password',
+                            }}
+                            autoComplete='current-password'
+                            value={currentPassword}
+                            id='current_password'
+                            placeholder='Current Password'
+                            type='password'
+                            required
+                          />
+                          <TextField
+                            onChange={onChangeNew}
+                            color='secondary'
+                            inputProps={{
+                              minLength: 6,
+                              pattern: 'password',
+                            }}
+                            autoComplete='new-password'
+                            value={newPassword}
+                            id='new_password'
+                            placeholder='New Password'
+                            type='password'
+                            required
+                          />
+                          <Spacer />
+                          <div className='flex space-x-2'>
+                            <Button
+                              onClick={togglePassword}
+                              className={classes.submit}
+                              type='button'
+                            >
+                              Cancel
+                            </Button>
 
-                          <Button
-                            onClick={updatePassword}
-                            className={classes.submit}
-                            type='submit'
-                            variant='outlined'
-                          >
-                            Submit
-                          </Button>
-                        </div>
-                      </form>
-                    </Fade>
+                            <Button
+                              onClick={updatePassword}
+                              className={classes.submit}
+                              type='submit'
+                              variant='outlined'
+                            >
+                              Submit
+                            </Button>
+                          </div>
+                        </form>
+                      </Fade>
+                    </div>
                   ) : null}
-                </div>
+                  {changeEmail ? (
+                    <div className={classes.row}>
+                      <Fade in={changeEmail}>
+                        <form
+                          onSubmit={updateEmail}
+                          noValidate
+                          className={`flex flex-col p-2 bg-gray-100 border rounded`}
+                        >
+                          <TextField
+                            autoFocus
+                            onChange={onChangeEmail}
+                            color='secondary'
+                            inputProps={{
+                              minLength: 6,
+                              pattern: 'email',
+                            }}
+                            autoComplete='current-email'
+                            value={newEmail}
+                            id='email'
+                            placeholder='New Email'
+                            type='email'
+                            required
+                          />
+                          <Spacer />
+                          <div className='flex space-x-2'>
+                            <Button
+                              onClick={toggleEmail}
+                              className={classes.submit}
+                              type='button'
+                            >
+                              Cancel
+                            </Button>
+                            <Button
+                              onClick={updateEmail}
+                              className={classes.submit}
+                              type='submit'
+                              variant='outlined'
+                            >
+                              Submit
+                            </Button>
+                          </div>
+                        </form>
+                      </Fade>
+                    </div>
+                  ) : null}
+                </>
               )}
-              {!changePassword ? (
-                <Button
-                  onClick={togglePassword}
-                  className={classes.submit}
-                  type='button'
-                  variant='outlined'
-                >
-                  Change Password
-                </Button>
-              ) : null}
+              <>
+                {!changePassword ? (
+                  <Button
+                    onClick={togglePassword}
+                    className={classes.submit}
+                    type='button'
+                    variant='outlined'
+                  >
+                    Change Password
+                  </Button>
+                ) : null}
+                {!changeEmail ? (
+                  <Button
+                    onClick={toggleEmail}
+                    className={classes.submit}
+                    type='button'
+                    variant='outlined'
+                  >
+                    Change Email
+                  </Button>
+                ) : null}
+              </>
             </div>
           </div>
 
