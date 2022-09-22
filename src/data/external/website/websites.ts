@@ -234,10 +234,8 @@ export const useWebsiteData = (
 
         dataSource.pageInsights = updatedWebsite.pageInsights
 
-        setTimeout(() => {
-          // TODO: MOVE STATE MANAGE OUT OF APOLLO CACHE
-          forceUpdate()
-        }, 0)
+        // todo: remove hard state updates
+        setTimeout(forceUpdate)
       }
     }
   }, [websites, updateData, forceUpdate])
@@ -257,13 +255,16 @@ export const useWebsiteData = (
     ({ subscriptionData }: OnSubscriptionDataOptions<any>) => {
       const newIssue = subscriptionData?.data?.issueAdded
 
-      feed?.insert_website(newIssue)
+      queueMicrotask(() => {
+        feed?.insert_website(newIssue)
 
-      AppManager.toggleSnack(
-        true,
-        `Insight found on ${newIssue?.pageUrl}`,
-        'success'
-      )
+        AppManager.toggleSnack(
+          true,
+          `Insight found on ${newIssue?.pageUrl}`,
+          'success'
+        )
+      })
+
       if (newIssue && !feedOpen) {
         setIssueFeedContent(true) // display content open
       }
