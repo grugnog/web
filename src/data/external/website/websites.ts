@@ -251,26 +251,27 @@ export const useWebsiteData = (
     onSubscriptionData: onCrawlCompleteSubscription,
   })
 
-  const onIssueSubscription = useCallback(
-    ({ subscriptionData }: OnSubscriptionDataOptions<any>) => {
-      const newIssue = subscriptionData?.data?.issueAdded
+  const onIssueSubscription = ({
+    subscriptionData,
+  }: OnSubscriptionDataOptions<any>) => {
+    const newIssue = subscriptionData?.data?.issueAdded
 
-      queueMicrotask(() => {
-        feed?.insert_website(newIssue)
+    setTimeout(() => {
+      feed?.insert_website(newIssue)
+    })
 
-        AppManager.toggleSnack(
-          true,
-          `Insight found on ${newIssue?.pageUrl}`,
-          'success'
-        )
-      })
+    queueMicrotask(() => {
+      AppManager.toggleSnack(
+        true,
+        `Insight found on ${newIssue?.pageUrl}`,
+        'success'
+      )
+    })
 
-      if (newIssue && !feedOpen) {
-        setIssueFeedContent(true) // display content open
-      }
-    },
-    [feed, feedOpen]
-  )
+    if (newIssue && !feedOpen) {
+      setIssueFeedContent(true) // display content open
+    }
+  }
 
   const { data: issueSubData } = useSubscription(ISSUE_SUBSCRIPTION, {
     variables: subscriptionVars,
