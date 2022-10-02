@@ -103,9 +103,7 @@ function AuthMenuComponent({ authenticated }: AuthMenuComponentProps) {
           <MenuItem style={{ padding: 0 }}>
             <button
               onClick={logout}
-              className={
-                'text-center w-full text-red-800 text-base px-5 py-2 m-0 border-t'
-              }
+              className={'w-full text-base px-5 py-2 m-0 border-t text-left'}
             >
               Logout
             </button>
