@@ -1,4 +1,4 @@
-import { NextResponse, NextRequest } from 'next/server'
+import { NextResponse, NextRequest, userAgent } from 'next/server'
 import { isWhitelisted } from '@app/configs/next/is-static-resource'
 import { IFRAME_ENDPOINT } from '@app/configs/next/iframe'
 
@@ -32,7 +32,7 @@ export async function middleware(req: NextRequest) {
     const url = req.nextUrl.clone()
     url.pathname = `/blog${req.nextUrl.pathname}`
     res = NextResponse.rewrite(url)
-  } else if (req.nextUrl.pathname === '/api/iframe') {
+  } else if (req.nextUrl.pathname === '/api/iframe' && !userAgent(req).isBot) {
     const { searchParams } = req.nextUrl
     const u = searchParams.get('url')
     const base = searchParams.get('baseHref')
