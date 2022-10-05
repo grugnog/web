@@ -1,5 +1,5 @@
 import { Issue } from '@app/types'
-import React, { memo } from 'react'
+import { memo } from 'react'
 import { FeedIssue } from '../../feed/issue'
 
 interface IssuesList {

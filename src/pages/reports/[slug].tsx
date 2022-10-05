@@ -2,7 +2,11 @@ import type { PageProps } from '@app/types'
 import type { GetServerSideProps } from 'next'
 import { Fragment, useEffect, useState } from 'react'
 import Head from 'next/head'
-import { MarketingDrawer, PageTitle } from '@app/components/general'
+import {
+  ErrorBoundary,
+  MarketingDrawer,
+  PageTitle,
+} from '@app/components/general'
 import { ReportView } from '@app/components/ada'
 import { metaSetter } from '@app/utils'
 import { getAPIRoute } from '@app/configs/api-route'
@@ -38,13 +42,15 @@ function Reports({ name, website }: PageProps) {
         <div className='sr-only'>
           <PageTitle>{`Report: ${domain || 'page'}`}</PageTitle>
         </div>
-        <ReportView
-          website={website}
-          disablePlayground={true}
-          disableTabs
-          download
-          authenticated={authenticated}
-        />
+        <ErrorBoundary>
+          <ReportView
+            website={website}
+            disablePlayground={true}
+            disableTabs
+            download
+            authenticated={authenticated}
+          />
+        </ErrorBoundary>
       </MarketingDrawer>
     </Fragment>
   )

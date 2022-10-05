@@ -1,4 +1,4 @@
-import { memo, useMemo, useState } from 'react'
+import { memo, useState } from 'react'
 import { makeStyles } from '@material-ui/core/styles'
 import { WebsiteTabs, TestView } from '@app/components/general'
 import { ListSkeleton } from '@app/components/placeholders'
@@ -53,11 +53,11 @@ const useStyles = makeStyles(() => ({
   },
 }))
 
-export function ReportEmptyView() {
+function ReportEmptyView() {
   const classes = useStyles()
 
   return (
-    <div style={{ width: '100%' }}>
+    <div className={'w-full'}>
       <div className={classes.loading} role='presentation'>
         <ListSkeleton avatar={false} subTitle={false} count={3} />
       </div>
@@ -69,7 +69,7 @@ export function ReportEmptyView() {
   )
 }
 
-export function ReportInner({
+function ReportInner({
   website,
   disablePlayground,
   disableTabs,
@@ -118,13 +118,12 @@ export function ReportViewComponent({
   const [leftViewMode, setViewMode] = useState<'list' | 'playground'>(
     'playground'
   )
-  const empty = useMemo(() => Object.keys(website ?? {}).length <= 1, [website])
-
-  const onToggleViewModeEvent = () => {
+  const onToggleViewModeEvent = () =>
     setViewMode((mode: string) =>
       mode === 'playground' ? 'list' : 'playground'
     )
-  }
+
+  const empty = !('domain' in website && 'url' in website)
 
   return (
     <div className={`block sm:flex h-[100vh] overflow-hidden border-t`}>

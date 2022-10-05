@@ -1,25 +1,14 @@
 import { memo } from 'react'
 import { Link } from '../general'
 
-function IssueTitleComponent({
-  pageUrl,
-  domain,
-}: {
-  domain: string
-  pageUrl: string
-}) {
-  const tpt = pageUrl && pageUrl.startsWith('https://') ? 'https://' : 'http://'
-  const displayPath = pageUrl && pageUrl.replace(`${tpt}${domain}`, '') // trim the url with just the path name. [Faster than using new URL]
-
-  return (
-    <Link
-      title={`view in sandbox ${pageUrl}`}
-      href={`/website-details?url=${encodeURIComponent(pageUrl)}`}
-      className={'text-lg text-gray-700 font-bold'}
-    >
-      {displayPath || '/'}
-    </Link>
-  )
-}
+const IssueTitleComponent = ({ pageUrl }: { pageUrl: string }) => (
+  <Link
+    title={`view in sandbox ${pageUrl}`}
+    href={`/website-details?url=${encodeURIComponent(pageUrl)}`}
+    className={'text-lg text-gray-700 font-bold'}
+  >
+    {new URL(pageUrl).pathname}
+  </Link>
+)
 
 export const IssueTitle = memo(IssueTitleComponent)

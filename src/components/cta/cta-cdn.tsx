@@ -2,12 +2,13 @@ import { Fragment } from 'react'
 import { Button, Typography } from '@material-ui/core'
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles'
 import { Link } from '@app/components/general/link'
+import { Website } from '@app/types'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     tryOut: {
-      marginLeft: '3px',
-      marginRight: '5px',
+      paddingLeft: '3px',
+      paddingRight: '5px',
     },
     register: {
       color: theme.palette.secondary.main,
@@ -15,33 +16,44 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     text: {
       fontWeight: 'bold',
-      marginRight: '12px',
     },
   })
 )
 
-function CtaCdn({ website, disablePlayground, authenticated }: any) {
+function CtaCdn({
+  website,
+  disablePlayground,
+  authenticated,
+}: {
+  website: Website
+  disablePlayground: boolean
+  authenticated: boolean
+}) {
   const classes = useStyles()
 
-  const noIssues =
-    Number(website?.issues?.length || website?.issues?.issues?.length) === 0
-  const totalIssuesOnPage = website?.issuesInfo?.totalIssues ?? '_'
+  // todo: fix issue returning gql
+  const noIssues = !(
+    (Array.isArray(website?.issues) && website.issues) ||
+    website?.issues?.issues
+  )?.length
+
   const limitedResonse = website?.issuesInfo?.limitedCount
-    ? `This is a limited API response showing ${website.issuesInfo.limitedCount}/${totalIssuesOnPage} issues for the current page, sign in to see the full report across all pages.`
+    ? `This is a limited API response showing ${
+        website.issuesInfo.limitedCount
+      }/${
+        website?.issuesInfo?.totalIssues || '_'
+      } issues for the current page, sign in to see the full report across all pages.`
     : !website?.issues && 'Gathering details'
-  const moreInfo = disablePlayground
-    ? `Get all your pages issues at once and more after signing in`
-    : ''
 
   return (
     <Fragment>
-      {moreInfo ? (
+      {disablePlayground ? (
         <Typography
           component='span'
           className={classes.tryOut}
           variant={'subtitle2'}
         >
-          {moreInfo}
+          Get all your pages issues at once and more after signing in
         </Typography>
       ) : null}
       <div className='pt-3 pb-2'>
@@ -52,7 +64,7 @@ function CtaCdn({ website, disablePlayground, authenticated }: any) {
         </div>
       </div>
       {disablePlayground || authenticated ? null : (
-        <div className={'flex align-center pt-3'}>
+        <div className={'flex align-center pt-3 space-x-2'}>
           <Button
             component={Link}
             href={'/login'}

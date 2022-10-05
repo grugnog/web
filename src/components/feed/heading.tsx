@@ -9,7 +9,6 @@ const thumbSize = { width: 12, height: 12 }
 export const FeedHeadingComponent = ({
   onToggleSection,
   onScanEvent,
-  domain,
   pageUrl,
   sectionHidden,
   totalIssues,
@@ -17,29 +16,28 @@ export const FeedHeadingComponent = ({
 }: Partial<FeedComponentProps> & {
   onToggleSection(x: (x: boolean) => boolean): void
   sectionHidden?: boolean
-  domain: string
   pageUrl: string
   totalIssues: number
   highLight?: boolean
 }) => {
   const onScan = async () => {
-    try {
-      onScanEvent && (await onScanEvent(pageUrl))
-    } catch (e) {
-      console.error(e)
+    if (typeof onScanEvent === 'function') {
+      try {
+        await onScanEvent(pageUrl)
+      } catch (e) {
+        console.error(e)
+      }
     }
   }
 
-  const onToggle = () => {
-    onToggleSection((v: boolean) => !v)
-  }
+  const onToggle = () => onToggleSection((v: boolean) => !v)
 
   const hlight = highLight || totalIssues === 0
 
   return (
     <div className={'flex pl-2 space-x-1  border border-x-0 border-t-0 h-15'}>
       <div className='flex-1 px-2 py-2 truncate space-y-1'>
-        <IssueTitle pageUrl={pageUrl} domain={domain} />
+        <IssueTitle pageUrl={pageUrl} />
         <div className='flex space-x-1 place-items-center text-[#707070] text-sm'>
           <div
             className={

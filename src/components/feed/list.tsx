@@ -1,4 +1,4 @@
-import React, { memo, useState, FC, useMemo } from 'react'
+import React, { memo, useState, FC } from 'react'
 import { IssueFeedCell } from '../general/cells'
 import { issueExtractor } from '@app/utils'
 import { FeedHeading } from './heading'
@@ -6,6 +6,30 @@ import type { FeedComponentProps } from './interface'
 import { FixedSizeList as List } from 'react-window'
 
 export const feedListID = 'issue-list'
+
+const getListHeight = ({
+  fullScreen,
+  issueCount = 0,
+}: {
+  fullScreen?: boolean
+  issueCount: number
+}) => {
+  // full height of screen for window
+  const list = typeof window !== 'undefined' ? window.innerHeight : 500
+  const size = Math.max(list / 6, 200) // try to fit 6 items per screen viewport
+
+  let height = 0
+
+  if (fullScreen) {
+    height = list
+  } else if (issueCount <= 4) {
+    height = size * issueCount
+  } else {
+    height = list / 2
+  }
+
+  return { size, height }
+}
 
 // List of issues rendered.
 const FeedListComponent: FC<FeedComponentProps> = ({
@@ -16,9 +40,14 @@ const FeedListComponent: FC<FeedComponentProps> = ({
   highlightErrors,
 }) => {
   const [sectionHidden, onToggleSection] = useState<boolean>(!!isHidden)
+
+  if (!issue) {
+    return null
+  }
+
   const pageIssues = issueExtractor(issue) // array of issues extract duplex types
 
-  // TODO: memo row cell out of render
+  // todo: memo row cell out of render
   const Row = ({
     index,
     style,
@@ -27,25 +56,9 @@ const FeedListComponent: FC<FeedComponentProps> = ({
     style?: React.CSSProperties
   }) => <IssueFeedCell item={pageIssues[index]} style={style} />
 
-  // full height of screen for window
-  const listHeight = typeof window !== 'undefined' ? window.innerHeight : 500
+  const issueCount = pageIssues?.length ?? 0
 
-  const itemSize = Math.max(listHeight / 6, 200) // try to fit 6 items per screen viewport
-  const issueCount = pageIssues?.length
-
-  const listMainHeight = useMemo(() => {
-    if (fullScreen) {
-      return listHeight
-    }
-    if (issueCount <= 6) {
-      return itemSize * issueCount
-    }
-    return listHeight
-  }, [fullScreen, itemSize, issueCount, listHeight])
-
-  if (!issue) {
-    return null
-  }
+  const { size, height } = getListHeight({ fullScreen, issueCount })
 
   if (fullScreen) {
     return (
@@ -54,9 +67,9 @@ const FeedListComponent: FC<FeedComponentProps> = ({
         className={`overflow-hidden bg-[rgba(172,182,192,0.06)] w-full h-full`}
       >
         <List
-          height={listMainHeight}
+          height={height}
           itemCount={issueCount}
-          itemSize={itemSize}
+          itemSize={size}
           width={'100%'}
         >
           {Row}
@@ -66,7 +79,9 @@ const FeedListComponent: FC<FeedComponentProps> = ({
   }
 
   const highLight =
-    highlightErrors && issue.issues?.length && issue.issues[0]?.type === 'error'
+    highlightErrors &&
+    issue?.issues?.length &&
+    issue.issues[0]?.type === 'error'
 
   return (
     <li id={feedListID}>
@@ -75,7 +90,6 @@ const FeedListComponent: FC<FeedComponentProps> = ({
         onToggleSection={onToggleSection}
         sectionHidden={sectionHidden}
         pageUrl={issue.pageUrl}
-        domain={issue.domain}
         totalIssues={issue.issues?.length || 0}
         highLight={!!highLight}
       />
@@ -84,9 +98,9 @@ const FeedListComponent: FC<FeedComponentProps> = ({
           className={`overflow-x-hidden border border-t-0 border-l-0 border-r-0 bg-[rgba(172,182,192,0.06)]`}
         >
           <List
-            height={listMainHeight}
+            height={height}
             itemCount={issueCount}
-            itemSize={itemSize}
+            itemSize={size}
             width={'100%'}
           >
             {Row}

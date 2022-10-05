@@ -7,6 +7,7 @@ import { strings } from '@app-strings'
 import { InfoBar } from './info-bar'
 import { WebsiteSecondary } from '../general/cells/render/website-secondary'
 import { FeedList } from '../feed/list'
+import { Website } from '@app/types'
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -33,10 +34,17 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
-// rendered only on desktop
-const MainView = ({ website, viewMode }: any) => {
+// container view for report or frame
+const MainView = ({
+  website,
+  viewMode,
+}: {
+  website: Website
+  viewMode: 'list' | ''
+}) => {
   if (website?.url) {
     if (viewMode && viewMode === 'list') {
+      // todo: remove any
       return <FeedList issue={website as any} isHidden={false} fullScreen />
     }
     return (
@@ -63,7 +71,7 @@ export function ReportViewComponentLeft({
   onToggleViewModeEvent,
 }: any) {
   const classes = useStyles()
-  const empty = Object.keys(website ?? {}).length <= 1
+  const empty = !('domain' in website && 'url' in website)
 
   return (
     <div className={classes.container}>
@@ -81,7 +89,6 @@ export function ReportViewComponentLeft({
       </div>
       <CtaCdn
         website={website}
-        block
         disablePlayground={disablePlayground}
         authenticated={authenticated}
       />

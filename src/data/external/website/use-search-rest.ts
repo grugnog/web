@@ -1,4 +1,4 @@
-import { useCallback, useState } from 'react'
+import { useState } from 'react'
 import { isUrl } from '@app/lib/is-url'
 import { AppManager } from '@app/managers'
 import { searchQuery } from '@app/utils'
@@ -52,19 +52,16 @@ interface Scan {
 // TODO: USE OpenAPI CALL
 export function useSearchRest() {
   const [search, setQuery] = useState<string>('')
-  const [{ data: scanState, loading }, setScan] = useState<Scan>({
+  const [state, setScan] = useState<Scan>({
     loading: false,
     data: undefined,
   })
-  // modal state
-  const { data } = scanState ?? {}
 
-  const setSearch = useCallback(
-    (event: any) => {
-      setQuery(event?.target?.value)
-    },
-    [setQuery]
-  )
+  const { data: scanState, loading } = state ?? {}
+
+  const setSearch = (event: any) => {
+    setQuery(event?.target?.value)
+  }
 
   const scanPage = async () => {
     setScan({ loading: true })
@@ -75,13 +72,7 @@ export function useSearchRest() {
       AppManager.toggleSnack(true, 'https:// automatically added to query.')
     }
 
-    let response
-
-    try {
-      response = await scanWebsite(querySearch)
-    } catch (e) {
-      console.error(e)
-    }
+    let response = await scanWebsite(querySearch)
 
     if (response && response?.code === 400) {
       AppManager.toggleSnack(true, response.message)
@@ -90,17 +81,13 @@ export function useSearchRest() {
     // Retry query as http if https autofilled [TODO: move autoquery detection to SS ]
     if (!response?.data && autoTPT) {
       AppManager.toggleSnack(true, 'https:// failed retrying with http:// ...')
-      try {
-        const [q] = searchQuery(search, true)
-        response = await scanWebsite(q)
-      } catch (e) {
-        console.error(e)
-      }
+      const [q] = searchQuery(search, true)
+      response = await scanWebsite(q)
     }
 
     setScan({
       loading: false,
-      data: response && response?.data ? response : undefined,
+      data: response,
     })
   }
 
@@ -114,12 +101,11 @@ export function useSearchRest() {
     const origin = isUrl(url)?.origin
 
     if (!origin) {
-      AppManager.toggleSnack(
+      return AppManager.toggleSnack(
         true,
         'Please enter a valid website url starting with http:// or https://',
         'error'
       )
-      return
     }
 
     try {
@@ -134,7 +120,7 @@ export function useSearchRest() {
     setSearch,
     scanPage,
     loading,
-    data,
+    data: scanState?.data,
     closeModal,
     toggleModal,
   }
