@@ -24,7 +24,8 @@ function CtaIntroRest({ checker }: CtaIntroRest) {
             ) : (
               <>
                 Build your next{' '}
-                <b className='text-blue-600 underline'>website</b> the right way
+                <b className='text-orange-600 underline'>website</b> the right
+                way
               </>
             )}
           </h1>

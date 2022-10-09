@@ -7,7 +7,7 @@ interface Logo {
 export const Logo = ({ width, height }: Logo) => {
   return (
     <img
-      src='/img/logo.svg'
+      src='/img/logo_halloween.svg'
       alt='A11yWatch logo'
       width={width || '44'}
       height={height || '44'}
@@ -18,7 +18,7 @@ export const Logo = ({ width, height }: Logo) => {
 export const SmallLogo = ({ className }: { className?: string }) => {
   return (
     <img
-      src='/img/logo.svg'
+      src='/img/logo_halloween.svg'
       alt='A11yWatch logo'
       width={'25.5'}
       height={'25.5'}
