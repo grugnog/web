@@ -7,7 +7,7 @@ export const CtaIntroBenches = () => {
         <div className='py-2'>
           <h2 className='text-2xl font-bold'>Accessibility Testing</h2>
           <p className='text-base text-gray-800'>
-            Pages per minute (Linux ARM64)
+            Webpage reports per minute (Linux ARM64)
           </p>
         </div>
         <ul className='grid grid-cols-3 place-items-start pt-1 h-40 place-items-center bg-gray-50'>

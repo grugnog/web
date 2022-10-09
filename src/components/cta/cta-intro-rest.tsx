@@ -23,9 +23,8 @@ function CtaIntroRest({ checker }: CtaIntroRest) {
               'Fast and insightful web accessibility evaluations'
             ) : (
               <>
-                Build your next{' '}
-                <b className='text-orange-600 underline'>website</b> the right
-                way
+                The #1 web{' '}
+                <b className='text-orange-600 underline'>accessibility</b> API
               </>
             )}
           </h1>

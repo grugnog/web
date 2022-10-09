@@ -11,8 +11,8 @@ function Index() {
     <Fragment>
       <MarketingDrawer navPosition={'relative'} maxWidth={'xl'} index>
         <CtaIntroRest />
-        <CtaJavascript />
         <CtaFeatures />
+        <CtaJavascript />
         <MarketingCli />
         <MarketingTrustBy />
       </MarketingDrawer>
