@@ -25,6 +25,7 @@ export const RestWebsiteProviderWrapperMain: FC<RestProps> = ({ children }) => {
   )
 }
 
+// wrapper
 export const RestWebsiteProviderWrapperContext: FC<RestProps> = ({
   children,
   rest,
@@ -32,7 +33,6 @@ export const RestWebsiteProviderWrapperContext: FC<RestProps> = ({
   if (!rest) {
     return <Fragment>{children}</Fragment>
   }
-
   return (
     <RestWebsiteProviderWrapperMain>{children}</RestWebsiteProviderWrapperMain>
   )

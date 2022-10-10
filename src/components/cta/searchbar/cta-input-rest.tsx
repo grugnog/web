@@ -95,11 +95,8 @@ function CtaInputRest() {
           'error'
         )
       }
-      try {
-        await toggleModal(search)
-      } catch (e) {
-        console.error(e)
-      }
+      await toggleModal(search)
+
       if (ref.current) {
         ref.current.value = ''
       }

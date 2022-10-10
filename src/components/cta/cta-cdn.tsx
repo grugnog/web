@@ -31,12 +31,6 @@ function CtaCdn({
 }) {
   const classes = useStyles()
 
-  // todo: fix issue returning gql
-  const noIssues = !(
-    (Array.isArray(website?.issues) && website.issues) ||
-    website?.issues?.issues
-  )?.length
-
   const limitedResonse = website?.issuesInfo?.limitedCount
     ? `This is a limited API response showing ${
         website.issuesInfo.limitedCount
@@ -85,7 +79,6 @@ function CtaCdn({
           </Button>
         </div>
       )}
-      {noIssues ? <Typography>No issues found, great job!</Typography> : null}
     </Fragment>
   )
 }

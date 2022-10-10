@@ -61,7 +61,7 @@ const MainView = ({
 }
 
 export function ReportViewComponentLeft({
-  website,
+  website = {},
   closeButton,
   disablePlayground,
   printable,
@@ -84,7 +84,7 @@ export function ReportViewComponentLeft({
       <div className='flex space-x-2 place-items-center'>
         <Timer stop={!empty} duration={website?.crawlDuration} />
         <div className='max-w-[85%]'>
-          <WebsiteSecondary {...website} pageIssueCount={1} />
+          {empty ? null : <WebsiteSecondary {...website} pageIssueCount={1} />}
         </div>
       </div>
       <CtaCdn
@@ -99,9 +99,11 @@ export function ReportViewComponentLeft({
         download={authenticated && download}
         onToggleViewModeEvent={onToggleViewModeEvent}
       />
-      <div className='hidden md:block'>
-        <MainView website={website} viewMode={viewMode} />
-      </div>
+      {empty ? null : (
+        <div className='hidden md:block'>
+          <MainView website={website} viewMode={viewMode} />
+        </div>
+      )}
     </div>
   )
 }

@@ -12,11 +12,11 @@ const App = ({ Component, pageProps }: MergedApp) => {
   const { name } = Component?.meta || strings?.meta
 
   return (
-    <Layout {...baseProps}>
-      <ErrorBoundary>
+    <ErrorBoundary>
+      <Layout {...baseProps}>
         <Component {...pageProps} name={name} />
-      </ErrorBoundary>
-    </Layout>
+      </Layout>
+    </ErrorBoundary>
   )
 }
 

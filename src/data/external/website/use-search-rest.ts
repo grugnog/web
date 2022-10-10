@@ -5,11 +5,13 @@ import { searchQuery } from '@app/utils'
 import { getAPIRoute } from '@app/configs'
 import { Website } from '@app/types'
 
+const scanEndpoint = `${getAPIRoute('api')}/scan-simple`
+
 // SCOPE WEBSITE DATA PER ROUTE (ALL, ISSUES, PAGES)
 export const scanWebsite = async (websiteUrl: string) => {
   let request
   try {
-    request = await fetch(`${getAPIRoute('api')}/scan-simple`, {
+    request = await fetch(scanEndpoint, {
       method: 'POST',
       body: JSON.stringify({
         websiteUrl: encodeURIComponent(websiteUrl),
@@ -20,8 +22,7 @@ export const scanWebsite = async (websiteUrl: string) => {
     })
   } catch (e) {
     console.error(e)
-    AppManager.toggleSnack(true, e, 'error')
-    return
+    return AppManager.toggleSnack(true, e, 'error')
   }
 
   // rate limit custom message on scan
@@ -98,9 +99,7 @@ export function useSearchRest() {
   // move validation
   const toggleModal = async (url: string) => {
     // TODO: revisit url checking
-    const origin = isUrl(url)?.origin
-
-    if (!origin) {
+    if (!isUrl(url)?.origin) {
       return AppManager.toggleSnack(
         true,
         'Please enter a valid website url starting with http:// or https://',
@@ -120,7 +119,7 @@ export function useSearchRest() {
     setSearch,
     scanPage,
     loading,
-    data: scanState?.data,
+    data: scanState && scanState.data,
     closeModal,
     toggleModal,
   }

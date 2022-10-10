@@ -48,20 +48,24 @@ export function useSearch() {
       AppManager.toggleSnack(true, 'https:// automatically added to query.')
     }
 
-    const results = (await scanWebsite({
-      variables: {
-        url: querySearch,
-      },
-    })) as any
+    let results = null
 
-    let data = results?.data
+    try {
+      results = await scanWebsite({
+        variables: {
+          url: querySearch,
+        },
+      })
+    } catch (e) {
+      console.error(e)
+    }
 
     // Retry query as http if https autofilled [TODO: move autoquery detection to SS ]
-    if (!data && autoTPT) {
+    if (!results && autoTPT) {
       AppManager.toggleSnack(true, 'https:// failed retrying with http:// ...')
       const [qf] = searchQuery(search, true)
       try {
-        data = await scanWebsite({
+        results = await scanWebsite({
           variables: {
             url: qf,
           },
@@ -71,10 +75,11 @@ export function useSearch() {
       }
     }
 
+    let data = results?.data
+
     if (!data?.scanWebsite?.success || !data) {
       AppManager.toggleSnack(true, data?.scanWebsite?.message, 'error')
-      closeFeed()
-      return
+      return closeFeed()
     }
 
     const page = data?.scanWebsite?.website
