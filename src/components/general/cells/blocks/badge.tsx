@@ -1,4 +1,4 @@
-import React, { memo, useState } from 'react'
+import { memo, useState } from 'react'
 import { InfoBlock } from '../info-block'
 import { GrShield } from 'react-icons/gr'
 import { prismStyles } from '@app/styles'
