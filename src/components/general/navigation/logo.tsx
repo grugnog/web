@@ -1,4 +1,3 @@
-import { companyName } from '@app/configs'
 import { FC } from 'react'
 
 interface Logo {
@@ -14,7 +13,7 @@ export const Logo: FC<Logo> = ({ width, height }) => {
       fill='none'
       xmlns='http://www.w3.org/2000/svg'
     >
-      <title>{companyName} Logo</title>
+      <title>A11yWatch Logo</title>
       <path
         d='M26.4463 13.1148C26.4463 20.3578 20.5261 26.2295 13.2231 26.2295C5.9202 26.2295 0 20.3578 0 13.1148C0 5.87168 5.9202 0 13.2231 0C20.5261 0 26.4463 5.87168 26.4463 13.1148Z'
         fill='url(#paint0_linear_2_23)'

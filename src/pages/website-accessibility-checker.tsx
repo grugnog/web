@@ -38,9 +38,9 @@ function WebsiteAccessibilityChecker({ name }: PageProps) {
             </h4>
             <p className='text-lg'>
               Optimize your workflow on tackling issues while learning how to
-              stay accessible for the long run. If you have thousands of pages,
-              A11yWatch was built with the speed in mind to give you real time
-              results with minimal downtime.
+              stay accessible for the long run. A11yWatch was built with the
+              speed in mind to give you real time results with minimal downtime
+              even if you have thousands of pages.
             </p>
           </div>
           <div>

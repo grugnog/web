@@ -111,7 +111,6 @@ module.exports = withPWA({
       ? `cust-next-build-${process.env.SOURCE_VERSION}`
       : null,
   env,
-  cssModules: true,
   typescriptLoaderOptions: {
     transpileOnly: true,
   },

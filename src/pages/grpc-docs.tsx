@@ -3,6 +3,7 @@ import { MarketingDrawer, PageTitle } from '@app/components/general'
 import { metaSetter } from '@app/utils'
 import type { PageProps } from '@app/types'
 import Head from 'next/head'
+import { companyName } from '@app/configs'
 
 // inline gRPC docs. If revision change constantly redirect to API
 function GrpcDocs({ name }: PageProps) {
@@ -2238,7 +2239,7 @@ function GrpcDocs({ name }: PageProps) {
 export default metaSetter(
   { GrpcDocs },
   {
-    title: 'gRPC documentation',
+    title: `${companyName} - gRPC API documentation information`,
     description: 'The gRPC documentation for the system.',
   }
 )

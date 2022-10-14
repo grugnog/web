@@ -1,66 +1,68 @@
-import { Typography } from '@material-ui/core'
 import { MarketingDrawer, PageTitle } from '@app/components/general'
 import { strings } from '@app-strings'
 import { metaSetter } from '@app/utils'
 import type { PageProps } from '@app/types'
+import { companyName } from '@app/configs'
 
 function About({ name }: PageProps) {
-  const bold = { fontWeight: 600 }
   return (
     <MarketingDrawer title={name} footerSpacing>
       <PageTitle>{`About ${strings.appName}`}</PageTitle>
-      <Typography variant='body1' component='p' gutterBottom>
+      <p className='py-2 text-lg'>
         Our goal is to make the web easily accessible for everyone.
-      </Typography>
-      <Typography variant='body1' component='p' gutterBottom>
+      </p>
+      <p className='py-2 text-base'>
         Accessibility is crucial to making the web an equal shared experience
         for everyone, especially when it comes to information (www.). We bring
         all of these concerns to you at every step through conformance without
         any clunky overlay.
-      </Typography>
-      <Typography variant='h4' component='h2' gutterBottom style={bold}>
-        Universal Web Vision
-      </Typography>
-      <Typography variant='body1' component='p' gutterBottom>
+      </p>
+      <h2 className='font-bold pb-2 text-2xl'>Universal Web Inclusion</h2>
+      <p className='py-2 text-base'>
         Our vision starts with really believing that the web should be a smooth
         universal experience. The web has grown and adopted many assistive
         technologies to try to make this experience feel natural for everyone.
         One thing is that {`it's`} up to developers to assure this.
-      </Typography>
-      <Typography variant='h4' component='h3' gutterBottom style={bold}>
-        Goals
-      </Typography>
-      <Typography variant='body1' component='p' gutterBottom>
+      </p>
+      <h3 className='font-bold pb-2 text-2xl'>
+        Project Goals for Accessibility and Beyond
+      </h3>
+      <p className='py-2 text-base'>
         One major goal that we are trying to acheive is the ability to fix a
-        website or mobile applications ada errors with a SDK or cdn. This is a
-        step into reducing work that can be repetitive and very time consuming.
-      </Typography>
-      <Typography variant='h4' component='h4' gutterBottom style={bold}>
-        Assistive labels powered by AI
-      </Typography>
-      <Typography variant='body1' component='p' gutterBottom>
+        website or mobile applications accessibility errors using a SDK or CDN.
+        This is a step into reducing work that can be repetitive and very time
+        consuming.
+      </p>
+      <h3 className='font-bold pb-2 text-2xl'>
+        Assistive labels with the help of AI
+      </h3>
+      <p className='py-2 text-base'>
         A big step into making a product usable across multiple devices is to
         have the program fully assistive through voice. With A11yWatch we are
         taking a step into providing extreme dedication into machine learning
         and AI to generate assistive props, color contrast, alt tags, and much
         more with accuracy.
-      </Typography>
-      <Typography variant='h4' component='h3' gutterBottom style={bold}>
-        Fast like Really Fast
-      </Typography>
-      <Typography variant='body1' component='p' gutterBottom>
+      </p>
+      <h3 className='font-bold pb-2 text-2xl'>Fast and Efficient</h3>
+      <p className='py-2 text-base'>
         Take the process of making a website accessible with <b>n * pages</b> of
-        your product which can lead to a lengthy timeline. With A11yWatch tech
-        we can provide a kit to automatically dive into the native assistive
-        technologies to provide an amazing experience for everyone.
-      </Typography>
-      <Typography variant='h4' component='h2' gutterBottom style={bold}>
-        Founded late 2019
-      </Typography>
-      <Typography variant='body1' component='p' gutterBottom>
-        Feel free to email us on any issues if they occur or contact us through
-        the intercom chat support at the bottom of the screen.
-      </Typography>
+        your product which can lead to a lengthy timeline. We also provide a kit
+        to automatically dive into the native assistive technologies to provide
+        an amazing experience for everyone.
+      </p>
+      <h4 className='font-bold pb-2 text-2xl'>Portable across any system</h4>
+      <p className='py-2 text-base'>
+        Getting started and using a full accessibility pipeline can be handled
+        in multiple ways. Using the system on your server as enhancement to a
+        feature/process or on your CI to make certain every page meets a certain
+        standard as well.
+      </p>
+      <p className='py-2 text-base'>
+        Feel free to email us on about issues that occur or contact us through
+        the chat support at the bottom of the screen.
+      </p>
+
+      <p className='text-bold py-4 italic'>Founded late 2019</p>
     </MarketingDrawer>
   )
 }
@@ -68,6 +70,7 @@ function About({ name }: PageProps) {
 export default metaSetter(
   { About },
   {
+    title: `About ${companyName} and our role in the web accessibility community.`,
     description: `The story of the web-based accessibility tool built to make a11y available to everyone.`,
   }
 )

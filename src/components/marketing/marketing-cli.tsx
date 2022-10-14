@@ -80,13 +80,13 @@ export function MarketingCli() {
         </div>
       </div>
 
-      <div className='flex py-5 place-content-center text-center'>
+      <div className='flex py-6 place-content-center text-center'>
         <Link
           href={'https://docs.a11ywatch.com/documentation/cli/'}
           target='_blank'
           rel='referrer'
         >
-          <div className='border px-4 py-1 rounded bg-[#0E1116] text-white hover:bg-gray-800 underline-none text-lg'>
+          <div className='border px-4 py-2 rounded bg-[#0E1116] text-white hover:bg-gray-800 underline-none text-lg'>
             View CLI Details
           </div>
         </Link>
