@@ -1,10 +1,9 @@
-import React, { SyntheticEvent } from 'react'
+import { SyntheticEvent } from 'react'
 import { Button } from '@a11ywatch/ui'
 import { makeStyles } from '@material-ui/core/styles'
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    position: 'absolute',
     top: '-3rem',
     left: '18%',
     '&:focus': {
@@ -50,7 +49,7 @@ export const SkipContent = () => {
   return (
     <Button
       ariaLabel='Skip navigation'
-      className={`${classes.root} hidden md:block`}
+      className={`${classes.root} hidden md:block absolute`}
       onClick={onClickEvent}
     >
       Skip navigation

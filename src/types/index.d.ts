@@ -91,7 +91,6 @@ export interface PageIssue {
 // TODO refactor
 export interface Issue extends PageIssue {
   __typename?: 'Issue'
-  documentTitle?: Maybe<Scalars['String']>
   issue?: Maybe<PageIssue>
   issues?: Maybe<Array<Maybe<PageIssue>>>
   domain?: Maybe<Scalars['String']>
@@ -495,7 +494,6 @@ export type Website = {
   pages?: Maybe<Array<Maybe<Pages>>>
   script?: Maybe<Script>
   lastScanDate?: Maybe<Scalars['String']>
-  documentTitle?: Maybe<Scalars['String']>
   cdn?: Maybe<Scalars['String']>
   pageHeaders?: Maybe<Array<Maybe<PageHeaders>>>
   online?: Maybe<Scalars['Boolean']>

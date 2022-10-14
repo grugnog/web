@@ -1,29 +1,21 @@
-import React from 'react'
-import { makeStyles } from '@material-ui/core/styles'
+import { FC, ReactNode } from 'react'
+
 import { Logo } from './logo'
 import { Link } from '../link'
 import { companyName } from '@app/configs'
 
-const useStyles = makeStyles((theme) => ({
-  title: {
-    color: theme.palette.text.primary,
-    letterSpacing: '.12rem',
-  },
-  brand: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    display: 'flex',
-  },
-  logoText: {
-    alignSelf: 'center',
-    fontWeight: 'bold',
-    [theme.breakpoints.down('sm')]: {
-      display: 'none',
-    },
-  },
-}))
+interface NavBarTitleProps {
+  title?: string | string[]
+  children?: ReactNode | string
+  flex?: boolean
+  marketing?: boolean
+  ismobile?: boolean
+  notitle?: boolean
+  href?: string
+  component?: any
+}
 
-function NavBarTitle({
+const NavBarTitle: FC<NavBarTitleProps> = ({
   title,
   children,
   flex,
@@ -31,9 +23,7 @@ function NavBarTitle({
   ismobile,
   notitle,
   ...props
-}: any) {
-  const classes = useStyles()
-
+}) => {
   if (notitle) {
     return null
   }
@@ -45,9 +35,9 @@ function NavBarTitle({
         className={'hover:no-underline'}
         title={`${companyName} Home`}
       >
-        <div className={`${classes.brand} space-x-1.5`}>
+        <div className={`flex place-items-center space-x-1.5`}>
           <Logo />
-          <div className={`text-2xl ${classes.title} ${classes.logoText}`}>
+          <div className={`text-2xl tracking-normal font-bold hidden md:block`}>
             {companyName}
           </div>
         </div>
@@ -57,7 +47,7 @@ function NavBarTitle({
 
   return (
     <span
-      className={`text-2xl ${classes.title} flex flex-1 line-clamp-1`}
+      className={`text-2xl tracking-normal flex flex-1 line-clamp-1`}
       {...props}
     >
       {children || title}

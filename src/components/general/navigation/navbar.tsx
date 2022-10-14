@@ -1,4 +1,4 @@
-import { PropsWithChildren, FC, memo, SyntheticEvent } from 'react'
+import { PropsWithChildren, FC, SyntheticEvent } from 'react'
 import { IconButton, IconButtonProps } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import { strings } from '@app-strings'
@@ -36,19 +36,21 @@ type LeftbuttonWrapperProps = {
 }
 
 // start left button of the nav
-const LeftbuttonWrapper = ({
+const Leftbutton = ({
   menu,
   buttonProps,
   marketing,
   backButton,
 }: LeftbuttonWrapperProps) =>
   backButton || !marketing ? (
-    <IconButton className={menu} {...buttonProps} title={'Navigate Home'}>
+    <IconButton
+      className={menu}
+      {...buttonProps}
+      title={backButton ? 'Navigate to previous' : 'Navigate to home'}
+    >
       {backButton ? <GrLinkPrevious /> : <Logo />}
     </IconButton>
   ) : null
-
-const Leftbutton = memo(LeftbuttonWrapper)
 
 // navbar props
 interface NavProps {
@@ -64,7 +66,7 @@ interface NavProps {
   loading?: boolean
 }
 
-const NavBarComponent: FC<PropsWithChildren<NavProps>> = ({
+export const NavBar: FC<PropsWithChildren<NavProps>> = ({
   title = strings.appName,
   backButton,
   marketing,
@@ -82,7 +84,7 @@ const NavBarComponent: FC<PropsWithChildren<NavProps>> = ({
   const buttonProps = !backButton
     ? { href: '/', component: Link }
     : {
-        onClick: async (e: SyntheticEvent<HTMLButtonElement>) => {
+        onClick: (e: SyntheticEvent<HTMLButtonElement>) => {
           e?.preventDefault()
           if (backButton) {
             history.back()
@@ -130,5 +132,3 @@ const NavBarComponent: FC<PropsWithChildren<NavProps>> = ({
     </nav>
   )
 }
-
-export const NavBar = memo(NavBarComponent)
