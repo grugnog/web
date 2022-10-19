@@ -55,7 +55,7 @@ export function MarketingCli() {
                 </div>
                 <div className='text-gray-300'>
                   <span className='text-gray-400 select-none'>~ </span>{' '}
-                  a11ywatch crawl -u a11ywatch.com
+                  a11ywatch crawl -u localhost:3000
                   <span style={previewStyles}></span>
                 </div>
               </div>

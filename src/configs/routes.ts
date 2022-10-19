@@ -43,6 +43,12 @@ export const Routes = [
   },
   {
     nav: false,
+    href: 'https://usefathom.com/ref/ISNKKY',
+    name: 'Analytics',
+    type: 'resources',
+  },
+  {
+    nav: false,
     href: '/privacy',
     name: 'Privacy Policy',
     type: 'legal',

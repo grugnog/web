@@ -1,4 +1,9 @@
 import { useEffect } from 'react'
+import * as Fathom from 'fathom-client'
+import Script from 'next/script'
+import { useRouter } from 'next/router'
+import Head from 'next/head'
+
 import { LOGGIN_ROUTES } from '@app/configs'
 import {
   AuthProviderWrapper,
@@ -13,13 +18,11 @@ import { initAppModel, userModel } from '@app/data'
 import { ThemeProvider } from '@material-ui/core/styles'
 import { theme } from '@app-theme'
 import { CssBaseline } from '@material-ui/core'
-import Script from 'next/script'
 import {
   BLOG_WEBFLOW_URL,
   DOMAIN_NAME,
   twitterSite,
 } from '@app/configs/app-config'
-import Head from 'next/head'
 import { useStaticRendering as enableMobxStaticRendering } from 'mobx-react-lite'
 import { SkipContent, SnackBar } from './general'
 import { ping } from '@app/utils'
@@ -182,4 +185,26 @@ export default function Layout({ children, ...props }: any) {
       ) : null}
     </>
   )
+}
+
+export const AnalyticsHoc = () => {
+  const router = useRouter()
+
+  useEffect(() => {
+    Fathom.load(process.env.NEXT_PUBLIC_FATHOM_CODE || '', {
+      url: process.env.NEXT_PUBLIC_FATHOM_URL,
+    })
+
+    function onRouteChangeComplete() {
+      Fathom.trackPageview()
+    }
+
+    router.events.on('routeChangeComplete', onRouteChangeComplete)
+
+    return () => {
+      router.events.off('routeChangeComplete', onRouteChangeComplete)
+    }
+  }, [])
+
+  return null
 }
