@@ -19,7 +19,7 @@ function BrandAssets({ name }: PageProps) {
       <div className={'py-12'}>
         <div className='flex flex-col md:flex-row flex-1 border rounded px-12 py-16 gap-x-4 gap-y-2'>
           <div className='flex flex-1 place-items-center place-content-center space-x-2'>
-            <Logo width={100} height={62} />
+            <Logo width={100} height={62} id={'paint1_linear_2_23'} />
             <strong className='text-xl md:text-3xl lg:text-4xl'>
               A11yWatch
             </strong>

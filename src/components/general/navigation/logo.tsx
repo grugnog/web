@@ -3,8 +3,12 @@ import { FC } from 'react'
 interface Logo {
   width?: number
   height?: number
+  id?: string
 }
-export const Logo: FC<Logo> = ({ width, height }) => {
+export const Logo: FC<Logo> = ({ width, height, id }) => {
+  // todo: look into useId
+  const identifer = id ?? 'paint0_linear_2_23'
+
   return (
     <svg
       width={width || '44'}
@@ -16,7 +20,7 @@ export const Logo: FC<Logo> = ({ width, height }) => {
       <title>A11yWatch Logo</title>
       <path
         d='M26.4463 13.1148C26.4463 20.3578 20.5261 26.2295 13.2231 26.2295C5.9202 26.2295 0 20.3578 0 13.1148C0 5.87168 5.9202 0 13.2231 0C20.5261 0 26.4463 5.87168 26.4463 13.1148Z'
-        fill='url(#paint0_linear_2_23)'
+        fill={`url(#${identifer})`}
       />
       <rect
         x='14.0496'
@@ -27,7 +31,7 @@ export const Logo: FC<Logo> = ({ width, height }) => {
       />
       <defs>
         <linearGradient
-          id='paint0_linear_2_23'
+          id={identifer}
           x1='13'
           y1='-12.5'
           x2='13'
