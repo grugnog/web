@@ -2,7 +2,6 @@ import { NextResponse, NextRequest, userAgent } from 'next/server'
 import { isWhitelisted } from '@app/configs/next/is-static-resource'
 import { IFRAME_ENDPOINT } from '@app/configs/next/iframe'
 
-const ID_COOKIE_NAME = 'uuid'
 const JWT_COOKIE_NAME = 'jwt'
 // coming from vercel
 const VERCEL_PREFIX = `_vercel_`
@@ -23,8 +22,6 @@ export async function middleware(req: NextRequest) {
   if (whiteListed || req.cookies.get(`${VERCEL_PREFIX}${JWT_COOKIE_NAME}`)) {
     return res
   }
-
-  const uuid = req.cookies.get(ID_COOKIE_NAME) || crypto.randomUUID!()
 
   const currentHost = req.headers?.get('host')?.replace(ROOT_URL, '')
 
@@ -48,14 +45,6 @@ export async function middleware(req: NextRequest) {
     const url = req.nextUrl.clone()
     url.pathname = `/dashboard${req.nextUrl.pathname}`
     res = NextResponse.rewrite(url)
-  }
-
-  if (!req.cookies.get(ID_COOKIE_NAME)) {
-    res.cookies.set(ID_COOKIE_NAME, uuid, {
-      sameSite: 'lax',
-      httpOnly: true,
-      secure: process.env.NODE_ENV !== 'development',
-    })
   }
 
   return res
