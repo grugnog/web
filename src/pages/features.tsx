@@ -8,7 +8,7 @@ import {
 import { metaSetter } from '@app/utils'
 import type { PageProps } from '@app/types'
 import Image from 'next/image'
-import { CtaFeatures } from '@app/components/cta'
+import { FeaturesList } from '@app/app/marketing/features'
 
 const FeatureHeading: FC<PropsWithChildren> = ({ children }) => {
   return (
@@ -139,7 +139,7 @@ function Features({ name }: PageProps) {
         </div>
       </div>
       <Section>
-        <CtaFeatures alternative all />
+        <FeaturesList alternative all />
       </Section>
     </MarketingDrawer>
   )

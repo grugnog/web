@@ -1,6 +1,7 @@
 import React from 'react'
-import { Link, SectionContainer } from '../general'
-import { SectionHeading } from '../text'
+import { SectionContainer } from '../containers/section-container'
+import { SectionHeading } from '../typo/section-heading'
+import { Link } from '../typo/link'
 
 const infoDetails = [
   {

@@ -1,10 +1,11 @@
-import { MarketingDrawer, PageTitle } from '@app/components/general'
+import { MarketingDrawer } from '@app/components/general'
 import { metaSetter } from '@app/utils'
 import type { PageProps } from '@app/types'
 import { OSSRoutes } from '@app/configs'
 import { GetStaticProps } from 'next'
 import { URL } from 'url'
 import { GrStar } from 'react-icons/gr'
+import { PageTitle } from '@app/app/typo/page-title'
 
 function OSSCell({ item }: { item: typeof OSSRoutes[number] }) {
   return (

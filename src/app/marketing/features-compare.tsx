@@ -1,5 +1,3 @@
-import { memo } from 'react'
-
 import { GrFormCheckmark, GrFormClose } from 'react-icons/gr'
 
 type TableRowProps = {
@@ -64,7 +62,7 @@ const TableRow = ({ rows }: TableRowProps) => {
 }
 
 // list features
-function FeatureWrapper() {
+function Feature() {
   return (
     <>
       <div className='py-2'>
@@ -234,10 +232,6 @@ function FeatureWrapper() {
   )
 }
 
-export const FeatureMemo = memo(FeatureWrapper)
-
-export const FeatureContainer = (props: any) => {
-  return <FeatureMemo {...props} />
-}
-
-export const MarketingFeatureCompareList = memo(FeatureContainer)
+export const MarketingFeatureCompareList = (props: any) => (
+  <Feature {...props} />
+)

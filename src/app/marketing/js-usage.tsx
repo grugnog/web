@@ -1,6 +1,6 @@
 import SyntaxHighlighter from 'react-syntax-highlighter'
 import { a11yDark } from 'react-syntax-highlighter/dist/cjs/styles/hljs'
-import { SectionContainer } from '../general'
+import { SectionContainer } from '../containers/section-container'
 
 const codeString = `import { scan, multiPageScan } from "@a11ywatch/a11ywatch";
 
@@ -12,7 +12,7 @@ const dataMultiPage = await multiPageScan({ url: "https://a11ywatch.com", subdom
 console.log(dataMultiPage)
 `
 
-export const CtaJavascript = () => {
+export const JavascriptUsage = () => {
   return (
     <SectionContainer>
       <div className='place-content-center place-items-center flex flex-col'>

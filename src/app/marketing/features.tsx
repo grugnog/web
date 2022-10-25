@@ -80,7 +80,7 @@ function FeatureItem({ item, index }: { item: any; index: number }) {
   )
 }
 
-const Features = ({
+const FeaturesList = ({
   alternative,
   all,
 }: {
@@ -112,11 +112,11 @@ const Features = ({
       </div>
       {all ? null : (
         <div className='flex py-5 place-content-center text-center underline'>
-          <Link href={'/features'}>Learn More</Link>
+          <Link href={'/features'}>Discover all features</Link>
         </div>
       )}
     </SectionContainer>
   )
 }
 
-export { Features }
+export { FeaturesList }

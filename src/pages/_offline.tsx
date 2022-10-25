@@ -1,8 +1,9 @@
 import React from 'react'
 import { Typography } from '@material-ui/core'
-import { MarketingDrawer, PageTitle } from '@app/components/general'
+import { MarketingDrawer } from '@app/components/general'
 import { metaSetter } from '@app/utils'
 import type { PageProps } from '@app/types'
+import { PageTitle } from '@app/app/typo/page-title'
 
 const Offline = ({ name }: PageProps) => {
   return (

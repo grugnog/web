@@ -3,7 +3,7 @@ import { PageTitle, MarketingDrawer } from '@app/components/general'
 import { metaSetter } from '@app/utils'
 import type { PageProps } from '@app/types'
 import { companyName } from '@app/configs'
-import { MarketingFeatureCompareList } from '@app/components/marketing'
+import { MarketingFeatureCompareList } from '@app/app/marketing/features-compare'
 
 function WhyUs({ name }: PageProps) {
   return (

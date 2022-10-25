@@ -1,19 +1,21 @@
 import { Fragment } from 'react'
 import { MarketingDrawer } from '@app/components/general'
-import { CtaIntroRest, CtaJavascript } from '@app/components/cta'
-import { MarketingTrustBy, MarketingCli } from '@app/components/marketing'
+import { CtaIntroRest } from '@app/components/cta'
 import { metaSetter } from '@app/utils'
 import { strings } from '@app-strings'
 import { MarketingBottomTemporaryDrawer } from '@app/components/modal'
-import { Features } from '@app/app/marketing/features'
+import { FeaturesList } from '@app/app/marketing/features'
+import { JavascriptUsage } from '@app/app/marketing/js-usage'
+import { MarketingCli } from '@app/app/marketing/cli-usage'
+import { MarketingTrustBy } from '@app/app/marketing/trusted'
 
 function Index() {
   return (
     <Fragment>
       <MarketingDrawer navPosition={'relative'} maxWidth={'xl'} index>
         <CtaIntroRest />
-        <Features />
-        <CtaJavascript />
+        <FeaturesList />
+        <JavascriptUsage />
         <MarketingCli />
         <MarketingTrustBy />
       </MarketingDrawer>
