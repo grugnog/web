@@ -13,8 +13,8 @@ function MarketingImage({ src, alt, ext = 'svg' }: ImageProps) {
   return (
     <div className='invert flex justify-center py-8 px-8 grayscale'>
       <Image
-        width={'231.68px'}
-        height={'56.45px'}
+        width={231.68}
+        height={56.45}
         className='max-h-12'
         src={`/img/${src}.${ext}`}
         alt={alt}

@@ -11,7 +11,7 @@ export const IntroSvg = () => {
       viewBox='0 0 709.533 558.594'
     >
       <title>Building blocks for detecting critical errors</title>
-      <rect width='643.862' height='412.358' x='.275' y='.365' fill='#0E1116' />
+      <rect width='643.862' height='412.358' x='.275' y='.365' fill='#ccc' />
       <rect
         width='607.039'
         height='336.243'

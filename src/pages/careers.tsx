@@ -4,18 +4,18 @@ import { Box } from '@a11ywatch/ui'
 import { metaSetter } from '@app/utils'
 import type { PageProps } from '@app/types'
 
+const Reqs = [
+  'React',
+  'Web Technology (html,css,js)',
+  'Graphql',
+  'Node.js',
+  'Skilled at technical problem solving.',
+  'Care for accessibility or willing to learn more.',
+  'Must be able to communicate effectively and work with team members and members of other functional teams to coordinate and meet deliverables.',
+  'Rust - nice to have some of our main services are built in it.',
+  'BS in Technology or Related Field - nice to have but not needed.',
+]
 function Careers({ name }: PageProps) {
-  const Reqs = [
-    'React',
-    'Web Technology (html,css,js)',
-    'Graphql',
-    'Node.js',
-    'Skilled at technical problem solving.',
-    'Care for accessibility or willing to learn more.',
-    'Must be able to communicate effectively and work with team members and members of other functional teams to coordinate and meet deliverables.',
-    'Rust - nice to have some of our main services are built in it.',
-    'BS in Technology or Related Field - nice to have but not needed.',
-  ]
   return (
     <MarketingDrawer title={name}>
       <Box>

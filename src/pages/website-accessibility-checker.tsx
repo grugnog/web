@@ -18,7 +18,7 @@ function WebsiteAccessibilityChecker({ name }: PageProps) {
         index
       >
         <CtaIntroRest checker />
-        <div className='px-4 max-w-[800px] space-y-2'>
+        <div className='px-4 max-w-[800px] space-y-2 py-6'>
           <div>
             <h3 className='text-2xl font-bold'>
               Live web accessibility testing

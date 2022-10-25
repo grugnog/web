@@ -4,33 +4,33 @@ import { strings } from '@app-strings'
 import { metaSetter } from '@app/utils'
 import type { PageProps } from '@app/types'
 
+const LanguageSupport = [
+  'HTML',
+  'CSS',
+  'Javascript',
+  'React',
+  'React-native',
+  'Rust',
+  '.NET Core',
+  'Electron',
+  'Ionic',
+  'Angular',
+  'Swift',
+  'Java',
+  'Kotlin',
+  'Obj-C',
+  'Vue',
+]
+
+const CustomWork = [
+  'Give you an estimate of time and price if the work is straightforward.',
+  'Give alternative solutions depending on project situation.',
+  'Decline the work due to timing/etc.',
+]
+
+const bold = { fontWeight: 800 }
+
 function Consulting({ name }: PageProps) {
-  const LanguageSupport = [
-    'HTML',
-    'CSS',
-    'Javascript',
-    'React',
-    'React-native',
-    'Rust',
-    '.NET Core',
-    'Electron',
-    'Ionic',
-    'Angular',
-    'Swift',
-    'Java',
-    'Kotlin',
-    'Obj-C',
-    'Vue',
-  ]
-
-  const CustomWork = [
-    'Give you an estimate of time and price if the work is straightforward.',
-    'Give alternative solutions depending on project situation.',
-    'Decline the work due to timing/etc.',
-  ]
-
-  const bold = { fontWeight: 800 }
-
   return (
     <MarketingDrawer title={name} footerSpacing>
       <PageTitle>{strings.consulting}</PageTitle>
