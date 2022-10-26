@@ -24,7 +24,7 @@ function CtaIntroRest({ checker }: CtaIntroRest) {
             ) : (
               <>
                 The #1 web{' '}
-                <b className='text-orange-600 underline'>accessibility</b> API
+                <b className='text-blue-600 underline'>accessibility</b> API
               </>
             )}
           </h1>
@@ -44,7 +44,7 @@ function CtaIntroRest({ checker }: CtaIntroRest) {
           </div>
           <CtaInputRest />
         </div>
-        <div className={'flex-1'}>
+        <div className={'flex-1 place-content-center'}>
           {checker ? <IntroSvg /> : <CtaIntroBenches />}
         </div>
       </div>

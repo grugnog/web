@@ -111,9 +111,6 @@ module.exports = withPWA({
       ? `cust-next-build-${process.env.SOURCE_VERSION}`
       : null,
   env,
-  typescriptLoaderOptions: {
-    transpileOnly: true,
-  },
   poweredByHeader: false,
   // reactStrictMode: true,
   webpack: (config) => {

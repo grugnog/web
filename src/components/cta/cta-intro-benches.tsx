@@ -16,7 +16,7 @@ export const CtaIntroBenches = () => {
               <div className='py-1' aria-hidden='true'>
                 <div className='text-base font-semibold'>4,020</div>
               </div>
-              <div className='px-2 bg-orange-600 h-full w-20 rounded-t border-4 border-b-0 border-orange-700'>
+              <div className='px-2 bg-blue-600 h-full w-20 rounded-t border-4 border-b-0 border-blue-700'>
                 <div className='sr-only'>A11yWatch: 4,020 scans per minute</div>
               </div>
             </div>

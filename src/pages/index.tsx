@@ -28,7 +28,7 @@ export default metaSetter(
   { Index },
   {
     rest: true,
-    intercom: true,
+    intercom: false,
     title: `The all around web accessibility tool.`,
     description: `Build accessible websites with tools that monitor, fix, and guide web accessibility efficiency with ${strings.appName}`,
   }

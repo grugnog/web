@@ -108,8 +108,7 @@ function Features({ name }: PageProps) {
               visual updates on the fly. The pre-built dynamic javascript that
               can be used with frameworks like Next.js, Astro, and much more to
               get accessible valid pre-compiled HTML inside the playground for
-              easy testing. You can also validate color contrast and other
-              issues visually in one location.
+              easy testing.
             </FeatureHeading>
             <div className={paperStyle}>
               <Image
