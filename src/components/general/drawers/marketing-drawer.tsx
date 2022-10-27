@@ -1,4 +1,4 @@
-import { Fragment, memo } from 'react'
+import { Fragment } from 'react'
 import { Container } from '@material-ui/core'
 import { navigationStyles } from '@app/styles/navigation'
 import { strings } from '@app-strings'
@@ -8,7 +8,7 @@ import { NavBar } from '../navigation/navbar'
 import { Footer } from '../footer'
 import { Link } from '../link'
 
-export function MarketingDrawerContainer({
+export function MarketingDrawer({
   children,
   initClosed,
   renderCtaSearch,
@@ -82,5 +82,3 @@ export function MarketingDrawerContainer({
     </Fragment>
   )
 }
-
-export const MarketingDrawer = memo(MarketingDrawerContainer)
