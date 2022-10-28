@@ -1,3 +1,5 @@
+'use client'
+
 import { PropsWithChildren, FC, SyntheticEvent } from 'react'
 import { IconButton, IconButtonProps } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'

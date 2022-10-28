@@ -1,12 +1,13 @@
 import { Fragment } from 'react'
 import { MarketingDrawer } from '@app/components/general'
-import { CtaIntroRest } from '@app/components/cta/cta-intro-rest'
+import { MarketingIntro } from '@app/app/marketing/intro-rest'
 import { metaSetter } from '@app/utils'
 import type { PageProps } from '@app/types'
 import { MarketingBottomTemporaryDrawer } from '@app/components/modal'
 import { GrCloudSoftware, GrPerformance, GrCluster } from 'react-icons/gr'
 import { DOMAIN_NAME } from '@app/configs'
 import { LinkPrefetch } from '@app/components/general/link'
+import { CtaInputRest } from '@app/components/cta/searchbar/cta-input-rest'
 
 function WebsiteAccessibilityChecker({ name }: PageProps) {
   return (
@@ -17,7 +18,9 @@ function WebsiteAccessibilityChecker({ name }: PageProps) {
         maxWidth={'xl'}
         index
       >
-        <CtaIntroRest checker />
+        <MarketingIntro checker>
+          <CtaInputRest />
+        </MarketingIntro>
         <div className='px-4 max-w-[800px] space-y-2 py-6'>
           <div>
             <h3 className='text-2xl font-bold'>

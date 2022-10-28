@@ -23,7 +23,6 @@ export function MarketingDrawer({
   loading,
 }: any) {
   const classes = navigationStyles()
-
   const padding = index ? 0 : '1rem'
 
   return (

@@ -1,15 +1,18 @@
-import React from 'react'
+import { PropsWithChildren } from 'react'
 import { Button } from '@material-ui/core'
-import { Link, SectionContainer } from '../general'
-import { CtaInputRest } from './searchbar/cta-input-rest'
-import { CtaIntroBenches } from './cta-intro-benches'
-import { useStyles } from './intro-styles'
-import { IntroSvg } from '../svgs/intro'
+import { Link } from '../typo/link'
+import { SectionContainer } from '../containers/section-container'
+import { IntroBenches } from './intro-benches'
+import { IntroSvg } from '../../components/svgs/intro'
+import { useStyles } from '../../components/cta/intro-styles'
 
-interface CtaIntroRest {
+interface MarketingIntro {
   checker?: boolean
 }
-function CtaIntroRest({ checker }: CtaIntroRest) {
+function MarketingIntro({
+  checker,
+  children,
+}: PropsWithChildren<MarketingIntro>) {
   const classes = useStyles()
 
   return (
@@ -42,14 +45,14 @@ function CtaIntroRest({ checker }: CtaIntroRest) {
               Sign up
             </Button>
           </div>
-          <CtaInputRest />
+          {children}
         </div>
         <div className={'flex-1 place-content-center'}>
-          {checker ? <IntroSvg /> : <CtaIntroBenches />}
+          {checker ? <IntroSvg /> : <IntroBenches />}
         </div>
       </div>
     </SectionContainer>
   )
 }
 
-export { CtaIntroRest }
+export { MarketingIntro }

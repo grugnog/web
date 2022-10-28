@@ -1,4 +1,6 @@
-import React, { SyntheticEvent } from 'react'
+'use client'
+
+import { SyntheticEvent } from 'react'
 import { InputBase, Button } from '@material-ui/core'
 import { alpha, makeStyles } from '@material-ui/core/styles'
 import { useSearchFilter, useSearch } from '@app/data'

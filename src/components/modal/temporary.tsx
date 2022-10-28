@@ -1,4 +1,5 @@
-import { memo } from 'react'
+'use client'
+
 import { Drawer, IconButton } from '@material-ui/core'
 import { useSearch } from '@app/data'
 import { GrClose } from 'react-icons/gr'
@@ -14,7 +15,7 @@ interface BottomDrawer {
   disableTabs?: boolean
 }
 
-export function BottomDrawerComponent({
+export function BottomDrawer({
   bottomModal,
   closeFeed,
   website,
@@ -39,8 +40,6 @@ export function BottomDrawerComponent({
     </Drawer>
   )
 }
-
-export const BottomDrawer = memo(BottomDrawerComponent)
 
 export function SwipeableTemporaryDrawer() {
   const { bottomModal, website, closeFeed } = useSearch()

@@ -1,6 +1,6 @@
-import React from 'react'
+import { FC } from 'react'
 
-export const CtaIntroBenches = () => {
+export const IntroBenches: FC = () => {
   return (
     <div className='py-6'>
       <div className='flex-col flex text-center border-4 border-[#2b2b2b] rounded'>
