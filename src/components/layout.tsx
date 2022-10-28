@@ -104,7 +104,42 @@ export default function Layout({ children, ...props }: any) {
         <meta charSet='utf-8' key={'charset'} />
         <meta name='viewport' content='width=device-width, initial-scale=1' />
         <title key='title'>{metaTitle}</title>
-        <meta property='og:title' content={metaTitle} key='og:title' />
+        {description ? (
+          <meta name='description' content={description} key='description' />
+        ) : null}
+        <meta
+          name='twitter:card'
+          content='summary_large_image'
+          key={'twitter:card'}
+        />
+        <meta name='twitter:site' content={twitterSite} key={'twitter:site'} />
+        <meta
+          name='twitter:creator'
+          content={twitterSite}
+          key={'twitter:creator'}
+        />
+        <meta
+          property='twitter:title'
+          content={metaTitle}
+          key='twitter:title'
+        />
+        {description ? (
+          <meta
+            property='twitter:description'
+            content={description}
+            key='twitter:description'
+          />
+        ) : null}
+        <meta
+          property='twitter:image'
+          content={`${DOMAIN_NAME}/img/social-card.png`}
+          key='twitter:image'
+        />
+        <meta
+          property='twitter:image:alt'
+          content={description}
+          key='twitter:image:alt'
+        />
         <meta property='og:type' key='og:type' content='website' />
         <meta
           property='og:url'
@@ -116,20 +151,31 @@ export default function Layout({ children, ...props }: any) {
           key={'og:url'}
         />
         {description ? (
-          <>
-            <meta name='description' content={description} key='description' />
-            <meta
-              property='og:description'
-              content={description}
-              key={'og:description'}
-            />
-          </>
+          <meta
+            property='og:description'
+            content={description}
+            key={'og:description'}
+          />
         ) : null}
-
+        <meta
+          property='og:image'
+          key={'og:image'}
+          content={`${DOMAIN_NAME}/img/social-card.png`}
+        />
+        <meta
+          property='og:image:alt'
+          content={description}
+          key='og:image:alt'
+        />
+        <meta property='author' content='Jeff Mendez' key='author' />
+        <meta
+          property='keywords'
+          key='keywords'
+          content='Web Accessibility Tool, Web Accessibility API, OSS Web Accessibility, Accessibility, A11y, Web'
+        />
         {process.env.NEXT_PUBLIC_DISABLE_SEO === '1' ? (
           <meta name='robots' content='noindex' />
         ) : null}
-
         <meta
           name='theme-color'
           content={theme.palette.primary.main}
@@ -146,21 +192,6 @@ export default function Layout({ children, ...props }: any) {
           name='apple-mobile-web-app-capable'
           content='yes'
           key={'apple-mobile-web-app-capable'}
-        />
-        <meta
-          name='twitter:card'
-          content='summary_large_image'
-          key={'twitter:card'}
-        />
-        <meta name='twitter:site' content={twitterSite} key={'twitter:site'} />
-        <meta
-          property='twitter:image'
-          content={`${DOMAIN_NAME}/img/intro-poster.png`}
-        />
-        <meta
-          property='og:image'
-          key={'og:image'}
-          content={`${DOMAIN_NAME}/img/intro-poster.png`}
         />
         <link
           rel='apple-touch-icon'
