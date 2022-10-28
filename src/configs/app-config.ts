@@ -41,7 +41,7 @@ const DOMAIN_NAME =
   'http://a11ywatch.com'
 
 const companyName = process.env.COMPANY_NAME || 'A11yWatch'
-const twitterSite = process.env.TWITTER_SITE || '@a11ywatcher'
+const twitterSite = process.env.TWITTER_SITE || 'a11ywatcher'
 
 // USED FOR REPORTS ( TODO REVISIT URL )
 const BASE_GQL_URL = `${AppConfig?.graphQLUrl

@@ -32,6 +32,30 @@ module.exports = {
   robotsTxtOptions: {
     policies: [
       {
+        userAgent: 'Twitterbot',
+        allow: ['/*'],
+        disallow: [
+          '/*?*',
+          '/website-details',
+          '/web-view',
+          '/web-pages',
+          '/settings',
+          '/dashboard',
+          '/alerts',
+          '/profile',
+          '/website-analytics',
+          '/web-actions',
+          '/web-issues',
+          '/scripts',
+          '/history',
+          '/payments',
+          '/register?*',
+          '/auth-redirect',
+          '/auth-redirect?*',
+        ],
+      },
+
+      {
         userAgent: '*',
         allow: ['/*'],
         disallow: [

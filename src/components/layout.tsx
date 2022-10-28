@@ -20,6 +20,7 @@ import { theme } from '@app-theme'
 import { CssBaseline } from '@material-ui/core'
 import {
   BLOG_WEBFLOW_URL,
+  companyName,
   DOMAIN_NAME,
   twitterSite,
 } from '@app/configs/app-config'
@@ -118,7 +119,7 @@ export default function Layout({ children, ...props }: any) {
           content={twitterSite}
           key={'twitter:creator'}
         />
-        <meta
+        {/* <meta
           property='twitter:title'
           content={metaTitle}
           key='twitter:title'
@@ -139,7 +140,7 @@ export default function Layout({ children, ...props }: any) {
           property='twitter:image:alt'
           content={description}
           key='twitter:image:alt'
-        />
+        /> */}
         <meta property='og:type' key='og:type' content='website' />
         <meta
           property='og:url'
@@ -157,16 +158,29 @@ export default function Layout({ children, ...props }: any) {
             key={'og:description'}
           />
         ) : null}
+        {metaTitle ? (
+          <meta property='og:title' content={metaTitle} key={'og:title'} />
+        ) : null}
         <meta
           property='og:image'
-          key={'og:image'}
-          content={`${DOMAIN_NAME}/img/social-card.png`}
+          content={`${DOMAIN_NAME}/api/og?title=${metaTitle}`}
         />
+        <meta property='og:image:width' content='1200' key={'og:image:width'} />
         <meta
-          property='og:image:alt'
-          content={description}
-          key='og:image:alt'
+          property='og:image:height'
+          content='728'
+          key={'og:image:height'}
         />
+
+        {description ? (
+          <meta
+            property='og:image:alt'
+            content={description}
+            key='og:image:alt'
+          />
+        ) : null}
+        <meta property='og:site_name' content={companyName} />
+
         <meta property='author' content='Jeff Mendez' key='author' />
         <meta
           property='keywords'
@@ -235,7 +249,7 @@ export const AnalyticsHoc = () => {
     return () => {
       router.events.off('routeChangeComplete', onRouteChangeComplete)
     }
-  }, [])
+  }, [router.events])
 
   return null
 }
