@@ -11,7 +11,7 @@ const userModel = {
   deviceType: '',
   jwt: '',
   alertsEnabled: false,
-  initModel: async function ({
+  initModel: function ({
     deviceType = '',
     cookie = '',
   }: {
@@ -42,6 +42,8 @@ const userModel = {
     } catch (e) {
       console.error(e)
     }
+
+    return this.jwt
   },
   logOut: function () {
     try {

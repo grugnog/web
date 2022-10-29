@@ -1,7 +1,4 @@
 import { useEffect } from 'react'
-import * as Fathom from 'fathom-client'
-import Script from 'next/script'
-import { useRouter } from 'next/router'
 import Head from 'next/head'
 
 import { LOGGIN_ROUTES } from '@app/configs'
@@ -33,7 +30,6 @@ if (typeof window === 'undefined') {
 }
 
 const authRoutes = LOGGIN_ROUTES.map((route) => route.replace('/', ''))
-const CRISP_WEBSITE_ID = process.env.CRISP_WEBSITE_ID
 
 // load the application with providers depending on component
 const LayoutWrapper = ({ Component, pageProps }: InnerApp) => {
@@ -49,15 +45,15 @@ const LayoutWrapper = ({ Component, pageProps }: InnerApp) => {
 
     initAppModel()
 
-    queueMicrotask(ping)
-
-    userModel.initModel({
+    const authed = userModel.initModel({
       cookie:
         typeof navigator !== 'undefined' &&
         typeof document !== 'undefined' &&
         navigator.cookieEnabled &&
         document.cookie,
     })
+
+    authed && queueMicrotask(ping)
   }, [])
 
   // name is based off function name and not file name
@@ -93,7 +89,6 @@ const LayoutWrapper = ({ Component, pageProps }: InnerApp) => {
 
 export default function Layout({ children, ...props }: any) {
   const Component = props?.Component
-  const { intercom } = Component ?? {}
   const { description, title, name } = Component?.meta || strings?.meta
   const pathName = String(name).toLowerCase()
   const metaTitle = title || `Web Accessibility Service | ${strings.appName}`
@@ -119,28 +114,6 @@ export default function Layout({ children, ...props }: any) {
           content={twitterSite}
           key={'twitter:creator'}
         />
-        {/* <meta
-          property='twitter:title'
-          content={metaTitle}
-          key='twitter:title'
-        />
-        {description ? (
-          <meta
-            property='twitter:description'
-            content={description}
-            key='twitter:description'
-          />
-        ) : null}
-        <meta
-          property='twitter:image'
-          content={`${DOMAIN_NAME}/img/social-card.png`}
-          key='twitter:image'
-        />
-        <meta
-          property='twitter:image:alt'
-          content={description}
-          key='twitter:image:alt'
-        /> */}
         <meta property='og:type' key='og:type' content='website' />
         <meta
           property='og:url'
@@ -185,7 +158,7 @@ export default function Layout({ children, ...props }: any) {
         <meta
           property='keywords'
           key='keywords'
-          content='Web Accessibility Tool, Web Accessibility API, OSS Web Accessibility, Accessibility, A11y, Web'
+          content='Web Accessibility Tool, Web Accessibility API, OSS Web Accessibility, Inclusion, A11y, Web'
         />
         {process.env.NEXT_PUBLIC_DISABLE_SEO === '1' ? (
           <meta name='robots' content='noindex' />
@@ -225,31 +198,6 @@ export default function Layout({ children, ...props }: any) {
         <LayoutWrapper {...props}>{children}</LayoutWrapper>
         <SnackBar />
       </ThemeProvider>
-      {intercom && CRISP_WEBSITE_ID ? (
-        <Script id='crips_id'>{`window.$crisp=[];window.CRISP_WEBSITE_ID="${CRISP_WEBSITE_ID}";(function(){d=document;s=d.createElement("script");s.src="https://client.crisp.chat/l.js";s.async=1;d.getElementsByTagName("head")[0].appendChild(s);})();`}</Script>
-      ) : null}
     </>
   )
-}
-
-export const AnalyticsHoc = () => {
-  const router = useRouter()
-
-  useEffect(() => {
-    Fathom.load(process.env.NEXT_PUBLIC_FATHOM_CODE || '', {
-      url: process.env.NEXT_PUBLIC_FATHOM_URL,
-    })
-
-    function onRouteChangeComplete() {
-      Fathom.trackPageview()
-    }
-
-    router.events.on('routeChangeComplete', onRouteChangeComplete)
-
-    return () => {
-      router.events.off('routeChangeComplete', onRouteChangeComplete)
-    }
-  }, [router.events])
-
-  return null
 }
