@@ -26,8 +26,8 @@ function MarketingIntro({
               'Fast and insightful web accessibility evaluations'
             ) : (
               <>
-                The #1 web{' '}
-                <b className='text-blue-600 underline'>accessibility</b> API
+                Web <b className='text-blue-600 underline'>accessibility</b>{' '}
+                without limits
               </>
             )}
           </h1>
