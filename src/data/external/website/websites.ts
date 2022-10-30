@@ -268,7 +268,7 @@ export const useWebsiteData = (
       )
     })
 
-    if (newIssue && !feedOpen) {
+    if (!feedOpen) {
       setIssueFeedContent(true) // display content open
     }
   }
@@ -441,13 +441,6 @@ export const useWebsiteData = (
     }
   }
 
-  const issueFeed = {
-    open: feedOpen,
-    get data() {
-      return feed?.get_data() ?? {}
-    },
-  }
-
   return {
     subscriptionData: {
       issueSubData,
@@ -467,7 +460,12 @@ export const useWebsiteData = (
     error, // general mutation error
     mutatationLoading:
       removeLoading || addLoading || crawlLoading || scanLoading,
-    issueFeed, // issue feed from wasm
+    issueFeed: {
+      open: feedOpen,
+      get data() {
+        return feed?.get_data() ?? {}
+      },
+    }, // issue feed from wasm
     lighthouseVisible,
     setLighthouseVisibility,
     removeWebsite,

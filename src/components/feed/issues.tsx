@@ -17,46 +17,22 @@ import { Website } from '@app/types'
 import { useMemo } from 'react'
 import { useWasmContext } from '../providers'
 
-// per page list
-const FeedListPageWrapper = ({
-  website,
-  pageName,
-  onScanEvent,
-  highlightErrors,
-}: any) => {
-  const issue = website[pageName]
-
-  return (
-    <FeedList
-      key={issue?.pageUrl}
-      onScanEvent={onScanEvent}
-      issue={issue}
-      isHidden={true}
-      highlightErrors={highlightErrors}
-    />
-  )
-}
-
-const FeedPage = memo(FeedListPageWrapper)
-
 const PageList = ({
   pages,
-  website,
   onScanEvent,
   highlightErrors,
 }: Partial<FeedItemProps> & {
   pages: any[]
-  website: any
 }) => {
   return (
     <>
-      {pages?.map((pageName: string) => (
-        <FeedPage
-          key={`${website?.domain}-${pageName}`}
-          onScanEvent={onScanEvent}
-          pageName={pageName}
-          website={website}
+      {pages?.map((website: any) => (
+        <FeedList
+          key={`${website?.domain}-${website.pageUrl}`}
+          issue={website}
           highlightErrors={highlightErrors}
+          onScanEvent={onScanEvent}
+          isHidden
         />
       ))}
     </>
@@ -84,13 +60,16 @@ const FeedButton = ({ domain, onHeadingToggleEvent, onSortClick }: any) => {
 
 const FeedButtonMemo = memo(FeedButton)
 
+type FeedRecord = Record<string, string>
+
 type FeedItemProps = {
-  feed: Record<string, any>
-  domain: string
-  onScanEvent?: (_: any, __: any) => any
+  feed?: FeedRecord
+  domain?: string
+  onScanEvent?: any
   index?: number
   highlightErrors?: boolean
 }
+
 const FeedItemWrapper = ({
   feed,
   onScanEvent,
@@ -99,14 +78,23 @@ const FeedItemWrapper = ({
 }: FeedItemProps) => {
   const [visible, setVisible] = useState<boolean>(index === 0)
   const [_sorted, setSorted] = useState<boolean>(false)
+
   // keep tracking of the pages in order
-  const refPages = useRef<Record<string, string>>({})
-  const pages = useDeferredValue(Object.keys(refPages.current))
-  const website = feed[domain] // TODO: defer
+  const refPages = useRef<Map<string, FeedRecord>>()
+
+  const pages = useDeferredValue(
+    refPages.current ? [...refPages?.current?.values()] : []
+  )
+
+  const website = useMemo(() => {
+    if (feed instanceof Map) {
+      return feed.get(domain)
+    }
+  }, [feed, domain])
 
   useEffect(() => {
     if (website) {
-      Object.assign(refPages.current, website)
+      refPages.current = website
     }
   }, [website])
 
@@ -115,28 +103,11 @@ const FeedItemWrapper = ({
   }
 
   const onSortClick = () => {
-    const ordered = Object.keys(refPages.current)
-      .sort()
-      .reduce((obj: any, key) => {
-        obj[key] = refPages.current[key]
-        return obj
-      }, {})
-    refPages.current = ordered
-
+    if (refPages.current) {
+      refPages.current = new Map([...refPages.current].sort())
+    }
     setSorted((s) => !s)
   }
-
-  const pagesList = useMemo(
-    () => (
-      <PageList
-        pages={pages}
-        website={website}
-        onScanEvent={onScanEvent}
-        highlightErrors
-      />
-    ),
-    [pages, website, onScanEvent]
-  )
 
   return (
     <li>
@@ -146,7 +117,7 @@ const FeedItemWrapper = ({
         onSortClick={onSortClick}
       />
       <ul className={!visible ? 'hidden' : 'visible'} aria-hidden={!visible}>
-        {pagesList}
+        <PageList pages={pages} onScanEvent={onScanEvent} highlightErrors />
       </ul>
     </li>
   )
@@ -163,6 +134,9 @@ const Feed: FC = () => {
   const { data, open } = issueFeed
 
   const issues = useMemo(() => {
+    if (data instanceof Map) {
+      return [...data.keys()]
+    }
     return Object.keys(data)
   }, [data])
 
@@ -216,7 +190,7 @@ const Feed: FC = () => {
   )
 
   return (
-    <Fade in={issues.length && open ? true : false}>
+    <Fade in={issues?.length && open ? true : false}>
       <div className={`${classes.root} shadow`} aria-live='polite'>
         <div
           className={`flex place-items-center px-3 py-1 h-14 border border-t-0 border-r-0 border-l-0 bg-gray-100`}

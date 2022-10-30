@@ -5,7 +5,8 @@ import { OSSRoutes } from '@app/configs'
 import { GetStaticProps } from 'next'
 import { URL } from 'url'
 import { GrStar } from 'react-icons/gr'
-import { PageTitle } from '@app/app/typo/page-title'
+import { SectionContainer } from '@app/app/containers/section-container'
+import { Header } from '@app/components/general/header'
 
 function OSSCell({ item }: { item: typeof OSSRoutes[number] }) {
   return (
@@ -45,22 +46,24 @@ function OpenSource({
 }) {
   return (
     <MarketingDrawer title={name} footerSpacing>
-      <PageTitle>Open Source Software</PageTitle>
-      <h2 className='py-4 text-blue-600 text-sm'>Ethos</h2>
-      <p className='text-base pt-1 pb-4 text-gray-600'>
-        Open source has a big role on the way we build our products here.
-        <p>
-          We give back to the community and provide some free and simple
-          software.
+      <SectionContainer container block>
+        <Header>Open Source Software</Header>
+        <h2 className='py-4 text-blue-600 text-sm'>Ethos</h2>
+        <p className='text-base pt-1 pb-4 text-gray-600'>
+          Open source has a big role on the way we build our products here.
+          <p>
+            We give back to the community and provide some free and simple
+            software.
+          </p>
         </p>
-      </p>
-      <ul className='py-2 gap-x-2 gap-y-2 grid grid-cols-1 sm:grid-cols-2'>
-        {items?.map((item) => (
-          <li key={item.name}>
-            <OSSCell item={item} />
-          </li>
-        ))}
-      </ul>
+        <ul className='py-2 gap-x-2 gap-y-2 grid grid-cols-1 sm:grid-cols-2'>
+          {items?.map((item) => (
+            <li key={item.name}>
+              <OSSCell item={item} />
+            </li>
+          ))}
+        </ul>
+      </SectionContainer>
     </MarketingDrawer>
   )
 }

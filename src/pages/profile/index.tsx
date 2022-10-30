@@ -368,22 +368,28 @@ const Profile: FC<PageProps> = ({ name }) => {
             </div>
           </div>
           <div className='py-5 space-y-10'>
-            {MANAGE_BILLING && user?.role ? (
+            {user?.activeSubscription ? (
+              <div>
+                <Link
+                  href={`${MANAGE_BILLING}?prefilled_email=${encodeURIComponent(
+                    email
+                  )}`}
+                  rel='noreferrer'
+                  target='_blank'
+                  className={`text-lg font-bold inline-block rounded hover:bg-[#0E1116] hover:text-white px-10 py-4 bg-white text-black outline`}
+                >
+                  Manage Billing
+                </Link>
+              </div>
+            ) : null}
+            <div>
               <Link
-                href={`${MANAGE_BILLING}?prefilled_email=${encodeURI(email)}`}
-                rel='noreferrer'
-                target='_blank'
+                href='/payments'
                 className={`text-lg font-bold inline-block rounded hover:bg-[#0E1116] hover:text-white px-10 py-4 bg-white text-black outline`}
               >
-                Manage Billing
+                {user?.activeSubscription ? 'Upgrade / Downgrade' : 'Upgrade'}
               </Link>
-            ) : null}
-            <Link
-              href='/payments'
-              className={`text-lg font-bold inline-block rounded bg-[#0E1116] text-white px-10 py-4 hover:bg-white hover:text-black hover:outline`}
-            >
-              Upgrade
-            </Link>
+            </div>
           </div>
         </Box>
       </Container>

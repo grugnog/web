@@ -150,7 +150,7 @@ function Payments({ hideTitle = false, name }: PaymentProps) {
 
   const subTitle = !renderPayMentBoxes
     ? 'Account Info'
-    : 'Get the right plan for you.'
+    : 'Get the right plan for you. Upgrade or downgrade at any time.'
 
   const paymentSubscription = data?.paymentSubscription
   const nextPaymentDay =
@@ -178,8 +178,7 @@ function Payments({ hideTitle = false, name }: PaymentProps) {
               <EmptyPayments subTitle={subTitle} />
             ) : (
               <>
-                <p className='text-xl font-bold'>{subTitle}</p>
-
+                <p className='text-xl pb-2'>{subTitle}</p>
                 {superMode ? null : (
                   <div>
                     {renderPayMentBoxes ? (
@@ -233,15 +232,6 @@ function Payments({ hideTitle = false, name }: PaymentProps) {
                     ) : null}
                   </div>
                 )}
-
-                {data?.activeSubscription ? (
-                  <div className='border p-4 rounded'>
-                    <p>
-                      If you need changes to your account contact or update your
-                      payment info please contact support.
-                    </p>
-                  </div>
-                ) : null}
               </>
             )}
           </div>

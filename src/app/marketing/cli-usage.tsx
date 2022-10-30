@@ -1,7 +1,7 @@
-import React from 'react'
+import { ReactElement } from 'react'
 import { SectionContainer } from '../containers/section-container'
-import { SectionHeading } from '../typo/section-heading'
 import { Link } from '../typo/link'
+import { Header3 } from '@app/components/general/header'
 
 const infoDetails = [
   {
@@ -29,11 +29,11 @@ const previewStyles = {
   backgroundColor: 'rgb(160, 160, 160)',
 }
 
-export function MarketingCli() {
+export function MarketingCli(): ReactElement<any, any> | null {
   return (
     <SectionContainer>
       <div className='ring-1 shadow-xl ring-[#0E1116] ring-offset-8 ring-offset-gray-600 py-4 px-4 rounded'>
-        <SectionHeading>Command Line Interface</SectionHeading>
+        <Header3>Command Line Interface</Header3>
         <p className='text-lg pb-4 leading-10'>
           Run A11yWatch on any machine using the Rust Command Line Interface.
           Get the CLI simply in shell using{' '}

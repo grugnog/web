@@ -5,6 +5,8 @@ type SectionContainerProps = PropsWithChildren<{
   id?: string
   gapY?: boolean
   gapX?: boolean
+  container?: boolean
+  block?: boolean
 }>
 
 const SectionContainer: FC<SectionContainerProps> = ({
@@ -12,6 +14,8 @@ const SectionContainer: FC<SectionContainerProps> = ({
   className,
   gapY = true,
   gapX = true,
+  container,
+  block,
   ...props
 }) => {
   return (
@@ -21,7 +25,13 @@ const SectionContainer: FC<SectionContainerProps> = ({
         .trim()}
       {...props}
     >
-      {children}
+      {container ? (
+        <div className={`block md:flex place-items-center pb-0 gap-x-3`}>
+          {block ? <div className={'flex-1 pb-4'}>{children}</div> : children}
+        </div>
+      ) : (
+        children
+      )}
     </section>
   )
 }

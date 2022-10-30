@@ -1,5 +1,4 @@
 export { Link } from './link'
-export { SectionContainer } from './section-container'
 export { Footer } from './footer'
 export { NavBar } from './navigation/navbar'
 export { Logo, SmallLogo, NavBarTitle } from './navigation'

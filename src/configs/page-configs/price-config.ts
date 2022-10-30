@@ -57,6 +57,22 @@ const plans = [
   },
 ]
 
+const feats = [
+  'up to 50 websites domains',
+  'Wildcard subdomains and tlds',
+  'All pages checked daily',
+  TRUSTED_CDN,
+  'Editable scripts',
+  'Percent based private API request a day',
+  '10,000+ AI Models for alt tag recognition',
+  'PageSpeed Insights on all pages',
+  '100 private API request a day',
+  'Daily email reports',
+  'Email support',
+]
+
 export const priceConfig = {
+  grandfatherPlans: plans,
   plans,
+  feats,
 }

@@ -116,6 +116,9 @@ function Feature() {
               rows={['Concurrent website testing', 'true', 'false', 'false']}
             />
             <TableRow
+              rows={['Live visual website testing', 'true', 'false', 'false']}
+            />
+            <TableRow
               rows={[
                 'Handle large workloads and websites',
                 'true',
@@ -166,7 +169,7 @@ function Feature() {
             <TableRow
               rows={[
                 'https://www.coinbase.com - 5,900 pages',
-                '7 mins',
+                '4 mins',
                 '48 hours+',
                 '60 hours+',
               ]}
@@ -174,7 +177,7 @@ function Feature() {
             <TableRow
               rows={[
                 'https://www.hbo.com - 7,500 pages',
-                '9 mins',
+                '5 mins',
                 '55 hours+',
                 '72 hours+',
               ]}

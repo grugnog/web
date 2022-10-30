@@ -1,3 +1,4 @@
+import { Header3 } from '@app/components/general/header'
 import { Light as SyntaxHighlighter } from 'react-syntax-highlighter'
 import { a11yDark } from 'react-syntax-highlighter/dist/cjs/styles/hljs'
 import { SectionContainer } from '../containers/section-container'
@@ -16,11 +17,11 @@ export const JavascriptUsage = () => {
   return (
     <SectionContainer>
       <div className='place-content-center place-items-center flex flex-col'>
-        <h3 className='font-bold text-3xl'>Javascript Integration</h3>
-        <h4 className='pb-2 text-xl'>
+        <Header3>Javascript Integration</Header3>
+        <p className='pb-2'>
           Use npm or your favorite javascript package manager to install the
           suite.
-        </h4>
+        </p>
         <div className='flex flex-col bg-[#0e1116] max-w-[96vw] rounded px-4 py-3'>
           <SyntaxHighlighter
             language='javascript'

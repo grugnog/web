@@ -17,6 +17,10 @@ a {
   stroke: inherit;
 }
 
+p {
+  font-size: 1rem;
+}
+
 @media (any-pointer: coarse) {
   a {
     padding: 0.8em;

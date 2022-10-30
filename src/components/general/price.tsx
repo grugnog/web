@@ -1,25 +1,15 @@
 import { useMemo, useState } from 'react'
-import { Button } from '@material-ui/core'
-import { SectionContainer } from '@app/components/general'
 import { priceConfig } from '@app/configs'
 
-import { GrFormCheckmark, GrFormUp } from 'react-icons/gr'
 import { SectionHeading } from '../text'
 import { Link } from './link'
+import { SectionContainer } from '@app/app/containers/section-container'
+import { PriceCell } from './cells/price-cell'
 
 const getStyles = (inactive: boolean) =>
   inactive
-    ? 'relative w-1/3 px-2 border rounded-2xl py-2 text-sm font-medium text-gray-700 whitespace-nowrap focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:z-10 sm:w-auto sm:px-8 hover:shadow-xl'
-    : 'relative w-1/3 px-2 rounded-2xl shadow-sm py-2 text-sm font-medium text-white bg-[#2A2A2A] whitespace-nowrap focus:outline-none focus:ring-2 focus:ring-gray-500 focus:z-10 sm:w-auto sm:px-8'
-
-const highLight = (
-  name: string = '',
-  highLightStyles: any,
-  { basic, premium }: any
-) =>
-  (basic && name === 'Basic') || (premium && name === 'Premium')
-    ? highLightStyles
-    : ''
+    ? 'relative px-2 border rounded-2xl py-2 text-sm font-medium text-gray-700 whitespace-nowrap focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:z-10 sm:w-auto sm:px-8 hover:shadow-xl'
+    : 'relative px-2 rounded-2xl shadow-sm py-2 text-sm font-medium text-white bg-[#2A2A2A] whitespace-nowrap focus:outline-none focus:ring-2 focus:ring-gray-500 focus:z-10 sm:w-auto sm:px-8'
 
 const getPrimaryColor = (title: string) => {
   let color = '#0E1116'
@@ -29,8 +19,6 @@ const getPrimaryColor = (title: string) => {
     color = '#00875b'
   } else if (title === 'Basic') {
     color = '#2b72e6'
-  } else if (title === 'Enterprise') {
-    color = '#0E1116'
   }
   return color
 }
@@ -57,23 +45,19 @@ function MainButton({
 
   if (navigate) {
     return (
-      <Button
-        component={Link}
-        className={`w-full hover:ring`}
-        style={{
-          backgroundColor: buttonColor,
-          color: textColor,
-          fontWeight: 800,
-          fontSize: '1.1rem',
-        }}
-        href={
-          title === 'Enterprise'
-            ? '/contact'
-            : `/register?plan=${title}${yearly ? '&yearly=true' : ''}`
-        }
-      >
-        {title === 'Enterprise' ? 'Contact Us' : `${title} Start`}
-      </Button>
+      <div className='pt-6 pb-2 justify-center flex'>
+        <Link
+          className={`w-[12rem] px-4 py-3 hover:ring rounded-3xl font-bold text-center`}
+          style={{
+            backgroundColor: buttonColor,
+            color: textColor,
+            fontSize: '1.1rem',
+          }}
+          href={`/register?plan=${title}${yearly ? '&yearly=true' : ''}`}
+        >
+          {`${title} Start`}
+        </Link>
+      </div>
     )
   }
 
@@ -83,15 +67,17 @@ function MainButton({
 export function PriceMemo({
   basic = false,
   premium = false,
+  free = false,
+  // main props
   onClick,
   blockFree,
-  blockEnterprise,
   navigate,
   yearly: year,
   setYearly: setYear,
   pricingPage,
 }: any) {
   const [yearly, onSetYear] = useState<boolean>(!!year)
+  const [selectedPlan, onSelectPlan] = useState<string>('Basic')
 
   const setYearly = (params: any) => {
     if (typeof setYear === 'function') {
@@ -105,31 +91,21 @@ export function PriceMemo({
   }
 
   const plans = useMemo(() => {
-    const basePlans = priceConfig.plans
-      .filter((item: any) => (blockFree ? item.title !== 'Free' : true))
-      .filter((item: any) =>
-        blockEnterprise ? item.title !== 'Enterprise' : true
-      )
+    const basePlans = priceConfig.plans.filter((item: any) =>
+      blockFree ? item.title !== 'Free' : true
+    )
 
     return basePlans
-  }, [blockFree, blockEnterprise])
-
-  const SubHeading = ({ children, ...extra }: any) =>
-    pricingPage ? (
-      <h3 {...extra}>{children}</h3>
-    ) : (
-      <h4 {...extra}> {children}</h4>
-    )
-
-  // feature with plan
-  const Description = ({ children, ...extra }: any) =>
-    pricingPage ? (
-      <h4 {...extra}>{children}</h4>
-    ) : (
-      <h5 {...extra}>{children}</h5>
-    )
+  }, [blockFree])
 
   const xlColumns = !onClick ? 'xl:grid-cols-4' : `xl:grid-cols-${plans.length}`
+
+  const onPlanClick = (title: string) => {
+    if (typeof onClick === 'function') {
+      onClick(title)
+    }
+    onSelectPlan(title)
+  }
 
   return (
     <>
@@ -139,100 +115,10 @@ export function PriceMemo({
             {navigate ? 'Plans for everyone' : 'Pricing'}
           </SectionHeading>
           <p className='pb-2 text-xl'>
-            Flexible plans that can be adjusted anytime.
+            Flexible plans that can be adjusted at anytime.
           </p>
         </>
       ) : null}
-      <div className='flex flex-col flex-1'>
-        <div
-          id='plans-section'
-          className={`flex flex-1 gap-2 nowrap ${xlColumns} overflow-x-auto`}
-        >
-          {plans.map(({ title, details, cost, costYearly, subTitle }: any) => {
-            const onPriceClick = onClick ? () => onClick(title) : undefined
-            const Component = onClick ? 'button' : 'div'
-            const textColor = getPrimaryColor(title)
-            const planRequired = title !== 'Free'
-
-            return (
-              <Component
-                key={title}
-                className={`min-w-[330px] rounded flex flex-1 flex-col justify-between ${highLight(
-                  title,
-                  'bg-gray-800 text-white',
-                  {
-                    premium,
-                    basic,
-                  }
-                )}  border border-[#2A2A2A] border-t-[4px] border-2 ${
-                  onClick
-                    ? `hover:border-blue-700 hover:opacity-95 active:opacity-90 active:opacity-100 active:border-[#2A2A2A]`
-                    : ''
-                } rounded`}
-                onClick={onPriceClick}
-              >
-                <>
-                  <div className='w-full'>
-                    <div
-                      className='text-left w-full flex-col text-white px-8 py-2 pb-3'
-                      style={{ backgroundColor: textColor }}
-                    >
-                      <SubHeading className='text-3xl font-bold'>
-                        <span>{title}</span>
-                        {cost ? (
-                          <span className={'text-2xl font-semibold block'}>
-                            {yearly ? costYearly : cost}
-                          </span>
-                        ) : null}
-                      </SubHeading>
-                      <div className='lg max-w-[350px] xl:max-w-[380px]'>
-                        <p className='text-xl max-w-[320px]'>{subTitle}</p>
-                      </div>
-                    </div>
-
-                    <ul className='px-4 space-y-1 py-2'>
-                      {details?.map((item: string, i: number) => (
-                        <li
-                          className={
-                            'flex gap-x-3 place-items-center text-left'
-                          }
-                          key={`${item}-${i}`}
-                          aria-hidden={!String(item).trim()}
-                        >
-                          <div
-                            className='rounded-xl text-white stroke-white'
-                            style={{
-                              backgroundColor: textColor,
-                            }}
-                          >
-                            {planRequired && i === 0 ? (
-                              <GrFormUp className='grIcon' />
-                            ) : (
-                              <GrFormCheckmark className='grIcon' />
-                            )}
-                          </div>
-                          <Description className='text-base'>
-                            {item}
-                          </Description>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                  {navigate ? (
-                    <div className='px-4 py-2 w-full'>
-                      <MainButton
-                        title={title}
-                        navigate={navigate}
-                        yearly={yearly}
-                      />
-                    </div>
-                  ) : null}
-                </>
-              </Component>
-            )
-          })}
-        </div>
-      </div>
 
       <div className='flex space-x-1 place-items-center py-4'>
         <button
@@ -245,6 +131,42 @@ export function PriceMemo({
             : 'Get 2 months free (switch to yearly)'}
         </button>
       </div>
+
+      <div className='flex flex-col flex-1'>
+        <div
+          id='plans-section'
+          className={`flex flex-1 gap-2 nowrap ${xlColumns} overflow-x-auto`}
+        >
+          {plans.map((planProps: any) => {
+            const title = planProps.title
+            const onPriceClick = () => onPlanClick(title)
+            const textColor = getPrimaryColor(title)
+
+            return (
+              <PriceCell
+                key={title}
+                textColor={textColor}
+                onClick={onPriceClick}
+                basic={basic || selectedPlan === 'Basic'}
+                free={free || selectedPlan === 'Free'}
+                premium={premium || selectedPlan === 'Premium'}
+                yearly={yearly}
+                {...planProps}
+              />
+            )
+          })}
+        </div>
+      </div>
+
+      {navigate && selectedPlan ? (
+        <div className='px-4 py-2 w-full'>
+          <MainButton
+            title={selectedPlan}
+            navigate={navigate}
+            yearly={yearly}
+          />
+        </div>
+      ) : null}
 
       <div className='font-bold text-center py-4 text-base'>
         Need more? We can easily handle thousands of scans per minute,{' '}

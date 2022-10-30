@@ -3,6 +3,7 @@ import { SectionContainer } from '../containers/section-container'
 import { HuluSvg } from '../svgs/brand-hulu'
 import { BlockChainSvg } from '../svgs/brand-blockchain'
 import { ArrowSvg } from '../svgs/brand-arrow'
+import { Header4 } from '@app/components/general/header'
 
 const props = {
   width: 231.68,
@@ -13,9 +14,9 @@ const props = {
 export function MarketingTrustBy() {
   return (
     <SectionContainer>
-      <div className='text-center pb-3 text-lg text-gray-700 font-bold'>
+      <Header4 className='text-center max-w-none'>
         Trusted by many from all over
-      </div>
+      </Header4>
       <div>
         <div className='grid grid-cols-3'>
           <div className='invert flex justify-center py-8 px-8 grayscale'>

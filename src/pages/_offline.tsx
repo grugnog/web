@@ -3,12 +3,12 @@ import { Typography } from '@material-ui/core'
 import { MarketingDrawer } from '@app/components/general'
 import { metaSetter } from '@app/utils'
 import type { PageProps } from '@app/types'
-import { PageTitle } from '@app/app/typo/page-title'
+import { Header } from '@app/components/general/header'
 
 const Offline = ({ name }: PageProps) => {
   return (
     <MarketingDrawer title={name} footerSpacing>
-      <PageTitle>Offline</PageTitle>
+      <Header>Offline</Header>
       <Typography variant='body1' component='p' gutterBottom>
         It looks like your offline. Try to refresh the page to re-establish your
         connection.

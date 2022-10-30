@@ -113,14 +113,12 @@ module.exports = withPWA({
   env,
   poweredByHeader: false,
   // reactStrictMode: true,
-  // webpack: (config) => {
-  //   config.resolve.alias = Object.assign({}, config.resolve.alias, aliases)
+  webpack: (config) => {
+    config.experiments = {
+      ...config.experiments,
+      asyncWebAssembly: true,
+    }
 
-  //   config.experiments = {
-  //     ...config.experiments,
-  //     asyncWebAssembly: true,
-  //   }
-
-  //   return config
-  // },
+    return config
+  },
 })

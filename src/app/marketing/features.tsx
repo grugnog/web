@@ -1,7 +1,5 @@
 import React from 'react'
-import { Typography } from '@material-ui/core'
 import { strings } from '@app-strings'
-import { SectionHeading } from '../typo/section-heading'
 import { Link } from '../typo/link'
 import { SectionContainer } from '../containers/section-container'
 
@@ -16,6 +14,7 @@ import {
   GrTime,
   GrTip,
 } from 'react-icons/gr'
+import { Header3 } from '@app/components/general/header'
 
 const RenderIcon = ({ index, ...props }: any): any =>
   React.createElement(
@@ -68,14 +67,10 @@ function FeatureItem({ item, index }: { item: any; index: number }) {
         <div className='flex rounded-3xl border w-10 h-10 justify-center items-center'>
           <RenderIcon index={index} fontSize='16px' />
         </div>
-        <Typography variant='h5' component='div'>
-          {item.title}
-        </Typography>
+        <div className='text-xl'>{item.title}</div>
       </div>
       <div className={'flex-1'} />
-      <Typography variant='subtitle1' component='p' gutterBottom>
-        {item.detail}
-      </Typography>
+      <p>{item.detail}</p>
     </div>
   )
 }
@@ -90,14 +85,10 @@ const FeaturesList = ({
   return (
     <SectionContainer>
       <div className={alternative ? 'pb-2' : undefined}>
-        <SectionHeading>
+        <Header3>
           {alternative ? 'Some more of the features.' : strings.headers[2][0]}
-        </SectionHeading>
-        {alternative ? null : (
-          <Typography variant='h6' component='p' gutterBottom>
-            {strings.headers[2][1]}
-          </Typography>
-        )}
+        </Header3>
+        {alternative ? null : <p className='pb-2'>{strings.headers[2][1]}</p>}
       </div>
       <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-1'>
         <>

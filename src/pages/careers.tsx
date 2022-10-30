@@ -1,8 +1,9 @@
 import { Button, Typography, List, ListItem } from '@material-ui/core'
-import { MarketingDrawer, PageTitle } from '@app/components/general'
+import { MarketingDrawer } from '@app/components/general'
 import { Box } from '@a11ywatch/ui'
 import { metaSetter } from '@app/utils'
 import type { PageProps } from '@app/types'
+import { Header } from '@app/components/general/header'
 
 const Reqs = [
   'React',
@@ -19,7 +20,7 @@ function Careers({ name }: PageProps) {
   return (
     <MarketingDrawer title={name}>
       <Box>
-        <PageTitle>Careers</PageTitle>
+        <Header>Careers</Header>
         <Typography
           variant='h4'
           component='h2'

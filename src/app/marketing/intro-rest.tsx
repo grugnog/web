@@ -5,6 +5,7 @@ import { SectionContainer } from '../containers/section-container'
 import { IntroBenches } from './intro-benches'
 import { IntroSvg } from '../../components/svgs/intro'
 import { useStyles } from '../../components/cta/intro-styles'
+import { Header } from '@app/components/general/header'
 
 interface MarketingIntro {
   checker?: boolean
@@ -16,41 +17,36 @@ function MarketingIntro({
   const classes = useStyles()
 
   return (
-    <SectionContainer>
-      <div className={`block md:flex place-items-center pb-0 gap-x-3`}>
-        <div className={'flex-1 pb-4'}>
-          <h1
-            className={`font-bold text-5xl sm:text-7xl max-w-[90vw] py-3 lg:max-w-[48vw] sm:leading-[1.1em]`}
+    <SectionContainer container>
+      <div className={'flex-1 pb-4'}>
+        <Header>
+          {checker ? (
+            'Fast and insightful web accessibility evaluations'
+          ) : (
+            <>
+              Elegant <b className='text-blue-600 underline'>accessibility</b>{' '}
+              reporting and monitoring
+            </>
+          )}
+        </Header>
+        <h2 className='text-lg py-2'>
+          {checker
+            ? 'Test your web page inclusion and vitals fast'
+            : 'Path to a pleasant diverse web experience for everyone'}
+        </h2>
+        <div className='py-3'>
+          <Button
+            component={Link}
+            className={classes.submit}
+            href={'/register'}
           >
-            {checker ? (
-              'Fast and insightful web accessibility evaluations'
-            ) : (
-              <>
-                Efficient{' '}
-                <b className='text-blue-600 underline'>accessibility</b>{' '}
-                reporting and monitoring
-              </>
-            )}
-          </h1>
-          <h2 className='text-lg py-2'>
-            {checker
-              ? 'Test your web page inclusion and vitals fast'
-              : 'Path to a pleasant diverse web experience for everyone'}
-          </h2>
-          <div className='py-3'>
-            <Button
-              component={Link}
-              className={classes.submit}
-              href={'/register'}
-            >
-              Sign up
-            </Button>
-          </div>
-          {children}
+            Sign up
+          </Button>
         </div>
-        <div className={'flex-1 place-content-center'}>
-          {checker ? <IntroSvg /> : <IntroBenches />}
-        </div>
+        {children}
+      </div>
+      <div className={'flex-1 place-content-center'}>
+        {checker ? <IntroSvg /> : <IntroBenches />}
       </div>
     </SectionContainer>
   )
