@@ -1937,17 +1937,17 @@
   dependencies:
     "@sinonjs/commons" "^1.7.0"
 
-"@stripe/react-stripe-js@^1.12.0":
-  version "1.14.0"
-  resolved "https://registry.yarnpkg.com/@stripe/react-stripe-js/-/react-stripe-js-1.14.0.tgz#c20a217f02a9f6482602ccd3a97bf8d04f3b9491"
-  integrity sha512-T8VEqZxnXOVvzu32oydTr0wR3Qa51d/gd8+cQvX3wpheunSNxlJ9R+W7oJ6dAo6LHhot35gwzZu+MR85FbVlmw==
+"@stripe/react-stripe-js@^1.14.1":
+  version "1.14.1"
+  resolved "https://registry.yarnpkg.com/@stripe/react-stripe-js/-/react-stripe-js-1.14.1.tgz#7b748fa039beb79b549b88e9389fd6148ac8c54f"
+  integrity sha512-PpXsi/NkiDGKILS6bWcM8QwBdC39U7QAT9KFopQ2CdO+kcbXv9l/e8M1saXAQC5AwdgQTTk6Zl0+//qp1faRiw==
   dependencies:
     prop-types "^15.7.2"
 
-"@stripe/stripe-js@^1.30.0":
-  version "1.32.0"
-  resolved "https://registry.npmjs.org/@stripe/stripe-js/-/stripe-js-1.32.0.tgz"
-  integrity sha512-7EvBnbBfS1aynfLRmBFcuumHNGjKxnNkO47rorFBktqDYHwo7Yw6pfDW2iqq0R8r7i7XiJEdWPvvEgQAiDrx3A==
+"@stripe/stripe-js@^1.42.0":
+  version "1.42.0"
+  resolved "https://registry.yarnpkg.com/@stripe/stripe-js/-/stripe-js-1.42.0.tgz#6074d0ac184bd70c9e5b5bc00e126719277e0128"
+  integrity sha512-ZaQpZo5PRv/mN6157OywMW4fc7FIS+eI/tS12I1gU9MdvnL8fzFktuAU/g9FyUOL22E4t9hF1tsfLQAZcQDokQ==
 
 "@surma/rollup-plugin-off-main-thread@^2.2.3":
   version "2.2.3"
@@ -2794,9 +2794,9 @@
   dependencies:
     tslib "^1.9.3"
 
-a11ywatch-web-wasm@^0.1.5:
+a11ywatch-web-wasm@0.1.5:
   version "0.1.5"
-  resolved "https://registry.npmjs.org/a11ywatch-web-wasm/-/a11ywatch-web-wasm-0.1.5.tgz"
+  resolved "https://registry.yarnpkg.com/a11ywatch-web-wasm/-/a11ywatch-web-wasm-0.1.5.tgz#0ec41c7c5e44e1050ea48b49c0be6727ff4823ba"
   integrity sha512-bYC+gHV2HO+HqYdhy8rx0wxUxkw8oSspJfcUiyTeSgMl1EMI2gaCZcwMcjbZ4ihcKfWm5ueC0YTfCf+Cy88JtQ==
 
 abab@^2.0.6:
