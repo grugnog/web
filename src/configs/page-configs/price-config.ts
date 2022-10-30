@@ -55,21 +55,6 @@ const plans = [
     cost: '$20/month',
     costYearly: '$16/month',
   },
-  {
-    title: 'Enterprise',
-    subTitle: 'Custom workloads and integrations at hand',
-    details: [
-      'Everything in Premium',
-      'Custom source hostnames limit',
-      'Custom site-wide scan limit',
-      'Custom contracts & invoicing',
-      'Custom API usage limits',
-      '24×7 enterprise support',
-      'Code audits & professional services',
-    ],
-    cost: 'Contact Us',
-    costYearly: 'Contact Us',
-  },
 ]
 
 export const priceConfig = {

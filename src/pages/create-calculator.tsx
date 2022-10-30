@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import { Typography } from '@material-ui/core'
 import { MarketingDrawer, PageTitle } from '@app/components/general'
 import { metaSetter } from '@app/utils'
 import type { PageProps } from '@app/types'
@@ -72,9 +71,13 @@ function CreateCalculator({ name }: PageProps) {
   return (
     <MarketingDrawer title={name} footerSpacing>
       <PageTitle>Calculate the plan cost</PageTitle>
-      <Typography variant='subtitle1' component='p'>
-        See estimates on enterprise plans at the basic entry of scale.
-      </Typography>
+      <p>See estimates on enterprise plans at the basic entry of scale.</p>
+      <div>
+        <p>
+          This calculator is no longer valid as our plans transitioned out of
+          feature limiting.
+        </p>
+      </div>
       <div className='space-y-4 py-2'>
         <div className='py-4 space-y-4'>
           <div className='space-y-2'>

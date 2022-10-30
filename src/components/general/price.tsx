@@ -1,4 +1,4 @@
-import { memo, useMemo, useState } from 'react'
+import { useMemo, useState } from 'react'
 import { Button } from '@material-ui/core'
 import { SectionContainer } from '@app/components/general'
 import { priceConfig } from '@app/configs'
@@ -9,8 +9,8 @@ import { Link } from './link'
 
 const getStyles = (inactive: boolean) =>
   inactive
-    ? 'relative w-1/3 px-2 border rounded-md py-2 text-sm font-medium text-gray-700 whitespace-nowrap focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:z-10 sm:w-auto sm:px-8 hover:shadow-xl'
-    : 'relative w-1/3 px-2 rounded-md shadow-sm py-2 text-sm font-medium text-white bg-[#2A2A2A] whitespace-nowrap focus:outline-none focus:ring-2 focus:ring-gray-500 focus:z-10 sm:w-auto sm:px-8'
+    ? 'relative w-1/3 px-2 border rounded-2xl py-2 text-sm font-medium text-gray-700 whitespace-nowrap focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:z-10 sm:w-auto sm:px-8 hover:shadow-xl'
+    : 'relative w-1/3 px-2 rounded-2xl shadow-sm py-2 text-sm font-medium text-white bg-[#2A2A2A] whitespace-nowrap focus:outline-none focus:ring-2 focus:ring-gray-500 focus:z-10 sm:w-auto sm:px-8'
 
 const highLight = (
   name: string = '',
@@ -80,20 +80,7 @@ function MainButton({
   return null
 }
 
-const openMail = () => {
-  if (typeof window !== 'undefined') {
-    const mailLink =
-      'mailto:support@a11ywatch.com' +
-      '?subject=' +
-      encodeURIComponent('Enterprise Plan') +
-      '&body=' +
-      'I would like to find out more about the enterprise plan.'
-
-    window.location.href = mailLink
-  }
-}
-
-function PriceWrapper({
+export function PriceMemo({
   basic = false,
   premium = false,
   onClick,
@@ -111,6 +98,10 @@ function PriceWrapper({
       setYear(params)
     }
     onSetYear(params)
+  }
+
+  const onSetYearlyEvent = () => {
+    setYearly((x: boolean) => !x)
   }
 
   const plans = useMemo(() => {
@@ -152,50 +143,15 @@ function PriceWrapper({
           </p>
         </>
       ) : null}
-      <div className='flex space-x-1 place-items-center pb-2'>
-        <button
-          type='button'
-          onClick={() => {
-            setYearly(false)
-          }}
-          className={getStyles(yearly)}
-        >
-          Monthly billing
-        </button>
-        <button
-          type='button'
-          onClick={() => {
-            setYearly(true)
-          }}
-          className={getStyles(!yearly)}
-        >
-          Yearly billing
-        </button>
-        <button
-          type='button'
-          className='px-2 py-1 rounded bg-yellow-400 font-bold truncate'
-          onClick={() => {
-            setYearly(true)
-          }}
-        >
-          Save +15%
-        </button>
-      </div>
       <div className='flex flex-col flex-1'>
         <div
           id='plans-section'
           className={`flex flex-1 gap-2 nowrap ${xlColumns} overflow-x-auto`}
         >
           {plans.map(({ title, details, cost, costYearly, subTitle }: any) => {
-            const clickEvent =
-              title === 'Enterprise' && !navigate ? openMail : onClick
-            const onPriceClick = clickEvent
-              ? () => clickEvent(title)
-              : undefined
-
-            const Component = clickEvent ? 'button' : 'div'
+            const onPriceClick = onClick ? () => onClick(title) : undefined
+            const Component = onClick ? 'button' : 'div'
             const textColor = getPrimaryColor(title)
-
             const planRequired = title !== 'Free'
 
             return (
@@ -209,7 +165,7 @@ function PriceWrapper({
                     basic,
                   }
                 )}  border border-[#2A2A2A] border-t-[4px] border-2 ${
-                  clickEvent
+                  onClick
                     ? `hover:border-blue-700 hover:opacity-95 active:opacity-90 active:opacity-100 active:border-[#2A2A2A]`
                     : ''
                 } rounded`}
@@ -277,18 +233,34 @@ function PriceWrapper({
           })}
         </div>
       </div>
+
+      <div className='flex space-x-1 place-items-center py-4'>
+        <button
+          type='button'
+          onClick={onSetYearlyEvent}
+          className={getStyles(false)}
+        >
+          {yearly
+            ? 'Switch back to monthly pricing plans'
+            : 'Get 2 months free (switch to yearly)'}
+        </button>
+      </div>
+
+      <div className='font-bold text-center py-4 text-base'>
+        Need more? We can easily handle thousands of scans per minute,{' '}
+        <a href='mailto:support@a11ywatch.com' className='underline'>
+          get in touch
+        </a>{' '}
+        for a quote.
+      </div>
     </>
   )
 }
 
-export const PriceMemo = memo(PriceWrapper)
-
-export const PriceContainer = (props: any) => {
+export const Price = (props: any) => {
   return (
     <SectionContainer>
       <PriceMemo {...props} />
     </SectionContainer>
   )
 }
-
-export const Price = memo(PriceContainer)

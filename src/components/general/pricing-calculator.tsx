@@ -4,7 +4,6 @@ import { GrMoney } from 'react-icons/gr'
 import { Link } from './link'
 
 export const PricingCalculator: FC = () => {
-  // TODO: replace with localhost domain name with port
   return (
     <Link
       href={dev ? '/create-calculator' : `${DOMAIN_NAME}/create-calculator`}
