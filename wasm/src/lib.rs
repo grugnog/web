@@ -1,13 +1,15 @@
 extern crate serde;
 extern crate console_error_panic_hook;
+extern crate serde_wasm_bindgen;
 
 /// base generic domain structures.
 pub mod structures;
 use hashbrown::HashMap;
 use wasm_bindgen::prelude::*;
 use crate::structures::website::{PageIssue};
+use serde::{Serialize, Deserialize};
 
-#[derive(Default)]
+#[derive(Default, Serialize, Deserialize)]
 #[wasm_bindgen]
 pub struct Feed {
     /// is the feed open?
@@ -27,21 +29,21 @@ impl Feed {
     }
     /// get a single website from the hashmap of hashmaps
     pub fn get_website(&self, website: JsValue) -> JsValue {
-        let website: PageIssue = website.into_serde().unwrap();
+        let website: PageIssue = serde_wasm_bindgen::from_value(website).unwrap();
         let domain = website.domain;
 
         if self.data.contains_key(&domain) {
             let value = self.data.get(&domain).unwrap();
             let value = value.get(&website.page_url).unwrap();
 
-            JsValue::from_serde(&value).unwrap()
+            serde_wasm_bindgen::to_value(&value).unwrap()
         } else {
-           JsValue::from_serde(&false).unwrap()
+            serde_wasm_bindgen::to_value(&false).unwrap()
         }
     }
     /// insert a website into hashmap
     pub fn insert_website(&mut self, website: JsValue) {
-        let website: PageIssue = website.into_serde().unwrap();
+        let website: PageIssue = serde_wasm_bindgen::from_value(website).unwrap();
         let mut page = HashMap::new();
 
         let domain = website.domain.clone();
@@ -61,7 +63,7 @@ impl Feed {
     }
     /// get data
     pub fn get_data(&mut self) -> JsValue {
-        JsValue::from_serde(&self.data).unwrap()
+        serde_wasm_bindgen::to_value(&self.data).unwrap()
     }
     /// get website collections list into vector
     pub fn get_data_item(&self, search: String, all: bool) -> JsValue {
@@ -69,7 +71,7 @@ impl Feed {
             let items = &self.data.get(&search).unwrap();
             let items = items.values().cloned().collect::<Vec<PageIssue>>();
 
-            JsValue::from_serde(&items).unwrap()
+            serde_wasm_bindgen::to_value(&items).unwrap()
         } else if all {
             let mut items = HashMap::new();
             for (key, value) in self.data.clone().iter() {
@@ -80,10 +82,10 @@ impl Feed {
             };
             let items = items.values().cloned().collect::<Vec<PageIssue>>();
 
-            JsValue::from_serde(&items).unwrap()
+            serde_wasm_bindgen::to_value(&items).unwrap()
         } else {
             let items: Vec<PageIssue> = Vec::new();
-            JsValue::from_serde(&items).unwrap()
+            serde_wasm_bindgen::to_value(&items).unwrap()
         }
     }
     /// clear data from feed 

@@ -1,8 +1,8 @@
 import { memo, ReactNode, useContext, useEffect, useState } from 'react'
 import { createContext } from 'react'
-import type { Feed } from 'a11ywatch-web-wasm'
+import type { Feed } from 'wasm'
 
-type AppWasm = typeof import('a11ywatch-web-wasm')
+type AppWasm = typeof import('wasm')
 
 const initial: WASMContext = {}
 
@@ -18,7 +18,7 @@ export const WASMContextProviderWrapper: React.FC<WASMContextProviderProps> = ({
     if (load && state && !state?.wasm) {
       try {
         ;(async () => {
-          const wasm = await import('a11ywatch-web-wasm')
+          const wasm = await import('wasm')
           const feed = wasm.Feed.new() // init top level feed
 
           setState({ wasm, feed })
