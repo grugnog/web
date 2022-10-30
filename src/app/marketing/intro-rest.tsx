@@ -20,14 +20,15 @@ function MarketingIntro({
       <div className={`block md:flex place-items-center pb-0 gap-x-3`}>
         <div className={'flex-1 pb-4'}>
           <h1
-            className={`leading-[1.1em] font-bold text-5xl sm:text-7xl max-w-[90vw] py-3 lg:max-w-[48vw]`}
+            className={`font-bold text-5xl sm:text-7xl max-w-[90vw] py-3 lg:max-w-[48vw] sm:leading-[1.1em]`}
           >
             {checker ? (
               'Fast and insightful web accessibility evaluations'
             ) : (
               <>
-                Web <b className='text-blue-600 underline'>accessibility</b>{' '}
-                without limits
+                Efficient{' '}
+                <b className='text-blue-600 underline'>accessibility</b>{' '}
+                reporting and monitoring
               </>
             )}
           </h1>
