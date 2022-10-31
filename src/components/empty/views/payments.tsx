@@ -1,6 +1,5 @@
 import React from 'react'
 import { SimpleListItemSkeleton } from '@app/components/placeholders'
-import { List } from '@material-ui/core'
 
 interface EmptyPayments {
   subTitle: string
@@ -8,12 +7,12 @@ interface EmptyPayments {
 
 export const EmptyPayments = ({ subTitle }: EmptyPayments) => {
   return (
-    <div>
+    <div className='flex-1 flex flex-col'>
       <p className='text-2xl font-bold'>{subTitle}</p>
-      <List>
+      <ul className='list-none'>
         <SimpleListItemSkeleton />
         <SimpleListItemSkeleton />
-      </List>
+      </ul>
     </div>
   )
 }

@@ -28,6 +28,7 @@ import { metaSetter } from '@app/utils'
 import { useProfileStyles as useStyles } from '@app/styles/pages/profile'
 import type { PageProps } from '@app/types'
 import { useBillingDisplay } from '@app/data/formatters'
+import { roleMap } from '@app/utils/role-map'
 
 interface PasswordState {
   newPassword?: string
@@ -196,9 +197,7 @@ const Profile: FC<PageProps> = ({ name }) => {
             <ProfileCell
               title={'Account Type'}
               skeletonLoad={!user && loading}
-              subTitle={
-                !user?.role ? 'Free' : user?.role === 1 ? 'Basic' : 'Premium'
-              }
+              subTitle={roleMap(user?.role)}
               className={classes.email}
             />
             <ProfileCell

@@ -5,7 +5,7 @@ import { useStripe, useElements, CardElement } from '@stripe/react-stripe-js'
 
 interface Props {
   onToken(token: any): any
-  basic: boolean
+  plan?: string
   price: number
   disabled: boolean
 }
@@ -20,7 +20,7 @@ const style = {
   },
 }
 
-export const CheckoutForm = ({ onToken, basic, price, disabled }: Props) => {
+export const CheckoutForm = ({ onToken, plan, price, disabled }: Props) => {
   const stripe = useStripe()
   const elements = useElements()
 
@@ -76,7 +76,7 @@ export const CheckoutForm = ({ onToken, basic, price, disabled }: Props) => {
             minWidth: 160,
           }}
         >
-          Start {basic ? 'Basic' : 'Premium'}
+          Start {plan}
         </Button>
       </div>
     </form>

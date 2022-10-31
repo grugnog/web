@@ -1,7 +1,5 @@
+import { PropsWithChildren } from 'react'
 import { GrFormCheckmark } from 'react-icons/gr'
-
-const highLight = (highLightStyles: any, selected: boolean) =>
-  selected ? highLightStyles : ''
 
 const SubHeading = ({ children, pricingPage, ...extra }: any) =>
   pricingPage ? <h3 {...extra}>{children}</h3> : <h4 {...extra}> {children}</h4>
@@ -10,9 +8,7 @@ const SubHeading = ({ children, pricingPage, ...extra }: any) =>
 const Description = ({ children, pricingPage, ...extra }: any) =>
   pricingPage ? <h4 {...extra}>{children}</h4> : <h5 {...extra}>{children}</h5>
 
-export function PriceCell({
-  selected,
-  onClick,
+export const PriceFeat = ({
   details,
   pricingPage,
   textColor,
@@ -21,43 +17,32 @@ export function PriceCell({
   subTitle,
   costYearly,
   cost,
-  selectHighPlans,
-}: any) {
+  children,
+}: PropsWithChildren<any>) => {
   return (
-    <button
-      className={`md:min-w-[340px] w-full rounded flex flex-1 flex-col justify-between border border-[#2A2A2A] ${highLight(
-        'border-blue-400 text-gray-900',
-        selected
-      )} border-t-[4px] border-2 ${
-        onClick
-          ? `hover:border-blue-700 hover:opacity-95 active:opacity-90 active:opacity-100 active:border-[#2A2A2A]`
-          : ''
-      } rounded`}
-      onClick={onClick}
+    <div
+      className={`w-full flex-1 md:w-auto min-w-[330px] rounded flex flex-col justify-between text-gray-800 bg-white border border-[#2A2A2A] border-t-[4px] border-2 rounded`}
     >
       <>
         <div className='w-full'>
           <div
-            className={`text-left w-full flex-col text-white px-8 py-1 ${
-              selectHighPlans
-                ? 'bg-gradient-radial text-gray-800'
-                : `bg-[${textColor}]`
-            }`}
+            className='text-left w-full flex-col text-gray-800 px-8 py-1 border-b'
+            style={{ backgroundColor: textColor }}
           >
             <SubHeading
-              className='text-2xl font-bold w-full'
+              className='text-3xl font-bold'
               pricingPage={pricingPage}
             >
               <span>{title}</span>
               {cost ? (
-                <span className={'text-xl font-semibold block'}>
+                <span className={'text-2xl font-semibold block'}>
                   {yearly ? costYearly : cost}
                 </span>
               ) : null}
             </SubHeading>
             {subTitle ? (
-              <div className='max-w-[350px] xl:max-w-[380px]'>
-                <p className='text-lg max-w-[325px]'>{subTitle}</p>
+              <div className='lg max-w-[350px] xl:max-w-[380px]'>
+                <p className='text-xl max-w-[320px]'>{subTitle}</p>
               </div>
             ) : null}
           </div>
@@ -69,12 +54,7 @@ export function PriceCell({
                 key={`${item}-${i}`}
                 aria-hidden={!item}
               >
-                <div
-                  className='rounded-xl text-white stroke-white'
-                  style={{
-                    backgroundColor: textColor,
-                  }}
-                >
+                <div className='rounded-xl text-white stroke-white bg-gray-800'>
                   <GrFormCheckmark className='grIcon' />
                 </div>
                 <Description className='text-base' pricingPage={pricingPage}>
@@ -83,8 +63,10 @@ export function PriceCell({
               </li>
             ))}
           </ul>
+
+          {children}
         </div>
       </>
-    </button>
+    </div>
   )
 }

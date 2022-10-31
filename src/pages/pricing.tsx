@@ -4,10 +4,11 @@ import type { PageProps } from '@app/types'
 import { Partners } from '@app/app/marketing/partners'
 import { SectionContainer } from '@app/app/containers/section-container'
 import { Header } from '@app/components/general/header'
+import { PricingCalculator } from '@app/components/general/pricing-calculator'
 
 function Pricing({ name }: PageProps) {
   return (
-    <MarketingDrawer title={name} maxWidth={'xl'}>
+    <MarketingDrawer title={name}>
       <SectionContainer container block>
         <Header>Maintainable and easy pricing</Header>
         <h2 className={'text-base pb-2'}>
@@ -31,6 +32,7 @@ function Pricing({ name }: PageProps) {
         </div>
 
         <Partners />
+        <PricingCalculator />
       </SectionContainer>
     </MarketingDrawer>
   )

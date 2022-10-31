@@ -1,10 +1,4 @@
-import {
-  useEffect,
-  FunctionComponent,
-  Fragment,
-  useState,
-  SyntheticEvent,
-} from 'react'
+import { FunctionComponent, Fragment, useState, SyntheticEvent } from 'react'
 import { GoogleLoginButton } from '../google-login'
 import { useRouter } from 'next/router'
 import {
@@ -82,36 +76,34 @@ const SignOnFormWrapper: FunctionComponent<SignOnProps> = ({
   const router = useRouter()
   const classes = useStyles()
 
-  const [signOnMutation, { data, loading }] = useMutation(
+  const [signOnMutation, { loading }] = useMutation(
     loginView ? LOGIN : REGISTER
   )
   const [email, setEmail] = useState<string>('')
   const [password, setPassword] = useState<string>('')
 
-  useEffect(() => {
-    if (data) {
-      const user = data[loginView ? 'login' : 'register']
-      if (user) {
-        try {
-          const plan = String(router?.query?.plan).toLocaleLowerCase() as string
-          const urlRoute = ['basic', 'premium'].includes(plan)
-            ? `/payments?plan=${plan}`
-            : '/dashboard'
+  const onSuccessAuth = async (data: any) => {
+    const user = data && data[loginView ? 'login' : 'register']
+    if (user) {
+      UserManager.setUser(user)
 
-          UserManager.setUser(user)
+      const p = router?.query?.plan
 
-          window.location.pathname = urlRoute
-        } catch (e) {
-          console.error(e)
-        }
+      const plan = p && (String(p).toLocaleLowerCase() as string)
+      const urlRoute =
+        plan && plan !== 'free'
+          ? `/payments?plan=${router?.query?.plan}`
+          : '/dashboard'
 
-        // location.reload()
-      }
+      await router.push(urlRoute)
     }
-  }, [data, router, loginView])
+  }
 
   const submit = async (e: any) => {
     e?.preventDefault()
+
+    let data
+
     if (!password || !email) {
       AppManager.toggleSnack(
         true,
@@ -122,30 +114,42 @@ const SignOnFormWrapper: FunctionComponent<SignOnProps> = ({
       )
     } else {
       try {
-        await signOnMutation({
+        const res = await signOnMutation({
           variables: {
             email,
             password,
           },
         })
+
+        if (res) {
+          data = res.data
+        }
       } catch (e) {
         console.error(e)
       }
+
+      await onSuccessAuth(data)
     }
   }
 
   const onGoogleAuth = async (response: any) => {
+    let data
     try {
-      await signOnMutation({
+      const res = await signOnMutation({
         variables: {
           email: response?.profileObj?.email,
           googleId: response?.googleId,
           password: '',
         },
       })
+      if (res) {
+        data = res.data
+      }
     } catch (e) {
       console.error(e)
     }
+
+    await onSuccessAuth(data)
   }
 
   const onChangeEmailEvent = (

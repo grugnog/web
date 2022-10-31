@@ -59,6 +59,10 @@ const theme = {
     content: {
       before: 'before',
     },
+    backgroundImage: {
+      'gradient-radial':
+        'radial-gradient(circle at 33.918961px 222.257324px, rgba(10, 22, 22, 0.06), rgba(0, 0, 0, 0.1))',
+    },
   },
 }
 

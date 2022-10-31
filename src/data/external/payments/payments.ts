@@ -36,7 +36,7 @@ export const usePayments = () => {
   }, [user, newUser])
 
   useMemo(() => {
-    if (newUser?.role) {
+    if (newUser && newUser?.role) {
       UserManager.setJwt(newUser.jwt)
     }
   }, [newUser])

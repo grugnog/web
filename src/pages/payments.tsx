@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react'
 import { getDate } from 'date-fns'
 import {
-  Container,
   Button,
   Dialog,
   DialogActions,
@@ -10,60 +9,58 @@ import {
   DialogTitle,
 } from '@material-ui/core'
 import { useRouter } from 'next/router'
-import { Box } from '@a11ywatch/ui'
 
 import { CheckoutForm } from '@app/components/stripe/checkout'
 import { StripeBadges } from '@app/components/stripe/badges'
-import { NavBar, PriceMemo, PageTitle } from '@app/components/general'
-import { usePayments } from '@app/data'
+import { NavBar, PriceMemo } from '@app/components/general'
 import { metaSetter } from '@app/utils'
-import { UserManager, AppManager } from '@app/managers'
 import { EmptyPayments } from '@app/components/empty'
 import { useBillingDisplay } from '@app/data/formatters'
 import type { PageProps } from '@app/types'
 import { StripProvider } from '@app/components/stripe/stripe-provider'
+import { Header } from '@app/components/general/header'
+import { StateLessDrawer } from '@app/components/general/drawers'
+import { SectionContainer } from '@app/app/containers/section-container'
+import { priceHandler, getSelectedIndex } from '@app/utils/price-handler'
+import { usePaymentsHook } from '@app/data/external/payments/use-payments'
+import { roleMap } from '@app/utils/role-map'
 
 interface PaymentProps extends PageProps {
   hideTitle?: boolean
 }
 
-// determine what plan was used if routed via home
-type Plan = {
-  basic: boolean
-  premium: boolean
+// determine the page title
+const renderPaymentTitle = (renderPayMentBoxes?: boolean) => {
+  return !renderPayMentBoxes
+    ? 'Account Info'
+    : 'Get the right plan for you. Upgrade or downgrade at any time.'
 }
 
 // move plan and yearset SSR
 function Payments({ hideTitle = false, name }: PaymentProps) {
   const router = useRouter()
-  const { data, loading, addSubscription, cancelSubscription } = usePayments()
-  const [state, setState] = useState<Plan>({
-    basic: true,
-    premium: false,
-  })
+  const { data, loading, onCancelConfirm, onToken } = usePaymentsHook()
+  const [state, setState] = useState<string>('L1')
   const { billingtitle } = useBillingDisplay(data?.invoice)
+
   const [yearly, setYearly] = useState<boolean>(false)
   const [open, setOpen] = useState<boolean>(false)
 
   // router plan query
-  const plan = String(router?.query?.plan).toLocaleLowerCase() as string
-  const yearSet = String(router?.query?.yearly)
+  const plan = (router?.query?.plan as string) ?? ''
+  const yearSet = (router?.query?.yearly as string) ?? ''
 
   useEffect(() => {
-    if (yearSet !== 'undefined') {
+    if (yearSet) {
       setYearly(true)
     }
-    if (plan !== 'undefined') {
-      setState({ basic: false, premium: false, [plan]: plan })
+    if (plan) {
+      setState(plan)
     }
   }, [yearSet, plan])
 
   const handleChange = (newState: any) => {
-    setState({
-      basic: newState === 'Basic',
-      premium: newState === 'Premium',
-    })
-
+    setState(newState)
     // todo remove for ref
     const inputElement = document.querySelector('input')
 
@@ -73,35 +70,8 @@ function Payments({ hideTitle = false, name }: PaymentProps) {
   }
 
   // on valid payment handling re-set current token
-  const onToken = async (token: any) => {
-    try {
-      if (token) {
-        AppManager.toggleSnack(true, 'Processing payment...', 'success')
-
-        const res = await addSubscription({
-          variables: {
-            stripeToken: JSON.stringify({
-              ...token,
-              plan: state.premium ? 1 : 0,
-            }),
-            email: token.email,
-            yearly,
-          },
-        })
-
-        const jwt = res?.data?.addPaymentSubscription?.user.jwt
-
-        if (jwt) {
-          UserManager.setJwt(jwt)
-        }
-
-        AppManager.toggleSnack(true, 'Payment confirmed!', 'success')
-
-        await router.push('/')
-      }
-    } catch (e) {
-      console.error(e)
-    }
+  const onTokenEvent = async (token: any) => {
+    await onToken(token, { plan: state, yearly })
   }
 
   // open payment modal
@@ -110,133 +80,88 @@ function Payments({ hideTitle = false, name }: PaymentProps) {
   }
 
   // cancel the payment subscription
-  const cancelConfirm = async () => {
-    let res
-    try {
-      res = await cancelSubscription({
-        variables: {
-          email: data?.email,
-        },
-      })
-    } catch (e) {
-      console.error(e)
-    }
-
-    if (res) {
-      AppManager.toggleSnack(true, 'Payment cancelled!', 'success')
-      setOpen(false)
-
-      const jwt = res?.data?.cancelSubscription?.user.jwt
-
-      if (jwt) {
-        UserManager.setJwt(jwt)
-      }
-
-      try {
-        await router.push('/')
-      } catch (e) {
-        console.error(e)
-      }
-    } else {
-      AppManager.toggleSnack(
-        true,
-        'An Error occured trying to cancel. Please contact support.',
-        'error'
-      )
-    }
+  const onCancelEvent = async () => {
+    setOpen(false)
+    await onCancelConfirm()
   }
 
   const renderPayMentBoxes = data?.role === 0 && !data.activeSubscription
-
-  const subTitle = !renderPayMentBoxes
-    ? 'Account Info'
-    : 'Get the right plan for you. Upgrade or downgrade at any time.'
-
+  const subTitle = renderPaymentTitle(renderPayMentBoxes)
   const paymentSubscription = data?.paymentSubscription
   const nextPaymentDay =
     paymentSubscription?.current_period_end &&
     getDate(new Date(Number(paymentSubscription.current_period_end * 1000)))
 
-  const price = state.basic ? 999 : 1999
+  const price = priceHandler(state)
 
-  const priceMultiplyier = yearly ? 9 : ''
+  const priceMultiplyier = yearly ? 0 : ''
   const paymentDate = `Next payment will occur on ${billingtitle}`
-
-  const role = data?.role
-
-  // TODO: remove role block
-  const superMode = !data?.activeSubscription && role === 3
 
   return (
     <>
       <NavBar title={name} backButton notitle />
-      <Container>
-        <Box className='py-2 md:flex md:flex-col content-center items-center'>
-          {hideTitle ? null : <PageTitle>Payment Details</PageTitle>}
-          <div className='max-w-[1200px] py-5'>
-            {loading && !data ? (
-              <EmptyPayments subTitle={subTitle} />
-            ) : (
-              <>
-                <p className='text-xl pb-2'>{subTitle}</p>
-                {superMode ? null : (
-                  <div>
-                    {renderPayMentBoxes ? (
-                      <div className='space-y-2 py-1'>
-                        <PriceMemo
-                          priceOnly
-                          basic={state.basic || role === 1}
-                          premium={state.premium || role === 2}
-                          onClick={handleChange}
-                          setYearly={setYearly}
-                          yearly={yearly}
-                          blockFree
-                          blockEnterprise
+      <StateLessDrawer>
+        <SectionContainer container block>
+          {hideTitle ? null : <Header>Payments</Header>}
+          {loading && !data ? (
+            <EmptyPayments subTitle={subTitle} />
+          ) : (
+            <>
+              <p className='text-xl pb-2'>{subTitle}</p>
+              {renderPayMentBoxes ? (
+                <PriceMemo
+                  priceOnly
+                  onClick={handleChange}
+                  setYearly={setYearly}
+                  yearly={yearly}
+                  selectedPlanIndex={getSelectedIndex(plan)}
+                  highPlan={
+                    (plan && plan[0] === 'H') || (plan && plan[0] === 'h')
+                  }
+                />
+              ) : null}
+              <div>
+                {renderPayMentBoxes ? (
+                  <div className='space-y-2 py-1'>
+                    <div className='sm:w-full place-content-center place-items-center min-w-[350px] align-center'>
+                      <StripProvider>
+                        <CheckoutForm
+                          onToken={onTokenEvent}
+                          plan={state}
+                          price={Number(`${price}${priceMultiplyier}`)}
+                          disabled={Boolean(!state)}
                         />
-                        <div className='sm:w-full place-content-center place-items-center min-w-[350px] align-center'>
-                          <StripProvider>
-                            <CheckoutForm
-                              onToken={onToken}
-                              basic={state.basic}
-                              price={Number(`${price}${priceMultiplyier}`)}
-                              disabled={Boolean(!state.basic && !state.premium)}
-                            />
-                          </StripProvider>
-                        </div>
-                        <StripeBadges />
-                      </div>
-                    ) : (
-                      <div>
-                        {nextPaymentDay ? (
-                          <p className='text-xl'> {paymentDate}</p>
-                        ) : null}
-                        <p className='text-xl font-bold'>Account Type</p>
-                        <p className='text-xl capitalize'>
-                          {superMode
-                            ? 'Enterprise'
-                            : `${paymentSubscription?.plan?.nickname} - $${
-                                paymentSubscription?.plan?.amount / 100 || ''
-                              }`}
-                        </p>
-                      </div>
-                    )}
-                    {data?.activeSubscription ? (
-                      <div className='py-20'>
-                        <Button
-                          onClick={handleModal(true)}
-                          variant={'outlined'}
-                        >
-                          Cancel Subscription
-                        </Button>
-                      </div>
+                      </StripProvider>
+                    </div>
+                    <StripeBadges />
+                  </div>
+                ) : (
+                  <div>
+                    {nextPaymentDay ? (
+                      <p className='text-xl'> {paymentDate}</p>
                     ) : null}
+                    <p className='text-xl font-bold'>Account Type</p>
+                    <p className='text-xl capitalize'>
+                      {`${
+                        paymentSubscription?.plan?.nickname ??
+                        roleMap(data?.role)
+                      } - $${paymentSubscription?.plan?.amount / 100 || ''}`}
+                    </p>
+                    <p>{yearly ? 'Yearly' : 'Monthly'}</p>
                   </div>
                 )}
-              </>
-            )}
-          </div>
-        </Box>
-      </Container>
+                {data?.activeSubscription ? (
+                  <div className='py-20'>
+                    <Button onClick={handleModal(true)} variant={'outlined'}>
+                      Cancel Subscription
+                    </Button>
+                  </div>
+                ) : null}
+              </div>
+            </>
+          )}
+        </SectionContainer>
+      </StateLessDrawer>
       <Dialog
         open={open}
         onClose={handleModal(false)}
@@ -248,15 +173,15 @@ function Payments({ hideTitle = false, name }: PaymentProps) {
         </DialogTitle>
         <DialogContent>
           <DialogContentText id='alert-dialog-description'>
-            Confirm cancel for {data?.role === 1 ? 'basic' : 'premium'}{' '}
-            subscription. You can always re-sub later on.
+            Confirm cancel for {roleMap(data?.role)} subscription. You can
+            always re-sub later on.
           </DialogContentText>
         </DialogContent>
         <DialogActions>
           <Button onClick={handleModal(false)} variant='contained'>
             No
           </Button>
-          <Button onClick={cancelConfirm}>Confirm Cancel</Button>
+          <Button onClick={onCancelEvent}>Confirm Cancel</Button>
         </DialogActions>
       </Dialog>
     </>

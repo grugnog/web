@@ -1,7 +1,7 @@
 import { ReactElement } from 'react'
 import { SectionContainer } from '../containers/section-container'
 import { Link } from '../typo/link'
-import { Header3 } from '@app/components/general/header'
+import { Header3, Header4 } from '@app/components/general/header'
 
 const infoDetails = [
   {
@@ -68,9 +68,7 @@ export function MarketingCli(): ReactElement<any, any> | null {
                 (detail: { title: string; subTitle: string }, i: number) => {
                   return (
                     <li key={i}>
-                      <div className={'text-2xl font-semibold'}>
-                        {detail.title}
-                      </div>
+                      <Header4>{detail.title}</Header4>
                       <div className={'text-lg'}>{detail.subTitle}</div>
                     </li>
                   )

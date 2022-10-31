@@ -5,10 +5,9 @@ import Head from 'next/head'
 import { MarketingShortTitle } from '@app/components/marketing'
 import type { GetServerSideProps } from 'next'
 
-type Plan = 'Free' | 'Basic' | 'Premium' | string
 interface RegisterParams {
   yearly?: boolean
-  plan?: Plan | Plan[]
+  plan?: string
 }
 
 const getTitle = (params?: RegisterParams) => {
@@ -27,6 +26,12 @@ const getTitle = (params?: RegisterParams) => {
   }
   if (plan === 'premium') {
     return `${registerStart} premium ${lengthText}`
+  }
+
+  if (plan) {
+    const tier = plan[0] === 'H' ? 'High tier' : 'Normal tier'
+
+    return `${tier} ${plan} ${lengthText}`
   }
 
   return registerStart
@@ -50,6 +55,12 @@ const getDescription = (params?: RegisterParams) => {
   }
   if (plan === 'premium') {
     return `${registerStart} with the premium ${lengthText}.`
+  }
+
+  if (plan) {
+    const tier = plan[0] === 'H' ? 'High tier' : 'Normal tier'
+
+    return `${registerStart} with ${tier} ${plan} ${lengthText}`
   }
 
   return `${registerStart}.`

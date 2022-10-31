@@ -16,7 +16,7 @@ function AuthRedirect(props: { email: string; id: number }) {
     async ({ email, id }: { email: string; id: number }) => {
       try {
         if (email && id) {
-          const data = await signOnMutation({
+          const { data } = await signOnMutation({
             variables: {
               email,
               githubId: id,
@@ -24,7 +24,7 @@ function AuthRedirect(props: { email: string; id: number }) {
             },
           })
 
-          const authValue = data?.data?.register ?? data?.data?.login
+          const authValue = data?.register ?? data?.login
 
           authValue && UserManager.setUser(authValue)
         } else {

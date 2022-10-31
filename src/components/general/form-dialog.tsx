@@ -280,7 +280,6 @@ export function FormDialogWrapper({
         open={open}
         onClose={handleClose}
         aria-labelledby='form-dialog-title'
-        maxWidth={'xl'}
       >
         <div className={classes.topRow}>
           <DialogTitle id='form-dialog-title' className={classes.topTitle}>

@@ -84,7 +84,6 @@ export function DrawerComponent({
   const { open } = issueFeed
 
   const user = dataSourceMap?.user as any
-
   const sidePannelStyles = open ? `${classes.sidePanelPadding}` : ''
 
   return (

@@ -103,7 +103,7 @@ const FeaturesList = ({
       </div>
       {all ? null : (
         <div className='flex py-5 place-content-center text-center underline'>
-          <Link href={'/features'}>Discover all features</Link>
+          <Link href={'/features'}>Discover more features</Link>
         </div>
       )}
     </SectionContainer>

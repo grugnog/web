@@ -30,7 +30,7 @@ export const Header3: FC<PropsWithChildren> = ({ children }) => {
   )
 }
 
-export const Header4: FC<PropsWithChildren<{ className: string }>> = ({
+export const Header4: FC<PropsWithChildren<{ className?: string }>> = ({
   children,
   className,
 }) => {

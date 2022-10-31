@@ -5,7 +5,6 @@ import { useSearch } from '@app/data'
 import { GrClose } from 'react-icons/gr'
 import { ReportView } from '@app/components/ada'
 import { useRestWebsiteContext } from '../providers/rest/rest-website'
-import { ErrorBoundary } from '../general'
 
 interface BottomDrawer {
   website?: any
@@ -24,19 +23,17 @@ export function BottomDrawer({
 }: BottomDrawer) {
   return (
     <Drawer anchor='bottom' open={bottomModal} onClose={closeFeed}>
-      <ErrorBoundary>
-        <ReportView
-          closeButton={
-            <IconButton aria-label='close modal' onClick={closeFeed}>
-              <GrClose />
-            </IconButton>
-          }
-          website={website}
-          disableTabs={disableTabs}
-          disablePlayground={disablePlayground}
-          download={false}
-        />
-      </ErrorBoundary>
+      <ReportView
+        closeButton={
+          <IconButton aria-label='close modal' onClick={closeFeed}>
+            <GrClose />
+          </IconButton>
+        }
+        website={website}
+        disableTabs={disableTabs}
+        disablePlayground={disablePlayground}
+        download={false}
+      />
     </Drawer>
   )
 }
@@ -56,7 +53,7 @@ export function SwipeableTemporaryDrawer() {
 // rest component to get website data
 export function MarketingBottomTemporaryDrawer() {
   const { data, loading, closeModal, search } = useRestWebsiteContext()
-  const websiteData = { ...data, url: search }
+  const websiteData = data ? { ...data, url: search } : { url: search }
 
   return (
     <BottomDrawer

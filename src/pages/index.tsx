@@ -15,7 +15,7 @@ import { MarketingBottomTemporaryDrawer } from '@app/components/modal'
 function Index() {
   return (
     <Fragment>
-      <MarketingDrawer navPosition={'relative'} maxWidth={'xl'} index>
+      <MarketingDrawer navPosition={'relative'} index>
         <MarketingIntro>
           <CtaInputRest />
         </MarketingIntro>

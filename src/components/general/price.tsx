@@ -1,15 +1,16 @@
-import { useMemo, useState } from 'react'
+import { useState } from 'react'
 import { priceConfig } from '@app/configs'
 
 import { SectionHeading } from '../text'
 import { Link } from './link'
 import { SectionContainer } from '@app/app/containers/section-container'
 import { PriceCell } from './cells/price-cell'
+import { PriceFeat } from './cells/price-feat'
 
 const getStyles = (inactive: boolean) =>
   inactive
-    ? 'relative px-2 border rounded-2xl py-2 text-sm font-medium text-gray-700 whitespace-nowrap focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:z-10 sm:w-auto sm:px-8 hover:shadow-xl'
-    : 'relative px-2 rounded-2xl shadow-sm py-2 text-sm font-medium text-white bg-[#2A2A2A] whitespace-nowrap focus:outline-none focus:ring-2 focus:ring-gray-500 focus:z-10 sm:w-auto sm:px-8'
+    ? 'relative px-2 border rounded-2xl py-2 text-sm font-bold text-gray-700 whitespace-nowrap focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:z-10 sm:w-auto sm:px-8 hover:shadow-xl'
+    : 'relative px-2 rounded-2xl shadow-sm py-2 text-sm font-bold text-white bg-blue-500 whitespace-nowrap focus:outline-none focus:ring-2 focus:ring-gray-500 focus:z-10 sm:w-auto sm:px-8'
 
 const getPrimaryColor = (title: string) => {
   let color = '#0E1116'
@@ -45,9 +46,9 @@ function MainButton({
 
   if (navigate) {
     return (
-      <div className='pt-6 pb-2 justify-center flex'>
+      <div className='pb-2 justify-center flex'>
         <Link
-          className={`w-[12rem] px-4 py-3 hover:ring rounded-3xl font-bold text-center`}
+          className={`w-[12rem] px-4 py-2 hover:ring rounded-3xl font-bold text-center`}
           style={{
             backgroundColor: buttonColor,
             color: textColor,
@@ -65,24 +66,23 @@ function MainButton({
 }
 
 export function PriceMemo({
-  basic = false,
-  premium = false,
-  free = false,
-  // main props
   onClick,
-  blockFree,
   navigate,
   yearly: year,
   setYearly: setYear,
   pricingPage,
+  selectedPlanIndex = 0,
+  highPlan = false,
 }: any) {
   const [yearly, onSetYear] = useState<boolean>(!!year)
-  const [selectedPlan, onSelectPlan] = useState<string>('Basic')
+  const [selectedPlan, onSelectPlan] = useState<number>(selectedPlanIndex ?? 0)
+  const [selectHighPlans, onSelectHigh] = useState<boolean>(highPlan)
 
   const setYearly = (params: any) => {
     if (typeof setYear === 'function') {
       setYear(params)
     }
+    // inner state
     onSetYear(params)
   }
 
@@ -90,22 +90,25 @@ export function PriceMemo({
     setYearly((x: boolean) => !x)
   }
 
-  const plans = useMemo(() => {
-    const basePlans = priceConfig.plans.filter((item: any) =>
-      blockFree ? item.title !== 'Free' : true
-    )
-
-    return basePlans
-  }, [blockFree])
-
-  const xlColumns = !onClick ? 'xl:grid-cols-4' : `xl:grid-cols-${plans.length}`
-
-  const onPlanClick = (title: string) => {
+  const onPlanClick = (title: string, index: number) => {
     if (typeof onClick === 'function') {
       onClick(title)
     }
-    onSelectPlan(title)
+    onSelectPlan(index)
   }
+
+  const onTogglePlans = () => {
+    onSelectHigh((x: boolean) => !x)
+    if (typeof onClick === 'function') {
+      const p = !selectHighPlans ? priceConfig.hPlans : priceConfig.lPlans
+      const s = p[selectedPlan].title
+
+      s && onClick(s)
+    }
+  }
+
+  const plans = selectHighPlans ? priceConfig.hPlans : priceConfig.lPlans
+  const selected = plans[selectedPlan].title
 
   return (
     <>
@@ -132,41 +135,70 @@ export function PriceMemo({
         </button>
       </div>
 
-      <div className='flex flex-col flex-1'>
-        <div
+      <div className='flex flex-1 gap-3 flex-wrap-reverse md:flex-wrap'>
+        <ul
           id='plans-section'
-          className={`flex flex-1 gap-2 nowrap ${xlColumns} overflow-x-auto`}
+          className={`w-full md:w-auto grid nowrap md:flex-wrap xl:grid-cols-2 gap-2 list-none`}
         >
-          {plans.map((planProps: any) => {
+          {plans.map((planProps: any, index: number) => {
             const title = planProps.title
-            const onPriceClick = () => onPlanClick(title)
+            const onPriceClick = () => onPlanClick(title, index)
             const textColor = getPrimaryColor(title)
 
+            const selectedItem = index === selectedPlan
+
             return (
-              <PriceCell
-                key={title}
-                textColor={textColor}
-                onClick={onPriceClick}
-                basic={basic || selectedPlan === 'Basic'}
-                free={free || selectedPlan === 'Free'}
-                premium={premium || selectedPlan === 'Premium'}
-                yearly={yearly}
-                {...planProps}
-              />
+              <li className='w-full' key={title}>
+                <PriceCell
+                  textColor={textColor}
+                  onClick={onPriceClick}
+                  yearly={yearly}
+                  selected={selectedItem}
+                  selectHighPlans={selectHighPlans}
+                  {...planProps}
+                />
+              </li>
             )
           })}
-        </div>
-      </div>
+          <li className='w-full'>
+            <div className='min-w-[330px] w-full rounded flex flex-1 flex-col justify-between border-2 px-4 py-2 border-black text-gray-700'>
+              <div className='text-base'>
+                All pricing is in <b>USD</b>.
+              </div>
+              <div className='text-sm pb-3.5'>
+                Renews are auto until cancelled.
+              </div>
 
-      {navigate && selectedPlan ? (
-        <div className='px-4 py-2 w-full'>
-          <MainButton
-            title={selectedPlan}
-            navigate={navigate}
-            yearly={yearly}
-          />
-        </div>
-      ) : null}
+              <button
+                onClick={onTogglePlans}
+                className={
+                  'px-3 py-1 border-2 text-blue-500 font-bold rounded text-lg border-blue-500 hover:bg-black hover:text-white'
+                }
+              >
+                {selectHighPlans
+                  ? 'View normal plans'
+                  : 'View high traffic plans'}
+              </button>
+            </div>
+          </li>
+        </ul>
+        <PriceFeat
+          yearly={yearly}
+          title={'All plans include:'}
+          details={priceConfig.feats}
+          premium
+        >
+          {navigate ? (
+            <div className='px-4 w-full'>
+              <MainButton
+                title={selected}
+                navigate={navigate}
+                yearly={yearly}
+              />
+            </div>
+          ) : null}
+        </PriceFeat>
+      </div>
 
       <div className='font-bold text-center py-4 text-base'>
         Need more? We can easily handle thousands of scans per minute,{' '}

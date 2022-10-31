@@ -12,12 +12,7 @@ import { CtaInputRest } from '@app/components/cta/searchbar/cta-input-rest'
 function WebsiteAccessibilityChecker({ name }: PageProps) {
   return (
     <Fragment>
-      <MarketingDrawer
-        title={name}
-        navPosition={'relative'}
-        maxWidth={'xl'}
-        index
-      >
+      <MarketingDrawer title={name} navPosition={'relative'} index>
         <MarketingIntro checker>
           <CtaInputRest />
         </MarketingIntro>

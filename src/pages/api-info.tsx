@@ -12,22 +12,6 @@ import { ApiCell } from '@app/components/general/cells/api-info-cell'
 import { Header } from '@app/components/general/header'
 import { SectionContainer } from '@app/app/containers/section-container'
 
-// determine the api limit
-const getApiLimit = (role: number) => {
-  if (typeof role === 'number') {
-    if (!role) {
-      return 3
-    }
-    if (role === 1) {
-      return 100
-    }
-    if (role === 2) {
-      return 500
-    }
-  }
-  return 0
-}
-
 // TODO: GENERATE DOCS FROM API
 function ApiInfo() {
   const [keyVisible, setKey] = useState<boolean>(false)
@@ -49,7 +33,7 @@ function ApiInfo() {
   const authed = !!user
 
   // TODO: MOVE TO SS
-  const apiLimit = getApiLimit(user?.role)
+  const apiLimit = !user?.role ? 0 : '*'
 
   return (
     <MarketingDrawer authenticated={authed} loading={loading}>

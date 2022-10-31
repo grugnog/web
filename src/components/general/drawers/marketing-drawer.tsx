@@ -14,7 +14,7 @@ export function MarketingDrawer({
   renderCtaSearch,
   title,
   navPosition,
-  maxWidth = 'xl',
+  maxWidth = 'lg',
   footerSpacing,
   index,
   emptyFooter,
@@ -61,7 +61,7 @@ export function MarketingDrawer({
         </NavBar>
       )}
       <main
-        className={`pb-10 ${initClosed ? '' : classes.content}${
+        className={`pb-10 ${initClosed ? '' : 'pt-1 overflow-hidden'}${
           footerSpacing ? ' pb-[20vh]' : ''
         }`}
         id='main-content'

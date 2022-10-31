@@ -213,7 +213,7 @@ export const updateCache: {
           if (removeWebsite.success) {
             if (site) {
               newWebSites = websites?.filter(
-                (data: any) => data.url !== site.url
+                (data: any) => data?.url !== site.url
               )
             } else {
               newWebSites = []
@@ -224,19 +224,23 @@ export const updateCache: {
 
         const pages = newWebSites
           ?.reduce((acc: any, current: any) => {
-            const x = acc.find((item: any) => item.url === current.url)
+            const x = acc.find((item: any) => item?.url === current.url)
             if (!x) {
               return acc.concat([current])
             } else {
               return acc
             }
           }, [])
+
           ?.map((item: any) => {
-            return {
-              ...item,
-              pages: item?.pages ?? [],
-              issues: item?.issues ?? [],
+            if (item) {
+              return {
+                ...item,
+                pages: item?.pages ?? [],
+                issues: item?.issues ?? [],
+              }
             }
+            return null
           })
 
         cache.writeQuery({
