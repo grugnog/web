@@ -2,7 +2,6 @@ import { FunctionComponent, Fragment, useState, SyntheticEvent } from 'react'
 import { GoogleLoginButton } from '../google-login'
 import { useRouter } from 'next/router'
 import {
-  Container,
   Typography,
   Button,
   TextField,
@@ -166,7 +165,7 @@ const SignOnFormWrapper: FunctionComponent<SignOnProps> = ({
 
   return (
     <Fragment>
-      <Container maxWidth='sm'>
+      <div className='container mx-auto'>
         <Typography
           variant={home ? 'h4' : 'h2'}
           component={home ? 'h4' : 'h1'}
@@ -308,7 +307,7 @@ const SignOnFormWrapper: FunctionComponent<SignOnProps> = ({
           </Link>
           .
         </div>
-      </Container>
+      </div>
       <LinearBottom loading={loading} />
     </Fragment>
   )

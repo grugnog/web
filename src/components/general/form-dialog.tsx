@@ -5,7 +5,6 @@ import {
   DialogActions,
   DialogContent,
   DialogContentText,
-  DialogTitle,
   Checkbox,
   FormControlLabel,
   IconButton,
@@ -280,11 +279,12 @@ export function FormDialogWrapper({
         open={open}
         onClose={handleClose}
         aria-labelledby='form-dialog-title'
+        maxWidth={'xl'}
       >
-        <div className={classes.topRow}>
-          <DialogTitle id='form-dialog-title' className={classes.topTitle}>
+        <div className={'px-6 py-2 flex place-items-center'}>
+          <h3 id='form-dialog-title' className={'flex-1 text-xl font-bold'}>
             Subscribe
-          </DialogTitle>
+          </h3>
           <IconButton aria-label='close modal' onClick={handleClose}>
             <GrClose />
           </IconButton>

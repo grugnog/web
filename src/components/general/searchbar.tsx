@@ -1,24 +1,12 @@
 'use client'
 
 import { SyntheticEvent } from 'react'
-import { InputBase, Button } from '@material-ui/core'
 import { alpha, makeStyles } from '@material-ui/core/styles'
 import { useSearchFilter, useSearch } from '@app/data'
 import { AppManager, HomeManager } from '@app/managers'
 import { GrSearch } from 'react-icons/gr'
 
 const useStyles = makeStyles((theme) => ({
-  root: ({ noWidth }: any) => ({
-    marginLeft: 12,
-    marginRight: 12,
-    maxWidth: noWidth ? '50%' : '35%',
-    [theme.breakpoints.down('sm')]: {
-      display: 'none',
-    },
-  }),
-  submit: {
-    border: 'none',
-  },
   search: {
     position: 'relative',
     borderRadius: theme.shape.borderRadius,
@@ -30,9 +18,7 @@ const useStyles = makeStyles((theme) => ({
     width: '100%',
     display: 'flex',
     alignItems: 'center',
-    paddingRight: 6,
     [theme.breakpoints.up('sm')]: {
-      marginLeft: theme.spacing(1),
       width: 'auto',
     },
   },
@@ -46,7 +32,6 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: 'center',
   },
   inputInput: ({ noWidth }: any) => ({
-    padding: theme.spacing(1, 1, 1, 7),
     transition: theme.transitions.create('width'),
     width: '100%',
     [theme.breakpoints.up('sm')]: {
@@ -87,23 +72,22 @@ export function SearchBar({ placeholder, noWidth, cta }: any) {
     setSearch({ search: event?.target?.value })
   }
 
-  const searchStyles = {
-    input: classes.inputInput,
-  }
-
   if (!cta) {
     return (
-      <div className={classes.root}>
-        <div className={classes.search}>
+      <div className={`px-2 hidden md:block`}>
+        <div className={`rounded ${classes.search}`}>
           <div className={classes.searchIcon}>
             <GrSearch />
           </div>
-          <InputBase
+          <label className='sr-only' aria-labelledby='search-w'>
+            Search your websites
+          </label>
+          <input
             placeholder={placeholder || 'Search…'}
-            classes={searchStyles}
+            className={`bg-gray-100 pl-14 pr-2 py-2 ${classes.inputInput}`}
             type={'search'}
             onChange={setSearchFilter}
-            inputProps={{ 'aria-label': 'Search your websites' }}
+            id={'search-w'}
           />
         </div>
       </div>
@@ -111,28 +95,32 @@ export function SearchBar({ placeholder, noWidth, cta }: any) {
   }
 
   return (
-    <form className={classes.root} onSubmit={submit} noValidate>
-      <div className={classes.search}>
+    <form className={`px-2 hidden md:block`} onSubmit={submit} noValidate>
+      <div className={`rounded ${classes.search}`}>
         <div className={classes.searchIcon}>
           <GrSearch />
         </div>
-        <InputBase
+        <label className='sr-only' aria-labelledby='search-w'>
+          Search your websites
+        </label>
+        <input
           placeholder={placeholder || 'Search…'}
-          classes={searchStyles}
+          className={`bg-gray-100 pl-14 pr-2 py-2 ${classes.inputInput}`}
           type={'search'}
-          color={'primary'}
           onChange={onSearchChangeEvent}
-          inputProps={{ 'aria-label': 'search your websites' }}
+          id={'search-w'}
           value={ctaSearch}
         />
-        <Button
+
+        <button
           type='submit'
-          className={classes.submit}
-          style={{ visibility: !!ctaSearch ? 'visible' : 'hidden' }}
+          className={`bg-black text-white text-base font-bold px-4 py-2 hover:bg-100 rounded-r ${
+            !!ctaSearch ? 'visible' : 'hidden'
+          }`}
           disabled={!!loading}
         >
           Submit
-        </Button>
+        </button>
       </div>
     </form>
   )

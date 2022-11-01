@@ -1,41 +1,66 @@
 import { Typography, List, ListItem } from '@material-ui/core'
-import { PageTitle, Mailto, MarketingDrawer } from '@app/components/general'
+import { Mailto, MarketingDrawer } from '@app/components/general'
 import { strings } from '@app-strings'
 import { metaSetter } from '@app/utils'
 import { theme } from '@app-theme'
 import type { PageProps } from '@app/types'
+import {
+  Header,
+  Header2,
+  Header3,
+  Header4,
+  Header5,
+} from '@app/components/general/header'
+import { SectionContainer } from '@app/app/containers/section-container'
+
+const linkStyle = {
+  color: theme.palette.primary.main,
+  textDecoration: 'underline',
+  fontWeight: 600,
+}
 
 function Faq({ name }: PageProps) {
-  const bold = { fontWeight: 600 }
-  const linkStyle = {
-    color: theme.palette.primary.main,
-    textDecoration: 'underline',
-    fontWeight: 600,
-  }
   return (
     <MarketingDrawer title={name} footerSpacing>
-      <PageTitle>Frequently Asked Questions</PageTitle>
-      <Typography variant='body1' component='p' gutterBottom>
-        Stuck on a certain problem? Check some of these common gotchas first in
-        the FAQ.
-      </Typography>
-      <Typography variant='body2' component='p' gutterBottom>
-        If you still need help go to the support page
-      </Typography>
-      <Typography variant='h4' component='h2' gutterBottom style={bold}>
-        How can I support the project?
-      </Typography>
-      <Typography variant='body1'>
-        {strings.appName} has multiple ways to get support.
-      </Typography>
-      <Typography variant='h4' component='h2' gutterBottom style={bold}>
-        Can I upgrade or downgrade anytime I want?
-      </Typography>
-      <Typography variant='body1'>
-        Yes, upgrade and downgrades take effect immediately.
-      </Typography>
+      <SectionContainer container block>
+        <Header>Frequently Asked Questions</Header>
+        <Typography variant='body1' component='p' gutterBottom>
+          Stuck on a certain problem? Check some of these common gotchas first
+          in the FAQ.
+        </Typography>
 
-      <List aria-label={`support ${strings.appName}`} dense>
+        <Typography variant='body2' component='p' gutterBottom>
+          If you still need help go to the support page
+        </Typography>
+        <Header2>How can I support the project?</Header2>
+        <Typography variant='body1'>
+          {strings.appName} allows multiple ways of contributing to the project.
+          You can send BTC to the following address:{' '}
+          <strong>3EBwSQdPc43CFg8YGBRy3hj9ubihbnPEKv</strong>.
+        </Typography>
+
+        <Header3>How many websites can I monitor?</Header3>
+        <Typography variant='body1'>
+          Free accounts can add one domain, all paid accounts get up to 50
+          domains.
+        </Typography>
+
+        <Header4>Can I upgrade or downgrade anytime I want?</Header4>
+        <Typography variant='body1'>
+          Yes, upgrade and downgrades take effect immediately.
+        </Typography>
+
+        <Header5>How can I sign up as a company?</Header5>
+        <Typography variant='body1'>
+          You have two main options for joining on A11yWatch as a company, brand
+          or organization. Sign up from a regular user account under your
+          organization{`'s`} email. You can treat the general account as the
+          main account for your company. The safest way to share account access
+          is through the google sign on method.
+        </Typography>
+      </SectionContainer>
+
+      <List aria-label={`support ${strings.appName}`} dense className='border'>
         <ListItem>
           <Typography variant='subtitle1' component='p'>
             Spread the word and evangelize {strings.appName}{' '}
@@ -67,43 +92,10 @@ function Faq({ name }: PageProps) {
             interested in seeing solved.
           </Typography>
         </ListItem>
-        <ListItem>
-          <Typography variant='subtitle1' component='p'>
-            Support us financially on{' '}
-            <Typography
-              component={'a'}
-              target='_blank'
-              style={linkStyle}
-              href={'https://opencollective.com/a11ywatch#backer'}
-            >
-              OpenCollective
-            </Typography>
-            . If you use {strings.appName} in a commercial project and would
-            like to support its continued development by becoming a Sponsor, or
-            in a side or hobby project and would like to become a Backer, you
-            can do so through OpenCollective. All funds donated are managed
-            transparently, and Sponsors receive recognition in the README and on
-            the {strings.appName} home page.
-          </Typography>
-        </ListItem>
       </List>
 
-      <Typography variant='h4' component='h3' gutterBottom style={bold}>
-        How can I sign up as a company?
-      </Typography>
-      <Typography variant='body1'>
-        You have two main options for joining on A11yWatch as a company, brand
-        or organization. Sign up from a regular user account under your
-        organization{`'s`} email. You can treat the general account as the main
-        account for your company. The safest way to share account access is
-        through the google sign on method.
-      </Typography>
-
-      <Typography variant='h4' component='h3' gutterBottom style={bold}>
-        Contact Us
-      </Typography>
-      <Typography component={'div'}>
-        If you have any questions, please contact us at{' '}
+      <div className='py-6 text-lg'>
+        <div>If you have any questions, please contact us at </div>
         <Mailto
           email='support@a11ywatch.com'
           subject='TOS'
@@ -111,8 +103,7 @@ function Faq({ name }: PageProps) {
         >
           support@a11ywatch.com
         </Mailto>
-        .
-      </Typography>
+      </div>
     </MarketingDrawer>
   )
 }

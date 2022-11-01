@@ -1,4 +1,4 @@
-import { memo, ReactNode, useContext, useEffect, useState } from 'react'
+import { ReactNode, useContext, useEffect, useState } from 'react'
 import { createContext } from 'react'
 import type { Feed } from 'a11ywatch-web-wasm'
 
@@ -6,7 +6,7 @@ const initial: WASMContext = {}
 
 export const WASMContext = createContext(initial)
 
-export const WASMContextProviderWrapper: React.FC<WASMContextProviderProps> = ({
+export const WASMContextProvider: React.FC<WASMContextProviderProps> = ({
   children,
   load = false,
 }) => {
@@ -44,5 +44,3 @@ interface WASMContextProviderProps {
 export function useWasmContext() {
   return useContext(WASMContext)
 }
-
-export const WASMContextProvider = memo(WASMContextProviderWrapper)

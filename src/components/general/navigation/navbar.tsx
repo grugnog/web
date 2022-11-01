@@ -1,7 +1,6 @@
 'use client'
 
-import { PropsWithChildren, FC, SyntheticEvent } from 'react'
-import { IconButton, IconButtonProps } from '@material-ui/core'
+import { PropsWithChildren, FC } from 'react'
 import { makeStyles } from '@material-ui/core/styles'
 import { strings } from '@app-strings'
 import { Logo, NavBarTitle } from '.'
@@ -21,38 +20,45 @@ const useStyles = makeStyles((theme) => ({
     zIndex: 1,
     minHeight: theme.mixins.toolbar.minHeight,
   }),
-  menu: {
-    display: 'flex',
-    marginRight: theme.spacing(2),
-    [theme.breakpoints.down('sm')]: {
-      marginRight: theme.spacing(1),
-    },
-  },
 }))
 
 type LeftbuttonWrapperProps = {
-  menu?: string // menu css
-  buttonProps: IconButtonProps
   marketing?: boolean
   backButton?: boolean // display a go back button
 }
 
 // start left button of the nav
-const Leftbutton = ({
-  menu,
-  buttonProps,
-  marketing,
-  backButton,
-}: LeftbuttonWrapperProps) =>
-  backButton || !marketing ? (
-    <IconButton
-      className={menu}
-      {...buttonProps}
-      title={backButton ? 'Navigate to previous' : 'Navigate to home'}
-    >
-      {backButton ? <GrLinkPrevious /> : <Logo />}
-    </IconButton>
-  ) : null
+const Leftbutton = ({ marketing, backButton }: LeftbuttonWrapperProps) => {
+  if (backButton) {
+    const onClickEvent = () => {
+      if (typeof history !== 'undefined') {
+        history.back()
+      }
+    }
+    return (
+      <button
+        className={'text-lg hover:bg-gray-100 rounded-3xl px-3 py-3'}
+        title={'Navigate to home'}
+        onClick={onClickEvent}
+      >
+        <GrLinkPrevious />
+      </button>
+    )
+  }
+
+  if (!marketing) {
+    return (
+      <Link
+        className={'text-lg hover:bg-gray-100 rounded-3xl px-3 py-3'}
+        title={'Navigate to home'}
+        href={'/'}
+      >
+        <Logo />
+      </Link>
+    )
+  }
+  return null
+}
 
 // navbar props
 interface NavProps {
@@ -83,19 +89,6 @@ export const NavBar: FC<PropsWithChildren<NavProps>> = ({
 }) => {
   const classes = useStyles({ position })
 
-  const buttonProps = !backButton
-    ? { href: '/', component: Link }
-    : {
-        onClick: (e: SyntheticEvent<HTMLButtonElement>) => {
-          e?.preventDefault()
-          if (backButton) {
-            history.back()
-          } else {
-            window.location.href = '/'
-          }
-        },
-      }
-
   return (
     <nav
       className={`bg-[inherit] ${className ? `${className} ` : className}${
@@ -108,13 +101,8 @@ export const NavBar: FC<PropsWithChildren<NavProps>> = ({
         {toolbar || children ? (
           toolbar || children
         ) : (
-          <div className={`flex flex-1 place-items-center`}>
-            <Leftbutton
-              menu={classes.menu}
-              buttonProps={buttonProps}
-              backButton={backButton}
-              marketing={marketing}
-            />
+          <div className={`flex flex-1 place-items-center gap-x-2`}>
+            <Leftbutton backButton={backButton} marketing={marketing} />
             <NavBarTitle
               title={title}
               flex

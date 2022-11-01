@@ -1,7 +1,7 @@
 export const headers = {
   [1]: '',
   [2]: [
-    'Fast and efficient, web inclusion made easy',
+    'Fast and efficient, web inclusion testing',
     'Our system is composed of a robost structure that makes us unique. Use our cloud or your own servers.',
   ],
 }

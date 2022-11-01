@@ -1,5 +1,4 @@
 import React from 'react'
-import { Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import { companyName } from '@app/configs'
 
@@ -34,11 +33,6 @@ const useStyles = makeStyles((theme) => ({
       display: 'none',
     },
   },
-  text: {
-    [theme.breakpoints.down('md')]: {
-      fontSize: '11px',
-    },
-  },
 }))
 
 interface Props {
@@ -51,27 +45,13 @@ function FixedCopyRight({ sticky }: Props) {
   const cc = `© ${new Date().getFullYear()} ${companyName}, LLC`
 
   if (!sticky) {
-    return (
-      <Typography
-        variant={'caption'}
-        className={classes.text}
-        gutterBottom={!sticky}
-      >
-        {cc}
-      </Typography>
-    )
+    return <span className={!sticky ? 'text-sm pb-3' : 'text-sm'}>{cc}</span>
   }
 
   return (
     <div className={`${classes.stickContainer} ${sticky ? classes.stick : ''}`}>
       <div className={classes.sticky}>
-        <Typography
-          variant={'caption'}
-          className={classes.text}
-          gutterBottom={!sticky}
-        >
-          {cc}
-        </Typography>
+        <span className={!sticky ? 'text-sm pb-3' : 'text-sm'}>{cc}</span>
       </div>
     </div>
   )

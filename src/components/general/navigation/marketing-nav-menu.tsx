@@ -1,41 +1,19 @@
-import React, { useMemo } from 'react'
-import { ListItem } from '@material-ui/core'
+import React from 'react'
 import { Link } from '../link'
-import { MainRoutes, MobileRoutes } from './routes'
+import { MainRoutes } from './routes'
 
 interface Props {
   home?: string
-  className?: string
-  mobileRender?: boolean
-  classNameSpacing?: string
-  classHiddenMobile?: string
-  registerClassName?: string
 }
 
-function MarketingNavMenu({
-  home = '',
-  className = '',
-  registerClassName = '',
-  mobileRender,
-  classNameSpacing = '',
-  classHiddenMobile = '',
-}: Props) {
-  // TODO: use css to display diff nav
-  const routes = useMemo(() => (mobileRender ? MobileRoutes : MainRoutes), [
-    mobileRender,
-  ])
-
+function MarketingNavMenu({ home = '' }: Props) {
   return (
-    <ul
-      className={`${className}${
-        classNameSpacing ? ` ${classNameSpacing}` : ''
-      } space-x-1`}
-    >
-      {routes.map(({ name, href }: { name: string; href: string }) => {
-        const firstClassName = href === '/register' ? registerClassName : ''
+    <ul className={`flex flex-1 justify-end gap-x-1 place-items-center`}>
+      {MainRoutes.map(({ name, href }: { name: string; href: string }) => {
+        const firstClassName = href === '/register' ? 'border-2 rounded' : ''
         const itemClassName =
-          !mobileRender && href !== '/register' && href !== '/login'
-            ? `${firstClassName ? ' ' : ''}${classHiddenMobile}`
+          href !== '/register' && href !== '/login'
+            ? `${firstClassName ? ' ' : ''} hidden md:flex`
             : ''
         const classMinor =
           firstClassName || itemClassName
@@ -45,16 +23,13 @@ function MarketingNavMenu({
         const homeRoute = href.indexOf(home) !== -1
 
         return (
-          <li key={name} className={classMinor}>
-            <ListItem
-              button
-              component={Link}
+          <li key={name}>
+            <Link
               href={homeRoute ? '/' : href}
-              color={'inherit'}
-              variant={'subtitle1'}
+              className={`${classMinor} px-6 py-2 hover:bg-gray-100`}
             >
               {homeRoute ? 'Home' : name}
-            </ListItem>
+            </Link>
           </li>
         )
       })}

@@ -1,9 +1,10 @@
 import { FC, PropsWithChildren } from 'react'
 
+// h1
 export const Header: FC<PropsWithChildren> = ({ children }) => {
   return (
     <h1
-      className={`font-bold text-3xl md:text-4xl lg:text-5xl xl:text-6xl max-w-[90vw] py-3 lg:max-w-[48vw] sm:leading-[1.1em]`}
+      className={`font-bold text-3xl md:text-4xl lg:text-5xl xl:text-6xl max-w-[90vw] py-3 sm:leading-[1.1em]`}
     >
       {children}
     </h1>

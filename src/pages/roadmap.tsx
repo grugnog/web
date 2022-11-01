@@ -21,7 +21,7 @@ function Image({ src, alt }: { src: string; alt: string }) {
 
 function RoadMap({ name }: PageProps) {
   return (
-    <MarketingDrawer title={name} footerSpacing maxWidth='xl'>
+    <MarketingDrawer title={name} footerSpacing>
       <SectionContainer container block>
         <Header>{`${strings.appName} Technical Roadmap`}</Header>
         <h2 className='text-lg'>Project Outline</h2>

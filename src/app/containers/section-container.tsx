@@ -26,7 +26,7 @@ const SectionContainer: FC<SectionContainerProps> = ({
       {...props}
     >
       {container ? (
-        <div className={`block md:flex place-items-center pb-0 gap-x-3`}>
+        <div className={`block md:flex place-items-center pb-0 gap-x-10`}>
           {block ? <div className={'flex-1 pb-4'}>{children}</div> : children}
         </div>
       ) : (

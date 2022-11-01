@@ -84,7 +84,7 @@ export const MiniPlayer: FunctionComponent<MiniPlayerProps> = (_) => {
           },
         }}
       >
-        <AppBar className={`appBar ${classes.appBar}`}>
+        <AppBar className={`appBar`}>
           <Toolbar>
             <IconButton
               edge='start'

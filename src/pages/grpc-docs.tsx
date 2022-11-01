@@ -130,7 +130,7 @@ function GrpcDocs({ name }: PageProps) {
       }`}
         </style>
       </Head>
-      <MarketingDrawer title={name} footerSpacing maxWidth='xl'>
+      <MarketingDrawer title={name} footerSpacing>
         <PageTitle id='title'>gRPC Protocol Documentation</PageTitle>
         <div className='py-4'>
           <div className='border-t border-b py-2'>

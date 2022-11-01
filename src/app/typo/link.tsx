@@ -33,7 +33,7 @@ const NextComposedPreFetch = forwardRef(function Link(
 export function MNLink({
   activeClassName = 'active',
   innerRef,
-  className,
+  className = '',
   as: asValue,
   href,
   shouldPrefetch,

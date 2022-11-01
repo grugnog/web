@@ -51,7 +51,7 @@ export function DrawerWrapperComponent({
         authenticated={authenticated}
         title={title}
         position='fixed'
-        className={`${classes.nav} ${classes.appBar} ${sidePannelStyles}`}
+        className={`${classes.nav} ${sidePannelStyles}`}
         toolbar={
           <span className={classes.drawerIconContainer}>
             <NavBarTitle title={title} flex />

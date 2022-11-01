@@ -3,11 +3,12 @@ import { makeStyles } from '@material-ui/core/styles'
 import { TextField, FormControl, LinearProgress } from '@material-ui/core'
 import { AppManager, UserManager } from '@app/managers'
 import { useUserData } from '@app/data'
-import { MarketingDrawer, PageTitle } from '@app/components/general'
+import { MarketingDrawer } from '@app/components/general'
 import { useRouter } from 'next/router'
 import { metaSetter } from '@app/utils'
 import type { PageProps } from '@app/types'
 import { MarketingShortTitle } from '@app/components/marketing'
+import { Header } from '@app/components/general/header'
 
 const useStyles = makeStyles(() => ({
   absolute: {
@@ -147,10 +148,12 @@ function ResetPassword({ name }: PageProps) {
   }
 
   return (
-    <MarketingDrawer title={name} footerSpacing maxWidth='sm'>
+    <MarketingDrawer title={name} footerSpacing>
       <MarketingShortTitle />
-      <PageTitle component={resetSent ? 'h3' : 'h1'}>{title}</PageTitle>
-      <FormRender />
+      <div className='container mx-auto text-center'>
+        <Header>{title}</Header>
+        <FormRender />
+      </div>
       {loading ? (
         <LinearProgress className={classes.absolute} color='secondary' />
       ) : null}

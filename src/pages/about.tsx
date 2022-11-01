@@ -9,7 +9,7 @@ import { SectionContainer } from '@app/app/containers/section-container'
 function About({ name }: PageProps) {
   return (
     <MarketingDrawer title={name} footerSpacing>
-      <SectionContainer container>
+      <SectionContainer container block>
         <Header>{`About ${strings.appName}`}</Header>
         <p className='py-2 text-lg'>
           Our goal is to make the web easily accessible for everyone.

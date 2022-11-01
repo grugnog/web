@@ -1,59 +1,39 @@
 import { Fragment } from 'react'
-import { Container } from '@material-ui/core'
-import { navigationStyles } from '@app/styles/navigation'
 import { strings } from '@app-strings'
 import { NavBarTitle, MarketingNavMenu } from '../navigation'
 import { SearchBar } from '../searchbar'
 import { NavBar } from '../navigation/navbar'
 import { Footer } from '../footer'
-import { Link } from '../link'
 
+// main marketing pages drawer
 export function MarketingDrawer({
   children,
   initClosed,
   renderCtaSearch,
   title,
   navPosition,
-  maxWidth = 'lg',
   footerSpacing,
-  index,
   emptyFooter,
   emptyNav,
   authenticated,
   loading,
 }: any) {
-  const classes = navigationStyles()
-  const padding = index ? 0 : '1rem'
-
   return (
     <Fragment>
       {emptyNav ? null : (
         <NavBar
           position={navPosition}
           marketing
-          className={classes.appBar}
           authenticated={authenticated}
           loading={loading}
           marketingLinks={
-            <MarketingNavMenu
-              home={`/${String(title).toLowerCase()}`}
-              className={classes.horizontal}
-              registerClassName={classes.register}
-              classHiddenMobile={classes.classHiddenMobile}
-            />
+            <MarketingNavMenu home={`/${String(title).toLowerCase()}`} />
           }
         >
-          <div className={classes.navContainer}>
-            <NavBarTitle
-              title={strings.appName}
-              href='/'
-              component={Link}
-              marketing
-            />
+          <div className={'flex flex-1 align-center'}>
+            <NavBarTitle title={strings.appName} href='/' marketing />
             {renderCtaSearch ? (
-              <div
-                style={{ display: 'flex', flex: 1, justifyContent: 'flex-end' }}
-              >
+              <div className={'flex flex-1 justify-end place-items-center'}>
                 <SearchBar placeholder={'Enter website url...'} noWidth cta />
               </div>
             ) : null}
@@ -69,12 +49,7 @@ export function MarketingDrawer({
         {initClosed ? (
           children
         ) : (
-          <Container
-            maxWidth={maxWidth}
-            style={{ paddingLeft: padding, paddingRight: padding }}
-          >
-            {children}
-          </Container>
+          <div className={`container mx-auto`}>{children}</div>
         )}
       </main>
       {initClosed || emptyFooter ? null : <Footer />}

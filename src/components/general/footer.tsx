@@ -75,7 +75,7 @@ const Footer = ({ sticky, blog }: { sticky?: boolean; blog?: boolean }) => {
               <div>
                 <p className={'font-bold text-3xl'}>{strings.appName}</p>
                 <p className='text-gray-500'>
-                  Elevating accessibility for every website.
+                  Enhancing a11y for every website.
                 </p>
               </div>
               <ul className='flex flex-1 md:flex-none gap-x-6 place-items-center place-content-center'>

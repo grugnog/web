@@ -46,12 +46,6 @@ export const drawerStyles = makeStyles((theme: Theme) => {
       zIndex: 1001,
       backgroundColor: theme.palette.background.default,
     },
-    appBar: {
-      transition: theme.transitions.create(['margin', 'width'], {
-        easing: theme.transitions.easing.sharp,
-        duration: theme.transitions.duration.leavingScreen,
-      }),
-    },
     appBarShift: {
       width: `calc(100% - ${drawerWidth})`,
       marginLeft: drawerWidth,

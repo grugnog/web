@@ -6,13 +6,7 @@ import React, {
   useEffect,
   Fragment,
 } from 'react'
-import {
-  Container,
-  Typography,
-  Button,
-  TextField,
-  Fade,
-} from '@material-ui/core'
+import { Button, TextField, Fade } from '@material-ui/core'
 import {
   Link,
   NavBar,
@@ -78,15 +72,15 @@ const MANAGE_BILLING = process.env.NEXT_PUBLIC_MANAGE_BILLING_URL
 
 const Profile: FC<PageProps> = ({ name }) => {
   const classes = useStyles()
-  const { data = {}, loading, updateUser, updateUserData } = useUserData(
-    true,
-    'profile'
-  )
+  const {
+    data = {},
+    loading,
+    updateUser,
+    updateUserData,
+  } = useUserData(true, 'profile')
 
-  const [
-    { changePassword, currentPassword, newPassword },
-    dispatch,
-  ] = useReducer(passwordReducer, Object.assign({}, initialPasswordState))
+  const [{ changePassword, currentPassword, newPassword }, dispatch] =
+    useReducer(passwordReducer, Object.assign({}, initialPasswordState))
 
   // todo: reducer
   const [changeEmail, setChangeEmail] = useState<boolean>(false)
@@ -175,16 +169,14 @@ const Profile: FC<PageProps> = ({ name }) => {
   return (
     <Fragment>
       {user?.passwordRequired ? (
-        <Container
-          style={{ paddingTop: 12, paddingBottom: 12, textAlign: 'center' }}
-        >
-          <Typography>
+        <div className='text-center py-2'>
+          <p className='text-base text-gray-700'>
             Password reset required. Please change your password now
-          </Typography>
-        </Container>
+          </p>
+        </div>
       ) : null}
       <NavBar backButton title={name} notitle />
-      <Container maxWidth='xl'>
+      <div className='container mx-auto px-3'>
         <PageTitle title={'Your Profile'} />
         <Box className='space-y-3 py-4'>
           <div className='border-b pb-4'>
@@ -391,7 +383,7 @@ const Profile: FC<PageProps> = ({ name }) => {
             </div>
           </div>
         </Box>
-      </Container>
+      </div>
     </Fragment>
   )
 }

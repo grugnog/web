@@ -12,7 +12,6 @@ interface NavBarTitleProps {
   ismobile?: boolean
   notitle?: boolean
   href?: string
-  component?: any
 }
 
 const NavBarTitle: FC<NavBarTitleProps> = ({

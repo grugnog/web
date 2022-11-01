@@ -1,5 +1,4 @@
-import { FC, memo } from 'react'
-import { Button } from '@material-ui/core'
+import { FC } from 'react'
 import { Link } from '../link'
 
 type NavItemProps = {
@@ -10,26 +9,22 @@ type NavItemProps = {
   route?: string
 }
 
-export const NavItemComponent: FC<NavItemProps> = ({
+export const NavItem: FC<NavItemProps> = ({
   href,
   name,
-  className,
+  className = '',
   as,
   route,
 }) => {
   const home = `/${href}` === route // display home route
 
   return (
-    <Button
+    <Link
       href={home ? '/' : href}
       as={as}
-      component={Link}
-      variant={name === 'Register' ? 'outlined' : 'text'}
-      className={`${className} font-sm`}
+      className={`${className} font-sm${name === 'Register' ? ' border' : ''}`}
     >
       {home ? 'Home' : name}
-    </Button>
+    </Link>
   )
 }
-
-export const NavItem = memo(NavItemComponent)

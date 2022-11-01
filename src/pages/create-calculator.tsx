@@ -5,7 +5,7 @@ import type { PageProps } from '@app/types'
 import { companyName } from '@app/configs'
 
 // calc the basic cost of the plan
-const calcCost = ({ websiteCount, apiCount, siteWideApiCount }: any) => {
+const calcCost = ({ websiteCount, siteWideApiCount }: any) => {
   let total = 0
 
   if (websiteCount) {
@@ -33,11 +33,6 @@ const calcCost = ({ websiteCount, apiCount, siteWideApiCount }: any) => {
     }
   }
 
-  if (apiCount) {
-    const apiBaseToDollar = Number(apiCount / 125) // 0.0085 cents per avg
-    total = total + apiBaseToDollar
-  }
-
   if (siteWideApiCount) {
     const apiBaseToDollar = (websiteCount || 1) * Number(siteWideApiCount / 300) // 0.0033 cents pet avg
     total = total + apiBaseToDollar
@@ -51,17 +46,12 @@ const calcCost = ({ websiteCount, apiCount, siteWideApiCount }: any) => {
 
 function CreateCalculator({ name }: PageProps) {
   const [websiteCount, setWebsiteCount] = useState<number>(8)
-  const [apiCount, setApiCount] = useState<number>(500)
   const [siteWideApiCount, setSiteWideApiCount] = useState<number>(75)
 
-  const mountlyCost = calcCost({ websiteCount, apiCount, siteWideApiCount })
+  const mountlyCost = calcCost({ websiteCount, siteWideApiCount })
 
   const onSetWebsiteCount = (event: React.ChangeEvent<any>) => {
     setWebsiteCount(event.target.value)
-  }
-
-  const onSetApiCount = (event: React.ChangeEvent<any>) => {
-    setApiCount(event.target.value)
   }
 
   const onSetSiteWideApiCount = (event: React.ChangeEvent<any>) => {
@@ -96,21 +86,6 @@ function CreateCalculator({ name }: PageProps) {
             />
           </div>
           <div className='space-y-2'>
-            <label htmlFor='api-calls' className='block font-bold'>
-              Daily Standard API calls
-            </label>
-            <input
-              type='number'
-              placeholder='API calls'
-              className='px-5 py-3 border rounded'
-              id={'api-calls'}
-              name={'api_count'}
-              value={apiCount}
-              min={500}
-              onChange={onSetApiCount}
-            />
-          </div>
-          <div className='space-y-2'>
             <label htmlFor='api-calls-sitewide' className='block font-bold'>
               Average page count
             </label>
@@ -142,6 +117,5 @@ export default metaSetter(
   {
     title: `Calculator reflecting enterprise cost - ${companyName}`,
     description: `Calculator for enterprise plans at ${companyName}. Use this to get a estimation on what your cost would look like at different levels.`,
-    intercom: true,
   }
 )

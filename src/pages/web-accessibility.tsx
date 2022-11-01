@@ -9,8 +9,7 @@ const checklistLinks = [
   { href: 'https://a11yproject.com/checklist', name: 'A11y Checklist' },
   {
     name: 'ADA Checklist',
-    href:
-      'https://medium.com/@krisrivenburgh/the-ada-checklist-website-compliance-guidelines-for-2019-in-plain-english-123c1d58fad9',
+    href: 'https://medium.com/@krisrivenburgh/the-ada-checklist-website-compliance-guidelines-for-2019-in-plain-english-123c1d58fad9',
   },
   {
     name: 'Accessibility Checklist',

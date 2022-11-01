@@ -20,13 +20,13 @@ function ApiInfo() {
 
   const toggleKey = () => setKey((c) => !c)
 
-  const copyText = (text: string) => (
-    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
-  ): void => {
-    e?.preventDefault()
-    navigator.clipboard.writeText(text)
-    AppManager.toggleSnack(true, `Copied: ${text}`, 'success')
-  }
+  const copyText =
+    (text: string) =>
+    (e: React.MouseEvent<HTMLButtonElement, MouseEvent>): void => {
+      e?.preventDefault()
+      navigator.clipboard.writeText(text)
+      AppManager.toggleSnack(true, `Copied: ${text}`, 'success')
+    }
 
   // token
   const token = UserManager.token

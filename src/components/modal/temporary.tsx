@@ -1,6 +1,6 @@
 'use client'
 
-import { Drawer, IconButton } from '@material-ui/core'
+import { Drawer } from '@material-ui/core'
 import { useSearch } from '@app/data'
 import { GrClose } from 'react-icons/gr'
 import { ReportView } from '@app/components/ada'
@@ -25,9 +25,13 @@ export function BottomDrawer({
     <Drawer anchor='bottom' open={bottomModal} onClose={closeFeed}>
       <ReportView
         closeButton={
-          <IconButton aria-label='close modal' onClick={closeFeed}>
+          <button
+            className={'text-lg hover:bg-gray-100 rounded-3xl px-3 py-3'}
+            aria-label='close modal'
+            onClick={closeFeed}
+          >
             <GrClose />
-          </IconButton>
+          </button>
         }
         website={website}
         disableTabs={disableTabs}
