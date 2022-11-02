@@ -43,7 +43,7 @@ function ResetPassword({ name }: PageProps) {
     if (resetPasswordData?.resetPassword?.jwt) {
       UserManager.setUser(resetPasswordData.resetPassword)
       ;(async () => {
-        await router.push('/')
+        await router.push('/dashboard')
       })()
     }
   }, [router, resetPasswordData])

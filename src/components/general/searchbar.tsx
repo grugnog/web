@@ -75,7 +75,7 @@ export function SearchBar({ placeholder, noWidth, cta }: any) {
   if (!cta) {
     return (
       <div className={`px-2 hidden md:block`}>
-        <div className={`rounded ${classes.search}`}>
+        <div className={`rounded-xl ${classes.search}`}>
           <div className={classes.searchIcon}>
             <GrSearch />
           </div>
@@ -84,7 +84,7 @@ export function SearchBar({ placeholder, noWidth, cta }: any) {
           </label>
           <input
             placeholder={placeholder || 'Search…'}
-            className={`bg-gray-100 pl-14 pr-2 py-2 ${classes.inputInput}`}
+            className={`bg-gray-100 pl-12 pr-2 py-2 ${classes.inputInput}`}
             type={'search'}
             onChange={setSearchFilter}
             id={'search-w'}

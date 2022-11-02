@@ -25,8 +25,6 @@ export interface MetaData {
   meta?: any
   /** ID: Component name or page name used in meta information */
   name?: string
-  /** Enable intercom composer or crisp composer */
-  intercom?: boolean
   /** Params for initial gql queries [todo update generic] */
   params?: any
   /** Load wasm module for application */

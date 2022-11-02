@@ -47,32 +47,32 @@ const extraProps = (feature?: string, focused?: boolean, setEvents?: any) => {
   switch (feature) {
     case 'Alerts':
       return {
-        href: focused ? '/' : '/alerts',
+        href: focused ? '/dashboard' : '/alerts',
         component: Link,
         color: 'inherit',
       }
     case 'Scripts':
       return {
-        href: focused ? '/' : '/scripts',
+        href: focused ? '/dashboard' : '/scripts',
         onClick: setEvents ? () => setEvents({ firstAdd: 'set' }) : undefined,
         component: Link,
         color: 'inherit',
       }
     case 'Issues':
       return {
-        href: focused ? '/' : '/web-issues',
+        href: focused ? '/dashboard' : '/web-issues',
         component: Link,
         color: 'inherit',
       }
     case 'Pages':
       return {
-        href: focused ? '/' : '/web-pages',
+        href: focused ? '/dashboard' : '/web-pages',
         component: Link,
         color: 'inherit',
       }
     case 'Analytics':
       return {
-        href: focused ? '/' : '/website-analytics',
+        href: focused ? '/dashboard' : '/website-analytics',
         component: Link,
         color: 'inherit',
       }
@@ -84,13 +84,13 @@ const extraProps = (feature?: string, focused?: boolean, setEvents?: any) => {
       }
     case 'Actions':
       return {
-        href: focused ? '/' : '/web-actions',
+        href: focused ? '/dashboard' : '/web-actions',
         component: Link,
         color: 'inherit',
       }
     case 'History':
       return {
-        href: focused ? '/' : '/history',
+        href: focused ? '/dashboard' : '/history',
         component: Link,
         color: 'inherit',
       }
@@ -122,6 +122,8 @@ export function FeaturesCellComponent({
 }: any) {
   const classes = cellStyles()
 
+  const title = focused ? 'Dashboard' : feature
+
   return (
     <li>
       <ListItem
@@ -131,11 +133,11 @@ export function FeaturesCellComponent({
       >
         <ListItemIcon>
           {renderIcon(
-            focused ? 'Dashboard' : feature,
+            title,
             (index === 0 && alertEnabled && classes.alert) || undefined
           )}
         </ListItemIcon>
-        {focused ? 'Dashboard' : feature}
+        {title}
         {index === 0 ? (
           <FormControlLabel
             checked={alertEnabled}

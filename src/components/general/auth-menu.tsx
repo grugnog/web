@@ -1,7 +1,7 @@
-import { useCallback, memo, useEffect, useState, SyntheticEvent } from 'react'
+import { useCallback, useEffect, useState, SyntheticEvent } from 'react'
 import { useRouter } from 'next/router'
 
-import { IconButton, MenuItem, Menu, Tooltip } from '@material-ui/core'
+import { IconButton, Menu, Tooltip } from '@material-ui/core'
 import { Link } from './link'
 import { UserManager } from '@app/managers'
 import { LOGGIN_ROUTES } from '@app/configs'
@@ -15,18 +15,23 @@ type AuthMenuComponentProps = {
   authenticated?: boolean // user logged in
 }
 
-function AuthMenuComponent({ authenticated }: AuthMenuComponentProps) {
+const menuItemCss =
+  'w-full text-base px-4 py-2 m-0 border-t text-left h-10 flex hover:no-underline hover:bg-gray-100'
+
+export function AuthMenu({ authenticated }: AuthMenuComponentProps) {
   const router = useRouter()
   const [anchorEl, setAnchorEl] = useState<any>(null)
-  const [logoutMutation, { data, client }] = useMutation(LOGOUT, {
-    ignoreResults: true,
-  })
+  const [logoutMutation, { data, client }] = useMutation(LOGOUT)
   const { setIssueFeedContent } = useWebsiteContext()
 
   useEffect(() => {
     if (data) {
       ;async () => {
-        await client?.clearStore().catch((e) => console.error(e))
+        try {
+          await client?.clearStore()
+        } catch (e) {
+          console.error(e)
+        }
       }
     }
   }, [data, client])
@@ -50,7 +55,7 @@ function AuthMenuComponent({ authenticated }: AuthMenuComponentProps) {
       console.error(e)
     }
 
-    window.location.pathname = '/'
+    await router.push('/')
   }
 
   if (
@@ -76,38 +81,45 @@ function AuthMenuComponent({ authenticated }: AuthMenuComponentProps) {
           anchorEl={anchorEl}
         >
           {router?.pathname !== '/profile' ? (
-            <MenuItem>
-              <Link href={'/profile'}>Profile</Link>
-            </MenuItem>
+            <li className='w-full'>
+              <Link href={'/profile'} className={menuItemCss}>
+                Profile
+              </Link>
+            </li>
           ) : null}
           {router?.pathname !== '/dashboard' ? (
-            <MenuItem>
-              <Link href={'/'}>Dashboard</Link>
-            </MenuItem>
+            <li className='w-full'>
+              <Link href={'/'} className={menuItemCss}>
+                Dashboard
+              </Link>
+            </li>
           ) : null}
           {router?.pathname !== '/api-info' ? (
-            <MenuItem>
-              <Link href={'/api-info'}>API</Link>
-            </MenuItem>
+            <li className='w-full'>
+              <Link href={'/api-info'} className={menuItemCss}>
+                API
+              </Link>
+            </li>
           ) : null}
           {router?.pathname !== '/payments' ? (
-            <MenuItem>
-              <Link href={'/payments'}>Payments</Link>
-            </MenuItem>
+            <li className='w-full'>
+              <Link href={'/payments'} className={menuItemCss}>
+                Payments
+              </Link>
+            </li>
           ) : null}
           {router?.pathname !== '/settings' ? (
-            <MenuItem>
-              <Link href={'/settings'}>Settings</Link>
-            </MenuItem>
+            <li className='w-full'>
+              <Link href={'/settings'} className={menuItemCss}>
+                Settings
+              </Link>
+            </li>
           ) : null}
-          <MenuItem style={{ padding: 0 }}>
-            <button
-              onClick={logout}
-              className={'w-full text-base px-5 py-2 m-0 border-t text-left'}
-            >
+          <li className='w-full'>
+            <button onClick={logout} className={menuItemCss}>
               Logout
             </button>
-          </MenuItem>
+          </li>
         </Menu>
       </div>
     )
@@ -121,5 +133,3 @@ function AuthMenuComponent({ authenticated }: AuthMenuComponentProps) {
     </>
   )
 }
-
-export const AuthMenu = memo(AuthMenuComponent)

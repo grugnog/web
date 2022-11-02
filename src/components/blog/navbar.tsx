@@ -9,7 +9,7 @@ const BLOG_HREF = process.env.NODE_ENV === 'production' ? '/' : '/blog'
 export const NavBar: FC<any> = ({ title = strings.appName }) => {
   return (
     <header>
-      <nav className='bg-[#0E1116] z-1 px-2 py-1 md:py-3 md:px-4'>
+      <nav className='bg-[#0E1116] z-10 px-2 py-1 md:py-3 md:px-4'>
         <div className='flex align-items-center place-items-center text-white md:space-x-2 font-bold'>
           <Link className={`text-black`} href={DOMAIN_NAME}>
             <SmallLogo className='block invert bg-black' />

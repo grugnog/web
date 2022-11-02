@@ -71,16 +71,8 @@ class UserManager {
     return SUPER_MODE === 'true' ? false : this.jwtParsed?.audience === 0
   }
 
-  @computed get getID() {
-    return Number(this?.user?.id || this?.jwtParsed?.keyid)
-  }
-
   @computed get firstDay() {
     return isSameDay(this.jwtParsed.iat, Date.now())
-  }
-
-  @computed get loggedIn() {
-    return userModel.loggedIn || this.token
   }
 
   @action clearUser = () => {

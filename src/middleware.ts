@@ -2,10 +2,6 @@ import { NextResponse, NextRequest, userAgent } from 'next/server'
 import { isWhitelisted } from '@app/configs/next/is-static-resource'
 import { IFRAME_ENDPOINT } from '@app/configs/next/iframe'
 
-const JWT_COOKIE_NAME = 'jwt'
-// coming from vercel
-const VERCEL_PREFIX = `_vercel_`
-
 const ROOT_URL = `.${process.env.ROOT_URL}`
 
 export async function middleware(req: NextRequest) {
@@ -14,12 +10,11 @@ export async function middleware(req: NextRequest) {
     pathname,
     url: req.url,
   })
-  const token = req.cookies.get(JWT_COOKIE_NAME)
 
   let res = NextResponse.next()
 
   // vercel build or static resource ignore middleware
-  if (whiteListed || req.cookies.get(`${VERCEL_PREFIX}${JWT_COOKIE_NAME}`)) {
+  if (whiteListed || req.cookies.get('_vercel_jwt')) {
     return res
   }
 
@@ -41,10 +36,6 @@ export async function middleware(req: NextRequest) {
 
       res = NextResponse.rewrite(b)
     }
-  } else if (token && req.nextUrl.pathname === '/') {
-    const url = req.nextUrl.clone()
-    url.pathname = `/dashboard${req.nextUrl.pathname}`
-    res = NextResponse.rewrite(url)
   }
 
   return res

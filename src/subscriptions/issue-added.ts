@@ -1,8 +1,8 @@
 import gql from 'graphql-tag'
 
 export const ISSUE_SUBSCRIPTION = gql`
-  subscription issueAdded($userId: Int) {
-    issueAdded(userId: $userId) {
+  subscription issueAdded {
+    issueAdded {
       domain
       pageUrl
       issues {

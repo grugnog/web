@@ -1,58 +1,12 @@
-import { SyntheticEvent } from 'react'
-import { Button } from '@a11ywatch/ui'
-import { makeStyles } from '@material-ui/core/styles'
-
-const useStyles = makeStyles((theme) => ({
-  root: {
-    top: '-3rem',
-    left: '18%',
-    '&:focus': {
-      top: 12,
-      zIndex: 99999,
-      position: 'fixed',
-      backgroundColor: '#fff',
-    },
-    '&:hover': {
-      color: theme.palette.primary.main,
-    },
-  },
-}))
+import React from 'react'
 
 export const SkipContent = () => {
-  const classes = useStyles()
-
-  const onClickEvent = (e?: SyntheticEvent<HTMLButtonElement>) => {
-    e?.preventDefault()
-
-    const mainElement: HTMLElement | null = document?.querySelector(
-      '#main-content'
-    )
-
-    if (mainElement) {
-      mainElement?.focus()
-    } else {
-      const inputElement:
-        | HTMLInputElement
-        | HTMLButtonElement
-        | HTMLTextAreaElement
-        | null
-        | undefined = document
-        ?.querySelector('main')
-        ?.querySelector('a, button, input, select, textarea')
-
-      if (inputElement) {
-        inputElement?.focus()
-      }
-    }
-  }
-
   return (
-    <Button
-      ariaLabel='Skip navigation'
-      className={`${classes.root} hidden md:block absolute`}
-      onClick={onClickEvent}
+    <a
+      className={`-top-10 left-[18%] px-4 py-2 rounded hidden md:block absolute focus:top-2.5 focus:bg-white focus:ring focus:z-10`}
+      href={'#main-content'}
     >
       Skip navigation
-    </Button>
+    </a>
   )
 }

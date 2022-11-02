@@ -28,7 +28,7 @@ export const AuthProviderWrapper: FC<PropsWithChildren<{ load?: boolean }>> = ({
   useEffect(() => {
     if (load) {
       setAccountType({
-        activeSubscription: UserManager.freeAccount,
+        activeSubscription: !UserManager.freeAccount,
         authed: !!UserManager.token,
       })
     }

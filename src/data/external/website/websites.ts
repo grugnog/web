@@ -12,7 +12,7 @@ import {
   ISSUE_SUBSCRIPTION,
   CRAWL_COMPLETE_SUBSCRIPTION,
 } from '@app/subscriptions'
-import { UserManager, AppManager } from '@app/managers'
+import { AppManager } from '@app/managers'
 import type { OnSubscriptionDataOptions } from '@apollo/react-common'
 import type { Website } from '@app/types'
 import { useWasmContext } from '@app/components/providers'
@@ -40,7 +40,6 @@ export const useWebsiteData = (
     { [key: string]: boolean } | Record<string, any>
   >({})
 
-  const subscriptionVars = { userId: UserManager.getID }
   const variables = {
     filter,
     customHeaders,
@@ -137,10 +136,8 @@ export const useWebsiteData = (
     REMOVE_WEBSITE,
     updateCache
   )
-  const [
-    addWebsiteMutation,
-    { data: addWebsiteData, loading: addLoading },
-  ] = useMutation(ADD_WEBSITE, updateCache)
+  const [addWebsiteMutation, { data: addWebsiteData, loading: addLoading }] =
+    useMutation(ADD_WEBSITE, updateCache)
   const [updateWebsite, { data: updateData }] = useMutation(UPDATE_WEBSITE, {
     variables,
   })
@@ -247,7 +244,6 @@ export const useWebsiteData = (
   }, [addWebsiteData])
 
   useSubscription(CRAWL_COMPLETE_SUBSCRIPTION, {
-    variables: subscriptionVars,
     onSubscriptionData: onCrawlCompleteSubscription,
   })
 
@@ -274,7 +270,6 @@ export const useWebsiteData = (
   }
 
   const { data: issueSubData } = useSubscription(ISSUE_SUBSCRIPTION, {
-    variables: subscriptionVars,
     onSubscriptionData: onIssueSubscription,
     skip,
   })

@@ -1,4 +1,6 @@
-import { memo, useState } from 'react'
+'use client'
+
+import { useState } from 'react'
 import { makeStyles } from '@material-ui/core/styles'
 import { WebsiteTabs, TestView } from '@app/components/general'
 import { ListSkeleton } from '@app/components/placeholders'
@@ -107,7 +109,7 @@ function ReportInner({
   )
 }
 
-export function ReportViewComponent({
+export function ReportView({
   website,
   closeButton,
   disablePlayground,
@@ -151,5 +153,3 @@ export function ReportViewComponent({
     </div>
   )
 }
-
-export const ReportView = memo(ReportViewComponent)

@@ -1,7 +1,7 @@
-import React, { memo } from 'react'
+import React from 'react'
 import { ListItemSkeleton, ListItemIssuesSkeleton } from './list-item'
 
-export function ListSkeletonComponent({
+export function ListSkeleton({
   count = 3,
   subTitle = true,
   smallCircle = false,
@@ -19,4 +19,3 @@ export function ListSkeletonComponent({
     />
   ))
 }
-export const ListSkeleton = memo(ListSkeletonComponent)

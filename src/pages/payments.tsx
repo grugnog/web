@@ -194,6 +194,5 @@ export default metaSetter(
     description:
       'Payment plans that can be adjusted at any time. Scale with your team and your web needs.',
     gql: true,
-    intercom: true,
   }
 )

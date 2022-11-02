@@ -10,7 +10,7 @@ import {
 import { ReportView } from '@app/components/ada'
 import { metaSetter } from '@app/utils'
 import { getAPIRoute } from '@app/configs/api-route'
-import { UserManager } from '@app/managers'
+import { userModel } from '@app/data'
 
 function Reports({ name, website }: PageProps) {
   const { url, domain } = website ?? { domain: '', url: 'Not Found' }
@@ -18,7 +18,7 @@ function Reports({ name, website }: PageProps) {
 
   // use non gql auth method
   useEffect(() => {
-    if (UserManager.loggedIn) {
+    if (userModel.loggedIn) {
       setAuthed(true)
     }
   }, [])

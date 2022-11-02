@@ -9,7 +9,7 @@ import {
   FILTER_EMAIL_DATES,
 } from '@app/mutations'
 import { GET_USER, updateCache } from '@app/queries'
-import { AppManager, UserManager } from '@app/managers'
+import { AppManager } from '@app/managers'
 import { EMAIL_VERIFIED_SUBSCRIPTION } from '@app/subscriptions'
 import { GET_USER_PROFILE, GET_USER_SETTINGS } from '@app/queries/user'
 
@@ -43,10 +43,8 @@ export const useUserData = (skip?: boolean, query?: 'profile' | 'settings') => {
     }
   )
 
-  const [
-    updateUser,
-    { data: updateUserData, loading: updateUserLoading },
-  ] = useMutation(UPDATE_USER, updateCache as any)
+  const [updateUser, { data: updateUserData, loading: updateUserLoading }] =
+    useMutation(UPDATE_USER, updateCache as any)
 
   const [
     forgotPassword,
@@ -67,7 +65,6 @@ export const useUserData = (skip?: boolean, query?: 'profile' | 'settings') => {
   ] = useMutation(FILTER_EMAIL_DATES)
 
   const { data: emailVerified } = useSubscription(EMAIL_VERIFIED_SUBSCRIPTION, {
-    variables: { userId: UserManager.getID },
     skip,
   })
 

@@ -10,13 +10,8 @@ import { useWebsiteContext } from '@app/components/providers/website'
 import { LoadMoreButton } from '@app/components/general/buttons'
 
 function WebActions({ name }: PageProps) {
-  const {
-    actionsData,
-    actionsDataLoading,
-    refetch,
-    error,
-    onLoadMoreActions,
-  } = useWebsiteContext()
+  const { actionsData, actionsDataLoading, refetch, error, onLoadMoreActions } =
+    useWebsiteContext()
   const { search } = useSearchFilter()
 
   // search local filtering
@@ -66,6 +61,5 @@ export default metaSetter(
     description: 'Your web page actions to run during testing.',
     gql: true,
     wasm: true,
-    intercom: true,
   }
 )

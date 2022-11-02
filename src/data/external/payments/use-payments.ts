@@ -35,7 +35,7 @@ export const usePaymentsHook = () => {
 
         AppManager.toggleSnack(true, 'Payment confirmed!', 'success')
 
-        await router.push('/')
+        await router.push('/dashboard')
       }
     } catch (e) {
       console.error(e)
@@ -61,7 +61,7 @@ export const usePaymentsHook = () => {
         UserManager.setJwt(jwt)
       }
       try {
-        await router.push('/')
+        await router.push('/dashboard')
       } catch (e) {
         console.error(e)
       }

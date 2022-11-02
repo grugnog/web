@@ -1,10 +1,10 @@
 import { useEffect } from 'react'
-import { UserManager } from '@app/managers'
+import { userModel } from '../models'
 
 export const useAuthedRedirect = () => {
   useEffect(() => {
     process.nextTick(() => {
-      if (UserManager.loggedIn) {
+      if (userModel.loggedIn) {
         window.location.href = '/'
       }
     })

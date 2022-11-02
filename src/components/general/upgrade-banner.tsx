@@ -12,7 +12,7 @@ const UpgradeBanner = () => {
   return needsUpdate ? (
     <div className='hidden md:block'>
       <div className='h-20' />
-      <div className={'p-3 z-1 w-full flex place-content-center'}>
+      <div className={'p-3 z-10 w-full flex place-content-center'}>
         <div className={'text-sm md:text-normal text-gray-500 font-semibold'}>
           Upgrade your account to add multiple websites, multi page lighthouse
           reports, custom script fixes, and more.{' '}

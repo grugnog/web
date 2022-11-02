@@ -31,13 +31,11 @@ const env = {
   API: process.env.API,
   WEB_SOCKET_URL: process.env.WEB_SOCKET_URL,
   STRIPE_KEY: process.env.STRIPE_KEY,
-  INTERCOM_APPID: process.env.INTERCOM_APPID,
   IFRAME_URL: process.env.IFRAME_URL,
   GOOGLE_CLIENT_ID: process.env.GOOGLE_CLIENT_ID,
   GITHUB_CLIENT_ID: process.env.GITHUB_CLIENT_ID,
   CRISP_WEBSITE_ID: process.env.CRISP_WEBSITE_ID, // TODO: use NEXT_PUBLIC
   NEXT_PUBLIC_DOMAIN_NAME: DOMAIN_NAME,
-  INTERCOM_ENABLED: process.env.INTERCOM_ENABLED === 'true',
   SUPER_MODE: process.env.SUPER_MODE === 'true',
   DOCKER_CONTAINER: process.env.DOCKER_CONTAINER === 'true', // app is using docker runtime
   CDN: process.env.CDN, // single CDN for app assets

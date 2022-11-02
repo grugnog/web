@@ -18,40 +18,31 @@ const userModel = {
     deviceType?: string
     cookie?: any
   }) {
-    try {
-      if (typeof document !== 'undefined') {
-        const jssStyles = document.querySelector('#jss-server-side')
+    if (typeof document !== 'undefined') {
+      const jssStyles = document.querySelector('#jss-server-side')
 
-        if (jssStyles?.parentNode) {
-          jssStyles.parentNode.removeChild(jssStyles)
-        }
+      if (jssStyles?.parentNode) {
+        jssStyles.parentNode.removeChild(jssStyles)
       }
+    }
 
-      if (deviceType) {
-        this.deviceType = deviceType
-      }
+    if (deviceType) {
+      this.deviceType = deviceType
+    }
 
-      if (cookie) {
-        const { [_JWT]: jwt, [_ALERTS_ENABLED]: alertsEnabled } = parseCookie(
-          cookie
-        )
+    if (cookie) {
+      const { [_JWT]: jwt, [_ALERTS_ENABLED]: alertsEnabled } =
+        parseCookie(cookie)
 
-        this.alertsEnabled = alertsEnabled
-        this.jwt = jwt
-      }
-    } catch (e) {
-      console.error(e)
+      this.alertsEnabled = alertsEnabled
+      this.jwt = jwt
     }
 
     return this.jwt
   },
   logOut: function () {
-    try {
-      this.jwt = ''
-      this.email = ''
-    } catch (e) {
-      console.error(e)
-    }
+    this.jwt = ''
+    this.email = ''
   },
   logIn: function ({ email, jwt }: User) {
     if (email) {

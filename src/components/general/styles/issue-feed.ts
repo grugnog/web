@@ -11,7 +11,7 @@ const useStyles = makeStyles(({ breakpoints, color, palette }: MergedTheme) =>
       width: '24vw',
       minWidth: 260,
       overflowY: 'scroll',
-      zIndex: 1002,
+      zIndex: 4,
       backgroundColor: palette.common.white,
       [breakpoints.down('sm')]: {
         top: '30%',

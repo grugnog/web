@@ -1,3 +1,5 @@
+'use client'
+
 import { Fragment } from 'react'
 import { observer } from 'mobx-react-lite'
 import { useIssue } from '@app/data'

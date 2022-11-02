@@ -10,9 +10,6 @@ const AppConfig = {
   webSocketUrl: process.env.WEB_SOCKET_URL || `ws://${DEFAULT_API_URL}/graphql`,
 }
 
-// INTERCOM MESSAGER
-const INTERCOM_APPID = process.env.INTERCOM_APPID
-const INTERCOM_ENABLED = Boolean(process.env.INTERCOM_ENABLED) || false
 // GOOGLE AUTH
 const GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID
 // STRIPE
@@ -63,12 +60,10 @@ export {
   dev,
   AppConfig,
   SCRIPTS_CDN_URL_HOST,
-  INTERCOM_APPID,
   GOOGLE_CLIENT_ID,
   APP_TYPE,
   STRIPE_KEY,
   SUPER_MODE,
-  INTERCOM_ENABLED,
   cdn,
   companyName,
   twitterSite,

@@ -1,16 +1,10 @@
 import { userModel } from '@app/data'
-import { TOGGLE_ALERT, TOGGLE_PROFILE } from '@app/mutations'
+import { TOGGLE_ALERT } from '@app/mutations'
 import { useMutation } from '@apollo/react-hooks'
 
 export const useFeaturesData = () => {
-  const [
-    toggleAlert,
-    { data: toggleAlertData, loading: toggleAlertLoading },
-  ] = useMutation(TOGGLE_ALERT)
-  const [
-    toggleProfile,
-    { data: toggleProfileData, loading: toggleProfileLoading },
-  ] = useMutation(TOGGLE_PROFILE)
+  const [toggleAlert, { data: toggleAlertData, loading: toggleAlertLoading }] =
+    useMutation(TOGGLE_ALERT)
 
   return Object.freeze({
     toggleAlertLoading,
@@ -21,12 +15,5 @@ export const useFeaturesData = () => {
       }
     },
     toggleAlertData,
-    toggleProfileLoading,
-    toggleProfile: (alertParams?: any) => {
-      if (alertParams?.variables) {
-        toggleProfile(alertParams)
-      }
-    },
-    toggleProfileData,
   })
 }

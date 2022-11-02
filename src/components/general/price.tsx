@@ -1,9 +1,11 @@
+'use client'
+
 import { useState } from 'react'
 import { priceConfig } from '@app/configs'
 
-import { SectionHeading } from '../text'
-import { Link } from './link'
+import { Link } from '@app/app/typo/link'
 import { SectionContainer } from '@app/app/containers/section-container'
+import { SectionHeading } from '@app/app/typo/section-heading'
 import { PriceCell } from './cells/price-cell'
 import { PriceFeat } from './cells/price-feat'
 

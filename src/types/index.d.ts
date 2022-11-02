@@ -2,10 +2,12 @@ export type Maybe<T> = T | null
 export type Exact<T extends { [key: string]: unknown }> = {
   [K in keyof T]: T[K]
 }
-export type MakeOptional<T, K extends keyof T> = Omit<T, K> &
-  { [SubKey in K]?: Maybe<T[SubKey]> }
-export type MakeMaybe<T, K extends keyof T> = Omit<T, K> &
-  { [SubKey in K]: Maybe<T[SubKey]> }
+export type MakeOptional<T, K extends keyof T> = Omit<T, K> & {
+  [SubKey in K]?: Maybe<T[SubKey]>
+}
+export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & {
+  [SubKey in K]: Maybe<T[SubKey]>
+}
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
   ID: string
@@ -128,7 +130,6 @@ export type Mutation = {
   logout?: Maybe<BasicMutationResponse>
   updateUser?: Maybe<UpdateUserMutationResponse>
   toggleAlert?: Maybe<UpdateUserMutationResponse>
-  toggleProfile?: Maybe<UpdateUserMutationResponse>
   updateWebsite?: Maybe<UpdateWebSiteMutationResponse>
   updateScript?: Maybe<UpdateScriptMutationResponse>
   crawlWebsite?: Maybe<UpdateWebSiteMutationResponse>
@@ -163,10 +164,6 @@ export type MutationUpdateUserArgs = {
 
 export type MutationToggleAlertArgs = {
   alertEnabled?: Maybe<Scalars['Boolean']>
-}
-
-export type MutationToggleProfileArgs = {
-  toggleAlert?: Maybe<Scalars['Boolean']>
 }
 
 export type MutationUpdateWebsiteArgs = {
@@ -395,17 +392,11 @@ export type Subscription = {
   websiteRemoved?: Maybe<Website>
 }
 
-export type SubscriptionWebsiteAddedArgs = {
-  userId?: Maybe<Scalars['Int']>
-}
+export type SubscriptionWebsiteAddedArgs = {}
 
-export type SubscriptionIssueAddedArgs = {
-  userId?: Maybe<Scalars['Int']>
-}
+export type SubscriptionIssueAddedArgs = {}
 
-export type SubscriptionEmailVerifiedArgs = {
-  userId?: Maybe<Scalars['Int']>
-}
+export type SubscriptionEmailVerifiedArgs = {}
 
 export type UpdateScriptMutationResponse = MutationResponse & {
   __typename?: 'UpdateScriptMutationResponse'

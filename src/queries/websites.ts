@@ -1,5 +1,5 @@
 import gql from 'graphql-tag'
-import { UserManager, AppManager } from '@app/managers'
+import { AppManager } from '@app/managers'
 import { MutationUpdaterFn } from 'apollo-client'
 import {
   issueFragments,
@@ -183,7 +183,6 @@ export const updateCache: {
   update(cache, { data }) {
     // initial vars
     const variables = {
-      userId: UserManager.getID,
       filter: '',
       limit: 5,
       offset: 0,

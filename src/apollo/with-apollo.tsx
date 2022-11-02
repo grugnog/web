@@ -40,13 +40,14 @@ const createLink = (): ApolloLink => {
       let graphErrors = ''
       graphQLErrors?.forEach(({ message }: { message?: string }) => {
         if (message) {
-          const invalidSignature = message.includes(
-            'Context creation failed: invalid signature'
-          )
+          const invalidSignature =
+            message.includes('Context creation failed: invalid signature') ||
+            message.includes('Error please sign in to continue')
 
           // TODO: CLEAR AUTH SS FOR USER AND redirect CS
           if (message.includes('JWT:') || invalidSignature) {
             UserManager.clearUser()
+            window.location.href = '/'
           }
 
           const errorMessage = invalidSignature ? 'Please re-login' : message

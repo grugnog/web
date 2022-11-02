@@ -41,7 +41,6 @@ function Pricing({ name }: PageProps) {
 export default metaSetter(
   { Pricing },
   {
-    intercom: true,
     description:
       'Look at pricing plans to help improve accessibility for your project. Suited for small to large companies that need web accessibility assurance.',
   }

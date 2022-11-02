@@ -16,7 +16,6 @@ export default metaSetter(
   { Login },
   {
     description: 'Login in to get all your accessibility insight and more.',
-    intercom: true,
     gql: true,
   }
 )

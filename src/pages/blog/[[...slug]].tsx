@@ -33,6 +33,5 @@ export default metaSetter(
   { Blog },
   {
     gql: false,
-    intercom: false,
   }
 )

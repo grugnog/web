@@ -132,14 +132,3 @@ export const TOGGLE_ALERT = gql`
     }
   }
 `
-
-export const TOGGLE_PROFILE = gql`
-  mutation ToggleProfile($profileEnabled: Boolean) {
-    toggleProfile(profileEnabled: $profileEnabled) {
-      code
-      success
-      message
-      profileEnabled
-    }
-  }
-`
