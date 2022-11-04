@@ -71,6 +71,6 @@ export default metaSetter(
   { About },
   {
     title: `About ${companyName} and our role in the web accessibility community.`,
-    description: `The story of the web-based accessibility tool built to make a11y available to everyone.`,
+    description: `The story of the web-based accessibility tool built to make inclusion available to everyone.`,
   }
 )

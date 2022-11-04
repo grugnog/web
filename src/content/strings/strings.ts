@@ -21,7 +21,7 @@ export const generateStrings = ({
     productivity: 'Productivity',
     ctaDetails: 'Everything you need to improve your websites accessibility',
     ctaInfo:
-      'Improve your accessibility with our a11y monitor, helper and fixer powered by AI.',
+      'Improve your accessibility with our monitor, helper and fixer powered by AI.',
     ctaTryOut: 'Try A11yWatch for free',
     ctaSeeHowItWorks: 'See How It Works',
     customers: 'Get reports, monitoring, and core web vitals',

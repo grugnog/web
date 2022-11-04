@@ -250,7 +250,7 @@ function WebAccessibility({ name }: PageProps) {
           your normal application (slows it down). This means that certain
           things that are not on the native end for speed can provide a not so
           ideal experience. {`It's`} important to test how your application will
-          run with this enabled from aria-label, a11y assetive props,
+          run with this enabled from aria-label, accessibility assetive props,
           performance and more.
         </Typography>
         <ul className='space-y-2 pb-2 list-disc px-6'>

@@ -89,7 +89,7 @@ export const highlightErrors = (iframeDOM: Document, url: string) => {
             )
           }
         } catch (e) {
-          console.error('highlight a11y errors issue', e)
+          console.error('highlight errors issue', e)
         }
       }
     })
