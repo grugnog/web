@@ -73,7 +73,7 @@ const Footer = ({ sticky, blog }: { sticky?: boolean; blog?: boolean }) => {
           <div className={'flex-[0.2] pb-10'}>
             <div className='flex flex-wrap gap-x-4 md:gap-x-20'>
               <div>
-                <p className={'font-bold text-3xl'}>{strings.appName}</p>
+                <p className={'font-bold text-3xl pb-2'}>{strings.appName}</p>
                 <p className='text-gray-500'>
                   Enhancing inclusion for every website.
                 </p>

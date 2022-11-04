@@ -104,21 +104,17 @@ export function WebsiteCellDashboardComponent({
     }
   }, [url, removePress])
 
-  const handleMainClick = (
-    eventData?: any,
-    title?: string,
-    mini?: boolean,
-    url?: string
-  ) => () => {
-    // mini player open - small modal with dynamic content
-    if (mini) {
-      handleClickOpenPlayer(true, eventData, title)()
-    } else if (handleClickOpen) {
-      handleClickOpen(eventData, title, url)
-    }
+  const handleMainClick =
+    (eventData?: any, title?: string, mini?: boolean, url?: string) => () => {
+      // mini player open - small modal with dynamic content
+      if (mini) {
+        handleClickOpenPlayer(true, eventData, title)()
+      } else if (handleClickOpen) {
+        handleClickOpen(eventData, title, url)
+      }
 
-    setAnchorEl(null)
-  }
+      setAnchorEl(null)
+    }
 
   const cdnBase =
     script?.cdnUrl ?? `${domain}/${domain.replace(/\./g, '-')}-ada-fix-0.js`
@@ -128,69 +124,60 @@ export function WebsiteCellDashboardComponent({
     `${domain}/${domain.replace(/\./g, '-')}-ada-fix-0.min.js`
 
   // real time issue tracking
-  const {
-    errorCount,
-    warningCount,
-    totalIssues,
-    issuesFixedByCdn,
-  } = useMemo(() => {
-    let errors = 0
-    let warnings = 0
-    let notices = 0
+  const { errorCount, warningCount, totalIssues, issuesFixedByCdn } =
+    useMemo(() => {
+      let errors = 0
+      let warnings = 0
+      let notices = 0
 
-    if (issues?.length) {
-      issues.forEach((iss: any) => {
-        const pageIssues = iss?.issues
-        pageIssues?.forEach((page: Issue) => {
-          if (page?.type === 'error') {
-            errors++
-          }
-          if (page?.type === 'warning') {
-            warnings++
-          }
-          if (page?.type === 'notice') {
-            notices++
-          }
+      if (issues?.length) {
+        issues.forEach((iss: any) => {
+          const pageIssues = iss?.issues
+          pageIssues?.forEach((page: Issue) => {
+            if (page?.type === 'error') {
+              errors++
+            }
+            if (page?.type === 'warning') {
+              warnings++
+            }
+            if (page?.type === 'notice') {
+              notices++
+            }
+          })
         })
-      })
-    } else {
-      errors = issuesInfo?.errorCount
-      warnings = issuesInfo?.warningCount
-      notices = issuesInfo?.noticesCount
-    }
+      } else {
+        errors = issuesInfo?.errorCount
+        warnings = issuesInfo?.warningCount
+        notices = issuesInfo?.noticesCount
+      }
 
-    return {
-      issuesFixedByCdn: issuesInfo?.issuesFixedByCdn,
-      errorCount: errors,
-      warningCount: warnings,
-      noticeCount: notices,
-      totalIssues: errors + warnings + notices,
-    }
-  }, [issues, issuesInfo])
+      return {
+        issuesFixedByCdn: issuesInfo?.issuesFixedByCdn,
+        errorCount: errors,
+        warningCount: warnings,
+        noticeCount: notices,
+        totalIssues: errors + warnings + notices,
+      }
+    }, [issues, issuesInfo])
 
-  const {
-    statusBadgeUrl,
-    reportsLink,
-    reportsPageLink,
-    linkUrl,
-    linkView,
-  } = useMemo(() => {
-    // TODO: REMOVE ALL URL CLIENT APPENDING
-    const encodedUrl = encodeURIComponent(url)
-    const statusBadgeUrl = `${STATUS_URL}/${encodeURIComponent(domain)}`
+  const { statusBadgeUrl, reportsLink, reportsPageLink, linkUrl, linkView } =
+    useMemo(() => {
+      // TODO: REMOVE ALL URL CLIENT APPENDING
+      const encodedUrl = encodeURIComponent(url)
+      const statusBadgeUrl = `${STATUS_URL}/${encodeURIComponent(domain)}`
 
-    const reportsLink = `${BASE_GQL_URL}/${encodedUrl}`
-    const reportsPageLink = `/reports/${encodedUrl}`
+      const reportsLink = `${BASE_GQL_URL}/${encodedUrl}`
+      const reportsPageLink = `/reports/${encodedUrl}`
 
-    return {
-      statusBadgeUrl,
-      encodedUrl,
-      reportsLink,
-      reportsPageLink,
-      linkUrl: `/website-details?url=${encodedUrl}`,
-      linkView: `/web-view?url=${encodedUrl}`,
-    }
-  }, [domain, url])
+      return {
+        statusBadgeUrl,
+        encodedUrl,
+        reportsLink,
+        reportsPageLink,
+        linkUrl: `/website-details?url=${encodedUrl}`,
+        linkView: `/web-view?url=${encodedUrl}`,
+      }
+    }, [domain, url])
 
   const pageIssueCount =
     issues?.length > issuesInfo?.pageCount

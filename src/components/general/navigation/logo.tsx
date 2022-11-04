@@ -24,7 +24,7 @@ export const Logo: FC<Logo> = ({ width, height }) => {
 export const SmallLogo = ({ className }: { className?: string }) => {
   return (
     <img
-      src='/img/logo_halloween.svg'
+      src='/img/logo.svg'
       alt='A11yWatch logo'
       width={'25.5'}
       height={'25.5'}

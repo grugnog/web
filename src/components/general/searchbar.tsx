@@ -79,7 +79,7 @@ export function SearchBar({ placeholder, noWidth, cta }: any) {
           <div className={classes.searchIcon}>
             <GrSearch />
           </div>
-          <label className='sr-only' aria-labelledby='search-w'>
+          <label className='sr-only' id={'search-w'}>
             Search your websites
           </label>
           <input
@@ -87,7 +87,7 @@ export function SearchBar({ placeholder, noWidth, cta }: any) {
             className={`bg-gray-100 pl-12 pr-2 py-2 ${classes.inputInput}`}
             type={'search'}
             onChange={setSearchFilter}
-            id={'search-w'}
+            aria-labelledby='search-w'
           />
         </div>
       </div>
@@ -100,7 +100,7 @@ export function SearchBar({ placeholder, noWidth, cta }: any) {
         <div className={classes.searchIcon}>
           <GrSearch />
         </div>
-        <label className='sr-only' aria-labelledby='search-w'>
+        <label className='sr-only' id={'search-w'}>
           Search your websites
         </label>
         <input
@@ -108,7 +108,7 @@ export function SearchBar({ placeholder, noWidth, cta }: any) {
           className={`bg-gray-100 pl-14 pr-2 py-2 ${classes.inputInput}`}
           type={'search'}
           onChange={onSearchChangeEvent}
-          id={'search-w'}
+          aria-labelledby='search-w'
           value={ctaSearch}
         />
 

@@ -27,15 +27,15 @@ function AuthRedirect(props: { email: string; id: number }) {
           const authValue = data?.register ?? data?.login
 
           authValue && UserManager.setUser(authValue)
+          await router.push('/dashboard')
         } else {
           AppManager.toggleSnack(
             true,
             'Your Github email set to private. Update your email to public to login.',
             'error'
           )
+          await router.push('/')
         }
-
-        await router.push('/')
       } catch (e) {
         console.error(e)
       }

@@ -16,6 +16,8 @@ export const CustomCDNBoxWrapper = ({
 }) => {
   const [isMinified, setMinified] = useState<boolean>(true)
 
+  const cdnText = isMinified ? cdnUrlMinifed : cdnUrl
+
   return (
     <InfoBlock title={'CDN'} icon={<GrCloudSoftware />}>
       <>
@@ -34,10 +36,12 @@ export const CustomCDNBoxWrapper = ({
         <PrismLight
           language={'html'}
           style={prismStyles}
-          onClick={copyClipboard}
+          onClick={
+            cdnText === '[Paid plan required]' ? () => {} : copyClipboard
+          }
           className={'hover:bg-blue-500 hover:text-white cursor-pointer'}
         >
-          {isMinified ? cdnUrlMinifed : cdnUrl}
+          {cdnText}
         </PrismLight>
         <div
           className={`py-2 text-gray-500 text-sm ${

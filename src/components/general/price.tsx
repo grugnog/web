@@ -12,7 +12,7 @@ import { PriceFeat } from './cells/price-feat'
 const getStyles = (inactive: boolean) =>
   inactive
     ? 'relative px-2 border rounded-2xl py-2 text-sm font-bold text-gray-700 whitespace-nowrap focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:z-10 sm:w-auto sm:px-8 hover:shadow-xl'
-    : 'relative px-2 rounded-2xl shadow-sm py-2 text-sm font-bold text-white bg-blue-500 whitespace-nowrap focus:outline-none focus:ring-2 focus:ring-gray-500 focus:z-10 sm:w-auto sm:px-8'
+    : 'relative px-2 rounded-2xl shadow-sm py-2 text-sm font-bold text-white bg-blue-600 whitespace-nowrap focus:outline-none focus:ring-2 focus:ring-gray-500 focus:z-10 sm:w-auto sm:px-8'
 
 const getPrimaryColor = (title: string) => {
   let color = '#0E1116'
@@ -174,7 +174,7 @@ export function PriceMemo({
               <button
                 onClick={onTogglePlans}
                 className={
-                  'px-3 py-1 border-2 text-blue-500 font-bold rounded text-lg border-blue-500 hover:bg-black hover:text-white'
+                  'px-3 py-1 border-2 text-blue-600 font-bold rounded text-lg border-blue-600 hover:bg-black hover:text-white'
                 }
               >
                 {selectHighPlans

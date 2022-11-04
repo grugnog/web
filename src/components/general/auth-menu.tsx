@@ -89,7 +89,7 @@ export function AuthMenu({ authenticated }: AuthMenuComponentProps) {
           ) : null}
           {router?.pathname !== '/dashboard' ? (
             <li className='w-full'>
-              <Link href={'/'} className={menuItemCss}>
+              <Link href={'/dashboard'} className={menuItemCss}>
                 Dashboard
               </Link>
             </li>
