@@ -12,11 +12,6 @@ const GET_USER = gql`
       emailConfirmed
       emailFilteredDates
       passwordRequired
-      apiUsage {
-        usage
-        lastScanDate
-        usageLimit
-      }
       scanInfo {
         lastScanDate
         totalUptime
@@ -51,11 +46,6 @@ const GET_USER_PROFILE = gql`
       emailConfirmed
       emailFilteredDates
       passwordRequired
-      apiUsage {
-        usage
-        lastScanDate
-        usageLimit
-      }
       scanInfo {
         lastScanDate
         totalUptime

@@ -32,9 +32,6 @@ function ApiInfo() {
   const token = UserManager.token
   const authed = !!user
 
-  // TODO: MOVE TO SS
-  const apiLimit = !user?.role ? 0 : '*'
-
   return (
     <MarketingDrawer authenticated={authed} loading={loading}>
       <SectionContainer container block>
@@ -118,7 +115,10 @@ function ApiInfo() {
               ) : (
                 <>
                   <p className='text-lg'>
-                    Daily Allowed Usage {user?.apiUsage?.usage || 0}/{apiLimit}
+                    Daily Allowed Usage{' '}
+                    {user?.scanInfo?.totalUptime
+                      ? (user?.scanInfo?.totalUptime || 0) / 1000
+                      : 0}
                   </p>
                   <p className={'text-sm'}>
                     Your limit will reset on your next API request if {`it's`}{' '}
