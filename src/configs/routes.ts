@@ -25,6 +25,12 @@ export const Routes = [
   },
   {
     nav: false,
+    href: '/changelog',
+    name: 'Changelog',
+    type: 'company',
+  },
+  {
+    nav: false,
     href: 'https://a11ywatch.blog',
     name: 'Blog',
     type: 'company',
@@ -97,8 +103,7 @@ export const Routes = [
   },
   {
     nav: false,
-    href:
-      'https://chrome.google.com/webstore/detail/a11ywatch/opefmkkmhchekgcmgneakbjafeckbaag?hl=en&authuser=0',
+    href: 'https://chrome.google.com/webstore/detail/a11ywatch/opefmkkmhchekgcmgneakbjafeckbaag?hl=en&authuser=0',
     name: 'Chrome Extension',
     type: 'explore',
   },

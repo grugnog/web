@@ -129,6 +129,6 @@ export const getStaticProps: GetStaticProps = async () => {
     props: {
       items: items?.length ? items : OSSRoutes,
     },
-    revalidate: 3600 * 6, // every 6 hours
+    revalidate: 3600 * 12, // every 12 hours
   }
 }

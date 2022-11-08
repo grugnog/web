@@ -12,6 +12,65 @@ import { ApiCell } from '@app/components/general/cells/api-info-cell'
 import { Header } from '@app/components/general/header'
 import { SectionContainer } from '@app/app/containers/section-container'
 
+export const getUsageLimits = (role: number) => {
+  let usage = 30000
+
+  switch (role) {
+    case 0: {
+      usage = 30000
+      break
+    }
+    // normal plans
+    case 1: {
+      usage = 500000
+      break
+    }
+    case 2: {
+      usage = 1000000
+      break
+    }
+    case 3: {
+      usage = 2000000
+      break
+    }
+    case 4: {
+      usage = 5000000
+      break
+    }
+    case 5: {
+      usage = 15000000
+      break
+    }
+    // high tier plans
+    case 6: {
+      usage = 50000000
+      break
+    }
+    case 7: {
+      usage = 100000000
+      break
+    }
+    case 8: {
+      usage = 200000000
+      break
+    }
+    case 9: {
+      usage = 300000000
+      break
+    }
+    case 10: {
+      usage = 500000000
+      break
+    }
+    default: {
+      usage = 30000
+      break
+    }
+  }
+
+  return usage
+}
+
 // TODO: GENERATE DOCS FROM API
 function ApiInfo() {
   const [keyVisible, setKey] = useState<boolean>(false)
@@ -31,6 +90,8 @@ function ApiInfo() {
   // token
   const token = UserManager.token
   const authed = !!user
+
+  const allowed = getUsageLimits(user?.role ?? 0)
 
   return (
     <MarketingDrawer authenticated={authed} loading={loading}>
@@ -115,10 +176,15 @@ function ApiInfo() {
               ) : (
                 <>
                   <p className='text-lg'>
-                    Daily Allowed Usage{' '}
-                    {user?.scanInfo?.totalUptime
-                      ? (user?.scanInfo?.totalUptime || 0) / 1000
-                      : 0}
+                    Allowed usage{' '}
+                    {`${(allowed ? Number(allowed) / 1000 : 0).toFixed(0)}s`}
+                  </p>
+                  <p className='text-lg'>
+                    Usage used{' '}
+                    {`${(user?.scanInfo?.totalUptime
+                      ? Number(user.scanInfo.totalUptime) / 1000
+                      : 0
+                    ).toFixed(0)}s`}
                   </p>
                   <p className={'text-sm'}>
                     Your limit will reset on your next API request if {`it's`}{' '}
