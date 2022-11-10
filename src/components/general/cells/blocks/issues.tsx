@@ -10,7 +10,7 @@ export const IssuesBoxWrapper = ({ issues }: { issues?: number }) => {
       icon={<GrEmergency className='grIcon' color='black' fill='black' />}
     >
       <div>
-        {issues} problem{issues === 1 ? '' : 's'} to fix
+        {issues ?? 0} problem{issues === 1 ? '' : 's'} to fix
       </div>
     </InfoBlock>
   )
