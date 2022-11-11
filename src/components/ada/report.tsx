@@ -1,7 +1,6 @@
 'use client'
 
 import { useState } from 'react'
-import { makeStyles } from '@material-ui/core/styles'
 import { WebsiteTabs, TestView } from '@app/components/general'
 import { ListSkeleton } from '@app/components/placeholders'
 import { ReportViewLeft } from './report-left'
@@ -26,47 +25,10 @@ const FeedList = dynamic(
   }
 ) as any
 
-const useStyles = makeStyles(() => ({
-  loading: {
-    display: 'flex',
-    justifyContent: 'center',
-    minHeight: 48,
-    ['& > li > *']: {
-      display: 'flex',
-      justifyContent: 'center',
-      alignItems: 'center',
-      textAlign: 'center',
-      flex: 1,
-    },
-  },
-  toolbar: {
-    display: 'flex',
-    justifyContent: 'center',
-    paddingTop: 10,
-    paddingBottom: 10,
-    maxWidth: 160,
-    ['& > li > *']: {
-      display: 'flex',
-      justifyContent: 'center',
-      alignItems: 'center',
-      textAlign: 'center',
-      flex: 1,
-    },
-  },
-}))
-
 function ReportEmptyView() {
-  const classes = useStyles()
-
   return (
     <div className={'w-full'}>
-      <div className={classes.loading} role='presentation'>
-        <ListSkeleton avatar={false} subTitle={false} count={3} />
-      </div>
-      <div className={classes.toolbar} role='presentation'>
-        <ListSkeleton avatar={false} subTitle={false} count={2} />
-      </div>
-      <ListSkeleton count={8} avatar={false} report />
+      <ListSkeleton count={9} avatar={false} report />
     </div>
   )
 }

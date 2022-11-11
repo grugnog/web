@@ -81,10 +81,11 @@ export function DrawerComponent({
   const { data: dataSourceMap, sendConfirmEmail } = useUserData()
   const { issueFeed } = useWebsiteContext()
   const { authed } = useAuthContext()
+
   const { open } = issueFeed
 
   const user = dataSourceMap?.user as any
-  const sidePannelStyles = open ? `${classes.sidePanelPadding}` : ''
+  const sidePannelStyles = open ? classes.sidePanelPadding : ''
 
   return (
     <div className={classes.root}>

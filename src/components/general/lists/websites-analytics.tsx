@@ -1,4 +1,4 @@
-import React, { FC, useState, useEffect, useCallback, memo } from 'react'
+import { FC, useState, useEffect, useCallback, memo } from 'react'
 import { useMiniPlayer } from '@app/data'
 import { FullScreenModal } from '../fullscreen-modal'
 import { InnerWrapper } from './list-wrapper'
@@ -49,9 +49,11 @@ const Analytics = memo(AnalyticsWrapper)
 
 export const RenderInnerAnalytics: FC<any> = (props) => {
   const { pageUrl, generalProps } = props
-  const { data: analyticsSource, loading, onLoadMore } = useAnalyticsData(
-    pageUrl
-  )
+  const {
+    data: analyticsSource,
+    loading,
+    onLoadMore,
+  } = useAnalyticsData(pageUrl)
 
   return (
     <>
@@ -60,6 +62,7 @@ export const RenderInnerAnalytics: FC<any> = (props) => {
         data={analyticsSource?.length}
         loading={loading}
         generalProps={generalProps}
+        avatar={false}
       >
         <ul>
           {analyticsSource?.map((page: any) => (

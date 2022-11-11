@@ -54,8 +54,7 @@ const crawlParams = {
   },
   pageInsights: {
     type: 'boolean',
-    desc:
-      'Run with additional google lighthouse report. [Not required if configured]',
+    desc: 'Run with additional google lighthouse report. [Not required if configured]',
     optional: true,
   },
 }
@@ -77,8 +76,7 @@ export const apiRoutes = [
         pathName: 'login',
         method: 'POST',
         params: authParams,
-        info:
-          'Login to an existing account and retrieves an authentication token.',
+        info: 'Login to an existing account and retrieves an authentication token.',
         title: 'Login',
         encodedParams: `-d '{ "email": "example@email.com", "password": "dwdwd" }'`,
       },
@@ -86,8 +84,7 @@ export const apiRoutes = [
         pathName: 'register',
         method: 'POST',
         params: authParams,
-        info:
-          'Create a new account to use and retrieves an authentication token.',
+        info: 'Create a new account to use and retrieves an authentication token.',
         title: 'Register',
         encodedParams: `-d '{ "email": "example@email.com", "password": "dwdwd" }'`,
       },
@@ -98,7 +95,7 @@ export const apiRoutes = [
     id: 'report_actions',
     routes: [
       {
-        pathName: 'scan-simple',
+        pathName: 'scan',
         method: 'POST',
         params: {
           url: crawlParams.url,

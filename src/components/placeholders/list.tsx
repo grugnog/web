@@ -10,12 +10,16 @@ export function ListSkeleton({
 }: any): any {
   const Skeleton = report ? ListItemIssuesSkeleton : ListItemSkeleton
 
-  return Array.from(Array(count).keys()).map((item: string | number) => (
-    <Skeleton
-      key={item}
-      subTitle={subTitle}
-      smallCircle={smallCircle}
-      avatar={avatar}
-    />
-  ))
+  return (
+    <ul className='list-none py-6 w-full'>
+      {Array.from(Array(count).keys()).map((item: string | number) => (
+        <Skeleton
+          key={item}
+          subTitle={subTitle}
+          smallCircle={smallCircle}
+          avatar={avatar}
+        />
+      ))}
+    </ul>
+  )
 }

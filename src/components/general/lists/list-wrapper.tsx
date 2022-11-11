@@ -1,4 +1,4 @@
-import React, { FC, memo } from 'react'
+import { FC, memo } from 'react'
 import { CardHeader } from '@material-ui/core'
 import { ListSkeleton } from '../../placeholders'
 
@@ -13,10 +13,11 @@ const InnerWrapperComponent: FC<any> = (props) => {
     error,
     emptyHeaderTitle,
     emptyHeaderSubTitle,
+    avatar = true,
   } = props
 
   if (!data && loading) {
-    return <ListSkeleton />
+    return <ListSkeleton avatar={avatar} />
   }
 
   if (!data && !loading && error) {

@@ -6,6 +6,7 @@ import {
   useCallback,
   useRef,
   useEffect,
+  useMemo,
 } from 'react'
 import { Fade } from '@material-ui/core'
 import { useStyles } from '../general/styles'
@@ -13,8 +14,7 @@ import { useWebsiteContext } from '../providers/website'
 import { GrClose } from 'react-icons/gr'
 import { AppManager } from '@app/managers'
 import { FeedList } from './list'
-import { Website } from '@app/types'
-import { useMemo } from 'react'
+import type { Website } from '@app/types'
 import { useWasmContext } from '../providers'
 
 const PageList = ({
@@ -98,9 +98,7 @@ const FeedItemWrapper = ({
     }
   }, [website])
 
-  const onHeadingToggleEvent = () => {
-    setVisible((v) => !v)
-  }
+  const onHeadingToggleEvent = () => setVisible((v) => !v)
 
   const onSortClick = () => {
     if (refPages.current) {
@@ -125,6 +123,30 @@ const FeedItemWrapper = ({
 
 const FeedItem = memo(FeedItemWrapper)
 
+const Top = ({ onClick }: { onClick(x: any): any; open: boolean }) => {
+  const closeFeed = () => onClick(false)
+
+  return (
+    <div
+      className={`flex place-items-center px-3 py-1 h-14 border border-t-0 border-r-0 border-l-0 bg-gray-100`}
+    >
+      <p className={`flex-1 text-lg font-semibold`}>Recent Issues</p>
+      <button
+        onClick={closeFeed}
+        aria-label='close'
+        title='close issue feed'
+        className='p-3 hover:bg-gray-200 rounded-2xl'
+        type={'button'}
+      >
+        <GrClose />
+      </button>
+    </div>
+  )
+}
+
+// re-render on state change for toggling click event
+const TopSection = memo(Top, (x, y) => x.open === y.open)
+
 // side panel that appears fixed on the right of current issues of domain being. This returns a list of pages with a list of issues per page.
 const Feed: FC = () => {
   const classes = useStyles()
@@ -132,17 +154,6 @@ const Feed: FC = () => {
   const { issueFeed, setIssueFeedContent, scanWebsite } = useWebsiteContext()
 
   const { data, open } = issueFeed
-
-  const issues = useMemo(() => {
-    if (data instanceof Map) {
-      return [...data.keys()]
-    }
-    return Object.keys(data)
-  }, [data])
-
-  const closeFeed = useCallback(() => {
-    setIssueFeedContent(false)
-  }, [setIssueFeedContent])
 
   const onScanEvent = useCallback(
     async (target: string) => {
@@ -189,22 +200,20 @@ const Feed: FC = () => {
     [feed, scanWebsite, setIssueFeedContent]
   )
 
+  const issues = useMemo(() => {
+    if (data instanceof Map) {
+      return [...data.keys()]
+    }
+    return Object.keys(data)
+  }, [data])
+
   return (
     <Fade in={issues?.length && open ? true : false}>
-      <div className={`${classes.root} shadow`} aria-live='polite'>
-        <div
-          className={`flex place-items-center px-3 py-1 h-14 border border-t-0 border-r-0 border-l-0 bg-gray-100`}
-        >
-          <p className={`flex-1 text-lg font-semibold`}>Recent Issues</p>
-          <button
-            onClick={closeFeed}
-            aria-label='close'
-            title='close issue feed'
-            className='p-3 hover:bg-gray-200 rounded-2xl'
-          >
-            <GrClose />
-          </button>
-        </div>
+      <div
+        className={`${classes.root} border-t md:border-l md:border-t-0`}
+        aria-live='polite'
+      >
+        <TopSection onClick={setIssueFeedContent} open={open} />
         <ul>
           {issues?.map((domain, index) => (
             <FeedItem

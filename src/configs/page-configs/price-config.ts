@@ -80,7 +80,7 @@ const lPlans = [
   },
   {
     title: 'L2',
-    details: ['up to 1000 seconds daily scanning'],
+    details: ['up to 1,000 seconds daily scanning'],
     cost: '$24/month',
     costYearly: '$20/month',
   },

@@ -89,18 +89,16 @@ function ChangeLog({ name }: PageProps) {
 
         <Header2>Current status</Header2>
         <p className='text-lg'>
-          We spent several months upgrading our technology stack for future
-          development. Now {`we're`} working on huge improvements to our
-          dashboard, improving some of the processing across our accessibility
-          service, and improving system portablity.
+          We are currently working on improvements to our dashboard and
+          improving the process across our platform.
         </p>
 
         <>
           {list.map((item) => {
             return (
               <Fragment key={item.date as Key}>
-                <ul className='list-disc'>
-                  <Header3>{item.date}</Header3>
+                <Header3>{item.date}</Header3>
+                <ul className='list-disc py-2'>
                   {item.updates.map((li, i) => {
                     return (
                       <li

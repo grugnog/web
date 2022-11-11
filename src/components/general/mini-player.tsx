@@ -48,9 +48,9 @@ interface MiniPlayerProps {}
 
 // a mini modal that appears that can be dragged across the screen.
 export const MiniPlayer: FunctionComponent<MiniPlayerProps> = (_) => {
+  const classes = useStyles()
   const appBarRef = useRef(null)
   const { miniPlayer, setMiniPlayerContent } = useMiniPlayer()
-  const classes = useStyles()
 
   const { open, data, title } = useMemo(() => {
     // parse lighthouse data

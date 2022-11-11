@@ -24,10 +24,7 @@ function WebActions({ name }: PageProps) {
     <>
       <Drawer title={name}>
         <PageTitle title={name} />
-        <p className='text-xl'>
-          BETA - Updating action coming soon. In the mean time remove your
-          website and re add your actions.
-        </p>
+        <p className='text-xl'>BETA</p>
         <PageLoader
           empty={actionsData?.length === 0}
           loading={actionsDataLoading}
@@ -50,6 +47,12 @@ function WebActions({ name }: PageProps) {
             />
           </div>
         </PageLoader>
+        <div className='p-3 border rounded'>
+          <p className='text-sm'>
+            Updating actions coming soon, in the mean time remove your website
+            and re-add your actions.
+          </p>
+        </div>
       </Drawer>
     </>
   )

@@ -10,6 +10,7 @@ type DataContainerProps = PropsWithChildren<{
   loading?: boolean
   emptyHeaderTitle?: string
   emptyHeaderSubTitle?: string
+  avatar?: boolean
 }>
 
 // data container to handle loading main application pages
@@ -20,10 +21,11 @@ export const DataContainer: FC<DataContainerProps> = ({
   emptyHeaderTitle,
   emptyHeaderSubTitle,
   children,
+  avatar = true,
 }) => {
   if (!data?.length) {
     if (loading) {
-      return <ListSkeleton />
+      return <ListSkeleton avatar={avatar} />
     }
     if (!loading && error) {
       return (

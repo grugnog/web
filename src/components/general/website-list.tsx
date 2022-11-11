@@ -65,7 +65,7 @@ export function WebsiteList({
 
   return (
     <Fragment>
-      <DataContainer {...sharedProps}>
+      <DataContainer {...sharedProps} avatar={false}>
         <WebSitesDashboard {...sharedProps} {...websiteProps} />
       </DataContainer>
       <FullScreenModal

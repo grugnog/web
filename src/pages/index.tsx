@@ -33,7 +33,7 @@ export default metaSetter(
   { Index },
   {
     rest: true,
-    title: `The all around web accessibility tool.`,
-    description: `Build accessible websites with tools that monitor, fix, and guide web accessibility efficiency with ${strings.appName}`,
+    title: `The all around web accessibility platform.`,
+    description: `Build inclusive websites with tools that monitor, fix, and guide web accessibility delivery with ${strings.appName}`,
   }
 )

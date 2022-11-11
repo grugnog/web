@@ -10,7 +10,7 @@ export const Partners: FC = () => {
       </div>
       <div className='py-4'>
         <a
-          className='py-3 px-5 rounded border hover:bg-black hover:text-white'
+          className='py-3 px-5 rounded border-2 hover:bg-black hover:text-white'
           href={
             'mailto:support@a11ywatch.com' +
             '?subject=' +

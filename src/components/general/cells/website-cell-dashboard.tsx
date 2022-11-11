@@ -237,7 +237,7 @@ export function WebsiteCellDashboardComponent({
             <Link
               title={`view in sandbox ${url}`}
               href={linkUrl}
-              className={'hover:bg-gray-200'}
+              className={'hover:bg-gray-200 p-2 rounded'}
             >
               <GrChannel />
             </Link>

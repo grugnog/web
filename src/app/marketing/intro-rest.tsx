@@ -20,19 +20,19 @@ function MarketingIntro({
             'Fast and insightful web accessibility evaluations'
           ) : (
             <>
-              Elegant <b className='text-blue-600 underline'>accessibility</b>{' '}
-              reporting and monitoring
+              The web <b className='text-blue-600 underline'>accessibility</b>{' '}
+              platform that scales.
             </>
           )}
         </Header>
         <h2 className='text-lg py-2'>
           {checker
-            ? 'Test your web page inclusion and vitals fast'
-            : 'Path to a pleasant diverse web experience for everyone'}
+            ? 'Test your web accessibility and vitals fast'
+            : 'A11ywatch brings a suite of tools for testing web accessibility and vitals ergonomically so you can build better products.'}
         </h2>
         <div className='py-3 pb-4 relative'>
           <Link
-            className={`px-6 py-2 rounded border flex place-content-center w-40 after:content-['Always_free.'] after:left-[12rem] after:absolute after:pointer-events-none hover:bg-gray-100 font-semibold after:font-normal`}
+            className={`px-6 py-2 rounded border flex place-content-center w-40 after:text-sm after:content-['💳_No_credit_card_required.'] after:left-[11.2rem] after:absolute after:pointer-events-none hover:bg-gray-100 font-semibold after:font-normal after:text-gray-500`}
             href={'/register'}
           >
             Sign up

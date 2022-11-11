@@ -1,11 +1,8 @@
-import React from 'react'
-import { Skeleton } from '@material-ui/lab'
+import { SkeletonProps, Skeleton } from './skeleton'
 
 interface Props {
-  height?: any
-  width?: any
-  style?: any
-  className?: string
+  height?: string | number
+  width?: string | number
 }
 
 export function TextSkeleton({
@@ -13,13 +10,6 @@ export function TextSkeleton({
   width = '18%',
   style,
   className,
-}: Props) {
-  return (
-    <Skeleton
-      className={className}
-      height={height}
-      width={width}
-      style={style}
-    />
-  )
+}: SkeletonProps & Props) {
+  return <Skeleton className={className} style={{ ...style, height, width }} />
 }

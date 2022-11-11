@@ -1,65 +1,61 @@
-import React, { Fragment } from 'react'
-import { ListItem, ListItemAvatar, ListItemText } from '@material-ui/core'
-import { Skeleton } from '@material-ui/lab'
+import { Fragment } from 'react'
 import { Spacer } from '../general/spacer'
+import { Skeleton } from './skeleton'
 
 export function ListItemSkeleton({
   subTitle,
   smallCircle,
   avatar = true,
 }: any) {
+  const circleSize = smallCircle ? 20 : 40
+
   return (
-    <ListItem style={{ height: subTitle ? 72 : 49 }}>
+    <li style={{ height: subTitle ? 72 : 49 }} className={'flex gap-x-2 px-2'}>
       {avatar ? (
-        <ListItemAvatar>
+        <div>
           <Skeleton
-            variant='circle'
-            width={smallCircle ? 20 : 40}
-            height={smallCircle ? 20 : 40}
+            style={{
+              width: circleSize,
+              height: circleSize,
+            }}
           />
-        </ListItemAvatar>
+        </div>
       ) : null}
-      <ListItemText
-        disableTypography
-        primary={<Skeleton height={9.5} width='30%' />}
-        secondary={
-          !subTitle ? (
-            <div />
-          ) : (
-            <Fragment>
-              <Skeleton height={9} width='20%' style={{ marginTop: 6 }} />
-              {!avatar ? (
-                <Skeleton height={9} width='20%' style={{ marginTop: 6 }} />
-              ) : null}
-            </Fragment>
-          )
-        }
-      />
-    </ListItem>
+
+      <div className='flex-1'>
+        <Skeleton style={{ height: 9.5, width: '30%' }} />
+
+        {!subTitle ? (
+          <div />
+        ) : (
+          <Fragment>
+            <Skeleton style={{ marginTop: 6, height: 9, width: '20%' }} />
+            {!avatar ? (
+              <Skeleton style={{ marginTop: 6, height: 9, width: '20%' }} />
+            ) : null}
+          </Fragment>
+        )}
+      </div>
+    </li>
   )
 }
 
 export function ListItemIssuesSkeleton({ subTitle }: any) {
   return (
-    <ListItem style={{ height: subTitle ? 109 : 72 }}>
-      <ListItemText
-        disableTypography
-        primary={<Skeleton height={20} width='35%' />}
-        secondary={
-          !subTitle ? (
-            <div />
-          ) : (
-            <Fragment>
-              <Spacer height={3} />
-              <Skeleton height={26} width='75%' />
-              <Spacer height={4} />
-              <Fragment>
-                <Skeleton height={29} width='100%' />
-              </Fragment>
-            </Fragment>
-          )
-        }
-      />
-    </ListItem>
+    <li style={{ height: subTitle ? 109 : 72 }} className={'px-2'}>
+      <Skeleton style={{ height: 20, width: '35%' }} />
+      {!subTitle ? (
+        <div />
+      ) : (
+        <Fragment>
+          <Spacer height={3} />
+          <Skeleton style={{ width: '75%', height: 26 }} />
+          <Spacer height={4} />
+          <Fragment>
+            <Skeleton style={{ width: '100%', height: 29 }} />
+          </Fragment>
+        </Fragment>
+      )}
+    </li>
   )
 }
