@@ -193,8 +193,8 @@ export function WebsiteCellDashboardComponent({
 
   return (
     <li
-      className={`border-4 px-3 pt-2 rounded overflow-hidden${
-        shutdown ? ' border-gray-500' : ''
+      className={`bg-lightgray px-3 pt-2 rounded overflow-hidden${
+        shutdown ? ' bg-red-50' : ''
       }`}
     >
       <div>
@@ -267,28 +267,28 @@ export function WebsiteCellDashboardComponent({
           />
         </div>
       </div>
-      <div className='py-3'>
-        <div className='grid grid-cols-1 md:grid-cols-3 divide-x border-t border-l border-r'>
+      <div className='py-3 space-y-1'>
+        <div className='grid grid-cols-1 md:grid-cols-3 gap-1'>
           <AccessibilityBox adaScore={adaScore} />
           <IssuesBox issues={errorCount} />
           <WarningsBox issues={warningCount} />
         </div>
-        <div className='grid grid-cols-1 md:grid-cols-3 divide-x border-t border-l border-r'>
+        <div className='grid grid-cols-1 md:grid-cols-3 gap-1'>
           <CdnFixBox issues={issuesFixedByCdn} />
           <PagesBox count={pageIssueCount ?? 'N/A'} />
           <LoadTimeBox duration={pageLoadTime?.duration} />
         </div>
-        <div className='grid grid-cols-1 md:grid-cols-3 divide-x border-t border-l border-r'>
+        <div className='grid grid-cols-1 md:grid-cols-3 gap-1'>
           <StandardBox standard={standard} url={url} />
           <HeadersBox pageHeaders={pageHeaders} />
           <LighthouseBox pageInsights={pageInsights} />
         </div>
-        <div className='grid grid-cols-1 md:grid-cols-3 divide-x border-t border-l border-r'>
+        <div className='grid grid-cols-1 md:grid-cols-3 gap-1'>
           <UserAgentBox ua={ua} url={url} />
           <ActionsBox actions={actionsEnabled || actions?.length} />
           <OnlineBox online={online} />
         </div>
-        <div className='grid grid-cols-1 md:grid-cols-3 divide-x border-t border-l border-r border-b'>
+        <div className='grid grid-cols-1 md:grid-cols-3 gap-1'>
           <CustomCDNBox
             cdnUrl={activeSubscription ? cdnUrl : '[Paid plan required]'}
             cdnUrlMinifed={

@@ -102,16 +102,18 @@ export function ReportView({
           onToggleViewModeEvent={onToggleViewModeEvent}
         />
       </div>
-      {empty ? (
-        <ReportEmptyView />
-      ) : (
-        <ReportInner
-          website={website}
-          disablePlayground={disablePlayground}
-          disableTabs={disableTabs}
-          viewMode={leftViewMode === 'playground' ? 'list' : 'playground'}
-        />
-      )}
+      <div className='right-panel w-full h-full'>
+        {empty ? (
+          <ReportEmptyView />
+        ) : (
+          <ReportInner
+            website={website}
+            disablePlayground={disablePlayground}
+            disableTabs={disableTabs}
+            viewMode={leftViewMode === 'playground' ? 'list' : 'playground'}
+          />
+        )}
+      </div>
     </div>
   )
 }

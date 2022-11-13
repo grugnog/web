@@ -44,8 +44,8 @@ export const CustomCDNBoxWrapper = ({
           {cdnText}
         </PrismLight>
         <div
-          className={`py-2 text-gray-500 text-sm ${
-            !cdnConnected ? 'text-red-500' : 'text-green-500'
+          className={`py-2 text-sm ${
+            !cdnConnected ? 'text-gray-600' : 'text-green-600'
           }`}
         >
           {cdnConnected ? 'Connected' : 'Disconnected'}

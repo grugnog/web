@@ -1,7 +1,8 @@
 import React, { FC, PropsWithChildren } from 'react'
 
 const styles = {
-  infoContainer: 'px-2 py-2 flex flex-col flex-1 text-base justify start',
+  infoContainer:
+    'px-3 py-2 flex flex-col flex-1 text-base justify-start rounded bg-white',
   infoBorder: '',
   p: 'text-lg',
   spacing: 'pt-2',
@@ -34,7 +35,7 @@ export const InfoBlock: FC<BaseProps> = ({
         {titleButton}
       </div>
       <div className={styles.spacing} />
-      <div>{children}</div>
+      <div className='text-gray-700'>{children}</div>
     </div>
   )
 }

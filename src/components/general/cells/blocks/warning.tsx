@@ -9,9 +9,7 @@ export const WarningsBoxWrapper = ({ issues }: { issues?: number }) => {
       title={'Warnings'}
       icon={<GrAlert className='grIcon' color='black' fill='black' />}
     >
-      <div>
-        {issues ?? 0} possible issue{issues === 1 ? '' : 's'} to fix
-      </div>
+      {issues ?? 0} possible issue{issues === 1 ? '' : 's'} to fix
     </InfoBlock>
   )
 }

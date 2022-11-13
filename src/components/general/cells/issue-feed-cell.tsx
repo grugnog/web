@@ -24,16 +24,9 @@ export function IssueFeedCellComponent({
   }
 
   return (
-    <li
-      className={'border border-t-0 border-l-0 border-r-0 h-[inherit]'}
-      style={style}
-    >
+    <li className={'h-[inherit]'} style={style}>
       {!hideSelector ? null : (
-        <div
-          className={
-            'flex flex-1 px-3 place-items-center py-1 border border-t-0 border-l-0 border-r-0'
-          }
-        >
+        <div className={'flex flex-1 px-3 place-items-center py-2'}>
           <p className={`flex flex-1 text-base line-clamp-1`}>
             {item?.selector}
           </p>

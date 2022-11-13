@@ -5,7 +5,7 @@ import { GrDomain } from 'react-icons/gr'
 export const PagesBoxWrapper = ({ count }: { count?: number }) => {
   return (
     <InfoBlock title={'Pages'} icon={<GrDomain />}>
-      <p>{count}</p>
+      {count}
     </InfoBlock>
   )
 }

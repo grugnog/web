@@ -3,7 +3,6 @@ import { Button } from '@material-ui/core'
 import { printElement } from '@app/utils'
 import { getAPIRoute } from '@app/configs'
 import type { Website } from '@app/types'
-import { feedListID } from '../feed/list'
 
 interface InfoBarComponent {
   printable?: boolean
@@ -28,7 +27,7 @@ export function InfoBarComponent({
 
   const onPrint = (e: React.SyntheticEvent<HTMLButtonElement>) => {
     e?.preventDefault()
-    printElement(feedListID, website)
+    printElement('', website)
   }
 
   return (

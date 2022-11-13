@@ -105,11 +105,7 @@ export function FeedIssueComponent({
   hidden,
 }: CellIssue) {
   return (
-    <li
-      className={`${
-        !hidden ? 'visible' : 'hidden'
-      } border border-t-0 border-r-0 border-l-0 h-[inherit]`}
-    >
+    <li className={`${!hidden ? 'visible' : 'hidden'} h-[inherit]`}>
       <FeedIssueCard
         selector={selector}
         type={issueType}

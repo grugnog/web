@@ -5,8 +5,6 @@ import { FeedHeading } from './heading'
 import type { FeedComponentProps } from './interface'
 import { FixedSizeList as List } from 'react-window'
 
-export const feedListID = 'issue-list'
-
 const getListHeight = ({
   fullScreen,
   issueCount = 0,
@@ -62,10 +60,7 @@ const FeedListComponent: FC<FeedComponentProps> = ({
 
   if (fullScreen) {
     return (
-      <ul
-        id={feedListID}
-        className={`overflow-hidden bg-[rgba(172,182,192,0.06)] w-full h-full`}
-      >
+      <ul className={`bg-[rgba(172,182,192,0.06)] w-full h-full`}>
         <List
           height={height}
           itemCount={issueCount}
@@ -84,7 +79,7 @@ const FeedListComponent: FC<FeedComponentProps> = ({
     issue.issues[0]?.type === 'error'
 
   return (
-    <li id={feedListID}>
+    <li>
       <FeedHeading
         onScanEvent={onScanEvent}
         onToggleSection={onToggleSection}
@@ -94,9 +89,7 @@ const FeedListComponent: FC<FeedComponentProps> = ({
         highLight={!!highLight}
       />
       {sectionHidden ? null : (
-        <ul
-          className={`overflow-x-hidden border border-t-0 border-l-0 border-r-0 bg-[rgba(172,182,192,0.06)]`}
-        >
+        <ul className={`overflow-x-hidden bg-[rgba(172,182,192,0.06)]`}>
           <List
             height={height}
             itemCount={issueCount}

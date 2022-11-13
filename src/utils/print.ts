@@ -4,7 +4,10 @@ const printElement = (searchElement?: any, website?: any) => {
   }
 
   if (typeof document !== 'undefined') {
-    const divContents = document?.getElementById(searchElement)?.innerHTML
+    const divContents = searchElement
+      ? document?.getElementById(searchElement)?.innerHTML
+      : document?.querySelector('.right-panel ul')?.innerHTML
+
     const printWindow = window.open('', '', 'height=500, width=600')
 
     if (!divContents) {

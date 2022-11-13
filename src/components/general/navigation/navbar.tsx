@@ -83,9 +83,7 @@ export const NavBar: FC<PropsWithChildren<NavProps>> = ({
       style={{ minHeight: theme.mixins.toolbar.minHeight }}
       className={`${bg} z-1 min-h-[${theme.mixins.toolbar.minHeight}px] ${
         className ? `${className}` : className
-      } ${
-        position === 'fixed' ? 'fixed left-0 right-0 shadow' : 'shadow-none'
-      }`}
+      } ${position === 'fixed' ? 'fixed left-0 right-0 shadow-sm' : ''}`}
     >
       <div className='relative flex items-center place-content-around px-4 min-h-[inherit]'>
         {toolbar || children ? (
