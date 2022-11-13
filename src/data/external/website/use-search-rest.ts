@@ -3,7 +3,7 @@ import { isUrl } from '@app/lib/is-url'
 import { AppManager } from '@app/managers'
 import { searchQuery } from '@app/utils'
 import { getAPIRoute } from '@app/configs'
-import { Website } from '@app/types'
+import type { Website } from '@app/types'
 
 const scanEndpoint = `${getAPIRoute('api')}/scan-simple`
 
@@ -60,9 +60,7 @@ export function useSearchRest() {
 
   const { data: scanState, loading } = state ?? {}
 
-  const setSearch = (event: any) => {
-    setQuery(event?.target?.value)
-  }
+  const setSearch = (event: any) => setQuery(event?.target?.value)
 
   const scanPage = async () => {
     setScan({ loading: true })
@@ -92,9 +90,7 @@ export function useSearchRest() {
     })
   }
 
-  const closeModal = () => {
-    setScan({ loading: false, data: undefined })
-  }
+  const closeModal = () => setScan({ loading: false, data: undefined })
 
   // move validation
   const toggleModal = async (url: string) => {

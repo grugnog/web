@@ -4,7 +4,6 @@ import {
   FC,
   PropsWithChildren,
   Fragment,
-  memo,
 } from 'react'
 import { useSearchRest } from '@app/data'
 import { restWebsiteDefaults } from '../defaults'
@@ -26,7 +25,7 @@ export const RestWebsiteProviderWrapperMain: FC<RestProps> = ({ children }) => {
 }
 
 // wrapper
-export const RestWebsiteProviderWrapperContext: FC<RestProps> = ({
+export const RestWebsiteProviderWrapper: FC<RestProps> = ({
   children,
   rest,
 }) => {
@@ -37,10 +36,6 @@ export const RestWebsiteProviderWrapperContext: FC<RestProps> = ({
     <RestWebsiteProviderWrapperMain>{children}</RestWebsiteProviderWrapperMain>
   )
 }
-
-export const RestWebsiteProviderWrapper: FC<RestProps> = memo(
-  RestWebsiteProviderWrapperContext
-)
 
 export function useRestWebsiteContext() {
   return useContext(AppContext)

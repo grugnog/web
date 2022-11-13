@@ -9,13 +9,13 @@ import {
   useMemo,
 } from 'react'
 import { Fade } from '@material-ui/core'
-import { useStyles } from '../general/styles'
+import { useStyles } from '../general/styles/issue-feed'
 import { useWebsiteContext } from '../providers/website'
 import { GrClose } from 'react-icons/gr'
 import { AppManager } from '@app/managers'
 import { FeedList } from './list'
-import type { Website } from '@app/types'
 import { useWasmContext } from '../providers'
+import type { Website } from '@app/types'
 
 const PageList = ({
   pages,
@@ -82,6 +82,7 @@ const FeedItemWrapper = ({
   // keep tracking of the pages in order
   const refPages = useRef<Map<string, FeedRecord>>()
 
+  // todo: prevent pages from sorting
   const pages = useDeferredValue(
     refPages.current ? [...refPages?.current?.values()] : []
   )
@@ -106,6 +107,8 @@ const FeedItemWrapper = ({
     }
     setSorted((s) => !s)
   }
+
+  // todo: fix sorting updating
 
   return (
     <li>

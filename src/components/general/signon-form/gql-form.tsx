@@ -1,4 +1,10 @@
-import { FunctionComponent, Fragment, useState, SyntheticEvent } from 'react'
+import {
+  FunctionComponent,
+  Fragment,
+  memo,
+  useState,
+  SyntheticEvent,
+} from 'react'
 import { GoogleLoginButton } from '../google-login'
 import { useRouter } from 'next/router'
 import {
@@ -14,7 +20,6 @@ import { REGISTER, LOGIN } from '@app/mutations'
 import { AppManager, UserManager } from '@app/managers'
 import { Link } from '../link'
 import { LinearBottom } from '../loaders'
-import { withApollo } from '@app/apollo'
 import { DOMAIN_NAME } from '@app/configs'
 import { GrGithub } from 'react-icons/gr'
 import { REST_API } from '@app/configs/app-config'
@@ -78,10 +83,11 @@ const SignOnFormWrapper: FunctionComponent<SignOnProps> = ({
   const [signOnMutation, { loading }] = useMutation(
     loginView ? LOGIN : REGISTER
   )
+
   const [email, setEmail] = useState<string>('')
   const [password, setPassword] = useState<string>('')
 
-  const onSuccessAuth = async (data: any) => {
+  const onSuccessAuth = (data: any) => {
     const user = data && data[loginView ? 'login' : 'register']
     if (user) {
       UserManager.setUser(user)
@@ -94,7 +100,7 @@ const SignOnFormWrapper: FunctionComponent<SignOnProps> = ({
           ? `/payments?plan=${router?.query?.plan}`
           : '/dashboard'
 
-      await router.push(urlRoute)
+      window.location.href = urlRoute
     }
   }
 
@@ -127,7 +133,7 @@ const SignOnFormWrapper: FunctionComponent<SignOnProps> = ({
         console.error(e)
       }
 
-      await onSuccessAuth(data)
+      onSuccessAuth(data)
     }
   }
 
@@ -148,20 +154,16 @@ const SignOnFormWrapper: FunctionComponent<SignOnProps> = ({
       console.error(e)
     }
 
-    await onSuccessAuth(data)
+    onSuccessAuth(data)
   }
 
   const onChangeEmailEvent = (
     e: SyntheticEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
-    setEmail(e.currentTarget.value)
-  }
+  ) => setEmail(e.currentTarget.value)
 
   const onChangePasswordEvent = (
     e: SyntheticEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
-    setPassword(e.currentTarget.value)
-  }
+  ) => setPassword(e.currentTarget.value)
 
   return (
     <Fragment>
@@ -313,4 +315,4 @@ const SignOnFormWrapper: FunctionComponent<SignOnProps> = ({
   )
 }
 
-export const SignOnForm = withApollo(SignOnFormWrapper, { ssr: true })
+export const SignOnForm = memo(SignOnFormWrapper)

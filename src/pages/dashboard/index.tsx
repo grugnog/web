@@ -1,4 +1,6 @@
 import { useCallback, useEffect, useMemo, useState } from 'react'
+import Head from 'next/head'
+
 import {
   Button,
   PageTitle,
@@ -11,22 +13,10 @@ import { filterSort } from '@app/lib'
 import { metaSetter } from '@app/utils'
 import type { PageProps, Website } from '@app/types'
 import { _ONBOARDED } from '@app/lib/cookies/names'
-import { useWebsiteContext } from '@app/components/providers/website'
 import { WebsiteList } from '@app/components/general/website-list'
-import Head from 'next/head'
+import { useWebsiteContext } from '@app/components/providers/website'
 import { LoadMoreButton } from '@app/components/general/buttons'
-import dynamic from 'next/dynamic'
-
-export const SortableWebsiteList = dynamic(
-  () =>
-    import('@app/components/general/website').then(
-      (mod) => mod.SortableWebsiteList
-    ) as any,
-  {
-    ssr: false,
-    loading: () => null,
-  }
-) as any
+import { SortableWebsiteList } from '@app/components/general/website'
 
 function Dashboard({ name }: PageProps) {
   const [sortModalVisible, setSortModalVisible] = useState<boolean>()
@@ -48,10 +38,10 @@ function Dashboard({ name }: PageProps) {
     activeCrawls,
   } = useWebsiteContext()
 
-  const websites: Website[] = useMemo(() => filterSort(data, search), [
-    data,
-    search,
-  ])
+  const websites: Website[] = useMemo(
+    () => filterSort(data, search),
+    [data, search]
+  )
 
   const { issueSubData } = subscriptionData
 
@@ -83,7 +73,10 @@ function Dashboard({ name }: PageProps) {
     setLighthouseVisibility((visible: boolean) => !visible)
   }, [setLighthouseVisibility])
 
-  const lhEnabled = websites?.some((web) => web?.pageInsights)
+  const lhEnabled = useMemo(
+    () => websites?.some((web) => web?.pageInsights),
+    [websites]
+  )
 
   const onWebsiteSort = () => setSortModalVisible((v) => !v)
 

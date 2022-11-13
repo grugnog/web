@@ -12,13 +12,9 @@ import { Fab } from './fab'
 import { Link } from './link'
 import { GrowTransition } from './grow'
 import { GrClose } from 'react-icons/gr'
-import dynamic from 'next/dynamic'
 import Draggable from 'react-draggable'
 import { Lighthouse } from './lighthouse'
-
-const AdaIframe = dynamic(
-  () => import('../ada/ada-iframe').then((mod) => mod.AdaIframe) as any
-) as any
+import { AdaIframe } from '../ada/ada-iframe'
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -102,7 +98,7 @@ export const MiniPlayer: FunctionComponent<MiniPlayerProps> = (_) => {
               <p className='text-xl font-bold text-white truncate max-w-[70%]'>
                 {title}
               </p>
-              {title !== 'Lighthouse' ? (
+              {data && title !== 'Lighthouse' ? (
                 <div className='truncate'>
                   <Typography
                     variant='subtitle1'

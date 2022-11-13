@@ -13,7 +13,7 @@ const GET_FIXFRAME_STATE = gql`
 `
 
 export function useIframe() {
-  const { data, client } = useQuery(GET_FIXFRAME_STATE)
+  const { data, client } = useQuery(GET_FIXFRAME_STATE, { ssr: false })
 
   const highLight = data?.displayHighlight || null
 

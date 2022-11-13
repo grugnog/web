@@ -4,7 +4,6 @@ import {
   createContext,
   useContext,
   FC,
-  memo,
 } from 'react'
 import { useWebsiteData } from '@app/data'
 import { sharedWebsiteDefaults } from './defaults'
@@ -35,7 +34,7 @@ export const WebsiteProviderComponent: FC<GqlProps> = ({
 
 export const WebsiteProviderGql = withApollo(WebsiteProviderComponent)
 
-const WebsiteProviderContextWrapper: FC<GqlProps> = ({
+export const WebsiteProviderWrapper: FC<GqlProps> = ({
   children,
   gql,
   ...extra
@@ -45,10 +44,6 @@ const WebsiteProviderContextWrapper: FC<GqlProps> = ({
   }
   return <WebsiteProviderGql {...extra}>{children}</WebsiteProviderGql>
 }
-
-export const WebsiteProviderWrapper: FC<GqlProps> = memo(
-  WebsiteProviderContextWrapper
-)
 
 export function useWebsiteContext() {
   return useContext(AppContext)

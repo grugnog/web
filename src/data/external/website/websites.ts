@@ -416,7 +416,9 @@ export const useWebsiteData = (
   // toggle the feed menu
   const setFeed = (open: boolean) => {
     // clear feed data on close
-    !open && feed?.clear_data()
+    if (!open) {
+      feed?.clear_data()
+    }
     setIssueFeedContent(open)
   }
 
@@ -434,6 +436,13 @@ export const useWebsiteData = (
     } catch (e) {
       console.error(e)
     }
+  }
+
+  const issueFeed = {
+    open: feedOpen,
+    get data() {
+      return feed?.get_data() ?? {}
+    },
   }
 
   return {
@@ -455,12 +464,7 @@ export const useWebsiteData = (
     error, // general mutation error
     mutatationLoading:
       removeLoading || addLoading || crawlLoading || scanLoading,
-    issueFeed: {
-      open: feedOpen,
-      get data() {
-        return feed?.get_data() ?? {}
-      },
-    }, // issue feed from wasm
+    issueFeed: issueFeed, // issue feed from wasm
     lighthouseVisible,
     setLighthouseVisibility,
     removeWebsite,

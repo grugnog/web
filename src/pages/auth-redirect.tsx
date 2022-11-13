@@ -5,12 +5,10 @@ import { MarketingShortTitle } from '@app/components/marketing'
 import { useMutation } from '@apollo/react-hooks'
 import { REGISTER } from '@app/mutations'
 import { AppManager, UserManager } from '@app/managers'
-import { useRouter } from 'next/router'
 
 function AuthRedirect(props: { email: string; id: number }) {
-  const [signOnMutation] = useMutation(REGISTER)
+  const [signOnMutation] = useMutation(REGISTER, { ignoreResults: true })
   const { email, id } = props ?? {}
-  const router = useRouter()
 
   const onGithubAuth = useCallback(
     async ({ email, id }: { email: string; id: number }) => {
@@ -26,21 +24,26 @@ function AuthRedirect(props: { email: string; id: number }) {
 
           const authValue = data?.register ?? data?.login
 
-          authValue && UserManager.setUser(authValue)
-          await router.push('/dashboard')
+          if (authValue) {
+            UserManager.setUser(authValue)
+
+            window.location.href = '/dashboard'
+          } else {
+            window.location.href = '/'
+          }
         } else {
           AppManager.toggleSnack(
             true,
             'Your Github email set to private. Update your email to public to login.',
             'error'
           )
-          await router.push('/')
+          window.location.href = '/'
         }
       } catch (e) {
         console.error(e)
       }
     },
-    [signOnMutation, router]
+    [signOnMutation]
   )
 
   useEffect(() => {

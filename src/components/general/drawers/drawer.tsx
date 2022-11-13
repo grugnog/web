@@ -1,20 +1,20 @@
-import { Fragment, memo } from 'react'
+import { Fragment } from 'react'
 import { useUserData } from '@app/data'
 import { UpgradeBanner } from '@app/components/general/upgrade-banner'
 import { drawerStyles } from '@app/styles/drawer'
 import { NavBarTitle, AuthedMenu } from '../navigation'
-import { SearchBar } from '../searchbar'
 import { NavBar } from '../navigation/navbar'
 import { FixedCopyRight } from '../fixed-copy-right'
 import { ConfirmEmail } from '../../alerts'
 import { useWebsiteContext } from '../../providers/website'
 import { IssueFeed } from '../../feed'
 import { FormDialog } from '../form-dialog'
-import { DynamicModal } from '../../modal'
-import { MiniPlayer } from '../mini-player'
 import { useAuthContext } from '@app/components/providers/auth'
+import { SearchBar } from '../searchbar'
+import { DynamicModal } from '../../modal/dynamic'
+import { MiniPlayer } from '../mini-player'
 
-function MainDrawerContainerComponent({ route, dataSourceMap, classes }: any) {
+function MainDrawerContainer({ route, dataSourceMap, classes }: any) {
   return (
     <div
       className={`${classes.drawer} ${classes.drawerPaper} relative print:hidden overflow-hidden`}
@@ -35,9 +35,7 @@ function MainDrawerContainerComponent({ route, dataSourceMap, classes }: any) {
   )
 }
 
-const MainDrawerContainer = memo(MainDrawerContainerComponent)
-
-export function DrawerWrapperComponent({
+export function DrawerWrapper({
   route: routePath,
   title = '',
   classes,
@@ -52,13 +50,12 @@ export function DrawerWrapperComponent({
         title={title}
         position='fixed'
         className={`${classes.nav} ${sidePannelStyles}`}
-        toolbar={
-          <span className={classes.drawerIconContainer}>
-            <NavBarTitle title={title} flex />
-            <SearchBar />
-          </span>
-        }
-      />
+      >
+        <span className={classes.drawerIconContainer}>
+          <NavBarTitle title={title} flex />
+          <SearchBar />
+        </span>
+      </NavBar>
       <MainDrawerContainer
         route={routePath ?? title}
         dataSourceMap={dataSourceMap}
@@ -68,9 +65,7 @@ export function DrawerWrapperComponent({
   )
 }
 
-const DrawerWrapper = memo(DrawerWrapperComponent)
-
-export function DrawerComponent({
+export function Drawer({
   children,
   route,
   title,
@@ -116,5 +111,3 @@ export function DrawerComponent({
     </div>
   )
 }
-
-export const Drawer = memo(DrawerComponent)

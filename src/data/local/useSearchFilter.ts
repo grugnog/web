@@ -1,5 +1,6 @@
 import { useQuery } from '@apollo/react-hooks'
 import gql from 'graphql-tag'
+import { useMemo } from 'react'
 
 const GET_SEARCH_FILTER_STATE = gql`
   query getSearchFilterState {
@@ -11,11 +12,7 @@ const GET_SEARCH_FILTER_STATE = gql`
 
 // use apollo cache for global search state
 export function useSearchFilter() {
-  const { data, client } = useQuery(GET_SEARCH_FILTER_STATE, {
-    fetchPolicy: 'cache-only',
-    ssr: false,
-  })
-  const search = data?.searchFilter?.search || ''
+  const { data, client } = useQuery(GET_SEARCH_FILTER_STATE, { ssr: false })
 
   const setSearchFilter = (event: any) => {
     client.writeData({
@@ -28,8 +25,15 @@ export function useSearchFilter() {
     })
   }
 
+  const search = useMemo(() => {
+    if (data?.searchFilter?.search) {
+      return data.searchFilter.search.toLowerCase()
+    }
+    return ''
+  }, [data])
+
   return {
-    search: search.toLowerCase(),
+    search,
     setSearchFilter,
   }
 }

@@ -22,6 +22,7 @@ export function useEvents() {
         setEvents({ firstAdd: 'set' })
       }
     },
+    ssr: false,
   })
 
   const events = data?.events ?? {

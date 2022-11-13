@@ -3,6 +3,7 @@ import gql from 'graphql-tag'
 import { SCAN_WEBSITE } from '@app/mutations'
 import { AppManager } from '@app/managers'
 import { searchQuery } from '@app/utils'
+import { useMemo } from 'react'
 
 const GET_SEARCH_STATE = gql`
   query getCtaSearchState {
@@ -24,6 +25,18 @@ export function useSearch() {
   const { data, client } = useQuery(GET_SEARCH_STATE, { ssr: false })
   const [scanWebsite, { data: crawlData, loading }] = useMutation(SCAN_WEBSITE)
   const { search, bottomModal, website } = data?.ctaSearch || defaultState
+
+  const webData = useMemo(() => {
+    if (crawlData?.scanWebsite?.website) {
+      return crawlData.scanWebsite.website
+    }
+    if (website) {
+      return JSON.parse(website)
+    }
+    return {
+      url: search,
+    }
+  }, [crawlData, website, search])
 
   const setSearch = (event: { search?: string }) => {
     client.writeData({
@@ -146,10 +159,7 @@ export function useSearch() {
     setSearch,
     scanPage,
     loading,
-    website: crawlData?.scanWebsite?.website ||
-      (website && JSON.parse(website)) || {
-        url: search,
-      },
+    website: webData,
     crawlData,
     closeFeed,
     bottomModal,

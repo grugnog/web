@@ -1,26 +1,12 @@
 'use client'
 
 import { PropsWithChildren, FC } from 'react'
-import { makeStyles } from '@material-ui/core/styles'
 import { strings } from '@app-strings'
 import { Logo, NavBarTitle } from '.'
 import { Link } from '../link'
 import { AuthMenu } from '../auth-menu'
 import { GrLinkPrevious } from 'react-icons/gr'
-
-const useStyles = makeStyles((theme) => ({
-  container: ({
-    position,
-  }: {
-    position: 'static' | 'fixed' | 'absolute' | 'relative'
-  }) => ({
-    backgroundColor:
-      position === 'static' ? theme.palette.background.default : 'transparent',
-    overflow: 'hidden',
-    zIndex: 1,
-    minHeight: theme.mixins.toolbar.minHeight,
-  }),
-}))
+import { theme } from '@app/theme'
 
 type LeftbuttonWrapperProps = {
   marketing?: boolean
@@ -87,12 +73,16 @@ export const NavBar: FC<PropsWithChildren<NavProps>> = ({
   authenticated,
   loading,
 }) => {
-  const classes = useStyles({ position })
+  const bg =
+    position === 'static'
+      ? `bg-[${theme.palette.background.default}]`
+      : 'bg-[inherit]'
 
   return (
     <nav
-      className={`bg-[inherit] ${className ? `${className} ` : className}${
-        classes.container
+      style={{ minHeight: theme.mixins.toolbar.minHeight }}
+      className={`${bg} z-1 min-h-[${theme.mixins.toolbar.minHeight}px] ${
+        className ? `${className}` : className
       } ${
         position === 'fixed' ? 'fixed left-0 right-0 shadow' : 'shadow-none'
       }`}
