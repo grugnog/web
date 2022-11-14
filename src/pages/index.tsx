@@ -11,6 +11,7 @@ import { CtaInputRest } from '@app/components/cta/searchbar/cta-input-rest'
 
 import { MarketingDrawer } from '@app/components/general'
 import { MarketingBottomTemporaryDrawer } from '@app/components/modal'
+import { companyName } from '@app/configs'
 
 function Index() {
   return (
@@ -33,7 +34,7 @@ export default metaSetter(
   { Index },
   {
     rest: true,
-    title: `The all around web accessibility platform.`,
+    title: `The all around web accessibility platform - ${companyName}.`,
     description: `Build inclusive websites with tools that monitor, fix, and guide web accessibility delivery with ${strings.appName}`,
   }
 )
