@@ -8,10 +8,8 @@ import {
   useEffect,
   useMemo,
 } from 'react'
-import { Fade } from '@material-ui/core'
-import { useStyles } from '../general/styles/issue-feed'
 import { useWebsiteContext } from '../providers/website'
-import { GrClose } from 'react-icons/gr'
+import { GrClose, GrExpand } from 'react-icons/gr'
 import { AppManager } from '@app/managers'
 import { FeedList } from './list'
 import { useWasmContext } from '../providers'
@@ -85,7 +83,7 @@ const FeedItemWrapper = ({
   )
 
   const website = useMemo(() => {
-    if (feed instanceof Map) {
+    if (domain && feed instanceof Map) {
       return feed.get(domain)
     }
   }, [feed, domain])
@@ -123,8 +121,8 @@ const FeedItemWrapper = ({
 
 const FeedItem = memo(FeedItemWrapper)
 
-const Top = ({ onClick }: { onClick(x: any): any; open: boolean }) => {
-  const closeFeed = () => onClick(false)
+const Top = ({ onClick, open }: { onClick(x: any): any; open: boolean }) => {
+  const closeFeed = () => onClick(!open)
 
   return (
     <div className={`flex place-items-center px-3 py-1 h-14 text-side`}>
@@ -133,10 +131,10 @@ const Top = ({ onClick }: { onClick(x: any): any; open: boolean }) => {
         onClick={closeFeed}
         aria-label='close'
         title='close issue feed'
-        className='p-3 hover:bg-gray-200 rounded-2xl'
+        className='visible lg:hidden p-3 hover:bg-gray-200 rounded-2xl'
         type={'button'}
       >
-        <GrClose />
+        {!open ? <GrExpand /> : <GrClose />}
       </button>
     </div>
   )
@@ -147,11 +145,21 @@ const TopSection = memo(Top, (x, y) => x.open === y.open)
 
 // side panel that appears fixed on the right of current issues of domain being. This returns a list of pages with a list of issues per page.
 const Feed: FC = () => {
-  const classes = useStyles()
   const { feed } = useWasmContext()
-  const { issueFeed, setIssueFeedContent, scanWebsite } = useWebsiteContext()
+  const { feedOpen, setIssueFeedContent, scanWebsite } = useWebsiteContext()
 
-  const { data, open } = issueFeed
+  const data = feed.get_data()
+
+  const issues = useMemo(() => {
+    if (data instanceof Map) {
+      const keys = data.keys()
+      if (keys) {
+        return [...keys]
+      }
+      return []
+    }
+    return data ? Object.keys(data) : []
+  }, [data])
 
   const onScanEvent = useCallback(
     async (target: string) => {
@@ -191,41 +199,43 @@ const Feed: FC = () => {
 
           AppManager.toggleSnack(true, message, 'message')
         }
-
-        setIssueFeedContent(true)
       }
     },
-    [feed, scanWebsite, setIssueFeedContent]
+    [feed, scanWebsite]
   )
 
-  const issues = useMemo(() => {
-    if (data instanceof Map) {
-      return [...data.keys()]
-    }
-    return Object.keys(data)
-  }, [data])
+  const mobileStyles = feedOpen
+    ? `h-full w-full z-20 overflow-y-auto`
+    : 'pl-[15vw] max-h-[60px] overflow-hidden bottom-0 rounded w-full lg:max-h-full lg:overflow-y-auto lg:rounded-none lg:h-full lg:bottom-0 lg:top-0 lg:pl-0 lg:z-20'
 
   return (
-    <Fade in={issues?.length && open ? true : false}>
+    <>
+      {feedOpen ? <style>{`body { overflow: hidden; }`}</style> : null}
       <div
-        className={`border-t bg-lightgray md:border-t-0 md:border-l ${classes.root} text-side`}
+        className={`${
+          feedOpen ? 'z-20' : ''
+        } border-t md:border-t-0 text-side fixed lg:min-w-[24vw] lg:relative`}
         aria-live='polite'
       >
-        <TopSection onClick={setIssueFeedContent} open={open} />
-        <ul>
-          {issues?.map((domain, index) => (
-            <FeedItem
-              feed={data}
-              key={domain}
-              domain={domain}
-              index={index}
-              onScanEvent={onScanEvent}
-              highlightErrors
-            />
-          ))}
-        </ul>
+        <div
+          className={`fixed bottom-0 bg-lightgray lg:border-l lg:w-[24vw] ${mobileStyles}`}
+        >
+          <TopSection onClick={setIssueFeedContent} open={feedOpen} />
+          <ul>
+            {issues?.map((domain, index) => (
+              <FeedItem
+                feed={data}
+                key={domain}
+                domain={domain}
+                index={index}
+                onScanEvent={onScanEvent}
+                highlightErrors
+              />
+            ))}
+          </ul>
+        </div>
       </div>
-    </Fade>
+    </>
   )
 }
 

@@ -2,7 +2,7 @@ import { ApolloError } from 'apollo-client'
 
 // default provider data for application.
 export const sharedWebsiteDefaults = {
-  issueFeed: { data: {} as Record<string, any>, open: false },
+  feedOpen: false,
   loading: false,
   mutatationLoading: false as boolean,
   data: [],

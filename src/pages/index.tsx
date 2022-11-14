@@ -10,6 +10,7 @@ import { MarketingTrustBy } from '@app/app/marketing/trusted'
 import { CtaInputRest } from '@app/components/cta/searchbar/cta-input-rest'
 
 import { MarketingDrawer } from '@app/components/general'
+import { MarketingDashboard } from '@app/app/marketing/dashboard'
 import { MarketingBottomTemporaryDrawer } from '@app/components/modal'
 import { companyName } from '@app/configs'
 
@@ -21,6 +22,7 @@ function Index() {
           <CtaInputRest />
         </MarketingIntro>
         <FeaturesList />
+        <MarketingDashboard />
         <JavascriptUsage />
         <MarketingCli />
         <MarketingTrustBy />

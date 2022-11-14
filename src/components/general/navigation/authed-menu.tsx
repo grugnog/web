@@ -23,6 +23,7 @@ export function AuthedMenuComponent({ route, dataSourceMap }: AuthedMenuProps) {
 
   const onAlertToggle = async (e?: SyntheticEvent<HTMLInputElement>) => {
     e?.stopPropagation()
+
     try {
       await toggleAlert({
         variables: {
@@ -40,7 +41,7 @@ export function AuthedMenuComponent({ route, dataSourceMap }: AuthedMenuProps) {
         {features.map(({ feature }: any, index: number) => (
           <FeaturesCell
             key={index}
-            alertEnabled={false}
+            alertEnabled={enabledAlerts}
             feature={feature}
             index={index}
             focused={route?.includes(feature)} // use page meta TODO

@@ -20,7 +20,7 @@ const SectionContainer: FC<SectionContainerProps> = ({
 }) => {
   return (
     <section
-      className={[gapY ? 'mt-14' : '', gapX ? 'px-4' : '', className]
+      className={[gapY ? 'mt-20' : '', gapX ? 'px-4' : '', className]
         .join(' ')
         .trim()}
       {...props}

@@ -37,20 +37,21 @@ function Analytics({ name }: PageProps) {
           emptyTitle={'No Websites Added'}
           error={error}
         >
-          <div className={'py-2'}>
-            <List
-              data={source}
-              loading={analyticsDataLoading}
-              refetch={refetch}
-              BottomButton={FormDialog}
-              emptyHeaderTitle='No issues found'
-              emptyHeaderSubTitle='Issues will appear here when they arise'
-            />
-            <LoadMoreButton
-              visible={source.length > 1}
-              onLoadMoreEvent={onLoadMoreAnalytics}
-            />
-          </div>
+          <List
+            data={source}
+            loading={analyticsDataLoading}
+            refetch={refetch}
+            BottomButton={FormDialog}
+            emptyHeaderTitle='No issues found'
+            emptyHeaderSubTitle='Issues will appear here when they arise'
+          >
+            <li>
+              <LoadMoreButton
+                visible={source.length > 1}
+                onLoadMoreEvent={onLoadMoreAnalytics}
+              />
+            </li>
+          </List>
         </PageLoader>
       </Drawer>
     </>

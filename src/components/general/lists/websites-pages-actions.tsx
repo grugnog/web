@@ -4,6 +4,7 @@ import { FullScreenModal } from '../fullscreen-modal'
 import { InnerWrapper } from './list-wrapper'
 import { usePageActionsData } from '@app/data/external/page-actions/page-actions'
 import { InputActions } from '../forms/input-actions'
+import { listStyle } from '@app/styles/lists/tw'
 
 const ActionCell = (props: any) => {
   const [editMode, _setEditable] = useState<boolean>()
@@ -95,7 +96,7 @@ const ListCell = ({
   const totalIssues = item?.issuesInfo?.totalIssues
 
   return (
-    <div
+    <li
       key={item?._id}
       className={`border-4 rounded ${visible ? 'rounded-b-none' : ''}`}
     >
@@ -123,7 +124,7 @@ const ListCell = ({
           generalProps={generalProps}
         />
       ) : null}
-    </div>
+    </li>
   )
 }
 
@@ -138,6 +139,7 @@ export function ListComponent({
   crawlWebsite,
   setModal,
   mutatationLoading,
+  children,
 }: any) {
   const [modal, setOpen] = useState(defaultModalState)
   const { miniPlayer, setMiniPlayerContent } = useMiniPlayer()
@@ -167,19 +169,22 @@ export function ListComponent({
   }
 
   return (
-    <div className='space-y-2'>
-      {data?.map((item: any) => (
-        <ListCell
-          key={item?._id}
-          item={item}
-          pageUrl={item.url}
-          loading={loading}
-          error={error}
-          emptyHeaderTitle={emptyHeaderTitle}
-          emptyHeaderSubTitle={emptyHeaderSubTitle}
-          generalProps={generalProps}
-        />
-      ))}
+    <>
+      <ul className={listStyle}>
+        {data?.map((item: any) => (
+          <ListCell
+            key={item?._id}
+            item={item}
+            pageUrl={item.url}
+            loading={loading}
+            error={error}
+            emptyHeaderTitle={emptyHeaderTitle}
+            emptyHeaderSubTitle={emptyHeaderSubTitle}
+            generalProps={generalProps}
+          />
+        ))}
+        {children}
+      </ul>
       <FullScreenModal
         {...modal}
         handleClose={handleClose}
@@ -187,7 +192,7 @@ export function ListComponent({
         refetch={refetch}
         handleClickOpenPlayer={setMiniPlayerContent}
       />
-    </div>
+    </>
   )
 }
 

@@ -26,6 +26,7 @@ export function WebsiteList({
   mutatationLoading,
   lighthouseVisible,
   activeCrawls,
+  children,
 }: any) {
   const [modal, setOpen] = useState(defaultModalState)
   const { setMiniPlayerContent } = useMiniPlayer(setOpen)
@@ -66,7 +67,9 @@ export function WebsiteList({
   return (
     <Fragment>
       <DataContainer {...sharedProps} avatar={false}>
-        <WebSitesDashboard {...sharedProps} {...websiteProps} />
+        <WebSitesDashboard {...sharedProps} {...websiteProps}>
+          {children}
+        </WebSitesDashboard>
       </DataContainer>
       <FullScreenModal
         {...modal}

@@ -7,11 +7,7 @@ export const LoadMoreButton: React.FC<{
   visible?: boolean
 }> = ({ onLoadMoreEvent, visible }) => {
   return (
-    <div
-      className={`${
-        visible ? 'block' : 'hidden'
-      } flex place-content-center pt-8`}
-    >
+    <div className={`${visible ? 'flex place-content-center py-8' : 'hidden'}`}>
       <Button onClick={onLoadMoreEvent} className={'w-40'}>
         Load More
       </Button>

@@ -1,35 +1,37 @@
 import React from 'react'
 import { useUserData } from '@app/data'
 import { UpgradeBanner } from '@app/components/general/upgrade-banner'
+import { useAuthContext } from '@app/components/providers/auth'
 import { drawerStyles } from '@app/styles/drawer'
 import { AuthedMenu } from '../navigation'
 import { NavBar } from '../navigation/navbar'
 import { FixedCopyRight } from '../fixed-copy-right'
 import { ConfirmEmail } from '../../alerts'
-import { useWebsiteContext } from '../../providers/website'
 import { IssueFeed } from '../../feed'
 import { FormDialog } from '../form-dialog'
-import { useAuthContext } from '@app/components/providers/auth'
 import { SearchBar } from '../searchbar'
 import { DynamicModal } from '../../modal/dynamic'
 import { MiniPlayer } from '../mini-player'
+import Head from 'next/head'
 
 function MainDrawerContainer({ route, dataSourceMap, classes }: any) {
   return (
     <div
       className={`${classes.drawer} ${classes.drawerPaper} relative print:hidden overflow-hidden`}
     >
-      <div className='fixed flex flex-col w-[inherit] overflow-hidden h-full bg-lightgray border-r'>
+      <div className='fixed flex flex-col w-[inherit] overflow-hidden h-full bg-lightgray border-r z-10'>
         <AuthedMenu dataSourceMap={dataSourceMap} route={route} />
         <div
           className={
-            'xl:visible invisible p-4 place-items-center flex-col flex'
+            'xl:visible invisible p-4 place-items-center flex-col flex flex-1'
           }
         >
           <FormDialog buttonStyles={'w-full bg-gray-50'} />
         </div>
         <UpgradeBanner />
-        <FixedCopyRight sticky />
+        <div className='invisible md:visible w-full flex place-content-center py-2 truncate'>
+          <FixedCopyRight />
+        </div>
       </div>
     </div>
   )
@@ -50,19 +52,9 @@ export function DrawerWrapper({
   )
 }
 
-export function NavigationBar({
-  title = '',
-  classes,
-  sidePannelStyles,
-  authenticated,
-}: any) {
+export function NavigationBar({ title = '', classes, authenticated }: any) {
   return (
-    <NavBar
-      authenticated={authenticated}
-      title={title}
-      position='fixed'
-      className={`${classes.nav} ${sidePannelStyles}`}
-    >
+    <NavBar authenticated={authenticated} title={title}>
       <span className={classes.drawerIconContainer}>
         <span className='flex flex-1' />
         <SearchBar />
@@ -71,58 +63,62 @@ export function NavigationBar({
   )
 }
 
-export function Drawer({
-  children,
-  route,
-  title,
-  initClosed,
-  bottomButton,
-}: any) {
+export function Drawer({ children, route, title }: any) {
   const classes = drawerStyles()
   const { data: dataSourceMap, sendConfirmEmail } = useUserData()
-  const { issueFeed } = useWebsiteContext()
   const { authed } = useAuthContext()
 
-  const { open } = issueFeed
-
   const user = dataSourceMap?.user as any
-  const sidePannelStyles = open ? classes.sidePanelPadding : ''
 
   return (
-    <div className={classes.root}>
-      <DrawerWrapper
-        initClosed={initClosed}
-        classes={classes}
-        route={route}
-        title={title}
-        bottomButton={bottomButton}
-        authenticated={authed}
-        dataSourceMap={dataSourceMap}
-        sidePannelStyles={sidePannelStyles}
-      />
-      <NavigationBar
-        classes={classes}
-        route={route}
-        title={title}
-        bottomButton={bottomButton}
-        authenticated={authed}
-        dataSourceMap={dataSourceMap}
-        sidePannelStyles={sidePannelStyles}
-      />
-      <main className={classes.content} id='main-content'>
-        <div className={sidePannelStyles}>
+    <>
+      <Head>
+        <style>
+          {`html {
+          overflow: hidden;
+        }
+        .scrollbar::-webkit-scrollbar {
+          width: 12px;
+        }
+      
+      .scrollbar::-webkit-scrollbar-track {
+          border-radius: 100vh;
+          background: #f2f4f7;
+      }
+      
+      .scrollbar::-webkit-scrollbar-thumb {
+          background: #ccc;
+          border-radius: 100vh;
+          border: 2px solid #ebedf2;
+      }
+        `}
+        </style>
+      </Head>
+      <div className={'flex overflow-x-inherit md:overflow-x-hidden'}>
+        <DrawerWrapper
+          classes={classes}
+          route={route}
+          title={title}
+          dataSourceMap={dataSourceMap}
+        />
+        <main className={classes.content} id='main-content'>
+          <NavigationBar
+            classes={classes}
+            title={title}
+            authenticated={authed}
+          />
           <div className={'pr-2 md:pr-4 pl-2 md:pl-8 lg:pl-8 lg:pr-8 pt-2'}>
             {children}
           </div>
-        </div>
-        <ConfirmEmail
-          sendEmail={sendConfirmEmail}
-          visible={user?.loggedIn && !user?.emailConfirmed}
-        />
+          <ConfirmEmail
+            sendEmail={sendConfirmEmail}
+            visible={user?.loggedIn && !user?.emailConfirmed}
+          />
+          <MiniPlayer />
+          <DynamicModal />
+        </main>
         <IssueFeed />
-        <MiniPlayer />
-        <DynamicModal />
-      </main>
-    </div>
+      </div>
+    </>
   )
 }

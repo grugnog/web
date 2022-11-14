@@ -5,6 +5,7 @@ import { usePagesData } from '@app/data/external/pages/pages'
 import { WebsiteCellPages } from '../cells'
 import { InnerWrapper } from './list-wrapper'
 import { LoadMoreButton } from '../buttons'
+import { listStyle } from '@app/styles/lists/tw'
 
 export const RenderInnerPages: FC<any> = (props) => {
   const { pageUrl, generalProps } = props
@@ -59,7 +60,7 @@ const ListCell = ({
   const totalIssues = item?.issuesInfo?.totalIssues
 
   return (
-    <div
+    <li
       key={item?._id}
       className={`border-4 rounded ${visible ? 'rounded-b-none' : ''}`}
     >
@@ -87,7 +88,7 @@ const ListCell = ({
           generalProps={generalProps}
         />
       ) : null}
-    </div>
+    </li>
   )
 }
 
@@ -102,6 +103,7 @@ export function ListComponent({
   crawlWebsite,
   setModal,
   mutatationLoading,
+  children,
 }: any) {
   const [modal, setOpen] = useState(defaultModalState)
   const { miniPlayer, setMiniPlayerContent } = useMiniPlayer()
@@ -131,19 +133,22 @@ export function ListComponent({
   }
 
   return (
-    <div className='space-y-2'>
-      {data?.map((item: any) => (
-        <ListCell
-          key={item?._id}
-          item={item}
-          pageUrl={item.url}
-          loading={loading}
-          error={error}
-          emptyHeaderTitle={emptyHeaderTitle}
-          emptyHeaderSubTitle={emptyHeaderSubTitle}
-          generalProps={generalProps}
-        />
-      ))}
+    <>
+      <ul className={listStyle}>
+        {data?.map((item: any) => (
+          <ListCell
+            key={item?._id}
+            item={item}
+            pageUrl={item.url}
+            loading={loading}
+            error={error}
+            emptyHeaderTitle={emptyHeaderTitle}
+            emptyHeaderSubTitle={emptyHeaderSubTitle}
+            generalProps={generalProps}
+          />
+        ))}
+        {children}
+      </ul>
       <FullScreenModal
         {...modal}
         handleClose={handleClose}
@@ -151,7 +156,7 @@ export function ListComponent({
         refetch={refetch}
         handleClickOpenPlayer={setMiniPlayerContent}
       />
-    </div>
+    </>
   )
 }
 

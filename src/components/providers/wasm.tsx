@@ -2,7 +2,19 @@ import { ReactNode, useContext, useEffect, useState } from 'react'
 import { createContext } from 'react'
 import type { Feed } from 'a11ywatch-web-wasm'
 
-const initial: WASMContext = {}
+const noop = () => {}
+
+const initial: WASMContext = {
+  feed: {
+    clear_data: noop,
+    free: noop,
+    get_data: noop,
+    insert_website: noop,
+    get_website: noop,
+    get_data_item: noop,
+    open: false,
+  },
+}
 
 export const WASMContext = createContext(initial)
 
@@ -33,7 +45,7 @@ export const WASMContextProvider: React.FC<WASMContextProviderProps> = ({
 
 interface WASMContext {
   wasm?: typeof import('a11ywatch-web-wasm')
-  feed?: Feed
+  feed: Feed
 }
 
 interface WASMContextProviderProps {

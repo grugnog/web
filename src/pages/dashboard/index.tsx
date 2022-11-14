@@ -17,6 +17,7 @@ import { WebsiteList } from '@app/components/general/website-list'
 import { useWebsiteContext } from '@app/components/providers/website'
 import { LoadMoreButton } from '@app/components/general/buttons'
 import { SortableWebsiteList } from '@app/components/general/website'
+import { companyName } from '@app/configs'
 
 function Dashboard({ name }: PageProps) {
   const [sortModalVisible, setSortModalVisible] = useState<boolean>()
@@ -130,26 +131,27 @@ function Dashboard({ name }: PageProps) {
         {sortModalVisible ? (
           <SortableWebsiteList refetch={refetch} />
         ) : (
-          <div>
-            <WebsiteList
-              data={websites}
-              error={error}
-              loading={loading}
-              mutatationLoading={mutatationLoading}
-              removePress={removeWebsite}
-              crawlWebsite={crawlWebsite}
-              refetch={refetch}
-              setModal={setModal}
-              lighthouseVisible={lighthouseVisible}
-              emptyHeaderTitle={'Welcome to A11yWatch'}
-              emptyHeaderSubTitle={'Add a website to monitor below'}
-              activeCrawls={activeCrawls}
-            />
-            <LoadMoreButton
-              visible={websites?.length > 1}
-              onLoadMoreEvent={onLoadMoreWebsites}
-            />
-          </div>
+          <WebsiteList
+            data={websites}
+            error={error}
+            loading={loading}
+            mutatationLoading={mutatationLoading}
+            removePress={removeWebsite}
+            crawlWebsite={crawlWebsite}
+            refetch={refetch}
+            setModal={setModal}
+            lighthouseVisible={lighthouseVisible}
+            emptyHeaderTitle={`Welcome to ${companyName}`}
+            emptyHeaderSubTitle={'Add a website to monitor below'}
+            activeCrawls={activeCrawls}
+          >
+            <li>
+              <LoadMoreButton
+                visible={websites?.length > 1}
+                onLoadMoreEvent={onLoadMoreWebsites}
+              />
+            </li>
+          </WebsiteList>
         )}
       </Drawer>
       <LinearBottom loading={mutatationLoading} />

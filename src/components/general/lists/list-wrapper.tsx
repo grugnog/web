@@ -16,10 +16,12 @@ const InnerWrapperComponent: FC<any> = (props) => {
     avatar = true,
   } = props
 
+  // Loading
   if (!data && loading) {
     return <ListSkeleton avatar={avatar} />
   }
 
+  // ERROR PAGE to display errors ( not actual network error )
   if (!data && !loading && error) {
     return (
       <CardHeader
@@ -30,7 +32,7 @@ const InnerWrapperComponent: FC<any> = (props) => {
     )
   }
 
-  // ERROR PAGE to display errors ( not actual network error )
+  // render list content
   if (data) {
     return children
   }

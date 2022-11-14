@@ -7,9 +7,9 @@ import { UserManager } from '@app/managers'
 import { LOGGIN_ROUTES } from '@app/configs'
 import { useMutation } from '@apollo/react-hooks'
 import { LOGOUT } from '@app/mutations'
-import { useWebsiteContext } from '../providers/website'
 import { CgProfile } from 'react-icons/cg'
 import { NavItem } from './navigation/nav-item'
+import { useWasmContext } from '../providers'
 
 type AuthMenuComponentProps = {
   authenticated?: boolean // user logged in
@@ -22,7 +22,7 @@ export function AuthMenu({ authenticated }: AuthMenuComponentProps) {
   const router = useRouter()
   const [anchorEl, setAnchorEl] = useState<any>(null)
   const [logoutMutation, { data, client }] = useMutation(LOGOUT)
-  const { setIssueFeedContent } = useWebsiteContext()
+  const { feed } = useWasmContext()
 
   useEffect(() => {
     if (data) {
@@ -46,9 +46,9 @@ export function AuthMenu({ authenticated }: AuthMenuComponentProps) {
   // simple logout
   const logout = async (e: SyntheticEvent<HTMLButtonElement>) => {
     e?.preventDefault()
-    setIssueFeedContent(false)
 
     try {
+      feed?.clear_data()
       await logoutMutation()
       UserManager.clearUser()
     } catch (e) {

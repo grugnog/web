@@ -8,13 +8,8 @@ import { LoadMoreButton } from '@app/components/general/buttons'
 import { useFilterSort } from '@app/data/local'
 
 function WebIssues({ name }: PageProps) {
-  const {
-    issueData,
-    issueDataLoading,
-    refetch,
-    error,
-    onLoadMoreIssues,
-  } = useWebsiteContext()
+  const { issueData, issueDataLoading, refetch, error, onLoadMoreIssues } =
+    useWebsiteContext()
   const { sortedData } = useFilterSort(issueData)
 
   return (
@@ -28,20 +23,21 @@ function WebIssues({ name }: PageProps) {
           emptyTitle={'No Websites Added'}
           error={error}
         >
-          <div className={'py-2'}>
-            <List
-              data={sortedData}
-              loading={issueDataLoading}
-              refetch={refetch}
-              BottomButton={FormDialog}
-              emptyHeaderTitle='No issues found'
-              emptyHeaderSubTitle='Issues will appear here when they arise'
-            />
-            <LoadMoreButton
-              visible={sortedData.length > 1}
-              onLoadMoreEvent={onLoadMoreIssues}
-            />
-          </div>
+          <List
+            data={sortedData}
+            loading={issueDataLoading}
+            refetch={refetch}
+            BottomButton={FormDialog}
+            emptyHeaderTitle='No issues found'
+            emptyHeaderSubTitle='Issues will appear here when they arise'
+          >
+            <li>
+              <LoadMoreButton
+                visible={sortedData.length > 1}
+                onLoadMoreEvent={onLoadMoreIssues}
+              />
+            </li>
+          </List>
         </PageLoader>
       </Drawer>
     </>

@@ -1,15 +1,13 @@
 import { makeStyles, Theme } from '@material-ui/core/styles'
-import { userModel } from '@app/data'
 
 export const drawerStyles = makeStyles((theme: Theme) => {
-  const drawerWidth = userModel?.deviceType === 'mobile' ? '85%' : '250px'
+  const drawerWidth = '250px'
   const breakDrawerWidth = 'sm'
 
   let extraBreakPoints = {
     shift: {
       [theme.breakpoints.down(breakDrawerWidth)]: {
         width: `calc(100% - 13%)`,
-        marginLeft: '13%',
       },
     },
     drawer: {
@@ -20,22 +18,6 @@ export const drawerStyles = makeStyles((theme: Theme) => {
   }
 
   return {
-    root: {
-      display: 'flex',
-      overflowX: 'hidden',
-      [theme.breakpoints.down(440)]: {
-        overflowX: 'inherit',
-      },
-    },
-    drawerItem: {
-      paddingBottom: 10,
-      paddingTop: 10,
-      [theme.breakpoints.down('sm')]: {
-        fontSize: '1rem',
-        paddingBottom: 8,
-        paddingTop: 8,
-      },
-    },
     absolute: {
       position: 'fixed',
       bottom: 0,
@@ -46,15 +28,7 @@ export const drawerStyles = makeStyles((theme: Theme) => {
       zIndex: 3,
       backgroundColor: theme.palette.background.default,
     },
-    appBarShift: {
-      width: `calc(100% - ${drawerWidth})`,
-      marginLeft: drawerWidth,
-      transition: theme.transitions.create(['margin', 'width'], {
-        easing: theme.transitions.easing.easeOut,
-        duration: theme.transitions.duration.enteringScreen,
-      }),
-      ...extraBreakPoints.shift,
-    },
+    appBarShift: {},
     menuButton: {
       marginLeft: 2,
       marginRight: theme.spacing(2),
@@ -82,13 +56,6 @@ export const drawerStyles = makeStyles((theme: Theme) => {
       display: 'flex',
       alignItems: 'center',
     },
-    drawerHeader: {
-      display: 'flex',
-      alignItems: 'center',
-      padding: theme.spacing(0, 1),
-      ...theme.mixins.toolbar,
-      justifyContent: 'flex-end',
-    },
     toggleAlert: {
       flex: 1,
       [theme.breakpoints.down('md')]: {
@@ -102,25 +69,8 @@ export const drawerStyles = makeStyles((theme: Theme) => {
     },
     content: {
       flexGrow: 1,
-      paddingTop: theme.mixins.toolbar.minHeight,
       paddingBottom: theme.spacing(1),
-      transition: theme.transitions.create('margin', {
-        easing: theme.transitions.easing.sharp,
-        duration: theme.transitions.duration.leavingScreen,
-      }),
       overflow: 'auto',
-      [theme.breakpoints.down(breakDrawerWidth)]: {
-        paddingLeft: '0.4rem',
-        // marginLeft: `-13%`,
-      },
-    },
-    contentShift: {
-      transition: theme.transitions.create('margin', {
-        easing: theme.transitions.easing.easeOut,
-        duration: theme.transitions.duration.enteringScreen,
-      }),
-      marginLeft: 0,
-      overflow: 'inherit',
     },
     title: {
       color: 'rgba(255, 255, 255, 0.85)',
@@ -128,24 +78,6 @@ export const drawerStyles = makeStyles((theme: Theme) => {
       fontWeight: 800,
       [theme.breakpoints.down('sm')]: {
         fontSize: 16,
-      },
-    },
-    menuRoot: {
-      display: 'flex',
-      flex: 1,
-      overflow: 'hidden',
-      whiteSpace: 'nowrap',
-      textOverflow: 'ellipsis',
-    },
-    menuTitle: {
-      whiteSpace: 'nowrap',
-      overflow: 'hidden',
-      textOverflow: 'ellipsis',
-    },
-    sidePanelPadding: {
-      paddingRight: '24vw',
-      [theme.breakpoints.down('sm')]: {
-        paddingRight: 0,
       },
     },
   }

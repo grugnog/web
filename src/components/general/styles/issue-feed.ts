@@ -4,10 +4,6 @@ import type { MergedTheme } from '@app/theme'
 const useStyles = makeStyles(({ breakpoints }: MergedTheme) =>
   createStyles({
     root: {
-      position: 'fixed',
-      right: 0,
-      top: 0,
-      bottom: 0,
       width: '24vw',
       minWidth: 260,
       overflowY: 'scroll',

@@ -1,6 +1,7 @@
 import { Fragment } from 'react'
 import { WebsiteCellDashboard } from '@app/components/general/cells'
 import { Website } from '@app/types'
+import { listStyle } from '@app/styles/lists/tw'
 
 // Iterate over website dashboard cells
 export function WebSitesDashboard({
@@ -15,38 +16,36 @@ export function WebSitesDashboard({
   loading,
   lighthouseVisible,
   activeCrawls,
+  children,
 }: any) {
   if (!data?.length) {
     return (
       <Fragment>
-        <div>No websites exist</div>
+        <div className='text-gray-800 text-base'>No websites exist</div>
       </Fragment>
     )
   }
 
   return (
-    <ul className='space-y-2 py-2'>
-      {data?.map((props: Website, index: number) => {
-        const activeCrawl = activeCrawls && activeCrawls[props.domain]
-
-        return (
-          <WebsiteCellDashboard
-            key={props._id}
-            handleClickOpen={handleClickOpen}
-            removePress={removePress}
-            refetch={refetch}
-            handleClickOpenPlayer={handleClickOpenPlayer}
-            crawlWebsite={crawlWebsite}
-            setModal={setModal}
-            loading={loading}
-            mutatationLoading={mutatationLoading}
-            lighthouseVisible={lighthouseVisible}
-            activeCrawl={activeCrawl}
-            index={index}
-            {...props}
-          />
-        )
-      })}
+    <ul className={listStyle}>
+      {data?.map((props: Website, index: number) => (
+        <WebsiteCellDashboard
+          key={props._id}
+          handleClickOpen={handleClickOpen}
+          removePress={removePress}
+          refetch={refetch}
+          handleClickOpenPlayer={handleClickOpenPlayer}
+          crawlWebsite={crawlWebsite}
+          setModal={setModal}
+          loading={loading}
+          mutatationLoading={mutatationLoading}
+          lighthouseVisible={lighthouseVisible}
+          activeCrawl={activeCrawls && activeCrawls[props.domain]}
+          index={index}
+          {...props}
+        />
+      ))}
+      {children}
     </ul>
   )
 }

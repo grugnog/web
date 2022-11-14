@@ -51,7 +51,7 @@ export function WebsiteSecondaryComponent({
   return (
     <div
       className={
-        'flex space-x-2 overflow-x-hidden hover:overflow-x-auto max-w-[60vw]'
+        'flex space-x-2 overflow-x-hidden overflow-x-auto max-w-[60vw]'
       }
     >
       {shutdown ? (

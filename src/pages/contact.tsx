@@ -88,7 +88,7 @@ function Contact({ name }: PageProps) {
 
           <div className={'py-2'}>
             <Typography variant='body1' component='div' gutterBottom>
-              If you want to learn more about open positions.
+              If you want to learn more about positions.
             </Typography>
             <Link href={'/careers'} className={'text-blue-700 underline'}>
               Careers

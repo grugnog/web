@@ -14,13 +14,8 @@ const emptyHeaderSubTitle =
   'Scripts will appear here for basic or premium accounts.'
 
 function Scripts({ name }: PageProps) {
-  const {
-    scriptsData,
-    scriptsDataLoading,
-    refetch,
-    error,
-    onLoadMoreScripts,
-  } = useWebsiteContext()
+  const { scriptsData, scriptsDataLoading, refetch, error, onLoadMoreScripts } =
+    useWebsiteContext()
   const { search } = useSearchFilter()
 
   // search local filtering
@@ -41,22 +36,23 @@ function Scripts({ name }: PageProps) {
           emptySubTitle={emptyHeaderSubTitle}
           error={error}
         >
-          <div className={'py-2'}>
-            <List
-              data={source}
-              loading={scriptsDataLoading}
-              refetch={refetch}
-              BottomButton={FormDialog}
-              emptyHeaderTitle='No scripts found'
-              emptyHeaderSubTitle={
-                'Scripts will appear here for basic or premium accounts.'
-              }
-            />
-            <LoadMoreButton
-              visible={source.length > 1}
-              onLoadMoreEvent={onLoadMoreScripts}
-            />
-          </div>
+          <List
+            data={source}
+            loading={scriptsDataLoading}
+            refetch={refetch}
+            BottomButton={FormDialog}
+            emptyHeaderTitle='No scripts found'
+            emptyHeaderSubTitle={
+              'Scripts will appear here for basic or premium accounts.'
+            }
+          >
+            <li>
+              <LoadMoreButton
+                visible={source.length > 1}
+                onLoadMoreEvent={onLoadMoreScripts}
+              />
+            </li>
+          </List>
         </PageLoader>
       </Drawer>
     </>

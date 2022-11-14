@@ -32,20 +32,21 @@ function WebActions({ name }: PageProps) {
           emptyTitle={'No Websites Added'}
           error={error}
         >
-          <div className={'py-2'}>
-            <List
-              data={source}
-              loading={actionsDataLoading}
-              refetch={refetch}
-              BottomButton={FormDialog}
-              emptyHeaderTitle='No Actions found'
-              emptyHeaderSubTitle='Actions will appear here if you add them initially'
-            />
-            <LoadMoreButton
-              visible={source.length > 1}
-              onLoadMoreEvent={onLoadMoreActions}
-            />
-          </div>
+          <List
+            data={source}
+            loading={actionsDataLoading}
+            refetch={refetch}
+            BottomButton={FormDialog}
+            emptyHeaderTitle='No Actions found'
+            emptyHeaderSubTitle='Actions will appear here if you add them initially'
+          >
+            <li>
+              <LoadMoreButton
+                visible={source.length > 1}
+                onLoadMoreEvent={onLoadMoreActions}
+              />
+            </li>
+          </List>
         </PageLoader>
         <div className='p-3 border rounded'>
           <p className='text-sm'>

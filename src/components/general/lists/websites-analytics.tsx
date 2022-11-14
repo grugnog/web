@@ -5,6 +5,7 @@ import { InnerWrapper } from './list-wrapper'
 import { AnalyticsCell } from '../cells/website-cell-analytics'
 import { useAnalyticsData } from '@app/data/external/analytics/analytics'
 import { LoadMoreButton } from '../buttons'
+import { listStyle } from '@app/styles/lists/tw'
 
 // return issues maped
 function AnalyticsWrapper(props: any) {
@@ -148,6 +149,7 @@ export function ListComponent({
   crawlWebsite,
   setModal,
   mutatationLoading,
+  children,
 }: any) {
   const [modal, setOpen] = useState(defaultModalState)
   const { miniPlayer, setMiniPlayerContent } = useMiniPlayer()
@@ -177,19 +179,22 @@ export function ListComponent({
   }
 
   return (
-    <div className='space-y-2'>
-      {data?.map((item: any) => (
-        <ListCell
-          key={item?._id}
-          item={item}
-          pageUrl={item.url}
-          loading={loading}
-          error={error}
-          emptyHeaderTitle={emptyHeaderTitle}
-          emptyHeaderSubTitle={emptyHeaderSubTitle}
-          generalProps={generalProps}
-        />
-      ))}
+    <>
+      <ul className={listStyle}>
+        {data?.map((item: any) => (
+          <ListCell
+            key={item?._id}
+            item={item}
+            pageUrl={item.url}
+            loading={loading}
+            error={error}
+            emptyHeaderTitle={emptyHeaderTitle}
+            emptyHeaderSubTitle={emptyHeaderSubTitle}
+            generalProps={generalProps}
+          />
+        ))}
+        {children}
+      </ul>
       <FullScreenModal
         {...modal}
         handleClose={handleClose}
@@ -197,7 +202,7 @@ export function ListComponent({
         refetch={refetch}
         handleClickOpenPlayer={setMiniPlayerContent}
       />
-    </div>
+    </>
   )
 }
 

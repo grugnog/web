@@ -263,10 +263,6 @@ export const useWebsiteData = (
         'success'
       )
     })
-
-    if (!feedOpen) {
-      setIssueFeedContent(true) // display content open
-    }
   }
 
   const { data: issueSubData } = useSubscription(ISSUE_SUBSCRIPTION, {
@@ -340,87 +336,91 @@ export const useWebsiteData = (
 
   // issue page pagination
   const onLoadMoreIssues = useCallback(async () => {
-    try {
-      await fetchMoreIssues({
-        query: GET_WEBSITES_INFO,
-        variables: {
-          offset: Number(issueData.length || 0),
-        },
-        updateQuery,
-      })
-    } catch (e) {
-      console.error(e)
+    if (!issueDataLoading) {
+      try {
+        await fetchMoreIssues({
+          query: GET_WEBSITES_INFO,
+          variables: {
+            offset: Number(issueData.length || 0),
+          },
+          updateQuery,
+        })
+      } catch (e) {
+        console.error(e)
+      }
     }
-  }, [issueData, fetchMoreIssues])
+  }, [issueData, fetchMoreIssues, issueDataLoading])
 
   // pages page pagination
   const onLoadMorePages = useCallback(async () => {
-    try {
-      await fetchMorePages({
-        query: GET_WEBSITES_INFO,
-        variables: {
-          offset: Number(pagesData.length || 0),
-        },
-        updateQuery,
-      })
-    } catch (e) {
-      console.error(e)
+    if (!pagesDataLoading) {
+      try {
+        await fetchMorePages({
+          query: GET_WEBSITES_INFO,
+          variables: {
+            offset: Number(pagesData.length || 0),
+          },
+          updateQuery,
+        })
+      } catch (e) {
+        console.error(e)
+      }
     }
-  }, [pagesData, fetchMorePages])
+  }, [pagesData, fetchMorePages, pagesDataLoading])
 
   // analytics page pagination
   const onLoadMoreAnalytics = useCallback(async () => {
-    try {
-      await fetchMoreAnalytics({
-        query: GET_WEBSITES_INFO,
-        variables: {
-          offset: Number(analyticsData.length || 0),
-        },
-        updateQuery,
-      })
-    } catch (e) {
-      console.error(e)
+    if (!analyticsDataLoading) {
+      try {
+        await fetchMoreAnalytics({
+          query: GET_WEBSITES_INFO,
+          variables: {
+            offset: Number(analyticsData.length || 0),
+          },
+          updateQuery,
+        })
+      } catch (e) {
+        console.error(e)
+      }
     }
-  }, [analyticsData, fetchMoreAnalytics])
+  }, [analyticsData, fetchMoreAnalytics, analyticsDataLoading])
 
   // scripts page pagination
   const onLoadMoreScripts = useCallback(async () => {
-    try {
-      await fetchMoreScripts({
-        query: GET_WEBSITES_INFO,
-        variables: {
-          offset: Number(scriptsData.length || 0),
-        },
-        updateQuery,
-      })
-    } catch (e) {
-      console.error(e)
+    if (!scriptsDataLoading) {
+      try {
+        await fetchMoreScripts({
+          query: GET_WEBSITES_INFO,
+          variables: {
+            offset: Number(scriptsData.length || 0),
+          },
+          updateQuery,
+        })
+      } catch (e) {
+        console.error(e)
+      }
     }
-  }, [scriptsData, fetchMoreScripts])
+  }, [scriptsData, fetchMoreScripts, scriptsDataLoading])
 
   // actions page pagination
   const onLoadMoreActions = useCallback(async () => {
-    try {
-      await fetchMoreActions({
-        query: GET_WEBSITES_INFO,
-        variables: {
-          offset: Number(actionsData.length || 0),
-        },
-        updateQuery,
-      })
-    } catch (e) {
-      console.error(e)
+    if (!actionsDataLoading) {
+      try {
+        await fetchMoreActions({
+          query: GET_WEBSITES_INFO,
+          variables: {
+            offset: Number(actionsData.length || 0),
+          },
+          updateQuery,
+        })
+      } catch (e) {
+        console.error(e)
+      }
     }
-  }, [actionsData, fetchMoreActions])
+  }, [actionsData, fetchMoreActions, actionsDataLoading])
 
   // toggle the feed menu
-  const setFeed = (open: boolean) => {
-    // clear feed data on close
-    if (!open) {
-      feed?.clear_data()
-    }
-    setIssueFeedContent(open)
-  }
+  const setFeed = (open: boolean) => setIssueFeedContent(open)
 
   // add a website to monitor
   const addWebPage = async (params: any) => {
@@ -436,13 +436,6 @@ export const useWebsiteData = (
     } catch (e) {
       console.error(e)
     }
-  }
-
-  const issueFeed = {
-    open: feedOpen,
-    get data() {
-      return feed?.get_data() ?? {}
-    },
   }
 
   return {
@@ -464,7 +457,6 @@ export const useWebsiteData = (
     error, // general mutation error
     mutatationLoading:
       removeLoading || addLoading || crawlLoading || scanLoading,
-    issueFeed: issueFeed, // issue feed from wasm
     lighthouseVisible,
     setLighthouseVisibility,
     removeWebsite,
@@ -483,5 +475,7 @@ export const useWebsiteData = (
     onLoadMoreActions,
     // other state
     activeCrawls,
+    // mobile feed open
+    feedOpen,
   }
 }

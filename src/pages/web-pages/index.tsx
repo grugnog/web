@@ -10,13 +10,8 @@ import { useWebsiteContext } from '@app/components/providers/website'
 import { LoadMoreButton } from '@app/components/general/buttons'
 
 export function WebPages({ name }: PageProps) {
-  const {
-    pagesData,
-    pagesDataLoading,
-    refetch,
-    error,
-    onLoadMorePages,
-  } = useWebsiteContext()
+  const { pagesData, pagesDataLoading, refetch, error, onLoadMorePages } =
+    useWebsiteContext()
   const { search } = useSearchFilter()
 
   // search local filtering
@@ -36,20 +31,21 @@ export function WebPages({ name }: PageProps) {
           emptyTitle={'No Websites Added'}
           error={error}
         >
-          <div className={'py-2'}>
-            <List
-              data={source}
-              loading={pagesDataLoading}
-              refetch={refetch}
-              BottomButton={FormDialog}
-              emptyHeaderTitle='No pages found'
-              emptyHeaderSubTitle='Pages will appear here if issues arise'
-            />
-            <LoadMoreButton
-              visible={source.length > 1}
-              onLoadMoreEvent={onLoadMorePages}
-            />
-          </div>
+          <List
+            data={source}
+            loading={pagesDataLoading}
+            refetch={refetch}
+            BottomButton={FormDialog}
+            emptyHeaderTitle='No pages found'
+            emptyHeaderSubTitle='Pages will appear here if issues arise'
+          >
+            <li>
+              <LoadMoreButton
+                visible={source.length > 1}
+                onLoadMoreEvent={onLoadMorePages}
+              />
+            </li>
+          </List>
         </PageLoader>
       </Drawer>
     </>

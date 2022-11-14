@@ -1,6 +1,6 @@
 import type { PageProps } from '@app/types'
 import type { GetServerSideProps } from 'next'
-import { Fragment, useEffect, useState } from 'react'
+import { Fragment } from 'react'
 import Head from 'next/head'
 import {
   ErrorBoundary,
@@ -10,18 +10,11 @@ import {
 import { ReportView } from '@app/components/ada'
 import { metaSetter } from '@app/utils'
 import { getAPIRoute } from '@app/configs/api-route'
-import { userModel } from '@app/data'
+import { useAuthContext } from '@app/components/providers/auth'
 
 function Reports({ name, website }: PageProps) {
   const { url, domain } = website ?? { domain: '', url: 'Not Found' }
-  const [authenticated, setAuthed] = useState<boolean>(false)
-
-  // use non gql auth method
-  useEffect(() => {
-    if (userModel.loggedIn) {
-      setAuthed(true)
-    }
-  }, [])
+  const { authed: authenticated } = useAuthContext()
 
   return (
     <Fragment>
@@ -56,13 +49,15 @@ function Reports({ name, website }: PageProps) {
   )
 }
 
+const baseUrl = getAPIRoute('api', true)
+
 const getWebsite = async (url: string, jwt?: string) => {
   let website
   let res
 
   try {
     res = await fetch(
-      `${getAPIRoute('api', true)}/get-website?q=${url}`,
+      `${baseUrl}/get-website?q=${url}`,
       jwt ? { headers: { Authorization: jwt } } : undefined
     )
   } catch (e) {
@@ -131,6 +126,7 @@ export default metaSetter(
   { Reports },
   {
     gql: true,
-    description: 'Website detailed report with WCAG issues and how to fix.',
+    description:
+      'Website detailed report with accessibility issues and how to fix.',
   }
 )

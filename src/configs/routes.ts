@@ -165,12 +165,6 @@ export const Routes = [
     href: '/register',
     name: 'Register',
   },
-  // {
-  //   nav: false,
-  //   href: '/careers',
-  //   name: 'Careers',
-  //   type: 'company',
-  // },
   {
     nav: false,
     href: 'https://docs.a11ywatch.com',
