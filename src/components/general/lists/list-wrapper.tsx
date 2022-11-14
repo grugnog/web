@@ -13,7 +13,7 @@ const InnerWrapperComponent: FC<any> = (props) => {
     error,
     emptyHeaderTitle,
     emptyHeaderSubTitle,
-    avatar = true,
+    avatar = false,
   } = props
 
   // Loading

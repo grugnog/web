@@ -13,6 +13,7 @@ import { SearchBar } from '../searchbar'
 import { DynamicModal } from '../../modal/dynamic'
 import { MiniPlayer } from '../mini-player'
 import Head from 'next/head'
+import { theme } from '@app/theme'
 
 function MainDrawerContainer({ route, dataSourceMap, classes }: any) {
   return (
@@ -107,7 +108,14 @@ export function Drawer({ children, route, title }: any) {
             title={title}
             authenticated={authed}
           />
-          <div className={'pr-2 md:pr-4 pl-2 md:pl-8 lg:pl-8 lg:pr-8 pt-2'}>
+          <div
+            style={{
+              maxHeight: `calc(100vh - ${theme.mixins.toolbar.minHeight}px)`,
+            }}
+            className={
+              'pr-2 md:pr-4 pl-2 md:pl-8 lg:pl-8 lg:pr-8 pt-2 scrollbar overflow-auto'
+            }
+          >
             {children}
           </div>
           <ConfirmEmail

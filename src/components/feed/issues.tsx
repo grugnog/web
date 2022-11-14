@@ -13,12 +13,11 @@ import { GrClose, GrExpand } from 'react-icons/gr'
 import { AppManager } from '@app/managers'
 import { FeedList } from './list'
 import { useWasmContext } from '../providers'
-import type { Website } from '@app/types'
+import type { IssueData, Website } from '@app/types'
 
 const PageList = ({
   pages,
   onScanEvent,
-  highlightErrors,
 }: Partial<FeedItemProps> & {
   pages: any[]
 }) => {
@@ -26,9 +25,9 @@ const PageList = ({
     <>
       {pages?.map((website: any) => (
         <FeedList
-          key={`${website?.domain}-${website.pageUrl}`}
+          key={website.pageUrl}
           issue={website}
-          highlightErrors={highlightErrors}
+          highlightErrors
           onScanEvent={onScanEvent}
           isHidden
         />
@@ -55,10 +54,8 @@ const FeedButton = ({ domain, onHeadingToggleEvent, onSortClick }: any) => {
 
 const FeedButtonMemo = memo(FeedButton)
 
-type FeedRecord = Record<string, string>
-
 type FeedItemProps = {
-  feed?: FeedRecord
+  feed?: Map<string, Map<string, IssueData>>
   domain?: string
   onScanEvent?: any
   index?: number
@@ -71,16 +68,14 @@ const FeedItemWrapper = ({
   index,
   domain,
 }: FeedItemProps) => {
+  // keep tracking of the pages in order
+  const refPages = useRef<IssueData[]>([])
+  const refMap = useRef<Set<string>>(new Set())
+
   const [visible, setVisible] = useState<boolean>(index === 0)
   const [_sorted, setSorted] = useState<boolean>(false)
 
-  // keep tracking of the pages in order
-  const refPages = useRef<Map<string, FeedRecord>>()
-
-  // todo: prevent pages from sorting
-  const pages = useDeferredValue(
-    refPages.current ? [...refPages?.current?.values()] : []
-  )
+  const pages = useDeferredValue(refPages?.current ?? [])
 
   const website = useMemo(() => {
     if (domain && feed instanceof Map) {
@@ -88,22 +83,31 @@ const FeedItemWrapper = ({
     }
   }, [feed, domain])
 
+  // todo: remove effect
   useEffect(() => {
     if (website) {
-      refPages.current = website
+      const items = website.values()
+
+      for (const item of items) {
+        if (!refMap.current.has(item.pageUrl)) {
+          refMap.current.add(item.pageUrl)
+          refPages.current.push(item)
+        }
+      }
     }
   }, [website])
 
-  const onHeadingToggleEvent = () => setVisible((v) => !v)
+  const onHeadingToggleEvent = useCallback(
+    () => setVisible((v) => !v),
+    [setVisible]
+  )
 
-  const onSortClick = () => {
+  const onSortClick = useCallback(() => {
     if (refPages.current) {
-      refPages.current = new Map([...refPages.current].sort())
+      refPages.current.sort((a, b) => a.pageUrl.localeCompare(b.pageUrl))
     }
     setSorted((s) => !s)
-  }
-
-  // todo: fix sorting updating
+  }, [setSorted])
 
   return (
     <li>
@@ -113,7 +117,7 @@ const FeedItemWrapper = ({
         onSortClick={onSortClick}
       />
       <ul className={!visible ? 'hidden' : 'visible'} aria-hidden={!visible}>
-        <PageList pages={pages} onScanEvent={onScanEvent} highlightErrors />
+        <PageList pages={pages} onScanEvent={onScanEvent} />
       </ul>
     </li>
   )
@@ -143,12 +147,37 @@ const Top = ({ onClick, open }: { onClick(x: any): any; open: boolean }) => {
 // re-render on state change for toggling click event
 const TopSection = memo(Top, (x, y) => x.open === y.open)
 
+// domain list interface
+interface DomainListProps {
+  issues?: string[]
+  feed?: Map<string, Map<string, IssueData>>
+  onScanEvent?(x: any): any
+}
+
+// domain list
+const DomainListWrapper = ({ issues, feed, onScanEvent }: DomainListProps) => {
+  return (
+    <ul>
+      {issues?.map((domain, index) => (
+        <FeedItem
+          feed={feed}
+          key={domain}
+          domain={domain}
+          index={index}
+          onScanEvent={onScanEvent}
+        />
+      ))}
+    </ul>
+  )
+}
+
+const DomainList = memo(DomainListWrapper)
+
 // side panel that appears fixed on the right of current issues of domain being. This returns a list of pages with a list of issues per page.
 const Feed: FC = () => {
   const { feed } = useWasmContext()
   const { feedOpen, setIssueFeedContent, scanWebsite } = useWebsiteContext()
-
-  const data = feed.get_data()
+  const data = useDeferredValue(feed.get_data())
 
   const issues = useMemo(() => {
     if (data instanceof Map) {
@@ -204,35 +233,31 @@ const Feed: FC = () => {
     [feed, scanWebsite]
   )
 
-  const mobileStyles = feedOpen
-    ? `h-full w-full z-20 overflow-y-auto`
-    : 'pl-[15vw] max-h-[60px] overflow-hidden bottom-0 rounded w-full lg:max-h-full lg:overflow-y-auto lg:rounded-none lg:h-full lg:bottom-0 lg:top-0 lg:pl-0 lg:z-20'
+  const { mainStyle, topStyles } = useMemo(() => {
+    const mobileStyles = feedOpen
+      ? `h-full w-full z-20 overflow-y-auto`
+      : 'pl-[15vw] max-h-[60px] overflow-hidden bottom-0 rounded w-full lg:max-h-full lg:overflow-y-auto lg:rounded-none lg:h-full lg:bottom-0 lg:top-0 lg:pl-0 lg:z-20'
+
+    const mainStyle = `${
+      feedOpen ? 'z-20' : ''
+    } border-t md:border-t-0 text-side fixed lg:min-w-[24vw] lg:relative`
+
+    const topStyles = `fixed bottom-0 bg-lightgray lg:border-l lg:w-[24vw] ${mobileStyles}`
+
+    return {
+      mobileStyles,
+      mainStyle,
+      topStyles,
+    }
+  }, [feedOpen])
 
   return (
     <>
       {feedOpen ? <style>{`body { overflow: hidden; }`}</style> : null}
-      <div
-        className={`${
-          feedOpen ? 'z-20' : ''
-        } border-t md:border-t-0 text-side fixed lg:min-w-[24vw] lg:relative`}
-        aria-live='polite'
-      >
-        <div
-          className={`fixed bottom-0 bg-lightgray lg:border-l lg:w-[24vw] ${mobileStyles}`}
-        >
+      <div className={mainStyle} aria-live='polite'>
+        <div className={topStyles}>
           <TopSection onClick={setIssueFeedContent} open={feedOpen} />
-          <ul>
-            {issues?.map((domain, index) => (
-              <FeedItem
-                feed={data}
-                key={domain}
-                domain={domain}
-                index={index}
-                onScanEvent={onScanEvent}
-                highlightErrors
-              />
-            ))}
-          </ul>
+          <DomainList feed={data} issues={issues} onScanEvent={onScanEvent} />
         </div>
       </div>
     </>

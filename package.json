@@ -27,7 +27,7 @@
     "@stripe/react-stripe-js": "^1.14.1",
     "@stripe/stripe-js": "^1.42.0",
     "@vercel/og": "^0.0.20",
-    "a11ywatch-web-wasm": "0.1.6",
+    "a11ywatch-web-wasm": "0.1.7",
     "apollo-cache-inmemory": "1.6.6",
     "apollo-client": "2.6.10",
     "apollo-link-context": "1.0.20",

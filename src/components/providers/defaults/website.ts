@@ -45,7 +45,7 @@ export const sharedWebsiteDefaults = {
   scanWebsite: (_: any): Promise<any> => {
     return _
   },
-  // TODO: move UI control on its own
+  // TODO: move UI control
   setLighthouseVisibility: (_: any): void => {
     return _
   },

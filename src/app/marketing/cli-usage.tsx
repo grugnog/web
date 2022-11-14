@@ -33,7 +33,7 @@ export function MarketingCli(): ReactElement<any, any> | null {
   return (
     <SectionContainer>
       <div className='ring-1 shadow-xl ring-[#0E1116] ring-offset-8 ring-offset-gray-600 py-4 px-4 rounded'>
-        <Header3>Command Line Interface</Header3>
+        <Header3>Web Accessibility CLI</Header3>
         <p className='text-lg pb-4 leading-10'>
           Run A11yWatch on any machine using the Rust Command Line Interface.
           Get the CLI simply in shell using{' '}

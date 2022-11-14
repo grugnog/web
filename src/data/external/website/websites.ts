@@ -252,16 +252,14 @@ export const useWebsiteData = (
   }: OnSubscriptionDataOptions<any>) => {
     const newIssue = subscriptionData?.data?.issueAdded
 
+    AppManager.toggleSnack(
+      true,
+      `Insight found on ${newIssue?.pageUrl}`,
+      'success'
+    )
+
     setTimeout(() => {
       feed?.insert_website(newIssue)
-    })
-
-    queueMicrotask(() => {
-      AppManager.toggleSnack(
-        true,
-        `Insight found on ${newIssue?.pageUrl}`,
-        'success'
-      )
     })
   }
 

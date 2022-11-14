@@ -14,11 +14,18 @@ import { format } from 'date-fns'
 import { PageLoad } from './page-load'
 import { Website } from '@app/types'
 
-const chipStyle = { width: 12, height: 12, color: 'rgb(64,64,64)' }
-const chipRootStyle = {
+const chipStyle = { width: 13, height: 13, color: 'rgb(64,64,64)' }
+const chipRootStyle: React.CSSProperties = {
   backgroundColor: '#fff',
   color: 'rgb(64,64,64)',
   border: '1px solid rgb(209 213 219)',
+  width: '5rem',
+  overflow: 'hidden',
+  textOverflow: 'ellipsis',
+  textAlign: 'left',
+  justifyContent: 'flex-start',
+  fontSize: '0.77rem',
+  // whiteSpace: 'nowrap',
 }
 
 // TODO: REFACTOR WITH Secondary (BASE)
@@ -34,7 +41,12 @@ export function WebsiteSecondaryComponent({
   subdomains,
   tld,
   shutdown,
-}: Website & { pageIssueCount?: number; adaScore?: number }) {
+  dashboard,
+}: Website & {
+  pageIssueCount?: number
+  adaScore?: number
+  dashboard?: boolean
+}) {
   const { possibleIssuesFixedByCdn, issuesFixedByCdn, totalIssues } =
     issuesInfo ?? {}
 
@@ -50,9 +62,11 @@ export function WebsiteSecondaryComponent({
 
   return (
     <div
-      className={
-        'flex space-x-2 overflow-x-hidden overflow-x-auto max-w-[60vw]'
-      }
+      className={`flex space-x-2 ${
+        !dashboard
+          ? 'overflow-x-auto max-w-[75vw]'
+          : 'overflow-x-auto max-w-[61.5vw]'
+      }`}
     >
       {shutdown ? (
         <Tooltip

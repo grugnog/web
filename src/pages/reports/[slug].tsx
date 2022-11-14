@@ -81,7 +81,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   let url: string | undefined = ''
   let website
 
-  // if its an array for dynamic routes.
+  // if an array for dynamic routes.
   if (slug && Array.isArray(slug) && slug.length) {
     const [base] = slug
 

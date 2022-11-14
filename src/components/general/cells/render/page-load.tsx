@@ -15,26 +15,27 @@ export function PageLoadComponent({
   style,
   chipStyle,
 }: PageLoad) {
-  const durationToSeconds = duration / 1000
-  const fixedLength =
-    String(durationToSeconds).length === 1 ? 1 : durationToSeconds < 1 ? 3 : 2
-
-  if (!duration) {
+  if (typeof duration === 'undefined') {
     return null
   }
 
+  const durationToSeconds = duration ? duration / 1000 : 0
+  const fixedLength =
+    String(durationToSeconds).length === 1 ? 1 : durationToSeconds < 1 ? 3 : 2
+  const time = durationToSeconds.toFixed(fixedLength) || 0
+
   return (
     <Tooltip
-      title={`Page load time is ${durationFormated ?? 'N/A'} at ${
-        durationToSeconds.toFixed(fixedLength) || 0
-      } seconds`}
+      title={`Page load time is ${
+        durationFormated ?? 'N/A'
+      } at ${time} seconds`}
       placement={'right'}
     >
       <Chip
         style={style}
         size='small'
         avatar={<GrDashboard style={chipStyle} className={'grIcon'} />}
-        label={'Speed'}
+        label={`${time}s`}
       />
     </Tooltip>
   )

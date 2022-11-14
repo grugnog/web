@@ -239,6 +239,7 @@ export function WebsiteCellDashboardComponent({
                 subdomains={subdomains}
                 tld={tld}
                 shutdown={shutdown}
+                dashboard
               />
             </div>
             <Link

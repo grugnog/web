@@ -142,7 +142,7 @@ function Dashboard({ name }: PageProps) {
             setModal={setModal}
             lighthouseVisible={lighthouseVisible}
             emptyHeaderTitle={`Welcome to ${companyName}`}
-            emptyHeaderSubTitle={'Add a website to monitor below'}
+            emptyHeaderSubTitle={'Add a website to get started'}
             activeCrawls={activeCrawls}
           >
             <li>
