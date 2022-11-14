@@ -1,7 +1,7 @@
 import { makeStyles, createStyles } from '@material-ui/core/styles'
 import type { MergedTheme } from '@app/theme'
 
-const useStyles = makeStyles(({ breakpoints, palette }: MergedTheme) =>
+const useStyles = makeStyles(({ breakpoints }: MergedTheme) =>
   createStyles({
     root: {
       position: 'fixed',
@@ -12,7 +12,6 @@ const useStyles = makeStyles(({ breakpoints, palette }: MergedTheme) =>
       minWidth: 260,
       overflowY: 'scroll',
       zIndex: 4,
-      backgroundColor: palette.common.white,
       [breakpoints.down('sm')]: {
         top: '30%',
         height: '70vh',
@@ -20,7 +19,6 @@ const useStyles = makeStyles(({ breakpoints, palette }: MergedTheme) =>
         left: 0,
         position: 'fixed',
         overflowY: 'auto',
-        borderTop: `1px solid ${palette.divider}`,
       },
     },
   })

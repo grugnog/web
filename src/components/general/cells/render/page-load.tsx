@@ -33,7 +33,7 @@ export function PageLoadComponent({
       <Chip
         style={style}
         size='small'
-        avatar={<GrDashboard style={chipStyle} />}
+        avatar={<GrDashboard style={chipStyle} className={'grIcon'} />}
         label={'Speed'}
       />
     </Tooltip>

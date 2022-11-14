@@ -24,7 +24,7 @@ const WebCell = ({ title, children }: any) => {
         onClick={onTogglelist}
         aria-label={`Toggle section visible for ${title}`}
       >
-        <div className={'text-2xl md:text-3xl font-bold'}>{title}</div>
+        <div className={'text-2xl md:text-2xl font-bold'}>{title}</div>
       </button>
       {visible ? children : null}
     </div>

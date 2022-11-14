@@ -43,15 +43,12 @@ const FeedButton = ({ domain, onHeadingToggleEvent, onSortClick }: any) => {
   return (
     <div className='flex'>
       <button
-        className='p-4 font-bold text-xl w-full text-left hover:bg-gray-200'
+        className='p-4 text-lg w-full text-left font-medium hover:bg-gray-200'
         onClick={onHeadingToggleEvent}
       >
         {domain}
       </button>
-      <button
-        className='p-4 font-bold text-left hover:bg-gray-200'
-        onClick={onSortClick}
-      >
+      <button className='p-4 text-left hover:bg-gray-200' onClick={onSortClick}>
         Sort
       </button>
     </div>
@@ -130,7 +127,7 @@ const Top = ({ onClick }: { onClick(x: any): any; open: boolean }) => {
   const closeFeed = () => onClick(false)
 
   return (
-    <div className={`flex place-items-center px-3 py-1 h-14 bg-gray-100`}>
+    <div className={`flex place-items-center px-3 py-1 h-14 text-side`}>
       <p className={`flex-1 text-lg font-semibold`}>Recent Issues</p>
       <button
         onClick={closeFeed}
@@ -210,7 +207,10 @@ const Feed: FC = () => {
 
   return (
     <Fade in={issues?.length && open ? true : false}>
-      <div className={classes.root} aria-live='polite'>
+      <div
+        className={`border-t bg-lightgray md:border-t-0 md:border-l ${classes.root} text-side`}
+        aria-live='polite'
+      >
         <TopSection onClick={setIssueFeedContent} open={open} />
         <ul>
           {issues?.map((domain, index) => (

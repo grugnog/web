@@ -56,10 +56,11 @@ function IssuesWrapper(props: any) {
 const Issues = memo(IssuesWrapper)
 
 const RenderInnerIssuesWrapper: FC<any> = (props) => {
-  const { data: issueSource, loading, onLoadMore } = useIssueData(
-    props.pageUrl,
-    props?.data?.subdomains || props?.data?.tld
-  )
+  const {
+    data: issueSource,
+    loading,
+    onLoadMore,
+  } = useIssueData(props.pageUrl, props?.data?.subdomains || props?.data?.tld)
 
   const { generalProps } = props
 
@@ -124,7 +125,7 @@ const ListCell = ({
         aria-label={`Toggle section visible for ${item?.domain}`}
       >
         <div>
-          <div className={'text-2xl md:text-3xl font-bold'}>{item?.domain}</div>
+          <div className={'text-2xl md:text-2xl font-bold'}>{item?.domain}</div>
           <div>
             {totalIssues} possible issue
             {totalIssues === 1 ? '' : 's'}

@@ -23,7 +23,7 @@ export function RenderAvatarComponent({
     inner = (
       <p
         aria-label={ADASCORE}
-        className={`text-black text-sm text-center font-bold`}
+        className={`text-black text-sm text-center font-semibold`}
       >
         {newScore}
       </p>

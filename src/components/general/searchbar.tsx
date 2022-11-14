@@ -114,7 +114,7 @@ export function SearchBar({ placeholder, noWidth, cta }: any) {
 
         <button
           type='submit'
-          className={`bg-black text-white text-base font-bold px-4 py-2 hover:bg-100 rounded-r ${
+          className={`bg-black text-white text-base font-semibold px-4 py-2 hover:bg-100 rounded-r ${
             !!ctaSearch ? 'visible' : 'hidden'
           }`}
           disabled={!!loading}

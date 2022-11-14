@@ -14,7 +14,7 @@ import { MoreOptionsBase } from './menu'
 import { Lighthouse } from '../lighthouse'
 
 const styles = {
-  title: 'text-xl md:text-2xl font-bold truncate',
+  title: 'text-xl md:text-2xl font-semibold truncate',
   spacing: 'py-1',
   row: 'flex flex-1',
   metaBlock: 'px-2 py-1 border',
@@ -65,21 +65,17 @@ export function WebsiteCellPagesComponent({
     }
   }, [url, removePress])
 
-  const handleMainClick = (
-    eventData?: any,
-    title?: string,
-    mini?: boolean,
-    url?: string
-  ) => () => {
-    // mini player open - small modal with dynamic content
-    if (mini) {
-      handleClickOpenPlayer(true, eventData, title)()
-    } else if (handleClickOpen) {
-      handleClickOpen(eventData, title, url)
-    }
+  const handleMainClick =
+    (eventData?: any, title?: string, mini?: boolean, url?: string) => () => {
+      // mini player open - small modal with dynamic content
+      if (mini) {
+        handleClickOpenPlayer(true, eventData, title)()
+      } else if (handleClickOpen) {
+        handleClickOpen(eventData, title, url)
+      }
 
-    setAnchorEl(null)
-  }
+      setAnchorEl(null)
+    }
 
   const linkUrl = useMemo(
     () => `/website-details?url=${encodeURIComponent(url)}`,

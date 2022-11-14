@@ -70,14 +70,14 @@ export const FeedHeadingComponent = ({
           <button
             onClick={onScan}
             title={`Scan ${pageUrl} and sync`}
-            className='px-5 py-1 hover:bg-blue-50'
+            className='px-5 py-1 hover:bg-blue-100'
           >
             <GrSync className={'text-base grIcon'} />
           </button>
         ) : null}
         <button
           onClick={onToggle}
-          className='px-5 py-1 hover:bg-gray-50'
+          className='px-5 py-1 hover:bg-gray-200'
           title={`Toggle issues ${
             sectionHidden ? 'visible' : 'hidden'
           } for ${pageUrl}`}

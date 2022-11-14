@@ -1,8 +1,8 @@
-import { Fragment } from 'react'
+import React from 'react'
 import { useUserData } from '@app/data'
 import { UpgradeBanner } from '@app/components/general/upgrade-banner'
 import { drawerStyles } from '@app/styles/drawer'
-import { NavBarTitle, AuthedMenu } from '../navigation'
+import { AuthedMenu } from '../navigation'
 import { NavBar } from '../navigation/navbar'
 import { FixedCopyRight } from '../fixed-copy-right'
 import { ConfirmEmail } from '../../alerts'
@@ -19,14 +19,14 @@ function MainDrawerContainer({ route, dataSourceMap, classes }: any) {
     <div
       className={`${classes.drawer} ${classes.drawerPaper} relative print:hidden overflow-hidden`}
     >
-      <div className='fixed flex flex-col w-[inherit] overflow-hidden h-full bg-gray-100'>
+      <div className='fixed flex flex-col w-[inherit] overflow-hidden h-full bg-lightgray border-r'>
         <AuthedMenu dataSourceMap={dataSourceMap} route={route} />
         <div
           className={
             'xl:visible invisible p-4 place-items-center flex-col flex'
           }
         >
-          <FormDialog buttonStyles={'w-full'} />
+          <FormDialog buttonStyles={'w-full bg-gray-50'} />
         </div>
         <UpgradeBanner />
         <FixedCopyRight sticky />
@@ -40,28 +40,34 @@ export function DrawerWrapper({
   title = '',
   classes,
   dataSourceMap,
+}: any) {
+  return (
+    <MainDrawerContainer
+      route={routePath ?? title}
+      dataSourceMap={dataSourceMap}
+      classes={classes}
+    />
+  )
+}
+
+export function NavigationBar({
+  title = '',
+  classes,
   sidePannelStyles,
   authenticated,
 }: any) {
   return (
-    <Fragment>
-      <NavBar
-        authenticated={authenticated}
-        title={title}
-        position='fixed'
-        className={`${classes.nav} ${sidePannelStyles}`}
-      >
-        <span className={classes.drawerIconContainer}>
-          <NavBarTitle title={title} flex />
-          <SearchBar />
-        </span>
-      </NavBar>
-      <MainDrawerContainer
-        route={routePath ?? title}
-        dataSourceMap={dataSourceMap}
-        classes={classes}
-      />
-    </Fragment>
+    <NavBar
+      authenticated={authenticated}
+      title={title}
+      position='fixed'
+      className={`${classes.nav} ${sidePannelStyles}`}
+    >
+      <span className={classes.drawerIconContainer}>
+        <span className='flex flex-1' />
+        <SearchBar />
+      </span>
+    </NavBar>
   )
 }
 
@@ -94,9 +100,18 @@ export function Drawer({
         dataSourceMap={dataSourceMap}
         sidePannelStyles={sidePannelStyles}
       />
+      <NavigationBar
+        classes={classes}
+        route={route}
+        title={title}
+        bottomButton={bottomButton}
+        authenticated={authed}
+        dataSourceMap={dataSourceMap}
+        sidePannelStyles={sidePannelStyles}
+      />
       <main className={classes.content} id='main-content'>
         <div className={sidePannelStyles}>
-          <div className={'pr-2 md:pr-4 md:pl-8 lg:pl-8 lg:pr-8'}>
+          <div className={'pr-2 md:pr-4 pl-2 md:pl-8 lg:pl-8 lg:pr-8 pt-2'}>
             {children}
           </div>
         </div>

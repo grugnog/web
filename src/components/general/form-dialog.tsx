@@ -282,7 +282,7 @@ export function FormDialogWrapper({
         maxWidth={'xl'}
       >
         <div className={'px-6 py-2 flex place-items-center'}>
-          <h3 id='form-dialog-title' className={'flex-1 text-xl font-bold'}>
+          <h3 id='form-dialog-title' className={'flex-1 text-xl font-semibold'}>
             Subscribe
           </h3>
           <IconButton aria-label='close modal' onClick={handleClose}>

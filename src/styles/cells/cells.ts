@@ -16,6 +16,8 @@ export const cellStyles = makeStyles((theme: Theme) => {
     topList: {
       paddingLeft: 20,
       height: 42,
+      color: 'rgb(83,92,103)',
+      fontWeight: 500,
       [theme.breakpoints.down(420)]: {
         paddingLeft: 15,
       },

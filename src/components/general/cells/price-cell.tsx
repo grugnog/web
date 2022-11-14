@@ -1,7 +1,7 @@
 import { GrFormCheckmark } from 'react-icons/gr'
 
-const highLight = (highLightStyles: any, selected: boolean) =>
-  selected ? highLightStyles : ''
+const highLight = (highLightStyles: any, selected: boolean, d: string = '') =>
+  selected ? highLightStyles : d
 
 const SubHeading = ({ children, pricingPage, ...extra }: any) =>
   pricingPage ? <h3 {...extra}>{children}</h3> : <h4 {...extra}> {children}</h4>
@@ -27,7 +27,8 @@ export function PriceCell({
     <button
       className={`md:min-w-[340px] w-full rounded flex flex-1 flex-col justify-between border border-[#2A2A2A] ${highLight(
         'border-blue-500 text-gray-900',
-        selected
+        selected,
+        ''
       )} border-t-[4px] border-2 ${
         onClick
           ? `hover:border-blue-700 hover:opacity-95 active:opacity-90 active:opacity-100 active:border-[#2A2A2A]`
@@ -38,16 +39,18 @@ export function PriceCell({
       <>
         <div className='w-full'>
           <div
-            className={`text-left w-full flex-col text-white px-8 py-1 ${
-              selectHighPlans
-                ? 'bg-gradient-radial text-gray-800'
-                : `bg-[${textColor}] text-gray-800`
-            }`}
+            className={`text-left w-full flex-col text-white px-8 py-1 text-gray-800 ${highLight(
+              'bg-blue-500 text-white',
+              selected,
+              selectHighPlans ? 'bg-gradient-radial' : `bg-[${textColor}]`
+            )}`}
           >
             <SubHeading
-              className={`text-2xl font-bold w-full ${
+              className={`text-2xl font-bold w-full  ${highLight(
+                'text-white',
+                selected,
                 selectHighPlans ? 'text-gray-800' : ''
-              }`}
+              )}`}
               pricingPage={pricingPage}
             >
               <span>{title}</span>

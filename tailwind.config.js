@@ -26,7 +26,8 @@ const colors = {
   gray: tailwindColors.neutral,
   black: '#000',
   white: '#fff',
-  lightgray: 'rgb(245, 247, 249)',
+  lightgray: 'rgb(240,241,243)',
+  side: 'rgb(82,92,103)',
 }
 
 const theme = {

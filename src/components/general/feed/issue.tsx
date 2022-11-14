@@ -43,7 +43,7 @@ export function FeedIssueCardComponent({
   const [m, rec] = message?.split('Recommendation:') || [message, '']
 
   return (
-    <div className='px-3 py-1.5 flex flex-col space-y-1 place-content-between h-[inherit]'>
+    <div className='px-3 py-3 flex flex-col space-y-1 place-content-between h-[inherit]'>
       <div className='flex space-x-2 items-center'>
         <div
           className={`${getErrorColor(

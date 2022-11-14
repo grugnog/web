@@ -14,10 +14,11 @@ import { format } from 'date-fns'
 import { PageLoad } from './page-load'
 import { Website } from '@app/types'
 
-const chipStyle = { width: 12, height: 12 }
+const chipStyle = { width: 12, height: 12, color: 'rgb(64,64,64)' }
 const chipRootStyle = {
-  backgroundColor: 'rgba(0, 0, 0, 0.05)',
-  color: 'rgba(0, 0, 0, 0.7)',
+  backgroundColor: '#fff',
+  color: 'rgb(64,64,64)',
+  border: '1px solid rgb(209 213 219)',
 }
 
 // TODO: REFACTOR WITH Secondary (BASE)
@@ -61,7 +62,7 @@ export function WebsiteSecondaryComponent({
           <Chip
             size='small'
             style={chipRootStyle}
-            avatar={<GrPowerShutdown style={chipStyle} />}
+            avatar={<GrPowerShutdown style={chipStyle} className={'grIcon'} />}
             label={'Shutdown'}
           />
         </Tooltip>
@@ -78,7 +79,7 @@ export function WebsiteSecondaryComponent({
           <Chip
             size='small'
             style={chipRootStyle}
-            avatar={<GrCircleAlert style={chipStyle} />}
+            avatar={<GrCircleAlert style={chipStyle} className={'grIcon'} />}
             label={totalIssues}
           />
         </Tooltip>
@@ -88,7 +89,7 @@ export function WebsiteSecondaryComponent({
           <Chip
             size='small'
             style={chipRootStyle}
-            avatar={<GrInherit style={chipStyle} />}
+            avatar={<GrInherit style={chipStyle} className={'grIcon'} />}
             label={'Subdomains'}
           />
         </Tooltip>
@@ -98,7 +99,7 @@ export function WebsiteSecondaryComponent({
           <Chip
             size='small'
             style={chipRootStyle}
-            avatar={<GrHost style={chipStyle} />}
+            avatar={<GrHost style={chipStyle} className={'grIcon'} />}
             label={'TLD'}
           />
         </Tooltip>
@@ -144,7 +145,7 @@ export function WebsiteSecondaryComponent({
           <Chip
             style={chipRootStyle}
             size='small'
-            avatar={<GrRobot style={chipStyle} />}
+            avatar={<GrRobot style={chipStyle} className={'grIcon'} />}
             label={robots ? 'Enabled' : 'Disabled'}
           />
         </Tooltip>
@@ -154,7 +155,7 @@ export function WebsiteSecondaryComponent({
           <Chip
             style={chipRootStyle}
             size='small'
-            avatar={<GrCalendar style={chipStyle} />}
+            avatar={<GrCalendar style={chipStyle} className={'grIcon'} />}
             label={format(new Date(lastScanDate), 'dd/MM/yyyy')}
           />
         </Tooltip>
@@ -167,7 +168,7 @@ export function WebsiteSecondaryComponent({
           <Chip
             style={chipRootStyle}
             size='small'
-            avatar={<GrConfigure style={chipStyle} />}
+            avatar={<GrConfigure style={chipStyle} className={'grIcon'} />}
             label={`${headers?.length} custom header${
               headers?.length === 1 ? '' : 's'
             }`}

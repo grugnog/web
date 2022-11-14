@@ -89,7 +89,7 @@ const FeedListComponent: FC<FeedComponentProps> = ({
         highLight={!!highLight}
       />
       {sectionHidden ? null : (
-        <ul className={`overflow-x-hidden bg-[rgba(172,182,192,0.06)]`}>
+        <ul className={`overflow-x-hidden bg-gray-50`}>
           <List
             height={height}
             itemCount={issueCount}

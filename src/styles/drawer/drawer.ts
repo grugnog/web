@@ -71,7 +71,6 @@ export const drawerStyles = makeStyles((theme: Theme) => {
       flexDirection: 'column',
       overflowX: 'hidden',
       ...extraBreakPoints.drawer,
-      paddingTop: theme.mixins.toolbar.minHeight,
     },
     drawerPaper: {
       width: drawerWidth,

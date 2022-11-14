@@ -27,7 +27,7 @@ export class ErrorBoundary extends Component<
       return (
         <>
           <div className={'p-10 bg-blue-400 text-white ring'}>
-            <div className={'text-xl font-bold'}>
+            <div className={'text-xl'}>
               An error occured, please contact support at{' '}
               <address>
                 <a href={'mailto:support@a11ywatch.com'}>

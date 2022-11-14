@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import { Tooltip } from '@material-ui/core'
 
 const style = {
-  backgroundColor: 'rgba(0, 0, 0, 0.05)',
+  backgroundColor: '#fff',
   color: 'rgba(0, 0, 0, 0.7)',
+  border: '1px solid rgb(209 213 219)',
 }
 
 // TODO: allow scan duration or crawl per setting based on property crawlDuration or scanDuration
@@ -40,7 +41,7 @@ export const Timer = ({
       placement={'right'}
     >
       <div
-        className='rounded-3xl p-1 w-9 h-9 items-center justify-center flex truncate'
+        className='rounded-3xl p-1 w-9 h-9 items-center justify-center flex truncate font-semibold'
         style={style}
       >
         <p className='text-xs'>{displayTimer}s</p>

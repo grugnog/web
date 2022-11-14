@@ -2,7 +2,7 @@ import React, { FC, PropsWithChildren } from 'react'
 
 const styles = {
   infoContainer:
-    'px-3 py-2 flex flex-col flex-1 text-base justify-start rounded bg-white',
+    'px-3 py-2 flex flex-col flex-1 text-base justify-start rounded bg-white overflow-hidden',
   infoBorder: '',
   p: 'text-lg',
   spacing: 'pt-2',
@@ -25,13 +25,11 @@ export const InfoBlock: FC<BaseProps> = ({
     <div
       className={`${styles.infoContainer}${
         icon ? ` ${styles.infoBorder}` : ''
-      }`}
+      } border`}
     >
       <div className={styles.row}>
         {icon}
-        <p className={[styles.p, 'p-black font-bold'].join(' ').trim()}>
-          {title}
-        </p>
+        <p className={[styles.p, 'text-gray-800'].join(' ').trim()}>{title}</p>
         {titleButton}
       </div>
       <div className={styles.spacing} />

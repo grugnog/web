@@ -10,7 +10,7 @@ const IssueTitleComponent = ({ pageUrl }: { pageUrl: string }) => {
     <Link
       title={`view in sandbox ${pageUrl}`}
       href={`/website-details?url=${encodeURIComponent(pageUrl)}`}
-      className={'text-lg text-gray-700 font-bold'}
+      className={'text-lg text-side'}
     >
       {`${pathname}${search}`}
     </Link>

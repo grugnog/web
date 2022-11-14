@@ -64,7 +64,8 @@ const Footer = ({ sticky, blog }: { sticky?: boolean; blog?: boolean }) => {
   return (
     <footer
       className={[
-        `pt-8 pb-3.5 border-t`,
+        'container mx-auto',
+        `pt-32 pb-3.5`,
         sticky ? `fixed bottom-0 left-0 right-0` : '',
       ].join(' ')}
     >

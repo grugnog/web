@@ -33,7 +33,7 @@ import { GrChannel } from 'react-icons/gr'
 import { Lighthouse } from '../lighthouse'
 
 const styles = {
-  title: 'text-xl md:text-3xl font-bold truncate',
+  title: 'text-xl md:text-3xl font-bold truncate text-gray-600',
   spacing: 'py-2',
   row: 'flex flex-1',
   metaBlock: 'px-2 py-1 border',
@@ -191,10 +191,17 @@ export function WebsiteCellDashboardComponent({
     ? `${SCRIPTS_CDN_URL_HOST}/${cdnBaseMin}`
     : notAvail
 
+  const domainHost = useMemo(() => {
+    if (url) {
+      return new URL(url).hostname
+    }
+    return url
+  }, [url])
+
   return (
     <li
-      className={`bg-lightgray px-3 pt-2 rounded overflow-hidden${
-        shutdown ? ' bg-red-50' : ''
+      className={`px-3 pt-2 rounded bg-gray-50 shadow-sm shadow-gray-200 border overflow-hidden${
+        shutdown ? ' border-yellow-600 bg-yellow-50' : ''
       }`}
     >
       <div>
@@ -202,14 +209,14 @@ export function WebsiteCellDashboardComponent({
           <div className='flex gap-3 place-items-center flex-wrap'>
             <div>
               <div
-                className={`${styles.title} flex space-x-4 place-items-center`}
+                className={`${styles.title} flex space-x-4 place-items-center pb-2`}
               >
                 <Link
                   title={`view details ${url}`}
                   href={linkView}
                   className={styles.title}
                 >
-                  {url}
+                  {domainHost}
                 </Link>
               </div>
               <WebsiteSecondary

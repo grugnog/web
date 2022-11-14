@@ -24,7 +24,7 @@ function ScriptsWrapper(props: any) {
         aria-expanded={visible}
         aria-label={`Toggle section visible for ${props?.pageUrl}`}
       >
-        <div className={'text-2xl md:text-3xl font-bold'}>{props?.pageUrl}</div>
+        <div className={'text-2xl md:text-2xl font-bold'}>{props?.pageUrl}</div>
       </button>
       <div
         aria-hidden={!visible}
@@ -43,10 +43,11 @@ export const RenderInnerScripts: FC<any> = (props) => {
   const { pageUrl, generalProps } = props
   const all = props?.data?.subdomains || props?.data?.tld
 
-  const { data: scriptSource, loading, onLoadMore } = useScriptsData(
-    pageUrl,
-    all
-  )
+  const {
+    data: scriptSource,
+    loading,
+    onLoadMore,
+  } = useScriptsData(pageUrl, all)
 
   return (
     <>

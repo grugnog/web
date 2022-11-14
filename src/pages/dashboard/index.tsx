@@ -97,7 +97,7 @@ function Dashboard({ name }: PageProps) {
           title={'Websites'}
           rightButton={
             !!data?.length ? (
-              <div className='flex flex-wrap gap-x-2 gap-y-1'>
+              <div className='flex flex-wrap gap-x-2 gap-y-1 text-sm'>
                 <Button
                   onClick={onRemoveAllWebsitePress}
                   className={'text-red-600'}
