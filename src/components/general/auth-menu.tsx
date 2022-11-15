@@ -10,6 +10,7 @@ import { LOGOUT } from '@app/mutations'
 import { CgProfile } from 'react-icons/cg'
 import { NavItem } from './navigation/nav-item'
 import { useWasmContext } from '../providers'
+import { FilterManager } from '@app/managers/filters'
 
 type AuthMenuComponentProps = {
   authenticated?: boolean // user logged in
@@ -51,6 +52,7 @@ export function AuthMenu({ authenticated }: AuthMenuComponentProps) {
       feed?.clear_data()
       await logoutMutation()
       UserManager.clearUser()
+      FilterManager.clearFilters()
     } catch (e) {
       console.error(e)
     }

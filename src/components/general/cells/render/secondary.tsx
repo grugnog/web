@@ -4,6 +4,12 @@ import { PageLoad } from './page-load'
 import { GrMagic, GrCircleAlert, GrConfigure, GrCalendar } from 'react-icons/gr'
 import { format } from 'date-fns'
 
+const chipStyle = { width: 13, height: 13 }
+const chipRootStyle = {
+  backgroundColor: 'rgba(0, 0, 0, 0.05)',
+  color: 'rgba(0, 0, 0, 0.7)',
+}
+
 export function RenderSecondaryComponent({
   adaScore,
   pageLoadTime = {
@@ -30,12 +36,6 @@ export function RenderSecondaryComponent({
 
   const mainIssues =
     totalIssuesOnPage > allPageIssues ? totalIssuesOnPage : allPageIssues
-
-  const chipStyle = { width: 12, height: 12 }
-  const chipRootStyle = {
-    backgroundColor: 'rgba(0, 0, 0, 0.05)',
-    color: 'rgba(0, 0, 0, 0.7)',
-  }
 
   const headers = useMemo(
     () =>

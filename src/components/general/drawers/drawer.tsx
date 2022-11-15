@@ -75,24 +75,22 @@ export function Drawer({ children, route, title }: any) {
     <>
       <Head>
         <style>
-          {`html {
-          overflow: hidden;
-        }
-        .scrollbar::-webkit-scrollbar {
-          width: 12px;
-        }
-      
-      .scrollbar::-webkit-scrollbar-track {
-          border-radius: 100vh;
-          background: #f2f4f7;
-      }
-      
-      .scrollbar::-webkit-scrollbar-thumb {
-          background: #ccc;
-          border-radius: 100vh;
-          border: 2px solid #ebedf2;
-      }
-        `}
+          {`html { overflow: hidden; }
+.scrollbar::-webkit-scrollbar { width: 12px; }
+.scrollbar::-webkit-scrollbar-track {
+  border-radius: 10px;
+  background: #f2f4f7;
+}
+.scrollbar::-webkit-scrollbar-thumb {
+    background: #ccc;
+    border-radius: 10px;
+    border: 2px solid #ebedf2;
+}
+@media (any-pointer: coarse) {
+  ul a {
+    padding:inherit;
+  }
+}`}
         </style>
       </Head>
       <div className={'flex overflow-x-inherit md:overflow-x-hidden'}>
@@ -113,7 +111,7 @@ export function Drawer({ children, route, title }: any) {
               maxHeight: `calc(100vh - ${theme.mixins.toolbar.minHeight}px)`,
             }}
             className={
-              'pr-2 md:pr-4 pl-2 md:pl-8 lg:pl-8 lg:pr-8 pt-2 scrollbar overflow-auto'
+              'px-4 md:pr-4 md:pl-8 lg:pl-8 lg:pr-4 pt-2 scrollbar overflow-auto'
             }
           >
             {children}

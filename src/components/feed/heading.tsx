@@ -35,8 +35,8 @@ export const FeedHeadingComponent = ({
   const hlight = highLight || totalIssues === 0
 
   return (
-    <div className={'flex pl-2 space-x-1 h-15'}>
-      <div className='flex-1 px-2 py-2 truncate space-y-1'>
+    <div className={'flex space-x-1 h-15'}>
+      <div className='flex-1 px-4 py-2 truncate space-y-1'>
         <IssueTitle pageUrl={pageUrl} />
         <div className='flex space-x-1 place-items-center text-[#707070] text-sm'>
           <div

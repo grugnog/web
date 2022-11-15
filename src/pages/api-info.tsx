@@ -12,8 +12,9 @@ import { ApiCell } from '@app/components/general/cells/api-info-cell'
 import { Header } from '@app/components/general/header'
 import { SectionContainer } from '@app/app/containers/section-container'
 
-export const getUsageLimits = (role: number) => {
-  let usage = 30000
+// determine plan usage by role limits
+export const getUsageLimits = (role: number): number => {
+  let usage = 15000
 
   switch (role) {
     case 0: {
@@ -63,7 +64,7 @@ export const getUsageLimits = (role: number) => {
       break
     }
     default: {
-      usage = 30000
+      usage = 15000
       break
     }
   }
@@ -97,7 +98,7 @@ function ApiInfo() {
     <MarketingDrawer authenticated={authed} loading={loading}>
       <SectionContainer container block>
         <Header>Web Accessibility API</Header>
-        <div>
+        <div className='container mx-auto'>
           <Box>
             <h2 className={'text-lg pb-4'}>
               The free web accessibility API built to handle large workloads.
@@ -137,33 +138,36 @@ function ApiInfo() {
                   type='button'
                   onClick={toggleKey}
                   aria-labelledby={'togle-key'}
+                  className={'font-md px-4 py-2'}
                 >
                   {`${keyVisible ? 'Hide' : 'View'} Token`}
                 </Button>
-                {keyVisible ? (
-                  <div className={`py-2 relative`}>
-                    <div className='absolute right-2 -top-12 overflow-visible'>
-                      <span id='copy-text' className='sr-only'>
-                        Copy your authentication token to clipboard
-                      </span>
-                      <button
-                        className='p-3 rounded border-2'
-                        aria-labelledby='copy-text'
-                        onClick={copyText(token)}
-                      >
-                        <GrCopy title='Copy to clipboard' />
-                      </button>
-                    </div>
-                    <p className='line-clamp-3'>{token}</p>
+                <div
+                  className={`py-2 relative pr-12 ${
+                    keyVisible ? 'block' : 'hidden'
+                  }`}
+                >
+                  <div className='absolute right-2'>
+                    <span id='copy-text' className='sr-only'>
+                      Copy your authentication token to clipboard
+                    </span>
+                    <button
+                      className='p-3 rounded-3xl bg-[rgba(30,30,30,0.2)] shadow-xl hover:bg-blue-300'
+                      aria-labelledby='copy-text'
+                      onClick={copyText(token)}
+                    >
+                      <GrCopy title='Copy to clipboard' />
+                    </button>
                   </div>
-                ) : null}
+                  <p className='line-clamp-3 max-w-[90vw]'>{token}</p>
+                </div>
               </div>
             ) : null}
           </Box>
 
           <div className='py-2'>
             <Box className={'border rounded p-2'}>
-              <p className={'text-lg font-bold'}>OpenAPI Reference Examples</p>
+              <p className={'text-lg font-semibold'}>API Reference Examples</p>
               {!data?.user && loading ? (
                 <TextSkeleton className={'p-2'} />
               ) : !data?.user ? (
@@ -230,15 +234,12 @@ function ApiInfo() {
 
           <div className='border-2 rounded inline-block px-4 py-2'>
             <p className='text-grey-600 text-lg'>
-              By default, the {companyName} API Docs demonstrate using curl to
+              By default, the {companyName} API docs demonstrate using curl to
               interact with the API over HTTP. Most routes allow params to be
-              sent from the url or the body. Its best to stick to using the body
-              for PUTS and POST request since some params are set to be arrays
-              and other none string shapes. In the example replace a11ywatch.com
-              with your website you want to target. Some clients are a work in
-              progress as we build out the core of our system. At the moment
-              gRPC endpoints are only exposed to enterprise clients or local
-              builds.
+              sent from the url or the body. It{`'`}s best to stick to using the
+              body for PUTS and POST request since some params are set to be
+              arrays and other none string shapes. In the example replace
+              a11ywatch.com with the website you want to target.
             </p>
           </div>
         </div>

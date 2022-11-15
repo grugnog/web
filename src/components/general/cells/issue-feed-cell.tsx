@@ -1,8 +1,10 @@
-import { memo, SyntheticEvent, useState } from 'react'
+import { SyntheticEvent, useState } from 'react'
 import { IconButton } from '@material-ui/core'
 import { GrDown, GrUp } from 'react-icons/gr'
 import { FeedIssueCard } from '../feed/issue'
 import { Issue } from '@app/types'
+import { FilterManager } from '@app/managers/filters'
+import { observer } from 'mobx-react-lite'
 
 const iconStyle = { height: 12, width: 12 }
 
@@ -23,8 +25,17 @@ export function IssueFeedCellComponent({
     setIssueView((v) => !v)
   }
 
+  const filtered =
+    item && item.code
+      ? FilterManager.filters.has(item.code) &&
+        FilterManager.filters.get(item.code)?.checked
+      : false
+
   return (
-    <li className={'h-[inherit]'} style={style}>
+    <li
+      className={`h-[inherit] ${filtered ? 'bg-gray-800 text-white' : ''}`}
+      style={style}
+    >
       {!hideSelector ? null : (
         <div className={'flex flex-1 px-3 place-items-center py-2'}>
           <p className={`flex flex-1 text-base line-clamp-1`}>
@@ -49,4 +60,4 @@ export function IssueFeedCellComponent({
   )
 }
 
-export const IssueFeedCell = memo(IssueFeedCellComponent)
+export const IssueFeedCell = observer(IssueFeedCellComponent)

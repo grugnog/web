@@ -250,16 +250,18 @@ export function WebsiteCellDashboardComponent({
                 dashboard
               />
             </div>
-            <Link
-              title={`view in sandbox ${url}`}
-              href={linkUrl}
-              className={'hover:bg-gray-200 p-2 rounded'}
-            >
-              <GrChannel />
-            </Link>
-            <div className='pl-1 border-l'>
-              <div className='pl-3'>
-                <Timer stop={!activeCrawl} duration={crawlDuration} />
+            <div className='flex place-items-center px-2 space-x-3'>
+              <Link
+                title={`view in sandbox ${url}`}
+                href={linkUrl}
+                className={'hover:bg-gray-200 p-2 rounded'}
+              >
+                <GrChannel />
+              </Link>
+              <div className='pl-1 border-l'>
+                <div className='pl-3'>
+                  <Timer stop={!activeCrawl} duration={crawlDuration} />
+                </div>
               </div>
             </div>
           </div>

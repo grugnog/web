@@ -1,10 +1,16 @@
-import React, { memo, useState, FC } from 'react'
+import React, { memo, useState, FC, useEffect } from 'react'
 import { IssueFeedCell } from '../general/cells'
 import { issueExtractor } from '@app/utils'
 import { FeedHeading } from './heading'
 import type { FeedComponentProps } from './interface'
 import { FixedSizeList as List } from 'react-window'
 import { getListHeight } from './utils'
+import { FilterManager } from '@app/managers/filters'
+
+interface RowProps {
+  index: number
+  style?: React.CSSProperties
+}
 
 // List of issues rendered.
 const FeedListComponent: FC<FeedComponentProps> = ({
@@ -16,22 +22,19 @@ const FeedListComponent: FC<FeedComponentProps> = ({
 }) => {
   const [sectionHidden, onToggleSection] = useState<boolean>(!!isHidden)
 
-  if (!issue) {
-    return null
-  }
-
   const pageIssues = issueExtractor(issue) // array of issues extract duplex types
 
-  // todo: memo row cell out of render
-  const Row = ({
-    index,
-    style,
-  }: {
-    index: number
-    style?: React.CSSProperties
-  }) => <IssueFeedCell item={pageIssues[index]} style={style} />
+  useEffect(() => {
+    for (const item of pageIssues) {
+      FilterManager.addFilter(item?.code)
+    }
+  }, [pageIssues])
 
-  const issueCount = pageIssues?.length ?? 0
+  const Row = ({ index, style }: RowProps) => (
+    <IssueFeedCell item={pageIssues[index]} style={style} />
+  )
+
+  const issueCount = pageIssues.length
 
   const { size, height } = getListHeight({ fullScreen, issueCount })
 
@@ -61,8 +64,8 @@ const FeedListComponent: FC<FeedComponentProps> = ({
         onScanEvent={onScanEvent}
         onToggleSection={onToggleSection}
         sectionHidden={sectionHidden}
-        pageUrl={issue.pageUrl}
-        totalIssues={issue.issues?.length || 0}
+        pageUrl={issue?.pageUrl}
+        totalIssues={issue?.issues?.length || 0}
         highLight={!!highLight}
       />
       {sectionHidden ? null : (

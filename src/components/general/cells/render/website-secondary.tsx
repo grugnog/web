@@ -65,7 +65,7 @@ export function WebsiteSecondaryComponent({
       className={`flex space-x-2 ${
         !dashboard
           ? 'overflow-x-auto max-w-[75vw]'
-          : 'overflow-x-auto max-w-[61.5vw]'
+          : 'overflow-x-auto max-w-[56vw] md:max-w-[50.5vw] lg:max-w-[61.5vw]'
       }`}
     >
       {shutdown ? (

@@ -50,13 +50,13 @@ export function FeedIssueCardComponent({
             issueType + ''
           )} min-w-[0.75rem] min-h-[0.75rem] w-3 h-3 rounded-full`}
         />
-        <p className={`truncate text-sm font-bold max-w-[90%] flex-1`}>
+        <p className={`truncate text-sm font-semibold max-w-[90%] flex-1`}>
           {selector}
         </p>
         <div className='justify-end flex flex-shrink'>
           {recurrence ? (
             <div className='px-2 bg-gray-200 rounded'>
-              <p className={'truncate text-sm font-bold'}>
+              <p className={'truncate text-sm font-semibold'}>
                 Recurrence: {recurrence}
               </p>
             </div>
@@ -69,17 +69,17 @@ export function FeedIssueCardComponent({
           title={`view technique for ${codeDisplay}`}
           target='_blank'
           rel='noreferrer'
-          className='text-blue-800 text-xs italic hover:underline'
+          className='text-blue-600 text-xs font-medium hover:underline'
         >
           {codeDisplay}
         </a>
       </div>
-      <div className={'line-clamp-4'}>
+      <div className={'line-clamp-4 font-medium'}>
         {m}
         {rec ? (
           <>
             {` Recommendation:`}
-            <div className='text-blue-600 font-bold inline'>{rec}</div>
+            <div className='text-blue-600 font-semibold inline'>{rec}</div>
           </>
         ) : null}
       </div>

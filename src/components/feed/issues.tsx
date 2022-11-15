@@ -13,6 +13,7 @@ import { FeedList } from './list'
 import { useWasmContext } from '../providers'
 import type { IssueData, Website } from '@app/types'
 import type { Feed } from 'a11ywatch-web-wasm'
+import { FilterDropdown } from './filters'
 
 type FeedItemProps = {
   feed?: Feed
@@ -116,8 +117,9 @@ const Top = ({ onClick, open }: { onClick(x: any): any; open: boolean }) => {
   const closeFeed = () => onClick(!open)
 
   return (
-    <div className={`flex place-items-center px-3 py-1 h-14 text-side`}>
+    <div className={`flex place-items-center px-3 py-1 h-14 text-side gap-x-2`}>
       <p className={`flex-1 text-lg font-semibold`}>Recent Issues</p>
+      <FilterDropdown open={open} />
       <button
         onClick={closeFeed}
         aria-label='close'
@@ -209,7 +211,7 @@ const LiveFeed: FC = () => {
   const { mainStyle, topStyles } = useMemo(() => {
     const mobileStyles = feedOpen
       ? `h-full w-full z-20 overflow-y-auto`
-      : 'pl-[15vw] max-h-[60px] overflow-hidden bottom-0 rounded w-full lg:max-h-full lg:overflow-y-auto lg:rounded-none lg:h-full lg:bottom-0 lg:top-0 lg:pl-0 lg:z-20'
+      : 'pl-[15vw] max-h-[60px] bottom-0 rounded w-full lg:max-h-full lg:overflow-y-auto lg:rounded-none lg:h-full lg:bottom-0 lg:top-0 lg:pl-0 lg:z-20'
 
     const mainStyle = `${
       feedOpen ? 'z-20' : ''
