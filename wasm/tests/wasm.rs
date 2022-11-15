@@ -26,16 +26,16 @@ fn insert_website() {
     feed.insert_website(value.clone());
     feed.insert_website(value1.clone());
 
-    let website = feed.get_website(value);
+    let website = feed.get_page(value);
     let website: PageIssue = serde_wasm_bindgen::from_value(website).unwrap();
     assert_eq!(website.domain, "a11ywatch.com");
-    let website = feed.get_website(value1);
+    let website = feed.get_page(value1);
     let website: PageIssue = serde_wasm_bindgen::from_value(website).unwrap();
     assert_eq!(website.domain, "jeffmendez.com");
 }
 
 #[wasm_bindgen_test]
-fn get_website() {
+fn get_page() {
     let mut feed = Feed::new();
     let web: PageIssue = PageIssue {
         page_url: "https://a11ywatch.com/login".to_string(),
@@ -47,7 +47,7 @@ fn get_website() {
     
     feed.insert_website(value.clone());
 
-    let website = feed.get_website(value);
+    let website = feed.get_page(value);
     let website: PageIssue = serde_wasm_bindgen::from_value(website).unwrap();
 
     assert_eq!(website.domain, "a11ywatch.com");
@@ -70,3 +70,58 @@ fn get_website_item() {
 
     assert_eq!(website.is_empty(), false);
 }
+
+#[wasm_bindgen_test]
+fn sort_website() {
+    let mut feed = Feed::new();
+    let web: PageIssue = PageIssue {
+        page_url: "https://hbo.com/about".to_string(),
+        domain: "hbo.com".to_string(),
+        issues: None
+    };
+    let value = serde_wasm_bindgen::to_value(&web).unwrap();
+    feed.insert_website(value.clone());
+
+    let web: PageIssue = PageIssue {
+        page_url: "https://a11ywatch.com/login".to_string(),
+        domain: "a11ywatch.com".to_string(),
+        issues: None
+    };
+
+    let value = serde_wasm_bindgen::to_value(&web).unwrap();
+    feed.insert_website(value.clone());
+    let web: PageIssue = PageIssue {
+        page_url: "https://a11ywatch.com/about".to_string(),
+        domain: "a11ywatch.com".to_string(),
+        issues: None
+    };
+    let value = serde_wasm_bindgen::to_value(&web).unwrap();
+    feed.insert_website(value.clone());
+
+    feed.sort_website("a11ywatch.com".to_string());
+    let website = feed.get_data_item("a11ywatch.com".to_string(), false);
+    let website: Vec<PageIssue> = serde_wasm_bindgen::from_value(website).unwrap();
+
+    assert_eq!(website[0].page_url, "https://a11ywatch.com/about");
+}
+
+
+
+#[wasm_bindgen_test]
+fn get_keys() {
+    let mut feed = Feed::new();
+
+    let web: PageIssue = PageIssue {
+        page_url: "https://a11ywatch.com/about".to_string(),
+        domain: "a11ywatch.com".to_string(),
+        issues: None
+    };
+    let value = serde_wasm_bindgen::to_value(&web).unwrap();
+    feed.insert_website(value.clone());
+
+    let website = feed.get_data_keys();
+    let website: Vec<String> = serde_wasm_bindgen::from_value(website).unwrap();
+
+    assert_eq!(website[0], "a11ywatch.com");
+}
+

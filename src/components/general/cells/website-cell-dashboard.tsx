@@ -1,4 +1,10 @@
-import React, { useState, useMemo, useCallback, memo } from 'react'
+import React, {
+  useState,
+  useMemo,
+  useCallback,
+  memo,
+  useDeferredValue,
+} from 'react'
 import { MoreOptions } from '@app/components/general/cells/menu/more'
 import { Link } from '../link'
 import { WebsiteSecondary } from './render'
@@ -77,8 +83,10 @@ export function WebsiteCellDashboardComponent({
   const [anchorEl, setAnchorEl] = useState<any>(null)
   const { activeSubscription } = useAuthContext() // TODO: move to provider top level
   const { feed } = useWasmContext()
+  const items = useDeferredValue(
+    feed?.get_data_item(domain, tld || subdomains) ?? []
+  )
 
-  const items = feed?.get_data_item(domain, tld || subdomains) ?? []
   const issues = items?.length ? items : currentIssues
 
   const handleMenu = useCallback(

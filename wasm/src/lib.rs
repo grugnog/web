@@ -1,10 +1,12 @@
 extern crate serde;
 extern crate console_error_panic_hook;
 extern crate serde_wasm_bindgen;
+extern crate indexmap;
 
 /// base generic domain structures.
 pub mod structures;
-use hashbrown::HashMap;
+use indexmap::{IndexMap};
+
 use wasm_bindgen::prelude::*;
 use crate::structures::website::{PageIssue};
 use serde::{Serialize, Deserialize};
@@ -15,7 +17,8 @@ pub struct Feed {
     /// is the feed open?
     pub open: bool,
     /// data mapping hashmap of website by domain with hashmap of urls
-    data: HashMap<String, HashMap<String, PageIssue>>,
+    #[serde(with = "indexmap::serde_seq")]
+    data: IndexMap<String, IndexMap<String, PageIssue>>,
 }
 
 /// feed of high interval data processing websites.
@@ -27,8 +30,20 @@ impl Feed {
  
         Default::default()
     }
+
     /// get a single website from the hashmap of hashmaps
-    pub fn get_website(&self, website: JsValue) -> JsValue {
+    pub fn get_website(&self, domain: String) -> JsValue {
+        if self.data.contains_key(&domain) {
+            let value = self.data.get(&domain).unwrap();
+
+            serde_wasm_bindgen::to_value(&value).unwrap()
+        } else {
+            serde_wasm_bindgen::to_value(&false).unwrap()
+        }
+    }
+
+    /// get a single website list of pages
+    pub fn get_page(&self, website: JsValue) -> JsValue {
         let website: PageIssue = serde_wasm_bindgen::from_value(website).unwrap();
         let domain = website.domain;
 
@@ -41,10 +56,11 @@ impl Feed {
             serde_wasm_bindgen::to_value(&false).unwrap()
         }
     }
+
     /// insert a website into hashmap
     pub fn insert_website(&mut self, website: JsValue) {
         let website: PageIssue = serde_wasm_bindgen::from_value(website).unwrap();
-        let mut page = HashMap::new();
+        let mut page = IndexMap::new();
 
         let domain = website.domain.clone();
         let page_url = website.page_url.clone();
@@ -61,10 +77,19 @@ impl Feed {
             self.data.insert(domain, value);
         }
     }
+
     /// get data
     pub fn get_data(&mut self) -> JsValue {
         serde_wasm_bindgen::to_value(&self.data).unwrap()
     }
+
+    /// get data keys
+    pub fn get_data_keys(&mut self) -> JsValue {
+        let keys: Vec<&String> = self.data.keys().collect();
+
+        serde_wasm_bindgen::to_value(&keys).unwrap()
+    }
+
     /// get website collections list into vector
     pub fn get_data_item(&self, search: String, all: bool) -> JsValue {
         if !all && self.data.contains_key(&search) {
@@ -73,7 +98,7 @@ impl Feed {
 
             serde_wasm_bindgen::to_value(&items).unwrap()
         } else if all {
-            let mut items = HashMap::new();
+            let mut items = IndexMap::new();
             for (key, value) in self.data.clone().iter() {
                 if key.contains(&search) {
                     items.extend(value.to_owned());
@@ -88,6 +113,17 @@ impl Feed {
             serde_wasm_bindgen::to_value(&items).unwrap()
         }
     }
+    
+    /// sort the data
+    pub fn sort_website(&mut self, domain: String) {
+        if self.data.contains_key(&domain) {
+            let value = self.data.get(&domain).unwrap();
+            let mut v = value.clone();
+            v.sort_keys();
+            self.data.insert(domain, v);
+        }
+    }
+
     /// clear data from feed 
     pub fn clear_data(&mut self) {
         self.data.clear();

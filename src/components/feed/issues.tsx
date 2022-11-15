@@ -4,8 +4,6 @@ import {
   useDeferredValue,
   useState,
   useCallback,
-  useRef,
-  useEffect,
   useMemo,
 } from 'react'
 import { useWebsiteContext } from '../providers/website'
@@ -14,12 +12,31 @@ import { AppManager } from '@app/managers'
 import { FeedList } from './list'
 import { useWasmContext } from '../providers'
 import type { IssueData, Website } from '@app/types'
+import type { Feed } from 'a11ywatch-web-wasm'
 
-const PageList = ({
+type FeedItemProps = {
+  feed?: Feed
+  data?: Map<string, Map<string, IssueData>>
+  domain: string
+  onScanEvent?: any
+  index?: number
+  highlightErrors?: boolean
+}
+
+// domain list interface
+interface DomainListProps {
+  websites?: string[]
+  feed?: Feed
+  data?: Map<string, Map<string, IssueData>>
+  onScanEvent?(x: any): any
+}
+
+const PageListWrapper = ({
   pages,
   onScanEvent,
 }: Partial<FeedItemProps> & {
   pages: any[]
+  sorted?: boolean
 }) => {
   return (
     <>
@@ -35,6 +52,8 @@ const PageList = ({
     </>
   )
 }
+
+const PageList = memo(PageListWrapper)
 
 const FeedButton = ({ domain, onHeadingToggleEvent, onSortClick }: any) => {
   return (
@@ -54,48 +73,16 @@ const FeedButton = ({ domain, onHeadingToggleEvent, onSortClick }: any) => {
 
 const FeedButtonMemo = memo(FeedButton)
 
-type FeedItemProps = {
-  feed?: Map<string, Map<string, IssueData>>
-  domain?: string
-  onScanEvent?: any
-  index?: number
-  highlightErrors?: boolean
-}
-
 const FeedItemWrapper = ({
   feed,
   onScanEvent,
   index,
   domain,
 }: FeedItemProps) => {
-  // keep tracking of the pages in order
-  const refPages = useRef<IssueData[]>([])
-  const refMap = useRef<Set<string>>(new Set())
-
   const [visible, setVisible] = useState<boolean>(index === 0)
-  const [_sorted, setSorted] = useState<boolean>(false)
-
-  const pages = useDeferredValue(refPages?.current ?? [])
-
-  const website = useMemo(() => {
-    if (domain && feed instanceof Map) {
-      return feed.get(domain)
-    }
-  }, [feed, domain])
-
-  // todo: remove effect
-  useEffect(() => {
-    if (website) {
-      const items = website.values()
-
-      for (const item of items) {
-        if (!refMap.current.has(item.pageUrl)) {
-          refMap.current.add(item.pageUrl)
-          refPages.current.push(item)
-        }
-      }
-    }
-  }, [website])
+  const [sorted, setSorted] = useState<boolean>(false)
+  // todo: get_website_keys
+  const pages = useDeferredValue([...feed?.get_website(domain)?.values()])
 
   const onHeadingToggleEvent = useCallback(
     () => setVisible((v) => !v),
@@ -103,11 +90,11 @@ const FeedItemWrapper = ({
   )
 
   const onSortClick = useCallback(() => {
-    if (refPages.current) {
-      refPages.current.sort((a, b) => a.pageUrl.localeCompare(b.pageUrl))
+    if (domain && feed) {
+      feed.sort_website(domain)
     }
     setSorted((s) => !s)
-  }, [setSorted])
+  }, [setSorted, feed, domain])
 
   return (
     <li>
@@ -117,7 +104,7 @@ const FeedItemWrapper = ({
         onSortClick={onSortClick}
       />
       <ul className={!visible ? 'hidden' : 'visible'} aria-hidden={!visible}>
-        <PageList pages={pages} onScanEvent={onScanEvent} />
+        <PageList pages={pages} onScanEvent={onScanEvent} sorted={sorted} />
       </ul>
     </li>
   )
@@ -147,48 +134,34 @@ const Top = ({ onClick, open }: { onClick(x: any): any; open: boolean }) => {
 // re-render on state change for toggling click event
 const TopSection = memo(Top, (x, y) => x.open === y.open)
 
-// domain list interface
-interface DomainListProps {
-  issues?: string[]
-  feed?: Map<string, Map<string, IssueData>>
-  onScanEvent?(x: any): any
-}
-
 // domain list
-const DomainListWrapper = ({ issues, feed, onScanEvent }: DomainListProps) => {
-  return (
-    <ul>
-      {issues?.map((domain, index) => (
-        <FeedItem
-          feed={feed}
-          key={domain}
-          domain={domain}
-          index={index}
-          onScanEvent={onScanEvent}
-        />
-      ))}
-    </ul>
-  )
-}
+const DomainListWrapper = ({
+  websites,
+  feed,
+  data,
+  onScanEvent,
+}: DomainListProps) => (
+  <ul>
+    {websites?.map((domain, index) => (
+      <FeedItem
+        feed={feed}
+        key={domain}
+        domain={domain}
+        index={index}
+        data={data}
+        onScanEvent={onScanEvent}
+      />
+    ))}
+  </ul>
+)
 
 const DomainList = memo(DomainListWrapper)
 
 // side panel that appears fixed on the right of current issues of domain being. This returns a list of pages with a list of issues per page.
-const Feed: FC = () => {
+const LiveFeed: FC = () => {
   const { feed } = useWasmContext()
   const { feedOpen, setIssueFeedContent, scanWebsite } = useWebsiteContext()
-  const data = useDeferredValue(feed.get_data())
-
-  const issues = useMemo(() => {
-    if (data instanceof Map) {
-      const keys = data.keys()
-      if (keys) {
-        return [...keys]
-      }
-      return []
-    }
-    return data ? Object.keys(data) : []
-  }, [data])
+  const websites = useDeferredValue(feed?.get_data_keys() ?? [])
 
   const onScanEvent = useCallback(
     async (target: string) => {
@@ -203,7 +176,7 @@ const Feed: FC = () => {
       // replace issue feed section with new value
       if (webPage) {
         // the current item in the feed
-        const page = feed?.get_website({
+        const page = feed?.get_page({
           domain: webPage?.domain,
           pageUrl: target,
         })
@@ -245,7 +218,6 @@ const Feed: FC = () => {
     const topStyles = `fixed bottom-0 bg-lightgray lg:border-l lg:w-[24vw] ${mobileStyles}`
 
     return {
-      mobileStyles,
       mainStyle,
       topStyles,
     }
@@ -257,11 +229,15 @@ const Feed: FC = () => {
       <div className={mainStyle} aria-live='polite'>
         <div className={topStyles}>
           <TopSection onClick={setIssueFeedContent} open={feedOpen} />
-          <DomainList feed={data} issues={issues} onScanEvent={onScanEvent} />
+          <DomainList
+            websites={websites}
+            onScanEvent={onScanEvent}
+            feed={feed}
+          />
         </div>
       </div>
     </>
   )
 }
 
-export const IssueFeed = memo(Feed)
+export const IssueFeed = memo(LiveFeed)

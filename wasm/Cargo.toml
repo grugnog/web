@@ -1,11 +1,12 @@
 [package]
 name = "a11ywatch-web-wasm"
-version = "0.1.7"
+version = "0.2.4-canary"
 description = "a11ywatch web wasm bundle"
 edition = "2021"
 license = "MIT"
 repository = "https://github.com/a11ywatch/web/wasm"
 authors = ["Jeff Mendez <jeff@a11ywatch.com>"]
+readme = "../README.md"
 
 [features]
 default = ["console_error_panic_hook"]
@@ -20,6 +21,7 @@ serde_json =  { version = "1.0.81" }
 console_error_panic_hook = { version = "0.1.1", optional = true }
 hashbrown = { version = "0.13.1", features = ["serde"] }
 serde-wasm-bindgen = "0.4.5"
+indexmap = { version = "1.9.1", features = ["serde"] }
 
 [dev-dependencies]
 wasm-bindgen-test = "0.3.0"
