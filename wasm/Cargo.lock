@@ -4,7 +4,7 @@ version = 3
 
 [[package]]
 name = "a11ywatch-web-wasm"
-version = "0.2.4-canary"
+version = "0.2.2-canary.1"
 dependencies = [
  "console_error_panic_hook",
  "hashbrown 0.13.1",

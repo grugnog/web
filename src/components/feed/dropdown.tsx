@@ -1,10 +1,9 @@
 import { FC, Fragment, PropsWithChildren } from 'react'
 import { Menu, Transition } from '@headlessui/react'
 
-export const DropDown: FC<PropsWithChildren<{ open?: boolean }>> = ({
-  children,
-  open,
-}) => {
+export const DropDown: FC<
+  PropsWithChildren<{ open?: boolean; right?: boolean }>
+> = ({ children, open, right }) => {
   return (
     <Menu as='div' className='relative inline-block text-left'>
       <div>
@@ -40,7 +39,11 @@ export const DropDown: FC<PropsWithChildren<{ open?: boolean }>> = ({
             !open
               ? 'bottom-0 right-24 origin-bottom-left lg:bottom-[inherit] lg:right-0'
               : 'origin-top-right'
-          } right-0 z-30 mt-2 w-42 md:w-[22vw] rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none`}
+          } right-0 z-30 mt-2 w-42 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none ${
+            right
+              ? ' origin-top-right w-[14vw] min-w-[220px] md:min-w-[22rem]'
+              : 'md:w-[22vw]'
+          }`}
         >
           {children}
         </Menu.Items>

@@ -9,14 +9,14 @@ import {
 import { useWebsiteContext } from '../providers/website'
 import { GrClose, GrExpand } from 'react-icons/gr'
 import { AppManager } from '@app/managers'
-import { FeedList } from './list'
 import { useWasmContext } from '../providers'
 import type { IssueData, Website } from '@app/types'
 import type { Feed } from 'a11ywatch-web-wasm'
 import { FilterDropdown } from './filters'
+import { LiveFeedList } from './live-feed'
 
 type FeedItemProps = {
-  feed?: Feed
+  feed: Feed
   data?: Map<string, Map<string, IssueData>>
   domain: string
   onScanEvent?: any
@@ -27,7 +27,7 @@ type FeedItemProps = {
 // domain list interface
 interface DomainListProps {
   websites?: string[]
-  feed?: Feed
+  feed: Feed
   data?: Map<string, Map<string, IssueData>>
   onScanEvent?(x: any): any
 }
@@ -35,19 +35,23 @@ interface DomainListProps {
 const PageListWrapper = ({
   pages,
   onScanEvent,
-}: Partial<FeedItemProps> & {
+  feed,
+  domain,
+}: FeedItemProps & {
   pages: any[]
   sorted?: boolean
 }) => {
   return (
     <>
-      {pages?.map((website: any) => (
-        <FeedList
-          key={website.pageUrl}
-          issue={website}
+      {pages?.map((pageUrl: any) => (
+        <LiveFeedList
+          key={pageUrl}
           highlightErrors
           onScanEvent={onScanEvent}
           isHidden
+          domain={domain}
+          feed={feed}
+          pageUrl={pageUrl}
         />
       ))}
     </>
@@ -82,8 +86,7 @@ const FeedItemWrapper = ({
 }: FeedItemProps) => {
   const [visible, setVisible] = useState<boolean>(index === 0)
   const [sorted, setSorted] = useState<boolean>(false)
-  // todo: get_website_keys
-  const pages = useDeferredValue([...feed?.get_website(domain)?.values()])
+  const pages = useDeferredValue(feed?.get_website_keys(domain) ?? [])
 
   const onHeadingToggleEvent = useCallback(
     () => setVisible((v) => !v),
@@ -105,7 +108,13 @@ const FeedItemWrapper = ({
         onSortClick={onSortClick}
       />
       <ul className={!visible ? 'hidden' : 'visible'} aria-hidden={!visible}>
-        <PageList pages={pages} onScanEvent={onScanEvent} sorted={sorted} />
+        <PageList
+          pages={pages}
+          onScanEvent={onScanEvent}
+          sorted={sorted}
+          feed={feed}
+          domain={domain}
+        />
       </ul>
     </li>
   )
@@ -118,7 +127,7 @@ const Top = ({ onClick, open }: { onClick(x: any): any; open: boolean }) => {
 
   return (
     <div className={`flex place-items-center px-3 py-1 h-14 text-side gap-x-2`}>
-      <p className={`flex-1 text-lg font-semibold`}>Recent Issues</p>
+      <p className={`flex-1 text-lg font-semibold`}>Recent</p>
       <FilterDropdown open={open} />
       <button
         onClick={closeFeed}
@@ -176,24 +185,22 @@ const LiveFeed: FC = () => {
       }
 
       // replace issue feed section with new value
-      if (webPage) {
+      if (webPage && feed) {
         // the current item in the feed
-        const page = feed?.get_page({
-          domain: webPage?.domain,
-          pageUrl: target,
-        })
+        const page = feed.get_page(webPage.domain, target)
 
         if (page) {
           // old issues
           const pageIssuesCount = page?.issues?.length || 0
           // new issues
-          const newIssuesCount = webPage?.issuesInfo?.totalIssues || 0
+          const newIssuesCount =
+            webPage?.issue?.length ?? webPage?.issuesInfo?.totalIssues ?? 0
 
           let message = 'No new issues found'
 
           // issue count updated
           if (pageIssuesCount !== newIssuesCount) {
-            const issueDif = pageIssuesCount - newIssuesCount
+            const issueDif = newIssuesCount - pageIssuesCount
             const issueMessage =
               newIssuesCount > pageIssuesCount ? 'more' : 'less'
             message = `${issueDif} ${issueMessage} issue${
@@ -214,8 +221,8 @@ const LiveFeed: FC = () => {
       : 'pl-[15vw] max-h-[60px] bottom-0 rounded w-full lg:max-h-full lg:overflow-y-auto lg:rounded-none lg:h-full lg:bottom-0 lg:top-0 lg:pl-0 lg:z-20'
 
     const mainStyle = `${
-      feedOpen ? 'z-20' : ''
-    } border-t md:border-t-0 text-side fixed lg:min-w-[24vw] lg:relative`
+      feedOpen ? 'z-20 ' : ''
+    }border-t md:border-t-0 text-side fixed lg:min-w-[24vw] lg:relative`
 
     const topStyles = `fixed bottom-0 bg-lightgray lg:border-l lg:w-[24vw] ${mobileStyles}`
 
@@ -229,7 +236,7 @@ const LiveFeed: FC = () => {
     <>
       {feedOpen ? <style>{`body { overflow: hidden; }`}</style> : null}
       <div className={mainStyle} aria-live='polite'>
-        <div className={topStyles}>
+        <div className={topStyles} id='live-feed'>
           <TopSection onClick={setIssueFeedContent} open={feedOpen} />
           <DomainList
             websites={websites}
@@ -242,4 +249,5 @@ const LiveFeed: FC = () => {
   )
 }
 
+// authed application feed
 export const IssueFeed = memo(LiveFeed)

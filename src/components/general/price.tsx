@@ -38,17 +38,9 @@ function MainButton({
   const buttonColor = getPrimaryColor(title)
   let textColor = '#fff'
 
-  if (title === 'Premium') {
-  } else if (title === 'Free') {
-  } else if (title === 'Basic') {
-    textColor = '#fff'
-  } else if (title === 'Enterprise') {
-    textColor = '#fff'
-  }
-
   if (navigate) {
     return (
-      <div className='pb-2 justify-center flex'>
+      <div className='pb-1 justify-center flex'>
         <Link
           className={`w-[12rem] px-4 py-2 hover:ring rounded-3xl font-bold text-center`}
           style={{
@@ -163,8 +155,8 @@ export function PriceMemo({
             )
           })}
           <li className='w-full'>
-            <div className='min-w-[330px] w-full rounded flex flex-1 flex-col justify-between border-2 px-4 py-2 border-black text-gray-700'>
-              <div className='text-base'>
+            <div className='min-w-[330px] w-full h-full rounded flex flex-1 flex-col justify-between border-2 px-4 py-2 border-black text-gray-700'>
+              <div className='text-base font-medium'>
                 All pricing is in <b>USD</b>.
               </div>
               <div className='text-sm pb-3.5'>
@@ -188,7 +180,6 @@ export function PriceMemo({
           yearly={yearly}
           title={'All plans include:'}
           details={priceConfig.feats}
-          premium
         >
           {navigate ? (
             <div className='px-4 w-full'>
@@ -202,7 +193,7 @@ export function PriceMemo({
         </PriceFeat>
       </div>
 
-      <div className='font-bold text-center py-4 text-base'>
+      <div className='font-semibold text-center py-4 text-base'>
         Need more? We can easily handle thousands of scans per minute,{' '}
         <a href='mailto:support@a11ywatch.com' className='underline'>
           get in touch

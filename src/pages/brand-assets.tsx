@@ -2,6 +2,7 @@ import { MarketingDrawer, PageTitle, Logo } from '@app/components/general'
 import { strings } from '@app-strings'
 import { metaSetter } from '@app/utils'
 import type { PageProps } from '@app/types'
+import { Header3 } from '@app/components/general/header'
 
 function BrandAssets({ name }: PageProps) {
   return (
@@ -58,6 +59,12 @@ function BrandAssets({ name }: PageProps) {
           </div>
         </div>
       </div>
+
+      <Header3>Brand usage rules</Header3>
+      <p>
+        If you use any of the assets please do not alt the logos outside of the
+        default look.
+      </p>
     </MarketingDrawer>
   )
 }

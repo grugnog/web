@@ -28,7 +28,7 @@ function MarketingIntro({
         <h2 className='text-lg py-2'>
           {checker
             ? 'Test your web accessibility and vitals fast'
-            : 'A11ywatch provides tools for testing web accessibility so you can build better products.'}
+            : 'A11ywatch provides tools for testing web accessibility so you can build better software.'}
         </h2>
         <div className='py-3 pb-4 relative'>
           <Link

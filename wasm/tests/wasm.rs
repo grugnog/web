@@ -26,10 +26,10 @@ fn insert_website() {
     feed.insert_website(value.clone());
     feed.insert_website(value1.clone());
 
-    let website = feed.get_page(value);
+    let website = feed.get_page(web.domain, web.page_url);
     let website: PageIssue = serde_wasm_bindgen::from_value(website).unwrap();
     assert_eq!(website.domain, "a11ywatch.com");
-    let website = feed.get_page(value1);
+    let website = feed.get_page(web1.domain, web1.page_url);
     let website: PageIssue = serde_wasm_bindgen::from_value(website).unwrap();
     assert_eq!(website.domain, "jeffmendez.com");
 }
@@ -47,7 +47,7 @@ fn get_page() {
     
     feed.insert_website(value.clone());
 
-    let website = feed.get_page(value);
+    let website = feed.get_page(web.domain, web.page_url);
     let website: PageIssue = serde_wasm_bindgen::from_value(website).unwrap();
 
     assert_eq!(website.domain, "a11ywatch.com");

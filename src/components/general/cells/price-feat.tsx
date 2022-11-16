@@ -30,7 +30,7 @@ export const PriceFeat = ({
             style={{ backgroundColor: textColor }}
           >
             <SubHeading
-              className='text-3xl font-bold'
+              className='text-3xl font-semibold'
               pricingPage={pricingPage}
             >
               <span>{title}</span>

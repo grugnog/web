@@ -1,7 +1,7 @@
 import { MarketingDrawer } from '@app/components/general'
 import { metaSetter } from '@app/utils'
 import type { PageProps } from '@app/types'
-import { Header, Header2 } from '@app/components/general/header'
+import { Header, Header2, Header3 } from '@app/components/general/header'
 import { companyName } from '@app/configs'
 
 function Careers({ name }: PageProps) {
@@ -10,6 +10,11 @@ function Careers({ name }: PageProps) {
       <Header>Careers</Header>
       <Header2>Currently we are not hiring.</Header2>
       <p>We are a small team and decided to keep it like that.</p>
+      <Header3>Profit and Sustainability</Header3>
+      <p>
+        We currently are fully bootstrapped and self funded. We are not looking
+        for investors either.
+      </p>
     </MarketingDrawer>
   )
 }

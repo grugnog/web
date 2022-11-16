@@ -5,7 +5,8 @@ import type { PageProps } from '@app/types'
 import Image from 'next/image'
 import { FeaturesList } from '@app/app/marketing/features'
 import { SectionContainer } from '@app/app/containers/section-container'
-import { Header, Header3 } from '@app/components/general/header'
+import { Header, Header2, Header3 } from '@app/components/general/header'
+import { companyName } from '@app/configs'
 
 const FeatureHeading: FC<PropsWithChildren> = ({ children }) => {
   return (
@@ -27,13 +28,17 @@ function Features({ name }: PageProps) {
   return (
     <MarketingDrawer title={name} maxWidth='xl' footerSpacing>
       <SectionContainer container block>
-        <Header>Features</Header>
-        <h2 className={'text-lg mb-2'}>Main Features</h2>
+        <Header>Platform Features</Header>
+        <p>
+          Learn about features that make {companyName} stand out between the
+          rest.
+        </p>
+        <Header2>Web Accessibility Tools</Header2>
         <div className={row}>
           <div className={paper}>
             <Section>
               <div>
-                <Header3>Web Accessibility Reports Fast</Header3>
+                <Header3>Web Accessibility Monitoring</Header3>
                 <FeatureHeading>
                   Our inclusion insight reporter and monitor scans for problems
                   with recommended solutions that are tuned for any website
@@ -127,7 +132,7 @@ function Features({ name }: PageProps) {
           <div className={paper}>
             <Section>
               <div>
-                <Header3>Temporary Script Remedy</Header3>
+                <Header3>Embed Script Safeguard</Header3>
                 <FeatureHeading>
                   View your website javascript remedies that come from the
                   scripts page. Verifiy exactly what goes into production with

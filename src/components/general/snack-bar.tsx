@@ -1,4 +1,4 @@
-import { memo } from 'react'
+import { memo, useCallback } from 'react'
 import { observer } from 'mobx-react-lite'
 
 import {
@@ -16,33 +16,27 @@ const upgradeRequired = (text: string) =>
   text.includes('upgrade your account') ||
   text.includes(
     'you hit your scan limit for the day, please try again tomorrow.'
-  ) ||
-  text.includes(
-    'you hit your scan limit for the day, please try again tomorrow to add your website.'
-  ) ||
-  text === 'you need to upgrade your account to edit scripts'
+  )
 
 const SnackbarContainer = observer(({ store }: any) => {
-  const lowerCaseText = store?.snackbar?.title
-    ? String(store?.snackbar?.title).toLowerCase()
-    : ''
-
+  const lowerCaseText = store?.snackbar?.title ?? ''
   const needsUpgrade = upgradeRequired(lowerCaseText)
-  const marketingRedirect = lowerCaseText.includes('redirected to dashboard')
 
-  const handleClose = (_: any, reason: string): any => {
-    if (reason === 'clickaway') {
-      return
-    }
-    if (store && store.closeSnack) {
-      store.closeSnack()
-    }
-  }
+  const handleClose = useCallback(
+    (_: any, reason: string): any => {
+      if (reason === 'clickaway') {
+        return
+      }
+      if (store && store.closeSnack) {
+        store.closeSnack()
+      }
+    },
+    [store]
+  )
 
   return (
     <MUISnackbar
       open={!!store?.snackbar?.open}
-      autoHideDuration={6000}
       onClose={handleClose}
       ContentProps={{
         'aria-describedby': 'message-id',
@@ -53,36 +47,25 @@ const SnackbarContainer = observer(({ store }: any) => {
           backgroundColor: '#fff',
         }}
         message={
-          <div className='line-clamp-2 max-w-[76vw]'>
+          <div className='overflow-hidden truncate'>
             <p
               id='message-id'
-              className={`text-lg line-clamp-2 ${
+              className={`text-base max-w-[40vw] truncate ${
                 store.snackbar.type === 'error' ? 'text-red-600' : 'text-black'
               }`}
             >
               {store.snackbar.title}
             </p>
             {needsUpgrade ? (
-              <Link
-                href='/payments'
-                style={{
-                  fontWeight: 'bold',
-                  color: '#3b82f6',
-                }}
-              >
+              <Link className={'font-medium text-[#3b82f6]'} href='/payments'>
                 UPGRADE ACCOUNT
-              </Link>
-            ) : null}
-            {marketingRedirect ? (
-              <Link href='/?noredirect=true' style={{ fontWeight: 'bold' }}>
-                Go back to marketing page
               </Link>
             ) : null}
           </div>
         }
-        className={
+        className={`w-[50vw] overflow-hidden truncate ${
           store.snackbar.type === 'error' ? 'border border-red-500' : ''
-        }
+        }`}
         action={[
           <IconButton
             key='close'

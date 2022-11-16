@@ -11,6 +11,8 @@ import { metaSetter } from '@app/utils'
 import type { CSSProperties } from 'react'
 import type { PageProps } from '@app/types'
 import { SectionContainer } from '@app/app/containers/section-container'
+import { Header2, Header3 } from '@app/components/general/header'
+import { PricingCalculator } from '@app/components/general/pricing-calculator'
 
 const center = {
   display: 'flex',
@@ -47,6 +49,11 @@ function Contact({ name }: PageProps) {
           ensure a maintainable and sustainable product, and help your team
           boost up along the way. {`Let's`} get started.
         </Typography>
+        <Header2>Questions about our service?</Header2>
+        <p>
+          If you have any questions at all feel free to send us an email via the
+          following:
+        </p>
         <div style={center}>
           <address>
             <a
@@ -85,10 +92,17 @@ function Contact({ name }: PageProps) {
               </Box>
             </a>
           </address>
+          <Header3>Interested in Accessibility Services?</Header3>
+          <p>
+            If you need help with auditing a page or website we can get this
+            done across any tech stack.
+          </p>
+
+          <PricingCalculator />
 
           <div className={'py-2'}>
             <Typography variant='body1' component='div' gutterBottom>
-              If you want to learn more about positions.
+              If you want to learn more about some of our past positions.
             </Typography>
             <Link href={'/careers'} className={'text-blue-700 underline'}>
               Careers

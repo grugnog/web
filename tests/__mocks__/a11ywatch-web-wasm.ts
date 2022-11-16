@@ -16,7 +16,7 @@ class FeedMock {
     return this.#data.get(domain)
   }
   // get website page
-  get_page({ domain, target }) {
+  get_page(domain, target) {
     const item = this.#data.get(domain)
     return item?.get(target)
   }

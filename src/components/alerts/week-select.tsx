@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useCallback, memo, FC } from 'react'
 import { Button as MatButton } from '@material-ui/core'
 import { addDays, format, startOfWeek } from 'date-fns'
-import { GrCalendar, GrMoon, GrSun } from 'react-icons/gr'
+import { GrMoon, GrSun } from 'react-icons/gr'
 
 interface Props {
   confirmDates(dates: number[], morning: boolean): Promise<void>
@@ -100,12 +100,8 @@ const WeekSelectComponent: FC<Props> = ({ confirmDates, filterEmailDates }) => {
         </div>
       </div>
       <div className={'py-6'}>
-        <MatButton
-          onClick={onDateConfirm}
-          variant={'outlined'}
-          startIcon={<GrCalendar />}
-        >
-          Confirm
+        <MatButton onClick={onDateConfirm} variant={'outlined'}>
+          Update
         </MatButton>
       </div>
     </div>

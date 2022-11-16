@@ -138,7 +138,7 @@ function ApiInfo() {
                   type='button'
                   onClick={toggleKey}
                   aria-labelledby={'togle-key'}
-                  className={'font-md px-4 py-2'}
+                  className={'font-medium px-4 py-2'}
                 >
                   {`${keyVisible ? 'Hide' : 'View'} Token`}
                 </Button>

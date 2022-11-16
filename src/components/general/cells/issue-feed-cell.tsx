@@ -6,7 +6,7 @@ import { Issue } from '@app/types'
 import { FilterManager } from '@app/managers/filters'
 import { observer } from 'mobx-react-lite'
 
-const iconStyle = { height: 12, width: 12 }
+const iconStyle = { height: 13, width: 13 }
 
 // Issue Cell used on Feed after authentication.
 export function IssueFeedCellComponent({
@@ -25,6 +25,7 @@ export function IssueFeedCellComponent({
     setIssueView((v) => !v)
   }
 
+  // todo: move to parent
   const filtered =
     item && item.code
       ? FilterManager.filters.has(item.code) &&
@@ -33,7 +34,9 @@ export function IssueFeedCellComponent({
 
   return (
     <li
-      className={`h-[inherit] ${filtered ? 'bg-gray-800 text-white' : ''}`}
+      className={`h-[inherit] ${
+        filtered ? 'bg-gray-200 text-gray-700 font-medium' : ''
+      }`}
       style={style}
     >
       {!hideSelector ? null : (

@@ -64,11 +64,13 @@ export function useSearchRest() {
 
   const scanPage = async () => {
     setScan({ loading: true })
+    let snackOpen = false
 
     const [querySearch, autoTPT] = searchQuery(search)
 
     if (autoTPT) {
       AppManager.toggleSnack(true, 'https:// automatically added to query.')
+      snackOpen = true
     }
 
     let response = await scanWebsite(querySearch)
@@ -82,12 +84,19 @@ export function useSearchRest() {
       AppManager.toggleSnack(true, 'https:// failed retrying with http:// ...')
       const [q] = searchQuery(search, true)
       response = await scanWebsite(q)
+      snackOpen = true
     }
 
     setScan({
       loading: false,
       data: response,
     })
+
+    if (snackOpen) {
+      setTimeout(() => {
+        AppManager.closeSnack()
+      }, 6000)
+    }
   }
 
   const closeModal = () => setScan({ loading: false, data: undefined })

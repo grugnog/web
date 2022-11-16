@@ -31,32 +31,6 @@ impl Feed {
         Default::default()
     }
 
-    /// get a single website from the hashmap of hashmaps
-    pub fn get_website(&self, domain: String) -> JsValue {
-        if self.data.contains_key(&domain) {
-            let value = self.data.get(&domain).unwrap();
-
-            serde_wasm_bindgen::to_value(&value).unwrap()
-        } else {
-            serde_wasm_bindgen::to_value(&false).unwrap()
-        }
-    }
-
-    /// get a single website list of pages
-    pub fn get_page(&self, website: JsValue) -> JsValue {
-        let website: PageIssue = serde_wasm_bindgen::from_value(website).unwrap();
-        let domain = website.domain;
-
-        if self.data.contains_key(&domain) {
-            let value = self.data.get(&domain).unwrap();
-            let value = value.get(&website.page_url).unwrap();
-
-            serde_wasm_bindgen::to_value(&value).unwrap()
-        } else {
-            serde_wasm_bindgen::to_value(&false).unwrap()
-        }
-    }
-
     /// insert a website into hashmap
     pub fn insert_website(&mut self, website: JsValue) {
         let website: PageIssue = serde_wasm_bindgen::from_value(website).unwrap();
@@ -78,9 +52,46 @@ impl Feed {
         }
     }
 
+    /// get a single website from the hashmap of hashmaps
+    pub fn get_website(&self, domain: String) -> JsValue {
+        if self.data.contains_key(&domain) {
+            let value = self.data.get(&domain).unwrap();
+
+            serde_wasm_bindgen::to_value(&value).unwrap()
+        } else {
+            serde_wasm_bindgen::to_value(&false).unwrap()
+        }
+    }
+
+    /// get a single website list of pages
+    pub fn get_page(&self, domain: String, page_url: String) -> JsValue {
+        if self.data.contains_key(&domain) {
+            let value = self.data.get(&domain).unwrap();
+            let value = value.get(&page_url).unwrap();
+
+            serde_wasm_bindgen::to_value(&value).unwrap()
+        } else {
+            serde_wasm_bindgen::to_value(&false).unwrap()
+        }
+    }
+
     /// get data
     pub fn get_data(&mut self) -> JsValue {
         serde_wasm_bindgen::to_value(&self.data).unwrap()
+    }
+
+    /// website keys
+    pub fn get_website_keys(&self, domain: String) -> JsValue {
+        if self.data.contains_key(&domain) {
+            let value = self.data.get(&domain).unwrap();
+            let keys: Vec<&String> = value.keys().collect();
+
+            serde_wasm_bindgen::to_value(&keys).unwrap()
+        } else {
+            let v: Vec<&String> = vec![];
+
+            serde_wasm_bindgen::to_value(&v).unwrap()
+        }
     }
 
     /// get data keys
@@ -94,7 +105,7 @@ impl Feed {
     pub fn get_data_item(&self, search: String, all: bool) -> JsValue {
         if !all && self.data.contains_key(&search) {
             let items = &self.data.get(&search).unwrap();
-            let items = items.values().cloned().collect::<Vec<PageIssue>>();
+            let items = items.values().collect::<Vec<&PageIssue>>();
 
             serde_wasm_bindgen::to_value(&items).unwrap()
         } else if all {
@@ -105,7 +116,7 @@ impl Feed {
                     break;
                 }
             };
-            let items = items.values().cloned().collect::<Vec<PageIssue>>();
+            let items = items.values().collect::<Vec<&PageIssue>>();
 
             serde_wasm_bindgen::to_value(&items).unwrap()
         } else {

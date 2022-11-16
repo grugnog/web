@@ -98,7 +98,7 @@ function ChangeLog({ name }: PageProps) {
             return (
               <Fragment key={item.date as Key}>
                 <Header3>{item.date}</Header3>
-                <ul className='list-disc py-2'>
+                <ul className='list-disc py-2 px-6'>
                   {item.updates.map((li, i) => {
                     return (
                       <li

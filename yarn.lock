@@ -2861,10 +2861,10 @@
   dependencies:
     tslib "^1.9.3"
 
-a11ywatch-web-wasm@0.2.4-canary:
-  version "0.2.4-canary"
-  resolved "https://registry.yarnpkg.com/a11ywatch-web-wasm/-/a11ywatch-web-wasm-0.2.4-canary.tgz#ef34077b65234c5491e0d73c5a32560c93fc7230"
-  integrity sha512-CtsZFvrm/+D7kjzzkWuUtl9DPc35my0wYV0WFev5zIssmrQwgJAUMeWJoQRHfJ4I9BY8iqXGeAFV5+zArl/acw==
+a11ywatch-web-wasm@0.2.2-canary.1:
+  version "0.2.2-canary.1"
+  resolved "https://registry.yarnpkg.com/a11ywatch-web-wasm/-/a11ywatch-web-wasm-0.2.2-canary.1.tgz#3c624d4ba6282f9bd5c0f85b6e0b3f704eac5406"
+  integrity sha512-ukTXrJeKKMyC+lnXusRzsbRFRc3ISqiXxXbv09BBNLOzbT3EVBqAT8AeX9QRI5GeVRdnhpv6G1sYtrWaP/lwhQ==
 
 abab@^2.0.6:
   version "2.0.6"
@@ -4169,10 +4169,10 @@ data-urls@^3.0.2:
     whatwg-mimetype "^3.0.0"
     whatwg-url "^11.0.0"
 
-date-fns@2.28.0:
-  version "2.28.0"
-  resolved "https://registry.npmjs.org/date-fns/-/date-fns-2.28.0.tgz"
-  integrity sha512-8d35hViGYx/QH0icHYCeLmsLmMUheMmTyV9Fcm6gvNwdw31yXXH+O85sOBJ+OLnLQMKZowvpKb6FgMIQjcpvQw==
+date-fns@2.29.3:
+  version "2.29.3"
+  resolved "https://registry.yarnpkg.com/date-fns/-/date-fns-2.29.3.tgz#27402d2fc67eb442b511b70bbdf98e6411cd68a8"
+  integrity sha512-dDCnyH2WnnKusqvZZ6+jA1O51Ibt8ZMRNkDZdyAyK4YfbDwa/cEmuztzG5pk6hqlp9aSBPYcjOlktquahGwGeA==
 
 debug@4, debug@^4.1.0, debug@^4.1.1, debug@^4.3.2:
   version "4.3.3"

@@ -5,19 +5,21 @@ export const IntroBenches: FC = () => {
     <div className='py-6'>
       <div className='flex-col flex text-center border-4 border-[#2b2b2b] rounded'>
         <div className='py-2'>
-          <h2 className='text-2xl font-bold'>Accessibility Testing</h2>
+          <h2 className='text-2xl font-semibold'>Accessibility Testing</h2>
           <p className='text-base text-gray-800'>
-            Webpage reports per minute (Linux ARM64)
+            Webpage reports per minute (Linux arm64)
           </p>
         </div>
         <ul className='grid grid-cols-3 place-items-start pt-1 h-40 place-items-center bg-gray-50'>
           <li className='flex flex-1 px-2 h-full'>
             <div className='flex flex-col h-full place-content-end'>
               <div className='py-1' aria-hidden='true'>
-                <div className='text-base font-semibold'>4,020</div>
+                <div className='text-base font-semibold'>10,045</div>
               </div>
               <div className='px-2 bg-blue-600 h-full w-20 rounded-t border-4 border-b-0 border-blue-700'>
-                <div className='sr-only'>A11yWatch: 4,020 scans per minute</div>
+                <div className='sr-only'>
+                  A11yWatch: 10,045 scans per minute
+                </div>
               </div>
             </div>
           </li>
@@ -50,9 +52,9 @@ export const IntroBenches: FC = () => {
             className='hover:ring'
             aria-label='a11ywatch benchmark source'
           >
-            <div className='font-bold'>a11ywatch</div>
-            <div className='text-base text-gray-600'>v0.2.20</div>
-            <div className='text-sm'>View source</div>
+            <div className='text-base font-medium'>a11ywatch</div>
+            <div className='text-sm text-gray-800'>v0.2.20</div>
+            <div className='text-xs text-gray-700'>view source</div>
           </a>
           <a
             href='https://github.com/a11ywatch/github-actions/blob/main/.github/workflows/bench-pa11y.yml'
@@ -61,9 +63,9 @@ export const IntroBenches: FC = () => {
             aria-label='pa11y benchmark source'
             rel='noreferrer'
           >
-            <div className='font-bold'>pa11y</div>
-            <div className='text-base text-gray-600'>v6.2.3</div>
-            <div className='text-sm'>View source</div>
+            <div className='text-base font-medium'>pa11y</div>
+            <div className='text-sm text-gray-800'>v6.2.3</div>
+            <div className='text-xs text-gray-700'>view source</div>
           </a>
           <a
             href='https://github.com/a11ywatch/github-actions/blob/main/.github/workflows/bench-axe.yml'
@@ -72,9 +74,9 @@ export const IntroBenches: FC = () => {
             aria-label='axe benchmark source'
             rel='noreferrer'
           >
-            <div className='font-bold'>axe</div>
-            <div className='text-base text-gray-600'>v4.4.3</div>
-            <div className='text-sm'>View source</div>
+            <div className='text-base font-medium'>axe</div>
+            <div className='text-sm text-gray-800'>v4.4.3</div>
+            <div className='text-xs text-gray-700'>view source</div>
           </a>
         </div>
       </div>

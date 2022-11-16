@@ -29,18 +29,16 @@ function About({ name }: PageProps) {
         </p>
         <Header3>Project Goals for Accessibility and Beyond</Header3>
         <p className='py-2 text-base'>
-          One major goal that we are trying to acheive is the ability to fix a
-          website or mobile applications accessibility errors using a SDK or
-          CDN. This is a step into reducing work that can be repetitive and very
-          time consuming.
+          One major goal that we are trying to acheive is the ability to fix
+          mobile applications accessibility errors using a SDK. This is a step
+          into reducing work that can be repetitive and very time consuming.
         </p>
         <Header3>Assistive labels with the help of AI</Header3>
         <p className='py-2 text-base'>
           A big step into making a product usable across multiple devices is to
           have the program fully assistive through voice. With A11yWatch we are
-          taking a step into providing extreme dedication into machine learning
-          and AI to generate assistive props, color contrast, alt tags, and much
-          more with accuracy.
+          taking a step into providing dedication into machine learning and AI
+          to generate assistive props, color contrast, alt tags, and much more.
         </p>
         <Header3>Quick and Insightful</Header3>
         <p className='py-2 text-base'>

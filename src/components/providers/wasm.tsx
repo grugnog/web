@@ -15,6 +15,7 @@ const initial: WASMContext = {
     get_data_keys: noop,
     sort_website: noop,
     get_page: noop,
+    get_website_keys: noop,
     open: false,
   },
 }

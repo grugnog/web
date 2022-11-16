@@ -11,9 +11,9 @@ export function MarketingDashboard(): ReactElement<any, any> | null {
         <p>Get insight on all of your domains live.</p>
         <div className='py-4'>
           <Image
-            width={1803}
+            width={1400}
             className={'shadow-xl border rounded'}
-            height={844}
+            height={819}
             src={'/img/dashboard-example.png'}
             alt={
               'A11ywatch dashboard example for monitoring and fixing web accessibility'

@@ -17,6 +17,23 @@ import type { OnSubscriptionDataOptions } from '@apollo/react-common'
 import type { Website } from '@app/types'
 import { useWasmContext } from '@app/components/providers'
 
+// fetch more items
+const updateQuery = (prev: any, { fetchMoreResult }: any) => {
+  if (!fetchMoreResult || !fetchMoreResult?.user?.websites?.length) {
+    AppManager.toggleSnack(true, 'No more websites exist.')
+    return prev
+  }
+
+  const websites = [...prev?.user?.websites, ...fetchMoreResult?.user?.websites]
+
+  return Object.assign({}, prev, {
+    user: {
+      ...prev?.user,
+      websites,
+    },
+  })
+}
+
 /*
  * This hook returns all the queries, mutations, and subscriptions between your Website with the graphs,
  * Pages, and Issues with pagination.
@@ -188,6 +205,10 @@ export const useWebsiteData = (
               `Crawl finished for ${completedWebsite.domain}. Average score across pages ${adaScoreAverage}`,
               'success'
             )
+
+            setTimeout(() => {
+              AppManager.closeSnack()
+            }, 6000)
           }
 
           // TODO: check crawl tld and subdomain types for crawl targeting.
@@ -232,7 +253,7 @@ export const useWebsiteData = (
         dataSource.pageInsights = updatedWebsite.pageInsights
 
         // todo: remove hard state updates
-        setTimeout(forceUpdate)
+        forceUpdate()
       }
     }
   }, [websites, updateData, forceUpdate])
@@ -247,69 +268,44 @@ export const useWebsiteData = (
     onSubscriptionData: onCrawlCompleteSubscription,
   })
 
-  const onIssueSubscription = ({
-    subscriptionData,
-  }: OnSubscriptionDataOptions<any>) => {
-    const newIssue = subscriptionData?.data?.issueAdded
+  const onIssueSubscription = useCallback(
+    ({ subscriptionData }: OnSubscriptionDataOptions<any>) => {
+      const newIssue = subscriptionData?.data?.issueAdded
 
-    AppManager.toggleSnack(
-      true,
-      `Insight found on ${newIssue?.pageUrl}`,
-      'success'
-    )
-
-    setTimeout(() => {
-      feed?.insert_website(newIssue)
-    })
-  }
+      setTimeout(() => {
+        AppManager.toggleSnack(true, `Insight found on ${newIssue.pageUrl}`)
+        feed?.insert_website(newIssue)
+      })
+    },
+    [feed]
+  )
 
   const { data: issueSubData } = useSubscription(ISSUE_SUBSCRIPTION, {
     onSubscriptionData: onIssueSubscription,
     skip,
   })
 
-  const updateQuery = (prev: any, { fetchMoreResult }: any) => {
-    if (!fetchMoreResult || !fetchMoreResult?.user?.websites?.length) {
-      AppManager.toggleSnack(true, 'No more websites exist.')
-      return prev
-    }
-
-    const websites = [
-      ...prev?.user?.websites,
-      ...fetchMoreResult?.user?.websites,
-    ]
-
-    return Object.assign({}, prev, {
-      user: {
-        ...prev?.user,
-        websites,
-      },
-    })
-  }
-
   // EVENTS
-  const crawlWebsite = async (params: any) => {
-    try {
-      await crawl(params)
-
-      let domain = ''
-
+  const crawlWebsite = useCallback(
+    async (params: any) => {
+      let crawling = null
       try {
-        domain = new URL(params.variables.url).hostname
+        crawling = await crawl(params)
       } catch (e) {
         console.error(e)
       }
 
-      if (domain) {
+      if (crawling) {
+        const domain = new URL(params.variables.url).hostname
+
         setActiveCrawl((v) => ({
           ...v,
           [domain]: true,
         }))
       }
-    } catch (e) {
-      console.error(e)
-    }
-  }
+    },
+    [setActiveCrawl, crawl]
+  )
 
   const scanWebsite = async (params: any) => {
     const canScan = await scan(params)

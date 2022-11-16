@@ -31,7 +31,7 @@ function Consulting({ name }: PageProps) {
           experience. Although some country laws require your website to be
           compliant the majority of websites are not on the internet.
         </p>
-        <Header2>WCAG Web Compliance Reduces Legal Risk</Header2>
+        <Header2>WCAG Web Compliance Prevents Legal Risk</Header2>
         <p>
           We make sure to bring your product WCAG2.0 compliant without using any
           overlays, toolbars, and other manual processes that do not correct the
@@ -43,7 +43,7 @@ function Consulting({ name }: PageProps) {
         <Header3>Professional Support</Header3>
         <p>
           {strings.appName} can provide expert level support along the following
-          technologies for accessibility, UI, and UX. We also can help setup
+          technologies for accessibility, UI, and UX. We can also help setup
           self hosting A11yWatch for private servers/usage.
         </p>
         <List>

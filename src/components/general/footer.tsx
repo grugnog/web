@@ -48,7 +48,7 @@ const NavLinks: FC<NavLinks> = ({ className, filterType, blog }) => {
 const SectionLinks = ({ title, blog }: { title: string; blog: boolean }) => {
   return (
     <div className={'flex-[0.2]'}>
-      <h3 className={'font-semibold text-xl'}>{title}</h3>
+      <h4 className={'font-semibold text-xl'}>{title}</h4>
       <ul className={'list-style-none py-2'}>
         <NavLinks
           filterType={title.toLowerCase()}
@@ -70,13 +70,13 @@ const Footer = ({ sticky, blog }: { sticky?: boolean; blog?: boolean }) => {
       ].join(' ')}
     >
       <div className='max-w-[1920px] ml-auto mr-auto px-4 pb-20'>
-        <div className={'block md:flex'}>
-          <div className={'flex-[0.2] pb-10'}>
+        <div className={'block md:flex md:gap-x-20'}>
+          <div className={'flex-[0.2] pb-8'}>
             <div className='flex flex-wrap gap-x-4 md:gap-x-20'>
               <div>
                 <p className={'font-bold text-3xl pb-2'}>{strings.appName}</p>
                 <p className='text-gray-500'>
-                  Helping inclusion for every website.
+                  Inclusivity brings the world together.
                 </p>
               </div>
               <ul className='flex flex-1 md:flex-none gap-x-6 place-items-center place-content-center'>

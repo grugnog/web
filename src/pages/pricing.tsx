@@ -4,16 +4,20 @@ import type { PageProps } from '@app/types'
 import { Partners } from '@app/app/marketing/partners'
 import { SectionContainer } from '@app/app/containers/section-container'
 import { Header } from '@app/components/general/header'
-import { PricingCalculator } from '@app/components/general/pricing-calculator'
 
 function Pricing({ name }: PageProps) {
   return (
     <MarketingDrawer title={name}>
       <SectionContainer container block>
         <Header>Maintainable and easy pricing</Header>
-        <h2 className={'text-base pb-2'}>
-          Plans are usage based that can be adjusted at anytime
+        <h2 className={'text-base pb-2 font-medium'}>
+          Plans are usage based that can be adjusted at anytime.
         </h2>
+
+        <p className='w-1/2'>
+          Get detailed accessibility reports that go beyond the basics with ease
+          across all your websites.
+        </p>
 
         <PriceMemo navigate pricingPage />
 
@@ -27,9 +31,7 @@ function Pricing({ name }: PageProps) {
             real time.
           </p>
         </div>
-
         <Partners />
-        <PricingCalculator />
       </SectionContainer>
     </MarketingDrawer>
   )

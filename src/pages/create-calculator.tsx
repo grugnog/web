@@ -3,6 +3,7 @@ import { MarketingDrawer, PageTitle } from '@app/components/general'
 import { metaSetter } from '@app/utils'
 import type { PageProps } from '@app/types'
 import { companyName } from '@app/configs'
+import { Header2, Header3 } from '@app/components/general/header'
 
 // calc the basic cost of the plan
 const calcCost = ({ websiteCount, siteWideApiCount }: any) => {
@@ -60,14 +61,16 @@ function CreateCalculator({ name }: PageProps) {
 
   return (
     <MarketingDrawer title={name} footerSpacing>
+      <div className='py-2'>
+        <div className='py-2 px-3 border border-blue-600 rounded text-blue-700'>
+          <p>
+            This calculator is no longer valid as our plans transitioned out of
+            feature limiting.
+          </p>
+        </div>
+      </div>
       <PageTitle>Calculate the plan cost</PageTitle>
       <p>See estimates on enterprise plans at the basic entry of scale.</p>
-      <div>
-        <p>
-          This calculator is no longer valid as our plans transitioned out of
-          feature limiting.
-        </p>
-      </div>
       <div className='space-y-4 py-2'>
         <div className='py-4 space-y-4'>
           <div className='space-y-2'>
@@ -108,6 +111,17 @@ function CreateCalculator({ name }: PageProps) {
           </div>
         </div>
       </div>
+      <Header2>Workloads that are out of this world.</Header2>
+      <p>
+        The enterprise setup is ideal for users that have over 100 domains that
+        need to stay accessible at all times.
+      </p>
+      <Header3>Go beyond limits</Header3>
+      <p>
+        With enterprise plans comes the abilility to get custom workflows. Build
+        your product on top of our infrastructure to extend the possibilities of
+        our system.
+      </p>
     </MarketingDrawer>
   )
 }

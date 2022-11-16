@@ -3,6 +3,7 @@ import { Button } from '@material-ui/core'
 import { printElement } from '@app/utils'
 import { getAPIRoute } from '@app/configs'
 import type { Website } from '@app/types'
+import { FilterDropdown } from '../feed/filters'
 
 interface InfoBarComponent {
   printable?: boolean
@@ -46,6 +47,7 @@ export function InfoBarComponent({
           Change Primary View
         </Button>
       ) : null}
+      <FilterDropdown open right />
     </div>
   )
 }

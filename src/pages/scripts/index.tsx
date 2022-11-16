@@ -63,7 +63,7 @@ export default metaSetter(
   { Scripts },
   {
     description:
-      'Custom scripts to fix your web page. All scripts are optimized for your website specifically.',
+      'Custom embedded scripts to fix your web page. All scripts are optimized for your website specifically.',
     gql: true,
     wasm: true,
   }
