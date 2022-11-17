@@ -19,17 +19,30 @@ function MarketingIntro({
           {checker ? (
             'Fast and insightful web accessibility evaluations'
           ) : (
-            <>
-              The web <b className='text-blue-600 underline'>accessibility</b>{' '}
-              platform that scales.
-            </>
+            <>The web accessibility platform built for scale.</>
           )}
         </Header>
-        <h2 className='text-lg py-2'>
-          {checker
-            ? 'Test your web accessibility and vitals fast'
-            : 'A11ywatch provides tools for testing web accessibility so you can build better software.'}
-        </h2>
+        {checker ? (
+          <h2 className='text-lg py-2'>
+            Test your web accessibility and vitals fast
+          </h2>
+        ) : (
+          <div>
+            <p className='text-base text-gray-800'>
+              A11ywatch provides powerful tools for testing web inclusivity so
+              you can build better software. We created a smart safeguard that
+              prevents drastic issues across your website without hurting SEO
+              and without overlays.
+            </p>
+            <p className='text-base py-1 text-gray-700'>
+              Get insight across every step of the way with multiple options
+              like{' '}
+              <strong>embed scripts, automated solutions, API, and more</strong>
+              . Add custom actions and authentication for different use cases
+              easy.
+            </p>
+          </div>
+        )}
         <div className='py-3 pb-4 relative'>
           <Link
             className={`px-6 py-2 rounded border flex place-content-center w-40 after:text-sm after:content-['Free_start.'] after:left-[11.2rem] after:absolute after:pointer-events-none hover:bg-gray-100 font-semibold after:font-normal after:text-gray-500`}

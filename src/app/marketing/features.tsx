@@ -14,7 +14,7 @@ import {
   GrTime,
   GrTip,
 } from 'react-icons/gr'
-import { Header3 } from '@app/components/general/header'
+import { Header2, Header3 } from '@app/components/general/header'
 
 const RenderIcon = ({ index, ...props }: any): any =>
   React.createElement(
@@ -85,9 +85,11 @@ const FeaturesList = ({
   return (
     <SectionContainer>
       <div className={alternative ? 'pb-2' : undefined}>
-        <Header3>
-          {alternative ? 'Some more of the features.' : strings.headers[2][0]}
-        </Header3>
+        {alternative ? (
+          <Header3>Some more of the features.</Header3>
+        ) : (
+          <Header2>{strings.headers[2][0]}</Header2>
+        )}
         {alternative ? null : <p className='pb-2'>{strings.headers[2][1]}</p>}
       </div>
       <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-1'>

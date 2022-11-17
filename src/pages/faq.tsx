@@ -1,17 +1,11 @@
-import { Typography, List, ListItem } from '@material-ui/core'
 import { Mailto, MarketingDrawer } from '@app/components/general'
 import { strings } from '@app-strings'
 import { metaSetter } from '@app/utils'
 import { theme } from '@app-theme'
 import type { PageProps } from '@app/types'
-import {
-  Header,
-  Header2,
-  Header3,
-  Header4,
-  Header5,
-} from '@app/components/general/header'
+import { Header, Header2, Header3 } from '@app/components/general/header'
 import { SectionContainer } from '@app/app/containers/section-container'
+import { Link } from '@app/app/typo/link'
 
 const linkStyle = {
   color: theme.palette.primary.main,
@@ -23,87 +17,132 @@ function Faq({ name }: PageProps) {
   return (
     <MarketingDrawer title={name} footerSpacing>
       <SectionContainer container block>
-        <Header>Frequently Asked Questions</Header>
-        <Typography variant='body1' component='p' gutterBottom>
+        <Header>Frequently Asked Questions(FAQ)</Header>
+        <p className='text-base pb-2'>
           Stuck on a certain problem? Check some of these common gotchas first
           in the FAQ.
-        </Typography>
+        </p>
 
-        <Typography variant='body2' component='p' gutterBottom>
-          If you still need help go to the support page
-        </Typography>
-        <Header2>How can I support the project?</Header2>
-        <Typography variant='body1'>
-          {strings.appName} allows multiple ways of contributing to the project.
-          You can send BTC to the following address:{' '}
-          <strong>3EBwSQdPc43CFg8YGBRy3hj9ubihbnPEKv</strong>.
-        </Typography>
+        <div
+          itemScope
+          itemProp='mainEntity'
+          itemType='https://schema.org/Question'
+        >
+          <Header2 itemProp='name'>How many websites can I add?</Header2>
+          <div
+            itemScope
+            itemProp='acceptedAnswer'
+            itemType='https://schema.org/Answer'
+          >
+            <p className='text-base' itemProp='text'>
+              Free accounts can add one domain, all paid accounts get up to 50
+              domains.
+            </p>
+          </div>
+        </div>
 
-        <Header3>How many websites can I monitor?</Header3>
-        <Typography variant='body1'>
-          Free accounts can add one domain, all paid accounts get up to 50
-          domains.
-        </Typography>
+        <div
+          itemScope
+          itemProp='mainEntity'
+          itemType='https://schema.org/Question'
+        >
+          <Header2 itemProp='name'>How can I support the project?</Header2>
+          <div
+            itemScope
+            itemProp='acceptedAnswer'
+            itemType='https://schema.org/Answer'
+          >
+            <p className='text-base' itemProp='text'>
+              {strings.appName} allows multiple ways of contributing to the
+              project. You can send BTC to the following address:{' '}
+              <strong>3EBwSQdPc43CFg8YGBRy3hj9ubihbnPEKv</strong> or help spread
+              the word with referrals.
+            </p>
+          </div>
+        </div>
 
-        <Header4>Can I upgrade or downgrade anytime I want?</Header4>
-        <Typography variant='body1'>
-          Yes, upgrade and downgrades take effect immediately.
-        </Typography>
+        <div
+          itemScope
+          itemProp='mainEntity'
+          itemType='https://schema.org/Question'
+        >
+          <Header2 itemProp='name'>
+            Can I upgrade or downgrade anytime I want?
+          </Header2>
+          <div
+            itemScope
+            itemProp='acceptedAnswer'
+            itemType='https://schema.org/Answer'
+          >
+            <p className='text-base' itemProp='text'>
+              Yes, upgrade and downgrades take effect immediately.
+            </p>
+          </div>
+        </div>
 
-        <Header5>How can I sign up as a company?</Header5>
-        <Typography variant='body1'>
-          You have two main options for joining on A11yWatch as a company, brand
-          or organization. Sign up from a regular user account under your
-          organization{`'s`} email. You can treat the general account as the
-          main account for your company. The safest way to share account access
-          is through the google sign on method.
-        </Typography>
-      </SectionContainer>
+        <div
+          itemScope
+          itemProp='mainEntity'
+          itemType='https://schema.org/Question'
+        >
+          <Header2 itemProp='name'>How can I sign up as a company?</Header2>
+          <div
+            itemScope
+            itemProp='mainEntity'
+            itemType='https://schema.org/Question'
+          >
+            <p className='text-base' itemProp='text'>
+              You have two main options for joining on A11yWatch as a company,
+              brand or organization. Sign up from a regular user account under
+              your organization{`'s`} email. You can treat the general account
+              as the main account for your company. The safest way to share
+              account access is through the google sign on method.
+            </p>
+          </div>
+        </div>
 
-      <List aria-label={`support ${strings.appName}`} dense className='border'>
-        <ListItem>
-          <Typography variant='subtitle1' component='p'>
+        <Header3>Help Spread the Word</Header3>
+
+        <div
+          aria-label={`support ${strings.appName}`}
+          className='border py-2 px-3 space-y-2'
+        >
+          <p>
             Spread the word and evangelize {strings.appName}{' '}
-            <Typography
-              component={'a'}
-              target='_blank'
-              style={linkStyle}
-              href={'https://a11ywatch.com'}
-            >
+            <Link style={linkStyle} href={'https://a11ywatch.com'}>
               linking to a11ywatch.com
-            </Typography>{' '}
+            </Link>{' '}
             on your website, every backlink matters. Follow us on{' '}
-            <Typography
-              component={'a'}
+            <Link
               target='_blank'
               style={linkStyle}
               href={'https://www.twitter.com/a11ywatcher'}
             >
               Twitter
-            </Typography>
+            </Link>
             , like and retweet the important news. Or just talk about us with
             your friends.
-          </Typography>
-        </ListItem>
-        <ListItem>
-          <Typography variant='subtitle1' component='p'>
+          </p>
+          <p>
             <b>Give us feedback.</b> Tell us what {`we're`} doing well or where
             we can improve. Please upvote (👍) the issues that you are the most
             interested in seeing solved.
-          </Typography>
-        </ListItem>
-      </List>
+          </p>
+        </div>
 
-      <div className='py-6 text-lg'>
-        <div>If you have any questions, please contact us at </div>
-        <Mailto
-          email='support@a11ywatch.com'
-          subject='TOS'
-          body='Hello, Support Team'
-        >
-          support@a11ywatch.com
-        </Mailto>
-      </div>
+        <div className='py-6 text-lg'>
+          <div>If you have any questions, please contact us at </div>
+          <Mailto
+            email='support@a11ywatch.com'
+            subject='TOS'
+            body='Hello, Support Team'
+          >
+            support@a11ywatch.com
+          </Mailto>
+        </div>
+
+        <p>If you still need help please contact support.</p>
+      </SectionContainer>
     </MarketingDrawer>
   )
 }

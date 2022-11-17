@@ -20,13 +20,13 @@ const SectionContainer: FC<SectionContainerProps> = ({
 }) => {
   return (
     <section
-      className={[gapY ? 'mt-20' : '', gapX ? 'px-4' : '', className]
+      className={[gapY ? 'mt-14 md:mt-20' : '', gapX ? 'px-4' : '', className]
         .join(' ')
         .trim()}
       {...props}
     >
       {container ? (
-        <div className={`block md:flex place-items-center pb-0 gap-x-10`}>
+        <div className={`block md:flex place-items-center pb-0 gap-x-20`}>
           {block ? <div className={'flex-1 pb-4'}>{children}</div> : children}
         </div>
       ) : (
