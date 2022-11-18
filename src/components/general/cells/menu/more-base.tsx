@@ -23,9 +23,9 @@ export interface MoreOptionsProps extends Partial<Website> {
   handleMenu?: any
   lh?: any // lighthouse data render as modal
   children?: any
-  url?: string | null // base url or domain
-  pageUrl?: string | null // main target for page
-  shutdown?: boolean | null // did the website complete the scan
+  url?: string // base url or domain
+  pageUrl?: string // main target for page
+  shutdown?: boolean // did the website complete the scan
 }
 
 // Base of more options ...

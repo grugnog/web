@@ -75,7 +75,7 @@ export const getUsageLimits = (role: number): number => {
 // TODO: GENERATE DOCS FROM API
 function ApiInfo() {
   const [keyVisible, setKey] = useState<boolean>(false)
-  const { data = {}, loading } = useUserData()
+  const { data, loading } = useUserData()
   const { user } = data ?? { user: null }
 
   const toggleKey = () => setKey((c) => !c)

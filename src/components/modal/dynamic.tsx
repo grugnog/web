@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { memo } from 'react'
 import { Backdrop, Modal } from '@material-ui/core'
 import { useDynamicModal } from '@app/data'
 import { GetType } from './helpers'
@@ -22,7 +22,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
-export function DynamicModal() {
+export function DynamicModalWrapper() {
   const classes = useStyles()
   const { modelData, setModal } = useDynamicModal()
   const { open, modalType } = modelData
@@ -52,3 +52,5 @@ export function DynamicModal() {
     </Modal>
   )
 }
+
+export const DynamicModal = memo(DynamicModalWrapper)

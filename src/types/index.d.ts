@@ -19,56 +19,47 @@ export type Scalars = {
 
 export type Analytic = {
   __typename?: 'Analytic'
-  id?: Maybe<Scalars['ID']>
-  pageUrl?: Maybe<Scalars['String']>
-  errorCount?: Maybe<Scalars['Int']>
-  warningCount?: Maybe<Scalars['Int']>
-  noticeCount?: Maybe<Scalars['Int']>
-  errorOccurances?: Maybe<Scalars['String']>
-  userId?: Maybe<Scalars['Int']>
-  domain?: Maybe<Scalars['String']>
+  id?: string
+  pageUrl?: string
+  errorCount?: number
+  warningCount?: number
+  noticeCount?: number
+  errorOccurances?: string
+  userId?: number
+  domain?: string
   adaScore?: Maybe<Scalars['Float']>
 }
 
 export type BasicMutationResponse = MutationResponse & {
   __typename?: 'BasicMutationResponse'
-  code: Scalars['String']
-  success: Scalars['Boolean']
-  message: Scalars['String']
+  code: string
+  success: boolean
+  message: string
 }
 
 export type CreatePageHeaders = {
-  key: Scalars['String']
-  value: Scalars['String']
-}
-
-export type Feature = {
-  __typename?: 'Feature'
-  id?: Maybe<Scalars['ID']>
-  feature?: Maybe<Scalars['String']>
-  enabled?: Maybe<Scalars['Boolean']>
-  user?: Maybe<Array<Maybe<User>>>
-  accountType?: Maybe<Scalars['String']>
+  key: string
+  value: string
 }
 
 export type History = {
   __typename?: 'History'
-  id?: Maybe<Scalars['ID']>
-  url?: Maybe<Scalars['String']>
-  user?: Maybe<User>
-  issues?: Maybe<Array<Maybe<Issue>>>
-  pages?: Maybe<Array<Maybe<Pages>>>
-  userId?: Maybe<Scalars['Int']>
-  domain?: Maybe<Scalars['String']>
-  cdnConnected?: Maybe<Scalars['Boolean']>
-  pageLoadTime?: Maybe<PageLoadTimeMeta>
-  issuesInfo?: Maybe<IssueMeta>
-  pageInsights?: Maybe<Scalars['Boolean']>
-  insight?: Maybe<PageInsights>
+  id?: string
+  url?: string
+  user?: User
+  issues?: Issue[]
+  pages?: Pages[]
+  userId?: number
+  domain?: string
+  cdnConnected?: boolean
+  pageLoadTime?: PageLoadTimeMeta
+  issuesInfo?: IssueMeta
+  pageInsights?: boolean
+  insight?: PageInsights
 }
 
 export type HistoryIssuesArgs = {
-  filter?: Maybe<Scalars['String']>
+  filter?: string
 }
 
 // the accessibility issue details
@@ -86,10 +77,10 @@ export interface PageIssue {
 // TODO refactor
 export interface Issue extends PageIssue {
   __typename?: 'Issue'
-  issue?: Maybe<PageIssue>
-  issues?: Maybe<Array<Maybe<PageIssue>>>
-  domain?: Maybe<Scalars['String']>
-  pageUrl?: Maybe<Scalars['String']>
+  issue?: PageIssue
+  issues?: PageIssue[]
+  domain?: string
+  pageUrl?: string
 }
 
 // issue model reflection types
@@ -100,289 +91,288 @@ export interface IssueData {
 }
 
 export type IssueIssuesArgs = {
-  filter?: Maybe<Scalars['String']>
+  filter?: string
 }
 
 export type IssueMeta = {
   __typename?: 'IssueMeta'
-  issuesFixedByCdn?: Maybe<Scalars['Int']>
-  possibleIssuesFixedByCdn?: Maybe<Scalars['Int']>
-  totalIssues?: Maybe<Scalars['Int']>
-  cdnConnected?: Maybe<Scalars['Boolean']>
-  skipContentIncluded?: Maybe<Scalars['Boolean']>
-  errorCount?: Maybe<Scalars['Int']>
-  warningCount?: Maybe<Scalars['Int']>
-  limitedCount?: Maybe<Scalars['Int']>
-  adaScore?: Maybe<Scalars['Float']>
+  issuesFixedByCdn?: number
+  possibleIssuesFixedByCdn?: number
+  totalIssues?: number
+  cdnConnected?: boolean
+  skipContentIncluded?: boolean
+  errorCount?: number
+  warningCount?: number
+  limitedCount?: number
+  adaScore?: number
 }
 
 export type Mutation = {
   __typename?: 'Mutation'
-  register?: Maybe<User>
-  login?: Maybe<User>
-  logout?: Maybe<BasicMutationResponse>
-  updateUser?: Maybe<UpdateUserMutationResponse>
-  toggleAlert?: Maybe<UpdateUserMutationResponse>
-  updateWebsite?: Maybe<UpdateWebSiteMutationResponse>
+  register?: User
+  login?: User
+  logout?: BasicMutationResponse
+  updateUser?: UpdateUserMutationResponse
+  toggleAlert?: UpdateUserMutationResponse
+  updateWebsite?: UpdateWebSiteMutationResponse
   updateScript?: Maybe<UpdateScriptMutationResponse>
-  crawlWebsite?: Maybe<UpdateWebSiteMutationResponse>
-  scanWebsite?: Maybe<UpdateWebSiteMutationResponse>
-  forgotPassword?: Maybe<User>
-  confirmEmail?: Maybe<UpdateUserMutationResponse>
-  resetPassword?: Maybe<User>
-  addWebsite?: Maybe<UpdateWebSiteMutationResponse>
-  filterEmailDates?: Maybe<User>
-  removeWebsite?: Maybe<UpdateWebSiteMutationResponse>
-  addPaymentSubscription?: Maybe<UpdateUserMutationResponse>
-  cancelSubscription?: Maybe<UpdateUserMutationResponse>
+  crawlWebsite?: UpdateWebSiteMutationResponse
+  scanWebsite?: UpdateWebSiteMutationResponse
+  forgotPassword?: User
+  confirmEmail?: UpdateUserMutationResponse
+  resetPassword?: User
+  addWebsite?: UpdateWebSiteMutationResponse
+  filterEmailDates?: User
+  removeWebsite?: UpdateWebSiteMutationResponse
+  addPaymentSubscription?: UpdateUserMutationResponse
+  cancelSubscription?: UpdateUserMutationResponse
 }
 
 export type MutationRegisterArgs = {
-  email: Scalars['String']
-  password?: Maybe<Scalars['String']>
-  googleId?: Maybe<Scalars['String']>
+  email: string
+  password?: string
+  googleId?: string
 }
 
 export type MutationLoginArgs = {
-  email: Scalars['String']
-  password?: Maybe<Scalars['String']>
-  googleId?: Maybe<Scalars['String']>
+  email: string
+  password?: string
+  googleId?: string
 }
 
 export type MutationUpdateUserArgs = {
-  password?: Maybe<Scalars['String']>
-  newPassword?: Maybe<Scalars['String']>
-  stripeToken?: Maybe<Scalars['String']>
+  password?: string
+  newPassword?: string
+  stripeToken?: string
 }
 
 export type MutationToggleAlertArgs = {
-  alertEnabled?: Maybe<Scalars['Boolean']>
+  alertEnabled?: boolean
 }
 
 export type MutationUpdateWebsiteArgs = {
-  url?: Maybe<Scalars['String']>
-  customHeaders?: Maybe<Array<Maybe<CreatePageHeaders>>>
-  pageInsights?: Maybe<Scalars['Boolean']>
+  url?: string
+  customHeaders?: CreatePageHeaders[]
+  pageInsights?: boolean
 }
 
 export type MutationUpdateScriptArgs = {
-  url?: Maybe<Scalars['String']>
+  url?: string
   scriptMeta?: Maybe<ScriptMetaInput>
-  editScript?: Maybe<Scalars['Boolean']>
-  newScript?: Maybe<Scalars['String']>
+  editScript?: boolean
+  newScript?: string
 }
 
 export type MutationCrawlWebsiteArgs = {
-  url?: Maybe<Scalars['String']>
+  url?: string
 }
 
 export type MutationScanWebsiteArgs = {
-  url?: Maybe<Scalars['String']>
+  url?: string
 }
 
 export type MutationForgotPasswordArgs = {
-  email?: Maybe<Scalars['String']>
+  email?: string
 }
 
 export type MutationConfirmEmailArgs = {
-  email?: Maybe<Scalars['String']>
+  email?: string
 }
 
 export type MutationResetPasswordArgs = {
-  email?: Maybe<Scalars['String']>
-  resetCode?: Maybe<Scalars['String']>
-  jwt?: Maybe<Scalars['String']>
+  email?: string
+  resetCode?: string
+  jwt?: string
 }
 
 export type MutationAddWebsiteArgs = {
-  url: Scalars['String']
-  customHeaders?: Maybe<Array<Maybe<CreatePageHeaders>>>
-  pageInsights?: Maybe<Scalars['Boolean']>
+  url: string
+  customHeaders?: CreatePageHeaders[]
+  pageInsights?: boolean
 }
 
 export type MutationFilterEmailDatesArgs = {
-  emailFilteredDates?: Maybe<Array<Maybe<Scalars['Int']>>>
+  emailFilteredDates?: Maybe<Array<number>>
 }
 
 export type MutationRemoveWebsiteArgs = {
-  url?: Maybe<Scalars['String']>
-  deleteMany?: Maybe<Scalars['Boolean']>
+  url?: string
+  deleteMany?: boolean
 }
 
 export type MutationAddPaymentSubscriptionArgs = {
-  email?: Maybe<Scalars['String']>
-  stripeToken?: Maybe<Scalars['String']>
-  yearly?: Maybe<Scalars['Boolean']>
+  email?: string
+  stripeToken?: string
+  yearly?: boolean
 }
 
 export type MutationCancelSubscriptionArgs = {
-  email?: Maybe<Scalars['String']>
+  email?: string
 }
 
 export type MutationResponse = {
-  code: Scalars['String']
-  success: Scalars['Boolean']
-  message: Scalars['String']
+  code: string
+  success: boolean
+  message: string
 }
 
 export type PageHeaders = {
   __typename?: 'PageHeaders'
-  key?: Maybe<Scalars['String']>
-  value?: Maybe<Scalars['String']>
+  key?: string
+  value?: string
 }
 
 export type PageInsights = {
   __typename?: 'PageInsights'
-  json?: Maybe<Scalars['String']>
+  json?: string
 }
 
 export type PageLoadTimeMeta = {
   __typename?: 'PageLoadTimeMeta'
-  duration?: Maybe<Scalars['Int']>
-  durationFormated?: Maybe<Scalars['String']>
-  color?: Maybe<Scalars['String']>
+  duration?: number
+  durationFormated?: string
+  color?: string
 }
 
 export type PaymentPlan = {
   __typename?: 'PaymentPlan'
-  id?: Maybe<Scalars['String']>
-  object?: Maybe<Scalars['String']>
-  active?: Maybe<Scalars['Boolean']>
-  amount?: Maybe<Scalars['Int']>
-  amount_decimal?: Maybe<Scalars['String']>
-  nickname?: Maybe<Scalars['String']>
-  currency?: Maybe<Scalars['String']>
-  interval?: Maybe<Scalars['String']>
-  product?: Maybe<Scalars['String']>
+  id?: string
+  object?: string
+  active?: boolean
+  amount?: number
+  amount_decimal?: string
+  nickname?: string
+  currency?: string
+  interval?: string
+  product?: string
 }
 
 export type PaymentSubScription = {
   __typename?: 'PaymentSubScription'
-  id?: Maybe<Scalars['String']>
-  object?: Maybe<Scalars['String']>
-  application_fee_percent?: Maybe<Scalars['Int']>
-  billing_cycle_anchor?: Maybe<Scalars['Int']>
-  cancel_at_period_end?: Maybe<Scalars['Boolean']>
-  customer?: Maybe<Scalars['String']>
-  ended_at?: Maybe<Scalars['String']>
-  canceled_at?: Maybe<Scalars['String']>
-  status?: Maybe<Scalars['String']>
-  start_date?: Maybe<Scalars['String']>
+  id?: string
+  object?: string
+  application_fee_percent?: number
+  billing_cycle_anchor?: number
+  cancel_at_period_end?: boolean
+  customer?: string
+  ended_at?: string
+  canceled_at?: string
+  status?: string
+  start_date?: string
   plan?: Maybe<PaymentPlan>
-  days_until_due?: Maybe<Scalars['String']>
-  current_period_end?: Maybe<Scalars['String']>
-  current_period_start?: Maybe<Scalars['String']>
-  created?: Maybe<Scalars['String']>
-  collection_method?: Maybe<Scalars['String']>
+  days_until_due?: string
+  current_period_end?: string
+  current_period_start?: string
+  created?: string
+  collection_method?: string
 }
 
 export type Query = {
   __typename?: 'Query'
-  features?: Maybe<Array<Maybe<Feature>>>
-  websites?: Maybe<Array<Maybe<Website>>>
-  website?: Maybe<Website>
-  pages?: Maybe<Array<Maybe<Pages>>>
-  issues?: Maybe<Array<Maybe<Issue>>>
-  history?: Maybe<Array<Maybe<History>>>
-  analytics?: Maybe<Array<Maybe<Analytic>>>
-  scripts?: Maybe<Array<Maybe<Script>>>
-  script?: Maybe<Script>
-  issue?: Maybe<Issue>
-  user?: Maybe<User>
+  websites?: Website[]
+  website?: Website
+  pages?: Pages[]
+  issues?: Issue[]
+  history?: History[]
+  analytics?: Analytic[]
+  scripts?: Script[]
+  script?: Script
+  issue?: Issue
+  user?: User
 }
 
 export type QueryWebsitesArgs = {
-  filter?: Maybe<Scalars['String']>
+  filter?: string
 }
 
 export type QueryWebsiteArgs = {
-  url?: Maybe<Scalars['String']>
+  url?: string
 }
 
 export type QuerySubDomainsArgs = {
-  filter?: Maybe<Scalars['String']>
+  filter?: string
 }
 
 export type QueryIssuesArgs = {
-  filter?: Maybe<Scalars['String']>
+  filter?: string
 }
 
 export type QueryHistoryArgs = {
-  filter?: Maybe<Scalars['String']>
+  filter?: string
 }
 
 export type QueryAnalyticsArgs = {
-  filter?: Maybe<Scalars['String']>
+  filter?: string
 }
 
 export type QueryScriptsArgs = {
-  filter?: Maybe<Scalars['String']>
+  filter?: string
 }
 
 export type QueryScriptArgs = {
-  filter?: Maybe<Scalars['String']>
-  url?: Maybe<Scalars['String']>
+  filter?: string
+  url?: string
 }
 
 export type QueryIssueArgs = {
-  url?: Maybe<Scalars['String']>
+  url?: string
 }
 
 export type ScanInformation = {
   __typename?: 'ScanInformation'
-  lastScanDate?: Maybe<Scalars['String']>
-  totalUptime?: Maybe<Scalars['Int']>
+  lastScanDate?: string
+  totalUptime?: number
 }
 
 export type Script = {
   __typename?: 'Script'
-  id?: Maybe<Scalars['ID']>
-  pageUrl?: Maybe<Scalars['String']>
-  domain?: Maybe<Scalars['String']>
-  script?: Maybe<Scalars['String']>
-  cdnUrl?: Maybe<Scalars['String']>
-  cdnUrlMinified?: Maybe<Scalars['String']>
-  cdnConnected?: Maybe<Scalars['Boolean']>
-  issueMeta?: Maybe<IssueMeta>
-  scriptMeta?: Maybe<ScriptMeta>
+  id?: string
+  pageUrl?: string
+  domain?: string
+  script?: string
+  cdnUrl?: string
+  cdnUrlMinified?: string
+  cdnConnected?: boolean
+  issueMeta?: IssueMeta
+  scriptMeta?: ScriptMeta
 }
 
 export type ScriptMeta = {
   __typename?: 'ScriptMeta'
-  skipContentEnabled?: Maybe<Scalars['Boolean']>
-  translateEnabled?: Maybe<Scalars['Boolean']>
+  skipContentEnabled?: boolean
+  translateEnabled?: boolean
 }
 
 export type ScriptMetaInput = {
-  skipContentEnabled?: Maybe<Scalars['Boolean']>
-  translateEnabled?: Maybe<Scalars['Boolean']>
+  skipContentEnabled?: boolean
+  translateEnabled?: boolean
 }
 
 export type Pages = {
   __typename?: 'Pages'
-  id?: Maybe<Scalars['ID']>
-  url?: Maybe<Scalars['String']>
-  user?: Maybe<User>
-  domain?: Maybe<Scalars['String']>
-  userId?: Maybe<Scalars['Int']>
-  cdnConnected?: Maybe<Scalars['Boolean']>
-  pageLoadTime?: Maybe<PageLoadTimeMeta>
-  issues?: Maybe<Array<Maybe<Issue>>>
-  issuesInfo?: Maybe<IssueMeta>
-  pageInsights?: Maybe<Scalars['Boolean']>
-  insight?: Maybe<PageInsights>
+  id?: string
+  url?: string
+  user?: User
+  domain?: string
+  userId?: number
+  cdnConnected?: boolean
+  pageLoadTime?: PageLoadTimeMeta
+  issues?: Issue[]
+  issuesInfo?: IssueMeta
+  pageInsights?: boolean
+  insight?: PageInsights
 }
 
 export type SubDomainIssuesArgs = {
-  filter?: Maybe<Scalars['String']>
+  filter?: string
 }
 
 export type Subscription = {
   __typename?: 'Subscription'
-  websiteAdded?: Maybe<Website>
-  issueAdded?: Maybe<Issue>
-  emailVerified?: Maybe<User>
-  websiteRemoved?: Maybe<Website>
+  websiteAdded?: Website
+  issueAdded?: Issue
+  emailVerified?: User
+  websiteRemoved?: Website
 }
 
 export type SubscriptionWebsiteAddedArgs = {}
@@ -393,104 +383,114 @@ export type SubscriptionEmailVerifiedArgs = {}
 
 export type UpdateScriptMutationResponse = MutationResponse & {
   __typename?: 'UpdateScriptMutationResponse'
-  code: Scalars['String']
-  success: Scalars['Boolean']
-  message: Scalars['String']
-  script?: Maybe<Script>
+  code: string
+  success: boolean
+  message: string
+  script?: Script
 }
 
 export type UpdateUserMutationResponse = MutationResponse & {
   __typename?: 'UpdateUserMutationResponse'
-  code: Scalars['String']
-  success: Scalars['Boolean']
-  message: Scalars['String']
-  user?: Maybe<User>
-  alertEnabled?: Maybe<Scalars['Boolean']>
-  profileVisible?: Maybe<Scalars['Boolean']>
+  code: string
+  success: boolean
+  message: string
+  user?: User
+  alertEnabled?: boolean
+  profileVisible?: boolean
+}
+
+// stripe billing info
+export type Invoice = {
+  next_payment_attempt?: string
+  amount_due: string
+  amount_paid: string
+  total: string
+  billing_reason: string
 }
 
 export type UpdateWebSiteMutationResponse = MutationResponse & {
   __typename?: 'UpdateWebSiteMutationResponse'
-  code: Scalars['String']
-  success: Scalars['Boolean']
-  message: Scalars['String']
-  website?: Maybe<Website>
+  code: string
+  success: boolean
+  message: string
+  website?: Website
 }
 
 export type User = {
   __typename?: 'User'
-  id?: Maybe<Scalars['Int']>
-  email?: Maybe<Scalars['String']>
-  password?: Maybe<Scalars['String']>
-  jwt?: Maybe<Scalars['String']>
-  salt?: Maybe<Scalars['String']>
-  loggedIn?: Maybe<Scalars['Boolean']>
-  passwordRequired?: Maybe<Scalars['Boolean']>
-  alertEnabled?: Maybe<Scalars['Boolean']>
-  lastAlertSent?: Maybe<Scalars['Int']>
-  stripeToken?: Maybe<Scalars['String']>
-  role?: Maybe<Scalars['Int']>
-  activeSubscription?: Maybe<Scalars['Boolean']>
-  emailConfirmed?: Maybe<Scalars['Boolean']>
-  emailFilteredDates?: Maybe<Array<Maybe<Scalars['Int']>>>
-  websites?: Maybe<Array<Maybe<Website>>>
-  profileVisible?: Maybe<Scalars['Boolean']>
-  history?: Maybe<Array<Maybe<History>>>
-  scanInfo?: Maybe<ScanInformation>
-  analytics?: Maybe<Array<Maybe<Analytic>>>
-  scripts?: Maybe<Array<Maybe<Script>>>
-  script?: Maybe<Script>
-  paymentSubscription?: Maybe<PaymentSubScription>
-  websiteLimit?: Maybe<Scalars['Int']>
-  downAlerts?: Maybe<Array<Maybe<Website>>>
-  googleId?: Maybe<Scalars['String']>
-  emailExpDate?: Maybe<Scalars['String']>
-  resetCode?: Maybe<Scalars['String']>
-  stripeID?: Maybe<Scalars['String']>
+  id?: number
+  email?: string
+  password?: string
+  jwt?: string
+  salt?: string
+  loggedIn?: boolean
+  passwordRequired?: boolean
+  alertEnabled?: boolean
+  lastAlertSent?: number
+  stripeToken?: string
+  role?: number
+  activeSubscription?: boolean
+  emailConfirmed?: boolean
+  emailFilteredDates?: number[]
+  websites?: Website[]
+  profileVisible?: boolean
+  history?: History[]
+  scanInfo?: ScanInformation
+  analytics?: Analytic[]
+  scripts?: Script[]
+  script?: Script
+  paymentSubscription?: PaymentSubScription
+  websiteLimit?: number
+  downAlerts?: Website[]
+  googleId?: string
+  emailExpDate?: string
+  resetCode?: string
+  stripeID?: string
+  invoice?: Invoice
 }
 
 export type UserAnalyticsArgs = {
-  filter?: Maybe<Scalars['String']>
+  filter?: string
 }
 
 export type UserScriptsArgs = {
-  filter?: Maybe<Scalars['String']>
+  filter?: string
 }
 
 export type UserScriptArgs = {
-  filter?: Maybe<Scalars['String']>
-  url?: Maybe<Scalars['String']>
+  filter?: string
+  url?: string
 }
 
 export type Website = {
   __typename?: 'Website'
-  _id?: Maybe<Scalars['ID']>
-  url?: Maybe<Scalars['String']>
-  user?: Maybe<User>
-  userId?: Maybe<Scalars['Int']>
-  domain: Scalars['String']
-  cdnConnected?: Maybe<Scalars['Boolean']>
-  pageLoadTime?: Maybe<PageLoadTimeMeta>
-  issues?: Maybe<Issue>
-  issue?: Maybe<Array<Maybe<PageIssue>>>
-  issuesInfo?: Maybe<IssueMeta>
-  pages?: Maybe<Array<Maybe<Pages>>>
+  _id?: string
+  url?: string
+  user?: User
+  userId?: number
+  domain: string
+  cdnConnected?: boolean
+  pageLoadTime?: PageLoadTimeMeta
+  issues?: Issue
+  issue?: PageIssue[]
+  issuesInfo?: IssueMeta
+  pages?: Pages
   script?: Maybe<Script>
-  lastScanDate?: Maybe<Scalars['String']>
-  cdn?: Maybe<Scalars['String']>
-  pageHeaders?: Maybe<Array<Maybe<PageHeaders>>>
-  online?: Maybe<Scalars['Boolean']>
-  timestamp?: Maybe<Scalars['String']>
-  pageInsights?: Maybe<Scalars['Boolean']>
-  insight?: Maybe<PageInsights>
-  subdomains?: Maybe<Scalars['Boolean']>
-  robots?: Maybe<Scalars['Boolean']>
-  tld?: Maybe<Scalars['Boolean']>
-  shutdown?: Maybe<Scalars['Boolean']>
+  lastScanDate?: string
+  cdn?: string
+  pageHeaders?: PageHeaders[]
+  online?: boolean
+  timestamp?: string
+  pageInsights?: boolean
+  insight?: PageInsights
+  subdomains?: boolean
+  robots?: boolean
+  tld?: boolean
+  shutdown?: boolean
 }
 
 export type WebsiteIssuesArgs = {
-  filter?: Maybe<Scalars['String']>
+  filter?: string
 }
 
 export type { BlogPageProps, MetaData, MergedApp, PageProps } from './page'

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { memo } from 'react'
 import { useUserData } from '@app/data'
 import { UpgradeBanner } from '@app/components/general/upgrade-banner'
 import { useAuthContext } from '@app/components/providers/auth'
@@ -14,13 +14,25 @@ import { DynamicModal } from '../../modal/dynamic'
 import { MiniPlayer } from '../mini-player'
 import Head from 'next/head'
 import { theme } from '@app/theme'
+import { AdBlock } from '../ad/ad-block'
 
-function MainDrawerContainer({ route, dataSourceMap, classes }: any) {
+export type DrawerWrapperProps = {
+  route?: string
+  title?: string
+  classes: Record<string, unknown>
+  dataSourceMap: any
+}
+
+function MainDrawerContainerComponent({
+  route,
+  dataSourceMap,
+  classes,
+}: DrawerWrapperProps) {
   return (
     <div
       className={`${classes.drawer} ${classes.drawerPaper} relative print:hidden overflow-hidden`}
     >
-      <div className='fixed flex flex-col w-[inherit] overflow-hidden h-full bg-lightgray border-r z-10'>
+      <div className='fixed flex flex-col w-[inherit] overflow-hidden h-full bg-lightgray border-r z-10 space-y-3'>
         <AuthedMenu dataSourceMap={dataSourceMap} route={route} />
         <div
           className={
@@ -29,6 +41,7 @@ function MainDrawerContainer({ route, dataSourceMap, classes }: any) {
         >
           <FormDialog buttonStyles={'w-full bg-gray-50'} />
         </div>
+        <AdBlock />
         <UpgradeBanner />
         <div className='invisible md:visible w-full flex place-content-center py-2 truncate'>
           <FixedCopyRight />
@@ -38,12 +51,14 @@ function MainDrawerContainer({ route, dataSourceMap, classes }: any) {
   )
 }
 
-export function DrawerWrapper({
+export const MainDrawerContainer = memo(MainDrawerContainerComponent)
+
+export function DrawerWrapperComponent({
   route: routePath,
   title = '',
   classes,
   dataSourceMap,
-}: any) {
+}: DrawerWrapperProps) {
   return (
     <MainDrawerContainer
       route={routePath ?? title}
@@ -52,6 +67,8 @@ export function DrawerWrapper({
     />
   )
 }
+
+export const DrawerWrapper = memo(DrawerWrapperComponent)
 
 export function NavigationBar({ title = '', classes, authenticated }: any) {
   return (
@@ -69,7 +86,7 @@ export function Drawer({ children, route, title }: any) {
   const { data: dataSourceMap, sendConfirmEmail } = useUserData()
   const { authed } = useAuthContext()
 
-  const user = dataSourceMap?.user as any
+  const user = dataSourceMap?.user
 
   return (
     <>
@@ -118,7 +135,7 @@ export function Drawer({ children, route, title }: any) {
           </div>
           <ConfirmEmail
             sendEmail={sendConfirmEmail}
-            visible={user?.loggedIn && !user?.emailConfirmed}
+            visible={!!user?.loggedIn && !user?.emailConfirmed}
           />
           <MiniPlayer />
           <DynamicModal />

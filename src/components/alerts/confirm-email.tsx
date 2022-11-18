@@ -10,7 +10,7 @@ const classes = {
 
 interface Props {
   sendEmail(): any
-  visible?: boolean
+  visible: boolean
 }
 
 function ConfirmEmail({ sendEmail, visible }: Props) {

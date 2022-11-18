@@ -72,12 +72,10 @@ const MANAGE_BILLING = process.env.NEXT_PUBLIC_MANAGE_BILLING_URL
 
 const Profile: FC<PageProps> = ({ name }) => {
   const classes = useStyles()
-  const {
-    data = {},
-    loading,
-    updateUser,
-    updateUserData,
-  } = useUserData(true, 'profile')
+  const { data, loading, updateUser, updateUserData } = useUserData(
+    true,
+    'profile'
+  )
 
   const [{ changePassword, currentPassword, newPassword }, dispatch] =
     useReducer(passwordReducer, Object.assign({}, initialPasswordState))
@@ -86,8 +84,8 @@ const Profile: FC<PageProps> = ({ name }) => {
   const [changeEmail, setChangeEmail] = useState<boolean>(false)
   const [newEmail, setNewEmail] = useState<string>('')
 
-  const { user } = data
-  const { invoice } = user ?? {}
+  const { user } = data ?? { user: { invoice: null } }
+  const { invoice } = user ?? { invoice: null }
 
   const { billingtitle, billingHeadDisplay } = useBillingDisplay(invoice)
 

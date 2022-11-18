@@ -44,7 +44,7 @@ const env = {
 let domains = []
 
 if (dev) {
-  domains.push('127.0.0.1', 'localhost')
+  domains.push('127.0.0.1', 'localhost', `cdn.${DOMAIN_NAME}`)
 }
 
 // comma seperated list of cdns to use

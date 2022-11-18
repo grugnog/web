@@ -24,6 +24,7 @@ const defaultState = {
 export function useSearch() {
   const { data, client } = useQuery(GET_SEARCH_STATE, { ssr: false })
   const [scanWebsite, { data: crawlData, loading }] = useMutation(SCAN_WEBSITE)
+
   const { search, bottomModal, website } = data?.ctaSearch || defaultState
 
   const webData = useMemo(() => {

@@ -1,4 +1,3 @@
-import { UserManager } from '@app/managers'
 import {
   createContext,
   useContext,
@@ -7,10 +6,15 @@ import {
   useEffect,
   PropsWithChildren,
 } from 'react'
+import { REST_API } from '@app/configs/app-config'
+import { UserManager } from '@app/managers'
 
 const AppContext = createContext({
   activeSubscription: false,
   authed: false,
+  // native ads
+  ads: [],
+  adIndex: 0,
 })
 
 export const AuthProvider = AppContext.Provider
@@ -24,17 +28,40 @@ export const AuthProviderWrapper: FC<PropsWithChildren<{ load?: boolean }>> = ({
     activeSubscription: boolean
     authed: boolean
   }>({ activeSubscription: false, authed: false })
+  const [ads, setAds] = useState([])
+  const [adIndex, setIndex] = useState(0)
 
   useEffect(() => {
     if (load) {
+      const freeAccount = UserManager.freeAccount
+
       setAccountType({
-        activeSubscription: !UserManager.freeAccount,
+        activeSubscription: !freeAccount,
         authed: !!UserManager.token,
       })
-    }
-  }, [load])
 
-  return <AuthProvider value={account}>{children}</AuthProvider>
+      if (freeAccount) {
+        fetch(REST_API + '/ads/refs', {
+          headers: { authorization: UserManager.token },
+        }).then((data) => {
+          if (data) {
+            data.json().then((json) => {
+              if (json) {
+                if (json.length > 1) {
+                  setIndex(Math.floor(Math.random() * json.length - 1) + 1)
+                }
+                setAds(json)
+              }
+            })
+          }
+        })
+      }
+    }
+  }, [load, setAds, setIndex])
+
+  return (
+    <AuthProvider value={{ ...account, ads, adIndex }}>{children}</AuthProvider>
+  )
 }
 
 export function useAuthContext() {

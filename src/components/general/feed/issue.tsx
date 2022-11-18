@@ -42,7 +42,7 @@ export function FeedIssueCardComponent({
   const { codeHref, codeDisplay } = codeFormatter(code)
   const [m, rec] = message?.split('Recommendation:') || [message, '']
 
-  const largeBody = m && m?.length > 200
+  const largeBody = m && m?.length < 100
 
   return (
     <div className='px-3 py-3 flex flex-col space-y-1 place-content-between h-[inherit]'>
@@ -55,7 +55,7 @@ export function FeedIssueCardComponent({
           />
           <p
             className={`text-gray-800 truncate text-sm font-medium max-w-[90%] flex-1 ${
-              largeBody ? '' : 'lg:text-base'
+              largeBody ? 'xl:text-base' : ''
             }`}
           >
             {selector}
@@ -83,7 +83,7 @@ export function FeedIssueCardComponent({
         </div>
       </div>
       <div
-        className={`line-clamp-4 text-sm ${largeBody ? '' : 'md:text-base'}`}
+        className={`line-clamp-4 text-sm ${largeBody ? 'xl:text-base' : ''}`}
       >
         {m}
         {rec ? (

@@ -1,5 +1,5 @@
 // determine account type off role
-export const roleMap = (role: number) => {
+export const roleMap = (role?: number) => {
   let r = ''
 
   if (!role) {

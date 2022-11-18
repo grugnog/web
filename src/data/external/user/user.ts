@@ -12,6 +12,7 @@ import { GET_USER, updateCache } from '@app/queries'
 import { AppManager } from '@app/managers'
 import { EMAIL_VERIFIED_SUBSCRIPTION } from '@app/subscriptions'
 import { GET_USER_PROFILE, GET_USER_SETTINGS } from '@app/queries/user'
+import { User } from '@app/types'
 
 export const useUserData = (skip?: boolean, query?: 'profile' | 'settings') => {
   const variables = {}
@@ -136,7 +137,7 @@ export const useUserData = (skip?: boolean, query?: 'profile' | 'settings') => {
     : {}
 
   const model = Object.freeze({
-    data: dataSet, // allow data or profile as main source
+    data: dataSet as { user: User }, // allow data or profile as main source
     forgotPasswordData,
     loading:
       loading ||
