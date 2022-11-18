@@ -101,7 +101,6 @@ function Dashboard({ name }: PageProps) {
               <div className='flex flex-wrap gap-x-2 gap-y-1 text-sm'>
                 <Button
                   onClick={onRemoveAllWebsitePress}
-                  className={'text-red-600'}
                   aria-label={'Remove all websites'}
                 >
                   Remove All
