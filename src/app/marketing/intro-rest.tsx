@@ -19,7 +19,7 @@ function MarketingIntro({
           {checker ? (
             'Fast and insightful web accessibility evaluations'
           ) : (
-            <>The web accessibility platform built for scale.</>
+            <>The web accessibility tool built for scale.</>
           )}
         </Header>
         {checker ? (

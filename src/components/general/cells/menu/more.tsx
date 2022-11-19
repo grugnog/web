@@ -61,7 +61,7 @@ function MoreOptionsComponent(props: MoreOptionsProps) {
           </MenuItem>
         ) : null}
         {typeof crawlWebsite === 'function' && !history ? (
-          <MenuItem onClick={onWebsiteCrawl}>Scan</MenuItem>
+          <MenuItem onClick={onWebsiteCrawl}>Sync</MenuItem>
         ) : null}
         {!history ? (
           <MenuItem onClick={toggleLighthouse}>
@@ -81,7 +81,7 @@ function MoreOptionsComponent(props: MoreOptionsProps) {
           </MenuItem>
         ) : null}
         {typeof removePress === 'function' && !history ? (
-          <MenuItem onClick={removePress} style={{ color: 'red' }}>
+          <MenuItem onClick={removePress}>
             Delete
           </MenuItem>
         ) : null}
