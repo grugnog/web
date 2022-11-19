@@ -2,6 +2,7 @@ import { observable, action, computed } from 'mobx'
 import Router from 'next/router'
 import { IframeManager } from './iframe'
 import { AppManager } from './app'
+import { create, persist } from 'mobx-persist'
 
 class HomeManager {
   @observable
@@ -13,14 +14,37 @@ class HomeManager {
   @observable
   url: string = ''
 
+  @persist @observable refClosed = false
+
+
+  constructor() {
+    this.hydrate()
+  }
+
+  @action
+  hydrate = async () => {
+    if (typeof window === 'undefined') {
+      return
+    }
+
+    const pour = create({
+      storage: window?.localStorage,
+      jsonify: true,
+    })
+
+    try {
+      await pour('home', this)
+    } catch (e) {
+      console.error(e)
+    }
+  }
+
   preventDefault(event?: any) {
     event?.preventDefault()
   }
 
   getIframeSource = (url: string = ''): string => {
-    const src = this.iframeSrc || `/api/iframe?url=${encodeURIComponent(url)}`
-
-    return src
+    return this.iframeSrc || `/api/iframe?url=${encodeURIComponent(url)}`
   }
 
   @computed get getTestFrameUrl() {
@@ -80,6 +104,11 @@ class HomeManager {
     this.preventDefault(event)
     this.url = ''
     this.displaySearch()
+  }
+
+  @action
+  toggleRef = () => {
+    this.refClosed = !this.refClosed
   }
 }
 

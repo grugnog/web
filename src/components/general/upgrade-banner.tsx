@@ -7,7 +7,7 @@ const UpgradeBanner = () => {
 
   useEffect(() => {
     setUpgrade(UserManager.freeAccount)
-  }, [])
+  }, [setUpgrade])
 
   return needsUpdate ? (
     <div className='hidden md:block'>

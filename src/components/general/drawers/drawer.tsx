@@ -15,6 +15,7 @@ import { MiniPlayer } from '../mini-player'
 import Head from 'next/head'
 import { theme } from '@app/theme'
 import { AdBlock } from '../ad/ad-block'
+import { RefBanner } from '../ref-banner'
 
 export type DrawerWrapperProps = {
   route?: string
@@ -131,6 +132,7 @@ export function Drawer({ children, route, title }: any) {
               'px-4 md:pr-4 md:pl-8 lg:pl-8 lg:pr-4 pt-2 scrollbar overflow-auto'
             }
           >
+            <RefBanner />
             {children}
           </div>
           <ConfirmEmail
