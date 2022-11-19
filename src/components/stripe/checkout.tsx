@@ -1,6 +1,6 @@
 import React from 'react'
 import { theme } from '@app/theme'
-import { Button } from '@material-ui/core'
+import { Button } from '@app/components/general/buttons/button'
 import { useStripe, useElements, CardElement } from '@stripe/react-stripe-js'
 
 interface Props {
@@ -48,7 +48,7 @@ export const CheckoutForm = ({ onToken, plan, price, disabled }: Props) => {
     <form
       onSubmit={handleSubmit}
       className={
-        'h-42 space-y-3 border-2 border-[#2A2A2A] px-4 pt-2 pb-3 rounded w-full'
+        'h-42 space-y-3 border-t border-[#2A2A2A] px-4 pt-2 pb-3 w-full'
       }
     >
       <div className='text-3xl font-bold'>
@@ -65,16 +65,17 @@ export const CheckoutForm = ({ onToken, plan, price, disabled }: Props) => {
             style,
             classes: { focus: 'border-blue-400 shadow-md shadow-blue-600' },
           }}
-          className={'p-4 bg-white border'}
+          className={'p-4 bg-white border-2'}
         />
         <Button
-          variant='contained'
-          color='secondary'
           type='submit'
           disabled={disabled}
           style={{
             minWidth: 160,
           }}
+          className={`font-semibold border border-gray-800 text-base ${
+            disabled ? 'text-gray-800 bg-gray-200' : 'text-black'
+          }`}
         >
           Start {plan}
         </Button>

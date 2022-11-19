@@ -2,6 +2,8 @@ import { AppManager, UserManager } from '@app/managers'
 import { useRouter } from 'next/router'
 import { usePayments } from './payments'
 
+type TokenParams = { plan?: string; yearly?: boolean; referral?: string }
+
 // build from payments gql hook for page interaction
 export const usePaymentsHook = () => {
   const { data, loading, addSubscription, cancelSubscription } = usePayments()
@@ -10,7 +12,7 @@ export const usePaymentsHook = () => {
   // on valid payment handling re-set current token
   const onToken = async (
     token: any,
-    { plan, yearly }: { plan?: string; yearly?: boolean }
+    { plan, yearly, referral }: TokenParams
   ) => {
     try {
       if (token) {
@@ -18,27 +20,40 @@ export const usePaymentsHook = () => {
 
         const res = await addSubscription({
           variables: {
+            // todo: add object params
             stripeToken: JSON.stringify({
               ...token,
               plan,
+              referral,
             }),
             email: token.email,
             yearly,
           },
         })
 
-        const jwt = res?.data?.addPaymentSubscription?.user.jwt
+        const jwt = res?.data?.addPaymentSubscription?.user?.jwt
 
         if (jwt) {
           UserManager.setJwt(jwt)
+          AppManager.toggleSnack(true, 'Payment confirmed!', 'success')
+          await router.push('/dashboard')
+        } else {
+          AppManager.toggleSnack(
+            true,
+            'An issue occured. Please contact support',
+            'error'
+          )
         }
-
-        AppManager.toggleSnack(true, 'Payment confirmed!', 'success')
-
-        await router.push('/dashboard')
+      } else {
+        AppManager.toggleSnack(true, 'Payment failed to process.', 'error')
       }
     } catch (e) {
       console.error(e)
+      AppManager.toggleSnack(
+        true,
+        'A Payment issue occured. Please contact support',
+        'error'
+      )
     }
   }
 

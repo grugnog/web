@@ -59,12 +59,6 @@ if (CDN_HOST) {
   }
 }
 
-const aliases = {
-  ['@app']: resolve(__dirname, './src'),
-  ['@app-theme']: resolve(__dirname, './src/theme/main'),
-  ['@app-strings']: resolve(__dirname, './src/content/strings/a11y'),
-}
-
 const securityHeaders = [
   {
     key: 'X-DNS-Prefetch-Control',
@@ -91,6 +85,9 @@ if (DOMAIN_NAME.includes('a11ywatch')) {
 }
 
 module.exports = withPWA({
+  experimental: {
+    nextScriptWorkers: false,
+  },
   swcMinify: true,
   images: {
     domains,

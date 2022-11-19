@@ -5,10 +5,12 @@ import { MarketingShortTitle } from '@app/components/marketing'
 import { useMutation } from '@apollo/react-hooks'
 import { REGISTER } from '@app/mutations'
 import { AppManager, UserManager } from '@app/managers'
+import { useRouter } from 'next/router'
 
 function AuthRedirect(props: { email: string; id: number }) {
   const [signOnMutation] = useMutation(REGISTER, { ignoreResults: true })
   const { email, id } = props ?? {}
+  const router = useRouter()
 
   const onGithubAuth = useCallback(
     async ({ email, id }: { email: string; id: number }) => {
@@ -27,7 +29,14 @@ function AuthRedirect(props: { email: string; id: number }) {
           if (authValue) {
             UserManager.setUser(authValue)
 
-            window.location.href = '/dashboard'
+            const p = router?.query?.plan
+            const plan = p && (String(p).toLocaleLowerCase() as string)
+            const urlRoute =
+              plan && plan !== 'free'
+                ? `/payments?plan=${router?.query?.plan}`
+                : '/dashboard'
+
+            window.location.href = urlRoute
           } else {
             window.location.href = '/'
           }
@@ -43,7 +52,7 @@ function AuthRedirect(props: { email: string; id: number }) {
         console.error(e)
       }
     },
-    [signOnMutation]
+    [signOnMutation, router?.query?.plan]
   )
 
   useEffect(() => {

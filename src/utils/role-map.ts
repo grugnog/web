@@ -5,7 +5,7 @@ export const roleMap = (role?: number) => {
   if (!role) {
     r = 'Free'
   } else if (role < 5) {
-    r = `L${role - 1}`
+    r = `L${role}`
   } else if (role > 5) {
     r = `H${role - 5}`
   }

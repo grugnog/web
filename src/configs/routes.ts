@@ -49,9 +49,9 @@ export const Routes = [
   },
   {
     nav: false,
-    href: 'https://usefathom.com/ref/ISNKKY',
-    name: 'Analytics',
-    type: 'resources',
+    href: 'https://a11ywatch.getrewardful.com/signup',
+    name: 'Affiliates (earn 25%)',
+    type: 'explore',
   },
   {
     nav: false,

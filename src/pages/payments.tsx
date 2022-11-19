@@ -29,6 +29,11 @@ interface PaymentProps extends PageProps {
   hideTitle?: boolean
 }
 
+declare global {
+  var rewardful: any
+  var Rewardful: { referral: string; rewardful(a: string): void }
+}
+
 // determine the page title
 const renderPaymentTitle = (renderPayMentBoxes?: boolean) => {
   return !renderPayMentBoxes
@@ -45,10 +50,21 @@ function Payments({ hideTitle = false, name }: PaymentProps) {
 
   const [yearly, setYearly] = useState<boolean>(false)
   const [open, setOpen] = useState<boolean>(false)
+  const [referral, setReferral] = useState<string>('')
 
   // router plan query
   const plan = (router?.query?.plan as string) ?? ''
   const yearSet = (router?.query?.yearly as string) ?? ''
+
+  useEffect(() => {
+    if (window.rewardful) {
+      window.rewardful('ready', () => {
+        if (window.Rewardful.referral) {
+          setReferral(window.Rewardful.referral)
+        }
+      })
+    }
+  }, [setReferral])
 
   useEffect(() => {
     if (yearSet) {
@@ -71,7 +87,7 @@ function Payments({ hideTitle = false, name }: PaymentProps) {
 
   // on valid payment handling re-set current token
   const onTokenEvent = async (token: any) => {
-    await onToken(token, { plan: state, yearly })
+    await onToken(token, { plan: state, yearly, referral })
   }
 
   // open payment modal
@@ -96,6 +112,10 @@ function Payments({ hideTitle = false, name }: PaymentProps) {
 
   const priceMultiplyier = yearly ? 0 : ''
   const paymentDate = `Next payment will occur on ${billingtitle}`
+
+  const planCost = paymentSubscription?.plan?.amount
+    ? ` - ${paymentSubscription?.plan?.amount / 100 || ''}`
+    : ''
 
   return (
     <>
@@ -145,7 +165,7 @@ function Payments({ hideTitle = false, name }: PaymentProps) {
                       {`${
                         paymentSubscription?.plan?.nickname ??
                         roleMap(data?.role)
-                      } - $${paymentSubscription?.plan?.amount / 100 || ''}`}
+                      }${planCost}`}
                     </p>
                     <p>{yearly ? 'Yearly' : 'Monthly'}</p>
                   </div>

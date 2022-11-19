@@ -4,6 +4,7 @@ import { metaSetter } from '@app/utils'
 import type { PageProps } from '@app/types'
 import { SectionContainer } from '@app/app/containers/section-container'
 import { Header2 } from '@app/components/general/header'
+import { Link } from '@app/app/typo/link'
 
 function Privacy({ name }: PageProps) {
   return (
@@ -21,13 +22,9 @@ function Privacy({ name }: PageProps) {
         <p className='text-base'>
           We care about your privacy and value every aspect of it. We do not
           perform any type of tracking across our services. Learn more about our{' '}
-          <a
-            href={'https://usefathom.com/ref/ISNKKY'}
-            target='_blank'
-            rel='noreferrer'
-          >
+          <Link href={'https://usefathom.com/ref/ISNKKY'} target='_blank'>
             privacy focused analytics service
-          </a>{' '}
+          </Link>{' '}
           and try it out for yourself.
         </p>
       </SectionContainer>

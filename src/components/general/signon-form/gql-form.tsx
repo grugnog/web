@@ -107,7 +107,7 @@ const SignOnFormWrapper: FunctionComponent<SignOnProps> = ({
   const submit = async (e: any) => {
     e?.preventDefault()
 
-    let data
+    let data = null
 
     if (!password || !email) {
       AppManager.toggleSnack(
@@ -186,7 +186,9 @@ const SignOnFormWrapper: FunctionComponent<SignOnProps> = ({
             {clientID ? (
               <a
                 className='inline-flex'
-                href={`https://github.com/login/oauth/authorize?client_id=${clientID}&redirect_uri=${redirectGithub}`}
+                href={`https://github.com/login/oauth/authorize?client_id=${clientID}&redirect_uri=${redirectGithub}${
+                  router?.query?.plan ? `?plan=${router.query.plan}` : ''
+                }`}
                 target='_parent'
                 rel='noreferrer'
               >
