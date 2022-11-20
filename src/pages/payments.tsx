@@ -167,7 +167,13 @@ function Payments({ hideTitle = false, name }: PaymentProps) {
                         roleMap(data?.role)
                       }${planCost}`}
                     </p>
-                    <p>{yearly ? 'Yearly' : 'Monthly'}</p>
+                    <p>{paymentSubscription ? (yearly ? 'Yearly' : 'Monthly'): "Contact support to alter your plan"}</p>
+
+                    {!loading && data?.role && !paymentSubscription ? 
+                    <div className='text-base font-semibold'>
+                      Partner Program Enabled
+                    </div>
+                    : null}
                   </div>
                 )}
                 {data?.activeSubscription ? (
