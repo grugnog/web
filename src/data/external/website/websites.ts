@@ -501,5 +501,7 @@ export const useWebsiteData = (
     activeCrawls,
     // mobile feed open
     feedOpen,
+    // forceupdate
+    forceUpdate
   }
 }

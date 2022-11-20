@@ -41,7 +41,7 @@ export const DropDown: FC<
               : 'origin-top-right'
           } right-0 z-30 mt-2 w-42 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none ${
             right
-              ? ' origin-top-right w-[14vw] min-w-[220px] md:min-w-[22rem]'
+              ? ' origin-top-right w-[12vw] min-w-[210px] md:min-w-[22rem]'
               : 'md:w-[22vw]'
           }`}
         >

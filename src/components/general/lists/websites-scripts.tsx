@@ -11,9 +11,7 @@ import { listStyle } from '@app/styles/lists/tw'
 function ScriptsWrapper(props: any) {
   const [visible, setVisible] = useState<boolean>(false)
 
-  const onTogglelist = () => {
-    setVisible((v: boolean) => !v)
-  }
+  const onTogglelist = () => setVisible((v: boolean) => !v)
 
   return (
     <li>

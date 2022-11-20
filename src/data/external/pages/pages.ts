@@ -4,7 +4,7 @@ import { GET_WEBSITE_PAGES_PAGINATED } from '@app/queries/websites'
 
 // get pages pagined by website
 export const usePagesData = (url?: string | string[]) => {
-  const variables = { url, limit: 15, offset: 0 }
+  const variables = { url, limit: 10, offset: 0 }
 
   const { data, loading, refetch, error, fetchMore: fetchMorePages } = useQuery(
     GET_WEBSITE_PAGES_PAGINATED,

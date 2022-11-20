@@ -67,4 +67,7 @@ export const sharedWebsiteDefaults = {
   onLoadMoreScripts: (_: any): Promise<any> => {
     return _
   },
+  forceUpdate: (): void => {
+    return
+  }
 }

@@ -43,7 +43,7 @@ export const useScript = (url?: string | string[], skip?: boolean) => {
 
 // get scripts paginated by website
 export const useScriptsData = (url?: string | string[], all?: boolean) => {
-  const variables = { url, limit: 15, offset: 0, all }
+  const variables = { url, limit: 10, offset: 0, all }
 
   const { data, loading, refetch, error, fetchMore: fetchMorePages } = useQuery(
     GET_WEBSITE_SCRIPTS,

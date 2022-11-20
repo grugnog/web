@@ -91,13 +91,6 @@ const RenderInnerIssuesWrapper: FC<any> = (props) => {
 
 export const RenderInnerIssues = memo(RenderInnerIssuesWrapper)
 
-const defaultModalState = {
-  open: false,
-  data: null,
-  title: '',
-  url: '',
-  error: '',
-}
 
 const ListCell = ({
   item,
@@ -109,9 +102,8 @@ const ListCell = ({
 }: any) => {
   const [visible, setVisible] = useState<boolean>(false)
 
-  const onTogglelist = () => {
-    setVisible((v: boolean) => !v)
-  }
+  const onTogglelist = () => setVisible((v: boolean) => !v)
+
   const totalIssues = item?.issuesInfo?.totalIssues
 
   return (
@@ -133,7 +125,7 @@ const ListCell = ({
           </div>
         </div>
       </button>
-      {visible ? (
+      <div className={`${visible ? 'visible' : 'hidden'}`}>
         <RenderInnerIssues
           data={item}
           pageUrl={item.url}
@@ -143,9 +135,18 @@ const ListCell = ({
           emptyHeaderSubTitle={emptyHeaderSubTitle}
           generalProps={generalProps}
         />
-      ) : null}
+      </div>
     </li>
   )
+}
+
+
+const defaultModalState = {
+  open: false,
+  data: null,
+  title: '',
+  url: '',
+  error: '',
 }
 
 export function ListComponent({
@@ -164,9 +165,7 @@ export function ListComponent({
   const [modal, setOpen] = useState(defaultModalState)
   const { miniPlayer, setMiniPlayerContent } = useMiniPlayer()
 
-  const handleClickOpen = (data: any, title: any, url: any, error: any) => {
-    setOpen({ open: true, data, title, url, error })
-  }
+  const handleClickOpen = (data: any, title: any, url: any, error: any) => setOpen({ open: true, data, title, url, error })
 
   const handleClose = useCallback(() => {
     setOpen(defaultModalState)
@@ -177,16 +176,6 @@ export function ListComponent({
       handleClose()
     }
   }, [miniPlayer, handleClose])
-
-  const generalProps = {
-    handleClickOpen,
-    handleClickOpenPlayer: setMiniPlayerContent,
-    removePress,
-    refetch,
-    crawlWebsite,
-    setModal,
-    mutatationLoading: mutatationLoading,
-  }
 
   return (
     <>
@@ -200,7 +189,15 @@ export function ListComponent({
             error={error}
             emptyHeaderTitle={emptyHeaderTitle}
             emptyHeaderSubTitle={emptyHeaderSubTitle}
-            generalProps={generalProps}
+            generalProps={{
+              handleClickOpen,
+              handleClickOpenPlayer: setMiniPlayerContent,
+              removePress,
+              refetch,
+              crawlWebsite,
+              setModal,
+              mutatationLoading: mutatationLoading,
+            }}
           />
         ))}
         {children}

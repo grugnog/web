@@ -17,7 +17,7 @@ function MarketingIntro({
       <div className={'flex-1 pb-4'}>
         <Header>
           {checker ? (
-            'Fast and insightful web accessibility evaluations'
+            'Precision with tools that work.'
           ) : (
             <>The web accessibility tool built for scale.</>
           )}
@@ -32,7 +32,7 @@ function MarketingIntro({
               A11ywatch provides powerful tools for testing web inclusivity so
               you can build better software. We created a smart safeguard that
               prevents drastic issues across your website without hurting SEO
-              and without overlays.
+              and without overlays. Our system runs so fast speed becomes a feature.
             </p>
             <p className='text-base py-1 text-gray-700'>
               Get insight across every step of the way with multiple options

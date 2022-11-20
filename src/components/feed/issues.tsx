@@ -122,12 +122,13 @@ const FeedItemWrapper = ({
 
 const FeedItem = memo(FeedItemWrapper)
 
-const Top = ({ onClick, open }: { onClick(x: any): any; open: boolean }) => {
+const Top = ({ onClick, open, feedExist, clearFeed }: { onClick(x: any): any; open: boolean, feedExist?: boolean, clearFeed(): any  }) => {
   const closeFeed = () => onClick(!open)
 
   return (
-    <div className={`flex place-items-center px-3 py-1 h-14 text-side gap-x-2`}>
+    <div className={`flex place-items-center px-3 py-1 h-14 text-side gap-x-5`}>
       <p className={`flex-1 text-lg font-semibold`}>Recent</p>
+      {feedExist ?  <button onClick={clearFeed} className={"px-4 py-3 hover:bg-gray-200 rounded-2xl"} title={"Clear Recent"}>Clear</button> : null }
       <FilterDropdown open={open} />
       <button
         onClick={closeFeed}
@@ -143,7 +144,7 @@ const Top = ({ onClick, open }: { onClick(x: any): any; open: boolean }) => {
 }
 
 // re-render on state change for toggling click event
-const TopSection = memo(Top, (x, y) => x.open === y.open)
+const TopSection = memo(Top)
 
 // domain list
 const DomainListWrapper = ({
@@ -171,7 +172,7 @@ const DomainList = memo(DomainListWrapper)
 // side panel that appears fixed on the right of current issues of domain being. This returns a list of pages with a list of issues per page.
 const LiveFeed: FC = () => {
   const { feed } = useWasmContext()
-  const { feedOpen, setIssueFeedContent, scanWebsite } = useWebsiteContext()
+  const { feedOpen, setIssueFeedContent, scanWebsite, forceUpdate } = useWebsiteContext()
   const websites = useDeferredValue(feed?.get_data_keys() ?? [])
 
   const onScanEvent = useCallback(
@@ -224,7 +225,7 @@ const LiveFeed: FC = () => {
       feedOpen ? 'z-20 ' : ''
     }border-t md:border-t-0 text-side fixed lg:min-w-[24vw] lg:relative`
 
-    const topStyles = `fixed bottom-0 bg-lightgray lg:border-l lg:w-[24vw] ${mobileStyles}`
+    const topStyles = `fixed bottom-0 bg-lightgray gap-x-4 lg:border-l lg:w-[24vw] ${mobileStyles}`
 
     return {
       mainStyle,
@@ -232,12 +233,17 @@ const LiveFeed: FC = () => {
     }
   }, [feedOpen])
 
+  const clearData = useCallback(() => {
+    feed.clear_data();
+    forceUpdate()
+  }, [feed, forceUpdate])
+
   return (
     <>
       {feedOpen ? <style>{`body { overflow: hidden; }`}</style> : null}
       <div className={mainStyle} aria-live='polite'>
         <div className={topStyles} id='live-feed'>
-          <TopSection onClick={setIssueFeedContent} open={feedOpen} />
+          <TopSection onClick={setIssueFeedContent} open={feedOpen} clearFeed={clearData} feedExist={websites.length} />
           <DomainList
             websites={websites}
             onScanEvent={onScanEvent}

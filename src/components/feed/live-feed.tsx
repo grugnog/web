@@ -1,4 +1,4 @@
-import React, { memo, useState, FC, useEffect } from 'react'
+import React, { memo, useState, FC, useEffect, useMemo } from 'react'
 import { IssueFeedCell } from '../general/cells'
 import { issueExtractor } from '@app/utils'
 import { FeedHeading } from './heading'
@@ -32,7 +32,7 @@ const LiveFeedComponent: FC<BaseFeed> = ({
 }) => {
   const [sectionHidden, onToggleSection] = useState<boolean>(!!isHidden)
 
-  const issue = feed.get_page(domain, pageUrl)
+  const issue = useMemo(() => feed.get_page(domain, pageUrl), [domain, pageUrl])
 
   const pageIssues = issueExtractor(issue) // array of issues extract duplex types
 
@@ -48,7 +48,7 @@ const LiveFeedComponent: FC<BaseFeed> = ({
 
   const issueCount = pageIssues.length
 
-  const { size, height } = getListHeight({ fullScreen, issueCount })
+  const { size, height } = useMemo(() => getListHeight({ fullScreen, issueCount }), [fullScreen, issueCount])
 
   if (fullScreen) {
     return (

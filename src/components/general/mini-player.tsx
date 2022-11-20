@@ -4,25 +4,20 @@ import {
   Dialog,
   Toolbar,
   IconButton,
-  Typography,
 } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import { useMiniPlayer } from '@app/data'
 import { Fab } from './fab'
 import { Link } from './link'
-import { GrowTransition } from './grow'
 import { GrClose } from 'react-icons/gr'
 import Draggable from 'react-draggable'
 import { Lighthouse } from './lighthouse'
 import { AdaIframe } from '../ada/ada-iframe'
+import Head from 'next/head'
 
 const useStyles = makeStyles(() => ({
   root: {
     overflow: 'hidden',
-  },
-  appBar: {
-    position: 'relative',
-    backgroundColor: '#0E1116',
   },
   miniPlayer: {
     overflow: 'hidden',
@@ -31,12 +26,6 @@ const useStyles = makeStyles(() => ({
     minWidth: '45vw',
     maxHeight: '65vh',
     margin: '0px !important',
-  },
-  transparent: {
-    background: 'inherit',
-  },
-  subTitle: {
-    color: '#fff',
   },
 }))
 
@@ -53,34 +42,34 @@ export const MiniPlayer: FunctionComponent<MiniPlayerProps> = (_) => {
     if (miniPlayer?.title === 'Lighthouse') {
       return {
         ...miniPlayer,
-        data: miniPlayer?.data ? JSON.parse(miniPlayer?.data) : null,
+        data: miniPlayer?.data ? JSON.parse(miniPlayer.data) : null,
       }
     }
     return miniPlayer
   }, [miniPlayer])
 
   return (
+    <>
+    <Head>
+      <style>{`.MuiDialog-container > .MuiDialog-paperFullWidth { width: 100%; margin: 0; }`}</style>  
+    </Head>    
     <Draggable handle={'.appBar'} allowAnyClick={false}>
       <Dialog
         fullScreen={false}
         ref={appBarRef}
         className={classes.miniPlayer}
-        fullWidth
         open={open}
         onClose={setMiniPlayerContent(false)}
-        TransitionComponent={GrowTransition as React.ComponentType}
         hideBackdrop
         disablePortal
         disableEnforceFocus
+        maxWidth={"lg"}
+        fullWidth
+        classes={classes}
         disableAutoFocus
         scroll={'paper'}
-        BackdropProps={{
-          classes: {
-            root: classes.transparent,
-          },
-        }}
       >
-        <AppBar className={`appBar`}>
+        <AppBar className={`appBar`} position="relative">
           <Toolbar>
             <IconButton
               edge='start'
@@ -100,39 +89,38 @@ export const MiniPlayer: FunctionComponent<MiniPlayerProps> = (_) => {
               </p>
               {data && title !== 'Lighthouse' ? (
                 <div className='truncate'>
-                  <Typography
-                    variant='subtitle1'
-                    className={classes.subTitle}
-                    component={Link}
-                    color={'secondary'}
+                  <Link
                     href={`/website-details?url=${encodeURIComponent(data)}`}
                   >
                     {data}
-                  </Typography>
+                  </Link>
                 </div>
               ) : null}
             </div>
           </Toolbar>
         </AppBar>
-        {title === 'Lighthouse' ? (
-          <>
-            {data && 'json' in data ? (
-              <Lighthouse
-                insight={data}
-                id='fullscreen-lighthouse-report'
-                lighthouseVisible
-              />
-            ) : (
-              <div>Light house data not found.</div>
-            )}
-          </>
-        ) : (
-          <div>
-            <AdaIframe url={data} miniPlayer />
-            <Fab />
-          </div>
-        )}
+        <div className={`w-full h-full`}>
+          {title === 'Lighthouse' ? (
+            <>
+              {data && 'json' in data ? (
+                <Lighthouse
+                  insight={data}
+                  id='fullscreen-lighthouse-report'
+                  lighthouseVisible
+                />
+              ) : (
+                <div>Light house data not found.</div>
+              )}
+            </>
+          ) : (
+            <div>
+              <AdaIframe url={data} miniPlayer />
+              <Fab />
+            </div>
+          )}
+        </div>
       </Dialog>
     </Draggable>
+    </>
   )
 }

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { memo } from 'react'
 import {
   AppBar,
   Dialog,
@@ -6,7 +6,6 @@ import {
   IconButton,
   Typography,
   Container,
-  Slide,
 } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 
@@ -41,10 +40,6 @@ const useStyles = makeStyles(() => ({
     justifyContent: 'center',
   },
 }))
-
-const Transition = React.forwardRef(function Transition(props: any, ref: any) {
-  return <Slide direction='up' ref={ref} {...props} />
-})
 
 function UpperInput({ data, url }: any) {
   const classes = useStyles()
@@ -97,7 +92,7 @@ function UpperInput({ data, url }: any) {
   )
 }
 
-export function FullScreenModal({
+export function FullScreenModalWrapper({
   handleClickOpen,
   handleClose,
   open,
@@ -110,6 +105,7 @@ export function FullScreenModal({
   error,
 }: any) {
   const classes = useStyles()
+
   const issuesModal = title === 'Issues'
   const headerModal = title === 'Custom Headers'
   const pagesModal = title === 'All Pages'
@@ -117,15 +113,9 @@ export function FullScreenModal({
   const issueCount = data?.length
 
   const Body = () => {
-    // if not open do not render content for large list content moving off screen
-    if (!open) {
-      return null
-    }
-
     if (headerModal) {
       return <UpperInput data={data} url={url} />
     }
-
     // TODO: remove for different way of determine issues content.
     const isFlatIssues =
       data && Array.isArray(data) && data?.some((o) => 'domain' in o == false)
@@ -193,7 +183,6 @@ export function FullScreenModal({
     <Dialog
       fullScreen
       open={open}
-      TransitionComponent={Transition as any}
       onClose={handleClose}
     >
       <AppBar position={'fixed'} className={classes.navbar}>
@@ -231,3 +220,6 @@ export function FullScreenModal({
     </Dialog>
   )
 }
+
+
+export const FullScreenModal = memo(FullScreenModalWrapper)
