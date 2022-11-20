@@ -19,7 +19,6 @@ import { useInputActions, useInputHeader } from './hooks'
 import { formDialogStyles as useStyles } from './styles'
 import { useWebsiteContext } from '../providers/website'
 import { AppManager } from '@app/managers'
-import { theme } from '@app/theme'
 import { WCAGSelectInput } from './select'
 import { Standard } from './select/select-input'
 import type { StandardKeys } from './select/select-input'
@@ -271,7 +270,6 @@ export function FormDialogWrapper({
       <Button
         onClick={handleClickOpen}
         className={buttonStyles}
-        style={buttonStyles?.includes('border') ? { borderWidth: 4 } : null}
       >
         {buttonTitle}
       </Button>
@@ -481,11 +479,7 @@ export function FormDialogWrapper({
             <Button
               disabled={!websitUrl}
               type='submit'
-              style={{
-                width: '100%',
-                borderRadius: 0,
-                borderTop: `1px solid ${theme.palette.divider}`,
-              }}
+              className='w-full border'
             >
               Subscribe
             </Button>

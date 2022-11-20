@@ -16,6 +16,8 @@ import { AppManager } from '@app/managers'
 import type { OnSubscriptionDataOptions } from '@apollo/react-common'
 import type { Website } from '@app/types'
 import { useWasmContext } from '@app/components/providers'
+import { LIGHTHOUSE_RESULT } from '@app/subscriptions/lighthouse'
+import { removeTrailingSlash } from "@a11ywatch/website-source-builder";
 
 // fetch more items
 const updateQuery = (prev: any, { fetchMoreResult }: any) => {
@@ -280,8 +282,36 @@ export const useWebsiteData = (
     [feed]
   )
 
+  const onLighthouseResult = useCallback(
+    ({ subscriptionData }: OnSubscriptionDataOptions<any>) => {
+      const results = subscriptionData?.data?.lighthouseResult
+
+      setTimeout(() => {
+        const dataSource = websites.find(
+          (source: Website) => source.domain === results?.domain
+        )
+        // if (page) {
+        //   feed.insert_website({ ...page, ...results });
+        // }
+
+        if(dataSource && dataSource.url === removeTrailingSlash(results.url)) {
+          dataSource.insight = results.insight
+          forceUpdate()
+        }
+
+        AppManager.toggleSnack(true, `Lighthouse result finished for ${results.url}!`)
+      })
+    },
+    [websites, forceUpdate]
+  )
+
   const { data: issueSubData } = useSubscription(ISSUE_SUBSCRIPTION, {
     onSubscriptionData: onIssueSubscription,
+    skip,
+  })
+
+  useSubscription(LIGHTHOUSE_RESULT, {
+    onSubscriptionData: onLighthouseResult,
     skip,
   })
 

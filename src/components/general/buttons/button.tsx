@@ -23,6 +23,7 @@ export const Button: React.FC<ButtonProps> = ({
 }) => {
   return (
     <button
+      {...extra}
       style={style}
       type={type}
       disabled={disabled}
@@ -30,7 +31,6 @@ export const Button: React.FC<ButtonProps> = ({
         'px-2 py-1 md:px-4 md:py-1.5 border rounded-2xl hover:bg-gray-200 hover:shadow-md min-w-[44px]',
         className
       )}
-      {...extra}
       onClick={onClick}
     >
       {children}
