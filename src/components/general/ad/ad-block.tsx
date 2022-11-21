@@ -8,7 +8,7 @@ export const AdBlockWrapper = () => {
   const adCount = ads?.length || 0
 
   if (adCount) {
-    const item = adCount ? ads[adIndex] : null
+    const item = adCount && adIndex !== -1 ? ads[adIndex] : null
 
     if (item) {
       const { title, description, url, imgSrc } = item

@@ -5,6 +5,7 @@ import {
   useState,
   useEffect,
   PropsWithChildren,
+  useCallback,
 } from 'react'
 import { REST_API } from '@app/configs/app-config'
 import { UserManager } from '@app/managers'
@@ -14,7 +15,10 @@ const AppContext = createContext({
   authed: false,
   // native ads
   ads: [],
-  adIndex: 0,
+  adIndex: -1,
+  setRandomIndex: () => {
+    return
+  }
 })
 
 export const AuthProvider = AppContext.Provider
@@ -29,7 +33,12 @@ export const AuthProviderWrapper: FC<PropsWithChildren<{ load?: boolean }>> = ({
     authed: boolean
   }>({ activeSubscription: false, authed: false })
   const [ads, setAds] = useState([])
-  const [adIndex, setIndex] = useState(0)
+  const [adIndex, setIndex] = useState(-1)
+
+  const setRandomIndex = useCallback((val?: any[]) => {
+    const value = val ?? ads
+    setIndex(Math.floor(Math.random() * value.length - 1) + 1)
+  }, [setIndex, ads])
 
   useEffect(() => {
     if (load) {
@@ -46,10 +55,7 @@ export const AuthProviderWrapper: FC<PropsWithChildren<{ load?: boolean }>> = ({
         }).then((data) => {
           if (data) {
             data.json().then((json) => {
-              if (json) {
-                if (json.length > 1) {
-                  setIndex(Math.floor(Math.random() * json.length - 1) + 1)
-                }
+              if (json && json.length) {
                 setAds(json)
               }
             })
@@ -57,10 +63,10 @@ export const AuthProviderWrapper: FC<PropsWithChildren<{ load?: boolean }>> = ({
         })
       }
     }
-  }, [load, setAds, setIndex])
+  }, [load, setAds])
 
   return (
-    <AuthProvider value={{ ...account, ads, adIndex }}>{children}</AuthProvider>
+    <AuthProvider value={{ ...account, ads, adIndex, setRandomIndex: setRandomIndex as any }}>{children}</AuthProvider>
   )
 }
 

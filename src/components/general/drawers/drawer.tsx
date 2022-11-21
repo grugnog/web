@@ -1,4 +1,4 @@
-import React, { memo } from 'react'
+import React, { memo, useEffect } from 'react'
 import { useUserData } from '@app/data'
 import { UpgradeBanner } from '@app/components/general/upgrade-banner'
 import { useAuthContext } from '@app/components/providers/auth'
@@ -82,10 +82,16 @@ export function NavigationBar({ title = '', classes, authenticated }: any) {
   )
 }
 
-export function Drawer({ children, route, title }: any) {
+export function DrawerW({ children, route, title }: any) {
   const classes = drawerStyles()
   const { data: dataSourceMap, sendConfirmEmail } = useUserData()
-  const { authed } = useAuthContext()
+  const { authed, setRandomIndex } = useAuthContext()
+
+  useEffect(() => {
+    if(title) {
+      setRandomIndex()
+    }
+  }, [title, setRandomIndex])
 
   const user = dataSourceMap?.user
 
@@ -147,3 +153,5 @@ export function Drawer({ children, route, title }: any) {
     </>
   )
 }
+
+export const Drawer = memo(DrawerW)
