@@ -6,7 +6,7 @@ import React, {
   useEffect,
   Fragment,
 } from 'react'
-import { Button, TextField, Fade } from '@material-ui/core'
+import { Button, TextField } from '@material-ui/core'
 import {
   Link,
   NavBar,
@@ -227,107 +227,103 @@ const Profile: FC<PageProps> = ({ name }) => {
                 <>
                   {changePassword ? (
                     <div className={classes.row}>
-                      <Fade in={changePassword}>
-                        <form
-                          onSubmit={updatePassword}
-                          noValidate
-                          className={`flex flex-col p-2 bg-gray-100 border rounded`}
-                        >
-                          <TextField
-                            autoFocus
-                            onChange={onChangeCurrent}
-                            color='secondary'
-                            inputProps={{
-                              minLength: 6,
-                              pattern: 'password',
-                            }}
-                            autoComplete='current-password'
-                            value={currentPassword}
-                            id='current_password'
-                            placeholder='Current Password'
-                            type='password'
-                            required
-                          />
-                          <TextField
-                            onChange={onChangeNew}
-                            color='secondary'
-                            inputProps={{
-                              minLength: 6,
-                              pattern: 'password',
-                            }}
-                            autoComplete='new-password'
-                            value={newPassword}
-                            id='new_password'
-                            placeholder='New Password'
-                            type='password'
-                            required
-                          />
-                          <Spacer />
-                          <div className='flex space-x-2'>
-                            <Button
-                              onClick={togglePassword}
-                              className={classes.submit}
-                              type='button'
-                            >
-                              Cancel
-                            </Button>
+                      <form
+                        onSubmit={updatePassword}
+                        noValidate
+                        className={`flex flex-col p-2 bg-gray-100 border rounded`}
+                      >
+                        <TextField
+                          autoFocus
+                          onChange={onChangeCurrent}
+                          color='secondary'
+                          inputProps={{
+                            minLength: 6,
+                            pattern: 'password',
+                          }}
+                          autoComplete='current-password'
+                          value={currentPassword}
+                          id='current_password'
+                          placeholder='Current Password'
+                          type='password'
+                          required
+                        />
+                        <TextField
+                          onChange={onChangeNew}
+                          color='secondary'
+                          inputProps={{
+                            minLength: 6,
+                            pattern: 'password',
+                          }}
+                          autoComplete='new-password'
+                          value={newPassword}
+                          id='new_password'
+                          placeholder='New Password'
+                          type='password'
+                          required
+                        />
+                        <Spacer />
+                        <div className='flex space-x-2'>
+                          <Button
+                            onClick={togglePassword}
+                            className={classes.submit}
+                            type='button'
+                          >
+                            Cancel
+                          </Button>
 
-                            <Button
-                              onClick={updatePassword}
-                              className={classes.submit}
-                              type='submit'
-                              variant='outlined'
-                            >
-                              Submit
-                            </Button>
-                          </div>
-                        </form>
-                      </Fade>
+                          <Button
+                            onClick={updatePassword}
+                            className={classes.submit}
+                            type='submit'
+                            variant='outlined'
+                          >
+                            Submit
+                          </Button>
+                        </div>
+                      </form>
                     </div>
                   ) : null}
                   {changeEmail ? (
                     <div className={classes.row}>
-                      <Fade in={changeEmail}>
-                        <form
-                          onSubmit={updateEmail}
-                          noValidate
-                          className={`flex flex-col p-2 bg-gray-100 border rounded`}
-                        >
-                          <TextField
-                            autoFocus
-                            onChange={onChangeEmail}
-                            color='secondary'
-                            inputProps={{
-                              minLength: 6,
-                              pattern: 'email',
-                            }}
-                            autoComplete='current-email'
-                            value={newEmail}
-                            id='email'
-                            placeholder='New Email'
-                            type='email'
-                            required
-                          />
-                          <Spacer />
-                          <div className='flex space-x-2'>
-                            <Button
-                              onClick={toggleEmail}
-                              className={classes.submit}
-                              type='button'
-                            >
-                              Cancel
-                            </Button>
-                            <Button
-                              onClick={updateEmail}
-                              className={classes.submit}
-                              type='submit'
-                              variant='outlined'
-                            >
-                              Submit
-                            </Button>
-                          </div>
-                        </form>
-                      </Fade>
+                      <form
+                        onSubmit={updateEmail}
+                        noValidate
+                        className={`flex flex-col p-2 bg-gray-100 border rounded`}
+                      >
+                        <TextField
+                          autoFocus
+                          onChange={onChangeEmail}
+                          color='secondary'
+                          inputProps={{
+                            minLength: 6,
+                            pattern: 'email',
+                          }}
+                          autoComplete='current-email'
+                          value={newEmail}
+                          id='email'
+                          placeholder='New Email'
+                          type='email'
+                          required
+                        />
+                        <Spacer />
+                        <div className='flex space-x-2'>
+                          <Button
+                            onClick={toggleEmail}
+                            className={classes.submit}
+                            type='button'
+                          >
+                            Cancel
+                          </Button>
+                          <Button
+                            onClick={updateEmail}
+                            className={classes.submit}
+                            type='submit'
+                            variant='outlined'
+                          >
+                            Submit
+                          </Button>
+                        </div>
+                      </form>
                     </div>
                   ) : null}
                 </>

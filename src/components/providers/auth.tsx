@@ -18,7 +18,7 @@ const AppContext = createContext({
   adIndex: -1,
   setRandomIndex: () => {
     return
-  }
+  },
 })
 
 export const AuthProvider = AppContext.Provider
@@ -35,10 +35,13 @@ export const AuthProviderWrapper: FC<PropsWithChildren<{ load?: boolean }>> = ({
   const [ads, setAds] = useState([])
   const [adIndex, setIndex] = useState(-1)
 
-  const setRandomIndex = useCallback((val?: any[]) => {
-    const value = val ?? ads
-    setIndex(Math.floor(Math.random() * value.length - 1) + 1)
-  }, [setIndex, ads])
+  const setRandomIndex = useCallback(
+    (val?: any[]) => {
+      const value = val ?? ads
+      setIndex(Math.floor(Math.random() * value.length - 1) + 1)
+    },
+    [setIndex, ads]
+  )
 
   useEffect(() => {
     if (load) {
@@ -66,7 +69,16 @@ export const AuthProviderWrapper: FC<PropsWithChildren<{ load?: boolean }>> = ({
   }, [load, setAds])
 
   return (
-    <AuthProvider value={{ ...account, ads, adIndex, setRandomIndex: setRandomIndex as any }}>{children}</AuthProvider>
+    <AuthProvider
+      value={{
+        ...account,
+        ads,
+        adIndex,
+        setRandomIndex: setRandomIndex as any,
+      }}
+    >
+      {children}
+    </AuthProvider>
   )
 }
 

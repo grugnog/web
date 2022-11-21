@@ -10,8 +10,7 @@ import { useWebsiteContext } from '@app/components/providers/website'
 import { LoadMoreButton } from '@app/components/general/buttons'
 
 const emptyHeaderTitle = 'No scripts found'
-const emptyHeaderSubTitle =
-  'Scripts will appear here for basic or premium accounts.'
+const emptyHeaderSubTitle = 'Scripts will appear here for paid accounts.'
 
 function Scripts({ name }: PageProps) {
   const { scriptsData, scriptsDataLoading, refetch, error, onLoadMoreScripts } =
@@ -42,9 +41,7 @@ function Scripts({ name }: PageProps) {
             refetch={refetch}
             BottomButton={FormDialog}
             emptyHeaderTitle='No scripts found'
-            emptyHeaderSubTitle={
-              'Scripts will appear here for basic or premium accounts.'
-            }
+            emptyHeaderSubTitle={emptyHeaderSubTitle}
           >
             <li>
               <LoadMoreButton

@@ -1,9 +1,9 @@
 import React, { memo } from 'react'
-import { Button } from '@material-ui/core'
 import { printElement } from '@app/utils'
 import { getAPIRoute } from '@app/configs'
 import type { Website } from '@app/types'
 import { FilterDropdown } from '../feed/filters'
+import { Link } from '@app/app/typo/link'
 
 interface InfoBarComponent {
   printable?: boolean
@@ -11,6 +11,11 @@ interface InfoBarComponent {
   download?: boolean // display the download button
   onToggleViewModeEvent?: (a?: any) => void
 }
+
+const btnStyles =
+  'border px-3 py-1.5 font-medium text-gray-700 rounded no-underline hover:border-blue-700 hover:bg-gray-50'
+
+const apiRoute = getAPIRoute()
 
 export function InfoBarComponent({
   printable,
@@ -33,19 +38,21 @@ export function InfoBarComponent({
 
   return (
     <div className='flex py-2 space-x-2 border border-l-0 border-r-0'>
-      <Button onClick={onPrint}>Print</Button>
+      <button className={btnStyles} onClick={onPrint}>
+        Print
+      </button>
       {download ? (
-        <Button
-          component={'a'}
-          href={`${getAPIRoute()}/get-website?q=${website?.url}&download=true`}
+        <Link
+          className={btnStyles}
+          href={`${apiRoute}/get-website?q=${website?.url}&download=true`}
         >
           Download
-        </Button>
+        </Link>
       ) : null}
       {onToggleViewModeEvent ? (
-        <Button className={'border'} onClick={onToggleViewModeEvent}>
+        <button className={btnStyles} onClick={onToggleViewModeEvent}>
           Change Primary View
-        </Button>
+        </button>
       ) : null}
       <FilterDropdown open right />
     </div>

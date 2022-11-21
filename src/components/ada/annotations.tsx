@@ -1,5 +1,4 @@
 import React from 'react'
-import { Button } from '@material-ui/core'
 import { IframeManager } from '@app/managers'
 
 const inlineButtonStyle = {
@@ -28,25 +27,26 @@ export function Annotations({
   code,
   context,
 }: any) {
-  return (
-    <Button
-      variant='text'
-      type='button'
-      onClick={(e) => {
-        e?.preventDefault()
-        e?.stopPropagation()
+  const onClickEvent = (e: React.SyntheticEvent) => {
+    e?.preventDefault()
+    e?.stopPropagation()
 
-        IframeManager.setActiveAnnotation({
-          contrastRatio,
-          source,
-          errorType,
-          portalID,
-          elementParent,
-          message,
-          code,
-          context,
-        })
-      }}
+    IframeManager.setActiveAnnotation({
+      contrastRatio,
+      source,
+      errorType,
+      portalID,
+      elementParent,
+      message,
+      code,
+      context,
+    })
+  }
+
+  return (
+    <button
+      type='button'
+      onClick={onClickEvent}
       style={{
         ...inlineButtonStyle,
         background:
@@ -57,6 +57,6 @@ export function Annotations({
       }}
     >
       {contrastRatio?.includes('.00') ? contrastRatio[0] : ''}
-    </Button>
+    </button>
   )
 }

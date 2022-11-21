@@ -32,7 +32,10 @@ const LiveFeedComponent: FC<BaseFeed> = ({
 }) => {
   const [sectionHidden, onToggleSection] = useState<boolean>(!!isHidden)
 
-  const issue = useMemo(() => feed.get_page(domain, pageUrl), [domain, pageUrl])
+  const issue = useMemo(
+    () => feed.get_page(domain, pageUrl),
+    [feed, domain, pageUrl]
+  )
 
   const pageIssues = issueExtractor(issue) // array of issues extract duplex types
 

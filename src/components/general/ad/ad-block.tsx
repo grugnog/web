@@ -29,7 +29,7 @@ export const AdBlockWrapper = () => {
             width={630}
             height={1200}
             alt={description}
-            loading={"lazy"}
+            loading={'lazy'}
             className={'shadow rounded w-full'}
           />
         </Link>

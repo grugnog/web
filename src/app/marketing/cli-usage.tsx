@@ -14,7 +14,7 @@ const infoDetails = [
     subTitle: `Get reports for thousands of pages in seconds with real browsers. Get spot on results with up to 55% of all web accessibility issues handled with recommendations.`,
   },
   {
-    title: 'Beyond Fast',
+    title: 'Warp Speeds',
     subTitle:
       'Get results with practically no downtime for your web pages across every workflow. The suite is small and powerful running on linux, macOS, and windows using native features for the cutting edge performance.',
   },

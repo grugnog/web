@@ -88,7 +88,7 @@ export function DrawerW({ children, route, title }: any) {
   const { authed, setRandomIndex } = useAuthContext()
 
   useEffect(() => {
-    if(title) {
+    if (title) {
       setRandomIndex()
     }
   }, [title, setRandomIndex])

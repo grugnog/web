@@ -1,7 +1,6 @@
 import { useEffect, memo, useRef, useCallback } from 'react'
 import { fixes, row, reccList } from '@app/stylesheets/main.module.css'
 import { IframeManager } from '@app/managers'
-import { Button } from '@material-ui/core/'
 
 const dataSource = [
   0.05, 0.07, 0.09, 0.15, 0.175, 0.2, 0.225, 0.25, 0.275, 0.3, 0.325, 0.35,
@@ -74,7 +73,7 @@ const ReccomendedItem = memo(
 
     return (
       <li style={{ flex: 1 }}>
-        <Button
+        <button
           ref={listRef}
           onMouseOut={mouseout}
           onMouseOver={mouseover}
@@ -92,7 +91,7 @@ const ReccomendedItem = memo(
           aria-label={`${item} color`}
         >
           {''}
-        </Button>
+        </button>
       </li>
     )
   }

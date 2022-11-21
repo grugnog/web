@@ -5,9 +5,9 @@ import { priceConfig } from '@app/configs'
 
 import { Link } from '@app/app/typo/link'
 import { SectionContainer } from '@app/app/containers/section-container'
-import { SectionHeading } from '@app/app/typo/section-heading'
 import { PriceCell } from './cells/price-cell'
 import { PriceFeat } from './cells/price-feat'
+import { Header3 } from './header'
 
 const getStyles = (inactive: boolean) =>
   inactive
@@ -108,9 +108,9 @@ export function PriceMemo({
     <>
       {typeof onClick === 'undefined' && !pricingPage ? (
         <>
-          <SectionHeading style={onClick ? { fontWeight: 200 } : {}}>
+          <Header3 style={onClick ? { fontWeight: 200 } : {}}>
             {navigate ? 'Plans for everyone' : 'Pricing'}
-          </SectionHeading>
+          </Header3>
           <p className='pb-2 text-xl'>
             Flexible plans that can be adjusted at anytime.
           </p>
