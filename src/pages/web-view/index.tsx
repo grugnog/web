@@ -2,20 +2,21 @@ import { NavBar, PageTitle } from '@app/components/general'
 import { useRouter } from 'next/router'
 import { metaSetter } from '@app/utils'
 import { RenderInnerPages } from '@app/components/general/lists/websites-pages'
-import { RenderInnerIssues } from '@app/components/general/lists/websites-issues'
+import { RenderInnerIssues } from '@app/components/general/lists/render/issues/base-list'
 import { RenderInnerPageActions } from '@app/components/general/lists/websites-pages-actions'
 import { RenderInnerAnalytics } from '@app/components/general/lists/websites-analytics'
 import { RenderInnerScripts } from '@app/components/general/lists/websites-scripts'
-import { useState } from 'react'
+import { FC, PropsWithChildren, useState } from 'react'
 import { useAuthContext } from '@app/components/providers/auth'
 
 // toggle details of cell
-const WebCell = ({ title, children }: any) => {
+const WebCell: FC<PropsWithChildren<{ title: string }>> = ({
+  title,
+  children,
+}) => {
   const [visible, setVisible] = useState<boolean>(false)
 
-  const onTogglelist = () => {
-    setVisible((v: boolean) => !v)
-  }
+  const onTogglelist = () => setVisible((v: boolean) => !v)
 
   return (
     <div className={`border-4 rounded ${visible ? 'rounded-b-none' : ''}`}>
@@ -31,11 +32,12 @@ const WebCell = ({ title, children }: any) => {
   )
 }
 
-// detauked information relating to a single website. Combine all paginaters into one.
+// detached information relating to a single website. Combine all paginaters into one.
 function WebView() {
   const router = useRouter()
-  const { url } = router?.query
   const { authed } = useAuthContext()
+
+  const { url } = router?.query
 
   return (
     <>

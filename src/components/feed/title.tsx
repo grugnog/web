@@ -2,7 +2,7 @@ import { memo } from 'react'
 import { Link } from '../general'
 
 const IssueTitleComponent = ({ pageUrl }: { pageUrl: string }) => {
-  const url = pageUrl ? new URL(pageUrl) : { pathname: pageUrl, search: ""}
+  const url = pageUrl ? new URL(pageUrl) : { pathname: pageUrl, search: '' }
 
   const { pathname, search } = url
 

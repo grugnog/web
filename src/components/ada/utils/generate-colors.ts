@@ -18,7 +18,7 @@ function getValidatedColor({
         colorToChange: newColor,
         mixingColor,
         mixingAmount: 0.1,
-        tries: tries += 1,
+        tries: (tries += 1),
       })
     : newColor
 }

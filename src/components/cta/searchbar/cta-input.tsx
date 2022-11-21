@@ -81,12 +81,14 @@ function CtaInput() {
   const ref = useRef<HTMLInputElement>(null)
   const { search, setSearch, loading, toggleModal } = useSearch()
 
-  const toggleSearch = (open: boolean = false) => () => {
-    if (open && !searchFocused && ref?.current) {
-      ref?.current?.focus()
+  const toggleSearch =
+    (open: boolean = false) =>
+    () => {
+      if (open && !searchFocused && ref?.current) {
+        ref?.current?.focus()
+      }
+      setSearchFocused(!!open)
     }
-    setSearchFocused(!!open)
-  }
 
   const submitForm = useCallback(
     (e: SyntheticEvent<HTMLFormElement>) => {

@@ -6,13 +6,16 @@ import { GET_WEBSITE_PAGES_PAGINATED } from '@app/queries/websites'
 export const usePagesData = (url?: string | string[]) => {
   const variables = { url, limit: 10, offset: 0 }
 
-  const { data, loading, refetch, error, fetchMore: fetchMorePages } = useQuery(
-    GET_WEBSITE_PAGES_PAGINATED,
-    {
-      variables,
-      ssr: false,
-    }
-  )
+  const {
+    data,
+    loading,
+    refetch,
+    error,
+    fetchMore: fetchMorePages,
+  } = useQuery(GET_WEBSITE_PAGES_PAGINATED, {
+    variables,
+    ssr: false,
+  })
 
   const updateQuery = (prev: any, { fetchMoreResult }: any) => {
     if (!fetchMoreResult) {

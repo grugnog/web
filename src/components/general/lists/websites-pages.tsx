@@ -108,7 +108,8 @@ export function ListComponent({
   const [modal, setOpen] = useState(defaultModalState)
   const { miniPlayer, setMiniPlayerContent } = useMiniPlayer()
 
-  const handleClickOpen = (data: any, title: any, url: any, error: any) =>  setOpen({ open: true, data, title, url, error })
+  const handleClickOpen = (data: any, title: any, url: any, error: any) =>
+    setOpen({ open: true, data, title, url, error })
 
   const handleClose = useCallback(() => {
     setOpen(defaultModalState)

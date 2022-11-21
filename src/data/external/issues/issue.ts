@@ -24,13 +24,16 @@ export const useIssue = (url?: string | string[], skip?: boolean) => {
 export const useIssueData = (url?: string | string[], all?: boolean) => {
   const variables = { url, limit: 10, offset: 0, all }
 
-  const { data, loading, refetch, error, fetchMore: fetchMorePages } = useQuery(
-    GET_WEBSITE_ISSUES,
-    {
-      variables,
-      ssr: false,
-    }
-  )
+  const {
+    data,
+    loading,
+    refetch,
+    error,
+    fetchMore: fetchMorePages,
+  } = useQuery(GET_WEBSITE_ISSUES, {
+    variables,
+    ssr: false,
+  })
 
   const updateQuery = (prev: any, { fetchMoreResult }: any) => {
     if (!fetchMoreResult || !fetchMoreResult?.website?.issues?.length) {

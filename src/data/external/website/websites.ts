@@ -17,7 +17,7 @@ import type { OnSubscriptionDataOptions } from '@apollo/react-common'
 import type { Website } from '@app/types'
 import { useWasmContext } from '@app/components/providers'
 import { LIGHTHOUSE_RESULT } from '@app/subscriptions/lighthouse'
-import { removeTrailingSlash } from "@a11ywatch/website-source-builder";
+import { removeTrailingSlash } from '@a11ywatch/website-source-builder'
 
 // fetch more items
 const updateQuery = (prev: any, { fetchMoreResult }: any) => {
@@ -59,19 +59,24 @@ export const useWebsiteData = (
     { [key: string]: boolean } | Record<string, any>
   >({})
 
-  const variables = {
-    filter,
-    customHeaders,
-    url,
-  }
+  // get vars for querys
+  const { variables, pageVars } = useMemo(() => {
+    const defaultVars = {
+      filter,
+      customHeaders,
+      url,
+    }
+    const pageVars = {
+      ...defaultVars,
+      limit: 5,
+      offset: 0,
+    }
+    return { variables: defaultVars, pageVars }
+  }, [filter, customHeaders, url])
 
   // start of main queries for pages. Root gets all
   const { data, loading, refetch, error, fetchMore } = useQuery(GET_WEBSITES, {
-    variables: {
-      ...variables,
-      limit: 5,
-      offset: 0,
-    },
+    variables: pageVars,
     skip: skip || !!scopedQuery, // when scoped queries ignore the initial result
     ssr: false,
   })
@@ -81,12 +86,9 @@ export const useWebsiteData = (
     data: issuesResults,
     loading: issueDataLoading,
     fetchMore: fetchMoreIssues,
+    networkStatus: networkStatusIssues,
   } = useQuery(GET_WEBSITES_INFO, {
-    variables: {
-      ...variables,
-      limit: 5,
-      offset: 0,
-    },
+    variables: pageVars,
     skip: scopedQuery !== 'issues',
     ssr: false,
   })
@@ -96,12 +98,9 @@ export const useWebsiteData = (
     data: pagesResults,
     loading: pagesDataLoading,
     fetchMore: fetchMorePages,
+    networkStatus: networkStatusPages,
   } = useQuery(GET_WEBSITES_INFO, {
-    variables: {
-      ...variables,
-      limit: 5,
-      offset: 0,
-    },
+    variables: pageVars,
     skip: scopedQuery !== 'pages',
     ssr: false,
   })
@@ -112,11 +111,7 @@ export const useWebsiteData = (
     loading: analyticsDataLoading,
     fetchMore: fetchMoreAnalytics,
   } = useQuery(GET_WEBSITES_INFO, {
-    variables: {
-      ...variables,
-      limit: 5,
-      offset: 0,
-    },
+    variables: pageVars,
     skip: scopedQuery !== 'analytics',
     ssr: false,
   })
@@ -127,11 +122,7 @@ export const useWebsiteData = (
     loading: scriptsDataLoading,
     fetchMore: fetchMoreScripts,
   } = useQuery(GET_WEBSITES_INFO, {
-    variables: {
-      ...variables,
-      limit: 5,
-      offset: 0,
-    },
+    variables: pageVars,
     skip: scopedQuery !== 'scripts',
     ssr: false,
   })
@@ -142,11 +133,7 @@ export const useWebsiteData = (
     loading: actionsDataLoading,
     fetchMore: fetchMoreActions,
   } = useQuery(GET_WEBSITES_INFO, {
-    variables: {
-      ...variables,
-      limit: 5,
-      offset: 0,
-    },
+    variables: pageVars,
     ssr: false,
     skip: scopedQuery !== 'actions',
   })
@@ -294,12 +281,15 @@ export const useWebsiteData = (
         //   feed.insert_website({ ...page, ...results });
         // }
 
-        if(dataSource && dataSource.url === removeTrailingSlash(results.url)) {
+        if (dataSource && dataSource.url === removeTrailingSlash(results.url)) {
           dataSource.insight = results.insight
           forceUpdate()
         }
 
-        AppManager.toggleSnack(true, `Lighthouse result finished for ${results.url}!`)
+        AppManager.toggleSnack(
+          true,
+          `Lighthouse result finished for ${results.url}!`
+        )
       })
     },
     [websites, forceUpdate]
@@ -502,6 +492,9 @@ export const useWebsiteData = (
     // mobile feed open
     feedOpen,
     // forceupdate
-    forceUpdate
+    forceUpdate,
+    // network status
+    networkStatusIssues,
+    networkStatusPages,
   }
 }

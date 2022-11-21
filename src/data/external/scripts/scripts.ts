@@ -11,10 +11,8 @@ export const useScript = (url?: string | string[], skip?: boolean) => {
     skip,
   })
 
-  const [
-    updateScript,
-    { data: updateScriptData, loading: scriptLoading },
-  ] = useMutation(UPDATE_SCRIPT)
+  const [updateScript, { data: updateScriptData, loading: scriptLoading }] =
+    useMutation(UPDATE_SCRIPT)
 
   const { user } = data ?? { user: undefined }
   const { script } = user ?? { script: undefined }
@@ -45,13 +43,16 @@ export const useScript = (url?: string | string[], skip?: boolean) => {
 export const useScriptsData = (url?: string | string[], all?: boolean) => {
   const variables = { url, limit: 10, offset: 0, all }
 
-  const { data, loading, refetch, error, fetchMore: fetchMorePages } = useQuery(
-    GET_WEBSITE_SCRIPTS,
-    {
-      variables,
-      ssr: false,
-    }
-  )
+  const {
+    data,
+    loading,
+    refetch,
+    error,
+    fetchMore: fetchMorePages,
+  } = useQuery(GET_WEBSITE_SCRIPTS, {
+    variables,
+    ssr: false,
+  })
 
   const updateQuery = (prev: any, { fetchMoreResult }: any) => {
     if (!fetchMoreResult || !fetchMoreResult?.website?.scripts?.length) {

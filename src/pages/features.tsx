@@ -33,7 +33,7 @@ function Features({ name }: PageProps) {
           Learn about features that make {companyName} stand out between the
           rest.
         </p>
-        <Header2>Web Accessibility Tools</Header2>
+        <Header2>Tools built for the job</Header2>
         <div className={row}>
           <div className={paper}>
             <Section>

@@ -32,7 +32,8 @@ function MarketingIntro({
               A11ywatch provides powerful tools for testing web inclusivity so
               you can build better software. We created a smart safeguard that
               prevents drastic issues across your website without hurting SEO
-              and without overlays. Our system runs so fast speed becomes a feature.
+              and without overlays. Our system runs so fast speed becomes a
+              feature.
             </p>
             <p className='text-base py-1 text-gray-700'>
               Get insight across every step of the way with multiple options

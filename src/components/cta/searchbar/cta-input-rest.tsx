@@ -78,12 +78,14 @@ function CtaInputRest() {
   const [searchFocused, setSearchFocused] = useState<boolean>()
   const { search, setSearch, loading, toggleModal } = useRestWebsiteContext()
 
-  const toggleSearch = (open: boolean = false) => () => {
-    if (open && !searchFocused && ref?.current) {
-      ref?.current?.focus()
+  const toggleSearch =
+    (open: boolean = false) =>
+    () => {
+      if (open && !searchFocused && ref?.current) {
+        ref?.current?.focus()
+      }
+      setSearchFocused(!!open)
     }
-    setSearchFocused(!!open)
-  }
 
   const submitForm = useCallback(
     async (e: SyntheticEvent<HTMLFormElement>) => {

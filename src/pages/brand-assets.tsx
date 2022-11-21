@@ -62,7 +62,8 @@ function BrandAssets({ name }: PageProps) {
 
       <Header3>Brand usage rules</Header3>
       <p>
-        Please do not alt the logos outside of the default look without contacting us for approval.
+        Please do not alt the logos outside of the default look without
+        contacting us for approval.
       </p>
     </MarketingDrawer>
   )

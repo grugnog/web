@@ -77,6 +77,7 @@ export interface PageIssue {
 // TODO refactor
 export interface Issue extends PageIssue {
   __typename?: 'Issue'
+  _id: string
   issue?: PageIssue
   issues?: PageIssue[]
   domain?: string

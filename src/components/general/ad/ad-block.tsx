@@ -5,7 +5,7 @@ import { memo } from 'react'
 // render native ad free accounts
 export const AdBlockWrapper = () => {
   const { ads, adIndex } = useAuthContext()
-  const adCount = ads.length
+  const adCount = ads?.length || 0
 
   if (adCount) {
     const item = adCount ? ads[adIndex] : null
@@ -29,6 +29,7 @@ export const AdBlockWrapper = () => {
             width={630}
             height={1200}
             alt={description}
+            loading={"lazy"}
             className={'shadow rounded w-full'}
           />
         </Link>

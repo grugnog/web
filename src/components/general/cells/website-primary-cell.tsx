@@ -73,16 +73,13 @@ export function WebsitePrimaryCellComponent({
     setIssueView(!issueView)
   }
 
-  const handleMainClick = (
-    eventData: any,
-    title?: string,
-    mini?: boolean
-  ) => () => {
-    mini
-      ? handleClickOpenPlayer(true, eventData, title)()
-      : handleClickOpen(eventData, title, url)
-    setAnchorEl(null)
-  }
+  const handleMainClick =
+    (eventData: any, title?: string, mini?: boolean) => () => {
+      mini
+        ? handleClickOpenPlayer(true, eventData, title)()
+        : handleClickOpen(eventData, title, url)
+      setAnchorEl(null)
+    }
 
   const pageIssues =
     (Array.isArray(item?.issues) ? item.issues : item?.issues?.issues) || []

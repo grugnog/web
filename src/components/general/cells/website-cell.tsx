@@ -79,17 +79,13 @@ export function WebsiteCell(props: WebsiteCellProps) {
     [url]
   )
 
-  const handleMainClick = (
-    eventData?: any,
-    title?: string,
-    mini?: boolean,
-    url?: string
-  ) => () => {
-    mini
-      ? handleClickOpenPlayer(true, eventData, title)()
-      : handleClickOpen(eventData, title, url)
-    setAnchorEl(null)
-  }
+  const handleMainClick =
+    (eventData?: any, title?: string, mini?: boolean, url?: string) => () => {
+      mini
+        ? handleClickOpenPlayer(true, eventData, title)()
+        : handleClickOpen(eventData, title, url)
+      setAnchorEl(null)
+    }
 
   return (
     <ListItem

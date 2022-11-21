@@ -24,6 +24,9 @@ export const sharedWebsiteDefaults = {
   analyticsDataLoading: false,
   // visuals
   lighthouseVisible: true,
+  // status
+  networkStatusIssues: 1,
+  networkStatusPages: 1,
   refetch: (_: any): Promise<any> => {
     return _
   },
@@ -69,5 +72,5 @@ export const sharedWebsiteDefaults = {
   },
   forceUpdate: (): void => {
     return
-  }
+  },
 }

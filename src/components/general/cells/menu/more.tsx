@@ -81,9 +81,7 @@ function MoreOptionsComponent(props: MoreOptionsProps) {
           </MenuItem>
         ) : null}
         {typeof removePress === 'function' && !history ? (
-          <MenuItem onClick={removePress}>
-            Delete
-          </MenuItem>
+          <MenuItem onClick={removePress}>Delete</MenuItem>
         ) : null}
       </MoreOptionsBase>
     </>

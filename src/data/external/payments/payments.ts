@@ -16,10 +16,8 @@ export const usePayments = () => {
     { data: updateUserData, loading: addPaymentLoading },
   ] = useMutation(ADD_PAYMENT_SUBSCRIPTION, updateCache as any)
 
-  const [
-    cancelSubscription,
-    { loading: cancelSubscriptionLoading },
-  ] = useMutation(CANCEL_SUBSCRIPTION)
+  const [cancelSubscription, { loading: cancelSubscriptionLoading }] =
+    useMutation(CANCEL_SUBSCRIPTION)
 
   const user = data?.user
   const newUser = updateUserData?.updateUserData?.user

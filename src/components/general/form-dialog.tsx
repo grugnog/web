@@ -267,10 +267,7 @@ export function FormDialogWrapper({
 
   return (
     <Fragment>
-      <Button
-        onClick={handleClickOpen}
-        className={buttonStyles}
-      >
+      <Button onClick={handleClickOpen} className={buttonStyles}>
         {buttonTitle}
       </Button>
       <Dialog

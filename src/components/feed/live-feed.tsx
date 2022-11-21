@@ -48,11 +48,14 @@ const LiveFeedComponent: FC<BaseFeed> = ({
 
   const issueCount = pageIssues.length
 
-  const { size, height } = useMemo(() => getListHeight({ fullScreen, issueCount }), [fullScreen, issueCount])
+  const { size, height } = useMemo(
+    () => getListHeight({ fullScreen, issueCount }),
+    [fullScreen, issueCount]
+  )
 
   if (fullScreen) {
     return (
-      <ul className={`bg-[rgba(172,182,192,0.06)] w-full h-full`}>
+      <div className={`bg-[rgba(172,182,192,0.06)] w-full h-full`}>
         <List
           height={height}
           itemCount={issueCount}
@@ -61,7 +64,7 @@ const LiveFeedComponent: FC<BaseFeed> = ({
         >
           {Row}
         </List>
-      </ul>
+      </div>
     )
   }
 

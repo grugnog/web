@@ -11,12 +11,8 @@ function InputActionsEventsComponent({
   path: string
   updateFormEvents?: (a: any) => void
 }) {
-  const {
-    customFields,
-    removeFormField,
-    addFormField,
-    updateFormField,
-  } = useInputActionsEvents()
+  const { customFields, removeFormField, addFormField, updateFormField } =
+    useInputActionsEvents()
 
   if (path) {
     return (

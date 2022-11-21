@@ -1,4 +1,4 @@
-import { FormDialog, PageTitle, Drawer } from '@app/components/general'
+import { PageTitle, Drawer } from '@app/components/general'
 import { List } from '@app/components/general/lists/websites-issues'
 import { metaSetter } from '@app/utils'
 import type { PageProps } from '@app/types'
@@ -8,8 +8,14 @@ import { LoadMoreButton } from '@app/components/general/buttons'
 import { useFilterSort } from '@app/data/local'
 
 function WebIssues({ name }: PageProps) {
-  const { issueData, issueDataLoading, refetch, error, onLoadMoreIssues } =
-    useWebsiteContext()
+  const {
+    issueData,
+    networkStatusIssues,
+    issueDataLoading,
+    refetch,
+    error,
+    onLoadMoreIssues,
+  } = useWebsiteContext()
   const { sortedData } = useFilterSort(issueData)
 
   return (
@@ -27,7 +33,6 @@ function WebIssues({ name }: PageProps) {
             data={sortedData}
             loading={issueDataLoading}
             refetch={refetch}
-            BottomButton={FormDialog}
             emptyHeaderTitle='No issues found'
             emptyHeaderSubTitle='Issues will appear here when they arise'
           >
@@ -35,6 +40,7 @@ function WebIssues({ name }: PageProps) {
               <LoadMoreButton
                 visible={sortedData.length > 1}
                 onLoadMoreEvent={onLoadMoreIssues}
+                loading={networkStatusIssues === 3}
               />
             </li>
           </List>

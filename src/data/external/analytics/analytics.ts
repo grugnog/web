@@ -21,13 +21,16 @@ export const useAnalytics = (query: boolean = true) => {
 // get analytics paginated by website
 export const useAnalyticsData = (url?: string | string[], all?: boolean) => {
   const variables = { url, limit: 10, offset: 0, all }
-  const { data, loading, refetch, error, fetchMore: fetchMorePages } = useQuery(
-    GET_WEBSITE_ANALYTICS,
-    {
-      variables,
-      ssr: false,
-    }
-  )
+  const {
+    data,
+    loading,
+    refetch,
+    error,
+    fetchMore: fetchMorePages,
+  } = useQuery(GET_WEBSITE_ANALYTICS, {
+    variables,
+    ssr: false,
+  })
 
   const updateQuery = (prev: any, { fetchMoreResult }: any) => {
     if (!fetchMoreResult || !fetchMoreResult?.website?.analytics?.length) {

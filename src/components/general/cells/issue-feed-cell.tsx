@@ -33,7 +33,7 @@ export function IssueFeedCellComponent({
       : false
 
   return (
-    <li
+    <div
       className={`h-[inherit] ${
         filtered ? 'bg-gray-200 text-gray-700 font-medium' : ''
       }`}
@@ -59,7 +59,7 @@ export function IssueFeedCellComponent({
         </div>
       )}
       <FeedIssueCard {...item} hidden={!issueView} />
-    </li>
+    </div>
   )
 }
 

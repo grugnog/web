@@ -16,7 +16,6 @@ class HomeManager {
 
   @persist @observable refClosed = false
 
-
   constructor() {
     this.hydrate()
   }

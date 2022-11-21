@@ -41,14 +41,18 @@ const useStyles = makeStyles(() => ({
   },
 }))
 
+export const defaultModalState = {
+  open: false,
+  data: null,
+  title: '',
+  url: '',
+  error: '',
+}
+
 function UpperInput({ data, url }: any) {
   const classes = useStyles()
-  const {
-    customFields,
-    removeFormField,
-    addFormField,
-    updateFormField,
-  } = useInputHeader(data)
+  const { customFields, removeFormField, addFormField, updateFormField } =
+    useInputHeader(data)
 
   const customHeaders = customFields?.map((item: any) => {
     return {
@@ -180,11 +184,7 @@ export function FullScreenModalWrapper({
   }
 
   return (
-    <Dialog
-      fullScreen
-      open={open}
-      onClose={handleClose}
-    >
+    <Dialog fullScreen open={open} onClose={handleClose}>
       <AppBar position={'fixed'} className={classes.navbar}>
         <div className='flex flex-1 align-center place-content-between px-5'>
           <div className={'flex space-x-1 place-items-center'}>
@@ -220,6 +220,5 @@ export function FullScreenModalWrapper({
     </Dialog>
   )
 }
-
 
 export const FullScreenModal = memo(FullScreenModalWrapper)
