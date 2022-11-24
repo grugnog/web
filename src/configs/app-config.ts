@@ -12,6 +12,7 @@ const AppConfig = {
 
 // GOOGLE AUTH
 const GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID
+
 // STRIPE
 const STRIPE_KEY =
   process.env.STRIPE_KEY || 'pk_test_enc1gdton1T8NXa7dP5VOlHM00EyC4zqsX' // stripe.com default test key

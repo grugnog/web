@@ -14,6 +14,7 @@ export function MarketingDashboard(): ReactElement<any, any> | null {
             width={1400}
             className={'shadow-xl border rounded'}
             height={819}
+            quality={100}
             src={'/img/dashboard-example.png'}
             alt={
               'A11ywatch dashboard example for monitoring and fixing web accessibility'
