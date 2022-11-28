@@ -26,7 +26,7 @@ export function PageLoadComponent({
 
   return (
     <Tooltip
-      title={`Page load time is ${
+      title={`Page test uptime is ${
         durationFormated ?? 'N/A'
       } at ${time} seconds`}
       placement={'right'}
