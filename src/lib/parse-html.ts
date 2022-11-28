@@ -5,7 +5,6 @@ const BLOG_URL =
 
 // cleanup wordpress page and parse html
 export const parseHtml = async (body: string) => {
-
   const htmlRoot = parse(body)
 
   const siteNavigationAnchor = htmlRoot.querySelector('#site-navigation a')

@@ -1,6 +1,5 @@
 import { memo } from 'react'
-import { Grid, Typography } from '@material-ui/core'
-import { makeStyles } from '@material-ui/core/styles'
+import { Grid } from '@material-ui/core'
 import { Spacer, Timer, TestViewRest } from '@app/components/general'
 import { CtaCdn } from '@app/components/cta'
 import { strings } from '@app-strings'
@@ -8,31 +7,6 @@ import { InfoBar } from './info-bar'
 import { WebsiteSecondary } from '../general/cells/render/website-secondary'
 import { FeedList } from '../feed/list'
 import { Website } from '@app/types'
-
-const useStyles = makeStyles((theme) => ({
-  container: {
-    padding: theme.spacing(1),
-    width: '38vw',
-    [theme.breakpoints.down('sm')]: {
-      width: 'auto',
-    },
-  },
-  row: {
-    display: 'flex',
-    alignItems: 'center',
-    marginBottom: 6,
-  },
-  title: {
-    flex: 1,
-    fontWeight: 600,
-    maxWidth: '85vw',
-    textOverflow: 'ellipsis',
-    whiteSpace: 'nowrap',
-    overflow: 'hidden',
-    paddingRight: 6,
-    paddingLeft: 6,
-  },
-}))
 
 // container view for report or frame
 const MainView = ({
@@ -70,16 +44,15 @@ export function ReportViewComponentLeft({
   viewMode,
   onToggleViewModeEvent,
 }: any) {
-  const classes = useStyles()
   const empty = !('domain' in website && 'url' in website)
 
   return (
-    <div className={classes.container}>
-      <Grid className={classes.row}>
+    <div className={'p-1 md:w-[38vw]'}>
+      <Grid className={`flex place-items-center pb-4 space-x-2`}>
         {closeButton}
-        <Typography variant='h5' component='p' className={classes.title}>
+        <p className={'flex-1 font-semibold truncate max-w-[94vw] text-xl'}>
           {website?.url || strings.trySearch}
-        </Typography>
+        </p>
       </Grid>
       <div className='flex space-x-2 place-items-center'>
         <Timer stop={!empty} duration={website?.crawlDuration} />

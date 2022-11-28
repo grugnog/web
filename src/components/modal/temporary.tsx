@@ -12,6 +12,7 @@ interface BottomDrawer {
   closeFeed?: () => void
   disablePlayground?: boolean
   disableTabs?: boolean
+  authenticated?: boolean
 }
 
 export function BottomDrawer({
@@ -20,6 +21,7 @@ export function BottomDrawer({
   website,
   disablePlayground,
   disableTabs,
+  authenticated,
 }: BottomDrawer) {
   return (
     <Drawer anchor='bottom' open={bottomModal} onClose={closeFeed}>
@@ -33,6 +35,7 @@ export function BottomDrawer({
             <GrClose />
           </button>
         }
+        authenticated={authenticated}
         website={website}
         disableTabs={disableTabs}
         disablePlayground={disablePlayground}
@@ -55,7 +58,11 @@ export function SwipeableTemporaryDrawer() {
 }
 
 // rest component to get website data
-export function MarketingBottomTemporaryDrawer() {
+export function MarketingBottomTemporaryDrawer({
+  authenticated,
+}: {
+  authenticated?: boolean
+}) {
   const { data, loading, closeModal, search } = useRestWebsiteContext()
   const websiteData = data ? { ...data, url: search } : { url: search }
 
@@ -66,6 +73,7 @@ export function MarketingBottomTemporaryDrawer() {
       website={websiteData}
       disablePlayground
       disableTabs
+      authenticated={authenticated}
     />
   )
 }

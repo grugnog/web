@@ -18,9 +18,72 @@ import { useWebsiteContext } from '@app/components/providers/website'
 import { LoadMoreButton } from '@app/components/general/buttons'
 import { SortableWebsiteList } from '@app/components/general/website'
 import { companyName } from '@app/configs'
+import { CtaInputRest } from '@app/components/cta/searchbar/cta-input-rest'
+import { MarketingBottomTemporaryDrawer } from '@app/components/modal'
 
+// right bar
+type RightBarProps = {
+  onRemoveAllWebsitePress(x: any): void
+  onQueryEvent(x: any): void
+  onLighthouseToggle(x: any): void
+  onWebsiteSort(x: any): void
+  lighthouseVisible?: boolean
+  lhEnabled?: boolean
+  queryModalVisible?: boolean
+  sortModalVisible?: boolean
+  sortCapable?: boolean
+}
+
+const RightBar = ({
+  onWebsiteSort,
+  sortCapable,
+  onRemoveAllWebsitePress,
+  onQueryEvent,
+  queryModalVisible,
+  lhEnabled,
+  onLighthouseToggle,
+  lighthouseVisible,
+  sortModalVisible,
+}: RightBarProps) => {
+  return (
+    <div className='flex flex-wrap gap-x-2 gap-y-1 text-sm'>
+      <Button
+        onClick={onRemoveAllWebsitePress}
+        aria-label={'Remove all websites'}
+      >
+        Remove All
+      </Button>
+      <Button
+        onClick={onQueryEvent}
+        className={queryModalVisible ? 'border-blue-800' : ''}
+      >
+        Scan
+      </Button>
+      <FormDialog buttonTitle={`Subscribe`} />
+      <Button
+        className={lhEnabled ? 'visible' : 'hidden'}
+        onClick={onLighthouseToggle}
+        aria-expanded={lighthouseVisible}
+        aria-label={'Toggle lighthouse reports visibility.'}
+      >
+        {lighthouseVisible ? 'Hide' : 'Display'} Lighthouse
+      </Button>
+      {sortCapable ? (
+        <Button
+          onClick={onWebsiteSort}
+          aria-label={'Sort websites'}
+          className={sortModalVisible ? 'border-blue-800' : ''}
+        >
+          {sortModalVisible ? 'Toggle Sort' : 'Sort Websites'}
+        </Button>
+      ) : null}
+    </div>
+  )
+}
 function Dashboard({ name }: PageProps) {
-  const [sortModalVisible, setSortModalVisible] = useState<boolean>()
+  const [sortModalVisible, setSortModalVisible] = useState<boolean>(false)
+  const [queryModalVisible, setQueryModalVisible] = useState<boolean>(false)
+
   const { search } = useSearchFilter()
   const { events, setEvents } = useEvents()
   const { setModal } = useDynamicModal()
@@ -80,8 +143,8 @@ function Dashboard({ name }: PageProps) {
   )
 
   const onWebsiteSort = () => setSortModalVisible((v) => !v)
+  const onQueryEvent = () => setQueryModalVisible((v) => !v)
 
-  // TODO: fix lighthouse allowing multiple websites at once.
   return (
     <>
       {lhEnabled ? (
@@ -98,37 +161,27 @@ function Dashboard({ name }: PageProps) {
           title={'Websites'}
           rightButton={
             !!data?.length ? (
-              <div className='flex flex-wrap gap-x-2 gap-y-1 text-sm'>
-                <Button
-                  onClick={onRemoveAllWebsitePress}
-                  aria-label={'Remove all websites'}
-                >
-                  Remove All
-                </Button>
-                <FormDialog buttonTitle={`Subscribe`} />
-                <Button
-                  className={lhEnabled ? 'visible' : 'hidden'}
-                  onClick={onLighthouseToggle}
-                  aria-expanded={lighthouseVisible}
-                  aria-label={'Toggle lighthouse reports visibility.'}
-                >
-                  {lighthouseVisible ? 'Hide' : 'Display'} Lighthouse
-                </Button>
-                {data?.length >= 2 ? (
-                  <Button
-                    onClick={onWebsiteSort}
-                    aria-label={'Sort websites'}
-                    className={sortModalVisible ? 'border-blue-800' : ''}
-                  >
-                    {sortModalVisible ? 'Toggle Sort' : 'Sort Websites'}
-                  </Button>
-                ) : null}
-              </div>
+              <RightBar
+                sortCapable={data?.length >= 2}
+                onRemoveAllWebsitePress={onRemoveAllWebsitePress}
+                onQueryEvent={onQueryEvent}
+                lhEnabled={lhEnabled}
+                lighthouseVisible={lighthouseVisible}
+                sortModalVisible={sortModalVisible}
+                onWebsiteSort={onWebsiteSort}
+                onLighthouseToggle={onLighthouseToggle}
+                queryModalVisible={queryModalVisible}
+              />
             ) : null
           }
         />
         {sortModalVisible ? (
           <SortableWebsiteList refetch={refetch} />
+        ) : queryModalVisible ? (
+          <div className='py-2'>
+            <CtaInputRest />
+            <MarketingBottomTemporaryDrawer authenticated />
+          </div>
         ) : (
           <WebsiteList
             data={websites}
@@ -163,5 +216,6 @@ export default metaSetter(
   {
     gql: true,
     wasm: true,
+    rest: true,
   }
 )

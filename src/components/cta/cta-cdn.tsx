@@ -31,13 +31,25 @@ function CtaCdn({
 }) {
   const classes = useStyles()
 
-  const limitedResonse = website?.issuesInfo?.limitedCount
-    ? `This is a limited API response showing ${
-        website.issuesInfo.limitedCount
-      }/${
-        website?.issuesInfo?.totalIssues || '_'
-      } issues for the current page, sign in to see the full report across all pages.`
-    : !website?.issues && 'Gathering details'
+  let limitedResonse = 'Scan Complete'
+
+  if (!website?.issues) {
+    limitedResonse = 'Gathering details'
+  }
+
+  if (!authenticated) {
+    limitedResonse = website?.issuesInfo?.limitedCount
+      ? `This is a limited API response showing ${
+          website.issuesInfo.limitedCount
+        }/${
+          website?.issuesInfo?.totalIssues || '_'
+        } issues for the current page, sign in to see the full report across all pages.`
+      : ''
+  } else {
+    limitedResonse = `This is a API response showing ${
+      website?.issuesInfo?.totalIssues || '_'
+    } issues for the current page.`
+  }
 
   return (
     <Fragment>
@@ -52,9 +64,7 @@ function CtaCdn({
       ) : null}
       <div className='pt-3 pb-2'>
         <div className={'border-2 rounded border-gray-500 p-2'}>
-          <p className='text-base text-grey-700'>
-            {limitedResonse || 'Scan Complete'}
-          </p>
+          <p className='text-base text-grey-700'>{limitedResonse}</p>
         </div>
       </div>
       {disablePlayground || authenticated ? null : (

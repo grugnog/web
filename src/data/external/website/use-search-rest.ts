@@ -1,23 +1,26 @@
 import { useState } from 'react'
 import { isUrl } from '@app/lib/is-url'
-import { AppManager } from '@app/managers'
+import { AppManager, UserManager } from '@app/managers'
 import { searchQuery } from '@app/utils'
 import { getAPIRoute } from '@app/configs'
 import type { Website } from '@app/types'
 
 const scanEndpoint = `${getAPIRoute('api')}/scan-simple`
+const scanAuthedEndpoint = `${getAPIRoute('api')}/scan`
 
 // SCOPE WEBSITE DATA PER ROUTE (ALL, ISSUES, PAGES)
-export const scanWebsite = async (websiteUrl: string) => {
+export const scanWebsite = async (websiteUrl: string, authed?: boolean) => {
   let request
+
   try {
-    request = await fetch(scanEndpoint, {
+    request = await fetch(authed ? scanAuthedEndpoint : scanEndpoint, {
       method: 'POST',
       body: JSON.stringify({
         websiteUrl: encodeURIComponent(websiteUrl),
       }),
       headers: {
         'Content-Type': 'application/json',
+        Authorization: UserManager.token,
       },
     })
   } catch (e) {
@@ -73,17 +76,21 @@ export function useSearchRest() {
       snackOpen = true
     }
 
-    let response = await scanWebsite(querySearch)
+    // todo: opt in authed scan besides url target
+    const authed =
+      window.location.pathname === '/dashboard' && !!UserManager.token
 
-    if (response && response?.code === 400) {
+    let response = await scanWebsite(querySearch, authed)
+
+    if (response && [300, 400].includes(response?.code)) {
       AppManager.toggleSnack(true, response.message)
     }
 
     // Retry query as http if https autofilled [TODO: move autoquery detection to SS ]
-    if (!response?.data && autoTPT) {
+    if (!response?.data && autoTPT && response?.code !== 300) {
       AppManager.toggleSnack(true, 'https:// failed retrying with http:// ...')
       const [q] = searchQuery(search, true)
-      response = await scanWebsite(q)
+      response = await scanWebsite(q, authed)
       snackOpen = true
     }
 
