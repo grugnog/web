@@ -59,7 +59,6 @@ const RightBar = ({
       >
         Scan
       </Button>
-      <FormDialog buttonTitle={`Subscribe`} />
       <Button
         className={lhEnabled ? 'visible' : 'hidden'}
         onClick={onLighthouseToggle}
@@ -77,9 +76,11 @@ const RightBar = ({
           {sortModalVisible ? 'Toggle Sort' : 'Sort Websites'}
         </Button>
       ) : null}
+      <FormDialog buttonTitle={`Subscribe`} />
     </div>
   )
 }
+
 function Dashboard({ name }: PageProps) {
   const [sortModalVisible, setSortModalVisible] = useState<boolean>(false)
   const [queryModalVisible, setQueryModalVisible] = useState<boolean>(false)
@@ -142,8 +143,36 @@ function Dashboard({ name }: PageProps) {
     [websites]
   )
 
-  const onWebsiteSort = () => setSortModalVisible((v) => !v)
-  const onQueryEvent = () => setQueryModalVisible((v) => !v)
+  const onWebsiteSort = () =>
+    setSortModalVisible((v) => {
+      if (queryModalVisible) {
+        setQueryModalVisible(false)
+      }
+      return !v
+    })
+
+  const onQueryEvent = () =>
+    setQueryModalVisible((v) => {
+      if (sortModalVisible) {
+        setSortModalVisible(false)
+      }
+      return !v
+    })
+
+  // conditional display
+  let sortStyle = 'hidden'
+  let queryStyle = 'hidden'
+  let webpageStyle = 'visible'
+
+  if (sortModalVisible) {
+    webpageStyle = 'hidden'
+    sortStyle = 'visible'
+  }
+
+  if (queryModalVisible) {
+    webpageStyle = 'hidden'
+    queryStyle = 'visible'
+  }
 
   return (
     <>
@@ -175,14 +204,17 @@ function Dashboard({ name }: PageProps) {
             ) : null
           }
         />
-        {sortModalVisible ? (
+
+        <div className={sortStyle}>
           <SortableWebsiteList refetch={refetch} />
-        ) : queryModalVisible ? (
+        </div>
+        <div className={queryStyle}>
           <div className='py-2'>
             <CtaInputRest />
             <MarketingBottomTemporaryDrawer authenticated />
           </div>
-        ) : (
+        </div>
+        <div className={webpageStyle}>
           <WebsiteList
             data={websites}
             error={error}
@@ -204,7 +236,7 @@ function Dashboard({ name }: PageProps) {
               />
             </li>
           </WebsiteList>
-        )}
+        </div>
       </Drawer>
       <LinearBottom loading={mutatationLoading} />
     </>

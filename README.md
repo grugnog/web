@@ -36,7 +36,7 @@ The default export component in the `./pages` directory needs to match the route
 
 ## Environment
 
-check out [ENVIRONMENT CONFIG](./ENVIRONMENT.md) for configuring project specefics like google authentication.
+check out [ENVIRONMENT CONFIG](https://docs.a11ywatch.com/documentation/web/#environmental-configuration) for configuring project specefics like google authentication.
 
 ## Translations
 
