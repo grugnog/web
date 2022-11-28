@@ -14,11 +14,11 @@ export const IntroBenches: FC = () => {
           <li className='flex flex-1 px-2 h-full'>
             <div className='flex flex-col h-full place-content-end'>
               <div className='py-1' aria-hidden='true'>
-                <div className='text-base font-semibold'>10,045</div>
+                <div className='text-base font-semibold'>13,120</div>
               </div>
               <div className='px-2 bg-blue-600 h-full w-20 rounded-t border-4 border-b-0 border-blue-700'>
                 <div className='sr-only'>
-                  A11yWatch: 10,045 scans per minute
+                  A11yWatch: 13,120 scans per minute
                 </div>
               </div>
             </div>
@@ -29,7 +29,7 @@ export const IntroBenches: FC = () => {
                 <div className='text-base font-semibold'>55</div>
               </div>
               <div className='px-2 bg-gray-700 h-[6px] w-20 rounded-t'>
-                <div className='sr-only'>Pa11y: 50 scans per minute</div>
+                <div className='sr-only'>Pa11y: 55 scans per minute</div>
               </div>
             </div>
           </li>

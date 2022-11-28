@@ -31,7 +31,6 @@ export const SortableWebsiteList: FC<{ refetch: any }> = ({ refetch }) => {
     } catch(e) {
       console.error(e)
     }
-
   }
 
   return (
