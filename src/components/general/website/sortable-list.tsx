@@ -1,7 +1,7 @@
 import { useQuery, useMutation } from '@apollo/react-hooks'
 import { SORT_WEBSITES } from '@app/mutations'
 import { GET_WEBSITES_LIST } from '@app/queries/websites'
-import { FC, useEffect, useMemo, useState } from 'react'
+import { FC, useMemo } from 'react'
 import { SortableWebsites } from './sort'
 
 export const SortableWebsiteList: FC<{ refetch: any }> = ({ refetch }) => {
@@ -11,16 +11,12 @@ export const SortableWebsiteList: FC<{ refetch: any }> = ({ refetch }) => {
     ssr: false,
   })
   const [sortWebsites] = useMutation(SORT_WEBSITES)
-  const [hasSorted, setSorted] = useState<boolean>()
 
   const list = useMemo(() => {
     return data?.user?.websites || []
   }, [data])
 
   const onSubmitSort = async (sortOrder: string[]) => {
-    if (!hasSorted) {
-      setSorted(true)
-    }
     try {
       await sortWebsites({
         variables: { order: sortOrder.map((item: any) => item.content) },
@@ -28,15 +24,15 @@ export const SortableWebsiteList: FC<{ refetch: any }> = ({ refetch }) => {
     } catch (e) {
       console.error(e)
     }
-  }
 
-  useEffect(() => {
-    return () => {
-      if (hasSorted) {
-        refetch()
-      }
+    try {
+      // todo: perform cs sorting without re-fetching
+      await refetch()
+    } catch(e) {
+      console.error(e)
     }
-  }, [hasSorted, refetch])
+
+  }
 
   return (
     <div>
