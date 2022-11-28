@@ -323,7 +323,7 @@ export function WebsiteCellDashboardComponent({
           <MobileBox mobile={mobile} url={url} />
         </div>
       </div>
-      {insight && lighthouseVisible ? (
+      {pageInsights && insight && lighthouseVisible ? (
         <Lighthouse insight={insight} lighthouseVisible={lighthouseVisible} />
       ) : null}
     </li>
