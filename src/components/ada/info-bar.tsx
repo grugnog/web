@@ -51,7 +51,7 @@ export function InfoBarComponent({
       ) : null}
       {onToggleViewModeEvent ? (
         <button className={btnStyles} onClick={onToggleViewModeEvent}>
-          Change Primary View
+          Swap Views
         </button>
       ) : null}
       <FilterDropdown open right />
