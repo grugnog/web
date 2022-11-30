@@ -105,8 +105,6 @@ fn sort_website() {
     assert_eq!(website[0].page_url, "https://a11ywatch.com/about");
 }
 
-
-
 #[wasm_bindgen_test]
 fn get_keys() {
     let mut feed = Feed::new();
