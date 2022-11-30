@@ -50,7 +50,7 @@ const SnackbarContainer = observer(({ store }: any) => {
           <div className='overflow-hidden truncate'>
             <p
               id='message-id'
-              className={`text-base max-w-[40vw] truncate ${
+              className={`text-base max-w-[65vw] md:max-w-[40vw] truncate ${
                 store.snackbar.type === 'error' ? 'text-red-600' : 'text-black'
               }`}
             >

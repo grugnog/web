@@ -1,4 +1,3 @@
-import { Typography } from '@material-ui/core'
 import { MarketingDrawer } from '@app/components/general'
 import { metaSetter } from '@app/utils'
 import type { PageProps } from '@app/types'
@@ -36,14 +35,14 @@ function WebAccessibility({ name }: PageProps) {
     <MarketingDrawer title={name}>
       <SectionContainer container block>
         <Header>Web Accessibility</Header>
-        <Typography variant='subtitle1' gutterBottom>
+        <p className='pb-2 w-2/3'>
           Improve your {`product's`} web accessibility from the start of the
           building process quickly. Follow these principles to improve your
           websites inclusion with some foundational rules.
-        </Typography>
+        </p>
         <h2 className='text-2xl py-2 font-bold'>Inclusion step by step</h2>
         <h3 className='text-xl font-bold'>Color</h3>
-        <Typography variant='subtitle1' component='p' gutterBottom>
+        <p className='pb-2'>
           Make clear distinct color design choices by using{' '}
           <a
             className={'text-blue-600'}
@@ -65,13 +64,13 @@ function WebAccessibility({ name }: PageProps) {
             Contrast Ratio
           </a>
           .
-        </Typography>
+        </p>
         <h3 className='text-xl font-bold'>WCAG Principles</h3>
-        <Typography variant='subtitle1' component='p' gutterBottom>
+        <p className='pb-2'>
           Application foundations that help improve your audience inclusion and
           reach.
-        </Typography>
-        <ul className='space-y-2 pb-2 list-disc px-6'>
+        </p>
+        <ul className='space-y-2 pb-2 list-disc px-6 pt-4 pb-8'>
           <li>
             <a
               className={'text-blue-600'}
@@ -109,10 +108,10 @@ function WebAccessibility({ name }: PageProps) {
           </li>
         </ul>
         <h3 className='text-xl font-bold'>Accessibility Checklist</h3>
-        <Typography variant='subtitle1' component='p' gutterBottom>
+        <p className='pb-2'>
           A couple of quick checklists to improve your contents accessibility.
-        </Typography>
-        <ul className='space-y-2 pb-2 list-disc px-6'>
+        </p>
+        <ul className='space-y-2 pb-2 list-disc px-6 pt-4 pb-8'>
           {checklistLinks.map(({ href, name }: any) => {
             return (
               <li key={href}>
@@ -130,13 +129,13 @@ function WebAccessibility({ name }: PageProps) {
           })}
         </ul>
         <h3 className='text-xl font-bold'>Features</h3>
-        <Typography variant='subtitle1' component='p' gutterBottom>
+        <p className='pb-2'>
           Accessibility comes in many forms, with macOS/iphones you can enhance
           a major part of the application so {`it's`} best we understand the
           technologies underneath. This allows us to use these features to our
           advantage to better assist users.
-        </Typography>
-        <ul className='space-y-2 pb-2 list-disc px-6'>
+        </p>
+        <ul className='space-y-2 pb-2 list-disc px-6 pt-4 pb-8'>
           <li>
             <a
               className={'text-blue-600'}
@@ -176,12 +175,12 @@ function WebAccessibility({ name }: PageProps) {
         <h3 className='text-xl font-bold'>
           React components with accessibility in mind
         </h3>
-        <Typography variant='subtitle1' component='p' gutterBottom>
+        <p className='pb-2'>
           If you use react and start on a new project consider looking into
           chakra-ui. They take care of a lot of the things that we can easily
           miss when trying to deliver a website fast.
-        </Typography>
-        <ul className='space-y-2 pb-2 list-disc px-6'>
+        </p>
+        <ul className='space-y-2 pb-2 list-disc px-6 pt-4 pb-8'>
           <li>
             <a
               className={'text-blue-600'}
@@ -217,7 +216,7 @@ function WebAccessibility({ name }: PageProps) {
           </li>
         </ul>
         <h3 className='text-xl font-bold'>Avoid Intense Animations</h3>
-        <Typography variant='subtitle1' component='p' gutterBottom>
+        <p className='pb-2'>
           Animations can be very powerful in describing a message using the
           right techniques but, sometimes they can also make the experience
           unpleasant. Its important to understand how to make your animations
@@ -225,11 +224,11 @@ function WebAccessibility({ name }: PageProps) {
           tools in most browsers like chrome to detect FPS + simulating on a
           test set of devices to see if everyone will perceive the effect the
           same.
-        </Typography>
+        </p>
         <h3 className='text-xl font-bold'>
           Understand how performance impacts accessibility
         </h3>
-        <Typography variant='subtitle1' component='p' gutterBottom>
+        <p className='pb-2'>
           Performance goes into web accessibility in many forms. In certain
           situations even voice over can be impacted by heavy usage of
           javascript in incorrect locations. Try to move certain synchronous
@@ -242,9 +241,9 @@ function WebAccessibility({ name }: PageProps) {
           understanding how the event loop works. When theres a need for a lot
           of work using web workers could also help or simply moving the
           processing to the server.
-        </Typography>
+        </p>
         <h3 className='text-xl font-bold'>Practice VoiceOver</h3>
-        <Typography variant='subtitle1' component='p' gutterBottom>
+        <p className='pb-2'>
           VoiceOver on iOS is very powerful and is huge for assisting users with
           vision impairment. VoiceOver runs natively so this adds a process onto
           your normal application (slows it down). This means that certain
@@ -252,8 +251,8 @@ function WebAccessibility({ name }: PageProps) {
           ideal experience. {`It's`} important to test how your application will
           run with this enabled from aria-label, accessibility assetive props,
           performance and more.
-        </Typography>
-        <ul className='space-y-2 pb-2 list-disc px-6'>
+        </p>
+        <ul className='space-y-2 pb-2 list-disc px-6 pt-4 pb-8'>
           <li>
             <a
               className={'text-blue-600'}

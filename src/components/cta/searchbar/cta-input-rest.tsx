@@ -1,79 +1,10 @@
+'use client'
+
 import { useState, useRef, SyntheticEvent, useCallback } from 'react'
-import { InputLabel, InputBase } from '@material-ui/core'
-import {
-  alpha,
-  makeStyles,
-  Theme,
-  createStyles,
-} from '@material-ui/core/styles'
 import { AppManager } from '@app/managers'
 import { useRestWebsiteContext } from '@app/components/providers/rest/rest-website'
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    root: {
-      display: 'flex',
-      width: 'fit-content',
-      borderRadius: theme.shape.borderRadius,
-      [theme.breakpoints.down('sm')]: {
-        position: 'relative',
-        flexDirection: 'column',
-        width: 'auto',
-      },
-    },
-    search: {
-      position: 'relative',
-      display: 'flex',
-      overflow: 'hidden',
-      padding: 4,
-      paddingLeft: 12,
-      backgroundColor: alpha(theme.palette.common.black, 0.15),
-      '&:hover': {
-        backgroundColor: alpha(theme.palette.common.black, 0.25),
-      },
-      borderTopLeftRadius: theme.shape.borderRadius,
-      borderBottomLeftRadius: theme.shape.borderRadius,
-      [theme.breakpoints.down('sm')]: {
-        borderBottomLeftRadius: 0,
-        borderBottomRightRadius: 0,
-      },
-    },
-    hiddenLabel: {
-      border: 0,
-      clip: 'rect(0 0 0 0)',
-      height: 1,
-      margin: -1,
-      overflow: 'hidden',
-      padding: 0,
-      position: 'absolute',
-      width: 1,
-    },
-    submit: {
-      width: 'auto',
-      borderTopLeftRadius: 0,
-      borderBottomLeftRadius: 0,
-      borderTopRightRadius: theme.shape.borderRadius,
-      borderBottomRightRadius: theme.shape.borderRadius,
-      paddingLeft: theme.spacing(5),
-      paddingRight: theme.spacing(5),
-      borderColor: 'rgba(0, 0, 0, 0.12) !important',
-      borderWidth: 1,
-      minWidth: '187.562px',
-      fontWeight: 'bold',
-      fontSize: '1.5rem',
-      [theme.breakpoints.down('sm')]: {
-        borderTopLeftRadius: 0,
-        borderTopRightRadius: 0,
-      },
-    },
-    inputRoot: {
-      color: 'inherit',
-    },
-  })
-)
-
 function CtaInputRest() {
-  const classes = useStyles()
   const ref = useRef<HTMLInputElement>(null)
   const [searchFocused, setSearchFocused] = useState<boolean>()
   const { search, setSearch, loading, toggleModal } = useRestWebsiteContext()
@@ -108,38 +39,32 @@ function CtaInputRest() {
 
   return (
     <form
-      className={`${classes.root}${searchFocused ? ' ring' : ''}`}
+      className={`flex flex-col md:flex-row br-4 w-initial md:w-fit ${searchFocused ? ' ring' : ''}`}
       onSubmit={submitForm}
       noValidate
     >
-      <div className={classes.search}>
-        <InputLabel
+      <div className={`relative flex bg-gray-200 rounded-t-md md:rounded-tr-none md:rounded-bl-md md:rounded-l-md md:rounded-tr-none hover:bg-gray-300`}>
+        <label
           htmlFor='search-input-c'
-          classes={{ root: classes.hiddenLabel }}
+          className='sr-only'
         >
           Scan your website for issues
-        </InputLabel>
-        <InputBase
+        </label>
+        <input
           placeholder={'Enter website url'}
           id='search-input-c'
-          inputRef={ref}
-          color={'primary'}
+          ref={ref}
           type='url'
-          classes={{
-            root: classes.inputRoot,
-            input: 'p-1',
-          }}
+          className={`w-full md:w-inherit px-6 py-3 text-lg bg-transparent `}
           onBlur={toggleSearch(false)}
           onFocus={toggleSearch(true)}
           onChange={setSearch}
-          inputProps={{
-            minLength: 4,
-            name: 'search',
-          }}
+          minLength={4}
+          name={"search"}
         />
       </div>
       <button
-        className={`${classes.submit} ${
+        className={`min-w-[187.562px] text-xl border font-bold rounded-b-md md:rounded-bl-none md:rounded-r-md ${
           loading || !search ? 'text-gray-500' : ''
         } hover:bg-[#0E1116] hover:text-white`}
         type={'submit'}

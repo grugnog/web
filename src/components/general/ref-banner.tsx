@@ -1,9 +1,9 @@
+import { useEffect, useState } from 'react'
 import { GrClose } from 'react-icons/gr'
 import { HomeManager } from '@app/managers'
-import { Link } from './link'
 import { companyName } from '@app/configs'
+import { Link } from './link'
 import { Button } from './buttons'
-import { useEffect, useState } from 'react'
 
 const RefBanner = () => {
   const [isClosed, setClosed] = useState<boolean>(true)
@@ -30,6 +30,7 @@ const RefBanner = () => {
         <Link
           href={'https://a11ywatch.getrewardful.com/signup'}
           style={{ color: '#3b82f6' }}
+          target="_blank"
         >
           Earn 25% commission
         </Link>{' '}

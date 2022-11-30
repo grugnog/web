@@ -71,11 +71,10 @@ export function DrawerWrapperComponent({
 
 export const DrawerWrapper = memo(DrawerWrapperComponent)
 
-export function NavigationBar({ title = '', classes, authenticated }: any) {
+export function NavigationBar({ title = '', authenticated }: any) {
   return (
     <NavBar authenticated={authenticated} title={title}>
-      <span className={classes.drawerIconContainer}>
-        <span className='flex flex-1' />
+      <span className={'flex flex-1 place-content-end'}>
         <SearchBar />
       </span>
     </NavBar>
@@ -126,7 +125,6 @@ export function DrawerW({ children, route, title }: any) {
         />
         <main className={classes.content} id='main-content'>
           <NavigationBar
-            classes={classes}
             title={title}
             authenticated={authed}
           />

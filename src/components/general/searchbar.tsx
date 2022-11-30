@@ -74,7 +74,7 @@ export function SearchBar({ placeholder, noWidth, cta }: any) {
 
   if (!cta) {
     return (
-      <div className={`px-2 hidden md:block`}>
+      <div className={`px-2`}>
         <div className={`rounded-xl ${classes.search}`}>
           <div className={classes.searchIcon}>
             <GrSearch />

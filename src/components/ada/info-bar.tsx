@@ -37,7 +37,7 @@ export function InfoBarComponent({
   }
 
   return (
-    <div className='flex py-2 space-x-2 border border-l-0 border-r-0'>
+    <div className='flex py-2 space-x-2 border border-l-0 border-r-0 px-2'>
       <button className={btnStyles} onClick={onPrint}>
         Print
       </button>

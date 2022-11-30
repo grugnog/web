@@ -7,7 +7,6 @@ import {
   row,
   mainButton,
 } from '@app/stylesheets/main.module.css'
-import { Button } from '@material-ui/core/'
 import { ReccomendedFixes } from './reccomended-fixes'
 import { generateFixColors } from './utils'
 
@@ -43,15 +42,15 @@ const TooltipContainer = observer(
           message={message}
         />
         <span className={`${row} ${alignCenter}`}>
-          <Button
+          <button
             onClick={() => {
               store?.toggle()
             }}
-            variant='text'
+            type={"button"}
             className={`${mainButton} ${tipType}`}
           >
             {!store.textFix ? 'Background' : 'Text'}
-          </Button>
+          </button>
         </span>
       </>
     )

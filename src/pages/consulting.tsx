@@ -1,4 +1,3 @@
-import { Typography, List, ListItem } from '@material-ui/core'
 import { MarketingDrawer } from '@app/components/general'
 import { strings } from '@app-strings'
 import { metaSetter } from '@app/utils'
@@ -11,7 +10,7 @@ import {
   Header4,
 } from '@app/components/general/header'
 
-const LanguageSupport = ['Web', 'Mobile', 'Embedd', 'Cloud', 'IoT']
+const LanguageSupport = ['Web', 'Mobile', 'Embed', 'Cloud', 'IoT']
 
 const CustomWork = [
   'Give you an estimate of time and price if the work is straightforward.',
@@ -41,44 +40,48 @@ function Consulting({ name }: PageProps) {
           level of accuracy.
         </p>
         <Header3>Professional Support</Header3>
-        <p>
-          {strings.appName} can provide expert level support along the following
-          technologies for accessibility, UI, and UX. We can also help setup
-          self hosting A11yWatch for private servers/usage.
-        </p>
-        <List>
-          {LanguageSupport.map((item) => {
-            return (
-              <ListItem key={item}>
-                <Typography variant='subtitle1' component='p' gutterBottom>
-                  - {item}
-                </Typography>
-              </ListItem>
-            )
-          })}
-        </List>
-        <Header4>Custom Work</Header4>
-        <List>
-          {CustomWork.map((item) => {
-            return (
-              <ListItem key={item}>
-                <Typography variant='subtitle1' component='p' gutterBottom>
-                  - {item}
-                </Typography>
-              </ListItem>
-            )
-          })}
-        </List>
-        <div className='text-base'>
-          For more information on consulting please send a email to{' '}
-          <address>
-            <a
-              href={'mailto:support@a11ywatch.com'}
-              className={'text-blue-700 underline'}
-            >
-              support@a11ywatch.com
-            </a>
-          </address>
+        <div className='py-2'>
+          <p>
+            {strings.appName} can provide expert level support along the following
+            technologies for accessibility, UI, and UX. We can also help setup
+            self hosting A11yWatch for private servers/usage.
+          </p>
+          <ul className='space-y-2 pt-4'>
+            {LanguageSupport.map((item) => {
+              return (
+                <li key={item}>
+                  <p>
+                    - {item}
+                  </p>
+                </li>
+              )
+            })}
+          </ul>
+        </div>
+        <div className='py-2'>
+          <Header4>Custom Work</Header4>
+          <ul className='space-y-2 py-2'>
+            {CustomWork.map((item) => {
+              return (
+                <li key={item}>
+                  <p>
+                    - {item}
+                  </p>
+                </li>
+              )
+            })}
+          </ul>
+          <div className='text-base'>
+            For more information on consulting please send a email to{' '}
+            <address>
+              <a
+                href={'mailto:support@a11ywatch.com'}
+                className={'text-blue-700 underline'}
+              >
+                support@a11ywatch.com
+              </a>
+            </address>
+          </div>
         </div>
       </SectionContainer>
     </MarketingDrawer>

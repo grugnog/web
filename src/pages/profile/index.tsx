@@ -182,25 +182,21 @@ const Profile: FC<PageProps> = ({ name }) => {
               title={'Email'}
               skeletonLoad={!user && loading}
               subTitle={email}
-              className={classes.email}
             />
             <ProfileCell
               title={'Account Type'}
               skeletonLoad={!user && loading}
               subTitle={roleMap(user?.role)}
-              className={classes.email}
             />
             <ProfileCell
               title={'Active Subscription'}
               skeletonLoad={!user && loading}
               subTitle={user?.activeSubscription ? 'Yes' : 'No'}
-              className={classes.email}
             />
             <ProfileCell
               title={'Alerts Enabled'}
               skeletonLoad={!user && loading}
               subTitle={user?.alertEnabled ? 'Yes' : 'No'}
-              className={classes.email}
             />
             <ProfileCell
               title={'Uptime Used'}
@@ -209,14 +205,12 @@ const Profile: FC<PageProps> = ({ name }) => {
                 ? Number(user.scanInfo.totalUptime) / 1000
                 : 0
               ).toFixed(0)}s`}
-              className={classes.email}
             />
             {user?.activeSubscription ? (
               <ProfileCell
                 title={billingHeadDisplay}
                 skeletonLoad={!user && loading}
                 subTitle={billingtitle}
-                className={classes.email}
               />
             ) : null}
 

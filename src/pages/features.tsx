@@ -1,18 +1,18 @@
 import { FC, PropsWithChildren } from 'react'
-import { MarketingDrawer, Section, Heading } from '@app/components/general'
+import { MarketingDrawer, Section } from '@app/components/general'
 import { metaSetter } from '@app/utils'
 import type { PageProps } from '@app/types'
 import Image from 'next/image'
 import { FeaturesList } from '@app/app/marketing/features'
 import { SectionContainer } from '@app/app/containers/section-container'
-import { Header, Header2, Header3 } from '@app/components/general/header'
+import { Header, Header2, Header3, Header4 } from '@app/components/general/header'
 import { companyName } from '@app/configs'
 
 const FeatureHeading: FC<PropsWithChildren> = ({ children }) => {
   return (
-    <Heading component='h4' bold={false}>
+    <Header4>
       {children}
-    </Heading>
+    </Header4>
   )
 }
 

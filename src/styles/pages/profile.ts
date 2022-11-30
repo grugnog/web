@@ -6,7 +6,6 @@ export const useProfileStyles = makeStyles(() => ({
     flexDirection: 'row',
     alignItems: 'center',
   },
-  email: {},
   password: {
     marginRight: 70,
   },

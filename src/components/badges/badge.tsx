@@ -1,5 +1,5 @@
 import { Fragment } from 'react'
-import { Typography, Tooltip } from '@material-ui/core'
+import { Tooltip } from '@material-ui/core'
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles'
 import { defaultProps } from './defaultProps'
 import type { BadgeProps } from './badge-types'
@@ -67,7 +67,7 @@ export const Badge = ({
       >
         <Fragment>
           <Image src={src} height={size} width={size} alt={`${title} logo`} />
-          <Typography className={classes.text}>{title}</Typography>
+          <p className={classes.text}>{title}</p>
         </Fragment>
       </Anchor>
     )

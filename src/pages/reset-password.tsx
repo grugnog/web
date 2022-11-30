@@ -1,27 +1,16 @@
 import { useRef, useEffect, SyntheticEvent, useState } from 'react'
-import { makeStyles } from '@material-ui/core/styles'
-import { TextField, FormControl, LinearProgress } from '@material-ui/core'
+import { TextField, FormControl } from '@material-ui/core'
 import { AppManager, UserManager } from '@app/managers'
 import { useUserData } from '@app/data'
-import { MarketingDrawer } from '@app/components/general'
+import { LinearBottom, MarketingDrawer } from '@app/components/general'
 import { useRouter } from 'next/router'
 import { metaSetter } from '@app/utils'
 import type { PageProps } from '@app/types'
 import { MarketingShortTitle } from '@app/components/marketing'
 import { Header } from '@app/components/general/header'
 
-const useStyles = makeStyles(() => ({
-  absolute: {
-    position: 'absolute',
-    bottom: 0,
-    left: 0,
-    right: 0,
-  },
-}))
-
 function ResetPassword({ name }: PageProps) {
   const router = useRouter()
-  const classes = useStyles()
   const {
     loading,
     forgotPassword,
@@ -154,9 +143,7 @@ function ResetPassword({ name }: PageProps) {
         <Header>{title}</Header>
         <FormRender />
       </div>
-      {loading ? (
-        <LinearProgress className={classes.absolute} color='secondary' />
-      ) : null}
+      <LinearBottom loading={loading} />
     </MarketingDrawer>
   )
 }
