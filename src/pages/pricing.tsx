@@ -3,7 +3,7 @@ import { metaSetter } from '@app/utils'
 import type { PageProps } from '@app/types'
 import { Partners } from '@app/app/marketing/partners'
 import { SectionContainer } from '@app/app/containers/section-container'
-import { Header, Header3 } from '@app/components/general/header'
+import { Header } from '@app/components/general/header'
 
 function Pricing({ name }: PageProps) {
   return (
@@ -29,13 +29,6 @@ function Pricing({ name }: PageProps) {
             Scans run concurrently, so 30 seconds may be equal to 1 second in
             real time.
           </p>
-        </div>
-        
-        <div className='py-4'>
-          <Header3>
-            Prices made for everyone
-          </Header3>
-          <p>Depending on the amount of usage you need determines the plan for you. The plans fit even if you are a indie dev, small business, or large company with thousands of websites that need to stay accessible 24/7.</p>
         </div>
 
         <Partners />

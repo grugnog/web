@@ -70,7 +70,7 @@ export function WebsiteSecondaryComponent({
     >
       {shutdown ? (
         <Tooltip
-          title={`Website scan did not complete. Upgrade your account to increase your duration or pay per usage.`}
+          title={`Website scan did not complete. Upgrade your account to increase your duration.`}
           placement={'right'}
         >
           <Chip

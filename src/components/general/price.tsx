@@ -149,6 +149,7 @@ export function PriceMemo({
                   yearly={yearly}
                   selected={selectedItem}
                   selectHighPlans={selectHighPlans}
+                  pricingPage={pricingPage}
                   {...planProps}
                 />
               </li>
