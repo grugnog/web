@@ -50,13 +50,17 @@ export function WebsiteSecondaryComponent({
   const { possibleIssuesFixedByCdn, issuesFixedByCdn, totalIssues } =
     issuesInfo ?? {}
 
-  const headers = useMemo(
+  const { headers, headingJson } = useMemo(
     () =>
-      pageHeaders && pageHeaders.length
+      {
+        const heads = pageHeaders && pageHeaders.length
         ? pageHeaders
-            ?.filter((item: any) => item.key)
-            ?.map((item: any) => ({ [item.key]: item?.value }))
-        : [],
+            .filter((item: any) => item.key)
+            .map((item: any) => ({ [item.key]: item?.value }))
+        : [];
+
+        return { headers: heads,  headingJson: heads && JSON.stringify(heads) }
+      },
     [pageHeaders]
   )
 
@@ -174,17 +178,17 @@ export function WebsiteSecondaryComponent({
           />
         </Tooltip>
       ) : null}
-      {headers && headers?.length ? (
+      {headers.length ? (
         <Tooltip
-          title={`Custom headers ${JSON.stringify(headers)}`}
+          title={`Custom headers ${headingJson}`}
           placement={'right'}
         >
           <Chip
             style={chipRootStyle}
             size='small'
             avatar={<GrConfigure style={chipStyle} className={'grIcon'} />}
-            label={`${headers?.length} custom header${
-              headers?.length === 1 ? '' : 's'
+            label={`${headers.length} custom header${
+              headers.length === 1 ? '' : 's'
             }`}
           />
         </Tooltip>
