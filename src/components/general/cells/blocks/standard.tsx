@@ -7,14 +7,16 @@ import { AppManager } from '@app/managers'
 import { Standard } from '../../select/select-input'
 // import { useWebsiteContext } from '@app/components/providers/website'
 
+type StandardKey = keyof typeof Standard;
+
 export const StandardBoxWrapper = ({
   standard: prevStandard,
   url,
 }: {
-  standard?: keyof typeof Standard
+  standard?: StandardKey
   url: string
 }) => {
-  const [standard, setStandard] = useState<keyof typeof Standard>(
+  const [standard, setStandard] = useState<StandardKey>(
     prevStandard || 'WCAG2AA'
   )
   const { updateWebsite } = useWebsiteContext()
@@ -22,7 +24,7 @@ export const StandardBoxWrapper = ({
   const onStandardChange = async (
     event: React.ChangeEvent<HTMLSelectElement>
   ) => {
-    const value = event?.target?.value as keyof typeof Standard
+    const value = event?.target?.value as StandardKey
     setStandard(value)
 
     try {

@@ -2,10 +2,12 @@ import React from 'react'
 import { FormControl, Select, MenuItem, InputLabel } from '@material-ui/core'
 import { formDialogStyles as useStyles } from '../styles'
 
+// accessibility standards to test
 export enum Standard {
   'WCAG2A',
   'WCAG2AA',
   'WCAG2AAA',
+  'Section508',
 }
 
 export type StandardKeys = keyof typeof Standard
@@ -31,7 +33,7 @@ export const WCAGSelectInput = ({ onStandardChange, standard }: InputProps) => {
         className='sr-only'
         style={{ marginTop: 0 }}
       >
-        WCAG Standard
+        Accessibility Standard
       </InputLabel>
       <Select
         labelId='extany-select-outlined-label'
