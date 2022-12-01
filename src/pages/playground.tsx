@@ -12,7 +12,7 @@ function Playground() {
         <style type='text/css'>
           {`
     
-    #playground-root {
+    #main-content {
       height: 100%;
     }
     
@@ -217,7 +217,7 @@ function Playground() {
         </div>
       </div>
 
-      <div id='playground-root' className='bg-[#172a3a]' />
+      <div id='main-content' className='bg-[#172a3a]' />
 
       <nav className='fixed bottom-0 left-[42%] md:left-[47%] font-bold'>
         <div className='text-[#767676] flex space-x-1 py-2 place-items-center'>
@@ -245,7 +245,7 @@ function Playground() {
         dangerouslySetInnerHTML={{
           __html: `
             (function (event) {
-                const root = document.getElementById('playground-root');
+                const root = document.getElementById('main-content');
                 const loadingWrapper = document.getElementById('loading-wrapper');
                 
                 loadingWrapper.classList.add('fadeOut');
