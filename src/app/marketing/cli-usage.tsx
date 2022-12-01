@@ -1,7 +1,9 @@
-import { ReactElement } from 'react'
+import { ReactElement, useState } from 'react'
 import { SectionContainer } from '../containers/section-container'
 import { Link } from '../typo/link'
 import { Header3, Header4 } from '@app/components/general/header'
+import { GrPause, GrPlay } from 'react-icons/gr'
+import Image from 'next/image'
 
 const infoDetails = [
   {
@@ -11,12 +13,17 @@ const infoDetails = [
   },
   {
     title: 'Concurrent Website Testing',
-    subTitle: `Get reports for thousands of pages in seconds with real browsers. Get spot on results with up to 55% of all web accessibility issues handled with recommendations.`,
+    subTitle: `Get reports for thousands of pages in seconds with real browsers for WCAGA-AAA, Section508, and beyond. Get spot on results with up to 55% of all web accessibility issues handled with recommendations.`,
   },
   {
-    title: 'Warp Speeds',
+    title: 'Lightning Fast',
     subTitle:
       'Get results with practically no downtime for your web pages across every workflow. The suite is small and powerful running on linux, macOS, and windows using native features for the cutting edge performance.',
+  },
+  {
+    title: 'Dynamic Testing',
+    subTitle:
+      'Add custom sequences to evaluate your website in one location. Determine real test scenes that would occur on pages with simple no-code action builders.',
   },
 ]
 
@@ -30,21 +37,58 @@ const previewStyles = {
 }
 
 export function MarketingCli(): ReactElement<any, any> | null {
+  const [sampleVisible, setSample] = useState<boolean>(false)
+
+  const toggleSample = () => {
+    setSample((x) => !x)
+  }
+
   return (
     <SectionContainer>
       <div className='ring-1 shadow-xl ring-[#0E1116] ring-offset-8 ring-offset-gray-600 py-4 px-4 rounded'>
-        <Header3>Web Accessibility CLI</Header3>
+        <div className='flex space-x-2 place-items-center'>
+          <Header3>Web Accessibility CLI</Header3>
+          <button
+            title={
+              sampleVisible ? 'Pause intro sample CLI video' : 'Watch intro sample CLI usage'
+            }
+            className='px-3 rounded-3xl border h-10 w-10 hover:bg-gray-200'
+            onClick={toggleSample}
+          >
+            {sampleVisible ? (
+              <GrPause className='grIcon' height={20} width={20} />
+            ) : (
+              <GrPlay className='grIcon' height={20} width={20} />
+            )}
+          </button>
+        </div>
         <p className='text-lg pb-4 leading-10'>
-          Run A11yWatch on any machine using the Rust Command Line Interface.
-          Get the CLI simply in shell using{' '}
+          Run A11yWatch on any machine using the Command Line Interface.
+          Get the CLI simply in shell using the command{' '}
           <code className='text-gray-700 bg-gray-300 p-1'>
             npm i a11ywatch-cli -g
           </code>
           .
         </p>
-        <div className='flex flex-wrap gap-x-5 space-y-4 place-items-center'>
-          <div className='flex-1 sm:w-1/3 shadow-xl'>
-            <div className='bg-[#0E1116] rounded'>
+        <div className={`flex flex-wrap gap-x-5 space-y-4 place-items-center`}>
+          <div className='flex flex-1 sm:w-1/3 h-60 place-items-center'>
+            <div className={`${sampleVisible ? 'block' : 'hidden'}`}>
+              <Image
+                src={'/img/a11ywatch_cli.gif'}
+                height={1000}
+                width={1450}
+                alt={
+                  `A11yWatch CLI running the command: 'a11ywatch crawl --url https://a11ywatch.com -d -n -s > results.json' with the output 27/27 urls passing the report almost instant.`
+                }
+                className={'h-auto w-auto rounded'}
+              />
+            </div>
+            <div className={`${
+                sampleVisible ? 'hidden' : 'block'
+              } h-full flex place-items-center md:h-initial flex-1 w-full`}>
+            <div
+              className={`bg-[#0E1116] rounded shadow-xl w-full`}
+            >
               <div className='py-3 px-3 text-base lg:text-xl md:text-lg'>
                 <div className='text-gray-100'>
                   <span className='text-gray-300 select-none'>~ </span> npm i
@@ -60,6 +104,7 @@ export function MarketingCli(): ReactElement<any, any> | null {
                   <span style={previewStyles}></span>
                 </div>
               </div>
+            </div>
             </div>
           </div>
           <div className='md:w-1/2 sm:w-1/3'>

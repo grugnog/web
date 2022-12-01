@@ -6,7 +6,7 @@ import { GetStaticProps } from 'next'
 import { URL } from 'url'
 import { GrStar } from 'react-icons/gr'
 import { SectionContainer } from '@app/app/containers/section-container'
-import { Header } from '@app/components/general/header'
+import { Header, Header3 } from '@app/components/general/header'
 
 function OSSCell({ item }: { item: typeof OSSRoutes[number] }) {
   return (
@@ -23,7 +23,7 @@ function OSSCell({ item }: { item: typeof OSSRoutes[number] }) {
         className={`border-2 rounded py-4 px-4 w-full h-full hover:shadow-xl`}
       >
         <div>
-          <p className='text-xl font-bold'>{item.name}</p>
+          <Header3 className='text-xl font-bold'>{item.name}</Header3>
           <p className='text-lg text-gray-600'>{item.description}</p>
         </div>
         <div className='flex place-content-between place-items-center pt-3'>

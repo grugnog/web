@@ -42,17 +42,15 @@ function Consulting({ name }: PageProps) {
         <Header3>Professional Support</Header3>
         <div className='py-2'>
           <p>
-            {strings.appName} can provide expert level support along the following
-            technologies for accessibility, UI, and UX. We can also help setup
-            self hosting A11yWatch for private servers/usage.
+            {strings.appName} can provide expert level support along the
+            following technologies for accessibility, UI, and UX. We can also
+            help setup self hosting A11yWatch for private servers/usage.
           </p>
           <ul className='space-y-2 pt-4'>
             {LanguageSupport.map((item) => {
               return (
                 <li key={item}>
-                  <p>
-                    - {item}
-                  </p>
+                  <p>- {item}</p>
                 </li>
               )
             })}
@@ -64,9 +62,7 @@ function Consulting({ name }: PageProps) {
             {CustomWork.map((item) => {
               return (
                 <li key={item}>
-                  <p>
-                    - {item}
-                  </p>
+                  <p>- {item}</p>
                 </li>
               )
             })}

@@ -87,6 +87,7 @@ const Footer = ({ sticky, blog }: { sticky?: boolean; blog?: boolean }) => {
                     rel='noreferrer'
                     target='_blank'
                   >
+                    <span className='sr-only'>Github Icon</span>
                     <svg
                       aria-label='github'
                       height='24'
@@ -108,6 +109,7 @@ const Footer = ({ sticky, blog }: { sticky?: boolean; blog?: boolean }) => {
                     rel='noreferrer'
                     target='_blank'
                   >
+                    <span className='sr-only'>Twitter Icon</span>
                     <svg
                       aria-label='twitter'
                       fill='currentColor'

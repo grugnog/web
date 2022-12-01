@@ -208,7 +208,7 @@ function Dashboard({ name }: PageProps) {
         <div className={sortStyle}>
           <SortableWebsiteList refetch={refetch} />
         </div>
-        
+
         <div className={queryStyle}>
           <div className='py-2'>
             <CtaInputRest />

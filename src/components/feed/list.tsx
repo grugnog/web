@@ -40,12 +40,12 @@ const FeedListComponent: FC<FeedComponentProps> = ({
   const { size, height } = getListHeight({ fullScreen, issueCount })
 
   if (fullScreen) {
-    if(!issueCount) {
+    if (!issueCount) {
       return (
-        <div className={`bg-[rgba(172,182,192,0.06)] w-full h-full place-content-center flex p-3`}>
-          <Header3>
-              No Issues found!
-          </Header3>
+        <div
+          className={`bg-[rgba(172,182,192,0.06)] w-full h-full place-content-center flex p-3`}
+        >
+          <Header3>No Issues found!</Header3>
         </div>
       )
     }

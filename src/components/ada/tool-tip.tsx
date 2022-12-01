@@ -46,7 +46,7 @@ const TooltipContainer = observer(
             onClick={() => {
               store?.toggle()
             }}
-            type={"button"}
+            type={'button'}
             className={`${mainButton} ${tipType}`}
           >
             {!store.textFix ? 'Background' : 'Text'}

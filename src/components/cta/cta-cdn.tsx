@@ -34,9 +34,7 @@ function CtaCdn({
   return (
     <Fragment>
       {disablePlayground ? (
-        <p
-          className={'pl-1 pr-2'}
-        >
+        <p className={'pl-1 pr-2'}>
           Get all your pages issues at once and more after signing in
         </p>
       ) : null}

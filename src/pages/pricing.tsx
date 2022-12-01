@@ -3,7 +3,7 @@ import { metaSetter } from '@app/utils'
 import type { PageProps } from '@app/types'
 import { Partners } from '@app/app/marketing/partners'
 import { SectionContainer } from '@app/app/containers/section-container'
-import { Header } from '@app/components/general/header'
+import { Header, Header3 } from '@app/components/general/header'
 
 function Pricing({ name }: PageProps) {
   return (
@@ -18,7 +18,6 @@ function Pricing({ name }: PageProps) {
           Get detailed accessibility reports that go beyond the basics with ease
           across all your websites.
         </p>
-
         <PriceMemo navigate pricingPage />
 
         <div className='py-4 text-center'>
@@ -31,6 +30,14 @@ function Pricing({ name }: PageProps) {
             real time.
           </p>
         </div>
+        
+        <div className='py-4'>
+          <Header3>
+            Prices made for everyone
+          </Header3>
+          <p>Depending on the amount of usage you need determines the plan for you. The plans fit even if you are a indie dev, small business, or large company with thousands of websites that need to stay accessible 24/7.</p>
+        </div>
+
         <Partners />
       </SectionContainer>
     </MarketingDrawer>

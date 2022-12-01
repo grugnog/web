@@ -35,7 +35,7 @@ function WebAccessibility({ name }: PageProps) {
     <MarketingDrawer title={name}>
       <SectionContainer container block>
         <Header>Web Accessibility</Header>
-        <p className='pb-2 w-2/3'>
+        <p className='pb-2 md:w-2/3'>
           Improve your {`product's`} web accessibility from the start of the
           building process quickly. Follow these principles to improve your
           websites inclusion with some foundational rules.

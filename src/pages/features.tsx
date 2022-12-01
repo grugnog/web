@@ -5,15 +5,16 @@ import type { PageProps } from '@app/types'
 import Image from 'next/image'
 import { FeaturesList } from '@app/app/marketing/features'
 import { SectionContainer } from '@app/app/containers/section-container'
-import { Header, Header2, Header3, Header4 } from '@app/components/general/header'
+import {
+  Header,
+  Header2,
+  Header3,
+  Header4,
+} from '@app/components/general/header'
 import { companyName } from '@app/configs'
 
 const FeatureHeading: FC<PropsWithChildren> = ({ children }) => {
-  return (
-    <Header4>
-      {children}
-    </Header4>
-  )
+  return <Header4>{children}</Header4>
 }
 
 const { paper, row } = {

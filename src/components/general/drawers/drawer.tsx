@@ -124,10 +124,7 @@ export function DrawerW({ children, route, title }: any) {
           dataSourceMap={dataSourceMap}
         />
         <main className={classes.content} id='main-content'>
-          <NavigationBar
-            title={title}
-            authenticated={authed}
-          />
+          <NavigationBar title={title} authenticated={authed} />
           <div
             style={{
               maxHeight: `calc(100vh - ${theme.mixins.toolbar.minHeight}px)`,

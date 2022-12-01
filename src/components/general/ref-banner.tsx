@@ -30,7 +30,7 @@ const RefBanner = () => {
         <Link
           href={'https://a11ywatch.getrewardful.com/signup'}
           style={{ color: '#3b82f6' }}
-          target="_blank"
+          target='_blank'
         >
           Earn 25% commission
         </Link>{' '}

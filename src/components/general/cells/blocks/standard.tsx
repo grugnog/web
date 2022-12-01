@@ -7,7 +7,7 @@ import { AppManager } from '@app/managers'
 import { Standard } from '../../select/select-input'
 // import { useWebsiteContext } from '@app/components/providers/website'
 
-type StandardKey = keyof typeof Standard;
+type StandardKey = keyof typeof Standard
 
 export const StandardBoxWrapper = ({
   standard: prevStandard,

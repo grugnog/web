@@ -1,10 +1,5 @@
 import React from 'react'
-import {
-  Card,
-  CardActions,
-  CardContent,
-  Button,
-} from '@material-ui/core'
+import { Card, CardActions, CardContent, Button } from '@material-ui/core'
 import { strings } from '@app-strings'
 import { useDynamicModal } from '@app/data'
 import { enableNotifications } from '@app/lib'
@@ -24,12 +19,8 @@ export function EnableNotifications() {
           <style>{ringKeyFrames}</style>
           <GrNotification fontSize='large' className={classes.ringAnimate} />
         </div>
-        <Header3>
-          {strings.alerts.enableNotificationsTitle}
-        </Header3>
-        <p
-          className={`${classes.about} pb-2`}
-        >
+        <Header3>{strings.alerts.enableNotificationsTitle}</Header3>
+        <p className={`${classes.about} pb-2`}>
           {strings.alerts.enableNotificationsDetail}
         </p>
       </CardContent>

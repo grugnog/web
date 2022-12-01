@@ -39,15 +39,16 @@ function CtaInputRest() {
 
   return (
     <form
-      className={`flex flex-col md:flex-row br-4 w-initial md:w-fit ${searchFocused ? ' ring' : ''}`}
+      className={`flex flex-col md:flex-row br-4 w-initial md:w-fit ${
+        searchFocused ? ' ring' : ''
+      }`}
       onSubmit={submitForm}
       noValidate
     >
-      <div className={`relative flex bg-gray-200 rounded-t-md md:rounded-tr-none md:rounded-bl-md md:rounded-l-md md:rounded-tr-none hover:bg-gray-300`}>
-        <label
-          htmlFor='search-input-c'
-          className='sr-only'
-        >
+      <div
+        className={`relative flex bg-gray-200 rounded-t-md md:rounded-tr-none md:rounded-bl-md md:rounded-l-md md:rounded-tr-none hover:bg-gray-300`}
+      >
+        <label htmlFor='search-input-c' className='sr-only'>
           Scan your website for issues
         </label>
         <input
@@ -60,7 +61,7 @@ function CtaInputRest() {
           onFocus={toggleSearch(true)}
           onChange={setSearch}
           minLength={4}
-          name={"search"}
+          name={'search'}
         />
       </div>
       <button

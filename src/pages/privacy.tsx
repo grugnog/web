@@ -3,7 +3,7 @@ import { MarketingDrawer, PageTitle, Spacer } from '@app/components/general'
 import { metaSetter } from '@app/utils'
 import type { PageProps } from '@app/types'
 import { SectionContainer } from '@app/app/containers/section-container'
-import { Header2 } from '@app/components/general/header'
+import { Header2, Header3 } from '@app/components/general/header'
 import { Link } from '@app/app/typo/link'
 
 function Privacy({ name }: PageProps) {
@@ -27,6 +27,15 @@ function Privacy({ name }: PageProps) {
           </Link>{' '}
           and try it out for yourself.
         </p>
+        <div className='py-2'>
+          <Header3>
+            Data Security
+          </Header3>
+          <p>
+            We are not in the business to sell data. 
+            All data used ever on the platform is for improving your quality of the service provided.
+          </p>
+        </div>
       </SectionContainer>
     </MarketingDrawer>
   )

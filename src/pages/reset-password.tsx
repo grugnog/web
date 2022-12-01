@@ -7,7 +7,7 @@ import { useRouter } from 'next/router'
 import { metaSetter } from '@app/utils'
 import type { PageProps } from '@app/types'
 import { MarketingShortTitle } from '@app/components/marketing'
-import { Header } from '@app/components/general/header'
+import { Header, Header3 } from '@app/components/general/header'
 
 function ResetPassword({ name }: PageProps) {
   const router = useRouter()
@@ -142,6 +142,15 @@ function ResetPassword({ name }: PageProps) {
       <div className='container mx-auto text-center'>
         <Header>{title}</Header>
         <FormRender />
+        <div className='py-2'>
+          <Header3>
+            Backup your password
+          </Header3>
+          <p>
+            After resetting your password, make sure to back it up using
+            a secure password manager.
+          </p>
+        </div>
       </div>
       <LinearBottom loading={loading} />
     </MarketingDrawer>

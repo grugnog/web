@@ -28,7 +28,7 @@ export const SortableWebsiteList: FC<{ refetch: any }> = ({ refetch }) => {
     try {
       // todo: perform cs sorting without re-fetching
       await refetch()
-    } catch(e) {
+    } catch (e) {
       console.error(e)
     }
   }

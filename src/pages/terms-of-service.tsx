@@ -10,9 +10,7 @@ function TermsOfService({ name }: PageProps) {
     <MarketingDrawer title={name} footerSpacing>
       <SectionContainer container block>
         <Header>Terms of Service ({`"Terms"`})</Header>
-        <p className='pb-2'>
-          Last updated: November 15, 2019
-        </p>
+        <p className='pb-2'>Last updated: November 15, 2019</p>
         <p className='pb-2 text-base'>
           Please read these Terms of Service {`("Terms", "Terms of Service")`}
           carefully before using the {strings.appName} website (the{' '}
@@ -29,9 +27,7 @@ function TermsOfService({ name }: PageProps) {
           Terms. If you disagree with any part of the terms then you may not
           access the Service.
         </p>
-        <Header2>
-          Accounts
-        </Header2>
+        <Header2>Accounts</Header2>
         <p className='text-base'>
           When you create an account with us, you must provide us information
           that is accurate, complete, and current at all times. Failure to do so
@@ -49,9 +45,7 @@ function TermsOfService({ name }: PageProps) {
           notify us immediately upon becoming aware of any breach of security or
           unauthorized use of your account.
         </p>
-        <Header3>
-          Links To Other Web Sites
-        </Header3>
+        <Header3>Links To Other Web Sites</Header3>
         <p className='text-base'>
           Our Service may contain links to third-party web sites or services
           that are not owned or controlled by {strings.appName}.
@@ -69,9 +63,7 @@ function TermsOfService({ name }: PageProps) {
           We strongly advise you to read the terms and conditions and privacy
           policies of any third-party web sites or services that you visit.
         </p>
-        <Header3>
-          Termination
-        </Header3>
+        <Header3>Termination</Header3>
         <p className='text-base'>
           We may terminate or suspend access to our Service immediately, without
           prior notice or liability, for any reason whatsoever, including
@@ -99,9 +91,7 @@ function TermsOfService({ name }: PageProps) {
           ownership provisions, warranty disclaimers, indemnity and limitations
           of liability.
         </p>
-        <Header3>
-          Governing Law
-        </Header3>
+        <Header3>Governing Law</Header3>
         <p className='text-base'>
           These Terms shall be governed and construed in accordance with the
           laws of Florida, United States, without regard to its conflict of law
@@ -116,9 +106,7 @@ function TermsOfService({ name }: PageProps) {
           supersede and replace any prior agreements we might have between us
           regarding the Service.
         </p>
-        <Header3>
-          Changes
-        </Header3>
+        <Header3>Changes</Header3>
         <p className='text-base'>
           We reserve the right, at our sole discretion, to modify or replace
           these Terms at any time. If a revision is material we will try to
@@ -132,9 +120,7 @@ function TermsOfService({ name }: PageProps) {
           do not agree to the new terms, please stop using the Service.
         </p>
 
-        <p className='pb-2 text-sm'>
-          April 19, 2020
-        </p>
+        <p className='pb-2 text-sm'>April 19, 2020</p>
         <p className='pb-2 text-base'>
           By signing up you have the option to receive email notifications from
           us regarding reports, updates, and other aspects that relate to
@@ -143,9 +129,7 @@ function TermsOfService({ name }: PageProps) {
           after signup and toggling off the alert option.
         </p>
 
-        <Header3>
-          Contact Us
-        </Header3>
+        <Header3>Contact Us</Header3>
 
         <div className='text-base flex'>
           If you have any questions about these Terms, please contact us at{' '}
@@ -155,7 +139,8 @@ function TermsOfService({ name }: PageProps) {
             body='Hello, Support Team'
           >
             support@a11ywatch.com
-          </Mailto>.
+          </Mailto>
+          .
         </div>
       </SectionContainer>
     </MarketingDrawer>

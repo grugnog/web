@@ -1,9 +1,5 @@
 import { Box } from '@a11ywatch/ui'
-import {
-  MarketingDrawer,
-  PageTitle,
-  Link,
-} from '@app/components/general'
+import { MarketingDrawer, PageTitle, Link } from '@app/components/general'
 import { strings } from '@app-strings'
 import { metaSetter } from '@app/utils'
 import type { CSSProperties } from 'react'
@@ -34,9 +30,7 @@ function Contact({ name }: PageProps) {
     <MarketingDrawer title={name} footerSpacing>
       <SectionContainer block container>
         <PageTitle>Lets have a Talk</PageTitle>
-        <p
-          style={{ marginBottom: 60 }}
-        >
+        <p style={{ marginBottom: 60 }}>
           As a consultancy, {strings.appName} offers a lot more than just a nice
           AI tool to help mitigate accessibility errors, our team of engineers
           work seamless with your engineers and designers. We provide project
@@ -50,7 +44,7 @@ function Contact({ name }: PageProps) {
           If you have any questions at all feel free to send us an email via the
           following:
         </p>
-        <div style={center} className={"gap-y-2 py-8"}>
+        <div style={center} className={'gap-y-2 py-8'}>
           <address>
             <a
               href={'mailto:support@a11ywatch.com'}
@@ -67,9 +61,7 @@ function Contact({ name }: PageProps) {
               </Box>
             </a>
           </address>
-          <p>
-            or
-          </p>
+          <p>or</p>
           <address>
             <a
               href={'tel:(863) 225-3695‬'}
@@ -88,21 +80,21 @@ function Contact({ name }: PageProps) {
           </address>
         </div>
         <div className='space-y-3 pt-4'>
-            <Header3>Interested in Accessibility Services?</Header3>
-            <p>
-              If you need help with auditing a page or website we can get this
-              done across any tech stack.
+          <Header3>Interested in Accessibility Services?</Header3>
+          <p>
+            If you need help with auditing a page or website we can get this
+            done across any tech stack.
+          </p>
+          <PricingCalculator />
+          <div className={'py-2'}>
+            <p className='pb-2'>
+              If you want to learn more about some of our past positions.
             </p>
-            <PricingCalculator />
-            <div className={'py-2'}>
-              <p className='pb-2'>
-                If you want to learn more about some of our past positions.
-              </p>
-              <Link href={'/careers'} className={'text-blue-700 underline'}>
-                Careers
-              </Link>
-            </div>
-            </div>
+            <Link href={'/careers'} className={'text-blue-700 underline'}>
+              Careers
+            </Link>
+          </div>
+        </div>
       </SectionContainer>
     </MarketingDrawer>
   )

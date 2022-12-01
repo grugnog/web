@@ -57,7 +57,9 @@ export function ReportViewComponentLeft({
         <div className='flex space-x-2 place-items-center'>
           <Timer stop={!empty} duration={website?.crawlDuration} />
           <div className='max-w-[85%]'>
-            {empty ? null : <WebsiteSecondary {...website} pageIssueCount={1} />}
+            {empty ? null : (
+              <WebsiteSecondary {...website} pageIssueCount={1} />
+            )}
           </div>
         </div>
         <CtaCdn
@@ -66,12 +68,12 @@ export function ReportViewComponentLeft({
           authenticated={authenticated}
         />
       </div>
-        <InfoBar
-          website={website}
-          printable={printable}
-          download={authenticated && download}
-          onToggleViewModeEvent={onToggleViewModeEvent}
-        />
+      <InfoBar
+        website={website}
+        printable={printable}
+        download={authenticated && download}
+        onToggleViewModeEvent={onToggleViewModeEvent}
+      />
       {empty ? null : (
         <div className='hidden md:block'>
           <MainView website={website} viewMode={viewMode} />
