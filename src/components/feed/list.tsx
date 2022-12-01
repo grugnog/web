@@ -6,6 +6,7 @@ import type { FeedComponentProps } from './interface'
 import { FixedSizeList as List } from 'react-window'
 import { getListHeight } from './utils'
 import { FilterManager } from '@app/managers/filters'
+import { Header3 } from '../general/header'
 
 interface RowProps {
   index: number
@@ -39,6 +40,15 @@ const FeedListComponent: FC<FeedComponentProps> = ({
   const { size, height } = getListHeight({ fullScreen, issueCount })
 
   if (fullScreen) {
+    if(!issueCount) {
+      return (
+        <div className={`bg-[rgba(172,182,192,0.06)] w-full h-full place-content-center flex p-3`}>
+          <Header3>
+              No Issues found!
+          </Header3>
+        </div>
+      )
+    }
     return (
       <ul className={`bg-[rgba(172,182,192,0.06)] w-full h-full`}>
         <List
