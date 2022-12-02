@@ -24,7 +24,9 @@ function Scripts({ name }: PageProps) {
     [scriptsData, search]
   )
 
-  const emptyHeaderSub = `Scripts will appear here ${activeSubscription ? 'when issues exist' : 'for paid accounts'}.`;
+  const emptyHeaderSub = `Scripts will appear here ${
+    activeSubscription ? 'when issues exist' : 'for paid accounts'
+  }.`
 
   return (
     <>

@@ -22,6 +22,7 @@ export function PageLoader({
   error = false,
   goToPayments = false,
 }: PageLoader) {
+  // when empty display loaders
   if (empty) {
     if (loading) {
       return <ListSkeleton />
@@ -37,7 +38,6 @@ export function PageLoader({
       )
     }
     if (!loading && error) {
-      // TODO: DISPLAY AN ERROR FORM INSTEAD
       return (
         <EmptyWebsiteForm
           emptyHeaderTitle={'An Error occured, please try to again later'}
@@ -45,6 +45,7 @@ export function PageLoader({
             'If the issue persist please contact support or try to reload your browser.'
           }
           hasWebsite={hasWebsite}
+          goToPayments={goToPayments}
         />
       )
     }

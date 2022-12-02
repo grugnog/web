@@ -64,9 +64,7 @@ const ScriptFixContainer = observer(({ store }: { store: any }) => {
     >
       <Paper className={classes.paper} ref={annotationRef}>
         <div className={classes.row}>
-          <Header3>
-            CSS FIX
-          </Header3>
+          <Header3>CSS FIX</Header3>
           <IconButton style={{ left: 20 }} onClick={copyText}>
             <GrCopy />
           </IconButton>

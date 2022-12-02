@@ -143,20 +143,17 @@ function ResetPassword({ name }: PageProps) {
         <Header>{title}</Header>
         <FormRender />
         <div className='py-2'>
-          <Header2>
-            Backup your password
-          </Header2>
+          <Header2>Backup your password</Header2>
           <p>
-            After resetting your password, make sure to back it up using
-            a secure password manager.
+            After resetting your password, make sure to back it up using a
+            secure password manager.
           </p>
         </div>
         <div className='py-2'>
-          <Header3>
-            Issue with reset
-          </Header3>
+          <Header3>Issue with reset</Header3>
           <p>
-            If you are having issues reseting your password please contact the support team.
+            If you are having issues reseting your password please contact the
+            support team.
           </p>
         </div>
       </div>

@@ -1,7 +1,8 @@
-import React, { memo, FC } from 'react'
-import { Button, CardHeader } from '@material-ui/core'
-import { FormDialog } from '../form-dialog'
+import { memo, FC } from 'react'
+import { Button } from '@material-ui/core'
 import Image from 'next/image'
+import { FormDialog } from '../form-dialog'
+import { CardHeader } from '@app/app/card/header'
 import { Link } from '../link'
 
 const infoDetails = [
@@ -45,7 +46,6 @@ const EmptyWebsiteFormComponent: FC<EmptyWebsiteProps> = ({
       <CardHeader
         title={emptyHeaderTitle}
         subheader={emptyHeaderSubTitle}
-        titleTypographyProps={{ style: { fontSize: '3.1rem' } }}
       />
       {hasWebsite ? (
         <Button href={goToHref} component={Link} variant={'outlined'}>

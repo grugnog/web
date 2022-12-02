@@ -50,19 +50,16 @@ export function WebsiteSecondaryComponent({
   const { possibleIssuesFixedByCdn, issuesFixedByCdn, totalIssues } =
     issuesInfo ?? {}
 
-  const { headers, headingJson } = useMemo(
-    () =>
-      {
-        const heads = pageHeaders && pageHeaders.length
+  const { headers, headingJson } = useMemo(() => {
+    const heads =
+      pageHeaders && pageHeaders.length
         ? pageHeaders
             .filter((item: any) => item.key)
             .map((item: any) => ({ [item.key]: item?.value }))
-        : [];
+        : []
 
-        return { headers: heads,  headingJson: heads && JSON.stringify(heads) }
-      },
-    [pageHeaders]
-  )
+    return { headers: heads, headingJson: heads && JSON.stringify(heads) }
+  }, [pageHeaders])
 
   return (
     <div
@@ -179,10 +176,7 @@ export function WebsiteSecondaryComponent({
         </Tooltip>
       ) : null}
       {headers.length ? (
-        <Tooltip
-          title={`Custom headers ${headingJson}`}
-          placement={'right'}
-        >
+        <Tooltip title={`Custom headers ${headingJson}`} placement={'right'}>
           <Chip
             style={chipRootStyle}
             size='small'

@@ -476,7 +476,7 @@ export function FormDialogWrapper({
             <Button
               disabled={!websitUrl}
               type='submit'
-              className='w-full border'
+              className='w-full border rounded-none'
             >
               Subscribe
             </Button>

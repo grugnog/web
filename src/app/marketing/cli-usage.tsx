@@ -50,7 +50,9 @@ export function MarketingCli(): ReactElement<any, any> | null {
           <Header3>Web Accessibility CLI</Header3>
           <button
             title={
-              sampleVisible ? 'Pause intro sample CLI video' : 'Watch intro sample CLI usage'
+              sampleVisible
+                ? 'Pause intro sample CLI video'
+                : 'Watch intro sample CLI usage'
             }
             className='px-3 rounded-3xl border h-10 w-10 hover:bg-gray-200'
             onClick={toggleSample}
@@ -63,8 +65,8 @@ export function MarketingCli(): ReactElement<any, any> | null {
           </button>
         </div>
         <p className='text-lg pb-4 leading-10'>
-          Run A11yWatch on any machine using the Command Line Interface.
-          Get the CLI simply in shell using the command{' '}
+          Run A11yWatch on any machine using the Command Line Interface. Get the
+          CLI simply in shell using the command{' '}
           <code className='text-gray-700 bg-gray-300 p-1'>
             npm i a11ywatch-cli -g
           </code>
@@ -77,34 +79,32 @@ export function MarketingCli(): ReactElement<any, any> | null {
                 src={'/img/a11ywatch_cli.gif'}
                 height={1000}
                 width={1450}
-                alt={
-                  `A11yWatch CLI running the command: 'a11ywatch crawl --url https://a11ywatch.com -d -n -s > results.json' with the output 27/27 urls passing the report almost instant.`
-                }
+                alt={`A11yWatch CLI running the command: 'a11ywatch crawl --url https://a11ywatch.com -d -n -s > results.json' with the output 27/27 urls passing the report almost instant.`}
                 className={'h-auto w-auto rounded'}
               />
             </div>
-            <div className={`${
-                sampleVisible ? 'hidden' : 'block'
-              } h-full flex place-items-center md:h-initial flex-1 w-full`}>
             <div
-              className={`bg-[#0E1116] rounded shadow-xl w-full`}
+              className={`${
+                sampleVisible ? 'hidden' : 'block'
+              } h-full flex place-items-center md:h-initial flex-1 w-full`}
             >
-              <div className='py-3 px-3 text-base lg:text-xl md:text-lg'>
-                <div className='text-gray-100'>
-                  <span className='text-gray-300 select-none'>~ </span> npm i
-                  a11ywatch-cli -g
-                </div>
-                <div className='text-gray-200'>
-                  <span className='text-gray-300 select-none'>~ </span>{' '}
-                  {`a11ywatch build && a11ywatch start`}
-                </div>
-                <div className='text-gray-300'>
-                  <span className='text-gray-400 select-none'>~ </span>{' '}
-                  a11ywatch crawl -u localhost:3000
-                  <span style={previewStyles}></span>
+              <div className={`bg-[#0E1116] rounded shadow-xl w-full`}>
+                <div className='py-3 px-3 text-base lg:text-xl md:text-lg'>
+                  <div className='text-gray-100'>
+                    <span className='text-gray-300 select-none'>~ </span> npm i
+                    a11ywatch-cli -g
+                  </div>
+                  <div className='text-gray-200'>
+                    <span className='text-gray-300 select-none'>~ </span>{' '}
+                    {`a11ywatch build && a11ywatch start`}
+                  </div>
+                  <div className='text-gray-300'>
+                    <span className='text-gray-400 select-none'>~ </span>{' '}
+                    a11ywatch crawl -u localhost:3000
+                    <span style={previewStyles}></span>
+                  </div>
                 </div>
               </div>
-            </div>
             </div>
           </div>
           <div className='md:w-1/2 sm:w-1/3'>

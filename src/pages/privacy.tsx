@@ -28,12 +28,10 @@ function Privacy({ name }: PageProps) {
           and try it out for yourself.
         </p>
         <div className='py-2'>
-          <Header3>
-            Data Security
-          </Header3>
+          <Header3>Data Security</Header3>
           <p>
-            We are not in the business to sell data. 
-            All data used ever on the platform is for improving your quality of the service provided.
+            We are not in the business to sell data. All data used ever on the
+            platform is for improving your quality of the service provided.
           </p>
         </div>
       </SectionContainer>

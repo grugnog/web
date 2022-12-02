@@ -1,8 +1,7 @@
 import { FC, PropsWithChildren } from 'react'
-import { CardHeader } from '@material-ui/core'
-
 import { ListSkeleton } from '@app/components/placeholders'
 import { EmptyWebsiteForm } from '@app/components/general/website/empty-form'
+import { CardHeader } from '@app/app/card/header'
 
 type DataContainerProps = PropsWithChildren<{
   data?: any

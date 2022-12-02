@@ -1,5 +1,5 @@
 import { FC, memo } from 'react'
-import { CardHeader } from '@material-ui/core'
+import { CardHeader } from '@app/app/card/header'
 import { ListSkeleton } from '../../placeholders'
 
 const emptyClass = 'min-h-10'
