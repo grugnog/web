@@ -46,11 +46,8 @@ const MainFrame = observer(
     const { setFrameContent } = useIframe()
 
     useEffect(() => {
-      try {
-        onLoad(null, { iframeRef })
-      } catch (e) {
-        console.error(e)
-      }
+      onLoad(null, { iframeRef })
+
       return () => {
         iframeStore.clearPortals()
         frameDom?.clearDom()
@@ -59,24 +56,16 @@ const MainFrame = observer(
 
     useEffect(() => {
       if (issue && frameDom?.dom && !iframeStore.issueInited) {
-        try {
-          iframeStore.initIssueFix(issue)
-        } catch (e) {
-          console.error(e)
-        }
+        iframeStore.initIssueFix(issue)
       }
     }, [iframeStore, issue])
 
     const ariaL = `${url} accessibility insight view`
 
     const loadFrame = (event: any) => {
-      try {
-        onLoad(event, { setFrameContent, iframeRef })
-        if (issue) {
-          iframeStore.initIssueFix(issue)
-        }
-      } catch (e) {
-        console.error(e)
+      onLoad(event, { setFrameContent, iframeRef })
+      if (issue) {
+        iframeStore.initIssueFix(issue)
       }
     }
 

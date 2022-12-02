@@ -14,16 +14,10 @@ const MainFrame = observer(
     const iframeRef = useRef(null)
 
     useEffect(() => {
-      setTimeout(() => onLoad(null, { iframeRef }))
-    }, [])
+      onLoad(null, { iframeRef })
 
-    useEffect(() => {
-      if (issue && frameDom?.dom && !iframeStore.issueInited) {
-        try {
-          iframeStore.initIssueFix(issue, url)
-        } catch (e) {
-          console.error(e)
-        }
+      if (issue && issue.length) {
+        iframeStore.initIssueFix(issue, url)
       }
 
       return () => {
@@ -34,12 +28,8 @@ const MainFrame = observer(
 
     const loadFrame = (event: any) => {
       onLoad(event, { iframeRef })
-      if (issue) {
-        try {
-          iframeStore.initIssueFix(issue, url)
-        } catch (e) {
-          console.error(e)
-        }
+      if (issue && issue.length) {
+        iframeStore.initIssueFix(issue, url)
       }
     }
 
@@ -89,7 +79,7 @@ const Portals = observer(({ store }: { store: typeof IframeManager }) => {
 
 // Iframe component to use for marketing websites
 export const TestOutIframe = ({ url, website, issue, posRelative }: any) => {
-  const pageIssues = issue || issueExtractor(website) // array of issues extract duplex types
+  const pageIssues = issueExtractor(website || issue) // array of issues extract duplex types
 
   return (
     <Fragment>

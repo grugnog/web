@@ -12,7 +12,7 @@ const week = [0, 1, 2, 3, 4, 5, 6]
 const startDate = startOfWeek(new Date())
 const activeColor = 'rgb(59 130 246)'
 
-const timeBtnStyle = 'flex place-content-center place-items-center gap-x-2 w-28';
+const timeBtnStyle = 'flex place-content-center place-items-center gap-x-2 w-28'
 
 const WeekSelectComponent: FC<Props> = ({ confirmDates, filterEmailDates }) => {
   const [selected, setSelected] = useState<number[]>(filterEmailDates ?? [])
@@ -60,7 +60,9 @@ const WeekSelectComponent: FC<Props> = ({ confirmDates, filterEmailDates }) => {
           <button
             onClick={() => selectDates(day)}
             className={`text-xl md:text-2xl font-bold border rounded flex-1 h-[70px] px-2 py-4${
-              selected.includes(day) ? ' bg-black text-white hover:opacity-90' : ' hover:bg-gray-200'
+              selected.includes(day)
+                ? ' bg-black text-white hover:opacity-90'
+                : ' hover:bg-gray-200'
             }`}
             key={day}
           >
@@ -98,7 +100,12 @@ const WeekSelectComponent: FC<Props> = ({ confirmDates, filterEmailDates }) => {
         </div>
       </div>
       <div className={'py-6'}>
-        <Button onClick={onDateConfirm} className={"text-base text-blue-700 border-blue-700 border-2 md:px-10 md:rounded"}>
+        <Button
+          onClick={onDateConfirm}
+          className={
+            'text-base text-blue-700 border-blue-700 border-2 md:px-10 md:rounded'
+          }
+        >
           Update
         </Button>
       </div>

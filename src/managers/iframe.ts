@@ -122,33 +122,35 @@ class IframeManager {
   }
 
   @action initIssueFix = (data: any, url?: string) => {
+    // get issues as array
     const issues =
       data && Array.isArray(data) ? data : data?.issues || data?.issue
 
     if (issues?.length && frameDom?.dom) {
-      const issueMap = issues?.filter((item: any) => {
-        try {
-          let selector = 'querySelector'
-          let query = item?.selector ? item.selector.trim() : ''
+      const issueMap = issues.filter((item: any) => {
+        let selector = 'querySelector'
+        let query = item?.selector ? item.selector.trim() : ''
 
-          if (query[0] === '#' && query.includes(' ') === false) {
-            selector = 'getElementById'
-          }
+        if (query[0] === '#' && query.includes(' ') === false) {
+          selector = 'getElementById'
+        }
 
-          if (item?.selector && frameDom.dom[selector]) {
-            const element = frameDom.dom[selector](item?.selector)
+        if (item?.selector && frameDom?.dom[selector]) {
+          try {
+            const element = frameDom?.dom[selector](item?.selector)
 
             if (element) {
               item.element = element
               return item
             }
+          } catch (e) {
+            console.error(e)
           }
-        } catch (e) {
-          console.error(e)
         }
       })
 
-      createAnnotations(issueMap, url || data?.pageUrl)
+      issueMap.length && createAnnotations(issueMap, url || data?.pageUrl)
+
       this.issueInited = true
     }
   }

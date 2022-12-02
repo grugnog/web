@@ -8,11 +8,8 @@ import { GetServerSideProps } from 'next'
 // add ssr for initial website url
 function WebsiteDetails({ url: initUrl }: { url: string }) {
   const router = useRouter()
-
   const { url } = router?.query
-
-  const baseUrl = url || initUrl
-
+  const baseUrl = (url as string) || initUrl
   const { issue } = useIssue(baseUrl, !baseUrl)
   const { script } = useScript(baseUrl, !baseUrl)
 

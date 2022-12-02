@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useCallback, useState } from 'react'
 import { isUrl } from '@app/lib/is-url'
 import { AppManager, UserManager } from '@app/managers'
 import { searchQuery } from '@app/utils'
@@ -65,46 +65,53 @@ export function useSearchRest() {
 
   const setSearch = (event: any) => setQuery(event?.target?.value)
 
-  const scanPage = async () => {
-    setScan({ loading: true })
-    let snackOpen = false
+  const scanPage = useCallback(
+    async (query?: string) => {
+      const q = query || search
 
-    const [querySearch, autoTPT] = searchQuery(search)
+      setScan({ loading: true })
+      const [querySearch, autoTPT] = searchQuery(q)
+      let snackOpen = false
 
-    if (autoTPT) {
-      AppManager.toggleSnack(true, 'https:// automatically added to query.')
-      snackOpen = true
-    }
+      if (autoTPT) {
+        AppManager.toggleSnack(true, 'https:// automatically added to query.')
+        snackOpen = true
+      }
 
-    // todo: opt in authed scan besides url target
-    const authed =
-      window.location.pathname === '/dashboard' && !!UserManager.token
+      // todo: opt in authed scan besides url target
+      const authed =
+        window.location.pathname === '/dashboard' && !!UserManager.token
 
-    let response = await scanWebsite(querySearch, authed)
+      let response = await scanWebsite(querySearch, authed)
 
-    if (response && [300, 400].includes(response?.code)) {
-      AppManager.toggleSnack(true, response.message)
-    }
+      if (response && [300, 400].includes(response?.code)) {
+        AppManager.toggleSnack(true, response.message)
+      }
 
-    // Retry query as http if https autofilled [TODO: move autoquery detection to SS ]
-    if (!response?.data && autoTPT && response?.code !== 300) {
-      AppManager.toggleSnack(true, 'https:// failed retrying with http:// ...')
-      const [q] = searchQuery(search, true)
-      response = await scanWebsite(q, authed)
-      snackOpen = true
-    }
+      // Retry query as http if https autofilled [TODO: move autoquery detection to SS ]
+      if (!response?.data && autoTPT && response?.code !== 300) {
+        AppManager.toggleSnack(
+          true,
+          'https:// failed retrying with http:// ...'
+        )
+        const [target] = searchQuery(q, true)
+        response = await scanWebsite(target, authed)
+        snackOpen = true
+      }
 
-    setScan({
-      loading: false,
-      data: response,
-    })
+      setScan({
+        loading: false,
+        data: response,
+      })
 
-    if (snackOpen) {
-      setTimeout(() => {
-        AppManager.closeSnack()
-      }, 6000)
-    }
-  }
+      if (snackOpen) {
+        setTimeout(() => {
+          AppManager.closeSnack()
+        }, 6000)
+      }
+    },
+    [setScan, search]
+  )
 
   const closeModal = () => setScan({ loading: false, data: undefined })
 
@@ -119,11 +126,7 @@ export function useSearchRest() {
       )
     }
 
-    try {
-      await scanPage()
-    } catch (e) {
-      console.error(e)
-    }
+    return await scanPage()
   }
 
   return {

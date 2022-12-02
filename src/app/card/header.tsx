@@ -15,13 +15,21 @@ export const CardHeader = ({
   subheader,
   className,
   style,
-  lg
+  lg,
 }: CardHeaderProps) => {
   return (
     <div className={className} style={style}>
       <div className='px-4 py-2 gap-y-2'>
-        <div className={`${lg ? "text-3xl" : "text-xl"} font-semibold text-gray-700`}>{title}</div>
-        <div className={`${lg ? "text-xl" : "text-lg"} text-gray-600`}>{subheader}</div>
+        <div
+          className={`${
+            lg ? 'text-3xl' : 'text-xl'
+          } font-semibold text-gray-700`}
+        >
+          {title}
+        </div>
+        <div className={`${lg ? 'text-xl' : 'text-lg'} text-gray-600`}>
+          {subheader}
+        </div>
       </div>
     </div>
   )

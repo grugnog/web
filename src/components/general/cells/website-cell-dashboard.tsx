@@ -193,7 +193,7 @@ export function WebsiteCellDashboardComponent({
       : issuesInfo?.pageCount
 
   const { adaScoreAverage: adaScore } = issuesInfo ?? {}
-  
+
   const cdnUrl = cdnBase ? `${SCRIPTS_CDN_URL_HOST}/${cdnBase}` : notAvail
   const cdnUrlMinifed = cdnBaseMin
     ? `${SCRIPTS_CDN_URL_HOST}/${cdnBaseMin}`

@@ -52,6 +52,7 @@ export function useSearch() {
     })
   }
 
+  // graphql mutation
   const scanPage = async (event: any, text: string) => {
     event?.preventDefault()
     const q = text || search

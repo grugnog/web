@@ -47,7 +47,7 @@ class HomeManager {
   }
 
   @computed get getTestFrameUrl() {
-    return this.iframeSrc || 'https://www.figma.com'
+    return this.iframeSrc || 'https://www.drake.com'
   }
 
   @action

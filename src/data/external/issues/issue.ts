@@ -4,20 +4,18 @@ import { GET_WEBSITE_ISSUES } from '@app/queries/websites'
 import { AppManager } from '@app/managers'
 
 // get a single page issue
-export const useIssue = (url?: string | string[], skip?: boolean) => {
+export const useIssue = (url?: string, skip?: boolean) => {
   const { data, loading, refetch, error } = useQuery(GET_ISSUE, {
-    variables: { url },
+    variables: { url: url ? encodeURIComponent(url) : '' },
     skip: !url || skip,
   })
 
-  const model = Object.freeze({
+  return Object.freeze({
     issue: data?.issue,
     loading: loading,
     refetch,
     error,
   })
-
-  return model
 }
 
 // get issues paginated by website

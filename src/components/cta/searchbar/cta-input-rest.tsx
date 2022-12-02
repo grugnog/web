@@ -4,7 +4,7 @@ import { useState, useRef, SyntheticEvent, useCallback } from 'react'
 import { AppManager } from '@app/managers'
 import { useRestWebsiteContext } from '@app/components/providers/rest/rest-website'
 
-function CtaInputRest() {
+function CtaInputRest({ small }: { small?: boolean }) {
   const ref = useRef<HTMLInputElement>(null)
   const [searchFocused, setSearchFocused] = useState<boolean>()
   const { search, setSearch, loading, toggleModal } = useRestWebsiteContext()
@@ -56,7 +56,9 @@ function CtaInputRest() {
           id='search-input-c'
           ref={ref}
           type='url'
-          className={`w-full md:w-inherit px-6 py-3 text-lg bg-transparent `}
+          className={`w-full md:w-inherit px-6 ${
+            small ? 'py-1.5' : 'py-3'
+          } text-lg bg-transparent `}
           onBlur={toggleSearch(false)}
           onFocus={toggleSearch(true)}
           onChange={setSearch}

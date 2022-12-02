@@ -5,9 +5,9 @@ import { SCRIPTS_CDN_URL_HOST } from '@app/configs'
 import { AppManager } from '@app/managers'
 
 // single script queyr
-export const useScript = (url?: string | string[], skip?: boolean) => {
+export const useScript = (url: string, skip?: boolean) => {
   const { data, loading, refetch } = useQuery(GET_SCRIPT, {
-    variables: { filter: '', url },
+    variables: { filter: '', url: url ? encodeURIComponent(url) : '' },
     skip,
   })
 

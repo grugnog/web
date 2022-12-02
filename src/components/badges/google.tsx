@@ -3,8 +3,8 @@ import type { BadgeProps } from './badge-types'
 
 export const GoogleIcon = ({ className }: BadgeProps) => {
   return (
-    <svg 
-      xmlns="http://www.w3.org/2000/svg" 
+    <svg
+      xmlns='http://www.w3.org/2000/svg'
       viewBox='0 0 18 18'
       width={18}
       height={18}

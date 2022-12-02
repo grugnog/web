@@ -16,16 +16,6 @@ import {
 import { issueExtractor } from '@app/utils'
 
 const useStyles = makeStyles((theme: MergedTheme) => ({
-  bar: {
-    position: 'absolute',
-    bottom: 0,
-    left: 0,
-    flexDirection: 'column',
-    display: 'flex',
-    justifyContent: 'flex-end',
-    minWidth: '100px',
-    padding: '12px',
-  },
   button: {
     marginBottom: '10px',
     width: '100%',
@@ -50,7 +40,11 @@ const MFab = observer(({ iframeStore, issue, script, marketing }: any) => {
   const pageIssues = issueExtractor(issue)
 
   return (
-    <Box className={classes.bar}>
+    <Box
+      className={
+        'absolute p-3 min-w-[100px] flex-col flex place-content-end bottom-0 left-0'
+      }
+    >
       {!marketing ? (
         <Tooltip title='Issue with page, toggle to webview' placement='right'>
           <Button
