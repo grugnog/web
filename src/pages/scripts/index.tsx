@@ -8,20 +8,23 @@ import type { PageProps } from '@app/types'
 import { PageLoader } from '@app/components/placeholders'
 import { useWebsiteContext } from '@app/components/providers/website'
 import { LoadMoreButton } from '@app/components/general/buttons'
+import { useAuthContext } from '@app/components/providers/auth'
 
 const emptyHeaderTitle = 'No scripts found'
-const emptyHeaderSubTitle = 'Scripts will appear here for paid accounts.'
 
 function Scripts({ name }: PageProps) {
   const { scriptsData, scriptsDataLoading, refetch, error, onLoadMoreScripts } =
     useWebsiteContext()
   const { search } = useSearchFilter()
+  const { activeSubscription } = useAuthContext()
 
   // search local filtering
   const source = useMemo(
     () => (Array.isArray(scriptsData) ? filterSort(scriptsData, search) : []),
     [scriptsData, search]
   )
+
+  const emptyHeaderSub = `Scripts will appear here ${activeSubscription ? 'when issues exist' : 'for paid accounts'}.`;
 
   return (
     <>
@@ -32,7 +35,7 @@ function Scripts({ name }: PageProps) {
           loading={scriptsDataLoading}
           hasWebsite={!!scriptsData?.length}
           emptyTitle={emptyHeaderTitle}
-          emptySubTitle={emptyHeaderSubTitle}
+          emptySubTitle={emptyHeaderSub}
           error={error}
         >
           <List
@@ -40,8 +43,8 @@ function Scripts({ name }: PageProps) {
             loading={scriptsDataLoading}
             refetch={refetch}
             BottomButton={FormDialog}
-            emptyHeaderTitle='No scripts found'
-            emptyHeaderSubTitle={emptyHeaderSubTitle}
+            emptyHeaderTitle={emptyHeaderTitle}
+            emptyHeaderSubTitle={emptyHeaderSub}
           >
             <li>
               <LoadMoreButton
