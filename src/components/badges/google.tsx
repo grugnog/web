@@ -1,15 +1,16 @@
 import React from 'react'
-import { SvgIcon } from '@material-ui/core'
 import type { BadgeProps } from './badge-types'
 
 export const GoogleIcon = ({ className }: BadgeProps) => {
   return (
-    <SvgIcon
+    <svg 
+      xmlns="http://www.w3.org/2000/svg" 
       viewBox='0 0 18 18'
-      fontSize={'small'}
+      width={18}
+      height={18}
       className={className}
-      aria-label={'Google'}
     >
+      <title>Google Icon</title>
       <g>
         <path
           d='M17.64 9.2c0-.637-.057-1.251-.164-1.84H9v3.481h4.844c-.209 1.125-.843 2.078-1.796 2.717v2.258h2.908c1.702-1.567 2.684-3.874 2.684-6.615z'
@@ -40,6 +41,6 @@ export const GoogleIcon = ({ className }: BadgeProps) => {
           stroke='none'
         ></path>
       </g>
-    </SvgIcon>
+    </svg>
   )
 }

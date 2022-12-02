@@ -1,7 +1,7 @@
-import React, { useEffect, useState, useCallback, memo, FC } from 'react'
-import { Button as MatButton } from '@material-ui/core'
+import { useEffect, useState, useCallback, memo, FC } from 'react'
 import { addDays, format, startOfWeek } from 'date-fns'
 import { GrMoon, GrSun } from 'react-icons/gr'
+import { Button } from '../general'
 
 interface Props {
   confirmDates(dates: number[], morning: boolean): Promise<void>
@@ -10,6 +10,9 @@ interface Props {
 
 const week = [0, 1, 2, 3, 4, 5, 6]
 const startDate = startOfWeek(new Date())
+const activeColor = 'rgb(59 130 246)'
+
+const timeBtnStyle = 'flex place-content-center place-items-center gap-x-2 w-28';
 
 const WeekSelectComponent: FC<Props> = ({ confirmDates, filterEmailDates }) => {
   const [selected, setSelected] = useState<number[]>(filterEmailDates ?? [])
@@ -44,7 +47,6 @@ const WeekSelectComponent: FC<Props> = ({ confirmDates, filterEmailDates }) => {
     [setSelected, selected]
   )
 
-  const activeColor = 'rgb(59 130 246)'
   const activeStyles = {
     borderColor: activeColor,
     color: activeColor,
@@ -58,7 +60,7 @@ const WeekSelectComponent: FC<Props> = ({ confirmDates, filterEmailDates }) => {
           <button
             onClick={() => selectDates(day)}
             className={`text-xl md:text-2xl font-bold border rounded flex-1 h-[70px] px-2 py-4${
-              selected.includes(day) ? ' bg-secondary text-white' : ''
+              selected.includes(day) ? ' bg-black text-white hover:opacity-90' : ' hover:bg-gray-200'
             }`}
             key={day}
           >
@@ -66,43 +68,39 @@ const WeekSelectComponent: FC<Props> = ({ confirmDates, filterEmailDates }) => {
           </button>
         ))}
       </div>
-      <div className='py-4 border px-4 rounded'>
-        <h3 className='text-lg space-y-2'>
+      <div className='py-4 border px-4 rounded space-y-2'>
+        <h3 className='text-lg'>
           Determine alert setting preference, day or night.
         </h3>
         <div className='flex space-x-2 py-2'>
-          <MatButton
-            variant={'outlined'}
-            startIcon={
-              <GrSun
-                style={morning ? { fill: activeColor } : {}}
-                className={'grIcon'}
-              />
-            }
+          <Button
             onClick={() => setMorning(true)}
             style={morning ? activeStyles : {}}
+            className={timeBtnStyle}
           >
+            <GrSun
+              style={morning ? { fill: activeColor } : {}}
+              className={'grIcon'}
+            />
             Morning
-          </MatButton>
-          <MatButton
-            variant={'outlined'}
+          </Button>
+          <Button
             onClick={() => setMorning(false)}
-            startIcon={
-              <GrMoon
-                style={!morning ? { fill: activeColor } : {}}
-                className={'grIcon'}
-              />
-            }
             style={!morning ? activeStyles : {}}
+            className={timeBtnStyle}
           >
+            <GrMoon
+              style={!morning ? { fill: activeColor } : {}}
+              className={'grIcon'}
+            />
             Night
-          </MatButton>
+          </Button>
         </div>
       </div>
       <div className={'py-6'}>
-        <MatButton onClick={onDateConfirm} variant={'outlined'}>
+        <Button onClick={onDateConfirm} className={"text-base text-blue-700 border-blue-700 border-2 md:px-10 md:rounded"}>
           Update
-        </MatButton>
+        </Button>
       </div>
     </div>
   )

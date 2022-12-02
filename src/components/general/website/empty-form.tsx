@@ -43,10 +43,7 @@ const EmptyWebsiteFormComponent: FC<EmptyWebsiteProps> = ({
         'flex flex-col w-full place-items-center py-10 my-2 text-center'
       }
     >
-      <CardHeader
-        title={emptyHeaderTitle}
-        subheader={emptyHeaderSubTitle}
-      />
+      <CardHeader title={emptyHeaderTitle} subheader={emptyHeaderSubTitle} lg />
       {hasWebsite ? (
         <Button href={goToHref} component={Link} variant={'outlined'}>
           Go to {goToPayments ? 'Payments' : 'Dashboard'}
