@@ -48,25 +48,24 @@ const LiveFeedComponent: FC<BaseFeed> = ({
   }, [pageIssues])
 
   useEffect(() => {
-    const shouldUpdate = currentIssueCount.current !== pIssues.length;
+    const shouldUpdate = currentIssueCount.current !== pIssues.length
 
-    if(shouldUpdate) {
+    if (shouldUpdate) {
       // run side effect once per issue transition
       if (pageIssues.length < pIssues.length) {
         setPageIssues(pIssues)
       } else if (pageIssues.length > pIssues.length) {
         const matches: Set<string> = new Set()
-  
+
         // determine already fixed
         for (const iss of pIssues) {
           matches.add(iss.code + iss.selector + iss.context)
         }
-  
+
         setPageMatchers(matches)
       }
       currentIssueCount.current = pIssues.length
     }
-
   }, [pageIssues, pIssues, setPageIssues, currentIssueCount, setPageMatchers])
 
   const Row = ({ index, style }: RowProps) => {
@@ -76,7 +75,10 @@ const LiveFeedComponent: FC<BaseFeed> = ({
       <IssueFeedCell
         item={item}
         style={style}
-        completed={!!pageMatchers.size && !pageMatchers.has(item.code + item.selector + item.context)}
+        completed={
+          !!pageMatchers.size &&
+          !pageMatchers.has(item.code + item.selector + item.context)
+        }
       />
     )
   }
