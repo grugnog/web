@@ -9,15 +9,17 @@ import { observer } from 'mobx-react-lite'
 const iconStyle = { height: 13, width: 13 }
 
 // Issue Cell used on Feed after authentication.
-export function IssueFeedCellComponent({
+ const IssueFeedCellComponent = ({
   item,
   hideSelector,
   style,
+  completed,
 }: {
   item: Partial<Issue>
   hideSelector?: boolean
   style?: any
-}) {
+  completed?: boolean
+}) => {
   const [issueView, setIssueView] = useState<boolean>(true)
 
   const onToggleIssue = (e: SyntheticEvent<HTMLButtonElement>) => {
@@ -33,10 +35,15 @@ export function IssueFeedCellComponent({
       : false
 
   const filterStyles = filtered ? ' bg-gray-200 text-gray-700 font-medium' : ''
-  const completedStyles = item?.completed ? ' bg-green-100 text-gray-700 font-medium' : ''
+  const completedStyles = completed
+    ? ' bg-green-100 text-gray-700 font-medium'
+    : ''
 
   return (
-    <div className={`h-[inherit]${filterStyles}${completedStyles}`} style={style}>
+    <div
+      className={`h-[inherit]${filterStyles}${completedStyles}`}
+      style={style}
+    >
       {!hideSelector ? null : (
         <div className={'flex flex-1 px-3 place-items-center py-2'}>
           <p className={`flex flex-1 text-base line-clamp-1`}>

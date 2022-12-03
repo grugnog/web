@@ -33,8 +33,10 @@ const LiveFeedComponent: FC<BaseFeed> = ({
 }) => {
   const [sectionHidden, onToggleSection] = useState<boolean>(!!isHidden)
   const [pageIssues, setPageIssues] = useState<PageIssue[]>([])
+  const [pageMatchers, setPageMatchers] = useState<Set<string>>(new Set())
+
   const currentIssueCount = useRef<number>(0)
-  
+
   // allow feed adjustment at render for manual triggering
   const issue = feed?.get_page(domain, pageUrl)
   const pIssues = issueExtractor(issue) // array of issues extract duplex types
@@ -46,33 +48,38 @@ const LiveFeedComponent: FC<BaseFeed> = ({
   }, [pageIssues])
 
   useEffect(() => {
-    // run side effect once per issue transition
-    if (currentIssueCount.current < pIssues.length) {
-      setPageIssues(pIssues)
-    } else if (currentIssueCount.current > pIssues.length) {
-      const matches = new Set()
+    const shouldUpdate = currentIssueCount.current !== pIssues.length;
 
-      for (const iss of pIssues) {
-        matches.add(iss.code + iss.selector + iss.context)
-      }
-
-      // TODO:: use seperate collection for completed count
-      const newIssues = pageIssues.map((iss) => {
-        if (!matches.has(iss.code + iss.selector + iss.context)) {
-          iss.completed = true
+    if(shouldUpdate) {
+      // run side effect once per issue transition
+      if (pageIssues.length < pIssues.length) {
+        setPageIssues(pIssues)
+      } else if (pageIssues.length > pIssues.length) {
+        const matches: Set<string> = new Set()
+  
+        // determine already fixed
+        for (const iss of pIssues) {
+          matches.add(iss.code + iss.selector + iss.context)
         }
-        return iss
-      })
-
-      setPageIssues(newIssues)
+  
+        setPageMatchers(matches)
+      }
+      currentIssueCount.current = pIssues.length
     }
 
-    currentIssueCount.current = pIssues.length
-  }, [pageIssues, pIssues, setPageIssues, currentIssueCount])
+  }, [pageIssues, pIssues, setPageIssues, currentIssueCount, setPageMatchers])
 
-  const Row = ({ index, style }: RowProps) => (
-    <IssueFeedCell item={pageIssues[index]} style={style} />
-  )
+  const Row = ({ index, style }: RowProps) => {
+    const item = pageIssues[index]
+
+    return (
+      <IssueFeedCell
+        item={item}
+        style={style}
+        completed={!!pageMatchers.size && !pageMatchers.has(item.code + item.selector + item.context)}
+      />
+    )
+  }
 
   const issueCount = pageIssues.length
 

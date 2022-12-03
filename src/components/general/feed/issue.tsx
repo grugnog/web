@@ -42,7 +42,7 @@ export function FeedIssueCardComponent({
   const { codeHref, codeDisplay } = codeFormatter(code)
   const [m, rec] = message?.split('Recommendation:') || [message, '']
 
-  const largeBody = m && m?.length < 100
+  const largeBody = m && m?.length < 80
 
   return (
     <div className='px-3 py-3 flex flex-col space-y-1 place-content-between h-[inherit]'>
