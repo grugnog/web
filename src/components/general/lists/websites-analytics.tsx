@@ -71,7 +71,7 @@ export const RenderInnerAnalytics: FC<any> = (props) => {
           ))}
         </ul>
       </InnerWrapper>
-      <div className='pb-8'>
+      <div className={`pb-8 ${analyticsSource?.length > 1 ? "" : "hidden"}`}>
         <LoadMoreButton
           visible={analyticsSource?.length > 1}
           onLoadMoreEvent={onLoadMore}

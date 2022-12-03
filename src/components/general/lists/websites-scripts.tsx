@@ -1,4 +1,4 @@
-import React, { FC, useState, useEffect, useCallback, memo } from 'react'
+import { FC, useState, useEffect, useCallback, memo } from 'react'
 import { useMiniPlayer } from '@app/data'
 import { FullScreenModal } from '../fullscreen-modal'
 import { InnerWrapper } from './list-wrapper'
@@ -47,7 +47,7 @@ export const RenderInnerScripts: FC<any> = (props) => {
     loading,
     onLoadMore,
   } = useScriptsData(pageUrl, all)
-
+  
   return (
     <>
       <InnerWrapper
@@ -62,10 +62,12 @@ export const RenderInnerScripts: FC<any> = (props) => {
           ))}
         </ul>
       </InnerWrapper>
-      <div className='pb-8'>
+      <div className={`pb-8 ${scriptSource?.length > 1 ? "" : "hidden"}`}>
         <LoadMoreButton
           visible={scriptSource?.length > 1}
           onLoadMoreEvent={onLoadMore}
+          loading={loading}
+          title={"Load more scripts"}
         />
       </div>
     </>

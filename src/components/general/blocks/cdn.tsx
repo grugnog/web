@@ -17,7 +17,7 @@ export function CdnBlockComponent({
 }: CdnProps) {
   return (
     <div className={`flex place-items-center space-x-2 overflow-hidden`}>
-      <div className={`flex-1 max-w-[94%]`}>
+      <div className={`flex-1`}>
         {!hideUrl && cdn_url ? (
           <>
             {hideMin ? (
