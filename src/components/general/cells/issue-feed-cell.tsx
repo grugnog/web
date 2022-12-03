@@ -32,13 +32,11 @@ export function IssueFeedCellComponent({
         FilterManager.filters.get(item.code)?.checked
       : false
 
+  const filterStyles = filtered ? ' bg-gray-200 text-gray-700 font-medium' : ''
+  const completedStyles = item?.completed ? ' bg-green-100 text-gray-700 font-medium' : ''
+
   return (
-    <div
-      className={`h-[inherit] ${
-        filtered ? 'bg-gray-200 text-gray-700 font-medium' : ''
-      }`}
-      style={style}
-    >
+    <div className={`h-[inherit]${filterStyles}${completedStyles}`} style={style}>
       {!hideSelector ? null : (
         <div className={'flex flex-1 px-3 place-items-center py-2'}>
           <p className={`flex flex-1 text-base line-clamp-1`}>

@@ -7,13 +7,12 @@ import {
   useMemo,
 } from 'react'
 import { useWebsiteContext } from '../providers/website'
-import { GrClose, GrExpand } from 'react-icons/gr'
-import { AppManager } from '@app/managers'
 import { useWasmContext } from '../providers'
 import type { IssueData, Website } from '@app/types'
 import type { Feed } from 'a11ywatch-web-wasm'
-import { FilterDropdown } from './filters'
-import { LiveFeedList } from './live-feed'
+import { TopSection } from './top'
+import { PageList } from './page-list'
+import { alertIssueDifference } from '@app/utils/alerts'
 
 type FeedItemProps = {
   feed: Feed
@@ -31,34 +30,6 @@ interface DomainListProps {
   data?: Map<string, Map<string, IssueData>>
   onScanEvent?(x: any): any
 }
-
-const PageListWrapper = ({
-  pages,
-  onScanEvent,
-  feed,
-  domain,
-}: FeedItemProps & {
-  pages: any[]
-  sorted?: boolean
-}) => {
-  return (
-    <>
-      {pages?.map((pageUrl: any) => (
-        <LiveFeedList
-          key={pageUrl}
-          highlightErrors
-          onScanEvent={onScanEvent}
-          isHidden
-          domain={domain}
-          feed={feed}
-          pageUrl={pageUrl}
-        />
-      ))}
-    </>
-  )
-}
-
-const PageList = memo(PageListWrapper)
 
 const FeedButton = ({ domain, onHeadingToggleEvent, onSortClick }: any) => {
   return (
@@ -122,48 +93,6 @@ const FeedItemWrapper = ({
 
 const FeedItem = memo(FeedItemWrapper)
 
-const Top = ({
-  onClick,
-  open,
-  feedExist,
-  clearFeed,
-}: {
-  onClick(x: any): any
-  open: boolean
-  feedExist?: boolean
-  clearFeed(): any
-}) => {
-  const closeFeed = () => onClick(!open)
-
-  return (
-    <div className={`flex place-items-center px-3 py-1 h-14 text-side gap-x-5`}>
-      <p className={`flex-1 text-lg font-semibold`}>Recent</p>
-      {feedExist ? (
-        <button
-          onClick={clearFeed}
-          className={'px-4 py-3 hover:bg-gray-200 rounded-2xl'}
-          title={'Clear Recent'}
-        >
-          Clear
-        </button>
-      ) : null}
-      <FilterDropdown open={open} />
-      <button
-        onClick={closeFeed}
-        aria-label='close'
-        title='close issue feed'
-        className='visible lg:hidden p-3 hover:bg-gray-200 rounded-2xl'
-        type={'button'}
-      >
-        {!open ? <GrExpand /> : <GrClose />}
-      </button>
-    </div>
-  )
-}
-
-// re-render on state change for toggling click event
-const TopSection = memo(Top)
-
 // domain list
 const DomainListWrapper = ({
   websites,
@@ -190,49 +119,32 @@ const DomainList = memo(DomainListWrapper)
 // side panel that appears fixed on the right of current issues of domain being. This returns a list of pages with a list of issues per page.
 const LiveFeed: FC = () => {
   const { feed } = useWasmContext()
-  const { feedOpen, setIssueFeedContent, scanWebsite, forceUpdate } =
+  const { feedOpen, setIssueFeedContent, singlePageScan, forceUpdate } =
     useWebsiteContext()
   const websites = useDeferredValue(feed?.get_data_keys() ?? [])
 
   const onScanEvent = useCallback(
     async (target: string) => {
       let webPage: Website | null = null
+      const domain = new URL(target).hostname
+      // the current item in the feed - wasm binds domain updates after
+      const page = feed?.get_page(domain, target)
 
       try {
-        webPage = await scanWebsite({ variables: { url: target } })
+        webPage = await singlePageScan({ variables: { url: target } })
       } catch (e) {
         console.error(e)
       }
 
       // replace issue feed section with new value
-      if (webPage && feed) {
-        // the current item in the feed
-        const page = feed.get_page(webPage.domain, target)
-
-        if (page) {
-          // old issues
-          const pageIssuesCount = page?.issues?.length || 0
-          // new issues
-          const newIssuesCount =
-            webPage?.issue?.length ?? webPage?.issuesInfo?.totalIssues ?? 0
-
-          let message = 'No new issues found'
-
-          // issue count updated
-          if (pageIssuesCount !== newIssuesCount) {
-            const issueDif = newIssuesCount - pageIssuesCount
-            const issueMessage =
-              newIssuesCount > pageIssuesCount ? 'more' : 'less'
-            message = `${issueDif} ${issueMessage} issue${
-              issueDif === 1 ? '' : 's'
-            } found`
-          }
-
-          AppManager.toggleSnack(true, message, 'message')
-        }
+      if (webPage && page) {
+        alertIssueDifference({
+          lastCount: page?.issues?.length || 0,
+          nextCount: webPage?.issue?.length || 0,
+        })
       }
     },
-    [feed, scanWebsite]
+    [feed, singlePageScan]
   )
 
   const { mainStyle, topStyles } = useMemo(() => {
@@ -253,7 +165,7 @@ const LiveFeed: FC = () => {
   }, [feedOpen])
 
   const clearData = useCallback(() => {
-    feed.clear_data()
+    feed?.clear_data()
     forceUpdate()
   }, [feed, forceUpdate])
 

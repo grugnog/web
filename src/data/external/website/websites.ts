@@ -305,7 +305,7 @@ export const useWebsiteData = (
     skip,
   })
 
-  // EVENTS
+  // full domain crawl for reports
   const crawlWebsite = useCallback(
     async (params: any) => {
       let crawling = null
@@ -327,9 +327,9 @@ export const useWebsiteData = (
     [setActiveCrawl, crawl]
   )
 
-  const scanWebsite = async (params: any) => {
+  const singlePageScan = async (params: any) => {
     const canScan = await scan(params)
-    // TODO: add handling for errors
+
     return canScan?.data?.scanWebsite?.website
   }
 
@@ -433,7 +433,7 @@ export const useWebsiteData = (
     }
   }, [actionsData, fetchMoreActions, actionsDataLoading])
 
-  // toggle the feed menu
+  // toggle the live feed menu
   const setFeed = (open: boolean) => setIssueFeedContent(open)
 
   // add a website to monitor
@@ -477,7 +477,7 @@ export const useWebsiteData = (
     addWebsite: addWebPage,
     refetch,
     crawlWebsite,
-    scanWebsite, // single page web scan
+    singlePageScan, // single page web scan
     updateWebsite,
     setIssueFeedContent: setFeed,
     // pagination

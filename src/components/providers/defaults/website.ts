@@ -45,7 +45,7 @@ export const sharedWebsiteDefaults = {
   setIssueFeedContent: (_open: boolean): void => {
     return
   },
-  scanWebsite: (_: any): Promise<any> => {
+  singlePageScan: (_: any): Promise<any> => {
     return _
   },
   // TODO: move UI control

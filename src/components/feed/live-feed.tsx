@@ -1,4 +1,4 @@
-import React, { memo, useState, FC, useEffect, useMemo } from 'react'
+import React, { memo, useState, FC, useEffect, useMemo, useRef } from 'react'
 import { IssueFeedCell } from '../general/cells'
 import { issueExtractor } from '@app/utils'
 import { FeedHeading } from './heading'
@@ -7,6 +7,7 @@ import { FixedSizeList as List } from 'react-window'
 import { getListHeight } from './utils'
 import { FilterManager } from '@app/managers/filters'
 import { Feed } from 'a11ywatch-web-wasm'
+import { PageIssue } from '@app/types'
 
 interface RowProps {
   index: number
@@ -31,19 +32,43 @@ const LiveFeedComponent: FC<BaseFeed> = ({
   pageUrl,
 }) => {
   const [sectionHidden, onToggleSection] = useState<boolean>(!!isHidden)
-
-  const issue = useMemo(
-    () => feed.get_page(domain, pageUrl),
-    [feed, domain, pageUrl]
-  )
-
-  const pageIssues = issueExtractor(issue) // array of issues extract duplex types
+  const [pageIssues, setPageIssues] = useState<PageIssue[]>([])
+  const currentIssueCount = useRef<number>(0)
+  
+  // allow feed adjustment at render for manual triggering
+  const issue = feed?.get_page(domain, pageUrl)
+  const pIssues = issueExtractor(issue) // array of issues extract duplex types
 
   useEffect(() => {
     for (const item of pageIssues) {
       FilterManager.addFilter(item?.code)
     }
   }, [pageIssues])
+
+  useEffect(() => {
+    // run side effect once per issue transition
+    if (currentIssueCount.current < pIssues.length) {
+      setPageIssues(pIssues)
+    } else if (currentIssueCount.current > pIssues.length) {
+      const matches = new Set()
+
+      for (const iss of pIssues) {
+        matches.add(iss.code + iss.selector + iss.context)
+      }
+
+      // TODO:: use seperate collection for completed count
+      const newIssues = pageIssues.map((iss) => {
+        if (!matches.has(iss.code + iss.selector + iss.context)) {
+          iss.completed = true
+        }
+        return iss
+      })
+
+      setPageIssues(newIssues)
+    }
+
+    currentIssueCount.current = pIssues.length
+  }, [pageIssues, pIssues, setPageIssues, currentIssueCount])
 
   const Row = ({ index, style }: RowProps) => (
     <IssueFeedCell item={pageIssues[index]} style={style} />
@@ -82,7 +107,7 @@ const LiveFeedComponent: FC<BaseFeed> = ({
         onScanEvent={onScanEvent}
         onToggleSection={onToggleSection}
         sectionHidden={sectionHidden}
-        pageUrl={issue?.pageUrl}
+        pageUrl={pageUrl}
         totalIssues={issue?.issues?.length || 0}
         highLight={!!highLight}
       />
