@@ -6,11 +6,11 @@ import { SectionContainer } from '../containers/section-container'
 const codeString = `import { scan, multiPageScan } from "@a11ywatch/a11ywatch";
 
 // single page website scan.
-const data = await scan({ url: "https://a11ywatch.com" });
-console.log(data)
+const results = await scan({ url: "https://a11ywatch.com" });
+console.log(results);
 // multi page website scan.
-const dataMultiPage = await multiPageScan({ url: "https://a11ywatch.com", subdomains: false, tld: false });
-console.log(dataMultiPage)
+const resultsAll = await multiPageScan({ url: "https://a11ywatch.com", subdomains: false, tld: false });
+console.log(resultsAll);
 `
 
 export const JavascriptUsage = () => {

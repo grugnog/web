@@ -17,14 +17,14 @@ function MarketingIntro({
       <div className={'flex-1 pb-4'}>
         <Header>
           {checker ? (
-            'Tools that just work.'
+            'Tools that help and teach web inclusion.'
           ) : (
             <>The web accessibility tool built for scale.</>
           )}
         </Header>
         {checker ? (
           <h2 className='text-lg py-2'>
-            Test your web accessibility and vitals fast
+            Test your web accessibility and vitals fast. Learn how the issue happened and the steps needed to remedy the fix correctly.
           </h2>
         ) : (
           <div>

@@ -29,7 +29,7 @@ function About({ name }: PageProps) {
         </p>
         <Header3>Project Goals for Accessibility and Beyond</Header3>
         <p className='py-2 text-base'>
-          One major goal that we are trying to acheive is the ability to fix
+          One major goal that {`we’re`} trying to acheive is the ability to fix
           mobile applications accessibility errors using a SDK. This is a step
           into reducing work that can be repetitive and very time consuming.
         </p>
@@ -49,10 +49,10 @@ function About({ name }: PageProps) {
         </p>
         <h4 className='font-bold pb-2 text-2xl'>Portable across any system</h4>
         <p className='py-2 text-base'>
-          Getting started and using a full accessibility pipeline can be handled
-          in multiple ways. Using the system on your server as enhancement to a
-          feature/process or on your CI to make certain every page meets a
-          certain standard as well.
+          You can use the platform in many ways to improve accessibility uptime.
+          Using the system on your server as an enhancement to a feature/process
+          or on your CI to make certain every page meets a certain standard as
+          well.
         </p>
         <p className='py-2 text-base'>
           Feel free to email us on about issues that occur or contact us through

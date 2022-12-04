@@ -4,8 +4,8 @@ import { Button } from './button'
 // load more content if exist
 export const LoadMoreButton: React.FC<{
   onLoadMoreEvent(x: any): Promise<void>
-  visible?: boolean,
-  title?: string,
+  visible?: boolean
+  title?: string
   loading?: boolean
 }> = ({ onLoadMoreEvent, visible, loading, title }) => {
   return (

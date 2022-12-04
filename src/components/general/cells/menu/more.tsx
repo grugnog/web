@@ -31,7 +31,7 @@ function MoreOptionsComponent(props: MoreOptionsProps) {
   const onWebsiteCrawl = useCallback(async () => {
     AppManager.toggleSnack(
       true,
-      'Scan in progress, you will be notified if new issues occur.',
+      `Scan in progress, you’ll be notified if new issues occur.`,
       'success'
     )
 

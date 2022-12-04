@@ -47,7 +47,7 @@ export const RenderInnerScripts: FC<any> = (props) => {
     loading,
     onLoadMore,
   } = useScriptsData(pageUrl, all)
-  
+
   return (
     <>
       <InnerWrapper
@@ -62,12 +62,12 @@ export const RenderInnerScripts: FC<any> = (props) => {
           ))}
         </ul>
       </InnerWrapper>
-      <div className={`pb-8 ${scriptSource?.length > 1 ? "" : "hidden"}`}>
+      <div className={`pb-8 ${scriptSource?.length > 1 ? '' : 'hidden'}`}>
         <LoadMoreButton
           visible={scriptSource?.length > 1}
           onLoadMoreEvent={onLoadMore}
           loading={loading}
-          title={"Load more scripts"}
+          title={'Load more scripts'}
         />
       </div>
     </>

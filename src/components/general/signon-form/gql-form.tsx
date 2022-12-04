@@ -23,6 +23,7 @@ import { LinearBottom } from '../loaders'
 import { DOMAIN_NAME } from '@app/configs'
 import { GrGithub } from 'react-icons/gr'
 import { REST_API } from '@app/configs/app-config'
+import { Header, Header4 } from '../header'
 
 const clientID = process.env.GITHUB_CLIENT_ID
 
@@ -165,18 +166,13 @@ const SignOnFormWrapper: FunctionComponent<SignOnProps> = ({
     e: SyntheticEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => setPassword(e.currentTarget.value)
 
+  const Heading = home ? Header4 : Header
   return (
     <Fragment>
-      <div className='container mx-auto'>
-        <Typography
-          variant={home ? 'h4' : 'h2'}
-          component={home ? 'h4' : 'h1'}
-          gutterBottom
-          align='center'
-          style={{ fontWeight: 'bold' }}
-        >
+      <div className='container mx-auto place-content-center'>
+        <Heading className='text-center max-w-[100vw]'>
           {(loginView && 'Login') || (home && 'Sign up for free') || 'Register'}
-        </Typography>
+        </Heading>
         <div className={classes.paper}>
           <div
             className={

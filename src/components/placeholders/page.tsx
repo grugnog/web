@@ -40,7 +40,7 @@ export function PageLoader({
     if (!loading && error) {
       return (
         <EmptyWebsiteForm
-          emptyHeaderTitle={'An Error occured, please try to again later'}
+          emptyHeaderTitle={'An Error occurred, please try to again later'}
           emptyHeaderSubTitle={
             'If the issue persist please contact support or try to reload your browser.'
           }

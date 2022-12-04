@@ -960,7 +960,7 @@ function GrpcDocs({ name }: PageProps) {
                 </td>
                 <td>repeated</td>
                 <td>
-                  <p>all of the issues that occured on the page. </p>
+                  <p>all of the issues that occurred on the page. </p>
                 </td>
               </tr>
 
@@ -1241,7 +1241,7 @@ function GrpcDocs({ name }: PageProps) {
             Problem
           </h4>
           <p className='py-2'>
-            the issue that occured, either of type error, notice, warning in
+            the issue that occurred, either of type error, notice, warning in
             desc order.
           </p>
 

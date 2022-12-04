@@ -48,7 +48,7 @@ export const SortableWebsiteList: FC<{ refetch: any }> = ({ refetch }) => {
           onSubmitSort={onSubmitSort}
         />
       ) : (
-        <div>{loading ? 'Loading Websites...' : 'An Issue occured.'}</div>
+        <div>{loading ? 'Loading Websites...' : 'An Issue occurred.'}</div>
       )}
     </div>
   )

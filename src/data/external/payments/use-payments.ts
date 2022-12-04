@@ -40,7 +40,7 @@ export const usePaymentsHook = () => {
         } else {
           AppManager.toggleSnack(
             true,
-            'An issue occured. Please contact support',
+            'An issue occurred. Please contact support',
             'error'
           )
         }
@@ -51,7 +51,7 @@ export const usePaymentsHook = () => {
       console.error(e)
       AppManager.toggleSnack(
         true,
-        'A Payment issue occured. Please contact support',
+        'A Payment issue occurred. Please contact support',
         'error'
       )
     }
@@ -83,7 +83,7 @@ export const usePaymentsHook = () => {
     } else {
       AppManager.toggleSnack(
         true,
-        'An Error occured trying to cancel. Please contact support.',
+        'An Error occurred trying to cancel. Please contact support.',
         'error'
       )
     }

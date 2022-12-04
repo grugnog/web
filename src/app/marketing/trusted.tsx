@@ -4,6 +4,7 @@ import { HuluSvg } from '../svgs/brand-hulu'
 import { BlockChainSvg } from '../svgs/brand-blockchain'
 import { ArrowSvg } from '../svgs/brand-arrow'
 import { Header4 } from '@app/components/general/header'
+import { companyName } from '@app/configs'
 
 const props = {
   width: 231.68,
@@ -15,7 +16,7 @@ export function MarketingTrustBy() {
   return (
     <SectionContainer>
       <Header4 className='text-center max-w-none'>
-        Trusted by many from all over
+        {companyName} is used by companies that care about inclusion
       </Header4>
       <div>
         <div className='grid grid-cols-3'>

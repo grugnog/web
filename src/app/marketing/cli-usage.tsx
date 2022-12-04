@@ -4,6 +4,7 @@ import { Link } from '../typo/link'
 import { Header3, Header4 } from '@app/components/general/header'
 import { GrPause, GrPlay } from 'react-icons/gr'
 import Image from 'next/image'
+import { companyName } from '@app/configs'
 
 const infoDetails = [
   {
@@ -65,8 +66,8 @@ export function MarketingCli(): ReactElement<any, any> | null {
           </button>
         </div>
         <p className='text-lg pb-4 leading-10'>
-          Run A11yWatch on any machine using the Command Line Interface. Get the
-          CLI simply in shell using the command{' '}
+          Run {companyName} on any machine using the Command Line Interface.
+          Install the CLI in shell using the command{' '}
           <code className='text-gray-700 bg-gray-300 p-1'>
             npm i a11ywatch-cli -g
           </code>
@@ -114,7 +115,7 @@ export function MarketingCli(): ReactElement<any, any> | null {
                   return (
                     <li key={i}>
                       <Header4>{detail.title}</Header4>
-                      <div className={'text-lg'}>{detail.subTitle}</div>
+                      <div className={'text-base'}>{detail.subTitle}</div>
                     </li>
                   )
                 }

@@ -1,10 +1,10 @@
 const tailwindColors = require('tailwindcss/colors')
 
 delete tailwindColors['lightBlue']
-// delete tailwindColors['warmGray']
-// delete tailwindColors['trueGray']
-// delete tailwindColors['coolGray']
-// delete tailwindColors['blueGray']
+delete tailwindColors['warmGray']
+delete tailwindColors['trueGray']
+delete tailwindColors['coolGray']
+delete tailwindColors['blueGray']
 
 const fontFamilys = [
   'system-ui',
@@ -33,6 +33,7 @@ const colors = {
 const theme = {
   colors,
   fontFamily: {
+    mono: ['monospace', 'ui-monospace', 'SFMono-Regular'],
     display: fontFamilys,
     body: fontFamilys,
   },

@@ -25,11 +25,11 @@ export const RenderInnerPages: FC<any> = (props) => {
           ))}
         </ul>
       </InnerWrapper>
-      <div className={`pb-8 ${pagesSource?.length > 1 ? "" : "hidden"}`}>
+      <div className={`pb-8 ${pagesSource?.length > 1 ? '' : 'hidden'}`}>
         <LoadMoreButton
           visible={pagesSource?.length > 1}
           onLoadMoreEvent={onLoadMorePages}
-          title={"Load more pages"}
+          title={'Load more pages'}
         />
       </div>
     </>

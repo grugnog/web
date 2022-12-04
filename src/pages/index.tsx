@@ -13,6 +13,7 @@ import { MarketingDrawer } from '@app/components/general'
 import { MarketingDashboard } from '@app/app/marketing/dashboard'
 import { MarketingBottomTemporaryDrawer } from '@app/components/modal'
 import { companyName } from '@app/configs'
+import { MarketingBenefits } from '@app/app/marketing/benefits'
 
 function Index() {
   return (
@@ -25,6 +26,7 @@ function Index() {
         <MarketingDashboard />
         <JavascriptUsage />
         <MarketingCli />
+        <MarketingBenefits />
         <MarketingTrustBy />
       </MarketingDrawer>
       <MarketingBottomTemporaryDrawer />

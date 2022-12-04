@@ -107,7 +107,7 @@ export function ListComponent({
       return (
         <CardHeader
           title='Error'
-          subheader='An Issue occured. Please try again. If issue persist please contact support.'
+          subheader='An Issue occurred. Please try again. If issue persist please contact support.'
           className={emptyClass}
         />
       )

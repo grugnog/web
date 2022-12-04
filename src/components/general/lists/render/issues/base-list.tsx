@@ -24,7 +24,7 @@ const RenderInnerIssuesWrapper: FC<any> = (props) => {
           ))}
         </ul>
       </InnerWrapper>
-      <div className={`pb-8 ${issueSource?.length > 1 ? "" : "hidden"}`}>
+      <div className={`pb-8 ${issueSource?.length > 1 ? '' : 'hidden'}`}>
         <LoadMoreButton
           visible={issueSource?.length > 1}
           onLoadMoreEvent={onLoadMore}
