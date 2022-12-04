@@ -5,14 +5,17 @@ import { ModalType } from '@app/data/enums'
 
 export const GetType = ({ modalType }: any) => {
   switch (modalType) {
-    case ModalType.empty:
+    case ModalType.empty: {
       return null
-    case ModalType.alerts:
+    }
+    case ModalType.alerts: {
       return <EnableNotifications />
-    case ModalType.onboarding:
+    }
+    case ModalType.onboarding: {
       return <Onboarding />
-
-    default:
+    }
+    default: {
       return null
+    }
   }
 }

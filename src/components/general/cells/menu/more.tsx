@@ -32,7 +32,7 @@ function MoreOptionsComponent(props: MoreOptionsProps) {
     AppManager.toggleSnack(
       true,
       `Scan in progress, you’ll be notified if new issues occur.`,
-      'success'
+      'message'
     )
 
     if (crawlWebsite) {

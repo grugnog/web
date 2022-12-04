@@ -4,6 +4,7 @@ const defaultSnackBar = {
   title: '',
   type: 'message',
   open: false,
+  autoClose: false,
 }
 
 class AppManager {
@@ -12,6 +13,9 @@ class AppManager {
 
   @observable
   snackbar = defaultSnackBar
+
+  @observable
+  modalActive = false
 
   // @observable
   // portals: string[] = []
@@ -55,8 +59,17 @@ class AppManager {
     this.snackbar.open = false
   }
 
+  @action setModalActive = (active: boolean) => {
+    this.modalActive = active
+  }
+
   @action
-  toggleSnack = (open: boolean, title: any, type: string = 'message'): void => {
+  toggleSnack = (
+    open: boolean,
+    title: any,
+    type: 'message' | 'success' | 'error' = 'message',
+    autoClose?: boolean
+  ): void => {
     const snackTitle = Array.isArray(title)
       ? title.length
         ? title[0].message
@@ -67,6 +80,7 @@ class AppManager {
       title: snackTitle,
       type,
       open,
+      autoClose: autoClose || false,
     }
   }
 }

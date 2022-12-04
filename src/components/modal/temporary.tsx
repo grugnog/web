@@ -1,15 +1,18 @@
 'use client'
 
-import { Drawer } from '@material-ui/core'
+import { useEffect } from 'react'
 import { useSearch } from '@app/data'
 import { GrClose } from 'react-icons/gr'
 import { ReportView } from '@app/components/ada'
 import { useRestWebsiteContext } from '../providers/rest/rest-website'
+import { HeadlessFullScreenModal } from './headless-full'
+import { SnackBar } from '../general'
+import { AppManager } from '@app/managers'
 
 interface BottomDrawer {
   website?: any
   bottomModal?: boolean
-  closeFeed?: () => void
+  closeFeed: () => void
   disablePlayground?: boolean
   disableTabs?: boolean
   authenticated?: boolean
@@ -24,7 +27,7 @@ export function BottomDrawer({
   authenticated,
 }: BottomDrawer) {
   return (
-    <Drawer anchor='bottom' open={bottomModal} onClose={closeFeed}>
+    <HeadlessFullScreenModal open={!!bottomModal} onClose={closeFeed}>
       <ReportView
         closeButton={
           <button
@@ -41,7 +44,8 @@ export function BottomDrawer({
         disablePlayground={disablePlayground}
         download={false}
       />
-    </Drawer>
+      <SnackBar snackID={"message-report"} />
+    </HeadlessFullScreenModal>
   )
 }
 
@@ -66,9 +70,19 @@ export function MarketingBottomTemporaryDrawer({
   const { data, loading, closeModal, search } = useRestWebsiteContext()
   const websiteData = data ? { ...data, url: search } : { url: search }
 
+  const visible = (loading && !data) || !!data;
+
+  useEffect(() => {
+    AppManager.setModalActive(visible);
+
+    return () => {
+      AppManager.setModalActive(false);
+    }
+  }, [visible])
+
   return (
     <BottomDrawer
-      bottomModal={(loading && !data) || !!data}
+      bottomModal={visible}
       closeFeed={closeModal}
       website={websiteData}
       disablePlayground

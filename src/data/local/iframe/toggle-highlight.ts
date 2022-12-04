@@ -22,7 +22,7 @@ export const toggleHighLight = () => {
           `Highlighted ${a11yElements.length} element${
             a11yElements.length === 1 ? '' : ''
           } fixed by CDN`,
-          'sucess'
+          'success'
         )
       } else {
         if (element.style) {

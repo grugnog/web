@@ -113,7 +113,9 @@ export function useSearchRest() {
     [setScan, search]
   )
 
-  const closeModal = () => setScan({ loading: false, data: undefined })
+  const closeModal = () => {
+    setScan({ loading: false, data: undefined })
+  }
 
   // move validation
   const toggleModal = async (url: string) => {

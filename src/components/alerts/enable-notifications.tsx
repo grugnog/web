@@ -1,49 +1,43 @@
 import React from 'react'
-import { Card, CardActions, CardContent } from '@material-ui/core'
 import { strings } from '@app-strings'
 import { useDynamicModal } from '@app/data'
 import { enableNotifications } from '@app/lib'
-import { ringKeyFrames } from '@app/styles'
-import { useStyles } from './styles'
 import { GrNotification } from 'react-icons/gr'
 import { Header3 } from '../general/header'
 import { Button } from '../general'
 
 export function EnableNotifications() {
-  const classes = useStyles()
   const { setModal } = useDynamicModal()
 
+  const onOkPressEvent = () => {
+    setModal({ open: false })
+    enableNotifications()
+  }
+
+  const onNotNowEvent = () => {
+    setModal({ open: false })
+  }
+
   return (
-    <Card className={classes.card}>
-      <CardContent>
-        <div className={classes.iconContainer}>
-          <style>{ringKeyFrames}</style>
-          <GrNotification fontSize='large' />
-        </div>
+    <div className={'px-4 py-4 space-y-4'}>
+      <div className='gap-y-3'>
+        <GrNotification fontSize='large' />
         <Header3>{strings.alerts.enableNotificationsTitle}</Header3>
-        <p className={`${classes.about} pb-2`}>
+        <p className={`text-sm pb-2`}>
           {strings.alerts.enableNotificationsDetail}
         </p>
-      </CardContent>
-      <CardActions>
+      </div>
+      <div className='space-x-3'>
         <Button
-          onClick={() => {
-            setModal({ open: false })
-            enableNotifications()
-          }}
-          className={classes.normal}
+          onClick={onOkPressEvent}
+          className={`border-blue-700 text-blue-700`}
         >
           {strings.alerts.okay}
         </Button>
-        <Button
-          className={classes.see}
-          onClick={() => {
-            setModal({ open: false })
-          }}
-        >
+        <Button className={'bg-transparent border-0'} onClick={onNotNowEvent}>
           {strings.alerts.notNow}
         </Button>
-      </CardActions>
-    </Card>
+      </div>
+    </div>
   )
 }

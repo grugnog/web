@@ -24,7 +24,8 @@ function MarketingIntro({
         </Header>
         {checker ? (
           <h2 className='text-lg py-2'>
-            Test your web accessibility and vitals fast. Learn how the issue happened and the steps needed to remedy the fix correctly.
+            Test your web accessibility and vitals fast. Learn how the issue
+            happened and the steps needed to remedy the fix correctly.
           </h2>
         ) : (
           <div>

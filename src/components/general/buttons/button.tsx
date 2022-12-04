@@ -28,7 +28,7 @@ export const Button: React.FC<ButtonProps> = ({
       type={type}
       disabled={disabled}
       className={classNames(
-        'px-2 py-1 md:px-4 md:py-1.5 border rounded-2xl hover:bg-gray-200 hover:shadow-md min-w-[44px]',
+        'px-2 py-1 border rounded-2xl md:px-4 md:py-1.5 hover:bg-gray-200 hover:shadow-md min-w-[44px]',
         className
       )}
       onClick={onClick}

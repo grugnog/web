@@ -196,7 +196,7 @@ export default function Layout({ children, ...props }: any) {
         <CssBaseline />
         <SkipContent />
         <LayoutWrapper {...props}>{children}</LayoutWrapper>
-        <SnackBar />
+        <SnackBar topLevel />
       </ThemeProvider>
     </>
   )

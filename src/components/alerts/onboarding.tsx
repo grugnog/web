@@ -1,22 +1,14 @@
-import React, { useCallback } from 'react'
+import { useCallback } from 'react'
 import { useRouter } from 'next/router'
-import {
-  Card,
-  CardActions,
-  CardContent,
-  Button,
-  Typography,
-} from '@material-ui/core'
 import { strings } from '@app-strings'
 import { useDynamicModal } from '@app/data'
-import { ringKeyFrames } from '@app/styles'
 import { _ONBOARDED } from '@app/lib/cookies/names'
-import { useStyles } from './styles'
 import { GrNotification } from 'react-icons/gr'
+import { Button } from '../general'
+import { Header3 } from '../general/header'
 
 export function Onboarding() {
   const router = useRouter()
-  const classes = useStyles()
   const { setModal } = useDynamicModal()
 
   const onTakePress = useCallback(async () => {
@@ -29,36 +21,23 @@ export function Onboarding() {
   }, [setModal])
 
   return (
-    <Card className={classes.card}>
-      <CardContent>
-        <div className={classes.iconContainer}>
-          <style>{ringKeyFrames}</style>
-          <GrNotification fontSize='large' className={classes.ringAnimate} />
-        </div>
-        <Typography variant='h6' component='h3'>
-          {strings.onboarding.limitEmailsTitle}
-        </Typography>
-        <Typography
-          variant='subtitle1'
-          component='p'
-          className={classes.about}
-          gutterBottom
-        >
-          {strings.onboarding.limitEmailsDetail}
-        </Typography>
-      </CardContent>
-      <CardActions>
+    <div className={'px-4 py-4 space-y-4'}>
+      <div className='gap-y-3'>
+        <GrNotification fontSize='large' />
+        <Header3>{strings.onboarding.limitEmailsTitle}</Header3>
+        <p className='text-sm'>{strings.onboarding.limitEmailsDetail}</p>
+      </div>
+      <div className='space-x-3'>
         <Button
           onClick={onTakePress}
-          variant='contained'
-          className={classes.normal}
+          className={`border-blue-700 text-blue-700`}
         >
           Take me there
         </Button>
-        <Button className={classes.see} onClick={onClose}>
+        <Button className={'bg-transparent border-0'} onClick={onClose}>
           Close
         </Button>
-      </CardActions>
-    </Card>
+      </div>
+    </div>
   )
 }
