@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState, SyntheticEvent } from 'react'
 import { useRouter } from 'next/router'
 
-import { IconButton, Menu, Tooltip } from '@material-ui/core'
+import { Menu } from '@material-ui/core'
 import { Link } from './link'
 import { UserManager } from '@app/managers'
 import { LOGGIN_ROUTES } from '@app/configs'
@@ -11,6 +11,7 @@ import { CgProfile } from 'react-icons/cg'
 import { NavItem } from './navigation/nav-item'
 import { useWasmContext } from '../providers'
 import { FilterManager } from '@app/managers/filters'
+import { Button } from './buttons'
 
 type AuthMenuComponentProps = {
   authenticated?: boolean // user logged in
@@ -66,16 +67,15 @@ export function AuthMenu({ authenticated }: AuthMenuComponentProps) {
   ) {
     return (
       <div>
-        <Tooltip title={'More options'}>
-          <IconButton
-            aria-label='account of current user'
-            aria-controls='menu-appbar'
-            aria-haspopup='true'
-            onClick={handleMenu}
-          >
-            <CgProfile color={'black'} />
-          </IconButton>
-        </Tooltip>
+        <Button
+          iconButton 
+          aria-label='account of current user'
+          aria-controls='menu-appbar'
+          aria-haspopup='true'
+          onClick={handleMenu}
+        >
+          <CgProfile color={'black'} className={'grIcon'} />
+        </Button>
         <Menu
           id='menu-appbar'
           open={!!anchorEl}

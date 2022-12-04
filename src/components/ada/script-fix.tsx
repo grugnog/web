@@ -1,10 +1,11 @@
 import { useRef } from 'react'
 import { observer } from 'mobx-react-lite'
-import { Modal, Paper, IconButton } from '@material-ui/core'
+import { Modal, Paper } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import { AdaManager } from '@app/managers'
 import { GrCopy } from 'react-icons/gr'
 import { Header3 } from '../general/header'
+import { Button } from '../general'
 
 const useStyles = makeStyles((theme) => ({
   modal: {
@@ -65,9 +66,9 @@ const ScriptFixContainer = observer(({ store }: { store: any }) => {
       <Paper className={classes.paper} ref={annotationRef}>
         <div className={classes.row}>
           <Header3>CSS FIX</Header3>
-          <IconButton style={{ left: 20 }} onClick={copyText}>
+          <Button iconButton style={{ left: 20 }} onClick={copyText}>
             <GrCopy />
-          </IconButton>
+          </Button>
         </div>
         <code style={{ color: 'rgb(183,83,90' }}>
           {`<style>`}

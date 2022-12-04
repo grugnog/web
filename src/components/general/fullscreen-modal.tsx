@@ -1,9 +1,8 @@
-import React, { memo } from 'react'
+import { memo } from 'react'
 import {
   AppBar,
   Dialog,
   List,
-  IconButton,
   Typography,
   Container,
 } from '@material-ui/core'
@@ -188,14 +187,14 @@ export function FullScreenModalWrapper({
       <AppBar position={'fixed'} className={classes.navbar}>
         <div className='flex flex-1 align-center place-content-between px-5'>
           <div className={'flex space-x-1 place-items-center'}>
-            <IconButton
-              edge='start'
+            <Button
               onClick={handleClose}
               aria-label='close'
+              iconButton
               className={classes.menuButton}
             >
               <GrClose />
-            </IconButton>
+            </Button>
             <NavBarTitle title={title} />
           </div>
           <div className={'flex space-x-1 place-items-center'}>

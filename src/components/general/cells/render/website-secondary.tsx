@@ -1,4 +1,4 @@
-import { memo, useMemo } from 'react'
+import { memo, useEffect, useMemo, useState } from 'react'
 import { Chip, Tooltip } from '@material-ui/core'
 import {
   GrCalendar,
@@ -47,7 +47,8 @@ export function WebsiteSecondaryComponent({
   adaScore?: number
   dashboard?: boolean
 }) {
-  const { possibleIssuesFixedByCdn, issuesFixedByCdn, totalIssues } =
+  const [scanDate, setScanDate] = useState<string>('')
+  const { possibleIssuesFixedByCdn, issuesFixedByCdn, totalIssues = 0 } =
     issuesInfo ?? {}
 
   const { headers, headingJson } = useMemo(() => {
@@ -60,6 +61,13 @@ export function WebsiteSecondaryComponent({
 
     return { headers: heads, headingJson: heads && JSON.stringify(heads) }
   }, [pageHeaders])
+
+  useEffect(() => {
+    if(lastScanDate) {
+      // format client side date - mismatch hydrated data
+      setScanDate(format(new Date(lastScanDate), 'dd/MM/yyyy'))
+    }
+  }, [setScanDate, lastScanDate])
 
   return (
     <div
@@ -171,7 +179,7 @@ export function WebsiteSecondaryComponent({
             style={chipRootStyle}
             size='small'
             avatar={<GrCalendar style={chipStyle} className={'grIcon'} />}
-            label={format(new Date(lastScanDate), 'dd/MM/yyyy')}
+            label={scanDate}
           />
         </Tooltip>
       ) : null}

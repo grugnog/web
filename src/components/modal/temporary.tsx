@@ -44,7 +44,7 @@ export function BottomDrawer({
         disablePlayground={disablePlayground}
         download={false}
       />
-      <SnackBar snackID={"message-report"} />
+      <SnackBar snackID={'message-report'} />
     </HeadlessFullScreenModal>
   )
 }
@@ -70,13 +70,13 @@ export function MarketingBottomTemporaryDrawer({
   const { data, loading, closeModal, search } = useRestWebsiteContext()
   const websiteData = data ? { ...data, url: search } : { url: search }
 
-  const visible = (loading && !data) || !!data;
+  const visible = (loading && !data) || !!data
 
   useEffect(() => {
-    AppManager.setModalActive(visible);
+    AppManager.setModalActive(visible)
 
     return () => {
-      AppManager.setModalActive(false);
+      AppManager.setModalActive(false)
     }
   }, [visible])
 

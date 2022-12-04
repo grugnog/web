@@ -1,13 +1,15 @@
 import { Fragment } from 'react'
 import { Link } from '@app/components/general/link'
-import { Website } from '@app/types'
+import { PageIssue, Website } from '@app/types'
 
 function CtaCdn({
   website,
   disablePlayground,
   authenticated,
 }: {
-  website: Website
+  website: Website & {
+    issues: PageIssue[]
+  }
   disablePlayground: boolean
   authenticated: boolean
 }) {
@@ -17,18 +19,22 @@ function CtaCdn({
     limitedResonse = 'Gathering details'
   }
 
+  const totalCurrentIssues =  website?.issuesInfo?.totalIssues ?? website?.issues?.length
+
+  const suf = totalCurrentIssues === 1 ? "" : "s";
+
   if (!authenticated) {
     limitedResonse = website?.issuesInfo?.limitedCount
       ? `This is a limited API response showing ${
           website.issuesInfo.limitedCount
         }/${
-          website?.issuesInfo?.totalIssues || '_'
-        } issues for the current page, sign in to see the full report across all pages.`
+          totalCurrentIssues|| '_'
+        } issue${suf} for the current page, sign in to see the full report across all pages.`
       : 'Gathering details'
   } else {
     limitedResonse = `This is a API response showing ${
-      website?.issuesInfo?.totalIssues || '_'
-    } issues for the current page.`
+      totalCurrentIssues || '_'
+    } issue${suf} for the current page.`
   }
 
   return (

@@ -47,9 +47,9 @@ export function ReportViewComponentLeft({
 
   return (
     <div className={'p-1 md:w-[38vw]'}>
-      <div className={`flex place-items-center pb-4 space-x-2`}>
+      <div className={`flex place-items-center py-3 space-x-3 px-2`}>
         {closeButton}
-        <p className={'flex-1 font-semibold truncate max-w-[94vw] text-xl'}>
+        <p className={'flex-1 font-medium truncate text-lg'}>
           {website?.url || strings.trySearch}
         </p>
       </div>

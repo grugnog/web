@@ -1,24 +1,23 @@
+"use client"
+
 import React, { useRef, useState, useCallback, memo, Fragment } from 'react'
 import {
   TextField,
   Dialog,
   DialogActions,
   DialogContent,
-  DialogContentText,
   Checkbox,
   FormControlLabel,
-  IconButton,
-  Tooltip,
   FormLabel,
 } from '@material-ui/core'
 import { Button, InputActions } from '@app/components/general'
 import { domainList as dmList } from '@app/utils'
 import { GrClose } from 'react-icons/gr'
+import { AppManager } from '@app/managers'
 import { InputHeaders } from './forms/input-headers'
 import { useInputActions, useInputHeader } from './hooks'
 import { formDialogStyles as useStyles } from './styles'
 import { useWebsiteContext } from '../providers/website'
-import { AppManager } from '@app/managers'
 import { WCAGSelectInput } from './select'
 import { Standard } from './select/select-input'
 import type { StandardKeys } from './select/select-input'
@@ -276,21 +275,21 @@ export function FormDialogWrapper({
         aria-labelledby='form-dialog-title'
         maxWidth={'xl'}
       >
-        <div className={'px-6 py-2 flex place-items-center'}>
-          <h3 id='form-dialog-title' className={'flex-1 text-xl font-semibold'}>
+        <div className={'px-6 py-3 flex place-items-center'}>
+          <h3 id='form-dialog-title' className={'flex-1 text-xl font-medium'}>
             Subscribe
           </h3>
-          <IconButton aria-label='close modal' onClick={handleClose}>
-            <GrClose />
-          </IconButton>
+          <Button aria-label='close modal' onClick={handleClose} iconButton>
+            <GrClose className='grIcon' />
+          </Button>
         </div>
         <form onSubmit={submit} noValidate>
           <DialogContent
-            className={`${classes.dialogPadding} overflow-hidden relative`}
+            className={`${classes.dialogPadding} overflow-hidden relative space-y-2`}
           >
-            <DialogContentText>
-              To add a website to your watchlist, enter the website url below.
-            </DialogContentText>
+            <p className='text-base text-gray-700'>
+              To add a website to your watchlist, enter the url below.
+            </p>
             <FormLabel>
               <TextField
                 autoFocus
@@ -313,144 +312,113 @@ export function FormDialogWrapper({
             <div
               className={`flex flex-1 place-items-center space-x-3 overflow-x-auto pt-2 pb-1`}
             >
-              <Tooltip title={'Use http or https for protocol on scans'}>
-                <FormControlLabel
-                  classes={formLabelStyles}
-                  control={
-                    <Checkbox
-                      checked={https}
-                      onChange={() => {
-                        setTransportType(!https)
-                      }}
-                      value={https}
-                      color='primary'
-                    />
-                  }
-                  label='HTTPS'
-                />
-              </Tooltip>
-              <Tooltip
-                title={
-                  "Run Google Lighthouse across page's. Remove to greatly increase performance."
+              <FormControlLabel
+                classes={formLabelStyles}
+                control={
+                  <Checkbox
+                    checked={https}
+                    onChange={() => {
+                      setTransportType(!https)
+                    }}
+                    value={https}
+                    color='primary'
+                  />
                 }
-              >
-                <FormControlLabel
-                  classes={formLabelStyles}
-                  control={
-                    <Checkbox
-                      checked={pageInsights}
-                      onChange={() => {
-                        setPageInsights(!pageInsights)
-                      }}
-                      value={pageInsights}
-                      color='primary'
-                    />
-                  }
-                  label='Lighthouse'
-                />
-              </Tooltip>
-              <Tooltip title={'Scan pages using mobile viewport for issues.'}>
-                <FormControlLabel
-                  classes={formLabelStyles}
-                  control={
-                    <Checkbox
-                      checked={mobileViewport}
-                      onChange={() => {
-                        setMobile(!mobileViewport)
-                      }}
-                      value={mobileViewport}
-                      color='primary'
-                    />
-                  }
-                  label='Mobile'
-                />
-              </Tooltip>
-              <Tooltip title={'Respect robots.txt file for crawling pages.'}>
-                <FormControlLabel
-                  classes={formLabelStyles}
-                  control={
-                    <Checkbox
-                      color='primary'
-                      checked={robots}
-                      value={robots}
-                      onChange={onChangeRobotsEvent}
-                    />
-                  }
-                  label='Robots'
-                />
-              </Tooltip>
-              <Tooltip
-                title={'Allow crawling subdomains [Basic Plan Required].'}
-              >
-                <FormControlLabel
-                  classes={formLabelStyles}
-                  control={
-                    <Checkbox
-                      color='primary'
-                      checked={subdomains}
-                      value={subdomains}
-                      onChange={onChangeSubdomainsEvent}
-                    />
-                  }
-                  label='Subdomains'
-                />
-              </Tooltip>
-              <Tooltip
-                title={
-                  'Allow crawling all Top Level Domains [Premium Plan Required].'
+                label='HTTPS'
+              />
+
+              <FormControlLabel
+                classes={formLabelStyles}
+                control={
+                  <Checkbox
+                    checked={pageInsights}
+                    onChange={() => {
+                      setPageInsights(!pageInsights)
+                    }}
+                    value={pageInsights}
+                    color='primary'
+                  />
                 }
-              >
-                <FormControlLabel
-                  classes={formLabelStyles}
-                  control={
-                    <Checkbox
-                      color='primary'
-                      checked={tld}
-                      value={tld}
-                      onChange={onChangeTldEvent}
-                    />
-                  }
-                  label='TLD'
-                />
-              </Tooltip>
+                label='Lighthouse'
+              />
+              <FormControlLabel
+                classes={formLabelStyles}
+                control={
+                  <Checkbox
+                    checked={mobileViewport}
+                    onChange={() => {
+                      setMobile(!mobileViewport)
+                    }}
+                    value={mobileViewport}
+                    color='primary'
+                  />
+                }
+                label='Mobile'
+              />
+              <FormControlLabel
+                classes={formLabelStyles}
+                control={
+                  <Checkbox
+                    color='primary'
+                    checked={robots}
+                    value={robots}
+                    onChange={onChangeRobotsEvent}
+                  />
+                }
+                label='Robots'
+              />
+              <FormControlLabel
+                classes={formLabelStyles}
+                control={
+                  <Checkbox
+                    color='primary'
+                    checked={subdomains}
+                    value={subdomains}
+                    onChange={onChangeSubdomainsEvent}
+                  />
+                }
+                label='Subdomains'
+              />
+              <FormControlLabel
+                classes={formLabelStyles}
+                control={
+                  <Checkbox
+                    color='primary'
+                    checked={tld}
+                    value={tld}
+                    onChange={onChangeTldEvent}
+                  />
+                }
+                label='TLDs'
+              />
             </div>
             <div
               className={`flex flex-1 place-items-center space-x-3 overflow-x-auto pb-2`}
             >
-              <Tooltip
-                title={'Add custom actions to run on pages before test.'}
-              >
-                <FormControlLabel
-                  classes={formLabelStyles}
-                  control={
-                    <Checkbox
-                      color='primary'
-                      checked={customActions}
-                      value={customActions}
-                      onChange={onChangeActionsEvent}
-                    />
-                  }
-                  label='Actions'
-                />
-              </Tooltip>
-              <Tooltip
-                title={
-                  'Add custom headers to use for authenticated pages or etc.'
+              <FormControlLabel
+                classes={formLabelStyles}
+                control={
+                  <Checkbox
+                    color='primary'
+                    checked={customActions}
+                    value={customActions}
+                    onChange={onChangeActionsEvent}
+                  />
                 }
-              >
-                <FormControlLabel
-                  classes={formLabelStyles}
-                  control={
-                    <Checkbox
-                      color='primary'
-                      checked={customHeader}
-                      value={customHeader}
-                      onChange={onChangeHeadersEvent}
-                    />
-                  }
-                  label='Headers'
-                />
-              </Tooltip>
+                label='Actions'
+              />
+              <FormControlLabel
+                classes={formLabelStyles}
+                control={
+                  <Checkbox
+                    color='primary'
+                    checked={customHeader}
+                    value={customHeader}
+                    onChange={onChangeHeadersEvent}
+                  />
+                }
+                label='Headers'
+              />
               <WCAGSelectInput
                 standard={standard}
                 onStandardChange={onStandardChange}

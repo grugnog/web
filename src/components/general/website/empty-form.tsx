@@ -1,5 +1,4 @@
 import { memo, FC } from 'react'
-import { Button } from '@material-ui/core'
 import Image from 'next/image'
 import { FormDialog } from '../form-dialog'
 import { CardHeader } from '@app/app/card/header'
@@ -7,7 +6,7 @@ import { Link } from '../link'
 
 const infoDetails = [
   {
-    title: 'Detailed information',
+    title: 'Detailed Fixes',
     subTitle:
       'Get spot on details on how to improve your website in various areas. Stay up to date on the latest guidelines and more as they come out.',
   },
@@ -45,13 +44,13 @@ const EmptyWebsiteFormComponent: FC<EmptyWebsiteProps> = ({
     >
       <CardHeader title={emptyHeaderTitle} subheader={emptyHeaderSubTitle} lg />
       {hasWebsite ? (
-        <Button href={goToHref} component={Link} variant={'outlined'}>
+        <Link href={goToHref} className={"border-2 rounded hover:no-underline px-3 py-2"}>
           Go to {goToPayments ? 'Payments' : 'Dashboard'}
-        </Button>
+        </Link>
       ) : (
         <FormDialog buttonStyles={'min-w-[13rem] border-2'} />
       )}
-      <div className={'flex space-items-center space-x-10 py-10'}>
+      <div className={'flex space-items-center space-x-10 py-12'}>
         <ul
           className={'w-full text-left space-y-2 md:w-full lg:w-1/2 xl:pr-12'}
         >
@@ -59,8 +58,8 @@ const EmptyWebsiteFormComponent: FC<EmptyWebsiteProps> = ({
             (detail: { title: string; subTitle: string }, i: number) => {
               return (
                 <li key={i}>
-                  <div className={'text-3xl font-semibold'}>{detail.title}</div>
-                  <div className={'text-xl'}>{detail.subTitle}</div>
+                  <div className={'text-2xl font-medium'}>{detail.title}</div>
+                  <div className={'text-base'}>{detail.subTitle}</div>
                 </li>
               )
             }
@@ -69,8 +68,8 @@ const EmptyWebsiteFormComponent: FC<EmptyWebsiteProps> = ({
         <div className={'hidden md:block'}>
           <Image
             src={'/img/website_builder.svg'}
-            height={540}
-            width={660}
+            height={440}
+            width={560}
             alt='Website accessibility builder'
           />
         </div>

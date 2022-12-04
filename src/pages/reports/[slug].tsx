@@ -51,6 +51,7 @@ function Reports({ name, website }: PageProps) {
 
 const baseUrl = getAPIRoute('api', true)
 
+// get the report for a website
 const getWebsite = async (url: string, jwt?: string) => {
   let website
   let res

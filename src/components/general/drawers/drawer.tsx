@@ -1,4 +1,4 @@
-import React, { memo, useEffect } from 'react'
+import { memo, useEffect } from 'react'
 import { useUserData } from '@app/data'
 import { UpgradeBanner } from '@app/components/general/upgrade-banner'
 import { useAuthContext } from '@app/components/providers/auth'
@@ -14,7 +14,6 @@ import { DynamicModal } from '../../modal/dynamic'
 import { MiniPlayer } from '../mini-player'
 import Head from 'next/head'
 import { theme } from '@app/theme'
-import { AdBlock } from '../ad/ad-block'
 import { RefBanner } from '../ref-banner'
 
 export type DrawerWrapperProps = {
@@ -42,7 +41,6 @@ function MainDrawerContainerComponent({
         >
           <FormDialog buttonStyles={'w-full bg-gray-50'} />
         </div>
-        <AdBlock />
         <UpgradeBanner />
         <div className='invisible md:visible w-full flex place-content-center py-2 truncate'>
           <FixedCopyRight />
