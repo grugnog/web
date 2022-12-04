@@ -142,7 +142,7 @@ function CtaInput() {
       </div>
       <button
         className={`${classes.submit} ${
-          loading || !search ? 'text-gray-500' : ''
+          loading || !search ? 'text-gray-600' : ''
         } hover:bg-[#0E1116] hover:text-white`}
         type={'submit'}
         disabled={loading || !search}

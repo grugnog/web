@@ -44,10 +44,8 @@ export function DynamicModalWrapper() {
       closeAfterTransition
       BackdropComponent={Backdrop}
     >
-      <div className={'w-full'}>
-        <div className={classes.paper}>
-          <GetType modalType={modalType} />
-        </div>
+      <div>
+        <GetType modalType={modalType} />
       </div>
     </Modal>
   )

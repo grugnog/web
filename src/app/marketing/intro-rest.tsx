@@ -46,7 +46,7 @@ function MarketingIntro({
         )}
         <div className='py-3 pb-4 relative'>
           <Link
-            className={`px-6 py-2 rounded border flex place-content-center w-40 after:text-sm after:content-['Free_start.'] after:left-[11.2rem] after:absolute after:pointer-events-none hover:bg-gray-100 font-semibold after:font-normal after:text-gray-500`}
+            className={`px-6 py-2 rounded border flex place-content-center w-40 after:text-sm after:content-['Free_start.'] after:left-[11.2rem] after:absolute after:pointer-events-none hover:bg-gray-100 font-semibold after:font-normal after:text-gray-600`}
             href={'/register'}
           >
             Sign up

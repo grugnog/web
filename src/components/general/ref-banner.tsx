@@ -24,7 +24,7 @@ const RefBanner = () => {
       }
     >
       <div
-        className={'text-sm md:text-normal text-gray-500 font-semibold flex-1'}
+        className={'text-sm md:text-normal text-gray-600 font-semibold flex-1'}
       >
         💵 Fan of {companyName}?{' '}
         <Link

@@ -68,7 +68,7 @@ function CtaInputRest({ small }: { small?: boolean }) {
       </div>
       <button
         className={`min-w-[187.562px] py-1.5 text-xl border font-bold rounded-b-md md:rounded-bl-none md:rounded-r-md ${
-          loading || !search ? 'text-gray-500' : ''
+          loading || !search ? 'text-gray-600' : ''
         } hover:bg-[#0E1116] hover:text-white`}
         type={'submit'}
         disabled={loading || !search}
