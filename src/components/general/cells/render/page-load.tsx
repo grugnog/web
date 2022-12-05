@@ -1,5 +1,5 @@
-import React, { memo } from 'react'
-import { Chip, Tooltip } from '@material-ui/core'
+import { memo } from 'react'
+import { Chip } from '@material-ui/core'
 import { GrDashboard } from 'react-icons/gr'
 
 interface PageLoad {
@@ -11,7 +11,6 @@ interface PageLoad {
 
 export function PageLoadComponent({
   duration = 0,
-  durationFormated = '',
   style,
   chipStyle,
 }: PageLoad) {
@@ -25,19 +24,12 @@ export function PageLoadComponent({
   const time = durationToSeconds.toFixed(fixedLength) || 0
 
   return (
-    <Tooltip
-      title={`Page test uptime is ${
-        durationFormated ?? 'N/A'
-      } at ${time} seconds`}
-      placement={'right'}
-    >
-      <Chip
-        style={style}
-        size='small'
-        avatar={<GrDashboard style={chipStyle} className={'grIcon'} />}
-        label={`${time}s`}
-      />
-    </Tooltip>
+    <Chip
+      style={style}
+      size='small'
+      avatar={<GrDashboard style={chipStyle} className={'grIcon'} />}
+      label={`${time}s`}
+    />
   )
 }
 

@@ -1,5 +1,5 @@
-import React, { memo } from 'react'
-import { Tooltip, Avatar } from '@material-ui/core'
+import { memo } from 'react'
+import { Avatar } from '@material-ui/core'
 import { GrFolder, GrStatusWarning } from 'react-icons/gr'
 
 export function RenderAvatarComponent({
@@ -36,14 +36,9 @@ export function RenderAvatarComponent({
 
   if (cdnConnected) {
     return (
-      <Tooltip
-        title={`${ADASCORE} ${cdnConnected ? '- A11yWatch CDN Connected' : ''}`}
-        placement={'left'}
-      >
-        <div className='px-3'>
-          <Avatar className={css}>{inner}</Avatar>
-        </div>
-      </Tooltip>
+      <div className='px-3'>
+        <Avatar className={css}>{inner}</Avatar>
+      </div>
     )
   }
 

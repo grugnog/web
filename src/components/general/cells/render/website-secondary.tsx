@@ -48,8 +48,11 @@ export function WebsiteSecondaryComponent({
   dashboard?: boolean
 }) {
   const [scanDate, setScanDate] = useState<string>('')
-  const { possibleIssuesFixedByCdn, issuesFixedByCdn, totalIssues = 0 } =
-    issuesInfo ?? {}
+  const {
+    possibleIssuesFixedByCdn,
+    issuesFixedByCdn,
+    totalIssues = 0,
+  } = issuesInfo ?? {}
 
   const { headers, headingJson } = useMemo(() => {
     const heads =
@@ -63,7 +66,7 @@ export function WebsiteSecondaryComponent({
   }, [pageHeaders])
 
   useEffect(() => {
-    if(lastScanDate) {
+    if (lastScanDate) {
       // format client side date - mismatch hydrated data
       setScanDate(format(new Date(lastScanDate), 'dd/MM/yyyy'))
     }
@@ -91,41 +94,28 @@ export function WebsiteSecondaryComponent({
         </Tooltip>
       ) : null}
       {pageIssueCount ? (
-        <Tooltip
-          title={`${totalIssues} possible issue${
-            totalIssues === 1 ? '' : 's'
-          } across ${pageIssueCount} page${
-            pageIssueCount === 1 || !pageIssueCount ? '' : 's'
-          }`}
-          placement={'right'}
-        >
-          <Chip
-            size='small'
-            style={chipRootStyle}
-            avatar={<GrCircleAlert style={chipStyle} className={'grIcon'} />}
-            label={totalIssues}
-          />
-        </Tooltip>
+        <Chip
+          size='small'
+          style={chipRootStyle}
+          avatar={<GrCircleAlert style={chipStyle} className={'grIcon'} />}
+          label={totalIssues}
+        />
       ) : null}
       {subdomains ? (
-        <Tooltip title={`Subdomains enabled for website`} placement={'right'}>
-          <Chip
-            size='small'
-            style={chipRootStyle}
-            avatar={<GrInherit style={chipStyle} className={'grIcon'} />}
-            label={'Subdomains'}
-          />
-        </Tooltip>
+        <Chip
+          size='small'
+          style={chipRootStyle}
+          avatar={<GrInherit style={chipStyle} className={'grIcon'} />}
+          label={'Subdomains'}
+        />
       ) : null}
       {tld ? (
-        <Tooltip title={`TLD enabled for website`} placement={'right'}>
-          <Chip
-            size='small'
-            style={chipRootStyle}
-            avatar={<GrHost style={chipStyle} className={'grIcon'} />}
-            label={'TLD'}
-          />
-        </Tooltip>
+        <Chip
+          size='small'
+          style={chipRootStyle}
+          avatar={<GrHost style={chipStyle} className={'grIcon'} />}
+          label={'TLD'}
+        />
       ) : null}
       {pageLoadTime?.duration && pageLoadTime?.durationFormated ? (
         <PageLoad
@@ -159,29 +149,20 @@ export function WebsiteSecondaryComponent({
         </Tooltip>
       ) : null}
       {typeof robots !== 'undefined' ? (
-        <Tooltip
-          title={
-            robots ? 'Respects robots.txt file' : 'Ignores robots.txt file'
-          }
-          placement={'right'}
-        >
-          <Chip
-            style={chipRootStyle}
-            size='small'
-            avatar={<GrRobot style={chipStyle} className={'grIcon'} />}
-            label={robots ? 'Enabled' : 'Disabled'}
-          />
-        </Tooltip>
+        <Chip
+          style={chipRootStyle}
+          size='small'
+          avatar={<GrRobot style={chipStyle} className={'grIcon'} />}
+          label={robots ? 'Enabled' : 'Disabled'}
+        />
       ) : null}
       {lastScanDate ? (
-        <Tooltip title={`Last scan was at ${lastScanDate}`} placement={'right'}>
-          <Chip
-            style={chipRootStyle}
-            size='small'
-            avatar={<GrCalendar style={chipStyle} className={'grIcon'} />}
-            label={scanDate}
-          />
-        </Tooltip>
+        <Chip
+          style={chipRootStyle}
+          size='small'
+          avatar={<GrCalendar style={chipStyle} className={'grIcon'} />}
+          label={scanDate}
+        />
       ) : null}
       {headers.length ? (
         <Tooltip title={`Custom headers ${headingJson}`} placement={'right'}>

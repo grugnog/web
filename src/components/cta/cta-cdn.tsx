@@ -19,16 +19,17 @@ function CtaCdn({
     limitedResonse = 'Gathering details'
   }
 
-  const totalCurrentIssues =  website?.issuesInfo?.totalIssues ?? website?.issues?.length
+  const totalCurrentIssues =
+    website?.issuesInfo?.totalIssues ?? website?.issues?.length
 
-  const suf = totalCurrentIssues === 1 ? "" : "s";
+  const suf = totalCurrentIssues === 1 ? '' : 's'
 
   if (!authenticated) {
     limitedResonse = website?.issuesInfo?.limitedCount
       ? `This is a limited API response showing ${
           website.issuesInfo.limitedCount
         }/${
-          totalCurrentIssues|| '_'
+          totalCurrentIssues || '_'
         } issue${suf} for the current page, sign in to see the full report across all pages.`
       : 'Gathering details'
   } else {

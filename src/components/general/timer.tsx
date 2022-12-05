@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react'
-import { Tooltip } from '@material-ui/core'
 
 const style = {
   backgroundColor: '#fff',
@@ -33,19 +32,13 @@ export const Timer = ({
   const defaultDuration = duration ? Number(duration / 1000).toFixed(0) : 0
 
   const displayTimer = seconds ? secs : defaultDuration
-  const displayTip = defaultDuration ? 'Site-wide crawl' : 'Scan'
 
   return (
-    <Tooltip
-      title={`${displayTip} duration ${displayTimer} seconds`}
-      placement={'right'}
+    <div
+      className='rounded-3xl p-1 w-9 h-9 items-center justify-center flex truncate font-semibold'
+      style={style}
     >
-      <div
-        className='rounded-3xl p-1 w-9 h-9 items-center justify-center flex truncate font-semibold'
-        style={style}
-      >
-        <p className='text-xs'>{displayTimer}s</p>
-      </div>
-    </Tooltip>
+      <p className='text-xs'>{displayTimer}s</p>
+    </div>
   )
 }

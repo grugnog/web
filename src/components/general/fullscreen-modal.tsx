@@ -1,11 +1,5 @@
 import { memo } from 'react'
-import {
-  AppBar,
-  Dialog,
-  List,
-  Typography,
-  Container,
-} from '@material-ui/core'
+import { AppBar, Dialog, List, Typography, Container } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 
 import { NavBarTitle } from './navigation'

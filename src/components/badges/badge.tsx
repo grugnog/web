@@ -1,5 +1,4 @@
 import { Fragment } from 'react'
-import { Tooltip } from '@material-ui/core'
 import { defaultProps } from './defaultProps'
 import type { BadgeProps } from './badge-types'
 import Image from 'next/image'
@@ -59,11 +58,9 @@ export const Badge = ({
   }
 
   return (
-    <Tooltip title={String(label)}>
-      <Anchor style={style} href={href} label={label}>
-        <Image src={src} height={size} width={size} alt={`${title} logo`} />
-      </Anchor>
-    </Tooltip>
+    <Anchor style={style} href={href} label={label}>
+      <Image src={src} height={size} width={size} alt={`${title} logo`} />
+    </Anchor>
   )
 }
 

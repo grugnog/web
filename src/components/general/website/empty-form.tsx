@@ -44,7 +44,10 @@ const EmptyWebsiteFormComponent: FC<EmptyWebsiteProps> = ({
     >
       <CardHeader title={emptyHeaderTitle} subheader={emptyHeaderSubTitle} lg />
       {hasWebsite ? (
-        <Link href={goToHref} className={"border-2 rounded hover:no-underline px-3 py-2"}>
+        <Link
+          href={goToHref}
+          className={'border-2 rounded hover:no-underline px-3 py-2'}
+        >
           Go to {goToPayments ? 'Payments' : 'Dashboard'}
         </Link>
       ) : (

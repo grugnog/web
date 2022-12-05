@@ -68,7 +68,7 @@ export function AuthMenu({ authenticated }: AuthMenuComponentProps) {
     return (
       <div>
         <Button
-          iconButton 
+          iconButton
           aria-label='account of current user'
           aria-controls='menu-appbar'
           aria-haspopup='true'

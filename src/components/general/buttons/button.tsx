@@ -5,7 +5,7 @@ type ButtonProps = PropsWithChildren<{
   className?: string
   disabled?: boolean
   type?: 'button' | 'submit' | 'reset'
-  style?: any,
+  style?: any
   iconButton?: boolean
 }>
 
@@ -23,7 +23,9 @@ export const Button: React.FC<ButtonProps> = ({
   iconButton,
   ...extra
 }) => {
-  const iconBtnStyles = iconButton ? "md:px-4 md:py-4 border-0 md:rounded-3xl text-lg md:text-[1.15rem]" : "md:px-4 md:py-1.5";
+  const iconBtnStyles = iconButton
+    ? 'md:px-4 md:py-4 border-0 md:rounded-3xl text-lg md:text-[1.15rem]'
+    : 'md:px-4 md:py-1.5'
 
   return (
     <button

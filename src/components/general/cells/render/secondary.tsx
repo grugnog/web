@@ -1,4 +1,4 @@
-import React, { memo, useMemo } from 'react'
+import { memo, useMemo } from 'react'
 import { Chip, Tooltip } from '@material-ui/core'
 import { PageLoad } from './page-load'
 import { GrMagic, GrCircleAlert, GrConfigure, GrCalendar } from 'react-icons/gr'
@@ -50,19 +50,12 @@ export function RenderSecondaryComponent({
   return (
     <div className={'flex space-x-2'}>
       {mainIssues && adaScore !== 100 ? (
-        <Tooltip
-          title={`${mainIssues} possible issue${
-            totalIssuesOnPage === 1 ? '' : 's'
-          }`}
-          placement={'right'}
-        >
-          <Chip
-            size='small'
-            style={chipRootStyle}
-            avatar={<GrCircleAlert style={chipStyle} />}
-            label={mainIssues}
-          />
-        </Tooltip>
+        <Chip
+          size='small'
+          style={chipRootStyle}
+          avatar={<GrCircleAlert style={chipStyle} />}
+          label={mainIssues}
+        />
       ) : null}
       <PageLoad
         durationFormated={pageLoadTime?.durationFormated}
@@ -71,38 +64,25 @@ export function RenderSecondaryComponent({
         chipStyle={chipStyle}
       />
       {possibleIssuesFixedByCdn && totalIssuesOnPage ? (
-        <Tooltip
-          title={
+        <Chip
+          style={chipRootStyle}
+          size='small'
+          avatar={<GrMagic style={chipStyle} />}
+          label={
             issuesFixedByCdn
-              ? `${issuesFixedByCdn} issue${
-                  issuesFixedByCdn === 1 ? '' : 's'
-                } fixed by the CDN out of ${totalIssuesOnPage} for current page`
-              : `${possibleIssuesFixedByCdn} out of ${totalIssuesOnPage} issues on the current page can be fixed instantly with our custom CDN.`
+              ? `${issuesFixedByCdn}/${totalIssuesOnPage}`
+              : `${possibleIssuesFixedByCdn}/${totalIssuesOnPage}`
           }
-          placement={'right'}
-        >
-          <Chip
-            style={chipRootStyle}
-            size='small'
-            avatar={<GrMagic style={chipStyle} />}
-            label={
-              issuesFixedByCdn
-                ? `${issuesFixedByCdn}/${totalIssuesOnPage}`
-                : `${possibleIssuesFixedByCdn}/${totalIssuesOnPage}`
-            }
-          />
-        </Tooltip>
+        />
       ) : null}
       {lastScanDate ? (
-        <Tooltip title={`Last scan was at ${lastScanDate}`} placement={'right'}>
-          <Chip
-            style={chipRootStyle}
-            size='small'
-            avatar={<GrCalendar style={chipStyle} />}
-            className={'flex sm:text-sm'}
-            label={format(new Date(lastScanDate), 'dd/MM/yyyy')}
-          />
-        </Tooltip>
+        <Chip
+          style={chipRootStyle}
+          size='small'
+          avatar={<GrCalendar style={chipStyle} />}
+          className={'flex sm:text-sm'}
+          label={format(new Date(lastScanDate), 'dd/MM/yyyy')}
+        />
       ) : null}
       {headers && headers?.length ? (
         <Tooltip
