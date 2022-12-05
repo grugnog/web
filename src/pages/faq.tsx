@@ -5,7 +5,7 @@ import { theme } from '@app-theme'
 import type { PageProps } from '@app/types'
 import { Header, Header2, Header3 } from '@app/components/general/header'
 import { SectionContainer } from '@app/app/containers/section-container'
-import { Link } from '@app/app/typo/link'
+import { Link, LinkPrefetch } from '@app/app/typo/link'
 
 const linkStyle = {
   color: theme.palette.primary.main,
@@ -56,7 +56,16 @@ function Faq({ name }: PageProps) {
               {strings.appName} allows multiple ways of contributing to the
               project. You can send BTC to the following address:{' '}
               <strong>3EBwSQdPc43CFg8YGBRy3hj9ubihbnPEKv</strong> or help spread
-              the word with referrals.
+              the word with{' '}
+              <LinkPrefetch
+                rel='noopener'
+                target='_blank'
+                className={"text-blue-700"}
+                href={'https://a11ywatch.getrewardful.com/signup'}
+              >
+                referrals
+              </LinkPrefetch>
+              .
             </p>
           </div>
         </div>
