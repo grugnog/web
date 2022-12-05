@@ -17,9 +17,9 @@ function MarketingIntro({
       <div className={'flex-1 pb-4'}>
         <Header>
           {checker ? (
-            'Tools that help and teach web inclusion.'
+            'Open Source Web Accessibility Platform'
           ) : (
-            <>The web accessibility tool built for scale.</>
+            <>The open source web accessibility tool built for scale.</>
           )}
         </Header>
         {checker ? (
