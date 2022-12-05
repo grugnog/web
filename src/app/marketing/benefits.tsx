@@ -25,7 +25,7 @@ const sections: { id: string; text: string }[] = [
   },
   {
     id: 'support',
-    text: 'By supporting a company like ours, you are taking a step towards a unified vision of the internet that aligns with ours: split from large companies, based on trust, accuracy, and all without compromising reliability, speed or quality of support.',
+    text: 'By supporting a company like ours, you are taking a step towards a unified vision of the internet that aligns with ours: split from large companies, accuracy, and all without compromising reliability, speed or quality of support.',
   },
 ]
 

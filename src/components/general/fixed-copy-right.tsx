@@ -51,7 +51,7 @@ function FixedCopyRight({ sticky }: Props) {
   return (
     <div className={`${classes.stickContainer} ${sticky ? classes.stick : ''}`}>
       <div className={classes.sticky}>
-        <span className={!sticky ? 'text-sm pb-3' : 'text-sm'}>{cc}</span>
+        <span className={!sticky ? 'text-xs pb-3' : 'text-xs'}>{cc}</span>
       </div>
     </div>
   )

@@ -110,7 +110,7 @@ function Feature() {
               rows={['Dynamic subdomains testing', 'true', 'false', 'false']}
             />
             <TableRow
-              rows={['Dynamic TLD testing', 'true', 'false', 'false']}
+              rows={['Dynamic TLDs testing', 'true', 'false', 'false']}
             />
             <TableRow
               rows={['Concurrent website testing', 'true', 'false', 'false']}
@@ -169,7 +169,7 @@ function Feature() {
             <TableRow
               rows={[
                 'https://www.coinbase.com - 5,900 pages',
-                '4 mins',
+                '3 mins',
                 '48 hours+',
                 '60 hours+',
               ]}
@@ -177,7 +177,7 @@ function Feature() {
             <TableRow
               rows={[
                 'https://www.hbo.com - 7,500 pages',
-                '5 mins',
+                '4 mins',
                 '55 hours+',
                 '72 hours+',
               ]}
@@ -185,7 +185,7 @@ function Feature() {
             <TableRow
               rows={[
                 'https://a11ywatch.com - 28 pages',
-                '2.1s',
+                '0.1s',
                 '1 min',
                 '2 mins',
               ]}
@@ -223,7 +223,7 @@ function Feature() {
             <TableRow
               rows={[
                 'WCAG',
-                '50%-61% extends Pa11y',
+                '50%-61%',
                 '40%-57% uses Axe or HTML_CodeSniffer',
                 '57%',
               ]}
