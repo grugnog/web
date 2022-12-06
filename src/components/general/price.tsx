@@ -8,11 +8,12 @@ import { SectionContainer } from '@app/app/containers/section-container'
 import { PriceCell } from './cells/price-cell'
 import { PriceFeat } from './cells/price-feat'
 import { Header3 } from './header'
+import { Button } from './buttons'
 
 const getStyles = (inactive: boolean) =>
   inactive
-    ? 'relative px-2 border rounded-2xl py-2 text-sm font-bold text-gray-700 whitespace-nowrap focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:z-10 sm:w-auto sm:px-8 hover:shadow-xl'
-    : 'relative px-2 rounded-2xl shadow-sm py-2 text-sm font-bold text-white bg-blue-600 whitespace-nowrap focus:outline-none focus:ring-2 focus:ring-gray-500 focus:z-10 sm:w-auto sm:px-8'
+    ? 'text-gray-700 border-gray-700'
+    : 'text-blue-700 border-blue-700'
 
 const getPrimaryColor = (title: string) => {
   let color = '#0E1116'
@@ -112,21 +113,21 @@ export function PriceMemo({
             {navigate ? 'Plans for everyone' : 'Pricing'}
           </Header3>
           <p className='pb-2 text-xl'>
-            Flexible plans that can be adjusted at anytime.
+            Flexible plans that can be adjusted at any time.
           </p>
         </>
       ) : null}
 
       <div className='flex space-x-1 place-items-center py-4'>
-        <button
+        <Button
           type='button'
           onClick={onSetYearlyEvent}
-          className={getStyles(false)}
+          className={`border relative px-2 rounded-3xl py-2 text-sm font-medium whitespace-nowrap sm:w-72 focus:outline-none focus:ring-1 focus:ring-gray-500 focus:z-10 sm:px-8 ${getStyles(yearly)}`}
         >
           {yearly
             ? 'Switch back to monthly pricing plans'
             : 'Get 2 months free (switch to yearly)'}
-        </button>
+        </Button>
       </div>
 
       <div className='flex flex-1 gap-3 flex-wrap-reverse md:flex-wrap'>

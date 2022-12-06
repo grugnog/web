@@ -93,7 +93,6 @@ function ScriptCell({ source: sourceData }: any) {
   return (
     <div>
       <div className={classes.info}>
-        <p className={classes.textHeader}>{source?.pageUrl}</p>
         {!source?.issueMeta?.skipContentIncluded ? (
           <div className={`${classes.row} ${classes.centerAlign}`}>
             <p className={classes.text}>Skip Content Button</p>
@@ -127,13 +126,13 @@ function ScriptCell({ source: sourceData }: any) {
             <div className='flex space-x-2'>
               <Button
                 onClick={submitEdit}
-                className={'text-green-800 border-green-800 font-bold border-2'}
+                className={'text-green-800 border-green-800 font-medium rounded-3xl'}
               >
                 Save
               </Button>
               <Button
                 onClick={onEditPress}
-                className={'text-gray-800 border-gray-800 font-bold border-2'}
+                className={'text-gray-800 border-gray-800 font-medium rounded-3xl'}
               >
                 Cancel
               </Button>

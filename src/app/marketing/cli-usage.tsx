@@ -19,12 +19,12 @@ const infoDetails = [
   {
     title: 'Lightning Fast',
     subTitle:
-      'Get results with practically no downtime for your web pages across every workflow. The suite is small and powerful running on linux, macOS, and windows using native features for the cutting edge performance.',
+      'Receive results with practically no downtime for your web pages across every workflow. The suite is small and powerful running on linux, macOS, and windows using native features for the cutting edge performance.',
   },
   {
     title: 'Dynamic Testing',
     subTitle:
-      'Add custom sequences to evaluate your website in one location. Determine real test scenes that would occur on pages with simple no-code action builders.',
+      'Add custom sequences to evaluate your website in one location. Handle real world edge cases autonomously for any website. Determine real test flows that would occur on pages with simple no-code action builders.',
   },
 ]
 
