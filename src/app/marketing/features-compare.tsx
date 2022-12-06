@@ -15,10 +15,10 @@ const TableHeading = ({ title }: { title: string }) => {
           A11yWatch
         </th>
         <th scope='col' className='text-sm font-medium text-white py-4 px-6'>
-          Pa11y
+          Wave
         </th>
         <th scope='col' className='text-sm font-medium text-white py-4 px-6'>
-          Axe
+          Deque
         </th>
       </tr>
     </thead>
@@ -80,15 +80,23 @@ function Feature() {
             />
             <TableRow
               rows={[
-                'WCAG A-AAA testing and recommendations',
+                'WCAG A-AAA audits',
                 'true',
                 'true',
                 'true',
               ]}
             />
+            <TableRow
+              rows={[
+                'Section508 audits',
+                'true',
+                'true',
+                'false',
+              ]}
+            />
             <TableRow rows={['CI pipelines', 'true', 'true', 'true']} />
             <TableRow
-              rows={['Command Line Interface', 'true', 'true', 'maybe']}
+              rows={['Command Line Interface', 'true', 'maybe', 'maybe']}
             />
             <TableRow rows={['Monitoring', 'true', 'true', 'maybe']} />
             <TableRow rows={['Cross site testing', 'true', 'maybe', 'maybe']} />
@@ -164,12 +172,20 @@ function Feature() {
 
       <div className='overflow-auto border rounded'>
         <table className='min-w-full table-auto'>
-          <TableHeading title={'Performance'} />
+          <TableHeading title={'Performance and Costs'} />
           <tbody>
+           <TableRow
+              rows={[
+                'Average pages tested per 10$ spent',
+                '2,500-5,000 daily',
+                '100',
+                '10-75?',
+              ]}
+            />
             <TableRow
               rows={[
                 'https://www.coinbase.com - 5,900 pages',
-                '3 mins',
+                '2 mins',
                 '48 hours+',
                 '60 hours+',
               ]}
@@ -177,7 +193,7 @@ function Feature() {
             <TableRow
               rows={[
                 'https://www.hbo.com - 7,500 pages',
-                '4 mins',
+                '3 mins',
                 '55 hours+',
                 '72 hours+',
               ]}
@@ -197,15 +213,16 @@ function Feature() {
           <h4 className='text-lg font-bold'>Reasons why A11yWatch is faster</h4>
 
           <p>
-            Some of the reasons A11yWatch and Pa11y run faster than Axe is due
+            Some of the reasons A11yWatch and Wave run faster than Deque is due
             to the protocol of choice to control the browser. A11yWatch and
-            Pa11y use the devtools protocol while Axe uses WebDriver. Devtools
+            Wave use the devtools protocol while Deque uses WebDriver. Devtools
             protocol allows you to manipulate the entire control beyond the UI
             layer to enhance the way a it would normally load a web page by
             doing things like intercepting network request, manipulating
             elements, and more. A11yWatch goes to the next level with
             optimisations for speed by leveraging multiple technologies like
-            Rust, protocols like gRPC and efficient algorithms.
+            Rust, protocols like gRPC and efficient algorithms. We also use a custom runner
+            that is over 10,000 times faster than any open source headless runner.
           </p>
         </div>
       </div>
@@ -225,7 +242,7 @@ function Feature() {
                 'WCAG',
                 '50%-61%',
                 '40%-57% uses Axe or HTML_CodeSniffer',
-                '57%',
+                '57% Axe',
               ]}
             />
           </tbody>

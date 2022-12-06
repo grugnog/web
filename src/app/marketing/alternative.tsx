@@ -20,7 +20,7 @@ export function MarketingAlternatives() {
           <div className='flex flex-1 md:place-content-end md:pr-40'>
             <Link
               className={`px-6 py-2 rounded border bg-black text-white tracking-wider font-medium hover:bg-gray-100 hover:text-black hover:no-underline`}
-              href={'/register'}
+              href={'/pricing'}
             >
               Get Started Free
             </Link>
