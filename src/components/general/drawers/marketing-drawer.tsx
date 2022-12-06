@@ -4,6 +4,7 @@ import { NavBarTitle, MarketingNavMenu } from '../navigation'
 import { SearchBar } from '../searchbar'
 import { NavBar } from '../navigation/navbar'
 import { Footer } from '../footer'
+import { MarketingAlternatives } from '@app/app/marketing/alternative'
 
 // main marketing pages drawer
 export function MarketingDrawer({
@@ -52,7 +53,12 @@ export function MarketingDrawer({
           <div className={`container mx-auto`}>{children}</div>
         )}
       </main>
-      {initClosed || emptyFooter ? null : <Footer />}
+      {initClosed || emptyFooter ? null : (
+        <>
+          <MarketingAlternatives />
+          <Footer />
+        </>
+      )}
     </Fragment>
   )
 }

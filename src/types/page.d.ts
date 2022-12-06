@@ -22,7 +22,7 @@ export interface MetaData {
   /** Enable rest provider for a11ywatch */
   rest?: boolean
   /** Meta data properties for head */
-  meta?: any
+  meta?: Record<string, any>
   /** ID: Component name or page name used in meta information */
   name?: string
   /** Params for initial gql queries [todo update generic] */

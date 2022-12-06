@@ -60,7 +60,7 @@ function Faq({ name }: PageProps) {
               <LinkPrefetch
                 rel='noopener'
                 target='_blank'
-                className={"text-blue-700"}
+                className={'text-blue-700'}
                 href={'https://a11ywatch.getrewardful.com/signup'}
               >
                 referrals

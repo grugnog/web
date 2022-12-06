@@ -53,7 +53,7 @@ export const AuthProviderWrapper: FC<PropsWithChildren<{ load?: boolean }>> = ({
       })
 
       // if refs enabled allow getting friends
-      if (freeAccount && process.env.NEXT_PUBLIC_REF_ENABLED === "true") {
+      if (freeAccount && process.env.NEXT_PUBLIC_REF_ENABLED === 'true') {
         fetch(REST_API + '/ads/refs', {
           headers: { authorization: UserManager.token },
         }).then((data) => {

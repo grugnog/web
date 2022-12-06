@@ -22,24 +22,40 @@ export const Header: FC<HeaderProps> = ({ children, id, className, style }) => {
   )
 }
 
-export const Header2: FC<HeaderProps> = ({ children, itemProp, style }) => {
+export const Header2: FC<HeaderProps> = ({
+  children,
+  className,
+  itemProp,
+  style,
+}) => {
   return (
     <h2
       itemProp={itemProp}
       style={style}
-      className={`font-bold text-xl md:text-2xl lg:text-3xl xl:text-4xl py-3 sm:leading-[1.1em]`}
+      className={[
+        `font-bold text-xl md:text-2xl lg:text-3xl xl:text-4xl py-3 sm:leading-[1.1em]`,
+        className,
+      ].join(' ')}
     >
       {children}
     </h2>
   )
 }
 
-export const Header3: FC<HeaderProps> = ({ children, itemProp, style }) => {
+export const Header3: FC<HeaderProps> = ({
+  children,
+  className,
+  itemProp,
+  style,
+}) => {
   return (
     <h3
       itemProp={itemProp}
       style={style}
-      className={`font-semibold text-lg md:text-xl lg:text-2xl xl:text-3xl py-3 sm:leading-[1.1em]`}
+      className={[
+        `font-semibold text-lg md:text-xl lg:text-2xl xl:text-3xl py-3 sm:leading-[1.1em]`,
+        className,
+      ].join(' ')}
     >
       {children}
     </h3>

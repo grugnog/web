@@ -12,14 +12,15 @@ function Pricing({ name }: PageProps) {
       <SectionContainer container block>
         <Header>Maintainable and easy pricing</Header>
         <h2 className={'text-base pb-2 font-medium'}>
-          Plans are usage based that can be adjusted at anytime and includes a {trialDuration} free trial. 
+          Plans are usage based that can be adjusted at anytime and includes a{' '}
+          {trialDuration} free trial.
         </h2>
 
         <p>
           Get detailed accessibility reports that go beyond the basics with ease
           across all your websites.
         </p>
-        
+
         <PriceMemo navigate pricingPage />
 
         <div className='py-4 text-center'>

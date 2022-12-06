@@ -50,7 +50,7 @@ export const Routes = [
   {
     nav: false,
     href: 'https://a11ywatch.getrewardful.com/signup',
-    name: 'Affiliates (earn 25%)',
+    name: 'Affiliates',
     type: 'explore',
   },
   {
@@ -214,10 +214,10 @@ export const LOGGIN_ROUTES = [
   '/alerts',
   '/dashboard',
   '/profile',
-  '/scripts',
   '/history',
   '/payments',
   '/issues',
+  '/scripts', // todo: website scripts rename
   '/website-analytics',
   '/website-details',
   '/web-issues',

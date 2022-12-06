@@ -12,9 +12,7 @@ import { Button } from './buttons'
 import { trialDuration } from '@app/configs/app-config'
 
 const getStyles = (inactive: boolean) =>
-  inactive
-    ? 'text-gray-700 border-gray-700'
-    : 'text-blue-700 border-blue-700'
+  inactive ? 'text-gray-700 border-gray-700' : 'text-blue-700 border-blue-700'
 
 const getPrimaryColor = (title: string) => {
   let color = '#0E1116'
@@ -37,7 +35,6 @@ function MainButton({
   yearly: boolean
   navigate: boolean
 }) {
-
   if (navigate) {
     // mono font-family to prevent shift in chars on dynamic changes
     return (
@@ -45,7 +42,7 @@ function MainButton({
         <Link
           className={`w-[15rem] tracking-wide text-lg text-gray-50 font-semibold bg-blue-700 px-4 py-2 hover:ring hover:no-underline rounded-3xl text-center`}
           href={`/register?plan=${title}${yearly ? '&yearly=true' : ''}`}
-          style={{fontFamily: `"Gill Sans", sans-serif`}}
+          style={{ fontFamily: `"Gill Sans", sans-serif` }}
         >
           {`${title} - ${trialDuration} Day Trial Start`}
         </Link>
@@ -118,7 +115,9 @@ export function PriceMemo({
         <Button
           type='button'
           onClick={onSetYearlyEvent}
-          className={`border relative px-2 rounded-3xl py-2 text-sm font-medium whitespace-nowrap sm:w-72 focus:outline-none focus:ring-1 focus:ring-gray-500 focus:z-10 sm:px-8 ${getStyles(yearly)}`}
+          className={`border relative px-2 rounded-3xl py-2 text-sm font-medium whitespace-nowrap sm:w-72 focus:outline-none focus:ring-1 focus:ring-gray-500 focus:z-10 sm:px-8 ${getStyles(
+            yearly
+          )}`}
         >
           {yearly
             ? 'Switch back to monthly pricing plans'

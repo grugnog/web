@@ -126,13 +126,17 @@ function ScriptCell({ source: sourceData }: any) {
             <div className='flex space-x-2'>
               <Button
                 onClick={submitEdit}
-                className={'text-green-800 border-green-800 font-medium rounded-3xl'}
+                className={
+                  'text-green-800 border-green-800 font-medium rounded-3xl'
+                }
               >
                 Save
               </Button>
               <Button
                 onClick={onEditPress}
-                className={'text-gray-800 border-gray-800 font-medium rounded-3xl'}
+                className={
+                  'text-gray-800 border-gray-800 font-medium rounded-3xl'
+                }
               >
                 Cancel
               </Button>
