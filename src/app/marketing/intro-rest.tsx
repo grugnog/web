@@ -32,12 +32,12 @@ function MarketingIntro({
             <p className='text-base text-gray-800'>
               A11ywatch provides powerful tools for testing web inclusivity so
               you can build better software. We created a smart safeguard that
-              prevents drastic issues across your website without hurting SEO
+              prevents drastic issues across your websites without hurting SEO
               and without overlays. Our system runs so fast speed becomes a
               feature.
             </p>
             <p className='text-base py-1 text-gray-700'>
-              Get insight across every step of the way with multiple options
+              Gain confidence across every step with multiple areas of entry
               like{' '}
               <strong>embed scripts, automated solutions, API, and more</strong>
               . Add custom actions and authentication for different use cases
@@ -47,10 +47,10 @@ function MarketingIntro({
         )}
         <div className='py-3 pb-4 relative'>
           <Link
-            className={`px-6 py-2 rounded border flex place-content-center w-40 after:text-sm after:content-['Free_start.'] after:left-[11.2rem] after:absolute after:pointer-events-none hover:bg-gray-100 font-semibold after:font-normal after:text-gray-600`}
+            className={`px-6 py-2 rounded border tracking-wider flex place-content-center w-40 font-medium after:text-sm after:content-['Try_for_free.'] after:left-[11.2rem] after:absolute after:pointer-events-none hover:bg-gray-100 hover:no-underline after:font-normal after:text-gray-600`}
             href={'/register'}
           >
-            Sign up
+            Get Started
           </Link>
         </div>
         {children}
