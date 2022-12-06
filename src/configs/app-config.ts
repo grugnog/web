@@ -53,6 +53,9 @@ export const REST_API = api.replace('/graphql', '')
 
 export const isA11yWatch = /a11ywatch/.test(REST_API)
 
+// free trial premium
+export const trialDuration = process.env.NEXT_PUBLIC_FREE_TRIAL ? parseInt(process.env.NEXT_PUBLIC_FREE_TRIAL, 10) : 14;
+
 export {
   BLOG_WEBFLOW_URL,
   BASE_GQL_URL,

@@ -4,6 +4,7 @@ import type { PageProps } from '@app/types'
 import { Partners } from '@app/app/marketing/partners'
 import { SectionContainer } from '@app/app/containers/section-container'
 import { Header } from '@app/components/general/header'
+import { trialDuration } from '@app/configs/app-config'
 
 function Pricing({ name }: PageProps) {
   return (
@@ -11,13 +12,14 @@ function Pricing({ name }: PageProps) {
       <SectionContainer container block>
         <Header>Maintainable and easy pricing</Header>
         <h2 className={'text-base pb-2 font-medium'}>
-          Plans are usage based that can be adjusted at anytime.
+          Plans are usage based that can be adjusted at anytime and includes a {trialDuration} free trial. 
         </h2>
 
-        <p className='w-1/2'>
+        <p>
           Get detailed accessibility reports that go beyond the basics with ease
           across all your websites.
         </p>
+        
         <PriceMemo navigate pricingPage />
 
         <div className='py-4 text-center'>

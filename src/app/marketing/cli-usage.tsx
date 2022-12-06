@@ -78,10 +78,11 @@ export function MarketingCli(): ReactElement<any, any> | null {
             <div className={`${sampleVisible ? 'block' : 'hidden'}`}>
               <Image
                 src={'/img/a11ywatch_cli.gif'}
-                height={1000}
-                width={1450}
-                alt={`A11yWatch CLI running the command: 'a11ywatch crawl --url https://a11ywatch.com -d -n -s > results.json' with the output 27/27 urls passing the report almost instant.`}
+                height={494}
+                width={717}
+                alt={`A11yWatch CLI running the command: 'a11ywatch crawl --url https://a11ywatch.com -d -n -s > results.json' with the output 27/27 urls passing the report almost instantly.`}
                 className={'h-auto w-auto rounded'}
+                quality={70}
               />
             </div>
             <div

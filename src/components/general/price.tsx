@@ -9,6 +9,7 @@ import { PriceCell } from './cells/price-cell'
 import { PriceFeat } from './cells/price-feat'
 import { Header3 } from './header'
 import { Button } from './buttons'
+import { trialDuration } from '@app/configs/app-config'
 
 const getStyles = (inactive: boolean) =>
   inactive
@@ -36,22 +37,17 @@ function MainButton({
   yearly: boolean
   navigate: boolean
 }) {
-  const buttonColor = getPrimaryColor(title)
-  let textColor = '#fff'
 
   if (navigate) {
+    // mono font-family to prevent shift in chars on dynamic changes
     return (
-      <div className='pb-1 justify-center flex'>
+      <div className='pb-2 justify-center flex'>
         <Link
-          className={`w-[12rem] px-4 py-2 hover:ring rounded-3xl font-bold text-center`}
-          style={{
-            backgroundColor: buttonColor,
-            color: textColor,
-            fontSize: '1.1rem',
-          }}
+          className={`w-[15rem] tracking-wide text-lg text-gray-50 font-semibold bg-blue-700 px-4 py-2 hover:ring hover:no-underline rounded-3xl text-center`}
           href={`/register?plan=${title}${yearly ? '&yearly=true' : ''}`}
+          style={{fontFamily: `"Gill Sans", sans-serif`}}
         >
-          {`${title} Start`}
+          {`${title} - ${trialDuration} Day Trial Start`}
         </Link>
       </div>
     )
@@ -168,7 +164,7 @@ export function PriceMemo({
               <button
                 onClick={onTogglePlans}
                 className={
-                  'px-3 py-1 border-2 text-blue-600 font-bold rounded text-lg border-blue-600 hover:bg-black hover:text-white'
+                  'px-3 py-1 border-2 text-blue-600 font-medium rounded text-base border-blue-600 hover:border-gray-600 hover:bg-gradient-radial hover:text-black'
                 }
               >
                 {selectHighPlans
