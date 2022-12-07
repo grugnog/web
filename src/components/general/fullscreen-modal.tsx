@@ -1,5 +1,5 @@
 import { memo } from 'react'
-import { AppBar, Dialog, List, Typography, Container } from '@material-ui/core'
+import { AppBar, List, Typography, Container } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 
 import { NavBarTitle } from './navigation'
@@ -16,17 +16,11 @@ import { Spacer } from './spacer'
 import { theme } from '@app-theme'
 import { AppManager } from '@app/managers'
 import { FeedIssue } from './feed/issue'
+import { Header3 } from './header'
+import { HeadlessFullScreenModal } from '../modal/headless-full'
+import { fetcher } from '@app/utils/fetcher'
 
 const useStyles = makeStyles(() => ({
-  menuButton: {
-    marginRight: theme.spacing(2),
-    [theme.breakpoints.down('sm')]: {
-      marginRight: theme.spacing(1),
-    },
-  },
-  submit: {
-    margin: theme.spacing(1),
-  },
   navbar: {
     backgroundColor: theme.palette.background.default,
     height: theme.mixins.toolbar.minHeight,
@@ -43,7 +37,6 @@ export const defaultModalState = {
 }
 
 function UpperInput({ data, url }: any) {
-  const classes = useStyles()
   const { customFields, removeFormField, addFormField, updateFormField } =
     useInputHeader(data)
 
@@ -82,9 +75,11 @@ function UpperInput({ data, url }: any) {
       <div className='py-2'>
         <InputHeaders {...inputProps} />
       </div>
-      <Button className={classes.submit} onClick={onUpdateWebsite}>
-        Update
-      </Button>
+      <div className='p-1'>
+        <Button onClick={onUpdateWebsite}>
+          Update
+        </Button>
+      </div>
     </>
   )
 }
@@ -106,10 +101,63 @@ export function FullScreenModalWrapper({
   const issuesModal = title === 'Issues'
   const headerModal = title === 'Custom Headers'
   const pagesModal = title === 'All Pages'
+  const verifyModal = title === 'Verify DNS'
 
   const issueCount = data?.length
 
+  // check to see if the dns was confirmed
+  const onDnsStatusEvent = async () => {
+    const domain = new URL(url).hostname
+    const source = await fetcher('/website/dns', { domain })
+
+    AppManager.toggleSnack(
+      open,
+      `${domain} is ${!source?.data?.verified ? 'Not ' : ''}Verified`
+    )
+
+    if (source?.data?.verified && refetch && handleClose) {
+      refetch()
+      handleClose()
+    }
+  }
+
+  // todo: split props into component
   const Body = () => {
+    if (verifyModal) {
+      return (
+        <div className='p-4 space-y-6 container mx-auto'>
+          <Header3>Verify DNS</Header3>
+          <div className='py-2 space-y-2'>
+            <p className='text-gray-800 text-lg'>
+              Enter the following .txt record to confirm your domain. You can
+              remove the record after confirmation.
+            </p>
+            <p className='text-gray-700'>
+              By verifying your domain, you can enable the CDN to store content.
+              If you need help please, contact support for alternative
+              validation steps.
+            </p>
+          </div>
+          <div className='border border-gray-700 text-gray-600 rounded'>
+            {data?.data?.txtRecord ? (
+              <>
+                <div className='flex flex-1 space-x-3'>
+                  <div className='border-r px-4 bg-black'>
+                    <div className='py-2 text-gray-100 font-medium'>.TXT</div>
+                  </div>
+                  <div className='py-2'>{data?.data?.txtRecord}</div>
+                </div>
+              </>
+            ) : (
+              <div className='py-4 px-4'>{data?.message}</div>
+            )}
+          </div>
+          <div>
+            <Button onClick={onDnsStatusEvent}>Check Status</Button>
+          </div>
+        </div>
+      )
+    }
     if (headerModal) {
       return <UpperInput data={data} url={url} />
     }
@@ -177,17 +225,16 @@ export function FullScreenModalWrapper({
   }
 
   return (
-    <Dialog fullScreen open={open} onClose={handleClose}>
+    <HeadlessFullScreenModal open={open} onClose={handleClose}>
       <AppBar position={'fixed'} className={classes.navbar}>
         <div className='flex flex-1 align-center place-content-between px-5'>
-          <div className={'flex space-x-1 place-items-center'}>
+          <div className={'flex space-x-2 place-items-center'}>
             <Button
               onClick={handleClose}
               aria-label='close'
               iconButton
-              className={classes.menuButton}
             >
-              <GrClose />
+              <GrClose className='grIcon inline-block text-black text-sm md:text-base' />
             </Button>
             <NavBarTitle title={title} />
           </div>
@@ -210,7 +257,7 @@ export function FullScreenModalWrapper({
       </AppBar>
       <Spacer height={theme.mixins.toolbar.minHeight} />
       <Body />
-    </Dialog>
+    </HeadlessFullScreenModal>
   )
 }
 

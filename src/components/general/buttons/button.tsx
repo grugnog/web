@@ -24,8 +24,8 @@ export const Button: React.FC<ButtonProps> = ({
   ...extra
 }) => {
   const iconBtnStyles = iconButton
-    ? 'md:px-4 md:py-4 border-0 md:rounded-3xl text-lg md:text-[1.15rem]'
-    : 'md:px-4 md:py-1.5'
+    ? 'border-0 text-lg py-3 px-3 rounded-3xl place-content-center place-items-center flex md:text-[1.15rem]'
+    : 'rounded-2xl px-2 py-1.5 md:px-4 md:py-1.5'
 
   return (
     <button
@@ -34,7 +34,7 @@ export const Button: React.FC<ButtonProps> = ({
       type={type}
       disabled={disabled}
       className={classNames(
-        'px-2 py-1 border rounded-2xl min-w-[44px] hover:bg-gray-100 hover:shadow-md',
+        'border min-w-[44px] hover:bg-gray-100 hover:shadow-md',
         iconBtnStyles,
         className
       )}

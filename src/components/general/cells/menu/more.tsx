@@ -18,6 +18,7 @@ function MoreOptionsComponent(props: MoreOptionsProps) {
     handleClose,
     pageInsights,
     shutdown,
+    verified,
   } = props
 
   const toggleLighthouse = useCallback(async () => {
@@ -78,6 +79,13 @@ function MoreOptionsComponent(props: MoreOptionsProps) {
             )}
           >
             Update Headers
+          </MenuItem>
+        ) : null}
+        {!verified ? (
+          <MenuItem
+            onClick={handleMainClick(true, 'Verify DNS', false, url as string)}
+          >
+            Verify DNS
           </MenuItem>
         ) : null}
         {typeof removePress === 'function' && !history ? (

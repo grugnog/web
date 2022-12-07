@@ -1,9 +1,9 @@
-import React, { memo } from 'react'
+import React from 'react'
 import { InfoBlock } from '../info-block'
 import { GrAlert } from 'react-icons/gr'
 
 // hard warnings that need to be fixed display
-export const WarningsBoxWrapper = ({ issues }: { issues?: number }) => {
+export const WarningsBox = ({ issues }: { issues?: number }) => {
   return (
     <InfoBlock
       title={'Warnings'}
@@ -13,5 +13,3 @@ export const WarningsBoxWrapper = ({ issues }: { issues?: number }) => {
     </InfoBlock>
   )
 }
-
-export const WarningsBox = memo(WarningsBoxWrapper)

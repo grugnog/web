@@ -1,17 +1,11 @@
-import React, { memo } from 'react'
+import React from 'react'
 import { InfoBlock } from '../info-block'
 import { SiLighthouse } from 'react-icons/si'
 
-export const LighthouseBoxWrapper = ({
-  pageInsights,
-}: {
-  pageInsights?: boolean
-}) => {
+export const LighthouseBox = ({ pageInsights }: { pageInsights?: boolean }) => {
   return (
     <InfoBlock title={'Lighthouse'} icon={<SiLighthouse />}>
-      <p>{pageInsights ? 'Enabled' : 'Not Enabled'}</p>
+      {pageInsights ? 'Enabled' : 'Not Enabled'}
     </InfoBlock>
   )
 }
-
-export const LighthouseBox = memo(LighthouseBoxWrapper)

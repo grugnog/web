@@ -24,7 +24,7 @@ const colors = {
   transparent: 'transparent',
   current: 'currentColor',
   gray: tailwindColors.neutral,
-  black: '#000',
+  black: '#0e1116',
   white: '#fff',
   lightgray: 'rgb(240,241,243)',
   side: 'rgb(82,92,103)',

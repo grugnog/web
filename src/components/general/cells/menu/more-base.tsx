@@ -25,7 +25,6 @@ export interface MoreOptionsProps extends Partial<Website> {
   children?: any
   url?: string // base url or domain
   pageUrl?: string // main target for page
-  shutdown?: boolean // did the website complete the scan
 }
 
 // Base of more options ...

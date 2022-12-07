@@ -22,7 +22,7 @@ export const ProfileCell = ({
     return (
       <div className='border p-2'>
         <div className='flex'>
-          <p className={`text-xl font-bold ${titleClassName}`}>{title}</p>
+          <p className={`text-xl font-semibold ${titleClassName}`}>{title}</p>
           {children}
         </div>
         {skeletonLoad ? (

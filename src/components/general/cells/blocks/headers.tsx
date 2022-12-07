@@ -1,17 +1,11 @@
-import React, { memo } from 'react'
+import React from 'react'
 import { InfoBlock } from '../info-block'
 import { GrFlag } from 'react-icons/gr'
 
-export const HeadersBoxWrapper = ({
-  pageHeaders,
-}: {
-  pageHeaders?: boolean
-}) => {
+export const HeadersBox = ({ pageHeaders }: { pageHeaders?: boolean }) => {
   return (
     <InfoBlock title={'Headers'} icon={<GrFlag />}>
-      <p>{pageHeaders ? 'Yes' : 'No'}</p>
+      {pageHeaders ? 'Yes' : 'No'}
     </InfoBlock>
   )
 }
-
-export const HeadersBox = memo(HeadersBoxWrapper)

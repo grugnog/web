@@ -1,8 +1,8 @@
-import { memo } from 'react'
+import React from 'react'
 import { InfoBlock } from '../info-block'
 import { GrAccessibility } from 'react-icons/gr'
 
-export const AccessibilityBoxWrapper = ({
+export const AccessibilityBox = ({
   adaScore,
   average = true,
 }: {
@@ -16,5 +16,3 @@ export const AccessibilityBoxWrapper = ({
     </InfoBlock>
   )
 }
-
-export const AccessibilityBox = memo(AccessibilityBoxWrapper)

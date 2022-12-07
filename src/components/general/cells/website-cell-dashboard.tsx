@@ -37,6 +37,7 @@ import { useWasmContext } from '@app/components/providers'
 import { useAuthContext } from '@app/components/providers/auth'
 import { GrChannel } from 'react-icons/gr'
 import { Lighthouse } from '../lighthouse'
+import { fetcher } from '@app/utils/fetcher'
 
 const styles = {
   title: 'text-xl md:text-3xl font-bold truncate text-gray-600',
@@ -79,6 +80,7 @@ export function WebsiteCellDashboardComponent({
   subdomains,
   tld,
   shutdown,
+  verified
 }: any) {
   const [anchorEl, setAnchorEl] = useState<any>(null)
   const { activeSubscription } = useAuthContext() // TODO: move to provider top level
@@ -113,12 +115,21 @@ export function WebsiteCellDashboardComponent({
   }, [url, removePress])
 
   const handleMainClick =
-    (eventData?: any, title?: string, mini?: boolean, url?: string) => () => {
+    (eventData?: any, title?: string, mini?: boolean, url?: string) =>
+    async () => {
       // mini player open - small modal with dynamic content
+      let eventDS = eventData
+
+      if (title === 'Verify DNS') {
+        eventDS =
+          url &&
+          (await fetcher('/website/dns', { domain: new URL(url).hostname }))
+      }
+
       if (mini) {
-        handleClickOpenPlayer(true, eventData, title)()
+        handleClickOpenPlayer(true, eventDS, title)()
       } else if (handleClickOpen) {
-        handleClickOpen(eventData, title, url)
+        handleClickOpen(eventDS, title, url)
       }
 
       setAnchorEl(null)
@@ -282,6 +293,7 @@ export function WebsiteCellDashboardComponent({
             tld={tld}
             pageInsights={pageInsights}
             shutdown={shutdown}
+            verified={verified}
           />
         </div>
       </div>

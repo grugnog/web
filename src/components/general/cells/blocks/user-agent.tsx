@@ -44,7 +44,7 @@ export const UserAgentBoxWrapper = ({
         User-Agent
       </label>
       <input
-        className='py-1 focus:outline-none focus:border-r-2 focus:border-blue-300 hover:border-r-2'
+        className='text-gray-700 py-1 focus:outline-none focus:border-r-2 focus:border-blue-300 hover:border-r-2'
         onChange={onChangeUA}
         value={ua}
         id={uaLabel}

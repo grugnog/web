@@ -28,7 +28,7 @@ export const CustomCDNBoxWrapper = ({
             type='checkbox'
             onChange={() => setMinified((minified: boolean) => !minified)}
             className={
-              'outline-none relative inline-flex flex-shrink-0 h-4 w-7 rounded-full cursor-pointer transition-colors ease-in-out duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'
+              'text-gray-700 outline-none relative inline-flex flex-shrink-0 h-4 w-7 rounded-full cursor-pointer transition-colors ease-in-out duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'
             }
           ></input>
         </div>
@@ -45,7 +45,7 @@ export const CustomCDNBoxWrapper = ({
         </PrismLight>
         <div
           className={`py-2 text-sm ${
-            !cdnConnected ? 'text-gray-600' : 'text-green-600'
+            !cdnConnected ? 'text-gray-700' : 'text-green-600'
           }`}
         >
           {cdnConnected ? 'Connected' : 'Disconnected'}

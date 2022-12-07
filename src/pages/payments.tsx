@@ -174,8 +174,7 @@ function Payments({ hideTitle = false, name }: PaymentProps) {
                     <p className='text-xl font-bold'>Account Type</p>
                     <p className='text-xl capitalize'>
                       {`${
-                        paymentSubscription?.plan?.nickname ??
-                        currentPlan
+                        paymentSubscription?.plan?.nickname ?? currentPlan
                       }${planCost}`}
                     </p>
                     <p>

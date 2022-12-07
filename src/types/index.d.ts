@@ -487,7 +487,9 @@ export type Website = {
   subdomains?: boolean
   robots?: boolean
   tld?: boolean
-  shutdown?: boolean
+  shutdown?: boolean // did the website complete the scan
+  verified?: boolean // website verified
+  verificationCode?: string // txt record to verify dns
 }
 
 export type WebsiteIssuesArgs = {
