@@ -101,7 +101,8 @@ function Payments({ hideTitle = false, name }: PaymentProps) {
     await onCancelConfirm()
   }
 
-  const renderPayMentBoxes = data?.role === 0 && !data.activeSubscription
+  // allow payments on all non maxed accounts
+  const renderPayMentBoxes = data?.role !== 10
   const subTitle = renderPaymentTitle(renderPayMentBoxes)
   const paymentSubscription = data?.paymentSubscription
   const nextPaymentDay =
@@ -117,12 +118,21 @@ function Payments({ hideTitle = false, name }: PaymentProps) {
     ? ` - ${paymentSubscription?.plan?.amount / 100 || ''}`
     : ''
 
+  const currentPlan = roleMap(data?.role)
+
   return (
     <>
       <NavBar title={name} backButton notitle />
       <StateLessDrawer>
         <SectionContainer container block>
           {hideTitle ? null : <Header>Payments</Header>}
+          {data?.role ? (
+            <div className='py-2'>
+              <p>
+                Your active plan <b>{currentPlan}</b>
+              </p>
+            </div>
+          ) : null}
           {loading && !data ? (
             <EmptyPayments subTitle={subTitle} />
           ) : (
@@ -132,6 +142,7 @@ function Payments({ hideTitle = false, name }: PaymentProps) {
                 <PriceMemo
                   priceOnly
                   onClick={handleChange}
+                  role={data?.role}
                   setYearly={setYearly}
                   yearly={yearly}
                   selectedPlanIndex={getSelectedIndex(plan)}
@@ -164,7 +175,7 @@ function Payments({ hideTitle = false, name }: PaymentProps) {
                     <p className='text-xl capitalize'>
                       {`${
                         paymentSubscription?.plan?.nickname ??
-                        roleMap(data?.role)
+                        currentPlan
                       }${planCost}`}
                     </p>
                     <p>

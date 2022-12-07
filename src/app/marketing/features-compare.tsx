@@ -78,22 +78,8 @@ function Feature() {
             <TableRow
               rows={['Live web accessibility testing', 'true', 'true', 'true']}
             />
-            <TableRow
-              rows={[
-                'WCAG A-AAA audits',
-                'true',
-                'true',
-                'true',
-              ]}
-            />
-            <TableRow
-              rows={[
-                'Section508 audits',
-                'true',
-                'true',
-                'false',
-              ]}
-            />
+            <TableRow rows={['WCAG A-AAA audits', 'true', 'true', 'true']} />
+            <TableRow rows={['Section508 audits', 'true', 'true', 'false']} />
             <TableRow rows={['CI pipelines', 'true', 'true', 'true']} />
             <TableRow
               rows={['Command Line Interface', 'true', 'maybe', 'maybe']}
@@ -174,7 +160,7 @@ function Feature() {
         <table className='min-w-full table-auto'>
           <TableHeading title={'Performance and Costs'} />
           <tbody>
-           <TableRow
+            <TableRow
               rows={[
                 'Average pages tested per 10$ spent',
                 '2,500-5,000 daily',
@@ -214,15 +200,16 @@ function Feature() {
 
           <p>
             Some of the reasons A11yWatch and Wave run faster than Deque is due
-            to the protocol of choice to control the browser. A11yWatch and
-            Wave use the devtools protocol while Deque uses WebDriver. Devtools
+            to the protocol of choice to control the browser. A11yWatch and Wave
+            use the devtools protocol while Deque uses WebDriver. Devtools
             protocol allows you to manipulate the entire control beyond the UI
             layer to enhance the way a it would normally load a web page by
             doing things like intercepting network request, manipulating
             elements, and more. A11yWatch goes to the next level with
             optimisations for speed by leveraging multiple technologies like
-            Rust, protocols like gRPC and efficient algorithms. We also use a custom runner
-            that is over 10,000 times faster than any open source headless runner.
+            Rust, protocols like gRPC and efficient algorithms. We also use a
+            custom runner that is over 10,000 times faster than any open source
+            headless runner.
           </p>
         </div>
       </div>

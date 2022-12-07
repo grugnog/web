@@ -31,7 +31,9 @@ function Features({ name }: PageProps) {
           Learn about features that make {companyName} stand out between the
           rest.
         </p>
-        <Header2 className='md:font-normal xl:text-2xl'>Tools built for the job</Header2>
+        <Header2 className='md:font-normal xl:text-2xl'>
+          Tools built for the job
+        </Header2>
         <div className={row}>
           <div className={paper}>
             <Section>
@@ -40,10 +42,10 @@ function Features({ name }: PageProps) {
                 <FeatureHeading>
                   Our inclusion insight reporter and monitor scans for problems
                   with recommended solutions that are tuned for any website
-                  using WCAG, Section508, and beyond. Get notified when new issues occur with
-                  detailed information on what happened on all pages. Control
-                  how often you need the reporter to run to get alerted along
-                  your schedule. Include critical{' '}
+                  using WCAG, Section508, and beyond. Get notified when new
+                  issues occur with detailed information on what happened on all
+                  pages. Control how often you need the reporter to run to get
+                  alerted along your schedule. Include critical{' '}
                   <a
                     href={'https://web.dev/vitals/'}
                     target={'_blank'}
