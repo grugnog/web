@@ -142,7 +142,7 @@ export function WebsiteCellDashboardComponent({
     script?.cdnUrlMinified ??
     `${domain}/${domain.replace(/\./g, '-')}-ada-fix-0.min.js`
 
-  // real time issue tracking
+  // real time issue tracking todo: send subscription with issuesInfo
   const { errorCount, warningCount, totalIssues, issuesFixedByCdn } =
     useMemo(() => {
       let errors = 0

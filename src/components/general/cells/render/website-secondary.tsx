@@ -19,7 +19,7 @@ const chipRootStyle: React.CSSProperties = {
   backgroundColor: '#fff',
   color: 'rgb(64,64,64)',
   border: '1px solid rgb(209 213 219)',
-  width: '5rem',
+  minWidth: '4.8rem',
   overflow: 'hidden',
   textOverflow: 'ellipsis',
   textAlign: 'left',
