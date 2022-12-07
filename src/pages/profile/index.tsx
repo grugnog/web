@@ -21,7 +21,7 @@ import { useUserData } from '@app/data'
 import { metaSetter } from '@app/utils'
 import { useProfileStyles as useStyles } from '@app/styles/pages/profile'
 import type { PageProps } from '@app/types'
-import { useBillingDisplay } from '@app/data/formatters'
+// import { useBillingDisplay } from '@app/data/formatters'
 import { roleMap } from '@app/utils/role-map'
 
 interface PasswordState {
@@ -85,9 +85,9 @@ const Profile: FC<PageProps> = ({ name }) => {
   const [newEmail, setNewEmail] = useState<string>('')
 
   const { user } = data ?? { user: { invoice: null } }
-  const { invoice } = user ?? { invoice: null }
+  // const { invoice } = user ?? { invoice: null }
 
-  const { billingtitle, billingHeadDisplay } = useBillingDisplay(invoice)
+  // const { billingtitle, billingHeadDisplay } = useBillingDisplay(invoice)
 
   const onChangeCurrent = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -164,6 +164,8 @@ const Profile: FC<PageProps> = ({ name }) => {
 
   const email = updateUserData?.updateUser?.user?.email ?? user?.email
 
+  // todo: add invoices in panel
+
   return (
     <Fragment>
       {user?.passwordRequired ? (
@@ -206,13 +208,13 @@ const Profile: FC<PageProps> = ({ name }) => {
                 : 0
               ).toFixed(0)}s`}
             />
-            {user?.activeSubscription ? (
+            {/* {user?.activeSubscription ? (
               <ProfileCell
                 title={billingHeadDisplay}
                 skeletonLoad={!user && loading}
                 subTitle={billingtitle}
               />
-            ) : null}
+            ) : null} */}
 
             <div className='space-y-2 w-[250px] py-4'>
               {!user && loading ? (
@@ -347,7 +349,7 @@ const Profile: FC<PageProps> = ({ name }) => {
             </div>
           </div>
           <div className='py-5 space-y-10'>
-            {user?.activeSubscription ? (
+            {user?.activeSubscription && MANAGE_BILLING ? (
               <div>
                 <Link
                   href={`${MANAGE_BILLING}?prefilled_email=${encodeURIComponent(

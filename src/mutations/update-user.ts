@@ -1,18 +1,8 @@
 import gql from 'graphql-tag'
 
 export const UPDATE_USER = gql`
-  mutation UpdateUser(
-    $password: String
-    $newPassword: String
-    $stripeToken: String
-    $email: String
-  ) {
-    updateUser(
-      password: $password
-      newPassword: $newPassword
-      stripeToken: $stripeToken
-      email: $email
-    ) {
+  mutation UpdateUser($password: String, $newPassword: String, $email: String) {
+    updateUser(password: $password, newPassword: $newPassword, email: $email) {
       code
       success
       message
@@ -44,6 +34,7 @@ export const UPDATE_USER = gql`
   }
 `
 
+// todo: add plan as param
 export const ADD_PAYMENT_SUBSCRIPTION = gql`
   mutation AddPaymentSubscription(
     $email: String

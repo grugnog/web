@@ -80,7 +80,7 @@ export function WebsiteCellDashboardComponent({
   subdomains,
   tld,
   shutdown,
-  verified
+  verified,
 }: any) {
   const [anchorEl, setAnchorEl] = useState<any>(null)
   const { activeSubscription } = useAuthContext() // TODO: move to provider top level

@@ -22,6 +22,7 @@ export function PriceCell({
   costYearly,
   cost,
   selectHighPlans,
+  activePlan,
 }: any) {
   return (
     <button
@@ -35,6 +36,7 @@ export function PriceCell({
           : ''
       } rounded`}
       onClick={onClick}
+      disabled={activePlan}
     >
       <>
         <div className='w-full'>
@@ -53,7 +55,12 @@ export function PriceCell({
               )}`}
               pricingPage={pricingPage}
             >
-              <span>{title}</span>
+              <span>
+                {title}
+                {activePlan ? (
+                  <span className='text-sm font-medium'>{' Active Plan'}</span>
+                ) : null}
+              </span>
               {cost ? (
                 <span className={'text-xl font-semibold block'}>
                   {yearly ? costYearly : cost}

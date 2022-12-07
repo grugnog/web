@@ -14,38 +14,40 @@ export const usePaymentsHook = () => {
     token: any,
     { plan, yearly, referral }: TokenParams
   ) => {
+    AppManager.toggleSnack(true, 'Processing payment...', 'success')
     try {
-      if (token) {
-        AppManager.toggleSnack(true, 'Processing payment...', 'success')
+      const res = await addSubscription({
+        variables: {
+          // todo: move plan to param instead of tying to stripeToken
+          stripeToken: JSON.stringify(
+            token
+              ? {
+                  ...token,
+                  plan,
+                  referral,
+                }
+              : {
+                  plan,
+                  referral,
+                }
+          ),
+          email: token.email,
+          yearly,
+        },
+      })
 
-        const res = await addSubscription({
-          variables: {
-            // todo: add object params
-            stripeToken: JSON.stringify({
-              ...token,
-              plan,
-              referral,
-            }),
-            email: token.email,
-            yearly,
-          },
-        })
+      const jwt = res?.data?.addPaymentSubscription?.user?.jwt
 
-        const jwt = res?.data?.addPaymentSubscription?.user?.jwt
-
-        if (jwt) {
-          UserManager.setJwt(jwt)
-          AppManager.toggleSnack(true, 'Payment confirmed!', 'success')
-          await router.push('/dashboard')
-        } else {
-          AppManager.toggleSnack(
-            true,
-            'An issue occurred. Please contact support',
-            'error'
-          )
-        }
+      if (jwt) {
+        UserManager.setJwt(jwt)
+        AppManager.toggleSnack(true, 'Payment confirmed!', 'success')
+        await router.push('/dashboard')
       } else {
-        AppManager.toggleSnack(true, 'Payment failed to process.', 'error')
+        AppManager.toggleSnack(
+          true,
+          'An issue occurred. Please contact support',
+          'error'
+        )
       }
     } catch (e) {
       console.error(e)

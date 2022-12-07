@@ -76,9 +76,7 @@ function UpperInput({ data, url }: any) {
         <InputHeaders {...inputProps} />
       </div>
       <div className='p-1'>
-        <Button onClick={onUpdateWebsite}>
-          Update
-        </Button>
+        <Button onClick={onUpdateWebsite}>Update</Button>
       </div>
     </>
   )
@@ -229,11 +227,7 @@ export function FullScreenModalWrapper({
       <AppBar position={'fixed'} className={classes.navbar}>
         <div className='flex flex-1 align-center place-content-between px-5'>
           <div className={'flex space-x-2 place-items-center'}>
-            <Button
-              onClick={handleClose}
-              aria-label='close'
-              iconButton
-            >
+            <Button onClick={handleClose} aria-label='close' iconButton>
               <GrClose className='grIcon inline-block text-black text-sm md:text-base' />
             </Button>
             <NavBarTitle title={title} />

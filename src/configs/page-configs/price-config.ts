@@ -1,4 +1,4 @@
-const TRUSTED_CDN = 'Embed code script safeguard'
+const TRUSTED_CDN = 'Embed custom script safeguard'
 const VISUAL_PLAYGROUND = 'Visual website playground'
 
 const feats = [

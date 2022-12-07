@@ -24,6 +24,7 @@ import { SectionContainer } from '@app/app/containers/section-container'
 import { priceHandler, getSelectedIndex } from '@app/utils/price-handler'
 import { usePaymentsHook } from '@app/data/external/payments/use-payments'
 import { roleMap } from '@app/utils/role-map'
+import { CheckoutFormless } from '@app/components/stripe/formless'
 
 interface PaymentProps extends PageProps {
   hideTitle?: boolean
@@ -47,7 +48,7 @@ function Payments({ hideTitle = false, name }: PaymentProps) {
   const { data, loading, onCancelConfirm, onToken } = usePaymentsHook()
   const [state, setState] = useState<string>('L1')
   const { billingtitle } = useBillingDisplay(data?.invoice)
-
+  const [newCard, setNewCard] = useState<boolean>(false)
   const [yearly, setYearly] = useState<boolean>(false)
   const [open, setOpen] = useState<boolean>(false)
   const [referral, setReferral] = useState<string>('')
@@ -126,13 +127,6 @@ function Payments({ hideTitle = false, name }: PaymentProps) {
       <StateLessDrawer>
         <SectionContainer container block>
           {hideTitle ? null : <Header>Payments</Header>}
-          {data?.role ? (
-            <div className='py-2'>
-              <p>
-                Your active plan <b>{currentPlan}</b>
-              </p>
-            </div>
-          ) : null}
           {loading && !data ? (
             <EmptyPayments subTitle={subTitle} />
           ) : (
@@ -143,6 +137,7 @@ function Payments({ hideTitle = false, name }: PaymentProps) {
                   priceOnly
                   onClick={handleChange}
                   role={data?.role}
+                  currentPlan={currentPlan}
                   setYearly={setYearly}
                   yearly={yearly}
                   selectedPlanIndex={getSelectedIndex(plan)}
@@ -155,14 +150,28 @@ function Payments({ hideTitle = false, name }: PaymentProps) {
                 {renderPayMentBoxes ? (
                   <div className='space-y-2 py-1'>
                     <div className='sm:w-full place-content-center place-items-center min-w-[350px] align-center'>
-                      <StripProvider>
-                        <CheckoutForm
-                          onToken={onTokenEvent}
-                          plan={state}
-                          price={Number(`${price}${priceMultiplyier}`)}
-                          disabled={Boolean(!state)}
-                        />
-                      </StripProvider>
+                      {!data.activeSubscription || newCard ? (
+                        <StripProvider>
+                          <CheckoutForm
+                            onToken={onTokenEvent}
+                            plan={state}
+                            price={Number(`${price}${priceMultiplyier}`)}
+                            disabled={Boolean(!state)}
+                          />
+                        </StripProvider>
+                      ) : (
+                        <div className='py-2'>
+                          <Button onClick={() => setNewCard((x) => !x)}>
+                            Add New Card
+                          </Button>
+                          <CheckoutFormless
+                            onToken={onTokenEvent}
+                            plan={state}
+                            price={Number(`${price}${priceMultiplyier}`)}
+                            disabled={Boolean(!state)}
+                          />
+                        </div>
+                      )}
                     </div>
                     <StripeBadges />
                   </div>
@@ -174,7 +183,7 @@ function Payments({ hideTitle = false, name }: PaymentProps) {
                     <p className='text-xl font-bold'>Account Type</p>
                     <p className='text-xl capitalize'>
                       {`${
-                        paymentSubscription?.plan?.nickname ?? currentPlan
+                        paymentSubscription?.plan?.nickname || currentPlan
                       }${planCost}`}
                     </p>
                     <p>

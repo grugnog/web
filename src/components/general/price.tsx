@@ -61,6 +61,7 @@ export function PriceMemo({
   pricingPage,
   selectedPlanIndex = 0,
   highPlan = false,
+  currentPlan,
 }: any) {
   const [yearly, onSetYear] = useState<boolean>(!!year)
   const [selectedPlan, onSelectPlan] = useState<number>(selectedPlanIndex ?? 0)
@@ -137,6 +138,8 @@ export function PriceMemo({
 
             const selectedItem = index === selectedPlan
 
+            const activePlan = currentPlan === title
+
             return (
               <li className='w-full' key={title}>
                 <PriceCell
@@ -146,6 +149,7 @@ export function PriceMemo({
                   selected={selectedItem}
                   selectHighPlans={selectHighPlans}
                   pricingPage={pricingPage}
+                  activePlan={activePlan}
                   {...planProps}
                 />
               </li>

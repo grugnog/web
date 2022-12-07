@@ -144,7 +144,6 @@ export type MutationLoginArgs = {
 export type MutationUpdateUserArgs = {
   password?: string
   newPassword?: string
-  stripeToken?: string
 }
 
 export type MutationToggleAlertArgs = {
@@ -428,7 +427,6 @@ export type User = {
   passwordRequired?: boolean
   alertEnabled?: boolean
   lastAlertSent?: number
-  stripeToken?: string
   role?: number
   activeSubscription?: boolean
   emailConfirmed?: boolean
