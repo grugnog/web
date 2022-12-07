@@ -3,7 +3,7 @@ import { InfoBlock } from '../info-block'
 import { GrAccessibility } from 'react-icons/gr'
 
 export const AccessibilityBox = ({
-  adaScore,
+  adaScore = 0,
   average = true,
 }: {
   adaScore?: number
@@ -12,7 +12,7 @@ export const AccessibilityBox = ({
   return (
     <InfoBlock title={'Score'} icon={<GrAccessibility />}>
       {typeof adaScore !== 'undefined' && average ? 'Average ' : ''}{' '}
-      {adaScore ?? 'N/A'}
+      {adaScore || "N/A"}
     </InfoBlock>
   )
 }

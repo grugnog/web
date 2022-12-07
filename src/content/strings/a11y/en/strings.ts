@@ -7,7 +7,7 @@ export const strings = generateStrings({
   appName,
   headers,
   meta: {
-    title: `${appName}: the all around web accessibility tool.`,
+    title: `${appName}: the open source web accessibility tool.`,
     description: `Build accessible websites with tools that monitor, fix, and guide web accessibility efficiency with ${appName}`,
   },
 })
