@@ -14,6 +14,7 @@ const GET_WEBSITE = gql`
       mobile
       tld
       subdomains
+      verified
       insight {
         json
       }
