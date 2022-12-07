@@ -38,7 +38,7 @@ function Features({ name }: PageProps) {
           <div className={paper}>
             <Section>
               <div>
-                <Header3>Web Accessibility Monitoring</Header3>
+                <Header3>{companyName} Web Accessibility Monitoring</Header3>
                 <FeatureHeading>
                   Our inclusion insight reporter and monitor scans for problems
                   with recommended solutions that are tuned for any website
@@ -134,7 +134,7 @@ function Features({ name }: PageProps) {
                 <Header3>Embed Script Safeguard</Header3>
                 <FeatureHeading>
                   View your website javascript remedies that come from the
-                  scripts page. Verifiy exactly what goes into production with
+                  scripts page. Verify exactly what goes into production with
                   notes on whats being changed. If you need to make a tweak,
                   edit the script in real time with our editor. This is suppose
                   to be a temporary solution so you can get to the fixes with a

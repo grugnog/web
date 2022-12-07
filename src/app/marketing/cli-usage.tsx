@@ -48,7 +48,7 @@ export function MarketingCli(): ReactElement<any, any> | null {
     <SectionContainer>
       <div className='ring-1 shadow-xl ring-[#0E1116] ring-offset-8 ring-offset-gray-600 py-4 px-4 rounded'>
         <div className='flex space-x-2 place-items-center'>
-          <Header3>Web Accessibility CLI</Header3>
+          <Header3>{companyName} Web Accessibility CLI</Header3>
           <button
             title={
               sampleVisible

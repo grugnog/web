@@ -3,6 +3,7 @@ import { metaSetter } from '@app/utils'
 import type { PageProps } from '@app/types'
 import { Header } from '@app/components/general/header'
 import { SectionContainer } from '@app/app/containers/section-container'
+import { companyName } from '@app/configs'
 
 const checklistLinks = [
   { href: 'https://a11yproject.com/checklist', name: 'A11y Checklist' },
@@ -34,7 +35,7 @@ function WebAccessibility({ name }: PageProps) {
   return (
     <MarketingDrawer title={name}>
       <SectionContainer container block>
-        <Header>Web Accessibility</Header>
+        <Header>{companyName} Web Accessibility</Header>
         <p className='pb-2 md:w-2/3'>
           Improve your {`product's`} web accessibility from the start of the
           building process quickly. Follow these principles to improve your
