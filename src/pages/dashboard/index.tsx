@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import Head from 'next/head'
+import dynamic from 'next/dynamic'
 
 import {
   Button,
@@ -20,6 +21,10 @@ import { SortableWebsiteList } from '@app/components/general/website'
 import { companyName } from '@app/configs'
 import { CtaInputRest } from '@app/components/cta/searchbar/cta-input-rest'
 import { MarketingBottomTemporaryDrawer } from '@app/components/modal'
+
+const CtaHtmlInputRest = dynamic(() =>
+  import('@app/components/cta/searchbar/cta-html-input-rest').then((mod) => mod.CtaHtmlInputRest), {ssr: false}
+)
 
 // right bar
 type RightBarProps = {
@@ -210,8 +215,12 @@ function Dashboard({ name }: PageProps) {
         </div>
 
         <div className={queryStyle}>
-          <div className='py-2'>
-            <CtaInputRest />
+          <div className='py-2 h-full'>
+            <div className='flex flex-col place-items-center place-content-center space-y-3'>
+              <CtaInputRest />
+              <p>Or HTML</p>
+              <CtaHtmlInputRest />
+            </div>
             <MarketingBottomTemporaryDrawer authenticated />
           </div>
         </div>

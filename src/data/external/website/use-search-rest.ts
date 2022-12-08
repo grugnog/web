@@ -9,14 +9,19 @@ const scanEndpoint = `${getAPIRoute('api')}/scan-simple`
 const scanAuthedEndpoint = `${getAPIRoute('api')}/scan`
 
 // SCOPE WEBSITE DATA PER ROUTE (ALL, ISSUES, PAGES)
-export const scanWebsite = async (websiteUrl: string, authed?: boolean) => {
+export const scanWebsite = async (
+  websiteUrl: string,
+  authed?: boolean,
+  html?: string
+) => {
   let request
 
   try {
     request = await fetch(authed ? scanAuthedEndpoint : scanEndpoint, {
       method: 'POST',
       body: JSON.stringify({
-        websiteUrl: encodeURIComponent(websiteUrl),
+        websiteUrl: websiteUrl ? encodeURIComponent(websiteUrl) : undefined,
+        html: html ? html : undefined,
       }),
       headers: {
         'Content-Type': 'application/json',
@@ -56,6 +61,8 @@ interface Scan {
 // TODO: USE OpenAPI CALL
 export function useSearchRest() {
   const [search, setQuery] = useState<string>('')
+  const [html, setHtml] = useState<string>('')
+
   const [state, setScan] = useState<Scan>({
     loading: false,
     data: undefined,
@@ -66,30 +73,40 @@ export function useSearchRest() {
   const setSearch = (event: any) => setQuery(event?.target?.value)
 
   const scanPage = useCallback(
-    async (query?: string) => {
+    async (query?: string, markup?: boolean) => {
       const q = query || search
 
       setScan({ loading: true })
-      const [querySearch, autoTPT] = searchQuery(q)
+     
+      const [querySearch, autoTPT] = markup ? ["", false] : searchQuery(q)
+
       let snackOpen = false
 
-      if (autoTPT) {
-        AppManager.toggleSnack(true, 'https:// automatically added to query.')
-        snackOpen = true
+      if (!markup) {
+        if (autoTPT) {
+          AppManager.toggleSnack(true, 'https:// automatically added to query.')
+          snackOpen = true
+        }
+
       }
 
       // todo: opt in authed scan besides url target
       const authed =
         window.location.pathname === '/dashboard' && !!UserManager.token
 
-      let response = await scanWebsite(querySearch, authed)
+      // if html bool found run body
+      let response = await scanWebsite(
+        querySearch,
+        authed,
+        markup ? query : undefined // direct markup
+      )
 
       if (response && [300, 400].includes(response?.code)) {
         AppManager.toggleSnack(true, response.message)
       }
 
       // Retry query as http if https autofilled [TODO: move autoquery detection to SS ]
-      if (!response?.data && autoTPT && response?.code !== 300) {
+      if (!response?.data && !markup && autoTPT && response?.code !== 300) {
         AppManager.toggleSnack(
           true,
           'https:// failed retrying with http:// ...'
@@ -118,9 +135,9 @@ export function useSearchRest() {
   }
 
   // move validation
-  const toggleModal = async (url: string) => {
+  const toggleModal = async (target: string, markup?: boolean) => {
     // TODO: revisit url checking
-    if (!isUrl(url)?.origin) {
+    if (!markup && !isUrl(target)?.origin) {
       return AppManager.toggleSnack(
         true,
         'Please enter a valid website url starting with http:// or https://',
@@ -128,13 +145,15 @@ export function useSearchRest() {
       )
     }
 
-    return await scanPage()
+    return await scanPage(target, markup)
   }
 
   return {
     search,
+    html,
     setSearch,
     scanPage,
+    setHtml,
     loading,
     data: scanState && scanState.data,
     closeModal,

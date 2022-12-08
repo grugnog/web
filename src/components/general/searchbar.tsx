@@ -71,7 +71,9 @@ export function SearchBar({ placeholder, noWidth, cta }: any) {
   if (!cta) {
     return (
       <div className={`px-2`}>
-        <div className={`bg-gray-100 hover:bg-gray-50 rounded-2xl ${classes.search}`}>
+        <div
+          className={`bg-gray-100 hover:bg-gray-50 rounded-2xl ${classes.search}`}
+        >
           <div className={classes.searchIcon}>
             <GrSearch />
           </div>

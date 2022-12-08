@@ -21,7 +21,7 @@ interface SnackProps {
 
 const SnackbarContainer = observer(
   ({ store, topLevel, snackID }: SnackProps) => {
-    const lowerCaseText = store.snackbar.title ?? ''
+    const lowerCaseText = store.snackbar.title || ''
     const needsUpgrade = upgradeRequired(lowerCaseText)
 
     const handleClose = useCallback(

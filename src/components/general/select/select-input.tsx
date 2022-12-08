@@ -22,27 +22,19 @@ export interface InputProps {
 }
 
 export const WCAGSelectInput = ({ onStandardChange, standard }: InputProps) => {
-
   return (
     <div>
-      <label
-        htmlFor='ext-select-outlined'
-        className='sr-only'
-      >
+      <label htmlFor='ext-select-outlined' className='sr-only'>
         Accessibility Standard
       </label>
       <select
         id='ext-select-outlined'
         value={standard}
         onChange={onStandardChange}
-        className={"text-sm border-0 m-0 hover:bg-gray-100 rounded"}
+        className={'text-sm border-0 m-0 hover:bg-gray-100 rounded'}
       >
         {standards.map((value: any) => (
-          <option
-            value={value}
-            key={value}
-            className={"text-sm"}
-          >
+          <option value={value} key={value} className={'text-sm'}>
             {value && String(value)?.toUpperCase()}
           </option>
         ))}

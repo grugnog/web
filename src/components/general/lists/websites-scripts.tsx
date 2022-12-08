@@ -55,7 +55,9 @@ export const RenderInnerScripts: FC<any> = (props) => {
         data={!!scriptSource?.length}
         loading={loading}
         generalProps={generalProps}
-        emptyHeaderTitle={"Scripts not set, DNS requires verification in order to enable."}
+        emptyHeaderTitle={
+          'Scripts not set, DNS requires verification in order to enable.'
+        }
       >
         <ul>
           {scriptSource?.map((page: any) => (
