@@ -8,7 +8,8 @@ export enum Standard {
   'Section508',
 }
 
-export type StandardKeys = keyof typeof Standard
+// todo: remove type and reverse enum map instead
+export type AccessibilityStandardKeys = keyof typeof Standard | string
 
 const standards = Object.values(Standard).filter(
   (value) => typeof value === 'string'
@@ -18,7 +19,7 @@ export interface InputProps {
   onStandardChange(
     event: React.ChangeEvent<{ name?: string | undefined; value: unknown }>
   ): void
-  standard?: StandardKeys
+  standard?: AccessibilityStandardKeys
 }
 
 export const WCAGSelectInput = ({ onStandardChange, standard }: InputProps) => {

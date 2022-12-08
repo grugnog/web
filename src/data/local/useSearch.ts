@@ -21,6 +21,7 @@ const defaultState = {
   website: null,
 }
 
+// todo: use Rest client instead
 export function useSearch() {
   const { data, client } = useQuery(GET_SEARCH_STATE, { ssr: false })
   const [scanWebsite, { data: crawlData, loading }] = useMutation(SCAN_WEBSITE)
@@ -53,7 +54,7 @@ export function useSearch() {
   }
 
   // graphql mutation
-  const scanPage = async (event: any, text: string) => {
+  const scanPageMutation = async (event: any, text: string) => {
     event?.preventDefault()
     const q = text || search
 
@@ -137,7 +138,7 @@ export function useSearch() {
     }
   }
 
-  // replace name to search
+  // perform mutation for website scan
   const toggleModal = async (bottom: boolean, url: string) => {
     if (!url) {
       AppManager.toggleSnack(
@@ -159,17 +160,12 @@ export function useSearch() {
       },
     })
 
-    try {
-      await scanPage(null, url)
-    } catch (e) {
-      console.error(data)
-    }
+    await scanPageMutation(null, url)
   }
 
   return {
     search,
     setSearch,
-    scanPage,
     loading,
     website: webData,
     crawlData,

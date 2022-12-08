@@ -5,8 +5,9 @@ import { AppManager } from '@app/managers'
 import { useRestWebsiteContext } from '@app/components/providers/rest/rest-website'
 import { EditableMixture } from '@app/components/mixtures/editable-mixture'
 import { a11yDark } from '@app/styles'
+import { AccessibilityStandardKeys } from '@app/components/general/select/select-input'
 
-function CtaHtmlInputRest() {
+function CtaHtmlInputRest({standard}: {standard?: AccessibilityStandardKeys}) {
   const { html, setHtml, loading, toggleModal } = useRestWebsiteContext()
 
   const submitForm = useCallback(
@@ -15,7 +16,7 @@ function CtaHtmlInputRest() {
       if (!html) {
         return AppManager.toggleSnack(true, `Please enter valid HTML5`, 'error')
       }
-      await toggleModal(html, true)
+      await toggleModal({html, standard}, true)
     },
     [toggleModal, html]
   )

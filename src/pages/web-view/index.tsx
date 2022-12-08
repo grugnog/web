@@ -10,18 +10,19 @@ import { FC, PropsWithChildren, useState } from 'react'
 import { useAuthContext } from '@app/components/providers/auth'
 
 // toggle details of cell
-const WebCell: FC<PropsWithChildren<{ title: string }>> = ({
+const WebCell: FC<PropsWithChildren<{ title: string, open?: boolean }>> = ({
   title,
   children,
+  open
 }) => {
-  const [visible, setVisible] = useState<boolean>(false)
+  const [visible, setVisible] = useState<boolean>(!!open)
 
   const onTogglelist = () => setVisible((v: boolean) => !v)
 
   return (
-    <div className={`border-4 rounded ${visible ? 'rounded-b-none' : ''}`}>
+    <div className={`rounded ${visible ? 'rounded-b-none' : ''}`}>
       <button
-        className={`px-3 py-3 w-full text-left`}
+        className={`border-l-4 px-3 py-3 w-full text-left`}
         onClick={onTogglelist}
         aria-label={`Toggle section visible for ${title}`}
       >
@@ -42,13 +43,13 @@ function WebView() {
   return (
     <>
       <NavBar
-        title={'Website Details'}
+        title={url}
         backButton
         authenticated={authed}
         loading={false}
       />
-      <div className='px-6 py-6 space-y-2'>
-        <PageTitle>{url}</PageTitle>
+      <div className='px-6 py-6 space-y-2 mx-auto container'>
+        <PageTitle className='sr-only'>{`${url} Details`}</PageTitle>
         <WebCell title={'Issues'}>
           <RenderInnerIssues pageUrl={url} />
         </WebCell>

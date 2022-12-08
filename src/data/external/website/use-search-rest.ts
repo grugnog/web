@@ -4,6 +4,7 @@ import { AppManager, UserManager } from '@app/managers'
 import { searchQuery } from '@app/utils'
 import { getAPIRoute } from '@app/configs'
 import type { Website } from '@app/types'
+import { ModalParams } from '@app/components/providers/defaults/rest-website'
 
 const scanEndpoint = `${getAPIRoute('api')}/scan-simple`
 const scanAuthedEndpoint = `${getAPIRoute('api')}/scan`
@@ -12,7 +13,8 @@ const scanAuthedEndpoint = `${getAPIRoute('api')}/scan`
 export const scanWebsite = async (
   websiteUrl: string,
   authed?: boolean,
-  html?: string
+  html?: string,
+  standard?: string
 ) => {
   let request
 
@@ -22,6 +24,7 @@ export const scanWebsite = async (
       body: JSON.stringify({
         websiteUrl: websiteUrl ? encodeURIComponent(websiteUrl) : undefined,
         html: html ? html : undefined,
+        standard
       }),
       headers: {
         'Content-Type': 'application/json',
@@ -73,7 +76,8 @@ export function useSearchRest() {
   const setSearch = (event: any) => setQuery(event?.target?.value)
 
   const scanPage = useCallback(
-    async (query?: string, markup?: boolean) => {
+    async (options: ModalParams, markup?: boolean) => {
+      const { html, query, standard } = options ?? {}
       const q = query || search
 
       setScan({ loading: true })
@@ -98,7 +102,8 @@ export function useSearchRest() {
       let response = await scanWebsite(
         querySearch,
         authed,
-        markup ? query : undefined // direct markup
+        markup ? html : undefined, // direct markup
+        standard
       )
 
       if (response && [300, 400].includes(response?.code)) {
@@ -112,7 +117,7 @@ export function useSearchRest() {
           'https:// failed retrying with http:// ...'
         )
         const [target] = searchQuery(q, true)
-        response = await scanWebsite(target, authed)
+        response = await scanWebsite(target, authed, undefined, standard)
         snackOpen = true
       }
 
@@ -135,17 +140,19 @@ export function useSearchRest() {
   }
 
   // move validation
-  const toggleModal = async (target: string, markup?: boolean) => {
+  const toggleModal = async ({ html, standard, query}: ModalParams) => {
+    if(html) {
+      return await scanPage({ html, standard }, true)
+    }
     // TODO: revisit url checking
-    if (!markup && !isUrl(target)?.origin) {
+    if (!isUrl(query)?.origin) {
       return AppManager.toggleSnack(
         true,
         'Please enter a valid website url starting with http:// or https://',
         'error'
       )
     }
-
-    return await scanPage(target, markup)
+    return await scanPage({ query, standard }, false)
   }
 
   return {

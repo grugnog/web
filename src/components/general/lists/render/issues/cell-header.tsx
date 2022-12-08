@@ -17,13 +17,13 @@ const ListCellHeaderW = ({
 
   return (
     <button
-      className={`px-3 py-3 w-full text-left`}
+      className={`p-3 w-full text-left hover:bg-gray-100`}
       onClick={onTogglelist}
       aria-expanded={visible}
       aria-label={`Toggle section visible for ${title}`}
     >
       <div>
-        <div className={'text-2xl md:text-2xl font-bold'}>{title}</div>
+        <div className={'text-2xl md:text-2xl font-semibold'}>{title}</div>
         <div>
           {totalIssues} possible issue
           {totalIssues === 1 ? '' : 's'}

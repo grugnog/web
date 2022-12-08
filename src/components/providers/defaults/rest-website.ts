@@ -1,3 +1,6 @@
+
+export type ModalParams = { query?: any, standard?: string, html?: string };
+
 export const restWebsiteDefaults = {
   loading: false,
   data: {} as any,
@@ -12,7 +15,7 @@ export const restWebsiteDefaults = {
   scanPage: (_q: any): Promise<any> => {
     return Promise.resolve()
   },
-  toggleModal: (_: string, __?: boolean): Promise<void> => {
+  toggleModal: (_: ModalParams, __?: boolean): Promise<void> => {
     return Promise.resolve()
   },
   closeModal: (): void => {},

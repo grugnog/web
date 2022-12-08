@@ -4,8 +4,8 @@ import { FeedIssue } from '../../../feed/issue'
 import { ListCellHeader } from './cell-header'
 
 // return issues maped
-const IssuesWrapper = ({ issues, pageUrl }: Issue) => {
-  const [visible, setVisible] = useState<boolean>(false)
+const IssuesWrapper = ({ issues, pageUrl, open }: Issue & {open?: boolean}) => {
+  const [visible, setVisible] = useState<boolean>(!!open)
 
   return (
     <div>

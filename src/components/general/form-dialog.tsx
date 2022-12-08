@@ -19,8 +19,7 @@ import { useInputActions, useInputHeader } from './hooks'
 import { formDialogStyles as useStyles } from './styles'
 import { useWebsiteContext } from '../providers/website'
 import { WCAGSelectInput } from './select'
-import { Standard } from './select/select-input'
-import type { StandardKeys } from './select/select-input'
+import { AccessibilityStandardKeys, Standard } from './select/select-input'
 
 const domainList = [...dmList, 'none']
 
@@ -29,11 +28,6 @@ interface FormDialogProps {
   okPress?: (a: any) => void
   buttonStyles?: string
 }
-
-// interface ActionsInput {
-//   path: string
-//   events: string // comma seperated values
-// }
 
 interface InputHead {
   key: string
@@ -69,8 +63,8 @@ export function FormDialogWrapper({
   const [tld, setTld] = useState<boolean>(false)
 
   const [ua, setUserAgent] = useState<string>('')
-  const [standard, setWCAGStandard] = useState<StandardKeys>(
-    Standard[1] as StandardKeys
+  const [standard, setWCAGStandard] = useState<AccessibilityStandardKeys>(
+    Standard[Standard.WCAG2AA] as AccessibilityStandardKeys
   )
   const [robots, setRobots] = useState<boolean>(true)
 
