@@ -35,7 +35,7 @@ import { ActionsBox } from './blocks/actions'
 import { CdnFixBox } from './blocks/cdn-fix'
 import { useWasmContext } from '@app/components/providers'
 import { useAuthContext } from '@app/components/providers/auth'
-import { GrChannel } from 'react-icons/gr'
+import { GrChannel, GrValidate } from 'react-icons/gr'
 import { Lighthouse } from '../lighthouse'
 import { fetcher } from '@app/utils/fetcher'
 
@@ -47,6 +47,7 @@ const styles = {
 }
 
 const notAvail = 'Not available on a Free plan.'
+const ppr = '[Paid plan required]'
 
 // TODO: add types
 export function WebsiteCellDashboardComponent({
@@ -135,13 +136,6 @@ export function WebsiteCellDashboardComponent({
       setAnchorEl(null)
     }
 
-  const cdnBase =
-    script?.cdnUrl ?? `${domain}/${domain.replace(/\./g, '-')}-ada-fix-0.js`
-
-  const cdnBaseMin =
-    script?.cdnUrlMinified ??
-    `${domain}/${domain.replace(/\./g, '-')}-ada-fix-0.min.js`
-
   // real time issue tracking todo: send subscription with issuesInfo
   const { errorCount, warningCount, totalIssues, issuesFixedByCdn } =
     useMemo(() => {
@@ -179,24 +173,33 @@ export function WebsiteCellDashboardComponent({
       }
     }, [issues, issuesInfo])
 
-  const { statusBadgeUrl, reportsLink, reportsPageLink, linkUrl, linkView } =
-    useMemo(() => {
-      // TODO: REMOVE ALL URL CLIENT APPENDING
-      const encodedUrl = encodeURIComponent(url)
-      const statusBadgeUrl = `${STATUS_URL}/${encodeURIComponent(domain)}`
+  const {
+    statusBadgeUrl,
+    reportsLink,
+    reportsPageLink,
+    linkUrl,
+    linkView,
+    domainHost,
+  } = useMemo(() => {
+    // TODO: REMOVE ALL URL CLIENT APPENDING
+    const encodedUrl = encodeURIComponent(url)
+    const statusBadgeUrl = `${STATUS_URL}/${encodeURIComponent(domain)}`
 
-      const reportsLink = `${BASE_GQL_URL}/${encodedUrl}`
-      const reportsPageLink = `/reports/${encodedUrl}`
+    const reportsLink = `${BASE_GQL_URL}/${encodedUrl}`
+    const reportsPageLink = `/reports/${encodedUrl}`
+    // hostname should always be valid - ignore try catching
+    const hostname = url && new URL(url).hostname
 
-      return {
-        statusBadgeUrl,
-        encodedUrl,
-        reportsLink,
-        reportsPageLink,
-        linkUrl: `/website-details?url=${encodedUrl}`,
-        linkView: `/web-view?url=${encodedUrl}`,
-      }
-    }, [domain, url])
+    return {
+      domainHost: hostname,
+      statusBadgeUrl,
+      encodedUrl,
+      reportsLink,
+      reportsPageLink,
+      linkUrl: `/website-details?url=${encodedUrl}`,
+      linkView: `/web-view?url=${encodedUrl}`,
+    }
+  }, [domain, url])
 
   const pageIssueCount =
     issues?.length > issuesInfo?.pageCount
@@ -205,17 +208,16 @@ export function WebsiteCellDashboardComponent({
 
   const { adaScoreAverage: adaScore } = issuesInfo ?? {}
 
+  const cdnBase =
+    script?.cdnUrl ?? `${domain}/${domain.replace(/\./g, '-')}-ada-fix-0.js`
+  const cdnBaseMin =
+    script?.cdnUrlMinified ??
+    `${domain}/${domain.replace(/\./g, '-')}-ada-fix-0.min.js`
+
   const cdnUrl = cdnBase ? `${SCRIPTS_CDN_URL_HOST}/${cdnBase}` : notAvail
   const cdnUrlMinifed = cdnBaseMin
     ? `${SCRIPTS_CDN_URL_HOST}/${cdnBaseMin}`
     : notAvail
-
-  const domainHost = useMemo(() => {
-    if (url) {
-      return new URL(url).hostname
-    }
-    return url
-  }, [url])
 
   return (
     <li
@@ -228,7 +230,7 @@ export function WebsiteCellDashboardComponent({
           <div className='flex gap-3 place-items-center flex-wrap'>
             <div>
               <div
-                className={`${styles.title} flex space-x-4 place-items-center pb-2`}
+                className={`${styles.title} flex space-x-2 place-items-center pb-2`}
               >
                 <Link
                   title={`view details ${url}`}
@@ -237,6 +239,12 @@ export function WebsiteCellDashboardComponent({
                 >
                   {domainHost}
                 </Link>
+                {verified ? (
+                  <GrValidate
+                    className='grIcon text-sm'
+                    title={`${url} is verified.`}
+                  />
+                ) : null}
               </div>
               <WebsiteSecondary
                 domain={domain}
@@ -276,7 +284,6 @@ export function WebsiteCellDashboardComponent({
               </div>
             </div>
           </div>
-
           <MoreOptions
             url={url}
             issues={issues}
@@ -320,10 +327,8 @@ export function WebsiteCellDashboardComponent({
         </div>
         <div className='grid grid-cols-1 md:grid-cols-3 gap-1'>
           <CustomCDNBox
-            cdnUrl={activeSubscription ? cdnUrl : '[Paid plan required]'}
-            cdnUrlMinifed={
-              activeSubscription ? cdnUrlMinifed : '[Paid plan required]'
-            }
+            cdnUrl={activeSubscription ? cdnUrl : ppr}
+            cdnUrlMinifed={activeSubscription ? cdnUrlMinifed : ppr}
             cdnConnected={cdnConnected}
           />
           <StatusBadgeBox
