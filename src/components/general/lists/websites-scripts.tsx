@@ -52,9 +52,10 @@ export const RenderInnerScripts: FC<any> = (props) => {
     <>
       <InnerWrapper
         {...props}
-        data={scriptSource?.length}
+        data={!!scriptSource?.length}
         loading={loading}
         generalProps={generalProps}
+        emptyHeaderTitle={"Scripts not set, DNS requires verification in order to enable."}
       >
         <ul>
           {scriptSource?.map((page: any) => (

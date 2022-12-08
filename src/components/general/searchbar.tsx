@@ -1,7 +1,7 @@
 'use client'
 
 import { SyntheticEvent } from 'react'
-import { alpha, makeStyles } from '@material-ui/core/styles'
+import { makeStyles } from '@material-ui/core/styles'
 import { useSearchFilter, useSearch } from '@app/data'
 import { AppManager, HomeManager } from '@app/managers'
 import { GrSearch } from 'react-icons/gr'
@@ -10,10 +10,6 @@ const useStyles = makeStyles((theme) => ({
   search: {
     position: 'relative',
     borderRadius: theme.shape.borderRadius,
-    backgroundColor: alpha(theme.palette.common.black, 0.15),
-    '&:hover': {
-      backgroundColor: alpha(theme.palette.common.black, 0.25),
-    },
     marginLeft: 0,
     width: '100%',
     display: 'flex',
@@ -75,7 +71,7 @@ export function SearchBar({ placeholder, noWidth, cta }: any) {
   if (!cta) {
     return (
       <div className={`px-2`}>
-        <div className={`rounded-xl ${classes.search}`}>
+        <div className={`bg-gray-100 hover:bg-gray-50 rounded-2xl ${classes.search}`}>
           <div className={classes.searchIcon}>
             <GrSearch />
           </div>
@@ -84,7 +80,7 @@ export function SearchBar({ placeholder, noWidth, cta }: any) {
           </label>
           <input
             placeholder={placeholder || 'Search…'}
-            className={`bg-gray-100 pl-12 pr-2 py-2 ${classes.inputInput}`}
+            className={`bg-transparent pl-12 pr-2 py-2 ${classes.inputInput}`}
             type={'search'}
             onChange={setSearchFilter}
             aria-labelledby='search-w'

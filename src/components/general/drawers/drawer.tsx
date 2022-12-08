@@ -1,4 +1,6 @@
 import { memo, useEffect } from 'react'
+import dynamic from 'next/dynamic'
+import Head from 'next/head'
 import { useUserData } from '@app/data'
 import { UpgradeBanner } from '@app/components/general/upgrade-banner'
 import { useAuthContext } from '@app/components/providers/auth'
@@ -10,11 +12,13 @@ import { ConfirmEmail } from '../../alerts'
 import { IssueFeed } from '../../feed'
 import { FormDialog } from '../form-dialog'
 import { SearchBar } from '../searchbar'
-import { DynamicModal } from '../../modal/dynamic'
 import { MiniPlayer } from '../mini-player'
-import Head from 'next/head'
 import { theme } from '@app/theme'
 import { RefBanner } from '../ref-banner'
+
+const DynamicModal = dynamic(() =>
+  import('../../modal/dynamic').then((mod) => mod.DynamicModal)
+)
 
 export type DrawerWrapperProps = {
   route?: string
@@ -32,7 +36,7 @@ function MainDrawerContainerComponent({
     <div
       className={`${classes.drawer} ${classes.drawerPaper} relative print:hidden overflow-hidden`}
     >
-      <div className='fixed flex flex-col w-[inherit] overflow-hidden h-full bg-lightgray border-r z-10 space-y-3'>
+      <div className='fixed flex flex-col w-[inherit] overflow-hidden h-full bg-lightgray z-10 space-y-3'>
         <AuthedMenu dataSourceMap={dataSourceMap} route={route} />
         <div
           className={

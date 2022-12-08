@@ -221,12 +221,12 @@ export function WebsiteCellDashboardComponent({
 
   return (
     <li
-      className={`px-3 pt-2 rounded bg-gray-50 shadow-sm shadow-gray-200 border overflow-hidden${
-        shutdown ? ' border-yellow-600 bg-yellow-50' : ''
+      className={`rounded bg-white border-4 overflow-hidden${
+        shutdown ? ' bg-yellow-50' : ''
       }`}
     >
       <div>
-        <div className='flex gap-x-1 place-items-center place-content-between'>
+        <div className='flex gap-x-1 place-items-center place-content-between border-b px-3 pt-2 pb-4'>
           <div className='flex gap-3 place-items-center flex-wrap'>
             <div>
               <div
@@ -304,7 +304,7 @@ export function WebsiteCellDashboardComponent({
           />
         </div>
       </div>
-      <div className='py-3 space-y-1'>
+      <div className='space-y-1'>
         <div className='grid grid-cols-1 md:grid-cols-3 gap-1'>
           <AccessibilityBox adaScore={adaScore} />
           <IssuesBox issues={errorCount} />

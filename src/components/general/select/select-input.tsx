@@ -1,6 +1,4 @@
 import React from 'react'
-import { FormControl, Select, MenuItem, InputLabel } from '@material-ui/core'
-import { formDialogStyles as useStyles } from '../styles'
 
 // accessibility standards to test
 export enum Standard {
@@ -24,38 +22,31 @@ export interface InputProps {
 }
 
 export const WCAGSelectInput = ({ onStandardChange, standard }: InputProps) => {
-  const classes = useStyles()
 
   return (
-    <FormControl style={{ paddingLeft: 3 }}>
-      <InputLabel
-        id='extany-select-outlined-label'
+    <div>
+      <label
+        htmlFor='ext-select-outlined'
         className='sr-only'
-        style={{ marginTop: 0 }}
       >
         Accessibility Standard
-      </InputLabel>
-      <Select
-        labelId='extany-select-outlined-label'
+      </label>
+      <select
         id='ext-select-outlined'
         value={standard}
-        style={{ marginTop: 0, border: 'none' }}
         onChange={onStandardChange}
-        classes={{
-          selectMenu: classes.inputSelect,
-        }}
+        className={"text-sm border-0 m-0 hover:bg-gray-100 rounded"}
       >
         {standards.map((value: any) => (
-          <MenuItem
+          <option
             value={value}
             key={value}
-            dense
-            style={{ fontSize: '1rem' }}
+            className={"text-sm"}
           >
             {value && String(value)?.toUpperCase()}
-          </MenuItem>
+          </option>
         ))}
-      </Select>
-    </FormControl>
+      </select>
+    </div>
   )
 }
