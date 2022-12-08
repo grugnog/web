@@ -14,11 +14,11 @@ export const IntroBenches: FC = () => {
           <li className='flex flex-1 px-2 h-full'>
             <div className='flex flex-col h-full place-content-end'>
               <div className='py-1' aria-hidden='true'>
-                <div className='text-base font-semibold'>21,379</div>
+                <div className='text-base font-semibold'>51,021</div>
               </div>
               <div className='px-2 bg-blue-600 h-full w-20 rounded-t border-4 border-b-0 border-blue-700'>
                 <div className='sr-only'>
-                  A11yWatch: 21,379 scans per minute
+                  A11yWatch: 51,021 scans per minute
                 </div>
               </div>
             </div>
@@ -36,10 +36,10 @@ export const IntroBenches: FC = () => {
           <li className='flex flex-1 px-2 h-full'>
             <div className='flex flex-col h-full place-content-end'>
               <div className='py-1' aria-hidden='true'>
-                <div className='text-base font-semibold'>33</div>
+                <div className='text-base font-semibold'>43</div>
               </div>
               <div className='px-2 bg-gray-700 h-[5px] w-20 rounded-t'>
-                <div className='sr-only'>Deque: 33 scans per minute</div>
+                <div className='sr-only'>Deque: 43 scans per minute</div>
               </div>
             </div>
           </li>
@@ -53,7 +53,7 @@ export const IntroBenches: FC = () => {
             aria-label='a11ywatch benchmark source'
           >
             <div className='text-base font-medium'>a11ywatch</div>
-            <div className='text-sm text-gray-800'>v0.2.20</div>
+            <div className='text-sm text-gray-800'>v0.8.7</div>
             <div className='text-xs text-gray-700'>view source</div>
           </a>
           <a
