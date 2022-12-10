@@ -23,8 +23,12 @@ import { CtaInputRest } from '@app/components/cta/searchbar/cta-input-rest'
 import { MarketingBottomTemporaryDrawer } from '@app/components/modal'
 import { WCAGSelectInput } from '@app/components/general/select'
 
-const CtaHtmlInputRest = dynamic(() =>
-  import('@app/components/cta/searchbar/cta-html-input-rest').then((mod) => mod.CtaHtmlInputRest), {ssr: false}
+const CtaHtmlInputRest = dynamic(
+  () =>
+    import('@app/components/cta/searchbar/cta-html-input-rest').then(
+      (mod) => mod.CtaHtmlInputRest
+    ),
+  { ssr: false }
 )
 
 // right bar
@@ -90,8 +94,8 @@ const RightBar = ({
 function Dashboard({ name }: PageProps) {
   const [sortModalVisible, setSortModalVisible] = useState<boolean>(false)
   const [queryModalVisible, setQueryModalVisible] = useState<boolean>(false)
-  const [standard, setStandard] = useState<string>("WCAG2AA")
-  
+  const [standard, setStandard] = useState<string>('WCAG2AA')
+
   const { search } = useSearchFilter()
   const { events, setEvents } = useEvents()
   const { setModal } = useDynamicModal()
@@ -181,7 +185,8 @@ function Dashboard({ name }: PageProps) {
     queryStyle = 'visible'
   }
 
-  const onStandardChange = (e: React.ChangeEvent<HTMLSelectElement>) => setStandard(e.target.value)
+  const onStandardChange = (e: React.ChangeEvent<HTMLSelectElement>) =>
+    setStandard(e.target.value)
 
   return (
     <>
@@ -222,10 +227,10 @@ function Dashboard({ name }: PageProps) {
           <div className='py-2 h-full'>
             <div className='flex flex-col place-items-center place-content-center space-y-6'>
               <WCAGSelectInput
-               onStandardChange={onStandardChange}
-               standard={standard}
+                onStandardChange={onStandardChange}
+                standard={standard}
               />
-              <CtaInputRest  standard={standard} />
+              <CtaInputRest standard={standard} />
               <p>Or HTML</p>
               <CtaHtmlInputRest standard={standard} />
             </div>

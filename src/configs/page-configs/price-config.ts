@@ -8,7 +8,7 @@ const feats = [
   TRUSTED_CDN,
   VISUAL_PLAYGROUND,
   '10,000+ AI Models for alt tag recognition',
-  'PageSpeed reports across all pages',
+  'Lighthouse reports across all pages',
   'Direct code fixes in any language',
   'Unlimited API request',
   // 'Email support',

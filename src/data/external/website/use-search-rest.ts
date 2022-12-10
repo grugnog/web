@@ -24,7 +24,7 @@ export const scanWebsite = async (
       body: JSON.stringify({
         websiteUrl: websiteUrl ? encodeURIComponent(websiteUrl) : undefined,
         html: html ? html : undefined,
-        standard
+        standard,
       }),
       headers: {
         'Content-Type': 'application/json',
@@ -81,8 +81,8 @@ export function useSearchRest() {
       const q = query || search
 
       setScan({ loading: true })
-     
-      const [querySearch, autoTPT] = markup ? ["", false] : searchQuery(q)
+
+      const [querySearch, autoTPT] = markup ? ['', false] : searchQuery(q)
 
       let snackOpen = false
 
@@ -91,7 +91,6 @@ export function useSearchRest() {
           AppManager.toggleSnack(true, 'https:// automatically added to query.')
           snackOpen = true
         }
-
       }
 
       // todo: opt in authed scan besides url target
@@ -140,8 +139,8 @@ export function useSearchRest() {
   }
 
   // move validation
-  const toggleModal = async ({ html, standard, query}: ModalParams) => {
-    if(html) {
+  const toggleModal = async ({ html, standard, query }: ModalParams) => {
+    if (html) {
       return await scanPage({ html, standard }, true)
     }
     // TODO: revisit url checking

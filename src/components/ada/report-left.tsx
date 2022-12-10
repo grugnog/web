@@ -45,15 +45,14 @@ export function ReportViewComponentLeft({
 }: any) {
   const empty = !('domain' in website && 'url' in website)
 
-  const title = website?.url || (website?.issues?.length ? "HTML Audit" : strings.trySearch)
+  const title =
+    website?.url || (website?.issues?.length ? 'HTML Audit' : strings.trySearch)
 
   return (
     <div className={'p-1 md:w-[38vw]'}>
       <div className={`flex place-items-center py-3 space-x-3 px-2`}>
         {closeButton}
-        <p className={'flex-1 font-medium truncate text-lg'}>
-          {title}
-        </p>
+        <p className={'flex-1 font-medium truncate text-lg'}>{title}</p>
       </div>
       <div className='px-2 pb-2'>
         <div className='flex space-x-2 place-items-center'>

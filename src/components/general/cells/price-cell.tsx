@@ -48,7 +48,7 @@ export function PriceCell({
             )}`}
           >
             <SubHeading
-              className={`text-2xl font-bold w-full  ${highLight(
+              className={`text-2xl font-medium w-full  ${highLight(
                 'text-white',
                 selected,
                 selectHighPlans ? 'text-gray-800' : ''
@@ -58,11 +58,11 @@ export function PriceCell({
               <span>
                 {title}
                 {activePlan ? (
-                  <span className='text-sm font-medium'>{' Active Plan'}</span>
+                  <span className='text-sm'>{' Active Plan'}</span>
                 ) : null}
               </span>
               {cost ? (
-                <span className={'text-xl font-semibold block'}>
+                <span className={'text-xl block'}>
                   {yearly ? costYearly : cost}
                 </span>
               ) : null}

@@ -5,9 +5,9 @@ export const searchQuery = (
   url: string,
   insecureTransport?: boolean
 ): [string, boolean] => {
-  // raw html 
-  if(!url) {
-    return ["", false]
+  // raw html
+  if (!url) {
+    return ['', false]
   }
   let autoTPT = false
 

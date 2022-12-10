@@ -10,10 +10,10 @@ import { FC, PropsWithChildren, useState } from 'react'
 import { useAuthContext } from '@app/components/providers/auth'
 
 // toggle details of cell
-const WebCell: FC<PropsWithChildren<{ title: string, open?: boolean }>> = ({
+const WebCell: FC<PropsWithChildren<{ title: string; open?: boolean }>> = ({
   title,
   children,
-  open
+  open,
 }) => {
   const [visible, setVisible] = useState<boolean>(!!open)
 
@@ -42,12 +42,7 @@ function WebView() {
 
   return (
     <>
-      <NavBar
-        title={url}
-        backButton
-        authenticated={authed}
-        loading={false}
-      />
+      <NavBar title={url} backButton authenticated={authed} loading={false} />
       <div className='px-6 py-6 space-y-2 mx-auto container'>
         <PageTitle className='sr-only'>{`${url} Details`}</PageTitle>
         <WebCell title={'Issues'}>

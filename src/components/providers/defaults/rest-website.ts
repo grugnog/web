@@ -1,5 +1,4 @@
-
-export type ModalParams = { query?: any, standard?: string, html?: string };
+export type ModalParams = { query?: any; standard?: string; html?: string }
 
 export const restWebsiteDefaults = {
   loading: false,

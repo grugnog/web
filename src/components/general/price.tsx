@@ -59,12 +59,12 @@ export function PriceMemo({
   yearly: year,
   setYearly: setYear,
   pricingPage,
-  selectedPlanIndex = 0,
+  initialIndex = 0,
   highPlan = false,
   currentPlan,
 }: any) {
   const [yearly, onSetYear] = useState<boolean>(!!year)
-  const [selectedPlan, onSelectPlan] = useState<number>(selectedPlanIndex ?? 0)
+  const [selectedPlan, onSelectPlan] = useState<number>(initialIndex || 0)
   const [selectHighPlans, onSelectHigh] = useState<boolean>(highPlan)
 
   const setYearly = (params: any) => {
@@ -116,7 +116,7 @@ export function PriceMemo({
         <Button
           type='button'
           onClick={onSetYearlyEvent}
-          className={`border relative px-2 rounded-3xl py-2 text-sm font-medium whitespace-nowrap sm:w-72 focus:outline-none focus:ring-1 focus:ring-gray-500 focus:z-10 sm:px-8 ${getStyles(
+          className={`border relative px-2 rounded-3xl py-2 text-sm whitespace-nowrap sm:w-72 focus:outline-none focus:ring-1 focus:ring-gray-500 focus:z-10 sm:px-8 ${getStyles(
             yearly
           )}`}
         >
@@ -137,7 +137,6 @@ export function PriceMemo({
             const textColor = getPrimaryColor(title)
 
             const selectedItem = index === selectedPlan
-
             const activePlan = currentPlan === title
 
             return (
@@ -158,7 +157,7 @@ export function PriceMemo({
           <li className='w-full'>
             <div className='min-w-[330px] w-full h-full rounded flex flex-1 flex-col justify-between border-2 px-4 py-2 border-black text-gray-700'>
               <div className='text-base font-medium'>
-                All pricing is in <b>USD</b>.
+                All pricing is in USD.
               </div>
               <div className='text-sm pb-3.5'>
                 Renews are auto until cancelled.
@@ -167,7 +166,7 @@ export function PriceMemo({
               <button
                 onClick={onTogglePlans}
                 className={
-                  'px-3 py-1 border-2 text-blue-600 font-medium rounded text-base border-blue-600 hover:border-gray-600 hover:bg-gradient-radial hover:text-black'
+                  'px-3 py-1 border-2 text-gray-700 rounded text-base border-gray-700 hover:border-gray-600 hover:bg-gradient-radial hover:text-black'
                 }
               >
                 {selectHighPlans

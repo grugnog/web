@@ -5,7 +5,13 @@ import { AppManager } from '@app/managers'
 import { useRestWebsiteContext } from '@app/components/providers/rest/rest-website'
 import { AccessibilityStandardKeys } from '@app/components/general/select/select-input'
 
-function CtaInputRest({ small, standard }: { small?: boolean, standard?: AccessibilityStandardKeys }) {
+function CtaInputRest({
+  small,
+  standard,
+}: {
+  small?: boolean
+  standard?: AccessibilityStandardKeys
+}) {
   const ref = useRef<HTMLInputElement>(null)
   const [searchFocused, setSearchFocused] = useState<boolean>()
   const { search, setSearch, loading, toggleModal } = useRestWebsiteContext()

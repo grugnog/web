@@ -18,10 +18,10 @@ export const CheckoutFormless = ({ onToken, plan, price, disabled }: Props) => {
     <form
       onSubmit={handleSubmit}
       className={
-        'h-42 space-y-3 border-t border-[#2A2A2A] px-4 pt-2 pb-3 w-full'
+        'h-42 space-y-3 border-t border-[#2A2A2A] pt-5 pb-3 w-full'
       }
     >
-      <div className='text-3xl font-bold'>
+      <div className='text-xl font-semibold'>
         Total{' '}
         {new Intl.NumberFormat('en-US', {
           style: 'currency',
@@ -32,11 +32,8 @@ export const CheckoutFormless = ({ onToken, plan, price, disabled }: Props) => {
         <Button
           type='submit'
           disabled={disabled}
-          style={{
-            minWidth: 160,
-          }}
-          className={`font-semibold border border-gray-800 text-base ${
-            disabled ? 'text-gray-800 bg-gray-200' : 'text-black'
+          className={`font-bold border text-base px-8 rounded-sm md:px-12 md:rounded-sm min-w-[250px] ${
+            disabled ? 'text-black' : 'border-blue-800 text-blue-800'
           }`}
         >
           Start {plan}
