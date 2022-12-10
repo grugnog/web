@@ -1,8 +1,5 @@
 import { useEffect, useState } from 'react'
-import {
-  Dialog,
-  DialogActions,
-} from '@material-ui/core'
+
 import { useRouter } from 'next/router'
 
 import { CheckoutForm } from '@app/components/stripe/checkout'
@@ -19,6 +16,7 @@ import { priceHandler } from '@app/utils/price-handler'
 import { usePaymentsHook } from '@app/data/external/payments/use-payments'
 import { roleMap } from '@app/utils/role-map'
 import { CheckoutFormless } from '@app/components/stripe/formless'
+import { CancelSubscriptionModal } from '@app/components/general/cancel-model'
 
 interface PaymentProps extends PageProps {
   hideTitle?: boolean
@@ -107,6 +105,8 @@ function Payments({ hideTitle = false, name }: PaymentProps) {
   )
   const selectedPrice = Number(`${price}${priceMultiplyier}`)
 
+  const closeModal = () => setOpen(false)
+
   return (
     <>
       <NavBar title={name} backButton notitle />
@@ -136,7 +136,10 @@ function Payments({ hideTitle = false, name }: PaymentProps) {
                         {!data.activeSubscription || newCard ? (
                           <>
                             {newCard && data.activeSubscription ? (
-                              <Button onClick={() => setNewCard((x) => !x)}  className={'border-none font-semibold'}>
+                              <Button
+                                onClick={() => setNewCard((x) => !x)}
+                                className={'border-none font-semibold'}
+                              >
                                 Use Old Card
                               </Button>
                             ) : null}
@@ -153,7 +156,9 @@ function Payments({ hideTitle = false, name }: PaymentProps) {
                           <>
                             <Button
                               onClick={() => setNewCard((x) => !x)}
-                              className={'border-none font-semibold text-green-700'}
+                              className={
+                                'border-none font-semibold text-green-700'
+                              }
                             >
                               Add New Card
                             </Button>
@@ -198,32 +203,12 @@ function Payments({ hideTitle = false, name }: PaymentProps) {
           )}
         </SectionContainer>
       </StateLessDrawer>
-      <Dialog
+      <CancelSubscriptionModal
+        onClose={closeModal}
         open={open}
-        onClose={handleModal(false)}
-        aria-labelledby='alert-dialog-title'
-        aria-describedby='alert-dialog-description'
-      >
-        <div className='space-y-6 p-6 flex flex-col'>
-          <p id='alert-dialog-title' className='text-xl font-medium'>
-            Cancel your subscription?
-          </p>
-          <p id='alert-dialog-description'>
-            Confirm cancel for <b>{roleMap(data?.role)}</b> subscription? You
-            can always re-sub later on. Cancelling resets all of your data from
-            your account. Please make sure to backup your data accordingly.
-          </p>
-        </div>
-        <DialogActions>
-          <Button onClick={handleModal(false)}>No</Button>
-          <Button
-            onClick={onCancelEvent}
-            className={'text-red-600 border-red-600'}
-          >
-            Confirm Cancel
-          </Button>
-        </DialogActions>
-      </Dialog>
+        onCancelEvent={onCancelEvent}
+        role={data?.role}
+      />
     </>
   )
 }

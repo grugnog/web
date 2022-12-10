@@ -82,18 +82,31 @@ function UpperInput({ data, url }: any) {
   )
 }
 
+interface FullScreenModalProps {
+  open: boolean
+  role?: number
+  handleClose(x?: any): any
+  handleClickOpen?(data: any, title: any, url: any, error: any): any
+  handleClickOpenPlayer?(x?: any): any
+  refetch(x?: any): any
+  error?: string
+  title?: string
+  url: string
+  data?: any
+}
+
 export function FullScreenModalWrapper({
   handleClickOpen,
   handleClose,
   open,
-  data = [],
+  data,
   title = 'Issues',
   // onPress,
   refetch,
   url,
   handleClickOpenPlayer,
   error,
-}: any) {
+}: FullScreenModalProps) {
   const classes = useStyles()
 
   const issuesModal = title === 'Issues'

@@ -17,9 +17,7 @@ export const CheckoutFormless = ({ onToken, plan, price, disabled }: Props) => {
   return (
     <form
       onSubmit={handleSubmit}
-      className={
-        'h-42 space-y-3 border-t border-[#2A2A2A] pt-5 pb-3 w-full'
-      }
+      className={'h-42 space-y-3 border-t border-[#2A2A2A] pt-5 pb-3 w-full'}
     >
       <div className='text-xl font-semibold'>
         Total{' '}

@@ -22,7 +22,7 @@ function CtaHtmlInputRest({
       }
       await toggleModal({ html, standard }, true)
     },
-    [toggleModal, html]
+    [toggleModal, html, standard]
   )
 
   return (
