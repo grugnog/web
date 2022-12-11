@@ -193,7 +193,7 @@ export function PriceMemo({
         </PriceFeat>
       </div>
 
-      <div className='font-semibold text-center py-4 text-base'>
+      <div className='font-medium text-center py-4 text-base'>
         Need more? We can easily handle thousands of scans per minute,{' '}
         <a href='mailto:support@a11ywatch.com' className='underline'>
           get in touch

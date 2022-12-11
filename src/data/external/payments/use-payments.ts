@@ -5,8 +5,9 @@ import { usePayments } from './payments'
 type TokenParams = { plan?: string; yearly?: boolean; referral?: string }
 
 // build from payments gql hook for page interaction
-export const usePaymentsHook = () => {
-  const { data, loading, addSubscription, cancelSubscription } = usePayments()
+export const usePaymentsHook = (skip?: boolean) => {
+  const { data, loading, addSubscription, cancelSubscription } =
+    usePayments(skip)
   const router = useRouter()
 
   // on valid payment handling re-set current token

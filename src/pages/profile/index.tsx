@@ -23,6 +23,8 @@ import { useProfileStyles as useStyles } from '@app/styles/pages/profile'
 import type { PageProps } from '@app/types'
 // import { useBillingDisplay } from '@app/data/formatters'
 import { roleMap } from '@app/utils/role-map'
+import { CancelSubscriptionModal } from '@app/components/general/cancel-model'
+import { usePaymentsHook } from '@app/data/external/payments/use-payments'
 
 interface PasswordState {
   newPassword?: string
@@ -76,6 +78,7 @@ const Profile: FC<PageProps> = ({ name }) => {
     true,
     'profile'
   )
+  const { onCancelConfirm } = usePaymentsHook(true)
 
   const [{ changePassword, currentPassword, newPassword }, dispatch] =
     useReducer(passwordReducer, Object.assign({}, initialPasswordState))
@@ -83,6 +86,7 @@ const Profile: FC<PageProps> = ({ name }) => {
   // todo: reducer
   const [changeEmail, setChangeEmail] = useState<boolean>(false)
   const [newEmail, setNewEmail] = useState<string>('')
+  const [cancelModalOpen, setOpen] = useState<boolean>(false)
 
   const { user } = data ?? { user: { invoice: null } }
   // const { invoice } = user ?? { invoice: null }
@@ -165,6 +169,18 @@ const Profile: FC<PageProps> = ({ name }) => {
   const email = updateUserData?.updateUser?.user?.email ?? user?.email
 
   // todo: add invoices in panel
+
+  const onClose = () => {
+    setOpen(false)
+  }
+  const onOpen = () => {
+    setOpen(true)
+  }
+  // cancel the payment subscription
+  const onCancelEvent = async () => {
+    onClose()
+    await onCancelConfirm()
+  }
 
   return (
     <Fragment>
@@ -371,9 +387,22 @@ const Profile: FC<PageProps> = ({ name }) => {
                 {user?.activeSubscription ? 'Upgrade / Downgrade' : 'Upgrade'}
               </Link>
             </div>
+            {user?.activeSubscription ? (
+              <div className='py-40'>
+                <Button onClick={onOpen} className={'border-none text-red-700'}>
+                  Cancel Subscription
+                </Button>
+              </div>
+            ) : null}
           </div>
         </Box>
       </div>
+      <CancelSubscriptionModal
+        onClose={onClose}
+        open={cancelModalOpen}
+        onCancelEvent={onCancelEvent}
+        role={user?.role}
+      />
     </Fragment>
   )
 }

@@ -4,11 +4,12 @@ import { ADD_PAYMENT_SUBSCRIPTION, CANCEL_SUBSCRIPTION } from '@app/mutations'
 import { GET_PAYMENTS, updateCache } from '@app/queries'
 import { UserManager } from '@app/managers'
 
-// get a user payments
-export const usePayments = () => {
+// get a user payments @param skip queries
+export const usePayments = (skip?: boolean) => {
   const { data, loading } = useQuery(GET_PAYMENTS, {
     variables: {},
     ssr: false,
+    skip,
   })
 
   const [

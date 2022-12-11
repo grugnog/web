@@ -41,28 +41,28 @@ export function PriceCell({
       <>
         <div className='w-full'>
           <div
-            className={`text-left w-full flex-col text-white px-8 py-1 text-gray-800 ${highLight(
+            className={`text-left w-full flex-col text-white px-8 py-2 text-gray-800 ${highLight(
               'bg-blue-700 text-white',
               selected,
               selectHighPlans ? 'bg-gradient-radial' : `bg-[${textColor}]`
             )}`}
           >
             <SubHeading
-              className={`text-2xl font-medium w-full  ${highLight(
+              className={`font-medium w-full ${highLight(
                 'text-white',
                 selected,
                 selectHighPlans ? 'text-gray-800' : ''
               )}`}
               pricingPage={pricingPage}
             >
-              <span>
+              <span className='text-xl'>
                 {title}
                 {activePlan ? (
                   <span className='text-sm'>{' Active Plan'}</span>
                 ) : null}
               </span>
               {cost ? (
-                <span className={'text-xl block'}>
+                <span className={'text-base block'}>
                   {yearly ? costYearly : cost}
                 </span>
               ) : null}

@@ -34,7 +34,7 @@ const RefBanner = () => {
         >
           Earn 25% commission
         </Link>{' '}
-        for every person you refer to us for 12 months!
+        for every person you refer to us forever!
       </div>
       <Button onClick={toggle} type={'button'} className={'px-2 border-0'}>
         <GrClose title={'Close reffer banner'} />

@@ -33,7 +33,9 @@ export const CancelSubscriptionModal = ({
         </p>
       </div>
       <div className='py-4 space-x-3 px-6 flex place-content-end'>
-        <Button onClick={onClose} className={"border-none"}>No</Button>
+        <Button onClick={onClose} className={'border-none'}>
+          No
+        </Button>
         <Button
           onClick={onCancelEvent}
           className={'text-red-600 border-red-600'}

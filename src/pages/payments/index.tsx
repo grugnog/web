@@ -16,7 +16,6 @@ import { priceHandler } from '@app/utils/price-handler'
 import { usePaymentsHook } from '@app/data/external/payments/use-payments'
 import { roleMap } from '@app/utils/role-map'
 import { CheckoutFormless } from '@app/components/stripe/formless'
-import { CancelSubscriptionModal } from '@app/components/general/cancel-model'
 
 interface PaymentProps extends PageProps {
   hideTitle?: boolean
@@ -29,19 +28,18 @@ declare global {
 
 // determine the page title
 const renderPaymentTitle = (renderPayMentBoxes?: boolean) => {
-  return !renderPayMentBoxes
-    ? 'Set the payment plan that makes sense for you.'
+  return renderPayMentBoxes
+    ? 'Get the plan that makes sense for you.'
     : 'Get the right plan for you. Upgrade or downgrade at any time.'
 }
 
 // move plan and yearset SSR
 function Payments({ hideTitle = false, name }: PaymentProps) {
   const router = useRouter()
-  const { data, loading, onCancelConfirm, onToken } = usePaymentsHook()
-  const [selectedPlan, setState] = useState<string>()
+  const { data, loading, onToken } = usePaymentsHook()
+  const [selectedPlan, setState] = useState<string>('')
   const [newCard, setNewCard] = useState<boolean>(false)
   const [yearly, setYearly] = useState<boolean>(false)
-  const [open, setOpen] = useState<boolean>(false)
   const [referral, setReferral] = useState<string>('')
 
   // router plan query
@@ -82,17 +80,6 @@ function Payments({ hideTitle = false, name }: PaymentProps) {
     await onToken(token, { plan: selectedPlan, yearly, referral })
   }
 
-  // open payment modal
-  const handleModal = (modalOpen: boolean) => () => {
-    setOpen(modalOpen)
-  }
-
-  // cancel the payment subscription
-  const onCancelEvent = async () => {
-    setOpen(false)
-    await onCancelConfirm()
-  }
-
   const paymentSubscription = data?.paymentSubscription
   const partnerProgram = !loading && data?.role && !paymentSubscription
   // allow payments on all non maxed accounts
@@ -105,7 +92,8 @@ function Payments({ hideTitle = false, name }: PaymentProps) {
   )
   const selectedPrice = Number(`${price}${priceMultiplyier}`)
 
-  const closeModal = () => setOpen(false)
+  // the plan at hand for payments
+  const paymentPlan = selectedPlan || data?.role && currentPlan || 'L1'
 
   return (
     <>
@@ -130,9 +118,9 @@ function Payments({ hideTitle = false, name }: PaymentProps) {
               />
               <div>
                 {!partnerProgram ? (
-                  <div className='space-y-12 py-1'>
+                  <div className='space-y-8 py-1'>
                     <div className='sm:w-full place-content-center place-items-center align-center min-w-[350px]'>
-                      <div className='space-y-4'>
+                      <div className='space-y-3'>
                         {!data.activeSubscription || newCard ? (
                           <>
                             {newCard && data.activeSubscription ? (
@@ -146,9 +134,9 @@ function Payments({ hideTitle = false, name }: PaymentProps) {
                             <StripProvider>
                               <CheckoutForm
                                 onToken={onTokenEvent}
-                                plan={selectedPlan}
+                                plan={paymentPlan}
                                 price={selectedPrice}
-                                disabled={Boolean(!selectedPlan)}
+                                disabled={!paymentPlan}
                               />
                             </StripProvider>
                           </>
@@ -164,9 +152,9 @@ function Payments({ hideTitle = false, name }: PaymentProps) {
                             </Button>
                             <CheckoutFormless
                               onToken={onTokenEvent}
-                              plan={selectedPlan || currentPlan}
+                              plan={paymentPlan}
                               price={selectedPrice}
-                              disabled={Boolean(!selectedPlan)}
+                              disabled={!paymentPlan}
                             />
                           </>
                         )}
@@ -188,27 +176,11 @@ function Payments({ hideTitle = false, name }: PaymentProps) {
                     </p>
                   </div>
                 )}
-                {data?.activeSubscription ? (
-                  <div className='py-40'>
-                    <Button
-                      onClick={handleModal(true)}
-                      className={'border-none text-red-700'}
-                    >
-                      Cancel Subscription
-                    </Button>
-                  </div>
-                ) : null}
               </div>
             </>
           )}
         </SectionContainer>
       </StateLessDrawer>
-      <CancelSubscriptionModal
-        onClose={closeModal}
-        open={open}
-        onCancelEvent={onCancelEvent}
-        role={data?.role}
-      />
     </>
   )
 }
