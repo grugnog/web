@@ -14,4 +14,10 @@ const PageNotFound = ({ name }: PageProps) => {
   )
 }
 
-export default metaSetter({ PageNotFound })
+export default metaSetter(
+  { PageNotFound },
+  {
+    description:
+      'Page not found. Try checking the url, if issues persist please contact support.',
+  }
+)

@@ -93,7 +93,7 @@ function Payments({ hideTitle = false, name }: PaymentProps) {
   const selectedPrice = Number(`${price}${priceMultiplyier}`)
 
   // the plan at hand for payments
-  const paymentPlan = selectedPlan || data?.role && currentPlan || 'L1'
+  const paymentPlan = selectedPlan || (data?.role && currentPlan) || 'L1'
 
   return (
     <>

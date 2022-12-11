@@ -8,6 +8,7 @@ import { GrCloudSoftware, GrPerformance, GrCluster } from 'react-icons/gr'
 import { DOMAIN_NAME } from '@app/configs'
 import { LinkPrefetch } from '@app/components/general/link'
 import { CtaInputRest } from '@app/components/cta/searchbar/cta-input-rest'
+import { strings } from '@app/content/strings/a11y'
 
 function WebsiteAccessibilityChecker({ name }: PageProps) {
   return (
@@ -130,7 +131,7 @@ function WebsiteAccessibilityChecker({ name }: PageProps) {
 export default metaSetter(
   { WebsiteAccessibilityChecker },
   {
-    title: 'Web Acessibility Checker',
+    title: `${strings.appName} - Web Acessibility Checker`,
     description: `Check the accessibility of your web page today. Improve your web inclusion with accessibility testing, reports, monitoring, and much more.`,
     rest: true,
   }

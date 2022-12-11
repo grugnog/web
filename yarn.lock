@@ -10,10 +10,10 @@
     "@headlessui/react" "^1.7.4"
     tailwindcss "3.2.4"
 
-"@a11ywatch/website-source-builder@^0.0.33":
-  version "0.0.33"
-  resolved "https://registry.yarnpkg.com/@a11ywatch/website-source-builder/-/website-source-builder-0.0.33.tgz#f79a07a6aea9c6fbbc20d255512230a4ab99e9bc"
-  integrity sha512-pINcOtsgkQVdHh1yZdqdCDq9KMhRg3I90lGzDMuxmXrSWUoXtSPCGsGGuHCxC4axUlSbJTBgtwMReqAjca/diA==
+"@a11ywatch/website-source-builder@^0.0.34":
+  version "0.0.34"
+  resolved "https://registry.yarnpkg.com/@a11ywatch/website-source-builder/-/website-source-builder-0.0.34.tgz#59ed1f87c09ad088301524fc09bd446686d8bb26"
+  integrity sha512-IHtZNC+Zac1ZDsK6jK3C0HwOsgKmnMFQ0NveqG8U3LxH4QfJDHBezazAPFnhKqPkW/a+fIYRLWVC51BQjWB/gw==
 
 "@adobe/css-tools@^4.0.1":
   version "4.0.1"

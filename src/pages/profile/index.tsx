@@ -388,7 +388,7 @@ const Profile: FC<PageProps> = ({ name }) => {
               </Link>
             </div>
             {user?.activeSubscription ? (
-              <div className='py-40'>
+              <div className={`py-40`}>
                 <Button onClick={onOpen} className={'border-none text-red-700'}>
                   Cancel Subscription
                 </Button>

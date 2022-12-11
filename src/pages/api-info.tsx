@@ -11,66 +11,7 @@ import { apiRoutes } from '@app/templates/rest-api'
 import { ApiCell } from '@app/components/general/cells/api-info-cell'
 import { Header } from '@app/components/general/header'
 import { SectionContainer } from '@app/app/containers/section-container'
-
-// determine plan usage by role limits
-export const getUsageLimits = (role: number): number => {
-  let usage = 15000
-
-  switch (role) {
-    case 0: {
-      usage = 30000
-      break
-    }
-    // normal plans
-    case 1: {
-      usage = 500000
-      break
-    }
-    case 2: {
-      usage = 1000000
-      break
-    }
-    case 3: {
-      usage = 2000000
-      break
-    }
-    case 4: {
-      usage = 5000000
-      break
-    }
-    case 5: {
-      usage = 15000000
-      break
-    }
-    // high tier plans
-    case 6: {
-      usage = 50000000
-      break
-    }
-    case 7: {
-      usage = 100000000
-      break
-    }
-    case 8: {
-      usage = 200000000
-      break
-    }
-    case 9: {
-      usage = 300000000
-      break
-    }
-    case 10: {
-      usage = 500000000
-      break
-    }
-    default: {
-      usage = 15000
-      break
-    }
-  }
-
-  return usage
-}
+import { getUsageLimitsMs } from '@a11ywatch/website-source-builder'
 
 // TODO: GENERATE DOCS FROM API
 function ApiInfo() {
@@ -92,7 +33,7 @@ function ApiInfo() {
   const token = UserManager.token
   const authed = !!user
 
-  const allowed = getUsageLimits(user?.role ?? 0)
+  const availableUsage = getUsageLimitsMs(user?.role ?? 0)
 
   return (
     <MarketingDrawer authenticated={authed} loading={loading}>
@@ -181,7 +122,7 @@ function ApiInfo() {
                 <>
                   <p className='text-lg'>
                     Allowed usage{' '}
-                    {`${(allowed ? Number(allowed) / 1000 : 0).toFixed(0)}s`}
+                    {`${(availableUsage ? Number(availableUsage) / 1000 : 0).toFixed(0)}s`}
                   </p>
                   <p className='text-lg'>
                     Usage used{' '}
@@ -233,13 +174,17 @@ function ApiInfo() {
           </Box>
 
           <div className='border-2 rounded inline-block px-4 py-2'>
-            <p className='text-grey-600 text-lg'>
+            <p className='text-grey-600 text-base'>
               By default, the {companyName} API docs demonstrate using curl to
               interact with the API over HTTP. Most routes allow params to be
               sent from the url or the body. It{`'`}s best to stick to using the
               body for PUTS and POST request since some params are set to be
               arrays and other none string shapes. In the example replace
-              a11ywatch.com with the website you want to target.
+              a11ywatch.com with the website you want to target. Using {companyName}
+              on the CI to up keep accessibility will save thousands - millions of dollars of 
+              machine uptime and developer uptime due to speed and efficiency. We can process
+              over 15,000 urls in seconds or minutes depending on if the website is being tested
+              locally or external.
             </p>
           </div>
         </div>
@@ -251,7 +196,7 @@ function ApiInfo() {
 export default metaSetter(
   { ApiInfo },
   {
-    title: 'Web Accessibility API',
+    title: `${companyName} - Web Accessibility API`,
     description: `The web accessibility API for testing in real time. Determine accurate image alts and other inclusive recommendations with OpenAPI, graphQL, or gRPC.`,
     gql: true,
   }

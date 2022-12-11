@@ -17,7 +17,7 @@ export function useCtaModal() {
   const modalOpen = data?.modalData?.modalOpen || false
 
   const setModalOpen = (open: any) => {
-    client.writeData({
+    client?.writeData({
       data: {
         modalData: {
           modalOpen: open,

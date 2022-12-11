@@ -19,7 +19,7 @@ export const metaSetter = (
   // html meta data
   value.meta = {
     title:
-      title ??
+      title ||
       `${strings.appName} - ${
         name.length <= 3 ? name.toLocaleUpperCase() : name
       }`,

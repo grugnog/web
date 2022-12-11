@@ -7,10 +7,11 @@ import { REGISTER } from '@app/mutations'
 import { AppManager, UserManager } from '@app/managers'
 import { useRouter } from 'next/router'
 
-function AuthRedirect(props: { email: string; id: number }) {
+// handle auth redirects
+function AuthRedirect(props: { email: string; id: number; cookie?: boolean }) {
   const [signOnMutation] = useMutation(REGISTER, { ignoreResults: true })
-  const { email, id } = props ?? {}
   const router = useRouter()
+  const { email, id, cookie } = props ?? {}
 
   const onGithubAuth = useCallback(
     async ({ email, id }: { email: string; id: number }) => {
@@ -56,25 +57,41 @@ function AuthRedirect(props: { email: string; id: number }) {
   )
 
   useEffect(() => {
-    // todo; remove
-    ;(async () => {
-      await onGithubAuth({ email, id })
-    })()
-  }, [email, id, onGithubAuth])
+    // todo: perform auth ssr
+    if (!cookie) {
+      ;(async () => {
+        await onGithubAuth({ email, id })
+      })()
+    }
+  }, [email, id, onGithubAuth, cookie])
 
   return (
     <>
       <MarketingShortTitle />
-      <div className='p-4'>Redirecting to dashboard...</div>
+      {id ? (
+        <div className='p-4'>Redirecting to dashboard...</div>
+      ) : (
+        <div className='p-4' id='auth-value'>
+          Authenticated!
+        </div>
+      )}
     </>
   )
 }
 
+// handle success login to routes either through CLI or Github
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const { query } = context
-  const { access_token } = query
+  const { access_token, cookie } = query
 
-  if (access_token) {
+  if (cookie) {
+    return {
+      props: {
+        email: 'Authed!',
+        id: null,
+      },
+    }
+  } else if (access_token) {
     let email = ''
     let id = -1
 

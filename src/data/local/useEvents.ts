@@ -34,7 +34,7 @@ export function useEvents() {
       localStorage.setItem('firstWebsiteAdded', '1')
     }
 
-    client.writeData({
+    client?.writeData({
       data: {
         events: {
           ...events,

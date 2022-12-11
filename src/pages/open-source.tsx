@@ -1,7 +1,7 @@
 import { MarketingDrawer } from '@app/components/general'
 import { metaSetter } from '@app/utils'
 import type { PageProps } from '@app/types'
-import { OSSRoutes } from '@app/configs'
+import { companyName, OSSRoutes } from '@app/configs'
 import { GetStaticProps } from 'next'
 import { URL } from 'url'
 import { GrStar } from 'react-icons/gr'
@@ -71,7 +71,7 @@ function OpenSource({
 export default metaSetter(
   { OpenSource },
   {
-    title: 'A11yWatch - Open Source projects we contribute to',
+    title: `${companyName} - Open Source projects we support`,
     description: `A list of Open-Source projects we contribute to. Some of the projects help make our system unique.`,
   }
 )
