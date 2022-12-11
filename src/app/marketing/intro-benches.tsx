@@ -5,7 +5,7 @@ export const IntroBenches: FC = () => {
     <div className='py-6'>
       <div className='flex-col flex text-center border-4 border-[#2b2b2b] rounded'>
         <div className='py-2'>
-          <h2 className='text-2xl font-semibold'>Accessibility Testing</h2>
+          <h2 className='text-xl font-semibold'>Web Accessibility Testing</h2>
           <p className='text-base text-gray-800'>
             Website reports per minute (Linux)
           </p>
@@ -14,11 +14,11 @@ export const IntroBenches: FC = () => {
           <li className='flex flex-1 px-2 h-full'>
             <div className='flex flex-col h-full place-content-end'>
               <div className='py-1' aria-hidden='true'>
-                <div className='text-base font-semibold'>51,021</div>
+                <div className='text-base font-semibold'>150,025</div>
               </div>
               <div className='px-2 bg-blue-600 h-full w-20 rounded-t border-4 border-b-0 border-blue-700'>
                 <div className='sr-only'>
-                  A11yWatch: 51,021 scans per minute
+                  A11yWatch: 150,025 scans per minute
                 </div>
               </div>
             </div>
@@ -26,20 +26,20 @@ export const IntroBenches: FC = () => {
           <li className='flex flex-1 px-2 h-full'>
             <div className='flex flex-col h-full place-content-end'>
               <div className='py-1' aria-hidden='true'>
-                <div className='text-base font-semibold'>55</div>
+                <div className='text-base font-semibold'>44</div>
               </div>
               <div className='px-2 bg-gray-700 h-[6px] w-20 rounded-t'>
-                <div className='sr-only'>Wave: 55 scans per minute</div>
+                <div className='sr-only'>Wave: 44 scans per minute</div>
               </div>
             </div>
           </li>
           <li className='flex flex-1 px-2 h-full'>
             <div className='flex flex-col h-full place-content-end'>
               <div className='py-1' aria-hidden='true'>
-                <div className='text-base font-semibold'>43</div>
+                <div className='text-base font-semibold'>33</div>
               </div>
               <div className='px-2 bg-gray-700 h-[5px] w-20 rounded-t'>
-                <div className='sr-only'>Deque: 43 scans per minute</div>
+                <div className='sr-only'>Deque: 33 scans per minute</div>
               </div>
             </div>
           </li>
