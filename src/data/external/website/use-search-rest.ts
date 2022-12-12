@@ -32,8 +32,11 @@ export const scanWebsite = async (
       },
     })
   } catch (e) {
-    console.error(e)
-    return AppManager.toggleSnack(true, e, 'error')
+    let message = 'Unknown Error'
+    if (e instanceof Error) {
+      message = e.message;
+    }
+    return AppManager.toggleSnack(true, message, 'error')
   }
 
   // rate limit custom message on scan

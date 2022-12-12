@@ -21,8 +21,9 @@ interface SnackProps {
 
 const SnackbarContainer = observer(
   ({ store, topLevel, snackID }: SnackProps) => {
-    const lowerCaseText = store.snackbar.title || ''
-    const needsUpgrade = upgradeRequired(lowerCaseText)
+    const title = typeof store.snackbar.title && store.snackbar.title === 'string' ? store.snackbar.title : "Error API is not started.";
+
+    const needsUpgrade = upgradeRequired(title)
 
     const handleClose = useCallback(
       (event: SyntheticEvent<any, Event>, reason: string): any => {
@@ -64,7 +65,7 @@ const SnackbarContainer = observer(
                     : 'text-black'
                 }`}
               >
-                {store.snackbar.title}
+                {typeof store.snackbar.title && store.snackbar.title === 'string' ? store.snackbar.title : "Error API is not started."}
               </p>
               {needsUpgrade ? (
                 <Link className={'font-medium text-[#3b82f6]'} href='/payments'>

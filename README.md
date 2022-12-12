@@ -8,17 +8,33 @@ a11ywatch website
 
 ## Installation
 
-```
-yarn
-```
+Make sure Rust is installed if you want to build the wasm bundle for the web or Desktop application.
 
-## Start
+`curl --proto '=https' --tlsv1.2 https://sh.rustup.rs -sSf | sh`
+
+Install the dev modules normally with yarn.
+
+`yarn`
+
+### Desktop Install
+
+You can also install the desktop application by using [tauri](https://tauri.app/v1/guides/getting-started/prerequisites) and running the following:
+
+Install the [tauri-cli](https://tauri.app/v1/api/cli/) with:
+
+`cargo install tauri-cli`
+
+## Start Web or Desktop
 
 You can start the project using docker or local
 
 `docker-compose up` or `yarn run dev`
 
 open [localhost:3000](http://localhost:3000) in your browser.
+
+or run the desktop application
+
+`cargo tauri dev`.
 
 ## API
 

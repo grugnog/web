@@ -1,5 +1,5 @@
 import { API_ENDPOINT } from '@app/configs'
-import { UserManager } from '@app/managers'
+import { AppManager, UserManager } from '@app/managers'
 
 // app fetch wrapper todo: merge params
 export const fetcher = async (
@@ -28,7 +28,11 @@ export const fetcher = async (
 
     data = ds
   } catch (e) {
-    console.error(e)
+    let message = 'Unknown Error'
+    if (e instanceof Error) {
+      message = e.message;
+    }
+     AppManager.toggleSnack(true, message, 'error')
   }
 
   return data

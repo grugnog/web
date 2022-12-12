@@ -1,4 +1,3 @@
-const { resolve } = require('path')
 const runtimeCaching = require('next-pwa/cache')
 
 const dev = process.env.NODE_ENV === 'development'
