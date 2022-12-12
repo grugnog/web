@@ -90,6 +90,7 @@ module.exports = withPWA({
   },
   swcMinify: true,
   images: {
+    unoptimized: process.env.IMAGES_UNOPTIMIZED ? false : true,
     domains,
   },
   async headers() {

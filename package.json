@@ -1,11 +1,12 @@
 {
   "name": "@a11ywatch/web",
-  "version": "0.5.6",
+  "version": "0.5.9",
   "scripts": {
     "dev": "NODE_OPTIONS='--inspect' next dev",
     "dev:vercel": "NODE_OPTIONS='--inspect' vercel dev",
     "start": "next start -p ${PORT:=3000}",
     "build": "next build",
+    "export:static": "next build && next export -o out/",
     "build:wasm": "wasm-pack build wasm --release --target bundler",
     "lint": "next lint",
     "fix": "prettier --write '**/*.{js,jsx,ts,tsx}'",
