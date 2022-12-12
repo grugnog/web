@@ -5,7 +5,14 @@ const defaultSnackBar = {
   type: 'message',
   open: false,
   autoClose: false,
+  showBtn: false, // show btn
 }
+
+// determine if account needs upgrade
+export const upgradeRequired = (text: string) =>
+  text.includes('max websites added') ||
+  text.includes('upgrade your account') ||
+  text.includes('you hit your scan limit for the day')
 
 class AppManager {
   @observable
@@ -68,7 +75,8 @@ class AppManager {
     open: boolean,
     title: any,
     type: 'message' | 'success' | 'error' = 'message',
-    autoClose?: boolean
+    autoClose?: boolean,
+    showBtn?: boolean
   ): void => {
     const snackTitle = Array.isArray(title)
       ? title.length
@@ -81,6 +89,7 @@ class AppManager {
       type,
       open,
       autoClose: autoClose || false,
+      showBtn: !!showBtn,
     }
   }
 }

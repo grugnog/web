@@ -18,6 +18,7 @@ import type { Website } from '@app/types'
 import { useWasmContext } from '@app/components/providers'
 import { LIGHTHOUSE_RESULT } from '@app/subscriptions/lighthouse'
 import { removeTrailingSlash } from '@a11ywatch/website-source-builder'
+import { upgradeRequired } from '@app/managers/app'
 
 // fetch more items
 const updateQuery = (prev: any, { fetchMoreResult }: any) => {
@@ -186,7 +187,8 @@ export const useWebsiteData = (
             AppManager.toggleSnack(
               true,
               `Crawl did not complete for ${completedWebsite.domain}. Upgrade your account for a larger scan uptime.`,
-              'error'
+              'error',
+              true
             )
           } else {
             AppManager.toggleSnack(
@@ -249,7 +251,15 @@ export const useWebsiteData = (
 
   useEffect(() => {
     if (addWebsiteData && !addWebsiteData?.addWebsite?.success) {
-      AppManager.toggleSnack(true, addWebsiteData.addWebsite.message)
+      const message = addWebsiteData.addWebsite.message
+
+      AppManager.toggleSnack(
+        true,
+        message,
+        'message',
+        false,
+        upgradeRequired(message)
+      )
     }
   }, [addWebsiteData])
 

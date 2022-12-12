@@ -30,9 +30,9 @@ export const fetcher = async (
   } catch (e) {
     let message = 'Unknown Error'
     if (e instanceof Error) {
-      message = e.message;
+      message = e.message
     }
-     AppManager.toggleSnack(true, message, 'error')
+    AppManager.toggleSnack(true, message, 'error')
   }
 
   return data

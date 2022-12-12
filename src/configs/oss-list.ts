@@ -21,10 +21,10 @@ export const OSSRoutes = [
     stars: 0,
   },
   {
-    href: 'https://github.com/a11ywatch/htr',
-    name: 'htr',
-    description: 'Fast HTML to React transformer using Rust',
-    fullName: 'a11ywatch/htr',
+    href: 'https://github.com/a11ywatch/crawler',
+    name: 'crawler',
+    description: 'A gRPC web indexer turbo charged for performance',
+    fullName: 'a11ywatch/crawler',
     stars: 0,
   },
   {

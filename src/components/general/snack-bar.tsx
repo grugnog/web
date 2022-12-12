@@ -6,13 +6,6 @@ import { Link } from './link'
 import { GrClose } from 'react-icons/gr'
 import { Button } from './buttons'
 
-const upgradeRequired = (text: string) =>
-  text.includes('max websites added') ||
-  text.includes('upgrade your account') ||
-  text.includes(
-    'you hit your scan limit for the day, please try again tomorrow.'
-  )
-
 interface SnackProps {
   store: typeof AppManager
   topLevel?: boolean
@@ -21,10 +14,6 @@ interface SnackProps {
 
 const SnackbarContainer = observer(
   ({ store, topLevel, snackID }: SnackProps) => {
-    const title = typeof store.snackbar.title && store.snackbar.title === 'string' ? store.snackbar.title : "Error API is not started.";
-
-    const needsUpgrade = upgradeRequired(title)
-
     const handleClose = useCallback(
       (event: SyntheticEvent<any, Event>, reason: string): any => {
         event?.preventDefault()
@@ -65,9 +54,9 @@ const SnackbarContainer = observer(
                     : 'text-black'
                 }`}
               >
-                {typeof store.snackbar.title && store.snackbar.title === 'string' ? store.snackbar.title : "Error API is not started."}
+                {store.snackbar.title}
               </p>
-              {needsUpgrade ? (
+              {store.snackbar.showBtn ? (
                 <Link className={'font-medium text-[#3b82f6]'} href='/payments'>
                   UPGRADE ACCOUNT
                 </Link>

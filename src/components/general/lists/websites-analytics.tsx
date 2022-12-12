@@ -1,6 +1,4 @@
-import { FC, useState, useEffect, useCallback, memo } from 'react'
-import { useMiniPlayer } from '@app/data'
-import { FullScreenModal } from '../fullscreen-modal'
+import { FC, useState, memo } from 'react'
 import { InnerWrapper } from './list-wrapper'
 import { AnalyticsCell } from '../cells/website-cell-analytics'
 import { useAnalyticsData } from '@app/data/external/analytics/analytics'
@@ -81,14 +79,6 @@ export const RenderInnerAnalytics: FC<any> = (props) => {
   )
 }
 
-const defaultModalState = {
-  open: false,
-  data: null,
-  title: '',
-  url: '',
-  error: '',
-}
-
 const ListCell = ({
   item,
   loading,
@@ -142,38 +132,15 @@ export function ListComponent({
   data,
   error,
   loading,
-  removePress,
   emptyHeaderTitle = 'Empty',
   emptyHeaderSubTitle = 'Add your website below',
   refetch,
-  crawlWebsite,
   setModal,
   mutatationLoading,
   children,
 }: any) {
-  const [modal, setOpen] = useState(defaultModalState)
-  const { miniPlayer, setMiniPlayerContent } = useMiniPlayer()
-
-  const handleClickOpen = (data: any, title: any, url: any, error: any) => {
-    setOpen({ open: true, data, title, url, error })
-  }
-
-  const handleClose = useCallback(() => {
-    setOpen(defaultModalState)
-  }, [setOpen])
-
-  useEffect(() => {
-    if (miniPlayer.open) {
-      handleClose()
-    }
-  }, [miniPlayer, handleClose])
-
   const generalProps = {
-    handleClickOpen,
-    handleClickOpenPlayer: setMiniPlayerContent,
-    removePress,
     refetch,
-    crawlWebsite,
     setModal,
     mutatationLoading: mutatationLoading,
   }
@@ -195,13 +162,6 @@ export function ListComponent({
         ))}
         {children}
       </ul>
-      <FullScreenModal
-        {...modal}
-        handleClose={handleClose}
-        handleClickOpen={handleClickOpen}
-        refetch={refetch}
-        handleClickOpenPlayer={setMiniPlayerContent}
-      />
     </>
   )
 }

@@ -4,6 +4,7 @@ import { SCAN_WEBSITE } from '@app/mutations'
 import { AppManager } from '@app/managers'
 import { searchQuery } from '@app/utils'
 import { useMemo } from 'react'
+import { upgradeRequired } from '@app/managers/app'
 
 const GET_SEARCH_STATE = gql`
   query getCtaSearchState {
@@ -87,7 +88,7 @@ export function useSearch() {
         true,
         'https:// failed retrying with http:// ...',
         'message',
-        true
+        false
       )
       const [qf] = searchQuery(search, true)
       try {
@@ -104,7 +105,15 @@ export function useSearch() {
     let data = results?.data
 
     if (!data?.scanWebsite?.success || !data) {
-      AppManager.toggleSnack(true, data?.scanWebsite?.message, 'error')
+      const message = data?.scanWebsite?.message
+
+      AppManager.toggleSnack(
+        true,
+        message,
+        'error',
+        false,
+        upgradeRequired(message)
+      )
       return closeFeed()
     }
 

@@ -17,8 +17,6 @@ const GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID
 const STRIPE_KEY =
   process.env.STRIPE_KEY || 'pk_test_enc1gdton1T8NXa7dP5VOlHM00EyC4zqsX' // stripe.com default test key
 
-const APP_TYPE = process.env.APP_TYPE || 'main'
-
 // blog url endpoint
 const BLOG_WEBFLOW_URL =
   process.env.BLOG_WEBFLOW_URL || 'https://a11ywatch-blog.webflow.io'
@@ -36,7 +34,7 @@ const SUPER_MODE = process.env.SUPER_MODE
 const DOMAIN_NAME =
   process.env.NEXT_PUBLIC_DOMAIN_NAME ||
   process.env.DOMAIN_NAME ||
-  'http://a11ywatch.com'
+  'https://a11ywatch.com'
 
 const companyName = process.env.COMPANY_NAME || 'A11yWatch'
 const twitterSite = process.env.TWITTER_SITE || 'a11ywatcher'
@@ -67,7 +65,6 @@ export {
   AppConfig,
   SCRIPTS_CDN_URL_HOST,
   GOOGLE_CLIENT_ID,
-  APP_TYPE,
   STRIPE_KEY,
   SUPER_MODE,
   cdn,

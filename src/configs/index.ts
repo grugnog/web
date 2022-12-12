@@ -3,7 +3,6 @@ export {
   AppConfig,
   SCRIPTS_CDN_URL_HOST,
   GOOGLE_CLIENT_ID,
-  APP_TYPE,
   STRIPE_KEY,
   SUPER_MODE,
   dev,

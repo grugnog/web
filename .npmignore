@@ -11,3 +11,4 @@ codecov.yml
 .swcrc
 .prettierignore
 .github
+src-tauri

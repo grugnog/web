@@ -26,14 +26,12 @@ const DOMAIN_NAME =
 
 const env = {
   dev,
-  APP_TYPE: process.env.APP_TYPE || 'main',
   API: process.env.API,
   WEB_SOCKET_URL: process.env.WEB_SOCKET_URL,
   STRIPE_KEY: process.env.STRIPE_KEY,
   IFRAME_URL: process.env.IFRAME_URL,
   GOOGLE_CLIENT_ID: process.env.GOOGLE_CLIENT_ID,
   GITHUB_CLIENT_ID: process.env.GITHUB_CLIENT_ID,
-  CRISP_WEBSITE_ID: process.env.CRISP_WEBSITE_ID, // TODO: use NEXT_PUBLIC
   NEXT_PUBLIC_DOMAIN_NAME: DOMAIN_NAME,
   SUPER_MODE: process.env.SUPER_MODE === 'true',
   DOCKER_CONTAINER: process.env.DOCKER_CONTAINER === 'true', // app is using docker runtime

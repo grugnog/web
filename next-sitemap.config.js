@@ -1,5 +1,5 @@
 module.exports = {
-  siteUrl: process.env.DOMAIN_NAME || 'https://a11ywatch.com',
+  siteUrl: process.env.NEXT_PUBLIC_DOMAIN_NAME || 'https://a11ywatch.com',
   priority: 0.7,
   sitemapSize: 5000,
   exclude: [

@@ -34,7 +34,7 @@ export const scanWebsite = async (
   } catch (e) {
     let message = 'Unknown Error'
     if (e instanceof Error) {
-      message = e.message;
+      message = e.message
     }
     return AppManager.toggleSnack(true, message, 'error')
   }
@@ -44,7 +44,9 @@ export const scanWebsite = async (
     AppManager.toggleSnack(
       true,
       'Rate limited exceed, sign up and set a plan to increase limits.',
-      'error'
+      'error',
+      false,
+      true
     )
     return Promise.resolve()
   }
