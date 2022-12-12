@@ -42,7 +42,6 @@ function MainButton({
         <Link
           className={`w-[15rem] tracking-wide text-lg text-gray-50 font-semibold bg-blue-700 px-4 py-2 hover:ring hover:no-underline rounded-3xl text-center`}
           href={`/register?plan=${title}${yearly ? '&yearly=true' : ''}`}
-          style={{ fontFamily: `"Gill Sans", sans-serif` }}
         >
           {`${title} - ${trialDuration} Day Trial Start`}
         </Link>

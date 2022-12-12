@@ -23,10 +23,15 @@ export function PriceCell({
   cost,
   selectHighPlans,
   activePlan,
+  pageCount
 }: any) {
+
+
+  const pageCountFormatted = Intl.NumberFormat().format(pageCount || 0);
+
   return (
     <button
-      className={`md:min-w-[340px] w-full rounded flex flex-1 flex-col justify-between border border-[#2A2A2A] ${highLight(
+      className={`md:min-w-[386.53px] w-full rounded flex flex-1 flex-col justify-between border border-[#2A2A2A] ${highLight(
         'border-blue-600 text-gray-900',
         selected,
         ''
@@ -63,7 +68,7 @@ export function PriceCell({
               </span>
               {cost ? (
                 <span className={'text-base block'}>
-                  {yearly ? costYearly : cost}
+                  {yearly ? costYearly : cost} | <span className={`text-sm ${selectHighPlans && !selected ? "text-gray-800" :"text-gray-100"}`}>up to {pageCountFormatted} daily analyzations</span>
                 </span>
               ) : null}
             </SubHeading>
@@ -73,7 +78,6 @@ export function PriceCell({
               </div>
             ) : null}
           </div>
-
           <ul className='px-4 space-y-1 py-2'>
             {details?.map((item: string, i: number) => (
               <li

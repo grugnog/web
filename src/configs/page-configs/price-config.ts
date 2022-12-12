@@ -2,7 +2,7 @@ const TRUSTED_CDN = 'Embed custom script safeguard'
 const VISUAL_PLAYGROUND = 'Visual website playground'
 
 const feats = [
-  'up to 50 domains',
+  '50 domains',
   'Wildcard subdomains and tld monitoring',
   'All pages checked daily with email status reports',
   TRUSTED_CDN,
@@ -17,66 +17,77 @@ const feats = [
 const lPlans = [
   {
     title: 'L1',
-    details: ['up to 300 seconds daily scanning'],
+    details: ['300 seconds daily uptime'],
     cost: '$14/month',
     costYearly: '$12/month',
+    pageCount: 500
   },
   {
     title: 'L2',
-    details: ['up to 600 seconds daily scanning'],
+    details: ['600 seconds daily uptime'],
     cost: '$24/month',
     costYearly: '$20/month',
+    pageCount: 1000
   },
   {
     title: 'L3',
-    details: ['up to 1,400 seconds daily scanning'],
+    details: ['1,400 seconds daily uptime'],
     cost: '$44/month',
     costYearly: '$37/month',
+    pageCount: 2300
   },
   {
     title: 'L4',
-    details: ['up to 2,000 seconds daily scanning'],
+    details: ['2,000 seconds daily uptime'],
     cost: '$54/month',
     costYearly: '$45/month',
+    pageCount: 3200
+
   },
   {
     title: 'L5',
-    details: ['up to 4,000 seconds daily scanning'],
+    details: ['4,000 seconds daily uptime'],
     cost: '$84/month',
     costYearly: '$70/month',
+    pageCount: 6400
   },
 ]
 
 const hPlans = [
   {
     title: 'H1',
-    details: ['up to 5,000 seconds daily scanning'],
+    details: ['5,000 seconds daily uptime'],
     cost: '$94/month',
     costYearly: '$78/month',
+    pageCount: 8000
   },
   {
     title: 'H2',
-    details: ['up to 10,000 seconds daily scanning'],
+    details: ['10,000 seconds daily uptime'],
     cost: '$134/month',
     costYearly: '$112/month',
+    pageCount: 16000
   },
   {
     title: 'H3',
-    details: ['up to 20,000 seconds daily scanning'],
+    details: ['20,000 seconds daily uptime'],
     cost: '$194/month',
     costYearly: '$161/month',
+    pageCount: 32000
   },
   {
     title: 'H4',
-    details: ['up to 35,000 seconds daily scanning'],
+    details: ['35,000 seconds daily uptime'],
     cost: '$334/month',
     costYearly: '$278/month',
+    pageCount: 56000
   },
   {
     title: 'H5',
-    details: ['up to 60,000 seconds daily scanning'],
+    details: ['60,000 seconds daily uptime'],
     cost: '$544/month',
     costYearly: '$453/month',
+    pageCount: 100000
   },
 ]
 
