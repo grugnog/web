@@ -23,11 +23,9 @@ export function PriceCell({
   cost,
   selectHighPlans,
   activePlan,
-  pageCount
+  pageCount,
 }: any) {
-
-
-  const pageCountFormatted = Intl.NumberFormat().format(pageCount || 0);
+  const pageCountFormatted = Intl.NumberFormat().format(pageCount || 0)
 
   return (
     <button
@@ -68,7 +66,16 @@ export function PriceCell({
               </span>
               {cost ? (
                 <span className={'text-base block'}>
-                  {yearly ? costYearly : cost} | <span className={`text-sm ${selectHighPlans && !selected ? "text-gray-800" :"text-gray-100"}`}>up to {pageCountFormatted} daily analyzations</span>
+                  {yearly ? costYearly : cost} |{' '}
+                  <span
+                    className={`text-sm ${
+                      selectHighPlans && !selected
+                        ? 'text-gray-800'
+                        : 'text-gray-100'
+                    }`}
+                  >
+                    up to {pageCountFormatted} daily analyzations
+                  </span>
                 </span>
               ) : null}
             </SubHeading>

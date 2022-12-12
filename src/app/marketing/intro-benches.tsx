@@ -5,10 +5,10 @@ export const IntroBenches: FC = () => {
     <div className='py-6'>
       <div className='flex-col flex text-center border-4 border-[#2b2b2b] rounded'>
         <div className='py-2'>
-          <h2 className='text-xl font-semibold'>Website Accessibility Reports</h2>
-          <p className='text-base text-gray-800'>
-            Reports per minute (Linux)
-          </p>
+          <h2 className='text-xl font-semibold'>
+            Website Accessibility Reports
+          </h2>
+          <p className='text-base text-gray-800'>Reports per minute (Linux)</p>
         </div>
         <ul className='grid grid-cols-3 place-items-start pt-1 h-40 place-items-center bg-gray-50'>
           <li className='flex flex-1 px-2 h-full'>

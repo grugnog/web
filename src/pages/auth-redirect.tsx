@@ -1,17 +1,23 @@
 import { useEffect, useCallback } from 'react'
+import { useRouter } from 'next/router'
 import { metaSetter } from '@app/utils'
-import { GetServerSideProps } from 'next'
+import type { GetServerSideProps } from 'next'
 import { MarketingShortTitle } from '@app/components/marketing'
 import { useMutation } from '@apollo/react-hooks'
 import { REGISTER } from '@app/mutations'
 import { AppManager, UserManager } from '@app/managers'
-import { useRouter } from 'next/router'
+import { parseJwt } from '@app/lib/auth'
 
 // handle auth redirects
-function AuthRedirect(props: { email: string; id: number; cookie?: boolean }) {
+function AuthRedirect(props: {
+  email: string
+  id: number
+  cookie?: boolean
+  jwt: string
+}) {
   const [signOnMutation] = useMutation(REGISTER, { ignoreResults: true })
   const router = useRouter()
-  const { email, id, cookie } = props ?? {}
+  const { email, id, cookie, jwt } = props ?? {}
 
   const onGithubAuth = useCallback(
     async ({ email, id }: { email: string; id: number }) => {
@@ -69,11 +75,19 @@ function AuthRedirect(props: { email: string; id: number; cookie?: boolean }) {
     <>
       <MarketingShortTitle />
       {id ? (
-        <div className='p-4'>Redirecting to dashboard...</div>
+        <>
+          <div className='p-4'>
+            <div className='text-lg'>Authenticated {email}!</div>
+            <div>Redirecting to dashboard...</div>
+          </div>
+        </>
       ) : (
-        <div className='p-4' id='auth-value'>
-          Authenticated!
-        </div>
+        <>
+          <div className='p-4'>
+            <div className='text-lg'>Authenticated {email}!</div>
+            <div id='auth-value'>{jwt}</div>
+          </div>
+        </>
       )}
     </>
   )
@@ -85,10 +99,22 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   const { access_token, cookie } = query
 
   if (cookie) {
+    const { jwt } = context.req.cookies
+
+    if (!jwt) {
+      return {
+        notFound: true,
+      }
+    }
+
+    const { email } = parseJwt(jwt)
+
     return {
       props: {
-        email: 'Authed!',
+        email: email || '',
         id: null,
+        token: jwt,
+        cookie: true,
       },
     }
   } else if (access_token) {

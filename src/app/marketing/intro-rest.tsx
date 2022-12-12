@@ -30,10 +30,10 @@ function MarketingIntro({
         ) : (
           <div>
             <p className='text-base text-gray-800'>
-              A11ywatch provides powerful tools for testing web inclusivity swiftly so
-              you can build better software. We created a smart safeguard that
-              prevents drastic issues across your websites without hurting SEO
-              and without overlays.
+              A11ywatch provides powerful tools for testing web inclusivity
+              swiftly so you can build better software. We created a smart
+              safeguard that prevents drastic issues across your websites
+              without hurting SEO and without overlays.
             </p>
             <p className='text-base py-1 text-gray-700'>
               Gain confidence across every step with multiple areas of entry
