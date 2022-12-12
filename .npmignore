@@ -5,4 +5,9 @@ tests
 Dockerfile
 Dockerfile.dev
 .next
-./wasm/target
+wasm
+playwright.config.ts
+codecov.yml
+.swcrc
+.prettierignore
+.github
