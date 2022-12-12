@@ -119,7 +119,7 @@ export function FullScreenModalWrapper({
   // check to see if the dns was confirmed
   const onDnsStatusEvent = async () => {
     const domain = new URL(url).hostname
-    const source = await fetcher('/website/dns', { domain })
+    const source = await fetcher('/website/dns', { domain }, 'POST')
 
     AppManager.toggleSnack(
       open,

@@ -122,7 +122,10 @@ function ApiInfo() {
                 <>
                   <p className='text-lg'>
                     Allowed usage{' '}
-                    {`${(availableUsage ? Number(availableUsage) / 1000 : 0).toFixed(0)}s`}
+                    {`${(availableUsage
+                      ? Number(availableUsage) / 1000
+                      : 0
+                    ).toFixed(0)}s`}
                   </p>
                   <p className='text-lg'>
                     Usage used{' '}
@@ -180,11 +183,12 @@ function ApiInfo() {
               sent from the url or the body. It{`'`}s best to stick to using the
               body for PUTS and POST request since some params are set to be
               arrays and other none string shapes. In the example replace
-              a11ywatch.com with the website you want to target. Using {companyName}
-              on the CI to up keep accessibility will save thousands - millions of dollars of 
-              machine uptime and developer uptime due to speed and efficiency. We can process
-              over 15,000 urls in seconds or minutes depending on if the website is being tested
-              locally or external.
+              a11ywatch.com with the website you want to target. Using{' '}
+              {companyName}
+              on the CI to up keep accessibility will save thousands - millions
+              of dollars of machine uptime and developer uptime due to speed and
+              efficiency. We can process over 15,000 urls in seconds or minutes
+              depending on if the website is being tested locally or external.
             </p>
           </div>
         </div>

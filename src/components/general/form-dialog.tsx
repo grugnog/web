@@ -57,7 +57,7 @@ export function FormDialogWrapper({
   const [open, setOpen] = useState<boolean>(false)
   const [websitUrl, setUrl] = useState<string>('')
   const [https, setTransportType] = useState<boolean>(true)
-  const [pageInsights, setPageInsights] = useState<boolean>(true)
+  const [pageInsights, setPageInsights] = useState<boolean>(false)
   const [mobileViewport, setMobile] = useState<boolean>(false)
   const [subdomains, setSubdomains] = useState<boolean>(false)
   const [tld, setTld] = useState<boolean>(false)

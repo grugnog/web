@@ -124,7 +124,11 @@ export function WebsiteCellDashboardComponent({
       if (title === 'Verify DNS') {
         eventDS =
           url &&
-          (await fetcher('/website/dns', { domain: new URL(url).hostname }))
+          (await fetcher(
+            '/website/dns',
+            { domain: new URL(url).hostname },
+            'POST'
+          ))
       }
 
       if (mini) {

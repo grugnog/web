@@ -22,6 +22,8 @@ import { companyName } from '@app/configs'
 import { CtaInputRest } from '@app/components/cta/searchbar/cta-input-rest'
 import { MarketingBottomTemporaryDrawer } from '@app/components/modal'
 import { WCAGSelectInput } from '@app/components/general/select'
+import { fetcher } from '@app/utils/fetcher'
+import { AppManager } from '@app/managers'
 
 const CtaHtmlInputRest = dynamic(
   () =>
@@ -35,6 +37,7 @@ const CtaHtmlInputRest = dynamic(
 type RightBarProps = {
   onRemoveAllWebsitePress(x: any): void
   onQueryEvent(x: any): void
+  onScanAllEvent?(x: any): void // scan all websites
   onLighthouseToggle(x: any): void
   onWebsiteSort(x: any): void
   lighthouseVisible?: boolean
@@ -49,6 +52,7 @@ const RightBar = ({
   sortCapable,
   onRemoveAllWebsitePress,
   onQueryEvent,
+  onScanAllEvent,
   queryModalVisible,
   lhEnabled,
   onLighthouseToggle,
@@ -77,6 +81,9 @@ const RightBar = ({
       >
         {lighthouseVisible ? 'Hide' : 'Display'} Lighthouse
       </Button>
+      {onScanAllEvent ? (
+        <Button onClick={onScanAllEvent}>Sync All</Button>
+      ) : null}
       {sortCapable ? (
         <Button
           onClick={onWebsiteSort}
@@ -170,6 +177,19 @@ function Dashboard({ name }: PageProps) {
       return !v
     })
 
+  const onStandardChange = (e: React.ChangeEvent<HTMLSelectElement>) =>
+    setStandard(e.target.value)
+
+  const onScanAllEvent = async () => {
+    const { message, code } = await fetcher('/websites-sync', null, 'POST')
+
+    AppManager.toggleSnack(
+      true,
+      message || 'Sync failed!',
+      code === 200 ? 'message' : 'error'
+    )
+  }
+
   // conditional display
   let sortStyle = 'hidden'
   let queryStyle = 'hidden'
@@ -184,9 +204,6 @@ function Dashboard({ name }: PageProps) {
     webpageStyle = 'hidden'
     queryStyle = 'visible'
   }
-
-  const onStandardChange = (e: React.ChangeEvent<HTMLSelectElement>) =>
-    setStandard(e.target.value)
 
   return (
     <>
@@ -214,6 +231,7 @@ function Dashboard({ name }: PageProps) {
                 onWebsiteSort={onWebsiteSort}
                 onLighthouseToggle={onLighthouseToggle}
                 queryModalVisible={queryModalVisible}
+                onScanAllEvent={onScanAllEvent}
               />
             ) : null
           }
