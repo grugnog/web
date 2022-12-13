@@ -7,7 +7,7 @@ export function MarketingDashboard(): ReactElement<any, any> | null {
   return (
     <SectionContainer>
       <div className='place-content-center place-items-center flex flex-col'>
-        <Header3>Detailed reports in one location</Header3>
+        <Header3>All the details you need in one location</Header3>
         <p>Get insight on all of your domains live.</p>
         <div className='py-4'>
           <Image

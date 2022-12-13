@@ -44,7 +44,7 @@ In order to use the application you need to make sure you have the [A11yWatch](h
 
 Some things to note in development.
 
-### Creating new Pages
+### Creating Pages
 
 This app uses a meta like way to enhance the build step with auto generated html from the page components.
 Some of the enhancements require a certain format for Page naming and exports to build the pages correctly.

@@ -45,7 +45,7 @@ function FixedCopyRight({ sticky }: Props) {
   const cc = `© ${new Date().getFullYear()} ${companyName}, LLC`
 
   if (!sticky) {
-    return <div className={'text-sm'}>{cc}</div>
+    return <div className={'text-xs'}>{cc}</div>
   }
 
   return (
