@@ -193,7 +193,7 @@ function Dashboard({ name }: PageProps) {
   // conditional display
   let sortStyle = 'hidden'
   let queryStyle = 'hidden'
-  let webpageStyle = 'visible'
+  let webpageStyle = 'visible py-2'
 
   if (sortModalVisible) {
     webpageStyle = 'hidden'

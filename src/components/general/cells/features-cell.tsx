@@ -1,10 +1,5 @@
 import { memo } from 'react'
-import {
-  FormControlLabel,
-  Switch,
-  ListItemIcon,
-  ListItem,
-} from '@material-ui/core'
+import { Switch } from '@material-ui/core'
 import {
   GrNotification as NotificationsIcon,
   GrCode as CodeIcon,
@@ -16,30 +11,31 @@ import {
   GrAction as ActionIcon,
 } from 'react-icons/gr'
 
-import { cellStyles } from '@app/styles/cells'
 import { Link } from '../link'
 import { Pulse } from '../loaders'
+import { FormControl } from '../form-control'
 
 const renderIcon = (feature?: string, className?: string) => {
   switch (feature) {
     case 'Alerts':
       return <NotificationsIcon className={className} />
     case 'Scripts':
-      return <CodeIcon />
+      return <CodeIcon className={className} />
     case 'Analytics':
-      return <DataUsageIcon />
+      return <DataUsageIcon className={className} />
     case 'Issues':
-      return <BugReportIcon />
+      return <BugReportIcon className={className} />
     case 'Pages':
-      return <PageIcon />
+      return <PageIcon className={className} />
     case 'Dashboard':
-      return <DashboardIcon />
+      return <DashboardIcon className={className} />
     case 'Actions':
-      return <ActionIcon />
+      return <ActionIcon className={className} />
     case 'History':
-      return <HistoryIcon />
-    default:
-      return <div />
+      return <HistoryIcon className={className} />
+    default: {
+      return <div className={className} />
+    }
   }
 }
 
@@ -48,54 +44,47 @@ const extraProps = (feature?: string, focused?: boolean, setEvents?: any) => {
     case 'Alerts':
       return {
         href: focused ? '/dashboard' : '/alerts',
-        component: Link,
         color: 'inherit',
       }
     case 'Scripts':
       return {
         href: focused ? '/dashboard' : '/scripts',
         onClick: setEvents ? () => setEvents({ firstAdd: 'set' }) : undefined,
-        component: Link,
         color: 'inherit',
       }
     case 'Issues':
       return {
         href: focused ? '/dashboard' : '/web-issues',
-        component: Link,
         color: 'inherit',
       }
     case 'Pages':
       return {
         href: focused ? '/dashboard' : '/web-pages',
-        component: Link,
         color: 'inherit',
       }
     case 'Analytics':
       return {
         href: focused ? '/dashboard' : '/website-analytics',
-        component: Link,
         color: 'inherit',
       }
     case 'Dashboard':
       return {
         href: '/',
-        component: Link,
         color: 'inherit',
       }
     case 'Actions':
       return {
         href: focused ? '/dashboard' : '/web-actions',
-        component: Link,
         color: 'inherit',
       }
     case 'History':
       return {
         href: focused ? '/dashboard' : '/history',
-        component: Link,
         color: 'inherit',
       }
-    default:
+    default: {
       return null
+    }
   }
 }
 
@@ -120,37 +109,40 @@ export function FeaturesCellComponent({
   events,
   setEvents,
 }: any) {
-  const classes = cellStyles()
-
   const title = focused ? 'Dashboard' : feature
 
   return (
     <li>
-      <ListItem
-        button
-        className={classes.topList}
+      <Link
+        className={`flex text-base place-items-center gap-x-3 py-3 pl-2 pr-2 place-content-around hover:bg-gray-100 hover:no-underline md:py-2 md:pl-5 md:pr-2`}
         {...extraProps(feature, focused, setEvents)}
       >
-        <ListItemIcon>
+        <div className='flex flex-1 place-items-center gap-x-5 place-content-center md:place-content-start'>
           {renderIcon(
             title,
-            (index === 0 && alertEnabled && classes.alert) || undefined
+            (index === 0 &&
+              alertEnabled &&
+              'grIcon text-blue-700 md:text-gray-700') ||
+              'grIcon text-gray-700'
           )}
-        </ListItemIcon>
-        {title}
+          <div className='sr-only md:not-sr-only text-base'>{title}</div>
+        </div>
         {index === 0 ? (
-          <FormControlLabel
-            checked={alertEnabled}
-            value='Alerts'
-            control={<Switch color='primary' />}
-            label=''
-            labelPlacement='start'
-            className={classes.toggleAlert}
-            onClick={toggleAlert}
-          />
+          <div className='hidden lg:block'>
+            <FormControl htmlFor='alerts-btn'>Alerts</FormControl>
+            <div>
+              <Switch
+                color='primary'
+                id='alerts-btn'
+                value='Alerts'
+                checked={alertEnabled}
+                onClick={toggleAlert}
+              />
+            </div>
+          </div>
         ) : null}
         {renderGuide(index, events)}
-      </ListItem>
+      </Link>
     </li>
   )
 }

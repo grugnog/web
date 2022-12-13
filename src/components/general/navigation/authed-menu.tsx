@@ -1,5 +1,4 @@
 import { memo, SyntheticEvent } from 'react'
-import { List } from '@material-ui/core'
 import { useFeaturesData, userModel, useEvents } from '@app/data'
 import { features } from '@app/configs'
 import { FeaturesCell } from '../cells'
@@ -37,7 +36,7 @@ export function AuthedMenuComponent({ route, dataSourceMap }: AuthedMenuProps) {
 
   return (
     <nav>
-      <List>
+      <ul className='list-none py-2'>
         {features.map(({ feature }: any, index: number) => (
           <FeaturesCell
             key={index}
@@ -50,7 +49,7 @@ export function AuthedMenuComponent({ route, dataSourceMap }: AuthedMenuProps) {
             toggleAlert={onAlertToggle}
           />
         ))}
-      </List>
+      </ul>
     </nav>
   )
 }
