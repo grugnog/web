@@ -6,8 +6,8 @@ import React, {
   useEffect,
   Fragment,
 } from 'react'
-import { Button, TextField } from '@material-ui/core'
 import {
+  Button,
   Link,
   NavBar,
   PageTitle,
@@ -25,6 +25,8 @@ import type { PageProps } from '@app/types'
 import { roleMap } from '@app/utils/role-map'
 import { CancelSubscriptionModal } from '@app/components/general/cancel-model'
 import { usePaymentsHook } from '@app/data/external/payments/use-payments'
+import { TextField } from '@app/components/general/text-field'
+import { outlineStyles } from '@app/styles/buttons/outline'
 
 interface PasswordState {
   newPassword?: string
@@ -192,7 +194,7 @@ const Profile: FC<PageProps> = ({ name }) => {
         </div>
       ) : null}
       <NavBar backButton title={name} notitle />
-      <div className='container mx-auto px-3'>
+      <div className='container mx-auto px-8'>
         <PageTitle title={'Your Profile'} />
         <Box className='space-y-3 py-4'>
           <div className='border-b pb-4'>
@@ -224,15 +226,14 @@ const Profile: FC<PageProps> = ({ name }) => {
                 : 0
               ).toFixed(0)}s`}
             />
-            {/* {user?.activeSubscription ? (
+            {user?.activeSubscription ? (
               <ProfileCell
-                title={billingHeadDisplay}
+                title={'Account Status'}
                 skeletonLoad={!user && loading}
-                subTitle={billingtitle}
+                subTitle={'Active'}
               />
-            ) : null} */}
-
-            <div className='space-y-2 w-[250px] py-4'>
+            ) : null}
+            <div className='space-y-2 py-4'>
               {!user && loading ? (
                 <TextSkeleton width='8%' />
               ) : (
@@ -242,16 +243,13 @@ const Profile: FC<PageProps> = ({ name }) => {
                       <form
                         onSubmit={updatePassword}
                         noValidate
-                        className={`flex flex-col p-2 bg-gray-100 border rounded`}
+                        className={`flex flex-col p-2 space-y-1 bg-gray-100 border rounded`}
                       >
                         <TextField
                           autoFocus
                           onChange={onChangeCurrent}
-                          color='secondary'
-                          inputProps={{
-                            minLength: 6,
-                            pattern: 'password',
-                          }}
+                          minLength={6}
+                          pattern={'password'}
                           autoComplete='current-password'
                           value={currentPassword}
                           id='current_password'
@@ -261,11 +259,8 @@ const Profile: FC<PageProps> = ({ name }) => {
                         />
                         <TextField
                           onChange={onChangeNew}
-                          color='secondary'
-                          inputProps={{
-                            minLength: 6,
-                            pattern: 'password',
-                          }}
+                          minLength={6}
+                          pattern={'password'}
                           autoComplete='new-password'
                           value={newPassword}
                           id='new_password'
@@ -287,7 +282,6 @@ const Profile: FC<PageProps> = ({ name }) => {
                             onClick={updatePassword}
                             className={classes.submit}
                             type='submit'
-                            variant='outlined'
                           >
                             Submit
                           </Button>
@@ -305,11 +299,8 @@ const Profile: FC<PageProps> = ({ name }) => {
                         <TextField
                           autoFocus
                           onChange={onChangeEmail}
-                          color='secondary'
-                          inputProps={{
-                            minLength: 6,
-                            pattern: 'email',
-                          }}
+                          minLength={6}
+                          pattern={'email'}
                           autoComplete='current-email'
                           value={newEmail}
                           id='email'
@@ -321,7 +312,7 @@ const Profile: FC<PageProps> = ({ name }) => {
                         <div className='flex space-x-2'>
                           <Button
                             onClick={toggleEmail}
-                            className={classes.submit}
+                            className={'border-none'}
                             type='button'
                           >
                             Cancel
@@ -330,7 +321,6 @@ const Profile: FC<PageProps> = ({ name }) => {
                             onClick={updateEmail}
                             className={classes.submit}
                             type='submit'
-                            variant='outlined'
                           >
                             Submit
                           </Button>
@@ -340,13 +330,12 @@ const Profile: FC<PageProps> = ({ name }) => {
                   ) : null}
                 </>
               )}
-              <>
+              <div className='flex space-x-2'>
                 {!changePassword ? (
                   <Button
                     onClick={togglePassword}
-                    className={classes.submit}
                     type='button'
-                    variant='outlined'
+                    className={'border-2 md:rounded md:min-w-[180px]'}
                   >
                     Change Password
                   </Button>
@@ -354,14 +343,13 @@ const Profile: FC<PageProps> = ({ name }) => {
                 {!changeEmail ? (
                   <Button
                     onClick={toggleEmail}
-                    className={classes.submit}
+                    className={'border-2 md:rounded md:min-w-[180px]'}
                     type='button'
-                    variant='outlined'
                   >
                     Change Email
                   </Button>
                 ) : null}
-              </>
+              </div>
             </div>
           </div>
           <div className='py-5 space-y-10'>
@@ -373,17 +361,14 @@ const Profile: FC<PageProps> = ({ name }) => {
                   )}`}
                   rel='noreferrer'
                   target='_blank'
-                  className={`text-lg font-bold inline-block rounded hover:bg-[#0E1116] hover:text-white px-10 py-4 bg-white text-black outline`}
+                  className={outlineStyles}
                 >
                   Manage Billing
                 </Link>
               </div>
             ) : null}
             <div>
-              <Link
-                href='/payments'
-                className={`text-lg font-bold inline-block rounded hover:bg-[#0E1116] hover:text-white px-10 py-4 bg-white text-black outline`}
-              >
+              <Link href='/payments' className={outlineStyles}>
                 {user?.activeSubscription ? 'Upgrade / Downgrade' : 'Upgrade'}
               </Link>
             </div>

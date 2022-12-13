@@ -8,7 +8,6 @@ import {
   DialogContent,
   Checkbox,
   FormControlLabel,
-  FormLabel,
 } from '@material-ui/core'
 import { Button, InputActions } from '@app/components/general'
 import { domainList as dmList } from '@app/utils'
@@ -20,6 +19,7 @@ import { formDialogStyles as useStyles } from './styles'
 import { useWebsiteContext } from '../providers/website'
 import { WCAGSelectInput } from './select'
 import { AccessibilityStandardKeys, Standard } from './select/select-input'
+import { FormControl } from './form-control'
 
 const domainList = [...dmList, 'none']
 
@@ -284,25 +284,24 @@ export function FormDialogWrapper({
             <p className='text-base text-gray-700'>
               To add a website to your watchlist, enter the url below.
             </p>
-            <FormLabel>
-              <TextField
-                autoFocus
-                onChange={onChangeText}
-                className={classes.input}
-                inputProps={{
-                  className: classes.textInput,
-                  minLength: 3,
-                }}
-                inputRef={inputRef}
-                color='secondary'
-                margin='dense'
-                value={websitUrl}
-                id='name'
-                placeholder='Website url'
-                type='url'
-                required
-              />
-            </FormLabel>
+            <FormControl htmlFor='name'>Enter Website Url</FormControl>
+            <TextField
+              autoFocus
+              onChange={onChangeText}
+              className={classes.input}
+              inputProps={{
+                className: classes.textInput,
+                minLength: 3,
+              }}
+              inputRef={inputRef}
+              color='secondary'
+              margin='dense'
+              value={websitUrl}
+              id='name'
+              placeholder='Website url'
+              type='url'
+              required
+            />
             <div
               className={`flex flex-1 place-items-center space-x-3 overflow-x-auto pt-2 pb-1`}
             >
@@ -417,19 +416,18 @@ export function FormDialogWrapper({
                 standard={standard}
                 onStandardChange={onStandardChange}
               />
-              <FormLabel>
-                <TextField
-                  onChange={onChangeUA}
-                  className={classes.input}
-                  style={{ maxWidth: 120 }}
-                  value={ua}
-                  color='secondary'
-                  margin='dense'
-                  id='ua'
-                  placeholder='User-Agent'
-                  type='text'
-                />
-              </FormLabel>
+              <FormControl htmlFor='ua'>Enter User Agent</FormControl>
+              <TextField
+                onChange={onChangeUA}
+                className={classes.input}
+                style={{ maxWidth: 120 }}
+                value={ua}
+                color='secondary'
+                margin='dense'
+                id='ua'
+                placeholder='User-Agent'
+                type='text'
+              />
             </div>
             {customHeader ? <InputHeaders {...headers} /> : null}
             {customActions ? <InputActions {...actions} /> : null}

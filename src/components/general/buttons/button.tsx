@@ -1,3 +1,4 @@
+import { outlineStyles } from '@app/styles/buttons/outline'
 import { PropsWithChildren } from 'react'
 
 type ButtonProps = PropsWithChildren<{
@@ -7,6 +8,7 @@ type ButtonProps = PropsWithChildren<{
   type?: 'button' | 'submit' | 'reset'
   style?: any
   iconButton?: boolean
+  outline?: boolean // display outline styles
 }>
 
 function classNames(...classes: any) {
@@ -21,12 +23,9 @@ export const Button: React.FC<ButtonProps> = ({
   type = 'button',
   style,
   iconButton,
+  outline,
   ...extra
 }) => {
-  const iconBtnStyles = iconButton
-    ? 'border-0 text-lg py-3 px-3 rounded-3xl place-content-center place-items-center flex md:text-[1.15rem]'
-    : 'rounded-2xl px-2 py-1.5 md:px-4 md:py-1.5'
-
   return (
     <button
       {...extra}
@@ -35,7 +34,10 @@ export const Button: React.FC<ButtonProps> = ({
       disabled={disabled}
       className={classNames(
         'border min-w-[44px] hover:bg-gray-100 hover:shadow-md',
-        iconBtnStyles,
+        iconButton
+          ? 'border-0 text-lg py-3 px-3 rounded-3xl place-content-center place-items-center flex md:text-[1.15rem]'
+          : 'rounded-2xl px-2 py-1.5 md:px-4 md:py-1.5',
+        outline ? outlineStyles : '',
         className
       )}
       onClick={onClick}

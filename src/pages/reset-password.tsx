@@ -89,7 +89,9 @@ function ResetPassword({ name }: PageProps) {
     if (resetSent) {
       return (
         <>
-          <FormControl htmlFor='resetCode' />
+          <FormControl htmlFor='resetCode'>
+            Enter password Reset Code
+          </FormControl>
 
           <TextField
             id='resetCode'
@@ -108,7 +110,7 @@ function ResetPassword({ name }: PageProps) {
 
     return (
       <>
-        <FormControl htmlFor='email' />
+        <FormControl htmlFor='email'>Enter Email</FormControl>
         <TextField
           id='email'
           aria-describedby='my-email-text'

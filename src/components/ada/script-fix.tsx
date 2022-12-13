@@ -1,42 +1,12 @@
-import { useRef } from 'react'
+import React from 'react'
 import { observer } from 'mobx-react-lite'
-import { Modal, Paper } from '@material-ui/core'
-import { makeStyles } from '@material-ui/core/styles'
 import { AdaManager } from '@app/managers'
 import { GrCopy } from 'react-icons/gr'
 import { Header3 } from '../general/header'
 import { Button } from '../general'
-
-const useStyles = makeStyles((theme) => ({
-  modal: {
-    display: 'flex',
-    padding: theme.spacing(1),
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  paper: {
-    maxHeight: '60vh',
-    position: 'absolute',
-    width: 'auto',
-    backgroundColor: theme.palette.divider,
-    border: '2px solid #000',
-    boxShadow: theme.shadows[5],
-    padding: theme.spacing(2, 4, 3),
-    overflowY: 'auto',
-  },
-  row: {
-    flexDirection: 'row',
-    display: 'flex',
-    alignItems: 'center',
-    marginBottom: 10,
-  },
-}))
+import { HeadlessModal } from '../modal/headless'
 
 const ScriptFixContainer = observer(({ store }: { store: any }) => {
-  const classes = useStyles()
-  const annotationRef = useRef()
-  const rootRef = useRef(null)
-
   const onClick = () => {
     store.toggleScriptFix()
   }
@@ -55,16 +25,16 @@ const ScriptFixContainer = observer(({ store }: { store: any }) => {
   }
 
   return (
-    <Modal
+    <HeadlessModal
       aria-labelledby='simple-modal-title'
       aria-describedby='simple-modal-description'
       open={store.scriptFixOpen}
-      container={() => rootRef.current}
       onClose={onClick}
-      className={classes.modal}
     >
-      <Paper className={classes.paper} ref={annotationRef}>
-        <div className={classes.row}>
+      <div
+        className={'max-h-[60vh] px-4 py-4 border-3 overflow-y-auto space-y-3'}
+      >
+        <div className={'flex place-items-center'}>
           <Header3>CSS FIX</Header3>
           <Button iconButton style={{ left: 20 }} onClick={copyText}>
             <GrCopy />
@@ -101,8 +71,8 @@ const ScriptFixContainer = observer(({ store }: { store: any }) => {
           )}
           {`</style>`}
         </code>
-      </Paper>
-    </Modal>
+      </div>
+    </HeadlessModal>
   )
 })
 

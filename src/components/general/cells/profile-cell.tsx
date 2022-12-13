@@ -20,27 +20,27 @@ export const ProfileCell = ({
   // todo recompose
   if (children) {
     return (
-      <div className='border p-2'>
+      <div className='border py-2 px-3'>
         <div className='flex'>
           <p className={`text-xl font-semibold ${titleClassName}`}>{title}</p>
           {children}
         </div>
         {skeletonLoad ? (
-          <TextSkeleton className={className} />
+          <TextSkeleton className={className} size={'base'} />
         ) : subTitle ? (
-          <p className={`text-lg ${className}`}>{subTitle}</p>
+          <p className={`text-base ${className}`}>{subTitle}</p>
         ) : null}
       </div>
     )
   }
 
   return (
-    <div className='border p-2'>
-      <p className={`text-xl font-bold ${titleClassName}`}>{title}</p>
+    <div className='border py-2 px-3'>
+      <p className={`text-xl font-semibold ${titleClassName}`}>{title}</p>
       {skeletonLoad ? (
-        <TextSkeleton className={className} />
+        <TextSkeleton className={className} size={'base'} />
       ) : subTitle ? (
-        <p className={`text-lg ${className}`}>{subTitle}</p>
+        <p className={`text-base ${className}`}>{subTitle}</p>
       ) : null}
     </div>
   )

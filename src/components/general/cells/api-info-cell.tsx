@@ -1,4 +1,4 @@
-import React, { memo, useState } from 'react'
+import React, { useState } from 'react'
 
 import { API_ENDPOINT } from '@app/configs'
 import { GrCopy } from 'react-icons/gr'
@@ -45,14 +45,13 @@ type ApiCellProps = {
 }
 
 // API doc collaspe cell with copy curl
-const ApiCellComponent = ({ route, keyVisible, token, id }: ApiCellProps) => {
+export const ApiCell = ({ route, keyVisible, token, id }: ApiCellProps) => {
   const [sectionVisible, setSectionVisible] = useState<boolean>(false)
   const onToggleSection = () => {
     setSectionVisible((e) => !e)
   }
 
   const routeParams = route?.params
-
   const params = routeParams ? Object.keys(routeParams) : null
 
   const curlCommand = `curl --location --request ${
@@ -159,5 +158,3 @@ ${
     </li>
   )
 }
-
-export const ApiCell = memo(ApiCellComponent)
