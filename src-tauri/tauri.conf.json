@@ -1,6 +1,6 @@
 {
   "build": {
-    "beforeBuildCommand": "yarn && yarn build && IMAGES_UNOPTIMIZED=true yarn export:static" ,
+    "beforeBuildCommand": "yarn && IMAGES_UNOPTIMIZED=true yarn build && IMAGES_UNOPTIMIZED=true yarn export:static" ,
     "beforeDevCommand": "yarn dev",
     "devPath": "http://localhost:3000",
     "distDir": "../.out",

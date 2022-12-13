@@ -23,7 +23,8 @@ env:
   STRIPE_KEY: $STRIPE_KEY
   BLOG_WEBFLOW_URL: $BLOG_WEBFLOW_URL
   GOOGLE_CLIENT_ID: $GOOGLE_CLIENT_ID
-  
+  IMAGES_UNOPTIMIZED: true
+
 jobs:
   publish-tauri:
     strategy:
