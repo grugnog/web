@@ -1,7 +1,7 @@
 import { FC, useState, useEffect, useCallback, memo } from 'react'
 import { useMiniPlayer } from '@app/data'
-import { FullScreenModal } from '../fullscreen-modal'
 import { usePagesData } from '@app/data/external/pages/pages'
+import { FullScreenModal } from '../fullscreen-modal'
 import { WebsiteCellPages } from '../cells'
 import { InnerWrapper } from './list-wrapper'
 import { LoadMoreButton } from '../buttons'

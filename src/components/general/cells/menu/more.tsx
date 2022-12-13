@@ -1,8 +1,9 @@
 import { memo, useCallback } from 'react'
-import { MenuItem } from '@material-ui/core'
 import { AppManager } from '@app/managers'
 import { useWebsiteContext } from '@app/components/providers/website'
-import { MoreOptionsBase, MoreOptionsProps } from './more-base'
+import { btnStyles, MoreOptionsBase, MoreOptionsProps } from './more-base'
+import { Button } from '../../buttons'
+import { Link } from '@app/app/typo/link'
 
 function MoreOptionsComponent(props: MoreOptionsProps) {
   const { updateWebsite } = useWebsiteContext()
@@ -53,24 +54,27 @@ function MoreOptionsComponent(props: MoreOptionsProps) {
     <>
       <MoreOptionsBase {...props} index={index}>
         {shutdown ? (
-          <MenuItem
+          <Link
+            className={btnStyles}
             style={{ color: '#10b981' }}
-            component={'a'}
             href={'/payments'}
           >
             Upgrade
-          </MenuItem>
+          </Link>
         ) : null}
         {typeof crawlWebsite === 'function' && !history ? (
-          <MenuItem onClick={onWebsiteCrawl}>Sync</MenuItem>
+          <Button onClick={onWebsiteCrawl} className={btnStyles}>
+            Sync
+          </Button>
         ) : null}
         {!history ? (
-          <MenuItem onClick={toggleLighthouse}>
+          <Button onClick={toggleLighthouse} className={btnStyles}>
             Toggle Lighthouse {pageInsights ? 'Off' : 'On'}
-          </MenuItem>
+          </Button>
         ) : null}
         {!history ? (
-          <MenuItem
+          <Button
+            className={btnStyles}
             onClick={handleMainClick(
               pageHeaders,
               'Custom Headers',
@@ -79,17 +83,20 @@ function MoreOptionsComponent(props: MoreOptionsProps) {
             )}
           >
             Update Headers
-          </MenuItem>
+          </Button>
         ) : null}
         {!verified ? (
-          <MenuItem
+          <Button
+            className={btnStyles}
             onClick={handleMainClick(true, 'Verify DNS', false, url as string)}
           >
             Verify DNS
-          </MenuItem>
+          </Button>
         ) : null}
         {typeof removePress === 'function' && !history ? (
-          <MenuItem onClick={removePress}>Delete</MenuItem>
+          <Button onClick={removePress} className={btnStyles}>
+            Delete
+          </Button>
         ) : null}
       </MoreOptionsBase>
     </>

@@ -1,13 +1,14 @@
+import { getSize, TWSize } from '@app/styles/tw'
 import { FC, PropsWithChildren } from 'react'
 
 export const StateLessDrawer: FC<
   PropsWithChildren<{
     initClosed?: boolean
-    maxWidth?: false | 'lg' | 'xl' | 'sm' | 'md' | 'xs' | undefined
+    size?: TWSize
     footerSpacing?: boolean
     index?: number
   }>
-> = ({ children, initClosed, maxWidth = 'lg', footerSpacing, index }) => {
+> = ({ children, initClosed, size = 'lg', footerSpacing, index }) => {
   const padding = index ? 0 : '1rem'
 
   return (
@@ -21,7 +22,9 @@ export const StateLessDrawer: FC<
         children
       ) : (
         <div
-          className={`max-w-${maxWidth}`}
+          className={`mx-auto container ${
+            size ? getSize(size) : 'sm:max-w-lg'
+          }`}
           style={{ paddingLeft: padding, paddingRight: padding }}
         >
           <div>{children}</div>

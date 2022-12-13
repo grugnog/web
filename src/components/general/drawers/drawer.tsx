@@ -1,4 +1,4 @@
-import { memo, useEffect } from 'react'
+import { memo } from 'react'
 import dynamic from 'next/dynamic'
 import Head from 'next/head'
 import { useUserData } from '@app/data'
@@ -86,13 +86,7 @@ export function NavigationBar({ title = '', authenticated }: any) {
 export function DrawerW({ children, route, title }: any) {
   const classes = drawerStyles()
   const { data: dataSourceMap, sendConfirmEmail } = useUserData()
-  const { authed, setRandomIndex } = useAuthContext()
-
-  useEffect(() => {
-    if (title) {
-      setRandomIndex()
-    }
-  }, [title, setRandomIndex])
+  const { authed } = useAuthContext()
 
   const user = dataSourceMap?.user
 

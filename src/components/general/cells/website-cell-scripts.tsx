@@ -145,7 +145,7 @@ function ScriptCell({ source: sourceData }: any) {
         </>
       </div>
       <div className='relative'>
-        <div className='absolute top-2 right-3'>
+        <div className='absolute top-2 right-5'>
           <button
             onClick={onEditPress}
             className={

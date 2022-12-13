@@ -1,29 +1,6 @@
 import { FC, Fragment, PropsWithChildren } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
-
-type TWSize = 'sm' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl'
-
-// get the max width converted to tailwind
-const getSize = (size?: TWSize) => {
-  if (size === 'sm') {
-    return 'max-w-sm'
-  }
-  if (size === 'lg') {
-    return 'max-w-lg'
-  }
-  if (size === 'xl') {
-    return 'max-w-xl'
-  }
-  if (size === '2xl') {
-    return 'max-w-2xl'
-  }
-  if (size === '3xl') {
-    return 'max-w-3xl'
-  }
-  if (size === '4xl') {
-    return 'max-w-4xl'
-  }
-}
+import { getSize, TWSize } from '@app/styles/tw'
 
 export const HeadlessModal: FC<
   PropsWithChildren<{

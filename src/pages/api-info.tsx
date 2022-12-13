@@ -54,16 +54,16 @@ function ApiInfo() {
                 href={
                   'https://github.com/A11yWatch/a11ywatch/tree/main/clients'
                 }
-                className='underline text-blue-600'
+                className='no-underline text-blue-600'
               >
                 OpenAPI
               </a>
               ,{' '}
-              <a href={'/playground'} className='underline text-blue-600'>
+              <a href={'/playground'} className='no-underline text-blue-600'>
                 GraphQL
               </a>
               , or{' '}
-              <a href={'/grpc-docs'} className='underline text-blue-600'>
+              <a href={'/grpc-docs'} className='no-underline text-blue-600'>
                 gRPC
               </a>{' '}
               documentation.

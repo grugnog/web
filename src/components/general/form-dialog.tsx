@@ -1,25 +1,20 @@
 'use client'
 
-import React, { useRef, useState, useCallback, memo, Fragment } from 'react'
-import {
-  TextField,
-  DialogActions,
-  DialogContent,
-  Checkbox,
-  FormControlLabel,
-} from '@material-ui/core'
+import React, { useState, useCallback, memo, Fragment } from 'react'
+import { Checkbox } from '@material-ui/core'
 import { Button, InputActions } from '@app/components/general'
 import { domainList as dmList } from '@app/utils'
 import { GrClose } from 'react-icons/gr'
 import { AppManager } from '@app/managers'
 import { InputHeaders } from './forms/input-headers'
 import { useInputActions, useInputHeader } from './hooks'
-import { formDialogStyles as useStyles } from './styles/form-dialog'
 import { useWebsiteContext } from '../providers/website'
 import { WCAGSelectInput } from './select'
 import { AccessibilityStandardKeys, Standard } from './select/select-input'
 import { FormControl } from './form-control'
 import { HeadlessModal } from '../modal/headless'
+import { TextField } from './text-field'
+import { useAuthContext } from '../providers/auth'
 
 const domainList = [...dmList, 'none']
 
@@ -68,8 +63,7 @@ export function FormDialogWrapper({
   )
   const [robots, setRobots] = useState<boolean>(true)
 
-  const inputRef = useRef(null)
-  const classes = useStyles()
+  const { activeSubscription } = useAuthContext()
 
   const headers = useInputHeader()
   const actions = useInputActions()
@@ -228,11 +222,6 @@ export function FormDialogWrapper({
     ]
   )
 
-  const formLabelStyles = {
-    root: classes.formLabel,
-    label: classes.formLabelText,
-  }
-
   const onChangeUA = (event: React.ChangeEvent<HTMLInputElement>) => {
     setUserAgent(event.target.value)
   }
@@ -278,140 +267,150 @@ export function FormDialogWrapper({
           </Button>
         </div>
         <form onSubmit={submit} noValidate>
-          <DialogContent
-            className={`${classes.dialogPadding} overflow-hidden relative space-y-2`}
-          >
+          <div className={`px-7 py-1 overflow-hidden relative space-y-2`}>
             <p className='text-base text-gray-700'>
               To add a website to your watchlist, enter the url below.
             </p>
             <FormControl htmlFor='name'>Enter Website Url</FormControl>
-            <TextField
-              autoFocus
-              onChange={onChangeText}
-              className={classes.input}
-              inputProps={{
-                className: classes.textInput,
-                minLength: 3,
-              }}
-              inputRef={inputRef}
-              color='secondary'
-              margin='dense'
-              value={websitUrl}
-              id='name'
-              placeholder='Website url'
-              type='url'
-              required
-            />
+            <div className={'pb-1 py-4 w-full'}>
+              <TextField
+                autoFocus
+                onChange={onChangeText}
+                minLength={3}
+                className={`w-full border px-3 py-2 rounded`}
+                color='secondary'
+                value={websitUrl}
+                id='name'
+                placeholder='Website url'
+                type='url'
+                required
+              />
+            </div>
             <div
               className={`flex flex-1 place-items-center space-x-3 overflow-x-auto pt-2 pb-1`}
             >
-              <FormControlLabel
-                classes={formLabelStyles}
-                control={
-                  <Checkbox
-                    checked={https}
-                    onChange={() => {
-                      setTransportType(!https)
-                    }}
-                    value={https}
-                    color='primary'
-                  />
-                }
-                label='HTTPS'
-              />
+              <div className='flex place-items-center'>
+                <Checkbox
+                  checked={https}
+                  onChange={() => {
+                    setTransportType(!https)
+                  }}
+                  value={https}
+                  color='primary'
+                  id={'https'}
+                />
+                <FormControl htmlFor='https' visible>
+                  HTTPS
+                </FormControl>
+              </div>
+              <div className='flex place-items-center'>
+                <Checkbox
+                  checked={pageInsights}
+                  onChange={() => {
+                    setPageInsights(!pageInsights)
+                  }}
+                  value={pageInsights}
+                  color='primary'
+                  id={'lighthouse'}
+                />
+                <FormControl htmlFor='lighthouse' visible>
+                  Lighthouse
+                </FormControl>
+              </div>
 
-              <FormControlLabel
-                classes={formLabelStyles}
-                control={
-                  <Checkbox
-                    checked={pageInsights}
-                    onChange={() => {
-                      setPageInsights(!pageInsights)
-                    }}
-                    value={pageInsights}
-                    color='primary'
-                  />
-                }
-                label='Lighthouse'
-              />
-              <FormControlLabel
-                classes={formLabelStyles}
-                control={
-                  <Checkbox
-                    checked={mobileViewport}
-                    onChange={() => {
-                      setMobile(!mobileViewport)
-                    }}
-                    value={mobileViewport}
-                    color='primary'
-                  />
-                }
-                label='Mobile'
-              />
-              <FormControlLabel
-                classes={formLabelStyles}
-                control={
-                  <Checkbox
-                    color='primary'
-                    checked={robots}
-                    value={robots}
-                    onChange={onChangeRobotsEvent}
-                  />
-                }
-                label='Robots'
-              />
-              <FormControlLabel
-                classes={formLabelStyles}
-                control={
-                  <Checkbox
-                    color='primary'
-                    checked={subdomains}
-                    value={subdomains}
-                    onChange={onChangeSubdomainsEvent}
-                  />
-                }
-                label='Subdomains'
-              />
-              <FormControlLabel
-                classes={formLabelStyles}
-                control={
-                  <Checkbox
-                    color='primary'
-                    checked={tld}
-                    value={tld}
-                    onChange={onChangeTldEvent}
-                  />
-                }
-                label='TLDs'
-              />
+              <div className='flex place-items-center'>
+                <Checkbox
+                  checked={mobileViewport}
+                  onChange={() => {
+                    setMobile(!mobileViewport)
+                  }}
+                  value={mobileViewport}
+                  color='primary'
+                  id={'mobile'}
+                />
+                <FormControl htmlFor='mobile' visible>
+                  Mobile
+                </FormControl>
+              </div>
+
+              <div className='flex place-items-center'>
+                <Checkbox
+                  color='primary'
+                  checked={robots}
+                  value={robots}
+                  onChange={onChangeRobotsEvent}
+                  id={'robots'}
+                />
+                <FormControl htmlFor='robots' visible>
+                  Robots
+                </FormControl>
+              </div>
+
+              <div className='flex place-items-center'>
+                <Checkbox
+                  color='primary'
+                  checked={subdomains}
+                  value={subdomains}
+                  onChange={onChangeSubdomainsEvent}
+                  id={'subdomains'}
+                  disabled={!activeSubscription}
+                />
+                <FormControl
+                  htmlFor='subdomains'
+                  visible
+                  disabled={!activeSubscription}
+                >
+                  Subdomains
+                </FormControl>
+              </div>
+
+              <div className='flex place-items-center'>
+                <Checkbox
+                  color='primary'
+                  checked={tld}
+                  value={tld}
+                  onChange={onChangeTldEvent}
+                  id={'tlds'}
+                  disabled={!activeSubscription}
+                />
+                <FormControl
+                  htmlFor='tlds'
+                  visible
+                  disabled={!activeSubscription}
+                >
+                  TLDs
+                </FormControl>
+              </div>
             </div>
             <div
               className={`flex flex-1 place-items-center space-x-3 overflow-x-auto pb-2`}
             >
-              <FormControlLabel
-                classes={formLabelStyles}
-                control={
-                  <Checkbox
-                    color='primary'
-                    checked={customActions}
-                    value={customActions}
-                    onChange={onChangeActionsEvent}
-                  />
-                }
-                label='Actions'
-              />
-              <FormControlLabel
-                classes={formLabelStyles}
-                control={
-                  <Checkbox
-                    color='primary'
-                    checked={customHeader}
-                    value={customHeader}
-                    onChange={onChangeHeadersEvent}
-                  />
-                }
-                label='Headers'
-              />
+              <div className='flex place-items-center'>
+                <Checkbox
+                  color='primary'
+                  checked={customActions}
+                  value={customActions}
+                  onChange={onChangeActionsEvent}
+                  id={'actions'}
+                />
+                <FormControl htmlFor='actions' visible>
+                  Actions
+                </FormControl>
+              </div>
+
+              <div className='flex place-items-center'>
+                <Checkbox
+                  color='primary'
+                  checked={customHeader}
+                  value={customHeader}
+                  onChange={onChangeHeadersEvent}
+                  id={'headers'}
+                />
+                <FormControl htmlFor='headers' visible>
+                  Headers
+                </FormControl>
+              </div>
+
               <WCAGSelectInput
                 standard={standard}
                 onStandardChange={onStandardChange}
@@ -419,11 +418,10 @@ export function FormDialogWrapper({
               <FormControl htmlFor='ua'>Enter User Agent</FormControl>
               <TextField
                 onChange={onChangeUA}
-                className={classes.input}
+                className={`px-2 py-1`}
                 style={{ maxWidth: 120 }}
                 value={ua}
                 color='secondary'
-                margin='dense'
                 id='ua'
                 placeholder='User-Agent'
                 type='text'
@@ -431,16 +429,16 @@ export function FormDialogWrapper({
             </div>
             {customHeader ? <InputHeaders {...headers} /> : null}
             {customActions ? <InputActions {...actions} /> : null}
-          </DialogContent>
-          <DialogActions style={{ padding: 0 }}>
+          </div>
+          <div className='pt-2'>
             <Button
               disabled={!websitUrl}
               type='submit'
-              className='w-full border rounded-none'
+              className='w-full border rounded-none md:py-3'
             >
               Subscribe
             </Button>
-          </DialogActions>
+          </div>
         </form>
       </HeadlessModal>
     </Fragment>

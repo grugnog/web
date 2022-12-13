@@ -18,7 +18,7 @@ type AuthMenuComponentProps = {
 }
 
 const menuItemCss =
-  'w-full px-4 py-2 m-0 border-t text-left h-10 flex hover:no-underline hover:bg-gray-100'
+  'w-full px-4 py-2 md:px-4 border-t h-10 flex text-sm place-items-center place-content-start hover:no-underline hover:bg-gray-100'
 
 export function AuthMenu({ authenticated }: AuthMenuComponentProps) {
   const router = useRouter()

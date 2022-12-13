@@ -1,20 +1,38 @@
-import { DetailedHTMLProps, LabelHTMLAttributes } from 'react'
+import { classNames } from '@app/utils/classes'
+import {
+  DetailedHTMLProps,
+  FC,
+  LabelHTMLAttributes,
+  PropsWithChildren,
+} from 'react'
 
 interface LabelProps
   extends DetailedHTMLProps<
     LabelHTMLAttributes<HTMLLabelElement>,
     HTMLLabelElement
-  > {}
+  > {
+  visible?: boolean
+  disabled?: boolean // is the input disabled
+  id?: string
+}
 
-export const FormControl = (props: LabelProps) => {
+export const FormControl: FC<PropsWithChildren<LabelProps>> = ({
+  disabled,
+  htmlFor,
+  visible,
+  id,
+  children,
+}) => {
   return (
     <label
-      className='px-4 sr-only'
-      data-shrink='false'
-      htmlFor={props.htmlFor}
-      id='email-label'
+      className={classNames(
+        `${visible ? 'text-sm' : 'sr-only'}`,
+        disabled ? 'text-gray-500' : ''
+      )}
+      htmlFor={htmlFor}
+      id={id}
     >
-      {props.children}
+      {children}
     </label>
   )
 }

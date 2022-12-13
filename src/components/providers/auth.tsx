@@ -5,20 +5,12 @@ import {
   useState,
   useEffect,
   PropsWithChildren,
-  useCallback,
 } from 'react'
-import { REST_API } from '@app/configs/app-config'
 import { UserManager } from '@app/managers'
 
 const AppContext = createContext({
   activeSubscription: false,
   authed: false,
-  // native ads
-  ads: [],
-  adIndex: -1,
-  setRandomIndex: () => {
-    return
-  },
 })
 
 export const AuthProvider = AppContext.Provider
@@ -32,16 +24,6 @@ export const AuthProviderWrapper: FC<PropsWithChildren<{ load?: boolean }>> = ({
     activeSubscription: boolean
     authed: boolean
   }>({ activeSubscription: false, authed: false })
-  const [ads, setAds] = useState([])
-  const [adIndex, setIndex] = useState(-1)
-
-  const setRandomIndex = useCallback(
-    (val?: any[]) => {
-      const value = val ?? ads
-      setIndex(Math.floor(Math.random() * value.length - 1) + 1)
-    },
-    [setIndex, ads]
-  )
 
   useEffect(() => {
     if (load) {
@@ -51,36 +33,10 @@ export const AuthProviderWrapper: FC<PropsWithChildren<{ load?: boolean }>> = ({
         activeSubscription: !freeAccount,
         authed: !!UserManager.token,
       })
-
-      // if refs enabled allow getting friends
-      if (freeAccount && process.env.NEXT_PUBLIC_REF_ENABLED === 'true') {
-        fetch(REST_API + '/ads/refs', {
-          headers: { authorization: UserManager.token },
-        }).then((data) => {
-          if (data) {
-            data.json().then((json) => {
-              if (json && json.length) {
-                setAds(json)
-              }
-            })
-          }
-        })
-      }
     }
-  }, [load, setAds])
+  }, [load])
 
-  return (
-    <AuthProvider
-      value={{
-        ...account,
-        ads,
-        adIndex,
-        setRandomIndex: setRandomIndex,
-      }}
-    >
-      {children}
-    </AuthProvider>
-  )
+  return <AuthProvider value={account}>{children}</AuthProvider>
 }
 
 export function useAuthContext() {

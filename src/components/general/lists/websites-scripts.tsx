@@ -16,14 +16,14 @@ function ScriptsWrapper(props: any) {
   return (
     <li>
       <button
-        className={`border border-l-0 border-r-0 px-3 py-3 w-full text-left ${
+        className={`border border-l-0 border-r-0 px-3 py-3 w-full text-left md:text-base ${
           visible ? 'rounded-b-none' : ''
         }`}
         onClick={onTogglelist}
         aria-expanded={visible}
         aria-label={`Toggle section visible for ${props?.pageUrl}`}
       >
-        <div className={'text-2xl md:text-2xl font-bold'}>{props?.pageUrl}</div>
+        {props?.pageUrl}
       </button>
       <div
         aria-hidden={!visible}
@@ -99,8 +99,6 @@ const ListCell = ({
     setVisible((v: boolean) => !v)
   }
 
-  const totalIssues = item?.issuesInfo?.totalIssues
-
   return (
     <li
       key={item?._id}
@@ -112,12 +110,8 @@ const ListCell = ({
         aria-expanded={visible}
         aria-label={`Toggle section visible for ${item?.domain}`}
       >
-        <div>
-          <div className={'text-2xl font-bold'}>{item?.domain}</div>
-          <div>
-            {totalIssues} possible issue
-            {totalIssues === 1 ? '' : 's'}
-          </div>
+        <div className={'text-lg md:text-xl font-semibold truncate'}>
+          {item?.domain}
         </div>
       </button>
       {visible ? (

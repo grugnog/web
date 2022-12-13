@@ -1,10 +1,13 @@
 import { memo, useMemo } from 'react'
-import { IconButton, MenuItem } from '@material-ui/core'
 import { GrMoreVertical } from 'react-icons/gr'
-import { NextComposed } from '@app/components/general/link'
+import { Link } from '@app/components/general/link'
 import { TopMenu } from '@app/components/general/top-menu'
 import type { Website } from '@app/types'
 import { issueExtractor } from '@app/utils'
+import { Button } from '../../buttons'
+
+export const btnStyles =
+  'px-3 py-2 block w-full text-left border-none rounded-none text-base md:px-4 md:text-base md:border-none hover:no-underline hover:bg-gray-100 hover:shadow-none'
 
 export interface MoreOptionsProps extends Partial<Website> {
   removePress?(): void
@@ -57,28 +60,30 @@ function MoreOptionsBaseComponent({
 
   return (
     <>
-      <IconButton
+      <Button
         aria-label='account of current user'
         aria-controls={menuId}
         aria-haspopup='true'
         onClick={handleMenu}
+        iconButton
       >
         <GrMoreVertical />
-      </IconButton>
+      </Button>
       <TopMenu
         id={menuId}
         anchorEl={anchorEl}
         open={!!anchorEl}
         onClose={handleClose}
       >
-        <MenuItem component={NextComposed as any} href={href}>
+        <Link href={href} className={btnStyles}>
           View Sandbox
-        </MenuItem>
-        <MenuItem component={NextComposed as any} href={reportHref}>
+        </Link>
+        <Link href={reportHref} className={btnStyles}>
           View Report
-        </MenuItem>
+        </Link>
         {issues?.length ? (
-          <MenuItem
+          <Button
+            className={btnStyles}
             onClick={handleMainClick(
               issues,
               'Issues',
@@ -87,18 +92,22 @@ function MoreOptionsBaseComponent({
             )}
           >
             View Issues
-          </MenuItem>
+          </Button>
         ) : null}
         {lh ? (
-          <MenuItem
+          <button
+            className={btnStyles}
             onClick={handleMainClick(JSON.stringify(lh), 'Lighthouse', true)}
           >
             View Lighthouse
-          </MenuItem>
+          </button>
         ) : null}
-        <MenuItem onClick={handleMainClick(targetUrl, 'Mini Player', true)}>
+        <Button
+          onClick={handleMainClick(targetUrl, 'Mini Player', true)}
+          className={btnStyles}
+        >
           View Sandbox (Mini Player)
-        </MenuItem>
+        </Button>
         {children}
       </TopMenu>
     </>

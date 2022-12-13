@@ -14,7 +14,7 @@ import { MoreOptionsBase } from './menu'
 import { Lighthouse } from '../lighthouse'
 
 const styles = {
-  title: 'text-xl md:text-2xl font-semibold truncate',
+  title: 'text-base md:text-lg truncate',
   spacing: 'py-1',
   row: 'flex flex-1',
   metaBlock: 'px-2 py-1 border',

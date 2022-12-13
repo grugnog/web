@@ -98,7 +98,7 @@ function Payments({ hideTitle = false, name }: PaymentProps) {
   return (
     <>
       <NavBar title={name} backButton notitle />
-      <StateLessDrawer>
+      <StateLessDrawer size='max-w-screen-2xl'>
         <SectionContainer container block>
           {hideTitle ? null : <Header>Payments</Header>}
           {loading && !data ? (

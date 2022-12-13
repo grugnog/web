@@ -16,12 +16,12 @@ export function CdnBlockComponent({
   hideMin,
 }: CdnProps) {
   return (
-    <div className={`flex place-items-center space-x-2 overflow-hidden`}>
+    <div className={`flex place-items-center space-x-2 overflow-y-hidden`}>
       <div className={`flex-1`}>
         {!hideUrl && cdn_url ? (
           <>
             {hideMin ? (
-              <div className={'border py-1 px-2 font-bold'}>
+              <div className={'border py-1 px-2 font-semibold'}>
                 <p className='text-xs'>Source</p>
               </div>
             ) : null}
@@ -32,7 +32,7 @@ export function CdnBlockComponent({
         ) : null}
         {!hideMin && cdn_url_min ? (
           <>
-            <div className={'border py-1 px-2 font-bold'}>
+            <div className={'border py-1 px-2 font-semibold'}>
               <p className='text-xs'>Minified</p>
             </div>
             <PrismLight

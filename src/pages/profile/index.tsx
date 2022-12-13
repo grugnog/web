@@ -19,7 +19,6 @@ import { TextSkeleton } from '@app/components/placeholders'
 import { AppManager } from '@app/managers'
 import { useUserData } from '@app/data'
 import { metaSetter } from '@app/utils'
-import { useProfileStyles as useStyles } from '@app/styles/pages/profile'
 import type { PageProps } from '@app/types'
 // import { useBillingDisplay } from '@app/data/formatters'
 import { roleMap } from '@app/utils/role-map'
@@ -73,9 +72,9 @@ const passwordReducer: PasswordReducer = (state, action) => {
 
 // url to manage billing page
 const MANAGE_BILLING = process.env.NEXT_PUBLIC_MANAGE_BILLING_URL
+const classes = { row: 'flex place-items-center', submit: 'min-w-[175px]' }
 
 const Profile: FC<PageProps> = ({ name }) => {
-  const classes = useStyles()
   const { data, loading, updateUser, updateUserData } = useUserData(
     true,
     'profile'

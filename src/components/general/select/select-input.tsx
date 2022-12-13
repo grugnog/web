@@ -32,7 +32,7 @@ export const WCAGSelectInput = ({ onStandardChange, standard }: InputProps) => {
         id='ext-select-outlined'
         value={standard}
         onChange={onStandardChange}
-        className={'text-sm border-0 m-0 hover:bg-gray-100 rounded'}
+        className={'text-sm border-0 m-0 hover:bg-gray-100 rounded px-2 py-1.5'}
       >
         {standards.map((value: any) => (
           <option value={value} key={value} className={'text-sm'}>

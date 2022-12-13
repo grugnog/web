@@ -114,7 +114,7 @@ export function FeaturesCellComponent({
   return (
     <li>
       <Link
-        className={`flex text-base place-items-center gap-x-3 py-3 pl-2 pr-2 place-content-around hover:bg-gray-100 hover:no-underline md:py-2 md:pl-5 md:pr-2`}
+        className={`flex text-base place-items-center gap-x-3 py-3 pl-2 pr-2 place-content-around hover:bg-gray-100 hover:no-underline md:py-2 md:pl-5 md:pr-2 md:min-h-[54px]`}
         {...extraProps(feature, focused, setEvents)}
       >
         <div className='flex flex-1 place-items-center gap-x-5 place-content-center md:place-content-start'>
