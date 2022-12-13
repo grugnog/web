@@ -28,7 +28,7 @@ function OSSCell({ item }: { item: typeof OSSRoutes[number] }) {
         </div>
         <div className='flex place-content-between place-items-center pt-3'>
           <div className='text-sm'>{item.fullName.toLowerCase()}</div>
-          <div className='flex space-x-2 text-xm place-items-center '>
+          <div className='flex space-x-2 text-xs place-items-center '>
             {item.stars ?? 0}
             <GrStar className='grIcon w-3 h-3' />
           </div>

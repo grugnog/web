@@ -1,5 +1,5 @@
 import { memo } from 'react'
-import { AppBar, List, Typography, Container } from '@material-ui/core'
+import { AppBar } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 
 import { NavBarTitle } from './navigation'
@@ -178,7 +178,7 @@ export function FullScreenModalWrapper({
 
     if (issuesModal && isFlatIssues) {
       return (
-        <List>
+        <ul className='list-none py-2'>
           {data?.map((item: any, listIndex: number) => {
             return (
               <FeedIssue
@@ -189,14 +189,14 @@ export function FullScreenModalWrapper({
               />
             )
           })}
-        </List>
+        </ul>
       )
     }
 
     // render the the list data exist
     if (data && Array.isArray(data) && issueCount) {
       return (
-        <List>
+        <ul className='list-none py-2'>
           {data?.map((item: any, listIndex: number) => {
             return (
               <WebsitePrimaryCell
@@ -215,15 +215,13 @@ export function FullScreenModalWrapper({
               />
             )
           })}
-        </List>
+        </ul>
       )
     }
 
     return (
-      <Container>
-        <Typography variant='subtitle1' component='p'>
-          No data found yet, please try again later or reload the page.
-        </Typography>
+      <div className='container mx-auto'>
+        <p>No data found yet, please try again later or reload the page.</p>
         <Button
           aria-label='refetch data'
           aria-haspopup='true'
@@ -231,7 +229,7 @@ export function FullScreenModalWrapper({
         >
           Reload Data
         </Button>
-      </Container>
+      </div>
     )
   }
 

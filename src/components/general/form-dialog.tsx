@@ -3,7 +3,6 @@
 import React, { useRef, useState, useCallback, memo, Fragment } from 'react'
 import {
   TextField,
-  Dialog,
   DialogActions,
   DialogContent,
   Checkbox,
@@ -15,11 +14,12 @@ import { GrClose } from 'react-icons/gr'
 import { AppManager } from '@app/managers'
 import { InputHeaders } from './forms/input-headers'
 import { useInputActions, useInputHeader } from './hooks'
-import { formDialogStyles as useStyles } from './styles'
+import { formDialogStyles as useStyles } from './styles/form-dialog'
 import { useWebsiteContext } from '../providers/website'
 import { WCAGSelectInput } from './select'
 import { AccessibilityStandardKeys, Standard } from './select/select-input'
 import { FormControl } from './form-control'
+import { HeadlessModal } from '../modal/headless'
 
 const domainList = [...dmList, 'none']
 
@@ -263,11 +263,11 @@ export function FormDialogWrapper({
       <Button onClick={handleClickOpen} className={buttonStyles}>
         {buttonTitle}
       </Button>
-      <Dialog
+      <HeadlessModal
         open={open}
         onClose={handleClose}
         aria-labelledby='form-dialog-title'
-        maxWidth={'xl'}
+        size={'3xl'}
       >
         <div className={'px-6 py-3 flex place-items-center'}>
           <h3 id='form-dialog-title' className={'flex-1 text-xl font-medium'}>
@@ -442,7 +442,7 @@ export function FormDialogWrapper({
             </Button>
           </DialogActions>
         </form>
-      </Dialog>
+      </HeadlessModal>
     </Fragment>
   )
 }

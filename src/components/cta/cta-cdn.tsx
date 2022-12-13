@@ -25,9 +25,7 @@ function CtaCdn({
 
   if (!authenticated) {
     limitedResonse = website?.issuesInfo
-      ? `This is a limited API response showing ${
-        website?.issues?.length
-        }/${
+      ? `This is a limited API response showing ${website?.issues?.length}/${
           totalCurrentIssues || '_'
         } issue${suf} for the current page, sign in to see the full report across all pages.`
       : 'Gathering details'

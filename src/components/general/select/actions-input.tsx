@@ -1,13 +1,12 @@
 import React, { useState } from 'react'
 import {
-  FormControl,
   Select,
   MenuItem,
   InputLabel,
   FormLabel,
   TextField,
 } from '@material-ui/core'
-import { formDialogStyles as useStyles } from '../styles'
+import { formDialogStyles as useStyles } from '../styles/form-dialog'
 
 export enum Standard {
   'WAIT_FOR_ELEMENT',
@@ -131,7 +130,7 @@ export const ActionsSelectInput = ({ onStandardChange, path }: InputProps) => {
   return (
     <>
       <div className={'flex gap-x-2 flex-wrap place-items-center'}>
-        <FormControl>
+        <>
           <InputLabel
             id={actionId}
             className='sr-only'
@@ -159,7 +158,7 @@ export const ActionsSelectInput = ({ onStandardChange, path }: InputProps) => {
               </MenuItem>
             ))}
           </Select>
-        </FormControl>
+        </>
         {elementSelectForm(action) ? (
           <FormLabel>
             <TextField
@@ -189,7 +188,7 @@ export const ActionsSelectInput = ({ onStandardChange, path }: InputProps) => {
           </>
         ) : null}
         {action === Standard[0] ? (
-          <FormControl>
+          <>
             <InputLabel
               id={waitForId}
               className='sr-only'
@@ -217,7 +216,7 @@ export const ActionsSelectInput = ({ onStandardChange, path }: InputProps) => {
                 </MenuItem>
               ))}
             </Select>
-          </FormControl>
+          </>
         ) : null}
       </div>
     </>

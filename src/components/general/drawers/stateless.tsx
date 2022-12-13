@@ -1,5 +1,4 @@
 import { FC, PropsWithChildren } from 'react'
-import { Container } from '@material-ui/core'
 
 export const StateLessDrawer: FC<
   PropsWithChildren<{
@@ -21,12 +20,12 @@ export const StateLessDrawer: FC<
       {initClosed ? (
         children
       ) : (
-        <Container
-          maxWidth={maxWidth}
+        <div
+          className={`max-w-${maxWidth}`}
           style={{ paddingLeft: padding, paddingRight: padding }}
         >
           <div>{children}</div>
-        </Container>
+        </div>
       )}
     </main>
   )

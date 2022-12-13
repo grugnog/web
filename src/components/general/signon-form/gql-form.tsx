@@ -8,8 +8,6 @@ import {
 import { GoogleLoginButton } from '../google-login'
 import { useRouter } from 'next/router'
 import {
-  Typography,
-  Button,
   TextField,
   FormControl,
   FormHelperText,
@@ -23,7 +21,8 @@ import { LinearBottom } from '../loaders'
 import { DOMAIN_NAME } from '@app/configs'
 import { GrGithub } from 'react-icons/gr'
 import { REST_API } from '@app/configs/app-config'
-import { Header, Header4 } from '../header'
+import { Header } from '../header'
+import { Button } from '../buttons'
 
 const clientID = process.env.GITHUB_CLIENT_ID
 
@@ -39,43 +38,19 @@ const useStyles = makeStyles((theme) => ({
     marginRight: theme.spacing(1),
     width: 200,
   },
-  submit: {
-    marginTop: 10,
-    width: 200,
-    border: `1px solid ${theme.palette.divider}`,
-  },
   textCenter: {
     textAlign: 'center',
     marginBottom: 10,
-  },
-  row: {
-    marginTop: 10,
-    flexDirection: 'row',
-    display: 'inline-flex',
-  },
-  loginLink: {
-    fontWeight: 'bold',
-    marginLeft: 6,
-  },
-  or: {
-    marginTop: 7,
-  },
-  google: {
-    width: 200,
-    minHeight: 40,
-    border: `1px solid rgba(0, 0, 0, 0.3)`,
   },
 }))
 
 interface SignOnProps {
   loginView?: boolean
-  home?: boolean
   googleLoginSkeleton?: boolean
 }
 
 const SignOnFormWrapper: FunctionComponent<SignOnProps> = ({
   loginView,
-  home,
   googleLoginSkeleton = false,
 }) => {
   const router = useRouter()
@@ -166,12 +141,13 @@ const SignOnFormWrapper: FunctionComponent<SignOnProps> = ({
     e: SyntheticEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => setPassword(e.currentTarget.value)
 
-  const Heading = home ? Header4 : Header
+  const Heading = Header
+
   return (
     <Fragment>
       <div className='container mx-auto place-content-center'>
         <Heading className='text-center max-w-[100vw]'>
-          {(loginView && 'Login') || (home && 'Sign up for free') || 'Register'}
+          {(loginView && 'Login') || 'Register'}
         </Heading>
         <div className={classes.paper}>
           <div
@@ -207,9 +183,7 @@ const SignOnFormWrapper: FunctionComponent<SignOnProps> = ({
               skeleton={googleLoginSkeleton}
             />
           </div>
-          <Typography variant='overline' component='p' className={classes.or}>
-            Or
-          </Typography>
+          <p className={'pt-2 text-sm'}>Or</p>
           <form autoComplete={loginView ? 'on' : 'off'} onSubmit={submit}>
             <div>
               <FormControl>
@@ -225,7 +199,7 @@ const SignOnFormWrapper: FunctionComponent<SignOnProps> = ({
                   }}
                   onChange={onChangeEmailEvent}
                   value={email}
-                  autoFocus={!home}
+                  autoFocus={true}
                   autoComplete='email'
                   variant='outlined'
                   required
@@ -266,42 +240,32 @@ const SignOnFormWrapper: FunctionComponent<SignOnProps> = ({
                 </FormHelperText>
               </FormControl>
             </div>
-            <Button className={classes.submit} type='submit'>
-              {loginView ? 'Login' : 'Sign up with email'}
-            </Button>
+            <div className='py-3'>
+              <Button className={'min-w-[200px] md:min-w-[200px] md:border-2 md:rounded-sm md:font-medium'} type='submit'>
+                {loginView ? 'Login' : 'Sign up with email'}
+              </Button>
+            </div>
           </form>
-          {home ? (
-            <span className={classes.row}>
-              <Typography variant='overline' component='span'>
-                Already have an account?
-                <Link href='/login' className={classes.loginLink}>
-                  Log in
-                </Link>
-              </Typography>
-            </span>
-          ) : null}
-          {!home ? (
-            <span className={classes.row}>
-              <Typography variant='overline' component='p'>
-                Forgot Password? <Link href='/reset-password'>Reset</Link>
-              </Typography>
-            </span>
-          ) : null}
+
+          <p className='text-sm'>
+            Forgot Password? <Link href='/reset-password' className='text-sm'>Reset</Link>
+          </p>
         </div>
         <div className={'text-xs text-center py-4'}>
           This site is protected by the{' '}
-          <Link href={'https://policies.google.com/privacy'}>
+          <Link href={'https://policies.google.com/privacy'} className='text-xs'>
             Google Privacy Policy
           </Link>{' '}
           and{' '}
-          <Link href={'https://policies.google.com/terms'}>
+          <Link href={'https://policies.google.com/terms'} className='text-xs'>
             Terms of Service
           </Link>{' '}
           apply. By clicking {`"Create account"`}, I agree to {`A11yWatch's `}
-          <Link href={'/terms-of-service'}>TOS</Link> and{' '}
+          <Link href={'/terms-of-service'} className='text-xs'>TOS</Link> and{' '}
           <Link
             href={'/privacy'}
             aria-label={`${DOMAIN_NAME} privacy policy statement.`}
+            className='text-xs'
           >
             Privacy Policy
           </Link>

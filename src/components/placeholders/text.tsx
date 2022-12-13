@@ -1,7 +1,7 @@
 import { SkeletonProps, Skeleton } from './skeleton'
 
 type TextSize =
-  | 'xm'
+  | 'xs'
   | 'sm'
   | 'base'
   | 'lg'
@@ -21,7 +21,7 @@ interface Props {
 const getHeight = (size: TextSize) => {
   let h = 18
   switch (size) {
-    case 'xm': {
+    case 'xs': {
       h = 16
       break
     }

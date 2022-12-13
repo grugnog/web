@@ -1,8 +1,8 @@
 import React from 'react'
 import { GOOGLE_CLIENT_ID } from '@app/configs'
 import { GoogleIcon } from '@app/components/badges'
-import { Button } from '@material-ui/core'
 import { GoogleLogin } from 'react-google-login'
+import { Button } from './buttons'
 
 interface GoogleLoginButton {
   onSuccess?: (a: any) => Promise<void>
@@ -28,22 +28,10 @@ export const GoogleLoginButton = (props: GoogleLoginButton) => {
         render={(renderProps: any) => (
           <Button
             onClick={renderProps.onClick}
-            className={`${classes.google} text-xm`}
+            className={`min-w-[200px] md:min-w-[200px] border-2 min-h-[40px] flex rounded-sm md:rounded-sm gap-x-2 place-items-center place-content-center font-semibold md:font-semibold`}
             disabled={renderProps.disabled}
-            variant='text'
-            size='small'
-            style={{
-              textTransform: 'none',
-              paddingLeft: '0.725rem',
-              fontSize: '0.875rem',
-              borderWidth: 2,
-              borderColor: '#e5e5e5',
-              display: 'flex',
-              placeContent: 'center',
-            }}
-            startIcon={<GoogleIcon className={classes.iconColor} src={''} />}
           >
-            {loginView ? 'Login with Google' : 'Sign up with Google'}
+            <GoogleIcon className={classes.iconColor} src={''} /> {loginView ? 'Login with Google' : 'Sign up with Google'}
           </Button>
         )}
       />
@@ -52,13 +40,12 @@ export const GoogleLoginButton = (props: GoogleLoginButton) => {
 
   return (
     <Button
-      className={classes?.google}
-      disabled={true}
-      variant='text'
-      size='small'
-      startIcon={<GoogleIcon className={classes?.iconColor} src={''} />}
-    >
-      {loginView ? 'Login' : 'Sign up with google'}
-    </Button>
+    disabled={true}
+    className={`min-w-[200px] md:min-w-[200px] border-2 min-h-[40px] flex rounded-sm md:rounded-sm gap-x-2 place-items-center place-content-center font-semibold md:font-semibold`}
+  >
+    <GoogleIcon className={classes.iconColor} src={''} /> {loginView ? 'Login with Google' : 'Sign up with Google'}
+  </Button>
+
+
   )
 }
