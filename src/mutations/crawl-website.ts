@@ -36,7 +36,6 @@ export const CRAWL_WEBSITE = gql`
           errorCount
           warningCount
           noticeCount
-          limitedCount
           pageCount
         }
       }

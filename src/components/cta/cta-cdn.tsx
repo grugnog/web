@@ -21,13 +21,12 @@ function CtaCdn({
 
   const totalCurrentIssues =
     website?.issuesInfo?.totalIssues ?? website?.issues?.length
-
   const suf = totalCurrentIssues === 1 ? '' : 's'
 
   if (!authenticated) {
-    limitedResonse = website?.issuesInfo?.limitedCount
+    limitedResonse = website?.issuesInfo
       ? `This is a limited API response showing ${
-          website.issuesInfo.limitedCount
+        website?.issues?.length
         }/${
           totalCurrentIssues || '_'
         } issue${suf} for the current page, sign in to see the full report across all pages.`
@@ -46,21 +45,21 @@ function CtaCdn({
         </p>
       ) : null}
       <div className='py-2'>
-        <div className={'border-2 rounded border-gray-500 p-2'}>
-          <p className='text-base text-grey-700'>{limitedResonse}</p>
+        <div className={'border-2 rounded border-grey-700 p-2'}>
+          <p className='text-sm text-grey-700'>{limitedResonse}</p>
         </div>
       </div>
       {disablePlayground || authenticated ? null : (
         <div className={'flex align-center space-x-2'}>
           <Link
             href={'/login'}
-            className={`px-6 py-2 text-lg border rounded font-semibold text-gray-600 border-gray-600`}
+            className={`px-6 py-1.5 text-lg border-2 rounded text-grey-700 border-grey-600 hover:no-underline`}
           >
             Login
           </Link>
           <Link
             href={'/register'}
-            className={`px-6 py-2 text-lg border rounded font-semibold text-blue-600 border-blue-600`}
+            className={`px-6 py-1.5 text-lg border-none rounded text-grey-700 no-underline hover:bg-grey-50 hover:no-underline`}
           >
             Register
           </Link>

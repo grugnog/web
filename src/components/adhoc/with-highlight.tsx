@@ -4,7 +4,6 @@ import { PrismLight } from 'react-syntax-highlighter'
 
 const useStyles = makeStyles(() => ({
   code: {
-    fontSize: '12px',
     '&::-webkit-scrollbar': {
       background: '#424242',
       height: 7,
@@ -23,7 +22,7 @@ const WithHighlight = ({ setScript, children, ...extraProps }: any) => {
   return (
     <PrismLight
       style={a11yDark}
-      className={classes.code}
+      className={`text-sm ${classes.code}`}
       language='html'
       useInlineStyles
       {...extraProps}

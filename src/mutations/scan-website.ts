@@ -38,7 +38,6 @@ const SCAN_WEBSITE = gql`
           totalIssues
           errorCount
           warningCount
-          limitedCount
         }
         issue {
           code
