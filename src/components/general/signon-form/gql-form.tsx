@@ -7,11 +7,7 @@ import {
 } from 'react'
 import { GoogleLoginButton } from '../google-login'
 import { useRouter } from 'next/router'
-import {
-  TextField,
-  FormControl,
-  FormHelperText,
-} from '@material-ui/core'
+import { TextField, FormControl, FormHelperText } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import { useMutation } from '@apollo/react-hooks'
 import { REGISTER, LOGIN } from '@app/mutations'
@@ -241,19 +237,30 @@ const SignOnFormWrapper: FunctionComponent<SignOnProps> = ({
               </FormControl>
             </div>
             <div className='py-3'>
-              <Button className={'min-w-[200px] md:min-w-[200px] md:border-2 md:rounded-sm md:font-medium'} type='submit'>
+              <Button
+                className={
+                  'min-w-[200px] md:min-w-[200px] md:border-2 md:rounded-sm md:font-medium'
+                }
+                type='submit'
+              >
                 {loginView ? 'Login' : 'Sign up with email'}
               </Button>
             </div>
           </form>
 
           <p className='text-sm'>
-            Forgot Password? <Link href='/reset-password' className='text-sm'>Reset</Link>
+            Forgot Password?{' '}
+            <Link href='/reset-password' className='text-sm'>
+              Reset
+            </Link>
           </p>
         </div>
         <div className={'text-xs text-center py-4'}>
           This site is protected by the{' '}
-          <Link href={'https://policies.google.com/privacy'} className='text-xs'>
+          <Link
+            href={'https://policies.google.com/privacy'}
+            className='text-xs'
+          >
             Google Privacy Policy
           </Link>{' '}
           and{' '}
@@ -261,7 +268,10 @@ const SignOnFormWrapper: FunctionComponent<SignOnProps> = ({
             Terms of Service
           </Link>{' '}
           apply. By clicking {`"Create account"`}, I agree to {`A11yWatch's `}
-          <Link href={'/terms-of-service'} className='text-xs'>TOS</Link> and{' '}
+          <Link href={'/terms-of-service'} className='text-xs'>
+            TOS
+          </Link>{' '}
+          and{' '}
           <Link
             href={'/privacy'}
             aria-label={`${DOMAIN_NAME} privacy policy statement.`}

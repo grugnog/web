@@ -1,12 +1,5 @@
-import React, { useRef } from 'react'
-import {
-  AppBar,
-  Dialog,
-  Toolbar,
-  IconButton,
-  Grow,
-  List,
-} from '@material-ui/core'
+import { useRef } from 'react'
+import { Dialog } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import { useMiniPlayer } from '@app/data'
 import { NavBarTitle } from './navigation'
@@ -15,16 +8,9 @@ import { GrClose } from 'react-icons/gr'
 import { issueExtractor } from '@app/utils'
 import { FeedIssue } from './feed/issue'
 import Draggable from 'react-draggable'
+import { Button } from './buttons'
 
 const useStyles = makeStyles((theme: MergedTheme) => ({
-  root: {
-    overflowX: 'hidden',
-  },
-  appBar: {
-    position: 'sticky',
-    backgroundColor: '#0E1116',
-    color: '#fff',
-  },
   miniPlayer: {
     overflowX: 'hidden',
     right: 'auto !important',
@@ -33,27 +19,10 @@ const useStyles = makeStyles((theme: MergedTheme) => ({
       maxWidth: 350,
     },
   },
-  list: {
-    maxHeight: '50vh',
-    overflowY: 'scroll',
-    overflowX: 'hidden',
-    display: 'block',
-    zIndex: 2,
-  },
   noMaxHeight: {
     maxHeight: 'none',
   },
-  transparent: {
-    background: 'inherit',
-  },
 }))
-
-const GrowTransition = React.forwardRef(function GrowTransition(
-  props: any,
-  ref: any
-) {
-  return <Grow ref={ref} {...props} />
-})
 
 export function IssueModal({ issue }: any) {
   const { miniPlayer, setMiniPlayerContent } = useMiniPlayer()
@@ -70,28 +39,22 @@ export function IssueModal({ issue }: any) {
         className={classes.miniPlayer}
         open={open}
         onClose={setMiniPlayerContent(false)}
-        TransitionComponent={GrowTransition as any}
         hideBackdrop={true}
         disablePortal={true}
         disableEnforceFocus={true}
         disableAutoFocus={true}
         scroll={'body'}
-        BackdropProps={{
-          classes: {
-            root: classes.transparent,
-          },
-        }}
       >
-        <AppBar className={`appBar ${classes.appBar}`} position='fixed'>
-          <Toolbar>
-            <IconButton
-              edge='start'
-              color='inherit'
+        <div className={`appBar text-white bg-black`}>
+          <div className='flex place-items-center py-2 px-2'>
+            <Button
               onClick={setMiniPlayerContent(false)}
               aria-label='close'
+              iconButton
+              className='text-white hover:text-black'
             >
-              <GrClose className='grIcon text-white' />
-            </IconButton>
+              <GrClose className='grIcon' />
+            </Button>
             <div
               className={`flex space-x-2 place-items-center place-content-between`}
             >
@@ -102,13 +65,13 @@ export function IssueModal({ issue }: any) {
                 </p>
               ) : null}
             </div>
-          </Toolbar>
-        </AppBar>
+          </div>
+        </div>
         {pageIssues?.length ? (
-          <List
-            className={`${classes.list} ${
+          <ul
+            className={`max-h-[50vh] ${
               pageIssues?.length === 1 ? classes.noMaxHeight : ''
-            }`}
+            } list-none`}
           >
             {pageIssues?.map((item: any) => {
               return (
@@ -119,7 +82,7 @@ export function IssueModal({ issue }: any) {
                 />
               )
             })}
-          </List>
+          </ul>
         ) : null}
       </Dialog>
     </Draggable>

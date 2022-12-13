@@ -1,11 +1,8 @@
 import React from 'react'
 import { observer } from 'mobx-react-lite'
 import { frameDom, IframeManager } from '@app/managers'
-import { Button, Tooltip } from '@material-ui/core'
 import { useAutoFix, useMiniPlayer, useIframe } from '@app/data'
-import { makeStyles } from '@material-ui/core/styles'
 import { Box } from '@a11ywatch/ui'
-import type { MergedTheme } from '@app/theme'
 import {
   GrList,
   GrMagic,
@@ -14,25 +11,12 @@ import {
   GrTestDesktop,
 } from 'react-icons/gr'
 import { issueExtractor } from '@app/utils'
+import { Button } from './buttons'
 
-const useStyles = makeStyles((theme: MergedTheme) => ({
-  button: {
-    marginBottom: '10px',
-    width: '100%',
-    paddingTop: '14px',
-    paddingBottom: '14px',
-    justifyContent: 'center',
-    alignItems: 'center',
-    background: 'rgba(20,20,20,0.3)',
-    border: `4px solid ${theme.palette.secondary.main}`,
-  },
-  icon: {
-    color: theme.palette.secondary.main,
-  },
-}))
+const btnStyle =
+  'w-full py-3 place-items-center bg-[rgba(20,20,20,0.3)] border-3'
 
 const MFab = observer(({ iframeStore, issue, script, marketing }: any) => {
-  const classes = useStyles()
   const { setMiniPlayerContent } = useMiniPlayer()
   const { highLight, toggleHighLight, setFrameContent } = useIframe()
   const { autoFixEnabled, setAutoFix } = useAutoFix(script)
@@ -42,42 +26,46 @@ const MFab = observer(({ iframeStore, issue, script, marketing }: any) => {
   return (
     <Box
       className={
-        'absolute p-3 min-w-[100px] flex-col flex place-content-end bottom-0 left-0'
+        'absolute p-3 min-w-[100px] flex-col flex place-content-end bottom-0 left-0 space-y-2'
       }
     >
       {!marketing ? (
-        <Tooltip title='Issue with page, toggle to webview' placement='right'>
-          <Button
-            className={classes.button}
-            onClick={() => iframeStore.toggleView()}
-          >
-            {iframeStore.viewMode ? (
-              <GrTestDesktop className={classes.icon} />
-            ) : (
-              <GrMultimedia className={classes.icon} />
-            )}
-          </Button>
-        </Tooltip>
+        <Button
+          className={btnStyle}
+          onClick={() => iframeStore.toggleView()}
+          iconButton
+          title='Issue with page, toggle to webview'
+        >
+          {iframeStore.viewMode ? (
+            <GrTestDesktop className={'grIcon'} />
+          ) : (
+            <GrMultimedia className={'grIcon'} />
+          )}
+        </Button>
       ) : null}
       {highLight?.display ? (
-        <Tooltip title='Highlight elements fixed by CDN' placement='right'>
-          <Button className={classes.button} onClick={toggleHighLight}>
-            <GrList className={classes.icon} />
-          </Button>
-        </Tooltip>
+        <Button
+          className={btnStyle}
+          onClick={toggleHighLight}
+          iconButton
+          title='Highlight elements fixed by CDN'
+        >
+          <GrList className={'grIcon'} />
+        </Button>
       ) : null}
       {pageIssues?.length ? (
-        <Tooltip title='View page issues as list' placement='right'>
-          <Button
-            className={classes.button}
-            onClick={setMiniPlayerContent(true)}
-          >
-            <GrStatusWarning className={classes.icon} />
-          </Button>
-        </Tooltip>
+        <Button
+          iconButton
+          className={btnStyle}
+          onClick={setMiniPlayerContent(true)}
+          title='View page issues as list'
+        >
+          <GrStatusWarning className={'grIcon'} />
+        </Button>
       ) : null}
       {script?.cdnUrlMinified && pageIssues?.length && !autoFixEnabled ? (
         <Button
+          iconButton
           onClick={() =>
             frameDom.injectAutoFix({
               cdn: script?.cdnUrlMinified,
@@ -86,9 +74,9 @@ const MFab = observer(({ iframeStore, issue, script, marketing }: any) => {
               callBack: setFrameContent,
             })
           }
-          className={classes.button}
+          className={btnStyle}
         >
-          <GrMagic className={classes.icon} />
+          <GrMagic className={'grIcon'} />
         </Button>
       ) : null}
     </Box>
@@ -97,7 +85,7 @@ const MFab = observer(({ iframeStore, issue, script, marketing }: any) => {
 
 // <Button
 //   onClick={adaStore.toggleScriptFix}
-//   className={classes.button}
+//   className={"w-full py-3 place-items-center bg-transparent border-3"}
 //   variant='text'
 // >
 //   <CodeIcon color='secondary' />

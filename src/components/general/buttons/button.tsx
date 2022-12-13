@@ -9,6 +9,7 @@ type ButtonProps = PropsWithChildren<{
   style?: any
   iconButton?: boolean
   outline?: boolean // display outline styles
+  title?: string // button title hover
 }>
 
 function classNames(...classes: any) {

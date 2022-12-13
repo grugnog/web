@@ -31,7 +31,8 @@ export const GoogleLoginButton = (props: GoogleLoginButton) => {
             className={`min-w-[200px] md:min-w-[200px] border-2 min-h-[40px] flex rounded-sm md:rounded-sm gap-x-2 place-items-center place-content-center font-semibold md:font-semibold`}
             disabled={renderProps.disabled}
           >
-            <GoogleIcon className={classes.iconColor} src={''} /> {loginView ? 'Login with Google' : 'Sign up with Google'}
+            <GoogleIcon className={classes.iconColor} src={''} />{' '}
+            {loginView ? 'Login with Google' : 'Sign up with Google'}
           </Button>
         )}
       />
@@ -40,12 +41,11 @@ export const GoogleLoginButton = (props: GoogleLoginButton) => {
 
   return (
     <Button
-    disabled={true}
-    className={`min-w-[200px] md:min-w-[200px] border-2 min-h-[40px] flex rounded-sm md:rounded-sm gap-x-2 place-items-center place-content-center font-semibold md:font-semibold`}
-  >
-    <GoogleIcon className={classes.iconColor} src={''} /> {loginView ? 'Login with Google' : 'Sign up with Google'}
-  </Button>
-
-
+      disabled={true}
+      className={`min-w-[200px] md:min-w-[200px] border-2 min-h-[40px] flex rounded-sm md:rounded-sm gap-x-2 place-items-center place-content-center font-semibold md:font-semibold`}
+    >
+      <GoogleIcon className={classes.iconColor} src={''} />{' '}
+      {loginView ? 'Login with Google' : 'Sign up with Google'}
+    </Button>
   )
 }
