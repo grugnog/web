@@ -26,11 +26,13 @@ export function InputActionsComponent(props: any) {
           }
 
           return (
-            <div className={`flex flex-1 px-1 space-x-2`} key={index}>
+            <div
+              className={`flex flex-1 px-1 gap-x-2 place-items-center`}
+              key={index}
+            >
               <div className='flex flex-1 flex-col'>
                 <TextField
                   autoFocus
-                  color='secondary'
                   underline
                   value={item.path}
                   placeholder={'Path name'}

@@ -1,13 +1,7 @@
 import React, { useState } from 'react'
-import {
-  Select,
-  MenuItem,
-  InputLabel,
-  FormLabel,
-  TextField,
-} from '@material-ui/core'
-import { formDialogStyles as useStyles } from '../styles/form-dialog'
 import { FormControl } from '../form-control'
+import { TextField } from '../text-field'
+import { Select } from './select'
 
 export enum Standard {
   'WAIT_FOR_ELEMENT',
@@ -84,7 +78,6 @@ const elementSelectForm = (value: string) => {
 }
 
 export const ActionsSelectInput = ({ onStandardChange, path }: InputProps) => {
-  const classes = useStyles()
   const [action, setAction] = useState<StandardKeys>(
     standards[0] as StandardKeys
   )
@@ -129,91 +122,55 @@ export const ActionsSelectInput = ({ onStandardChange, path }: InputProps) => {
   const waitForId = `${path}-wait-action-select-outlined-label`
 
   return (
-    <>
-      <div className={'flex gap-x-2 flex-wrap place-items-center'}>
+    <div className={'flex gap-x-2 flex-wrap place-items-center max-h-[50vh]'}>
+      <>
+        <FormControl htmlFor={actionId}>ACTION</FormControl>
+        <Select
+          id={actionId}
+          value={action}
+          style={{ marginTop: 0, border: 'none' }}
+          onChange={onActionSelect}
+          data={standards}
+        />
+      </>
+      {elementSelectForm(action) ? (
         <>
-          <FormControl htmlFor={actionId}>ACTION</FormControl>
-          <Select
-            id={actionId}
-            value={action}
-            style={{ marginTop: 0, border: 'none' }}
-            onChange={onActionSelect}
-            classes={{
-              selectMenu: classes.inputSelect,
-            }}
-          >
-            {standards.map((value: any) => (
-              <MenuItem
-                value={value}
-                key={value}
-                dense
-                style={{ fontSize: '1rem' }}
-              >
-                {value && String(value)?.toUpperCase()}
-              </MenuItem>
-            ))}
-          </Select>
+          <FormControl htmlFor='element_selector'>Selector</FormControl>
+          <TextField
+            underline
+            id='element_selector'
+            value={selector}
+            placeholder={'Element ex: #some_id'}
+            required
+            onChange={onElementChangeEvent}
+          />
         </>
-        {elementSelectForm(action) ? (
-          <FormLabel>
-            <TextField
-              color='secondary'
-              margin='dense'
-              className='flex-1'
-              value={selector}
-              placeholder={'Element ex: #some_id'}
-              required
-              onChange={onElementChangeEvent}
-            />
-          </FormLabel>
-        ) : null}
-        {action === Standard[2] ? (
-          <>
-            <FormLabel>
-              <TextField
-                color='secondary'
-                margin='dense'
-                className='flex-1'
-                value={selectorValue}
-                placeholder={'Element value'}
-                required
-                onChange={onSelectorValueEvent}
-              />
-            </FormLabel>
-          </>
-        ) : null}
-        {action === Standard[0] ? (
-          <>
-            <InputLabel
-              id={waitForId}
-              className='sr-only'
-              style={{ marginTop: 0 }}
-            >
-              Options
-            </InputLabel>
-            <Select
-              labelId={waitForId}
-              value={waitFor}
-              style={{ marginTop: 0, border: 'none' }}
-              onChange={onWaitForChangeEvent}
-              classes={{
-                selectMenu: classes.inputSelect,
-              }}
-            >
-              {waitOptions.map((value: any) => (
-                <MenuItem
-                  value={value}
-                  key={value}
-                  dense
-                  style={{ fontSize: '1rem' }}
-                >
-                  {value && String(value)?.toUpperCase()}
-                </MenuItem>
-              ))}
-            </Select>
-          </>
-        ) : null}
-      </div>
-    </>
+      ) : null}
+      {action === Standard[2] ? (
+        <>
+          <FormControl htmlFor='element_value'>Value</FormControl>
+          <TextField
+            color='secondary'
+            underline
+            value={selectorValue}
+            placeholder={'Element value'}
+            required
+            onChange={onSelectorValueEvent}
+          />
+        </>
+      ) : null}
+      {action === Standard[0] ? (
+        <>
+          <FormControl htmlFor={waitForId}>Options</FormControl>
+          <Select
+            id={waitForId}
+            value={waitFor}
+            style={{ marginTop: 0, border: 'none' }}
+            onChange={onWaitForChangeEvent}
+            data={waitOptions}
+          />
+        </>
+      ) : null}
+    </div>
   )
 }

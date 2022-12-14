@@ -29,7 +29,8 @@ interface InputHead {
   value: string
 }
 
-const checkBoxContainerStyles = 'flex place-items-center gap-x-2 min-w-[80px] md:min-w-20'
+const checkBoxContainerStyles =
+  'flex place-items-center gap-x-2 min-w-[80px] md:min-w-20'
 
 // validate the headers inputs and send
 function validateHeaders(object: InputHead[]) {
@@ -269,7 +270,9 @@ export function FormDialogWrapper({
           </Button>
         </div>
         <form onSubmit={submit} noValidate>
-          <div className={`px-7 py-1 overflow-hidden relative flex flex-col gap-y-2`}>
+          <div
+            className={`px-7 py-1 overflow-hidden relative flex flex-col gap-y-2`}
+          >
             <p className='text-base text-gray-700'>
               To add a website to your watchlist, enter the url below.
             </p>

@@ -1,8 +1,8 @@
-import React, { memo } from 'react'
-import { IconButton } from '@material-ui/core'
+import { memo } from 'react'
 import { GrAddCircle, GrSubtractCircle } from 'react-icons/gr'
 import { useInputActionsEvents } from '../hooks/input-actions-events'
 import { ActionsSelectInput } from '../select/actions-input'
+import { Button } from '../buttons'
 
 function InputActionsEventsComponent({
   updateFormEvents,
@@ -16,7 +16,7 @@ function InputActionsEventsComponent({
 
   if (path) {
     return (
-      <>
+      <div className='py-1'>
         {customFields?.map((_item: any, index: number) => {
           const onStandardChange = (value: string) => {
             updateFormField(value, index, 'events')
@@ -34,25 +34,27 @@ function InputActionsEventsComponent({
                 path={path}
               />
               {customFields.length > 1 ? (
-                <IconButton
+                <Button
                   aria-label='add Actions field'
                   onClick={() => removeFormField(index)}
+                  iconButton
                 >
                   <GrSubtractCircle color='gray' className='GrIcon' />
-                </IconButton>
+                </Button>
               ) : null}
               {index === customFields.length - 1 ? (
-                <IconButton
+                <Button
                   aria-label='add Actions field'
                   onClick={addFormField}
+                  iconButton
                 >
                   <GrAddCircle color='gray' className='GrIcon' />
-                </IconButton>
+                </Button>
               ) : null}
             </div>
           )
         })}
-      </>
+      </div>
     )
   }
 
