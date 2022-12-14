@@ -20,7 +20,7 @@ function CtaCdn({
   }
 
   const totalCurrentIssues =
-    website?.issuesInfo?.totalIssues ?? website?.issues?.length
+    website?.issuesInfo?.totalIssues || website?.issues?.length
   const suf = totalCurrentIssues === 1 ? '' : 's'
 
   if (!authenticated) {

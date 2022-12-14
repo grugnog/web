@@ -117,7 +117,7 @@ export function FeaturesCellComponent({
         className={`flex text-base place-items-center gap-x-3 py-3 pl-2 pr-2 place-content-around hover:bg-gray-100 hover:no-underline md:py-2 md:pl-5 md:pr-2 md:min-h-[54px]`}
         {...extraProps(feature, focused, setEvents)}
       >
-        <div className='flex flex-1 place-items-center gap-x-5 place-content-center md:place-content-start'>
+        <div className='flex flex-1 place-items-center gap-x-4 place-content-center md:place-content-start'>
           {renderIcon(
             title,
             (index === 0 &&
@@ -125,7 +125,7 @@ export function FeaturesCellComponent({
               'grIcon text-blue-700 md:text-gray-700') ||
               'grIcon text-gray-700'
           )}
-          <div className='sr-only md:not-sr-only text-base'>{title}</div>
+          <div className='sr-only md:not-sr-only text-sm'>{title}</div>
         </div>
         {index === 0 ? (
           <div className='hidden lg:block'>

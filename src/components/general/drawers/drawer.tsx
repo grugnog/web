@@ -112,35 +112,37 @@ export function DrawerW({ children, route, title }: any) {
 }`}
         </style>
       </Head>
-      <div className={'flex overflow-x-inherit md:overflow-x-hidden'}>
-        <DrawerWrapper
-          classes={classes}
-          route={route}
-          title={title}
-          dataSourceMap={dataSourceMap}
-        />
-        <main className={classes.content} id='main-content'>
-          <NavigationBar title={title} authenticated={authed} />
-          <div
-            style={{
-              maxHeight: `calc(100vh - ${theme.mixins.toolbar.minHeight}px)`,
-            }}
-            className={
-              'px-4 md:pr-4 md:pl-8 lg:pl-8 lg:pr-4 pt-2 scrollbar overflow-auto'
-            }
-          >
-            <RefBanner />
-            {children}
-          </div>
-          <ConfirmEmail
-            sendEmail={sendConfirmEmail}
-            visible={!!user?.loggedIn && !user?.emailConfirmed}
+      <>
+        <div className={'flex overflow-x-inherit md:overflow-x-hidden'}>
+          <DrawerWrapper
+            classes={classes}
+            route={route}
+            title={title}
+            dataSourceMap={dataSourceMap}
           />
-          <MiniPlayer />
-          <DynamicModal />
-        </main>
-        <IssueFeed />
-      </div>
+          <main className={classes.content} id='main-content'>
+            <NavigationBar title={title} authenticated={authed} />
+            <div
+              style={{
+                maxHeight: `calc(100vh - ${theme.mixins.toolbar.minHeight}px)`,
+              }}
+              className={
+                'px-4 md:pr-4 md:pl-8 lg:pl-8 lg:pr-4 pt-2 scrollbar overflow-auto'
+              }
+            >
+              <RefBanner />
+              {children}
+            </div>
+            <ConfirmEmail
+              sendEmail={sendConfirmEmail}
+              visible={!!user?.loggedIn && !user?.emailConfirmed}
+            />
+          </main>
+          <IssueFeed />
+        </div>
+        <DynamicModal />
+        <MiniPlayer />
+      </>
     </>
   )
 }

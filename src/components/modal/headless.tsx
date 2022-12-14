@@ -52,7 +52,7 @@ export const HeadlessModal: FC<
                 <Dialog.Panel
                   className={`relative transform rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full overflow-hidden ${
                     size ? getSize(size) : 'sm:max-w-lg'
-                  }`}
+                  } max-h-[75vh]`}
                 >
                   {children}
                 </Dialog.Panel>

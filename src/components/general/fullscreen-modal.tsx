@@ -1,7 +1,4 @@
 import { memo } from 'react'
-import { AppBar } from '@material-ui/core'
-import { makeStyles } from '@material-ui/core/styles'
-
 import { NavBarTitle } from './navigation'
 import { useInputHeader } from './hooks'
 
@@ -12,21 +9,11 @@ import { Button } from './buttons/button'
 import { InputHeaders } from './forms/input-headers'
 import { useWebsiteData } from '@app/data'
 import { GrClose } from 'react-icons/gr'
-import { Spacer } from './spacer'
-import { theme } from '@app-theme'
 import { AppManager } from '@app/managers'
 import { FeedIssue } from './feed/issue'
 import { Header3 } from './header'
 import { HeadlessFullScreenModal } from '../modal/headless-full'
 import { fetcher } from '@app/utils/fetcher'
-
-const useStyles = makeStyles(() => ({
-  navbar: {
-    backgroundColor: theme.palette.background.default,
-    height: theme.mixins.toolbar.minHeight,
-    justifyContent: 'center',
-  },
-}))
 
 export const defaultModalState = {
   open: false,
@@ -65,20 +52,15 @@ function UpperInput({ data, url }: any) {
       AppManager.toggleSnack(true, 'Headers updated successfully.')
       // todo find website and apply headers
     } catch (e) {
-      console.error(e)
       AppManager.toggleSnack(true, e, 'error')
     }
   }
 
   return (
-    <>
-      <div className='py-2'>
-        <InputHeaders {...inputProps} />
-      </div>
-      <div className='p-1'>
-        <Button onClick={onUpdateWebsite}>Update</Button>
-      </div>
-    </>
+    <div className='py-2 space-y-2 px-4 mx-auto container'>
+      <InputHeaders {...inputProps} />
+      <Button onClick={onUpdateWebsite}>Update</Button>
+    </div>
   )
 }
 
@@ -107,8 +89,6 @@ export function FullScreenModalWrapper({
   handleClickOpenPlayer,
   error,
 }: FullScreenModalProps) {
-  const classes = useStyles()
-
   const issuesModal = title === 'Issues'
   const headerModal = title === 'Custom Headers'
   const pagesModal = title === 'All Pages'
@@ -236,32 +216,29 @@ export function FullScreenModalWrapper({
 
   return (
     <HeadlessFullScreenModal open={open} onClose={handleClose}>
-      <AppBar position={'fixed'} className={classes.navbar}>
-        <div className='flex flex-1 align-center place-content-between px-5'>
-          <div className={'flex space-x-2 place-items-center'}>
-            <Button onClick={handleClose} aria-label='close' iconButton>
-              <GrClose className='grIcon inline-block text-black text-sm md:text-base' />
-            </Button>
-            <NavBarTitle title={title} />
-          </div>
-          <div className={'flex space-x-1 place-items-center'}>
-            {url ? (
-              <div className={'text-right text-black'}>
-                <Link href={`/website-details?url=${encodeURIComponent(url)}`}>
-                  {url}
-                </Link>
-                {issueCount && (issuesModal || pagesModal) ? (
-                  <p className='truncate max-w-[50vw]'>
-                    {issueCount} {issuesModal && error ? 'issue' : 'page'}
-                    {issueCount === 1 ? '' : 's'}
-                  </p>
-                ) : null}
-              </div>
-            ) : null}
-          </div>
+      <div className='flex w-full py-1.5 px-5 place-items-center place-content-between border-b'>
+        <div className={'flex gap-x-2 place-items-center'}>
+          <Button onClick={handleClose} aria-label='close' iconButton>
+            <GrClose className='grIcon inline-block text-black text-sm md:text-base' />
+          </Button>
+          <NavBarTitle title={title} />
         </div>
-      </AppBar>
-      <Spacer height={theme.mixins.toolbar.minHeight} />
+        <div className={'flex gap-x-1 place-items-center'}>
+          {url ? (
+            <div className={'text-right text-black'}>
+              <Link href={`/website-details?url=${encodeURIComponent(url)}`}>
+                {url}
+              </Link>
+              {issueCount && (issuesModal || pagesModal) ? (
+                <p className='truncate max-w-[50vw]'>
+                  {issueCount} {issuesModal && error ? 'issue' : 'page'}
+                  {issueCount === 1 ? '' : 's'}
+                </p>
+              ) : null}
+            </div>
+          ) : null}
+        </div>
+      </div>
       <Body />
     </HeadlessFullScreenModal>
   )

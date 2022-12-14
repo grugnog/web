@@ -34,7 +34,7 @@ export const Button: React.FC<ButtonProps> = ({
       type={type}
       disabled={disabled}
       className={classNames(
-        'border text-gray-800 min-w-[44px] hover:bg-gray-100 hover:shadow-md',
+        'border border-gray-300 text-gray-800 min-w-[44px] hover:bg-gray-100 hover:shadow-md',
         iconButton
           ? 'border-0 text-lg py-3 px-3 rounded-3xl place-content-center place-items-center flex md:text-[1.15rem]'
           : 'rounded-2xl px-2 py-1.5 md:px-4 md:py-1.5',

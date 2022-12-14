@@ -12,7 +12,7 @@ export function InputHeadersComponent({
 }: any) {
   if (customHeader) {
     return (
-      <div className='border-t'>
+      <div>
         {customFields?.map((item: any, index: number) => {
           const inputKeyName = 'Key'
           const inputValueName = 'Value'
