@@ -1,6 +1,7 @@
-import React, { memo } from 'react'
-import { TextField, IconButton } from '@material-ui/core'
+import { memo } from 'react'
 import { GrAddCircle, GrSubtractCircle } from 'react-icons/gr'
+import { Button } from '../buttons'
+import { TextField } from '../text-field'
 import { InputActionsEvents } from './input-actions-events'
 
 export function InputActionsComponent(props: any) {
@@ -30,8 +31,7 @@ export function InputActionsComponent(props: any) {
                 <TextField
                   autoFocus
                   color='secondary'
-                  margin='dense'
-                  className='flex-1'
+                  underline
                   value={item.path}
                   placeholder={'Path name'}
                   required
@@ -43,20 +43,22 @@ export function InputActionsComponent(props: any) {
                 />
               </div>
               {customFields.length > 1 ? (
-                <IconButton
+                <Button
                   aria-label='add Actions field'
                   onClick={() => removeFormField(index)}
+                  iconButton
                 >
                   <GrSubtractCircle />
-                </IconButton>
+                </Button>
               ) : null}
               {index === customFields.length - 1 ? (
-                <IconButton
+                <Button
                   aria-label='add Actions field'
                   onClick={addFormField}
+                  iconButton
                 >
                   <GrAddCircle />
-                </IconButton>
+                </Button>
               ) : null}
             </div>
           )

@@ -7,6 +7,7 @@ import {
   TextField,
 } from '@material-ui/core'
 import { formDialogStyles as useStyles } from '../styles/form-dialog'
+import { FormControl } from '../form-control'
 
 export enum Standard {
   'WAIT_FOR_ELEMENT',
@@ -131,15 +132,9 @@ export const ActionsSelectInput = ({ onStandardChange, path }: InputProps) => {
     <>
       <div className={'flex gap-x-2 flex-wrap place-items-center'}>
         <>
-          <InputLabel
-            id={actionId}
-            className='sr-only'
-            style={{ marginTop: 0 }}
-          >
-            ACTION
-          </InputLabel>
+          <FormControl htmlFor={actionId}>ACTION</FormControl>
           <Select
-            labelId={actionId}
+            id={actionId}
             value={action}
             style={{ marginTop: 0, border: 'none' }}
             onChange={onActionSelect}

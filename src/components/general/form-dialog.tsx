@@ -1,7 +1,6 @@
 'use client'
 
 import React, { useState, useCallback, memo, Fragment } from 'react'
-import { Checkbox } from '@material-ui/core'
 import { Button, InputActions } from '@app/components/general'
 import { domainList as dmList } from '@app/utils'
 import { GrClose } from 'react-icons/gr'
@@ -15,6 +14,7 @@ import { FormControl } from './form-control'
 import { HeadlessModal } from '../modal/headless'
 import { TextField } from './text-field'
 import { useAuthContext } from '../providers/auth'
+import { Checkbox } from './check-box'
 
 const domainList = [...dmList, 'none']
 
@@ -28,6 +28,8 @@ interface InputHead {
   key: string
   value: string
 }
+
+const checkBoxContainerStyles = 'flex place-items-center gap-x-2 min-w-[80px] md:min-w-20'
 
 // validate the headers inputs and send
 function validateHeaders(object: InputHead[]) {
@@ -267,7 +269,7 @@ export function FormDialogWrapper({
           </Button>
         </div>
         <form onSubmit={submit} noValidate>
-          <div className={`px-7 py-1 overflow-hidden relative space-y-2`}>
+          <div className={`px-7 py-1 overflow-hidden relative flex flex-col gap-y-2`}>
             <p className='text-base text-gray-700'>
               To add a website to your watchlist, enter the url below.
             </p>
@@ -289,28 +291,24 @@ export function FormDialogWrapper({
             <div
               className={`flex flex-1 place-items-center space-x-3 overflow-x-auto pt-2 pb-1`}
             >
-              <div className='flex place-items-center'>
+              <div className={checkBoxContainerStyles}>
                 <Checkbox
                   checked={https}
                   onChange={() => {
                     setTransportType(!https)
                   }}
-                  value={https}
-                  color='primary'
                   id={'https'}
                 />
                 <FormControl htmlFor='https' visible>
                   HTTPS
                 </FormControl>
               </div>
-              <div className='flex place-items-center'>
+              <div className={checkBoxContainerStyles}>
                 <Checkbox
                   checked={pageInsights}
                   onChange={() => {
                     setPageInsights(!pageInsights)
                   }}
-                  value={pageInsights}
-                  color='primary'
                   id={'lighthouse'}
                 />
                 <FormControl htmlFor='lighthouse' visible>
@@ -318,14 +316,12 @@ export function FormDialogWrapper({
                 </FormControl>
               </div>
 
-              <div className='flex place-items-center'>
+              <div className={checkBoxContainerStyles}>
                 <Checkbox
                   checked={mobileViewport}
                   onChange={() => {
                     setMobile(!mobileViewport)
                   }}
-                  value={mobileViewport}
-                  color='primary'
                   id={'mobile'}
                 />
                 <FormControl htmlFor='mobile' visible>
@@ -333,11 +329,10 @@ export function FormDialogWrapper({
                 </FormControl>
               </div>
 
-              <div className='flex place-items-center'>
+              <div className={checkBoxContainerStyles}>
                 <Checkbox
                   color='primary'
                   checked={robots}
-                  value={robots}
                   onChange={onChangeRobotsEvent}
                   id={'robots'}
                 />
@@ -346,11 +341,9 @@ export function FormDialogWrapper({
                 </FormControl>
               </div>
 
-              <div className='flex place-items-center'>
+              <div className={checkBoxContainerStyles}>
                 <Checkbox
-                  color='primary'
                   checked={subdomains}
-                  value={subdomains}
                   onChange={onChangeSubdomainsEvent}
                   id={'subdomains'}
                   disabled={!activeSubscription}
@@ -364,11 +357,9 @@ export function FormDialogWrapper({
                 </FormControl>
               </div>
 
-              <div className='flex place-items-center'>
+              <div className={checkBoxContainerStyles}>
                 <Checkbox
-                  color='primary'
                   checked={tld}
-                  value={tld}
                   onChange={onChangeTldEvent}
                   id={'tlds'}
                   disabled={!activeSubscription}
@@ -385,11 +376,9 @@ export function FormDialogWrapper({
             <div
               className={`flex flex-1 place-items-center space-x-3 overflow-x-auto pb-2`}
             >
-              <div className='flex place-items-center'>
+              <div className={checkBoxContainerStyles}>
                 <Checkbox
-                  color='primary'
                   checked={customActions}
-                  value={customActions}
                   onChange={onChangeActionsEvent}
                   id={'actions'}
                 />
@@ -398,11 +387,9 @@ export function FormDialogWrapper({
                 </FormControl>
               </div>
 
-              <div className='flex place-items-center'>
+              <div className={checkBoxContainerStyles}>
                 <Checkbox
-                  color='primary'
                   checked={customHeader}
-                  value={customHeader}
                   onChange={onChangeHeadersEvent}
                   id={'headers'}
                 />
@@ -419,10 +406,9 @@ export function FormDialogWrapper({
               <FormControl htmlFor='ua'>Enter User Agent</FormControl>
               <TextField
                 onChange={onChangeUA}
-                className={`px-2 py-1`}
+                className={`px-2 py-0.5 border-none`}
                 style={{ maxWidth: 120 }}
                 value={ua}
-                color='secondary'
                 id='ua'
                 placeholder='User-Agent'
                 type='text'

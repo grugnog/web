@@ -1,6 +1,7 @@
-import React, { memo } from 'react'
-import { TextField, IconButton } from '@material-ui/core'
+import { memo } from 'react'
 import { GrAddCircle, GrSubtractCircle } from 'react-icons/gr'
+import { Button } from '../buttons'
+import { TextField } from '../text-field'
 
 // dynamic headers for forms
 export function InputHeadersComponent({
@@ -21,9 +22,7 @@ export function InputHeadersComponent({
             <div className={`flex flex-1 px-1 space-x-2`} key={index}>
               <TextField
                 autoFocus
-                color='secondary'
-                margin='dense'
-                className='flex-1'
+                underline
                 value={item.key}
                 placeholder={inputKeyName}
                 required
@@ -36,9 +35,7 @@ export function InputHeadersComponent({
                 }
               />
               <TextField
-                color='secondary'
-                margin='dense'
-                className='flex-1'
+                underline
                 value={item?.value}
                 placeholder={inputValueName}
                 onChange={(event: any) =>
@@ -51,20 +48,22 @@ export function InputHeadersComponent({
                 required
               />
               {customFields?.length > 1 ? (
-                <IconButton
+                <Button
                   aria-label='add header field'
                   onClick={() => removeFormField(index)}
+                  iconButton
                 >
                   <GrSubtractCircle />
-                </IconButton>
+                </Button>
               ) : null}
               {index === customFields?.length - 1 ? (
-                <IconButton
+                <Button
                   aria-label='add header field'
                   onClick={addFormField}
+                  iconButton
                 >
                   <GrAddCircle />
-                </IconButton>
+                </Button>
               ) : null}
             </div>
           )
