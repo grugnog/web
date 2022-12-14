@@ -1,9 +1,8 @@
-import React, { Fragment, useState, memo, useCallback } from 'react'
+import { Fragment, useState, memo, useCallback } from 'react'
 import {
   ListItem,
   ListItemSecondaryAction,
   ListItemText,
-  IconButton,
 } from '@material-ui/core'
 
 import { makeStyles } from '@material-ui/core/styles'
@@ -13,6 +12,7 @@ import { RenderAvatar, RenderSecondary, RenderIssuesList } from './render'
 import { Link } from '../link'
 import { GrDown, GrUp } from 'react-icons/gr'
 import { MoreOptionsBase } from './menu'
+import { Button } from '../buttons'
 
 const useStyles = makeStyles(() => ({
   listTitle: {
@@ -137,14 +137,14 @@ export function WebsitePrimaryCellComponent({
         </div>
         <ListItemSecondaryAction>
           {error ? (
-            <IconButton
+            <Button
+              iconButton
               aria-label='toggle item visibility'
               aria-controls='menu-appbar-item'
               onClick={viewIssue}
-              color='inherit'
             >
               {issueView ? <GrUp /> : <GrDown />}
-            </IconButton>
+            </Button>
           ) : (
             <MoreOptionsBase
               handleMainClick={handleMainClick}

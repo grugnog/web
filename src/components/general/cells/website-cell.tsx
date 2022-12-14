@@ -1,31 +1,8 @@
 import { useCallback, useMemo, useState } from 'react'
-import {
-  ListItem,
-  ListItemSecondaryAction,
-  ListItemText,
-} from '@material-ui/core'
-import { makeStyles } from '@material-ui/core/styles'
-import { NextComposed } from '../link'
+import { Link } from '../link'
 import { RenderAvatar, RenderSecondary } from './render'
 import { MoreOptions } from '@app/components/general/cells/menu/more'
 import type { Website } from '@app/types'
-
-const useStyles = makeStyles(() => ({
-  root: {
-    ['&:hover']: {
-      textDecoration: 'none',
-    },
-    borderBottom: '1px solid #ccc',
-  },
-  title: {
-    maxWidth: '50vw',
-    overflow: 'hidden',
-    textOverflow: 'ellipsis',
-    flex: 1,
-    fontSize: '1.1em',
-    fontWeight: 500,
-  },
-}))
 
 interface WebsiteCellProps extends Partial<Website> {
   removePress(props: { variables: { url?: string | null } }): void
@@ -38,7 +15,6 @@ interface WebsiteCellProps extends Partial<Website> {
 
 // OLD WEBSITE CELL [TODO: remove]
 export function WebsiteCell(props: WebsiteCellProps) {
-  const classes = useStyles()
   const [anchorEl, setAnchorEl] = useState<any>(null)
 
   const { removePress, ...extra } = props
@@ -88,12 +64,8 @@ export function WebsiteCell(props: WebsiteCellProps) {
     }
 
   return (
-    <ListItem
-      button
-      component={NextComposed as any}
-      href={href}
-      color={'inherit'}
-      className={classes.root}
+    <li
+      className={'border-b space-y-1 flex w-full px-3 py-2 hover:no-underline'}
     >
       {history ? null : (
         <RenderAvatar
@@ -102,13 +74,10 @@ export function WebsiteCell(props: WebsiteCellProps) {
           error={false}
         />
       )}
-      <div>
-        <ListItemText
-          primary={url}
-          primaryTypographyProps={{
-            className: classes.title,
-          }}
-        />
+      <div className='space-y-2 flex flex-1 flex-col'>
+        <Link href={href} className='text-lg'>
+          {url}
+        </Link>
         <RenderSecondary
           issuesInfo={issuesInfo}
           cdnConnected={cdnConnected}
@@ -120,7 +89,7 @@ export function WebsiteCell(props: WebsiteCellProps) {
           pageHeaders={pageHeaders}
         />
       </div>
-      <ListItemSecondaryAction>
+      <div className='py-2'>
         <MoreOptions
           handleMainClick={handleMainClick}
           anchorEl={anchorEl}
@@ -129,7 +98,7 @@ export function WebsiteCell(props: WebsiteCellProps) {
           removePress={onRemovePress}
           {...extra}
         />
-      </ListItemSecondaryAction>
-    </ListItem>
+      </div>
+    </li>
   )
 }

@@ -7,8 +7,6 @@ import {
 } from 'react'
 import { GoogleLoginButton } from '../google-login'
 import { useRouter } from 'next/router'
-import { TextField, FormControl, FormHelperText } from '@material-ui/core'
-import { makeStyles } from '@material-ui/core/styles'
 import { useMutation } from '@apollo/react-hooks'
 import { REGISTER, LOGIN } from '@app/mutations'
 import { AppManager, UserManager } from '@app/managers'
@@ -19,26 +17,12 @@ import { GrGithub } from 'react-icons/gr'
 import { REST_API } from '@app/configs/app-config'
 import { Header } from '../header'
 import { Button } from '../buttons'
+import { FormControl } from '../form-control'
+import { TextField } from '../text-field'
 
 const clientID = process.env.GITHUB_CLIENT_ID
 
 const redirectGithub = `${REST_API}/github/callback`
-
-const useStyles = makeStyles((theme) => ({
-  paper: {
-    padding: theme.spacing(3),
-    textAlign: 'center',
-  },
-  textField: {
-    marginLeft: theme.spacing(1),
-    marginRight: theme.spacing(1),
-    width: 200,
-  },
-  textCenter: {
-    textAlign: 'center',
-    marginBottom: 10,
-  },
-}))
 
 interface SignOnProps {
   loginView?: boolean
@@ -50,7 +34,6 @@ const SignOnFormWrapper: FunctionComponent<SignOnProps> = ({
   googleLoginSkeleton = false,
 }) => {
   const router = useRouter()
-  const classes = useStyles()
 
   const [signOnMutation, { loading }] = useMutation(
     loginView ? LOGIN : REGISTER
@@ -145,7 +128,7 @@ const SignOnFormWrapper: FunctionComponent<SignOnProps> = ({
         <Heading className='text-center max-w-[100vw]'>
           {(loginView && 'Login') || 'Register'}
         </Heading>
-        <div className={classes.paper}>
+        <div className={'text-center p-3'}>
           <div
             className={
               clientID ? 'space-y-2 flex flex-col place-items-center' : ''
@@ -175,71 +158,60 @@ const SignOnFormWrapper: FunctionComponent<SignOnProps> = ({
             <GoogleLoginButton
               loginView={loginView}
               onSuccess={onGoogleAuth}
-              classes={classes}
               skeleton={googleLoginSkeleton}
+              round
             />
           </div>
-          <p className={'pt-2 text-sm'}>Or</p>
+          <p className={'py-2 text-sm'}>Or</p>
           <form autoComplete={loginView ? 'on' : 'off'} onSubmit={submit}>
             <div>
-              <FormControl>
-                <TextField
-                  id='email'
-                  aria-describedby='my-email-text'
-                  className={classes.textField}
-                  label='Email'
-                  type='email'
-                  margin='dense'
-                  inputProps={{
-                    'aria-invalid': email.length < 4,
-                  }}
-                  onChange={onChangeEmailEvent}
-                  value={email}
-                  autoFocus={true}
-                  autoComplete='email'
-                  variant='outlined'
-                  required
-                />
-                <FormHelperText
-                  id='my-email-text'
-                  className={classes.textCenter}
-                >
-                  {`We'll never share your email.`}
-                </FormHelperText>
-              </FormControl>
+              <FormControl htmlFor='email'>Email</FormControl>
+              <TextField
+                id='email'
+                aria-describedby='my-email-text'
+                placeholder='Email'
+                type='email'
+                aria-invalid={email.length < 4}
+                onChange={onChangeEmailEvent}
+                value={email}
+                autoFocus={true}
+                autoComplete='email'
+                className={'min-w-[200px]'}
+                required
+              />
+              <p
+                id='my-email-text'
+                className={'text-center text-xs text-gray-600 py-2'}
+              >
+                {`We'll never share your email.`}
+              </p>
             </div>
             <div>
-              <FormControl>
-                <TextField
-                  id='password'
-                  aria-describedby='my-password-text'
-                  className={`${classes.textField}`}
-                  label='Password'
-                  margin='dense'
-                  inputProps={{
-                    minLength: '6',
-                    'aria-invalid': password.length < 4,
-                  }}
-                  onChange={onChangePasswordEvent}
-                  value={password}
-                  type='password'
-                  autoComplete='current-password'
-                  variant='outlined'
-                  required
-                />
-                <FormHelperText
-                  id='my-password-text'
-                  className={classes.textCenter}
-                  style={{ marginBottom: 0 }}
-                >
-                  {`We'll never share your password.`}
-                </FormHelperText>
-              </FormControl>
+              <FormControl htmlFor='password'>Password</FormControl>
+              <TextField
+                id='password'
+                aria-describedby='my-password-text'
+                className={'min-w-[200px]'}
+                placeholder='Password'
+                minLength={6}
+                aria-invalid={password.length < 4}
+                onChange={onChangePasswordEvent}
+                value={password}
+                type='password'
+                autoComplete='current-password'
+                required
+              />
+              <p
+                id='my-password-text'
+                className={'text-center text-xs text-gray-600 py-2'}
+              >
+                {`We'll never share your password.`}
+              </p>
             </div>
             <div className='py-3'>
               <Button
                 className={
-                  'min-w-[200px] md:min-w-[200px] md:border-2 md:rounded-sm md:font-medium'
+                  'w-[200px] md:min-w-[200px] md:border-2 md:rounded-sm md:font-medium'
                 }
                 type='submit'
               >
@@ -248,14 +220,14 @@ const SignOnFormWrapper: FunctionComponent<SignOnProps> = ({
             </div>
           </form>
 
-          <p className='text-sm'>
+          <p className='text-xs'>
             Forgot Password?{' '}
-            <Link href='/reset-password' className='text-sm'>
+            <Link href='/reset-password' className='text-xs'>
               Reset
             </Link>
           </p>
         </div>
-        <div className={'text-xs text-center py-4'}>
+        <div className={'text-xs px-3 text-center py-4 line-clamp-3'}>
           This site is protected by the{' '}
           <Link
             href={'https://policies.google.com/privacy'}

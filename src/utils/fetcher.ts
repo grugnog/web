@@ -9,16 +9,16 @@ export const fetcher = async (
 ) => {
   let data = { data: null as any, message: '', code: 200 }
 
+  const headers = new Headers()
+
+  if (UserManager.token) {
+    headers.append('authorization', UserManager.token)
+  }
+  if ((method === 'POST' && body) || method !== 'POST') {
+    headers.append('Content-Type', 'application/json')
+  }
+
   try {
-    const headers = new Headers()
-
-    if (UserManager.token) {
-      headers.append('authorization', UserManager.token)
-    }
-    if ((method === 'POST' && body) || method !== 'POST') {
-      headers.append('Content-Type', 'application/json')
-    }
-
     const source = await fetch(API_ENDPOINT + url, {
       headers: headers,
       method: body ? 'POST' : method,

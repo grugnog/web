@@ -41,11 +41,13 @@ export const WCAGSelectInput = ({
           spacing ? ' px-2' : ''
         }`}
       >
-        {standards.map((value: any) => (
-          <option value={value} key={value} className={'text-sm'}>
-            {value && String(value)?.toUpperCase()}
-          </option>
-        ))}
+        <optgroup label='Accessibility'>
+          {standards.map((value: any) => (
+            <option value={value} key={value} className={'text-sm'}>
+              {value && String(value)?.toUpperCase()}
+            </option>
+          ))}
+        </optgroup>
       </select>
     </div>
   )

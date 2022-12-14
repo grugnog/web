@@ -78,9 +78,11 @@ function MoreOptionsBaseComponent({
         <Link href={href} className={btnStyles}>
           View Sandbox
         </Link>
-        <Link href={reportHref} className={btnStyles}>
-          View Report
-        </Link>
+        {!history ? (
+          <Link href={reportHref} className={btnStyles}>
+            View Report
+          </Link>
+        ) : null}
         {issues?.length ? (
           <Button
             className={btnStyles}

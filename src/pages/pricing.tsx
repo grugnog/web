@@ -17,8 +17,9 @@ function Pricing({ name }: PageProps) {
         </h2>
 
         <p>
-          Get detailed accessibility reports that go beyond the basics with ease
-          across all your websites.
+          Get detailed accessibility reports that go beyond the basics across
+          all your websites. Our pricing is drastically more affordable than any
+          other web accessibility SaaS.
         </p>
 
         <PriceMemo navigate pricingPage />

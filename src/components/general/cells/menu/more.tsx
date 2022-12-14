@@ -85,7 +85,7 @@ function MoreOptionsComponent(props: MoreOptionsProps) {
             Update Headers
           </Button>
         ) : null}
-        {!verified ? (
+        {!verified && !history ? (
           <Button
             className={btnStyles}
             onClick={handleMainClick(true, 'Verify DNS', false, url as string)}

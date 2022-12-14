@@ -1,15 +1,10 @@
-import { useEffect, useState } from 'react'
-import { UserManager } from '@app/managers'
 import { Link } from './link'
+import { useAuthContext } from '../providers/auth'
 
 const UpgradeBanner = () => {
-  const [needsUpdate, setUpgrade] = useState<boolean>(false)
+  const { activeSubscription } = useAuthContext()
 
-  useEffect(() => {
-    setUpgrade(UserManager.freeAccount)
-  }, [setUpgrade])
-
-  return needsUpdate ? (
+  return !activeSubscription ? (
     <div className='hidden md:block'>
       <div className='h-20' />
       <div className={'p-3 z-10 w-full flex place-content-center'}>
@@ -21,8 +16,8 @@ const UpgradeBanner = () => {
           >
             Upgrade
           </Link>{' '}
-          your account to add up to 50 websites, site-wide monitoring, multi
-          page lighthouse reports, CDN scripts, and more.
+          your account to add up to 50 websites, subdomain and TLD monitoring,
+          multi page lighthouse reports, CDN scripts, and more.
         </div>
       </div>
     </div>

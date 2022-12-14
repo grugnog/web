@@ -7,13 +7,13 @@ import { Button } from './buttons'
 interface GoogleLoginButton {
   onSuccess?: (a: any) => Promise<void>
   loginView?: boolean
-  classes?: any
   skeleton?: boolean // skeleton ui
+  round?: boolean
 }
 
 // returns google login component if id enabled or mock
 export const GoogleLoginButton = (props: GoogleLoginButton) => {
-  const { onSuccess, skeleton, loginView, classes } = props ?? {}
+  const { onSuccess, skeleton, loginView, round } = props ?? {}
 
   if (GOOGLE_CLIENT_ID && !skeleton) {
     return (
@@ -27,11 +27,12 @@ export const GoogleLoginButton = (props: GoogleLoginButton) => {
         cookiePolicy={'single_host_origin'}
         render={(renderProps: any) => (
           <Button
+            round={round}
             onClick={renderProps.onClick}
-            className={`min-w-[200px] md:min-w-[200px] border-2 min-h-[40px] flex rounded-sm md:rounded-sm gap-x-2 place-items-center place-content-center font-semibold md:font-semibold`}
+            className={`w-[200px] md:min-w-[200px] border-2 min-h-[40px] flex rounded-sm md:rounded-sm gap-x-2 place-items-center place-content-center font-semibold md:font-semibold`}
             disabled={renderProps.disabled}
           >
-            <GoogleIcon className={classes.iconColor} src={''} />{' '}
+            <GoogleIcon src={''} />{' '}
             {loginView ? 'Login with Google' : 'Sign up with Google'}
           </Button>
         )}
@@ -42,9 +43,10 @@ export const GoogleLoginButton = (props: GoogleLoginButton) => {
   return (
     <Button
       disabled={true}
-      className={`min-w-[200px] md:min-w-[200px] border-2 min-h-[40px] flex rounded-sm md:rounded-sm gap-x-2 place-items-center place-content-center font-semibold md:font-semibold`}
+      round={round}
+      className={`w-[200px] md:min-w-[200px] border-2 min-h-[40px] flex rounded-sm md:rounded-sm gap-x-2 place-items-center place-content-center font-semibold md:font-semibold`}
     >
-      <GoogleIcon className={classes.iconColor} src={''} />{' '}
+      <GoogleIcon src={''} />{' '}
       {loginView ? 'Login with Google' : 'Sign up with Google'}
     </Button>
   )

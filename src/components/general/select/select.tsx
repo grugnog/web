@@ -21,7 +21,6 @@ export const Select = forwardRef(function Select(
   return (
     <select
       ref={ref}
-      id='ext-select-outlined'
       value={value}
       onChange={onChange}
       className={classNames(

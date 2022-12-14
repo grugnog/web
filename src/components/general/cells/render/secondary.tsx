@@ -1,5 +1,5 @@
 import { memo, useMemo } from 'react'
-import { Chip, Tooltip } from '@material-ui/core'
+import { Chip } from '@material-ui/core'
 import { PageLoad } from './page-load'
 import { GrMagic, GrCircleAlert, GrConfigure, GrCalendar } from 'react-icons/gr'
 import { format } from 'date-fns'
@@ -85,19 +85,15 @@ export function RenderSecondaryComponent({
         />
       ) : null}
       {headers && headers?.length ? (
-        <Tooltip
+        <Chip
+          style={chipRootStyle}
+          size='small'
+          avatar={<GrConfigure style={chipStyle} />}
+          label={`${pageHeaders?.length} custom header${
+            pageHeaders?.length === 1 ? '' : 's'
+          }`}
           title={`Custom headers ${JSON.stringify(headers)}`}
-          placement={'right'}
-        >
-          <Chip
-            style={chipRootStyle}
-            size='small'
-            avatar={<GrConfigure style={chipStyle} />}
-            label={`${pageHeaders?.length} custom header${
-              pageHeaders?.length === 1 ? '' : 's'
-            }`}
-          />
-        </Tooltip>
+        />
       ) : null}
     </div>
   )

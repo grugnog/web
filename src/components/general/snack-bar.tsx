@@ -66,9 +66,10 @@ const SnackbarContainer = observer(
               <Button
                 aria-label='close'
                 onClick={handleClose}
-                className={'border-0 md:py-2 md:rounded-3xl'}
+                className={'border-0 md:py-2'}
+                iconButton
               >
-                <GrClose className='grIcon' title='Close bar' />
+                <GrClose className='grIcon text-sm' title='Close bar' />
               </Button>
             )}
           </div>

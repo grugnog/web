@@ -10,6 +10,7 @@ type ButtonProps = PropsWithChildren<{
   iconButton?: boolean
   outline?: boolean // display outline styles
   title?: string // button title hover
+  round?: boolean // simple bump to border-radius
 }>
 
 function classNames(...classes: any) {
@@ -25,6 +26,7 @@ export const Button: React.FC<ButtonProps> = ({
   style,
   iconButton,
   outline,
+  round,
   ...extra
 }) => {
   return (
@@ -37,9 +39,10 @@ export const Button: React.FC<ButtonProps> = ({
         'border border-gray-300 text-gray-800 min-w-[44px] hover:bg-gray-100 hover:shadow-md',
         iconButton
           ? 'border-0 text-lg py-3 px-3 rounded-3xl place-content-center place-items-center flex md:text-[1.15rem]'
-          : 'rounded-2xl px-2 py-1.5 md:px-4 md:py-1.5',
+          : 'px-2 py-1.5 md:px-4 md:py-1.5',
         outline ? outlineStyles : '',
-        className
+        className,
+        round ? 'rounded' : 'rounded-2xl'
       )}
       onClick={onClick}
     >

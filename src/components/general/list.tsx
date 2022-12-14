@@ -112,8 +112,6 @@ export function ListComponent({
         />
       )
     }
-
-    // ERROR PAGE to display errors ( not actual network error )
     if (data?.length) {
       return (
         <ul className={`border rounded bg-white`}>

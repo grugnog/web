@@ -1,5 +1,5 @@
 import { memo, useEffect, useMemo, useState } from 'react'
-import { Chip, Tooltip } from '@material-ui/core'
+import { Chip } from '@material-ui/core'
 import {
   GrCalendar,
   GrCircleAlert,
@@ -81,17 +81,13 @@ export function WebsiteSecondaryComponent({
       }`}
     >
       {shutdown ? (
-        <Tooltip
+        <Chip
+          size='small'
           title={`Website scan did not complete. Upgrade your account to increase your duration.`}
-          placement={'right'}
-        >
-          <Chip
-            size='small'
-            style={chipRootStyle}
-            avatar={<GrPowerShutdown style={chipStyle} className={'grIcon'} />}
-            label={'Shutdown'}
-          />
-        </Tooltip>
+          style={chipRootStyle}
+          avatar={<GrPowerShutdown style={chipStyle} className={'grIcon'} />}
+          label={'Shutdown'}
+        />
       ) : null}
       {pageIssueCount ? (
         <Chip
@@ -126,7 +122,15 @@ export function WebsiteSecondaryComponent({
         />
       ) : null}
       {possibleIssuesFixedByCdn && totalIssues ? (
-        <Tooltip
+        <Chip
+          size='small'
+          style={chipRootStyle}
+          avatar={<GrMagic style={chipStyle} />}
+          label={
+            issuesFixedByCdn
+              ? `${issuesFixedByCdn}/${totalIssues}`
+              : `${possibleIssuesFixedByCdn}/${totalIssues}`
+          }
           title={
             issuesFixedByCdn
               ? `${issuesFixedByCdn} issue${
@@ -134,19 +138,7 @@ export function WebsiteSecondaryComponent({
                 } fixed from CDN out of ${totalIssues} for current page.`
               : `${possibleIssuesFixedByCdn} out of ${totalIssues} issues on the current page can be fixed instantly with our custom CDN.`
           }
-          placement={'right'}
-        >
-          <Chip
-            size='small'
-            style={chipRootStyle}
-            avatar={<GrMagic style={chipStyle} />}
-            label={
-              issuesFixedByCdn
-                ? `${issuesFixedByCdn}/${totalIssues}`
-                : `${possibleIssuesFixedByCdn}/${totalIssues}`
-            }
-          />
-        </Tooltip>
+        />
       ) : null}
       {typeof robots !== 'undefined' ? (
         <Chip
@@ -164,17 +156,16 @@ export function WebsiteSecondaryComponent({
           label={scanDate}
         />
       ) : null}
-      {headers.length ? (
-        <Tooltip title={`Custom headers ${headingJson}`} placement={'right'}>
-          <Chip
-            style={chipRootStyle}
-            size='small'
-            avatar={<GrConfigure style={chipStyle} className={'grIcon'} />}
-            label={`${headers.length} custom header${
-              headers.length === 1 ? '' : 's'
-            }`}
-          />
-        </Tooltip>
+      {headers && headers.length ? (
+        <Chip
+          style={chipRootStyle}
+          size='small'
+          avatar={<GrConfigure style={chipStyle} className={'grIcon'} />}
+          label={`${headers.length} custom header${
+            headers.length === 1 ? '' : 's'
+          }`}
+          title={`Custom headers ${headingJson}`}
+        />
       ) : null}
     </div>
   )
