@@ -1,7 +1,7 @@
 import { memo, FC } from 'react'
 import Image from 'next/image'
 import { FormDialog } from '../form-dialog'
-import { CardHeader } from '@app/app/card/header'
+import { CardHeader } from '@app/components/stateless/card/header'
 import { Link } from '../link'
 
 const infoDetails = [

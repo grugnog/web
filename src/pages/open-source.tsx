@@ -5,7 +5,7 @@ import { companyName, OSSRoutes } from '@app/configs'
 import { GetStaticProps } from 'next'
 import { URL } from 'url'
 import { GrStar } from 'react-icons/gr'
-import { SectionContainer } from '@app/app/containers/section-container'
+import { SectionContainer } from '@app/components/stateless/containers/section-container'
 import { Header, Header3 } from '@app/components/general/header'
 
 function OSSCell({ item }: { item: typeof OSSRoutes[number] }) {

@@ -2,7 +2,7 @@ import { PropsWithChildren } from 'react'
 import { Link } from '../typo/link'
 import { SectionContainer } from '../containers/section-container'
 import { IntroBenches } from './intro-benches'
-import { IntroSvg } from '../../components/svgs/intro'
+import { IntroSvg } from '../../svgs/intro'
 import { Header } from '@app/components/general/header'
 
 interface MarketingIntro {

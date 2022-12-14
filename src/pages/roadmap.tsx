@@ -2,9 +2,9 @@ import { MarketingDrawer } from '@app/components/general'
 import { metaSetter } from '@app/utils'
 import type { PageProps } from '@app/types'
 import { Header } from '@app/components/general/header'
-import { SectionContainer } from '@app/app/containers/section-container'
+import { SectionContainer } from '@app/components/stateless/containers/section-container'
 import { companyName } from '@app/configs'
-import { Link } from '@app/app/typo/link'
+import { Link } from '@app/components/stateless/typo/link'
 
 function RoadMap({ name }: PageProps) {
   return (

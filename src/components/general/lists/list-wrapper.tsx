@@ -1,5 +1,5 @@
 import { FC, memo } from 'react'
-import { CardHeader } from '@app/app/card/header'
+import { CardHeader } from '@app/components/stateless/card/header'
 import { ListSkeleton } from '../../placeholders'
 
 const emptyClass = 'min-h-10'

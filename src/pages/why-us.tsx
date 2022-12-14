@@ -2,8 +2,8 @@ import { MarketingDrawer } from '@app/components/general'
 import { metaSetter } from '@app/utils'
 import type { PageProps } from '@app/types'
 import { companyName } from '@app/configs'
-import { MarketingFeatureCompareList } from '@app/app/marketing/features-compare'
-import { SectionContainer } from '@app/app/containers/section-container'
+import { MarketingFeatureCompareList } from '@app/components/stateless/marketing/features-compare'
+import { SectionContainer } from '@app/components/stateless/containers/section-container'
 import { Header } from '@app/components/general/header'
 
 function WhyUs({ name }: PageProps) {

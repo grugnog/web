@@ -10,7 +10,7 @@ import { companyName } from '@app/configs'
 import { apiRoutes } from '@app/templates/rest-api'
 import { ApiCell } from '@app/components/general/cells/api-info-cell'
 import { Header } from '@app/components/general/header'
-import { SectionContainer } from '@app/app/containers/section-container'
+import { SectionContainer } from '@app/components/stateless/containers/section-container'
 import { getUsageLimitsMs } from '@a11ywatch/website-source-builder'
 
 // TODO: GENERATE DOCS FROM API

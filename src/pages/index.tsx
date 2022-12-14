@@ -2,18 +2,18 @@ import { Fragment } from 'react'
 import { metaSetter } from '@app/utils'
 import { strings } from '@app-strings'
 
-import { MarketingIntro } from '@app/app/marketing/intro-rest'
-import { FeaturesList } from '@app/app/marketing/features'
-import { JavascriptUsage } from '@app/app/marketing/js-usage'
-import { MarketingCli } from '@app/app/marketing/cli-usage'
-import { MarketingTrustBy } from '@app/app/marketing/trusted'
+import { MarketingIntro } from '@app/components/stateless/marketing/intro-rest'
+import { FeaturesList } from '@app/components/stateless/marketing/features'
+import { JavascriptUsage } from '@app/components/stateless/marketing/js-usage'
+import { MarketingCli } from '@app/components/stateless/marketing/cli-usage'
+import { MarketingTrustBy } from '@app/components/stateless/marketing/trusted'
 import { CtaInputRest } from '@app/components/cta/searchbar/cta-input-rest'
 
 import { MarketingDrawer } from '@app/components/general'
-import { MarketingDashboard } from '@app/app/marketing/dashboard'
+import { MarketingDashboard } from '@app/components/stateless/marketing/dashboard'
 import { MarketingBottomTemporaryDrawer } from '@app/components/modal'
 import { companyName } from '@app/configs'
-import { MarketingBenefits } from '@app/app/marketing/benefits'
+import { MarketingBenefits } from '@app/components/stateless/marketing/benefits'
 
 function Index() {
   return (

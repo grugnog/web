@@ -3,7 +3,7 @@ import { AppManager } from '@app/managers'
 import { useWebsiteContext } from '@app/components/providers/website'
 import { btnStyles, MoreOptionsBase, MoreOptionsProps } from './more-base'
 import { Button } from '../../buttons'
-import { Link } from '@app/app/typo/link'
+import { Link } from '@app/components/stateless/typo/link'
 
 function MoreOptionsComponent(props: MoreOptionsProps) {
   const { updateWebsite } = useWebsiteContext()

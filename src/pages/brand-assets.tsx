@@ -3,7 +3,7 @@ import { strings } from '@app-strings'
 import { metaSetter } from '@app/utils'
 import type { PageProps } from '@app/types'
 import { Header, Header3 } from '@app/components/general/header'
-import { SectionContainer } from '@app/app/containers/section-container'
+import { SectionContainer } from '@app/components/stateless/containers/section-container'
 
 function BrandAssets({ name }: PageProps) {
   return (

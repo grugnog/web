@@ -3,7 +3,7 @@ import { printElement } from '@app/utils'
 import { getAPIRoute } from '@app/configs'
 import type { Website } from '@app/types'
 import { FilterDropdown } from '../feed/filters'
-import { Link } from '@app/app/typo/link'
+import { Link } from '@app/components/stateless/typo/link'
 
 interface InfoBarComponent {
   printable?: boolean

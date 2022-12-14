@@ -4,7 +4,7 @@ import { metaSetter } from '@app/utils'
 import type { PageProps } from '@app/types'
 import { companyName } from '@app/configs'
 import { Header, Header2, Header3 } from '@app/components/general/header'
-import { SectionContainer } from '@app/app/containers/section-container'
+import { SectionContainer } from '@app/components/stateless/containers/section-container'
 
 function About({ name }: PageProps) {
   return (

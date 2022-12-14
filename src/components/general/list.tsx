@@ -1,6 +1,6 @@
 import { FC, useState, useEffect, useCallback, memo } from 'react'
 import { useMiniPlayer } from '@app/data'
-import { CardHeader } from '@app/app/card/header'
+import { CardHeader } from '@app/components/stateless/card/header'
 import { ListSkeleton } from '../placeholders'
 import { FullScreenModal } from './fullscreen-modal'
 import { WebsiteCell } from './cells'

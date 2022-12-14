@@ -1,8 +1,8 @@
 import { MarketingDrawer, PriceMemo } from '@app/components/general'
 import { metaSetter } from '@app/utils'
 import type { PageProps } from '@app/types'
-import { Partners } from '@app/app/marketing/partners'
-import { SectionContainer } from '@app/app/containers/section-container'
+import { Partners } from '@app/components/stateless/marketing/partners'
+import { SectionContainer } from '@app/components/stateless/containers/section-container'
 import { Header } from '@app/components/general/header'
 import { trialDuration } from '@app/configs/app-config'
 

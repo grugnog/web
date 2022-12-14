@@ -1,6 +1,6 @@
 import { Fragment } from 'react'
 import { MarketingDrawer } from '@app/components/general'
-import { MarketingIntro } from '@app/app/marketing/intro-rest'
+import { MarketingIntro } from '@app/components/stateless/marketing/intro-rest'
 import { metaSetter } from '@app/utils'
 import type { PageProps } from '@app/types'
 import { MarketingBottomTemporaryDrawer } from '@app/components/modal'

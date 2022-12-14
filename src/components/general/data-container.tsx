@@ -1,7 +1,7 @@
 import { FC, PropsWithChildren } from 'react'
 import { ListSkeleton } from '@app/components/placeholders'
 import { EmptyWebsiteForm } from '@app/components/general/website/empty-form'
-import { CardHeader } from '@app/app/card/header'
+import { CardHeader } from '@app/components/stateless/card/header'
 import { DashboardCellLoader } from '../placeholders/dashboard-cell-loader'
 
 type DataContainerProps = PropsWithChildren<{

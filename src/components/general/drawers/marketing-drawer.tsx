@@ -4,7 +4,7 @@ import { NavBarTitle, MarketingNavMenu } from '../navigation'
 import { SearchBar } from '../searchbar'
 import { NavBar } from '../navigation/navbar'
 import { Footer } from '../footer'
-import { MarketingAlternatives } from '@app/app/marketing/alternative'
+import { MarketingAlternatives } from '@app/components/stateless/marketing/alternative'
 
 // main marketing pages drawer
 export function MarketingDrawer({

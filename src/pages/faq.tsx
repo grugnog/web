@@ -4,8 +4,8 @@ import { metaSetter } from '@app/utils'
 import { theme } from '@app-theme'
 import type { PageProps } from '@app/types'
 import { Header, Header2, Header3 } from '@app/components/general/header'
-import { SectionContainer } from '@app/app/containers/section-container'
-import { Link, LinkPrefetch } from '@app/app/typo/link'
+import { SectionContainer } from '@app/components/stateless/containers/section-container'
+import { Link, LinkPrefetch } from '@app/components/stateless/typo/link'
 import { companyName } from '@app/configs'
 
 const linkStyle = {

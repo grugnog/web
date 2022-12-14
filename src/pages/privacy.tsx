@@ -2,9 +2,9 @@ import React from 'react'
 import { MarketingDrawer, PageTitle, Spacer } from '@app/components/general'
 import { metaSetter } from '@app/utils'
 import type { PageProps } from '@app/types'
-import { SectionContainer } from '@app/app/containers/section-container'
+import { SectionContainer } from '@app/components/stateless/containers/section-container'
 import { Header2, Header3 } from '@app/components/general/header'
-import { Link } from '@app/app/typo/link'
+import { Link } from '@app/components/stateless/typo/link'
 
 function Privacy({ name }: PageProps) {
   return (

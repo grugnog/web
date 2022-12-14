@@ -3,8 +3,8 @@
 import { useState } from 'react'
 import { priceConfig } from '@app/configs'
 
-import { Link } from '@app/app/typo/link'
-import { SectionContainer } from '@app/app/containers/section-container'
+import { Link } from '@app/components/stateless/typo/link'
+import { SectionContainer } from '@app/components/stateless/containers/section-container'
 import { PriceCell } from './cells/price-cell'
 import { PriceFeat } from './cells/price-feat'
 import { Header3 } from './header'
@@ -192,7 +192,7 @@ export function PriceMemo({
         </PriceFeat>
       </div>
 
-      <div className='font-medium text-center py-4 text-base'>
+      <div className='text-center py-4 text-sm'>
         Need more? We can easily handle thousands of scans per minute,{' '}
         <a href='mailto:support@a11ywatch.com' className='underline'>
           get in touch
