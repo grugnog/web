@@ -103,6 +103,7 @@ export default function Layout({ children, ...props }: any) {
         {description ? (
           <meta name='description' content={description} key='description' />
         ) : null}
+        <meta name='twitter:title' key={'twitter:title'} content={metaTitle} />
         <meta
           name='twitter:card'
           content='summary_large_image'
