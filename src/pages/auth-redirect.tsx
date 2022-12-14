@@ -6,7 +6,7 @@ import { MarketingShortTitle } from '@app/components/marketing'
 import { useMutation } from '@apollo/react-hooks'
 import { REGISTER } from '@app/mutations'
 import { AppManager, UserManager } from '@app/managers'
-import { parseJwt } from '@app/lib/auth'
+import { parseJwt } from '@app/lib/auth/jwt'
 
 // handle auth redirects
 function AuthRedirect(props: {
@@ -74,21 +74,32 @@ function AuthRedirect(props: {
   return (
     <>
       <MarketingShortTitle />
-      {id ? (
-        <>
-          <div className='p-4'>
-            <div className='text-lg'>Authenticated {email}!</div>
-            <div>Redirecting to dashboard...</div>
-          </div>
-        </>
-      ) : (
-        <>
-          <div className='p-4'>
-            <div className='text-lg'>Authenticated {email}!</div>
-            <div id='auth-value'>{jwt}</div>
-          </div>
-        </>
-      )}
+      <div className='container mx-auto'>
+        {id ? (
+          <>
+            <div className='p-4 space-y-2 overflow-hidden'>
+              <div className='text-lg font-medium md:text-2xl'>
+                Welcome <b>{email}</b>!
+              </div>
+              <div>Redirecting to dashboard...</div>
+            </div>
+          </>
+        ) : (
+          <>
+            <div className='p-4 space-y-2 overflow-hidden'>
+              <div className='text-lg font-medium md:text-2xl'>
+                Welcome <b>{email}</b>!
+              </div>
+              <div id='auth-value' className='line-clamp-4 text-base'>
+                {jwt}
+              </div>
+              <div className='text-sm text-gray-700'>
+                You can now close this page.
+              </div>
+            </div>
+          </>
+        )}
+      </div>
     </>
   )
 }
@@ -97,23 +108,18 @@ function AuthRedirect(props: {
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const { query } = context
   const { access_token, cookie } = query
+  const { jwt } = context.req.cookies
 
-  if (cookie) {
-    const { jwt } = context.req.cookies
-
-    if (!jwt) {
-      return {
-        notFound: true,
-      }
-    }
-
-    const { email } = parseJwt(jwt)
+  // redirect session oauth custom imp todo [ip webhook]
+  if (cookie && jwt) {
+    const token = parseJwt(`Bearer ${jwt}`)
 
     return {
       props: {
-        email: email || '',
+        email: token?.subject || '',
         id: null,
-        token: jwt,
+        jwt: jwt,
+        role: token?.keyid || 0,
         cookie: true,
       },
     }

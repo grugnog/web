@@ -164,7 +164,6 @@ function Features({ name }: PageProps) {
 export default metaSetter(
   { Features },
   {
-    description:
-      `Main features that are on the platform and how it works using ${companyName}.`,
+    description: `Main features that are on the platform and how it works using ${companyName}.`,
   }
 )
