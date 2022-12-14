@@ -1,10 +1,31 @@
-import { Fragment } from 'react'
+import { FC, Fragment, PropsWithChildren } from 'react'
 import { WebsiteCellDashboard } from '@app/components/general/cells'
 import { Website } from '@app/types'
 import { listStyle } from '@app/styles/lists/tw'
 
+type WebsiteDashboardProps = {
+  data?: any
+  removePress(): void
+  refetch(): void
+  handleClickOpen(data: any, title: any, url: any, error: any): void
+  // todo remove curry
+  handleClickOpenPlayer: (
+    open?: boolean,
+    data?: any,
+    title?: string
+  ) => () => void
+  crawlWebsite(): void
+  setModal(): void
+  mutatationLoading?: boolean
+  loading?: boolean
+  lighthouseVisible?: boolean
+  activeCrawls?: Record<string, any>
+}
+
 // Iterate over website dashboard cells
-export function WebSitesDashboard({
+export const WebSitesDashboard: FC<
+  PropsWithChildren<WebsiteDashboardProps>
+> = ({
   data,
   removePress,
   handleClickOpen,
@@ -17,7 +38,7 @@ export function WebSitesDashboard({
   lighthouseVisible,
   activeCrawls,
   children,
-}: any) {
+}) => {
   if (!data?.length) {
     return (
       <Fragment>

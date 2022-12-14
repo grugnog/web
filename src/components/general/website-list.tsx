@@ -66,7 +66,7 @@ export function WebsiteList({
 
   return (
     <Fragment>
-      <DataContainer {...sharedProps} avatar={false}>
+      <DataContainer {...sharedProps} avatar={false} dashboard>
         <WebSitesDashboard {...sharedProps} {...websiteProps}>
           {children}
         </WebSitesDashboard>

@@ -124,7 +124,7 @@ export function FullScreenModalWrapper({
     AppManager.toggleSnack(
       open,
       `${domain} is ${!source?.data?.verified ? 'not ' : ''}verified`,
-      !source?.data?.verified ? "error" : "message"
+      !source?.data?.verified ? 'error' : 'message'
     )
 
     if (source?.data?.verified && refetch && handleClose) {
