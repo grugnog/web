@@ -200,7 +200,7 @@ function ApiInfo() {
 export default metaSetter(
   { ApiInfo },
   {
-    title: `${companyName} - Web Accessibility API`,
+    title: `${companyName}: Web Accessibility API`,
     description: `The web accessibility API for testing in real time. Determine accurate image alts and other inclusive recommendations with OpenAPI, graphQL, or gRPC.`,
     gql: true,
   }

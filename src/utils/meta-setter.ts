@@ -20,7 +20,7 @@ export const metaSetter = (
   value.meta = {
     title:
       title ||
-      `${strings.appName} - ${
+      `${strings.appName}: ${
         name.length <= 3 ? name.toLocaleUpperCase() : name
       }`,
     description,

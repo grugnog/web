@@ -414,6 +414,7 @@ export function FormDialogWrapper({
               <WCAGSelectInput
                 standard={standard}
                 onStandardChange={onStandardChange}
+                spacing
               />
               <FormControl htmlFor='ua'>Enter User Agent</FormControl>
               <TextField
@@ -434,7 +435,9 @@ export function FormDialogWrapper({
             <Button
               disabled={!websitUrl}
               type='submit'
-              className='w-full border rounded-none md:py-3'
+              className={`w-full border rounded-none ${
+                !websitUrl ? 'bg-gray-100 text-gray-500' : ''
+              } md:py-3`}
             >
               Subscribe
             </Button>

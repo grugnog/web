@@ -88,6 +88,6 @@ export default metaSetter(
   { Consulting },
   {
     description:
-      'Need a web accessibility expert fast? Get audits using manual and automated testing that save time and effort on ADA & WCAG for any project.',
+      'Need a web accessibility expert now? Hire developers that understand WCAG, Section508, and other regulations to help make your product inclusive.',
   }
 )

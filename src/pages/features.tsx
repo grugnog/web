@@ -165,6 +165,6 @@ export default metaSetter(
   { Features },
   {
     description:
-      'Main features that are on the service that are useful for building better websites for everyone.',
+      `Main features that are on the platform and how it works using ${companyName}.`,
   }
 )

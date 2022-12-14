@@ -17,7 +17,7 @@ const btnStyle =
   'w-full py-3 place-items-center bg-[rgba(20,20,20,0.3)] border-3'
 
 const MFab = observer(({ iframeStore, issue, script, marketing }: any) => {
-  const { setMiniPlayerContent } = useMiniPlayer()
+  const { setMiniPlayerContent, miniPlayer } = useMiniPlayer()
   const { highLight, toggleHighLight, setFrameContent } = useIframe()
   const { autoFixEnabled, setAutoFix } = useAutoFix(script)
 
@@ -57,7 +57,7 @@ const MFab = observer(({ iframeStore, issue, script, marketing }: any) => {
         <Button
           iconButton
           className={btnStyle}
-          onClick={setMiniPlayerContent(true)}
+          onClick={setMiniPlayerContent(!miniPlayer.open)}
           title='View page issues as list'
         >
           <GrStatusWarning className={'grIcon'} />

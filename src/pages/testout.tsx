@@ -57,7 +57,7 @@ export const getStaticProps: GetStaticProps = async () => {
 export default metaSetter(
   { Test },
   {
-    title: `${companyName} - Try web accessibility playground`,
+    title: `${companyName}: Try web accessibility playground`,
     description:
       'Free website accessibility testing sandbox. View your website in realtime using the playground to visualize and fix issues, validate contrast, and much more.',
     gql: true,

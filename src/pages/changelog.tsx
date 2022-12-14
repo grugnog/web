@@ -122,6 +122,6 @@ function ChangeLog({ name }: PageProps) {
 export default metaSetter(
   { ChangeLog },
   {
-    description: `See recent and planned updates across ${companyName}, web accessibility software .`,
+    description: `See recent and planned updates across ${companyName}, web accessibility software.`,
   }
 )

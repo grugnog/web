@@ -6,6 +6,7 @@ import type { PageProps } from '@app/types'
 import { Header, Header2, Header3 } from '@app/components/general/header'
 import { SectionContainer } from '@app/app/containers/section-container'
 import { Link, LinkPrefetch } from '@app/app/typo/link'
+import { companyName } from '@app/configs'
 
 const linkStyle = {
   color: theme.palette.primary.main,
@@ -160,6 +161,6 @@ export default metaSetter(
   { Faq },
   {
     description:
-      'Get answers to frequently asked questions on A11yWatch plans and pricing. Teams use A11yWatch to fix, monitor, and guide web accessibility in one place.',
+      `Get answers to frequently asked questions on A11yWatch plans and pricing. Teams use ${companyName} to fix, monitor, and guide web accessibility in one place.`,
   }
 )

@@ -71,7 +71,7 @@ function OpenSource({
 export default metaSetter(
   { OpenSource },
   {
-    title: `${companyName} - Open Source projects we support`,
+    title: `${companyName}: Open Source projects we support`,
     description: `A list of Open-Source projects we contribute to. Some of the projects help make our system unique.`,
   }
 )

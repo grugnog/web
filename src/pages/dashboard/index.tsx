@@ -247,6 +247,7 @@ function Dashboard({ name }: PageProps) {
               <WCAGSelectInput
                 onStandardChange={onStandardChange}
                 standard={standard}
+                spacing
               />
               <CtaInputRest standard={standard} />
               <p>Or HTML</p>

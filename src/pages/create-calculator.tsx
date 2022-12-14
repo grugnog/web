@@ -129,7 +129,7 @@ function CreateCalculator({ name }: PageProps) {
 export default metaSetter(
   { CreateCalculator },
   {
-    title: `Calculator reflecting enterprise cost - ${companyName}`,
+    title: `${companyName}: Calculator reflecting enterprise cost`,
     description: `Calculator for enterprise plans at ${companyName}. Use this to get a estimation on what your cost would look like at different levels.`,
   }
 )

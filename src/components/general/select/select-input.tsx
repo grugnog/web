@@ -20,9 +20,14 @@ export interface InputProps {
     event: React.ChangeEvent<{ name?: string | undefined; value: unknown }>
   ): void
   standard?: AccessibilityStandardKeys
+  spacing?: boolean
 }
 
-export const WCAGSelectInput = ({ onStandardChange, standard }: InputProps) => {
+export const WCAGSelectInput = ({
+  onStandardChange,
+  standard,
+  spacing,
+}: InputProps) => {
   return (
     <div>
       <label htmlFor='ext-select-outlined' className='sr-only'>
@@ -32,7 +37,9 @@ export const WCAGSelectInput = ({ onStandardChange, standard }: InputProps) => {
         id='ext-select-outlined'
         value={standard}
         onChange={onStandardChange}
-        className={'text-sm border-0 m-0 hover:bg-gray-100 rounded px-2 py-1.5'}
+        className={`text-sm border-0 m-0 hover:bg-gray-100 rounded py-1.5${
+          spacing ? ' px-2' : ''
+        }`}
       >
         {standards.map((value: any) => (
           <option value={value} key={value} className={'text-sm'}>

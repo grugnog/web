@@ -103,7 +103,7 @@ function Contact({ name }: PageProps) {
 export default metaSetter(
   { Contact },
   {
-    title: `${strings.appName} get in touch with us`,
+    title: `${strings.appName}: Get in touch with us`,
     description: `Contact us here at ${strings.appName} with any questions you may have. Get the support you need to help your web accessibility efforts.`,
   }
 )

@@ -2239,7 +2239,7 @@ function GrpcDocs({ name }: PageProps) {
 export default metaSetter(
   { GrpcDocs },
   {
-    title: `${companyName} - gRPC API documentation information`,
+    title: `${companyName}: gRPC API documentation information`,
     description: 'The gRPC documentation for the system.',
   }
 )

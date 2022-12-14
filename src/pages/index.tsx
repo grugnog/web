@@ -38,7 +38,7 @@ export default metaSetter(
   { Index },
   {
     rest: true,
-    title: `The open source web accessibility platform - ${companyName}.`,
+    title: `${companyName}: The open source web accessibility platform.`,
     description: `Build inclusive websites with tools that monitor, fix, and guide web accessibility delivery with ${strings.appName}`,
   }
 )
