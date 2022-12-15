@@ -1,0 +1,26 @@
+User-agent: *
+Disallow: /api
+Disallow: /website-details
+Disallow: /web-view
+Disallow: /website-details/*
+Disallow: /web-pages
+Disallow: /settings
+Disallow: /iframe/*
+Disallow: /dashboard
+Disallow: /alerts
+Disallow: /profile
+Disallow: /website-analytics
+Disallow: /web-actions
+Disallow: /web-issues
+Disallow: /scripts
+Disallow: /history
+Disallow: /payments
+Disallow: /reports
+Disallow: /reports/*
+Disallow: /register?*
+Disallow: /auth-redirect
+Disallow: /auth-redirect?*
+
+Host: https://a11ywatch.com
+
+Sitemap: https://a11ywatch.com/sitemap.xml
