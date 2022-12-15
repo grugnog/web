@@ -21,7 +21,9 @@ export function AuthedMenuComponent({ route, dataSourceMap }: AuthedMenuProps) {
   })
 
   const onAlertToggle = async (e?: SyntheticEvent<HTMLInputElement>) => {
-    e?.stopPropagation()
+    if (e && typeof e.stopPropagation === 'function') {
+      e?.stopPropagation()
+    }
 
     try {
       await toggleAlert({

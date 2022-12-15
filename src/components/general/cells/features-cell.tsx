@@ -1,5 +1,4 @@
 import { memo } from 'react'
-import { Switch } from '@material-ui/core'
 import {
   GrNotification as NotificationsIcon,
   GrCode as CodeIcon,
@@ -13,7 +12,7 @@ import {
 
 import { Link } from '../link'
 import { Pulse } from '../loaders'
-import { FormControl } from '../form-control'
+import { SwitchInput } from '../switch'
 
 const renderIcon = (feature?: string, className?: string) => {
   switch (feature) {
@@ -125,22 +124,26 @@ export function FeaturesCellComponent({
               'grIcon text-blue-700 md:text-gray-700') ||
               'grIcon text-gray-700'
           )}
-          <div className='sr-only md:not-sr-only text-sm text-gray-600'>
-            {title}
-          </div>
+          {index === 0 ? (
+            <label
+              className='sr-only md:not-sr-only text-sm text-gray-600'
+              htmlFor='alerts-btn'
+            >
+              {title}
+            </label>
+          ) : (
+            <div className='sr-only md:not-sr-only text-sm text-gray-600'>
+              {title}
+            </div>
+          )}
         </div>
         {index === 0 ? (
           <div className='hidden lg:block'>
-            <FormControl htmlFor='alerts-btn'>Alerts</FormControl>
-            <div>
-              <Switch
-                color='primary'
-                id='alerts-btn'
-                value='Alerts'
-                checked={alertEnabled}
-                onClick={toggleAlert}
-              />
-            </div>
+            <SwitchInput
+              id='alerts-btn'
+              checked={alertEnabled}
+              onChange={toggleAlert}
+            />
           </div>
         ) : null}
         {renderGuide(index, events)}

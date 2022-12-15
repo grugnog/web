@@ -1,5 +1,4 @@
 import { memo } from 'react'
-import { Avatar } from '@material-ui/core'
 import { GrFolder, GrStatusWarning } from 'react-icons/gr'
 
 export function RenderAvatarComponent({
@@ -15,7 +14,7 @@ export function RenderAvatarComponent({
     ? ''
     : 'Accessibility score not generated yet'
 
-  const css = `${cdnConnected ? ` ring` : ''} ${className}`
+  const css = `${cdnConnected ? ` ring` : ''} ${className} p-3 rounded-full`
 
   let inner = <GrFolder />
 
@@ -37,14 +36,14 @@ export function RenderAvatarComponent({
   if (cdnConnected) {
     return (
       <div className='px-3'>
-        <Avatar className={css}>{inner}</Avatar>
+        <div className={css}>{inner}</div>
       </div>
     )
   }
 
   return (
     <div className='px-3'>
-      <Avatar className={css}>{inner}</Avatar>
+      <div className={css}>{inner}</div>
     </div>
   )
 }

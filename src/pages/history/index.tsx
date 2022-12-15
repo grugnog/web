@@ -3,7 +3,6 @@ import {
   List,
   FormDialog,
   PageTitle,
-  LinearBottom,
   Drawer,
   Spacer,
 } from '@app/components/general'
@@ -43,7 +42,6 @@ const History = ({ name }: PageProps) => {
           />
         </PageLoader>
       </Drawer>
-      <LinearBottom loading={loading} />
     </Fragment>
   )
 }
