@@ -8,8 +8,9 @@ export const HeadlessModal: FC<
     onClose(x?: any): any
     size?: TWSize
     hideBackdrop?: boolean
+    center?: boolean
   }>
-> = ({ children, open, onClose, size, hideBackdrop, ...props }) => {
+> = ({ children, open, onClose, size, hideBackdrop, center, ...props }) => {
   return (
     <Transition.Root show={open} as={Fragment}>
       <Dialog
@@ -33,7 +34,7 @@ export const HeadlessModal: FC<
             <div className='fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity' />
           </Transition.Child>
         )}
-        {hideBackdrop ? (
+        {hideBackdrop && !center ? (
           <div className={`${size ? getSize(size) : 'sm:max-w-lg'}`}>
             {children}
           </div>

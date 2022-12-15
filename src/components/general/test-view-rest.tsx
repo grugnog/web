@@ -8,7 +8,7 @@ import { Website } from '@app/types'
 const TestViewRestContainer = observer(
   ({ url: currentUrl, store, posRelative, website }: any) => {
     return (
-      <div className='w-full h-full'>
+      <div className='w-full h-full relative'>
         <TestOutIframe
           url={currentUrl ?? store?.getTestFrameUrl}
           website={website}

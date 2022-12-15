@@ -38,7 +38,7 @@ function Reports({ name, website }: PageProps) {
         <ErrorBoundary>
           <ReportView
             website={website}
-            disablePlayground={true}
+            disablePlayground
             disableTabs
             download
             authenticated={authenticated}

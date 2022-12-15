@@ -126,9 +126,7 @@ export function DrawerW({ children, route, title }: any) {
               style={{
                 maxHeight: `calc(100vh - ${theme.mixins.toolbar.minHeight}px)`,
               }}
-              className={
-                'px-3 md:px-4 pt-2 scrollbar overflow-auto'
-              }
+              className={'px-3 md:px-4 pt-2 scrollbar overflow-auto'}
             >
               <RefBanner />
               {children}

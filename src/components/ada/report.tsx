@@ -1,7 +1,6 @@
 'use client'
 
 import { useState } from 'react'
-import { WebsiteTabs, TestView } from '@app/components/general'
 import { ListSkeleton } from '@app/components/placeholders'
 import { ReportViewLeft } from './report-left'
 import { Website } from '@app/types'
@@ -35,8 +34,6 @@ function ReportEmptyView() {
 
 function ReportInner({
   website,
-  disablePlayground,
-  disableTabs,
   viewMode,
 }: {
   disablePlayground?: boolean
@@ -45,30 +42,18 @@ function ReportInner({
   viewMode?: 'playground' | 'list'
 }) {
   // no tabs rendered
-  if (disableTabs) {
-    if (viewMode === 'playground') {
-      return (
-        <TestViewRest
-          url={website.url || ''}
-          marketing
-          posRelative
-          website={website}
-        />
-      )
-    }
-    return <FeedList issue={website as any} isHidden={false} fullScreen />
+  if (viewMode === 'playground') {
+    return (
+      <TestViewRest
+        url={website.url || ''}
+        marketing
+        posRelative
+        website={website}
+      />
+    )
   }
 
-  return (
-    <WebsiteTabs
-      issues={<FeedList issue={website as any} isHidden={false} fullScreen />}
-      playground={
-        disablePlayground ? null : (
-          <TestView url={website.url || ''} marketing posRelative />
-        )
-      }
-    />
-  )
+  return <FeedList issue={website as any} isHidden={false} fullScreen />
 }
 
 export function ReportView({

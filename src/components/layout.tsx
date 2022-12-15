@@ -94,11 +94,20 @@ export default function Layout({ children, ...props }: any) {
   const metaTitle = title || `${strings.appName}: Web Accessibility Service`
   const domainName = pathName === 'blog' ? BLOG_WEBFLOW_URL : DOMAIN_NAME
 
+  const gimage =
+    pathName === '/' || pathName === 'index'
+      ? `${DOMAIN_NAME}/img/dashboard-example.png`
+      : `${DOMAIN_NAME}/api/og?title=${metaTitle}`
+
   return (
     <>
       <Head>
         <meta charSet='utf-8' key={'charset'} />
-        <meta name='viewport' content='width=device-width, initial-scale=1' />
+        <meta
+          name='viewport'
+          content='width=device-width, initial-scale=1'
+          key='viewport'
+        />
         <title key='title'>{metaTitle}</title>
         {description ? (
           <meta name='description' content={description} key='description' />
@@ -115,6 +124,14 @@ export default function Layout({ children, ...props }: any) {
           content={twitterSite}
           key={'twitter:creator'}
         />
+        {pathName === '/' || pathName === 'index' ? (
+          <meta
+            name='twitter:image:alt'
+            content={`${companyName} dashboard example`}
+            key={'twitter:image:alt'}
+          />
+        ) : null}
+        <meta name='twitter:image' content={gimage} key='twitter:image' />
         <meta property='og:type' key='og:type' content='website' />
         <meta
           property='og:url'
@@ -135,17 +152,13 @@ export default function Layout({ children, ...props }: any) {
         {metaTitle ? (
           <meta property='og:title' content={metaTitle} key={'og:title'} />
         ) : null}
-        <meta
-          property='og:image'
-          content={`${DOMAIN_NAME}/api/og?title=${metaTitle}`}
-        />
+        <meta property='og:image' content={gimage} />
         <meta property='og:image:width' content='1200' key={'og:image:width'} />
         <meta
           property='og:image:height'
           content='728'
           key={'og:image:height'}
         />
-
         {description ? (
           <meta
             property='og:image:alt'
@@ -154,7 +167,6 @@ export default function Layout({ children, ...props }: any) {
           />
         ) : null}
         <meta property='og:site_name' content={companyName} />
-
         <meta property='author' content='Jeff Mendez' key='author' />
         <meta
           property='keywords'
@@ -162,7 +174,7 @@ export default function Layout({ children, ...props }: any) {
           content='Web Accessibility Tool, Web Accessibility API, OSS Web Accessibility, Inclusion, A11y, Web'
         />
         {process.env.NEXT_PUBLIC_DISABLE_SEO === '1' ? (
-          <meta name='robots' content='noindex' />
+          <meta name='robots' content='noindex' key='robots' />
         ) : null}
         <meta
           name='theme-color'
