@@ -1,7 +1,6 @@
 import { Mailto, MarketingDrawer } from '@app/components/general'
 import { strings } from '@app-strings'
 import { metaSetter } from '@app/utils'
-import { theme } from '@app-theme'
 import type { PageProps } from '@app/types'
 import { Header, Header2, Header3 } from '@app/components/general/header'
 import { SectionContainer } from '@app/components/stateless/containers/section-container'
@@ -9,7 +8,6 @@ import { Link, LinkPrefetch } from '@app/components/stateless/typo/link'
 import { companyName } from '@app/configs'
 
 const linkStyle = {
-  color: theme.palette.primary.main,
   textDecoration: 'underline',
   fontWeight: 600,
 }
@@ -116,13 +114,18 @@ function Faq({ name }: PageProps) {
         <div className='border py-2 px-3 space-y-2'>
           <p>
             Spread the word and evangelize {strings.appName}{' '}
-            <Link style={linkStyle} href={'https://a11ywatch.com'}>
+            <Link
+              style={linkStyle}
+              href={'https://a11ywatch.com'}
+              className={'text-blue-700'}
+            >
               linking to a11ywatch.com
             </Link>{' '}
             on your website, every backlink matters. Follow us on{' '}
             <Link
               target='_blank'
               style={linkStyle}
+              className={'text-blue-700'}
               href={'https://www.twitter.com/a11ywatcher'}
             >
               Twitter

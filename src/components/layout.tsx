@@ -12,9 +12,6 @@ import type { InnerApp } from '@app/types/page'
 import { buildScopeQuery } from '@app/utils/build-scope'
 import { strings } from '@app/content/strings/a11y'
 import { initAppModel, userModel } from '@app/data'
-import { ThemeProvider } from '@material-ui/core/styles'
-import { theme } from '@app-theme'
-import { CssBaseline } from '@material-ui/core'
 import {
   BLOG_WEBFLOW_URL,
   companyName,
@@ -24,6 +21,7 @@ import {
 import { useStaticRendering as enableMobxStaticRendering } from 'mobx-react-lite'
 import { SkipContent, SnackBar } from './general'
 import { ping } from '@app/utils'
+import { UserManager } from '@app/managers'
 
 if (typeof window === 'undefined') {
   enableMobxStaticRendering(true)
@@ -33,9 +31,6 @@ const authRoutes = LOGGIN_ROUTES.map((route) => route.replace('/', ''))
 
 // load the application with providers depending on component
 const LayoutWrapper = ({ Component, pageProps }: InnerApp) => {
-  const { name } = Component?.meta || strings?.meta
-  const { wasm, gql, rest } = Component
-
   useEffect(() => {
     const jssStyles = document.querySelector('#jss-server-side')
 
@@ -45,7 +40,8 @@ const LayoutWrapper = ({ Component, pageProps }: InnerApp) => {
 
     initAppModel()
 
-    const authed = userModel.initModel({
+    // todo: remove js cookie parsing
+    userModel.initModel({
       cookie:
         typeof navigator !== 'undefined' &&
         typeof document !== 'undefined' &&
@@ -53,8 +49,13 @@ const LayoutWrapper = ({ Component, pageProps }: InnerApp) => {
         document.cookie,
     })
 
-    authed && queueMicrotask(ping)
+    if (UserManager.token) {
+      queueMicrotask(ping)
+    }
   }, [])
+
+  const { name } = Component?.meta || strings?.meta
+  const { wasm, gql, rest } = Component
 
   // name is based off function name and not file name
   const nameLowerCased = (name && String(name).toLowerCase()) || ''
@@ -175,11 +176,6 @@ export default function Layout({ children, ...props }: any) {
         {process.env.NEXT_PUBLIC_DISABLE_SEO === '1' ? (
           <meta name='robots' content='noindex' key='robots' />
         ) : null}
-        <meta
-          name='theme-color'
-          content={theme.palette.primary.main}
-          key={'theme-color'}
-        />
         <meta name='mobile-web-app-capable' content='yes' />
         <link rel='manifest' href='/manifest.json' key={'manifest'} />
         <meta
@@ -204,12 +200,9 @@ export default function Layout({ children, ...props }: any) {
           key={'image/x-icon'}
         />
       </Head>
-      <ThemeProvider theme={theme}>
-        <CssBaseline />
-        <SkipContent />
-        <LayoutWrapper {...props}>{children}</LayoutWrapper>
-        <SnackBar topLevel />
-      </ThemeProvider>
+      <SkipContent />
+      <LayoutWrapper {...props}>{children}</LayoutWrapper>
+      <SnackBar topLevel />
     </>
   )
 }

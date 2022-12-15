@@ -1,5 +1,4 @@
 import React from 'react'
-import { theme } from '@app/theme'
 import { Button } from '@app/components/general/buttons/button'
 import { useStripe, useElements, CardElement } from '@stripe/react-stripe-js'
 
@@ -14,7 +13,7 @@ const style = {
   base: {
     iconColor: '#0E1116',
     fontWeight: '500',
-    fontFamily: theme.typography.fontFamily,
+    fontFamily: 'system-ui, -apple-system, Helvetica Neue',
     fontSize: '20px',
     fontSmoothing: 'antialiased',
   },

@@ -6,7 +6,6 @@ import { Logo, NavBarTitle } from '.'
 import { Link } from '../link'
 import { AuthMenu } from '../auth-menu'
 import { GrLinkPrevious } from 'react-icons/gr'
-import { theme } from '@app/theme'
 
 type LeftbuttonWrapperProps = {
   marketing?: boolean
@@ -73,15 +72,12 @@ export const NavBar: FC<PropsWithChildren<NavProps>> = ({
   authenticated,
   loading,
 }) => {
-  const bg =
-    position === 'static'
-      ? `bg-[${theme.palette.background.default}]`
-      : 'bg-[inherit]'
+  const bg = position === 'static' ? `bg-white` : 'bg-[inherit]'
 
   return (
     <nav
-      style={{ minHeight: theme.mixins.toolbar.minHeight }}
-      className={`${bg} z-1 min-h-[${theme.mixins.toolbar.minHeight}px] ${
+      style={{ minHeight: 55 }}
+      className={`${bg} z-1 min-h-[55px] ${
         className ? `${className}` : className
       } ${
         position === 'fixed' ? 'fixed left-[13%] md:left-[250px] right-0' : ''

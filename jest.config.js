@@ -10,7 +10,6 @@ const customJestConfig = {
   moduleNameMapper: {
     '^@app/(.*)$': '<rootDir>/src/$1',
     '@app-strings': '<rootDir>/src/content/strings/a11y/',
-    '@app-theme': '<rootDir>/src/theme/main/',
   },
   coverageDirectory: './coverage/',
   collectCoverage: true,

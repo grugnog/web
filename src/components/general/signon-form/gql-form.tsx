@@ -174,7 +174,7 @@ const SignOnFormWrapper: FunctionComponent<SignOnProps> = ({
                 aria-invalid={email.length < 4}
                 onChange={onChangeEmailEvent}
                 value={email}
-                autoFocus={true}
+                autoFocus
                 autoComplete='email'
                 className={'min-w-[200px]'}
                 required

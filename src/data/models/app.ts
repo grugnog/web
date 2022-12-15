@@ -25,7 +25,7 @@ function initAppModel() {
       try {
         window.addEventListener(installed, setPwaInstalled)
       } catch (e) {
-        console.error('cannot set pwa')
+        console.error('PWA not supported.')
       }
     }
   }

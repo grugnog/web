@@ -44,15 +44,15 @@ export function PriceCell({
       <>
         <div className='w-full'>
           <div
-            className={`text-left w-full flex-col text-white px-8 py-2 text-gray-800 ${highLight(
+            className={`text-left w-full flex-col text-white px-8 py-4 text-gray-800 ${highLight(
               'bg-blue-700 text-white',
               selected,
               selectHighPlans ? 'bg-gradient-radial' : `bg-[${textColor}]`
             )}`}
           >
             <SubHeading
-              className={`font-medium w-full ${highLight(
-                'text-white',
+              className={`w-full ${highLight(
+                'text-gray-50',
                 selected,
                 selectHighPlans ? 'text-gray-800' : ''
               )}`}
@@ -65,7 +65,7 @@ export function PriceCell({
                 ) : null}
               </span>
               {cost ? (
-                <span className={'text-base block'}>
+                <span className={'text-base block font-light'}>
                   {yearly ? costYearly : cost} |{' '}
                   <span
                     className={`text-sm ${

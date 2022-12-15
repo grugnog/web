@@ -1,4 +1,5 @@
-const parseCookie = (ck: string): any => {
+// fast exact parse params for cookies
+const parseCookie = (ck: string, p1: string, p2: string): any => {
   const cookie = ck
     ? ck
     : typeof document !== 'undefined' &&
@@ -7,21 +8,30 @@ const parseCookie = (ck: string): any => {
     ? document.cookie
     : null
 
-  if (cookie) {
-    return cookie.split(';')?.reduce((res: any, c: any) => {
-      const [key, val] = c.trim().split('=').map(decodeURIComponent)
-      const allNumbers = (str: string) => /^\d+$/.test(str)
-      try {
-        return Object.assign(res, {
-          [key]: allNumbers(val) ? val : JSON.parse(val),
-        })
-      } catch (_) {
-        return Object.assign(res, { [key]: val })
-      }
-    }, {})
+  const items: Record<string, any> = {
+    [p1]: "",
+    [p2]: "",
   }
 
-  return { _a11yloggedin: false }
+  if (cookie) {
+    const cookieSplit = cookie.split('; ')
+
+    for (let i = 0; i < cookieSplit.length; i++) {
+      const val = cookieSplit[i]
+      if (
+        (!items[p1] && val.startsWith(p1)) ||
+        (!items[p2] && val.startsWith(p2))
+      ) {
+        const vals = val.split('=', 1)
+        items[vals[0]] = vals[1]
+      }
+      if (items[p1] && items[p2]) {
+        break
+      }
+    }
+  }
+
+  return items
 }
 
 export { parseCookie }

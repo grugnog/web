@@ -1,10 +1,12 @@
 import { getAPIRoute } from '@app/configs'
 import { hasWindow } from '@app/lib'
+import { UserManager } from '@app/managers'
+
+const apiPath = `${getAPIRoute()}/ping`
 
 // initial app ping
 export const ping = async () => {
   const browser = hasWindow()
-  const apiPath = `${getAPIRoute()}/ping`
 
   if (typeof navigator !== 'undefined' && navigator.sendBeacon) {
     navigator.sendBeacon(apiPath)
@@ -13,7 +15,7 @@ export const ping = async () => {
       await fetch(apiPath, {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json',
+          authorization: UserManager.token,
         },
       })
     } catch (e) {

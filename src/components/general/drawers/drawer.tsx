@@ -4,7 +4,6 @@ import Head from 'next/head'
 import { useUserData } from '@app/data'
 import { UpgradeBanner } from '@app/components/general/upgrade-banner'
 import { useAuthContext } from '@app/components/providers/auth'
-import { drawerStyles } from '@app/styles/drawer'
 import { AuthedMenu } from '../navigation'
 import { NavBar } from '../navigation/navbar'
 import { FixedCopyRight } from '../fixed-copy-right'
@@ -13,7 +12,6 @@ import { IssueFeed } from '../../feed'
 import { FormDialog } from '../form-dialog'
 import { SearchBar } from '../searchbar'
 import { MiniPlayer } from '../mini-player'
-import { theme } from '@app/theme'
 import { RefBanner } from '../ref-banner'
 
 const DynamicModal = dynamic(() =>
@@ -23,18 +21,16 @@ const DynamicModal = dynamic(() =>
 export type DrawerWrapperProps = {
   route?: string
   title?: string
-  classes: Record<string, unknown>
   dataSourceMap: any
 }
 
 function MainDrawerContainerComponent({
   route,
   dataSourceMap,
-  classes,
 }: DrawerWrapperProps) {
   return (
     <div
-      className={`${classes.drawer} ${classes.drawerPaper} relative print:hidden overflow-hidden`}
+      className={`flex flex-col overflow-x-hidden w-[55px] sm:w-[15vw] md:w-[18vw] lg:w-[250px] max-w-[250px] relative print:hidden overflow-hidden`}
     >
       <div className='fixed flex flex-col w-[inherit] overflow-hidden h-full bg-lightgray z-10 space-y-3'>
         <AuthedMenu dataSourceMap={dataSourceMap} route={route} />
@@ -59,14 +55,12 @@ export const MainDrawerContainer = memo(MainDrawerContainerComponent)
 export function DrawerWrapperComponent({
   route: routePath,
   title = '',
-  classes,
   dataSourceMap,
 }: DrawerWrapperProps) {
   return (
     <MainDrawerContainer
       route={routePath ?? title}
       dataSourceMap={dataSourceMap}
-      classes={classes}
     />
   )
 }
@@ -84,7 +78,6 @@ export function NavigationBar({ title = '', authenticated }: any) {
 }
 
 export function DrawerW({ children, route, title }: any) {
-  const classes = drawerStyles()
   const { data: dataSourceMap, sendConfirmEmail } = useUserData()
   const { authed } = useAuthContext()
 
@@ -115,16 +108,15 @@ export function DrawerW({ children, route, title }: any) {
       <>
         <div className={'flex overflow-x-inherit md:overflow-x-hidden'}>
           <DrawerWrapper
-            classes={classes}
             route={route}
             title={title}
             dataSourceMap={dataSourceMap}
           />
-          <main className={classes.content} id='main-content'>
+          <main className={'flex-1 overflow-auto'} id='main-content'>
             <NavigationBar title={title} authenticated={authed} />
             <div
               style={{
-                maxHeight: `calc(100vh - ${theme.mixins.toolbar.minHeight}px)`,
+                maxHeight: `calc(100vh - 55px)`,
               }}
               className={'px-3 md:px-4 pt-2 scrollbar overflow-auto'}
             >

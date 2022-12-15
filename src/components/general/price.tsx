@@ -40,7 +40,7 @@ function MainButton({
     return (
       <div className='pb-2 justify-center flex'>
         <Link
-          className={`w-[15rem] tracking-wide text-lg text-gray-50 font-semibold bg-blue-700 px-4 py-2 hover:ring hover:no-underline rounded-3xl text-center`}
+          className={`w-[15rem] tracking-wide text-lg text-gray-50 bg-blue-700 border-4 border-blue-600 px-4 py-2 hover:ring hover:no-underline rounded-3xl text-center`}
           href={`/register?plan=${title}${yearly ? '&yearly=true' : ''}`}
         >
           {`${title} - ${trialDuration} Day Trial Start`}

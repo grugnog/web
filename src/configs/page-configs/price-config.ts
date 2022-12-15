@@ -7,7 +7,7 @@ const feats = [
   TRUSTED_CDN,
   'Custom workflows and events',
   '10,000+ AI Models to validate resources (text OCR, images, and etc)',
-  'Lighthouse reports across all pages',
+  'PageSpeed Insights across all pages',
   'Webhooks for web accessibility audits',
   'Tools to export data',
   'Unlimited API request',

@@ -1,6 +1,6 @@
 // determine what queries a page can run initially via the route path
 export const buildScopeQuery = (nameLowerCased: string, query: boolean) => {
-  let scopedQuery
+  let scopedQuery = ''
   let initialQuery = query
 
   // run query without pages

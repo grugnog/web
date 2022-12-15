@@ -1,7 +1,6 @@
 import React from 'react'
 import { VictoryBar, VictoryChart } from 'victory'
 import type { Analytic } from '@app/types'
-import { theme } from '@app/theme'
 
 // temp static colors
 const darkGray = '#424242'
@@ -62,7 +61,7 @@ export function AnalyticsCell(source: Analytic) {
           },
           parent: {
             fontSize: 14,
-            fill: theme.palette.text.primary,
+            fill: 'rgb(27,27,27)',
           },
           labels: {
             fontSize: 12,

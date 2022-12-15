@@ -99,6 +99,9 @@ function renderGuide(index: number, events: any) {
   return null
 }
 
+const listTitleStyle =
+  'sr-only text-gray-600 sm:text-xs sm:not-sr-only md:text-sm'
+
 export function FeaturesCellComponent({
   feature,
   alertEnabled = false,
@@ -113,10 +116,10 @@ export function FeaturesCellComponent({
   return (
     <li>
       <Link
-        className={`flex text-base text-gray-600 place-items-center gap-x-3 py-3 pl-2 pr-2 place-content-around hover:bg-gray-100 hover:no-underline md:py-2 md:pl-5 md:pr-2 md:min-h-[54px]`}
+        className={`flex text-gray-600 place-items-center gap-x-3 py-3 pl-2 pr-2 place-content-around min-h-[44px] hover:bg-gray-100 hover:no-underline md:py-2 md:pl-5 md:pr-2 md:min-h-[54px]`}
         {...extraProps(feature, focused, setEvents)}
       >
-        <div className='flex flex-1 place-items-center gap-x-4 place-content-center md:place-content-start'>
+        <div className='flex flex-1 text-xs md:text-sm place-items-center gap-x-2 place-content-center md:place-content-start sm:gap-x-3 md:gap-x-4'>
           {renderIcon(
             title,
             (index === 0 &&
@@ -125,16 +128,11 @@ export function FeaturesCellComponent({
               'grIcon text-gray-700'
           )}
           {index === 0 ? (
-            <label
-              className='sr-only md:not-sr-only text-sm text-gray-600'
-              htmlFor='alerts-btn'
-            >
+            <label className={listTitleStyle} htmlFor='alerts-btn'>
               {title}
             </label>
           ) : (
-            <div className='sr-only md:not-sr-only text-sm text-gray-600'>
-              {title}
-            </div>
+            <div className={listTitleStyle}>{title}</div>
           )}
         </div>
         {index === 0 ? (

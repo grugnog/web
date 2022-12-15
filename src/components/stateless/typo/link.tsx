@@ -37,11 +37,8 @@ export function MNLink({
   as: asValue,
   href,
   shouldPrefetch,
-  ...props
+  ...extra
 }: any) {
-  // remove material props that are passed
-  const { variant, color, ...extra } = props
-
   const cname = `text-base hover:underline${className ? ` ${className}` : ''}`
 
   if (/http|https/.test(href)) {

@@ -31,7 +31,6 @@ export const parseHtml = async (body: string) => {
     followHeading?.remove()
   }
 
-  // wordpress theme scripts - disable for app analytics & bluring
   statsScript?.remove()
   blurScript?.remove()
   likesIframe?.remove()
@@ -43,7 +42,6 @@ export const parseHtml = async (body: string) => {
         let clone = h1
         clone.tagName = 'span'
         h1.replaceWith(clone)
-        // let the second H1 stick (issue with wp theme)
       } else if (index > 1) {
         let clone = h1
         clone.tagName = 'h2'

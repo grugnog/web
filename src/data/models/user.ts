@@ -8,16 +8,9 @@ const defaultExp = 365
 
 const userModel = {
   email: '',
-  deviceType: '',
   jwt: '',
   alertsEnabled: false,
-  initModel: function ({
-    deviceType = '',
-    cookie = '',
-  }: {
-    deviceType?: string
-    cookie?: any
-  }) {
+  initModel: function ({ cookie = '' }: { cookie?: any }) {
     if (typeof document !== 'undefined') {
       const jssStyles = document.querySelector('#jss-server-side')
 
@@ -26,13 +19,13 @@ const userModel = {
       }
     }
 
-    if (deviceType) {
-      this.deviceType = deviceType
-    }
-
     if (cookie) {
-      const { [_JWT]: jwt, [_ALERTS_ENABLED]: alertsEnabled } =
-        parseCookie(cookie)
+      const { [_JWT]: jwt, [_ALERTS_ENABLED]: alertsEnabled } = parseCookie(
+        cookie,
+        // rest params for token matching
+        _JWT,
+        _ALERTS_ENABLED
+      )
 
       this.alertsEnabled = alertsEnabled
       this.jwt = jwt
@@ -70,9 +63,6 @@ const userModel = {
   },
   get loggedIn() {
     return !!this.jwt
-  },
-  get isMobile() {
-    return this.deviceType === 'mobile'
   },
   get parsedToken() {
     return parseJwt(this.jwt)
