@@ -6,7 +6,7 @@ import type { PageProps } from '@app/types'
 function Login({ name }: PageProps) {
   return (
     <MarketingDrawer title={name} footerSpacing emptyFooter emptyNav>
-      <MarketingShortTitle />
+      <MarketingShortTitle hidden />
       <SignOnForm loginView />
     </MarketingDrawer>
   )

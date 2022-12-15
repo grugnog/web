@@ -84,7 +84,7 @@ function Register({
         emptyFooter
         emptyNav
       >
-        <MarketingShortTitle />
+        <MarketingShortTitle hidden />
         <SignOnForm />
       </MarketingDrawer>
     </>

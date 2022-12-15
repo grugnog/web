@@ -131,7 +131,6 @@ export default function Layout({ children, ...props }: any) {
             key={'twitter:image:alt'}
           />
         ) : null}
-        {/* <meta name='twitter:image' content={gimage} key='twitter:image' /> */}
         <meta property='og:type' key='og:type' content='website' />
         <meta
           property='og:url'

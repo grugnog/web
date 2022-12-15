@@ -38,11 +38,10 @@ export function AnnotationContainer({
       hideBackdrop
       center
     >
-      <div className={'w-full bg-white'}>
+      <div className={'w-full bg-white border-4 shadow-xl'}>
         <div className={`flex place-items-center border-b py-2 px-3`}>
           <h3 className={`flex-1 text-lg`}>Recommended</h3>
           <button
-            id={'annotationCancel'}
             aria-label='close modal'
             onClick={onClose}
             className={'pointer-none px-1 py-2'}
