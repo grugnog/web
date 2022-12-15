@@ -1,12 +1,19 @@
 import React from 'react'
-import { red, grey, yellow } from '@material-ui/core/colors'
 import { VictoryBar, VictoryChart } from 'victory'
 import type { Analytic } from '@app/types'
 import { theme } from '@app/theme'
 
+// temp static colors
+const darkGray = '#424242'
+const lightGray = '#616161'
+const darkYellow = '#f9a825'
+const lightYellow = '#fbc02d'
+const darkRed = '#c62828'
+const lightRed = '#d32f2f'
+
 // determine chart color
 const getFill = (label: string) =>
-  label === 'Errors' ? red[700] : label === 'Warnings' ? yellow[700] : grey[700]
+  label === 'Errors' ? lightRed : label === 'Warnings' ? lightYellow : lightGray
 
 // click event for chart mutations
 const onChartClick = (e: any) => {
@@ -15,10 +22,10 @@ const onChartClick = (e: any) => {
     {
       target: 'data',
       mutation: ({ style }: any) => {
-        return style.fill === grey[800]
+        return style.fill === darkGray
           ? null
           : {
-              style: { fill: grey[800] },
+              style: { fill: darkGray },
             }
       },
     },
@@ -66,19 +73,19 @@ export function AnalyticsCell(source: Analytic) {
           {
             x: 'Errors',
             y: source.errorCount,
-            fill: red[800],
+            fill: darkRed,
             label: '',
           },
           {
             x: 'Warnings',
             y: source.warningCount,
-            fill: yellow[800],
+            fill: darkYellow,
             label: '',
           },
           {
             x: 'Notices',
             y: source.noticeCount,
-            fill: grey[800],
+            fill: darkGray,
             label: '',
           },
         ]}

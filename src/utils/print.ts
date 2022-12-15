@@ -15,7 +15,9 @@ const printElement = (searchElement?: any, website?: any) => {
     }
     if (printWindow && 'document' in printWindow) {
       printWindow.document.write(
-        `<html><body><h1 style="margin-left:10px; font-size: 1.2rem;">${website?.url} ${website?.standard || "Accessibility"} Report</h1>`
+        `<html><body><h1 style="margin-left:10px; font-size: 1.2rem;">${
+          website?.url
+        } ${website?.standard || 'Accessibility'} Report</h1>`
       )
       printWindow.document.write(divContents)
       printWindow.document.write('</body></html>')

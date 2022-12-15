@@ -57,7 +57,7 @@ function CtaCdn({
           </Link>
           <Link
             href={'/register'}
-            className={`px-6 py-1.5 text-lg border-none rounded text-grey-700 no-underline hover:bg-grey-50 hover:no-underline`}
+            className={`px-6 py-1.5 text-lg border-none rounded text-grey-700 no-underline hover:bg-gray-50 hover:no-underline`}
           >
             Register
           </Link>

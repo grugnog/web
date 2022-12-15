@@ -30,7 +30,7 @@ export function WebsiteCell(props: WebsiteCellProps) {
     mutatationLoading,
     lastScanDate,
     pageHeaders,
-    historyPage
+    historyPage,
   } = extra
 
   const { adaScore } = issuesInfo ?? {}

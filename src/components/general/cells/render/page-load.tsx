@@ -1,6 +1,6 @@
 import { memo } from 'react'
-import { Chip } from '@material-ui/core'
 import { GrDashboard } from 'react-icons/gr'
+import { Chip } from '../../chip'
 
 interface PageLoad {
   duration: number
@@ -9,11 +9,7 @@ interface PageLoad {
   chipStyle?: any // icon
 }
 
-export function PageLoadComponent({
-  duration = 0,
-  style,
-  chipStyle,
-}: PageLoad) {
+export function PageLoadComponent({ duration = 0, style }: PageLoad) {
   if (typeof duration === 'undefined') {
     return null
   }
@@ -26,8 +22,7 @@ export function PageLoadComponent({
   return (
     <Chip
       style={style}
-      size='small'
-      avatar={<GrDashboard style={chipStyle} className={'grIcon'} />}
+      avatar={<GrDashboard className={'grIcon'} />}
       label={`${time}s`}
     />
   )

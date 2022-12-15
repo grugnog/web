@@ -1,19 +1,6 @@
-import React, { memo } from 'react'
-import { Chip } from '@material-ui/core'
-import { makeStyles, createStyles } from '@material-ui/core/styles'
-import type { MergedTheme } from '@app/theme'
+import { memo } from 'react'
 import { GrStatusWarning } from 'react-icons/gr'
-
-const useStyles = makeStyles(({ breakpoints }: MergedTheme) =>
-  createStyles({
-    adjust: {
-      marginRight: '8px',
-      [breakpoints.down('sm')]: {
-        marginRight: '5px',
-      },
-    },
-  })
-)
+import { Chip } from '@app/components/general/chip'
 
 interface TooltipIssuesProps {
   totalIssues: number
@@ -24,17 +11,13 @@ export function TooltipIssuesComponent({
   totalPageIssues,
   totalIssues,
 }: TooltipIssuesProps) {
-  const classes = useStyles()
-
   if (!totalIssues) {
     return null
   }
 
   return (
     <Chip
-      className={classes.adjust}
-      variant='outlined'
-      size='small'
+      className={'mr-1.5 md:mr-2.5'}
       avatar={<GrStatusWarning />}
       label={`${totalIssues} issue${totalIssues === 1 ? '' : 's'}`}
       title={`${totalIssues} issue${

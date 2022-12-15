@@ -1,17 +1,17 @@
 import { useState, useEffect } from 'react'
-import { Checkbox } from '@material-ui/core'
 import { Button } from '@app/components/general/buttons/button'
 import { a11yDark } from '@app/styles'
 import { EditableMixture } from '@app/components/mixtures/editable-mixture'
 import { CdnBlock } from '../blocks/cdn'
 import { SCRIPTS_CDN_URL_HOST } from '@app/configs/app-config'
 import { useScript } from '@app/data/external/scripts/scripts'
+import { Checkbox } from '../check-box'
 
 const classes = {
   info: 'px-2 py-2',
   textHeader: 'text-lg',
   row: 'flex',
-  text: '',
+  text: 'text-sm',
   centerAlign: 'place-items-center',
 }
 
@@ -94,8 +94,8 @@ function ScriptCell({ source: sourceData }: any) {
     <div>
       <div className={classes.info}>
         {!source?.issueMeta?.skipContentIncluded ? (
-          <div className={`${classes.row} ${classes.centerAlign}`}>
-            <p className={classes.text}>Skip Content Button</p>
+          <div className={`${classes.row} ${classes.centerAlign} space-x-2`}>
+            <p className={classes.text}>Skip content button</p>
             {!source?.issueMeta?.skipContentIncluded ? (
               <Checkbox
                 checked={
@@ -105,13 +105,9 @@ function ScriptCell({ source: sourceData }: any) {
                   )
                 }
                 onChange={handleChange}
-                inputProps={{
-                  'aria-label': `Skip content ${skipContentEnabled}`,
-                  title:
-                    'Inject a skip content button at the top of your page that shows on tab focus.',
-                }}
+                aria-label={`Skip content ${skipContentEnabled}`}
+                title='Inject a skip content button at the top of your page that shows on tab focus.'
                 disabled={scriptLoading}
-                size='small'
               />
             ) : null}
           </div>

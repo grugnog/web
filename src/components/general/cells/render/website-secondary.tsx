@@ -1,5 +1,4 @@
 import { memo, useEffect, useMemo, useState } from 'react'
-import { Chip } from '@material-ui/core'
 import {
   GrCalendar,
   GrCircleAlert,
@@ -11,22 +10,9 @@ import {
   GrPowerShutdown,
 } from 'react-icons/gr'
 import { format } from 'date-fns'
+import { Chip } from '@app/components/general/chip'
 import { PageLoad } from './page-load'
 import { Website } from '@app/types'
-
-const chipStyle = { width: 13, height: 13, color: 'rgb(64,64,64)' }
-const chipRootStyle: React.CSSProperties = {
-  backgroundColor: '#fff',
-  color: 'rgb(64,64,64)',
-  border: '1px solid rgb(209 213 219)',
-  minWidth: '4.8rem',
-  overflow: 'hidden',
-  textOverflow: 'ellipsis',
-  textAlign: 'left',
-  justifyContent: 'flex-start',
-  fontSize: '0.77rem',
-  // whiteSpace: 'nowrap',
-}
 
 // TODO: REFACTOR WITH Secondary (BASE)
 export function WebsiteSecondaryComponent({
@@ -82,50 +68,35 @@ export function WebsiteSecondaryComponent({
     >
       {shutdown ? (
         <Chip
-          size='small'
           title={`Website scan did not complete. Upgrade your account to increase your duration.`}
-          style={chipRootStyle}
-          avatar={<GrPowerShutdown style={chipStyle} className={'grIcon'} />}
+          avatar={<GrPowerShutdown className={'grIcon'} />}
           label={'Shutdown'}
         />
       ) : null}
       {pageIssueCount ? (
         <Chip
-          size='small'
-          style={chipRootStyle}
-          avatar={<GrCircleAlert style={chipStyle} className={'grIcon'} />}
+          avatar={<GrCircleAlert className={'grIcon'} />}
           label={totalIssues}
         />
       ) : null}
       {subdomains ? (
         <Chip
-          size='small'
-          style={chipRootStyle}
-          avatar={<GrInherit style={chipStyle} className={'grIcon'} />}
+          avatar={<GrInherit className={'grIcon'} />}
           label={'Subdomains'}
         />
       ) : null}
       {tld ? (
-        <Chip
-          size='small'
-          style={chipRootStyle}
-          avatar={<GrHost style={chipStyle} className={'grIcon'} />}
-          label={'TLD'}
-        />
+        <Chip avatar={<GrHost className={'grIcon'} />} label={'TLD'} />
       ) : null}
       {pageLoadTime?.duration && pageLoadTime?.durationFormated ? (
         <PageLoad
           durationFormated={pageLoadTime.durationFormated}
           duration={pageLoadTime.duration}
-          style={chipRootStyle}
-          chipStyle={chipStyle}
         />
       ) : null}
       {possibleIssuesFixedByCdn && totalIssues ? (
         <Chip
-          size='small'
-          style={chipRootStyle}
-          avatar={<GrMagic style={chipStyle} />}
+          avatar={<GrMagic />}
           label={
             issuesFixedByCdn
               ? `${issuesFixedByCdn}/${totalIssues}`
@@ -142,25 +113,16 @@ export function WebsiteSecondaryComponent({
       ) : null}
       {typeof robots !== 'undefined' ? (
         <Chip
-          style={chipRootStyle}
-          size='small'
-          avatar={<GrRobot style={chipStyle} className={'grIcon'} />}
+          avatar={<GrRobot className={'grIcon'} />}
           label={robots ? 'Enabled' : 'Disabled'}
         />
       ) : null}
       {lastScanDate ? (
-        <Chip
-          style={chipRootStyle}
-          size='small'
-          avatar={<GrCalendar style={chipStyle} className={'grIcon'} />}
-          label={scanDate}
-        />
+        <Chip avatar={<GrCalendar className={'grIcon'} />} label={scanDate} />
       ) : null}
       {headers && headers.length ? (
         <Chip
-          style={chipRootStyle}
-          size='small'
-          avatar={<GrConfigure style={chipStyle} className={'grIcon'} />}
+          avatar={<GrConfigure className={'grIcon'} />}
           label={`${headers.length} custom header${
             headers.length === 1 ? '' : 's'
           }`}

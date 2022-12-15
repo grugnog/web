@@ -1,14 +1,8 @@
 import { memo, useMemo } from 'react'
-import { Chip } from '@material-ui/core'
 import { PageLoad } from './page-load'
 import { GrMagic, GrCircleAlert, GrConfigure, GrCalendar } from 'react-icons/gr'
 import { format } from 'date-fns'
-
-const chipStyle = { width: 13, height: 13 }
-const chipRootStyle = {
-  backgroundColor: 'rgba(0, 0, 0, 0.05)',
-  color: 'rgba(0, 0, 0, 0.7)',
-}
+import { Chip } from '@app/components/general/chip'
 
 export function RenderSecondaryComponent({
   adaScore,
@@ -51,23 +45,17 @@ export function RenderSecondaryComponent({
     <div className={'flex space-x-2'}>
       {mainIssues && adaScore !== 100 ? (
         <Chip
-          size='small'
-          style={chipRootStyle}
-          avatar={<GrCircleAlert style={chipStyle} />}
+          avatar={<GrCircleAlert className='grIcon' />}
           label={mainIssues}
         />
       ) : null}
       <PageLoad
         durationFormated={pageLoadTime?.durationFormated}
         duration={pageLoadTime?.duration}
-        style={chipRootStyle}
-        chipStyle={chipStyle}
       />
       {possibleIssuesFixedByCdn && totalIssuesOnPage ? (
         <Chip
-          style={chipRootStyle}
-          size='small'
-          avatar={<GrMagic style={chipStyle} />}
+          avatar={<GrMagic className='grIcon' />}
           label={
             issuesFixedByCdn
               ? `${issuesFixedByCdn}/${totalIssuesOnPage}`
@@ -77,18 +65,14 @@ export function RenderSecondaryComponent({
       ) : null}
       {lastScanDate ? (
         <Chip
-          style={chipRootStyle}
-          size='small'
-          avatar={<GrCalendar style={chipStyle} />}
+          avatar={<GrCalendar className='grIcon' />}
           className={'flex sm:text-sm'}
           label={format(new Date(lastScanDate), 'dd/MM/yyyy')}
         />
       ) : null}
       {headers && headers?.length ? (
         <Chip
-          style={chipRootStyle}
-          size='small'
-          avatar={<GrConfigure style={chipStyle} />}
+          avatar={<GrConfigure className='grIcon' />}
           label={`${pageHeaders?.length} custom header${
             pageHeaders?.length === 1 ? '' : 's'
           }`}
