@@ -139,30 +139,26 @@ export function ListComponent({
   mutatationLoading,
   children,
 }: any) {
-  const generalProps = {
-    refetch,
-    setModal,
-    mutatationLoading: mutatationLoading,
-  }
-
   return (
-    <>
-      <ul className={listStyle}>
-        {data?.map((item: any) => (
-          <ListCell
-            key={item?._id}
-            item={item}
-            pageUrl={item.url}
-            loading={loading}
-            error={error}
-            emptyHeaderTitle={emptyHeaderTitle}
-            emptyHeaderSubTitle={emptyHeaderSubTitle}
-            generalProps={generalProps}
-          />
-        ))}
-        {children}
-      </ul>
-    </>
+    <ul className={listStyle}>
+      {data?.map((item: any) => (
+        <ListCell
+          key={item?._id}
+          item={item}
+          pageUrl={item.url}
+          loading={loading}
+          error={error}
+          emptyHeaderTitle={emptyHeaderTitle}
+          emptyHeaderSubTitle={emptyHeaderSubTitle}
+          generalProps={{
+            refetch,
+            setModal,
+            mutatationLoading: mutatationLoading,
+          }}
+        />
+      ))}
+      {children}
+    </ul>
   )
 }
 

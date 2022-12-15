@@ -12,21 +12,19 @@ export const ListComponent: FC<PropsWithChildren<any>> = ({
   children,
 }) => {
   return (
-    <>
-      <ul className={listStyle} aria-live='polite'>
-        {data?.map((item: any) => (
-          <ListCell
-            key={item._id}
-            item={item}
-            loading={loading}
-            error={error}
-            emptyHeaderTitle={emptyHeaderTitle}
-            emptyHeaderSubTitle={emptyHeaderSubTitle}
-          />
-        ))}
-        {children}
-      </ul>
-    </>
+    <ul className={listStyle} aria-live='polite'>
+      {data?.map((item: any) => (
+        <ListCell
+          key={item._id}
+          item={item}
+          loading={loading}
+          error={error}
+          emptyHeaderTitle={emptyHeaderTitle}
+          emptyHeaderSubTitle={emptyHeaderSubTitle}
+        />
+      ))}
+      {children}
+    </ul>
   )
 }
 

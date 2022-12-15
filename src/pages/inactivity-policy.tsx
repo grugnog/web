@@ -10,7 +10,7 @@ function InactivityPolicy({ name }: PageProps) {
   return (
     <MarketingDrawer title={name} footerSpacing>
       <SectionContainer container block>
-        <Header>{`InactivityPolicy ${strings.appName}`}</Header>
+        <Header>{`Inactivity Policy ${strings.appName}`}</Header>
         <p className='pb-4'>Email squatting policy</p>
         <p>
           We prohibit account email squatting, and account emails may not be

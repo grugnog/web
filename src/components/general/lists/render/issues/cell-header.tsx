@@ -5,6 +5,7 @@ type CellHeaderProps = {
   setVisible(x: any): void
   visible?: boolean
   totalIssues?: number
+  small?: boolean
 }
 
 const ListCellHeaderW = ({
@@ -12,6 +13,7 @@ const ListCellHeaderW = ({
   setVisible,
   visible,
   totalIssues,
+  small,
 }: CellHeaderProps) => {
   const onTogglelist = () => setVisible((v: boolean) => !v)
 
@@ -23,7 +25,13 @@ const ListCellHeaderW = ({
       aria-label={`Toggle section visible for ${title}`}
     >
       <div>
-        <div className={'text-2xl md:text-2xl font-semibold'}>{title}</div>
+        <div
+          className={`${
+            small ? 'text-lg md:text-xl' : 'text-2xl md:text-2xl'
+          } font-semibold`}
+        >
+          {title}
+        </div>
         <div>
           {totalIssues} possible issue
           {totalIssues === 1 ? '' : 's'}

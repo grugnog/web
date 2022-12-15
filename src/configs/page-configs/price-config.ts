@@ -1,15 +1,15 @@
-const TRUSTED_CDN = 'Embed custom script safeguard'
-const VISUAL_PLAYGROUND = 'Visual website playground'
+const TRUSTED_CDN = 'Custom realtime CDN safeguard'
 
 const feats = [
   '50 domains',
-  'Wildcard subdomains and tld monitoring',
+  'Wildcard subdomains and TLD monitoring',
   'All pages checked daily with email status reports',
   TRUSTED_CDN,
-  VISUAL_PLAYGROUND,
-  '10,000+ AI Models for alt tag recognition',
+  'Custom workflows and events',
+  '10,000+ AI Models to validate resources (text OCR, images, and etc)',
   'Lighthouse reports across all pages',
-  'Direct code fixes in any language',
+  'Webhooks for web accessibility audits',
+  'Tools to export data',
   'Unlimited API request',
   // 'Email support',
 ]

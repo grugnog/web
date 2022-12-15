@@ -8,7 +8,8 @@ const IssuesWrapper = ({
   issues,
   pageUrl,
   open,
-}: Issue & { open?: boolean }) => {
+  small,
+}: Issue & { open?: boolean; small?: boolean }) => {
   const [visible, setVisible] = useState<boolean>(!!open)
 
   return (
@@ -18,6 +19,7 @@ const IssuesWrapper = ({
         totalIssues={issues?.length || 0}
         setVisible={setVisible}
         visible={visible}
+        small={small}
       />
       <ul
         aria-hidden={!visible}

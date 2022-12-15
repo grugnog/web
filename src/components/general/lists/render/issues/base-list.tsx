@@ -20,7 +20,12 @@ const RenderInnerIssuesWrapper: FC<any> = (props) => {
       <InnerWrapper {...props} data={issueSource?.length} loading={loading}>
         <ul>
           {issueSource?.map((page: Issue) => (
-            <Issues key={page._id} {...page} open={props.open} />
+            <Issues
+              key={page._id}
+              {...page}
+              open={props.open}
+              small={props.small}
+            />
           ))}
         </ul>
       </InnerWrapper>

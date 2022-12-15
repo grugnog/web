@@ -30,6 +30,7 @@ export const ListCellW = ({
           error={error}
           emptyHeaderTitle={emptyHeaderTitle}
           emptyHeaderSubTitle={emptyHeaderSubTitle}
+          small
         />
       </div>
     </li>
