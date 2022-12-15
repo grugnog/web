@@ -27,5 +27,5 @@ module.exports = {
     '/auth-redirect',
     '/auth-redirect?*',
   ],
-  sitemapSize: 7000
+  sitemapSize: 7000,
 }

@@ -1,12 +1,11 @@
 import { memo, useMemo } from 'react'
-import { GrMoreVertical } from 'react-icons/gr'
+import { Menu } from '@headlessui/react'
 import { Link } from '@app/components/general/link'
 import { TopMenu } from '@app/components/general/top-menu'
 import type { Website } from '@app/types'
-import { Button } from '../../buttons'
 
 export const btnStyles =
-  'px-3 py-2 block w-full text-left border-none rounded-none text-base md:px-4 md:text-base md:border-none hover:no-underline hover:bg-gray-100 hover:shadow-none'
+  'px-3 py-3 block w-full text-left border-none rounded-none text-sm md:px-4 md:border-none hover:no-underline hover:bg-gray-100 hover:shadow-none'
 
 export interface MoreOptionsProps extends Partial<Website> {
   removePress?(): void
@@ -40,7 +39,6 @@ function MoreOptionsBaseComponent({
   handleMainClick,
   anchorEl,
   handleClose,
-  handleMenu,
   historyPage,
 }: MoreOptionsProps) {
   const targetUrl = pageUrl || url
@@ -57,43 +55,55 @@ function MoreOptionsBaseComponent({
 
   return (
     <>
-      <Button
-        aria-label='account of current user'
-        aria-controls={menuId}
-        aria-haspopup='true'
-        onClick={handleMenu}
-        iconButton
-      >
-        <GrMoreVertical />
-      </Button>
       <TopMenu
         id={menuId}
         anchorEl={anchorEl}
         open={!!anchorEl}
         onClose={handleClose}
       >
-        <Link href={href} className={btnStyles}>
-          View Sandbox
-        </Link>
+        <Menu.Item>
+          {() => (
+            <Link href={href} className={btnStyles}>
+              View Sandbox
+            </Link>
+          )}
+        </Menu.Item>
+
         {!historyPage ? (
-          <Link href={reportHref} className={btnStyles}>
-            View Report
-          </Link>
+          <Menu.Item>
+            {() => (
+              <Link href={reportHref} className={btnStyles}>
+                View Report
+              </Link>
+            )}
+          </Menu.Item>
         ) : null}
         {lh ? (
-          <button
-            className={btnStyles}
-            onClick={handleMainClick(JSON.stringify(lh), 'Lighthouse', true)}
-          >
-            View Lighthouse
-          </button>
+          <Menu.Item>
+            {() => (
+              <button
+                className={btnStyles}
+                onClick={handleMainClick(
+                  JSON.stringify(lh),
+                  'Lighthouse',
+                  true
+                )}
+              >
+                View Lighthouse
+              </button>
+            )}
+          </Menu.Item>
         ) : null}
-        <Button
-          onClick={handleMainClick(targetUrl, 'Mini Player', true)}
-          className={btnStyles}
-        >
-          View Sandbox (Mini Player)
-        </Button>
+        <Menu.Item>
+          {() => (
+            <button
+              onClick={handleMainClick(targetUrl, 'Mini Player', true)}
+              className={btnStyles}
+            >
+              View Sandbox (Mini Player)
+            </button>
+          )}
+        </Menu.Item>
         {children}
       </TopMenu>
     </>
