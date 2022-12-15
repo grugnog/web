@@ -37,7 +37,7 @@ const History = ({ name }: PageProps) => {
             loading={loading}
             refetch={refetch}
             BottomButton={FormDialog}
-            history
+            historyPage
             emptyHeaderTitle='No websites found'
             emptyHeaderSubTitle='Websites will appear here once you remove them from the dashboard'
           />

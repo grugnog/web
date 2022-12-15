@@ -11,7 +11,7 @@ function MoreOptionsComponent(props: MoreOptionsProps) {
   const {
     url,
     removePress,
-    history,
+    historyPage,
     crawlWebsite,
     pageHeaders,
     index,
@@ -62,17 +62,17 @@ function MoreOptionsComponent(props: MoreOptionsProps) {
             Upgrade
           </Link>
         ) : null}
-        {typeof crawlWebsite === 'function' && !history ? (
+        {typeof crawlWebsite === 'function' && !historyPage ? (
           <Button onClick={onWebsiteCrawl} className={btnStyles}>
             Sync
           </Button>
         ) : null}
-        {!history ? (
+        {!historyPage ? (
           <Button onClick={toggleLighthouse} className={btnStyles}>
             Toggle Lighthouse {pageInsights ? 'Off' : 'On'}
           </Button>
         ) : null}
-        {!history ? (
+        {!historyPage ? (
           <Button
             className={btnStyles}
             onClick={handleMainClick(
@@ -85,7 +85,7 @@ function MoreOptionsComponent(props: MoreOptionsProps) {
             Update Headers
           </Button>
         ) : null}
-        {!verified && !history ? (
+        {!verified && !historyPage ? (
           <Button
             className={btnStyles}
             onClick={handleMainClick(true, 'Verify DNS', false, url as string)}
@@ -93,7 +93,7 @@ function MoreOptionsComponent(props: MoreOptionsProps) {
             Verify DNS
           </Button>
         ) : null}
-        {typeof removePress === 'function' && !history ? (
+        {typeof removePress === 'function' && !historyPage ? (
           <Button onClick={removePress} className={btnStyles}>
             Delete
           </Button>

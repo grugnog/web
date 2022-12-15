@@ -3,7 +3,6 @@ import { GrMoreVertical } from 'react-icons/gr'
 import { Link } from '@app/components/general/link'
 import { TopMenu } from '@app/components/general/top-menu'
 import type { Website } from '@app/types'
-import { issueExtractor } from '@app/utils'
 import { Button } from '../../buttons'
 
 export const btnStyles =
@@ -21,7 +20,7 @@ export interface MoreOptionsProps extends Partial<Website> {
   crawlWebsite?(data: any): Promise<void>
   index?: number
   pageHeaders?: any
-  history?: boolean // is this a history page?
+  historyPage?: boolean // is this a history page?
   anchorEl?: any
   handleMenu?: any
   lh?: any // lighthouse data render as modal
@@ -34,7 +33,6 @@ export interface MoreOptionsProps extends Partial<Website> {
 function MoreOptionsBaseComponent({
   pageUrl,
   url,
-  issues: pageIssues,
   index,
   lh,
   children,
@@ -43,6 +41,7 @@ function MoreOptionsBaseComponent({
   anchorEl,
   handleClose,
   handleMenu,
+  historyPage,
 }: MoreOptionsProps) {
   const targetUrl = pageUrl || url
 
@@ -55,8 +54,6 @@ function MoreOptionsBaseComponent({
   }, [targetUrl])
 
   const menuId = `menu-appbar${index}`
-
-  const issues = issueExtractor(pageIssues)
 
   return (
     <>
@@ -78,23 +75,10 @@ function MoreOptionsBaseComponent({
         <Link href={href} className={btnStyles}>
           View Sandbox
         </Link>
-        {!history ? (
+        {!historyPage ? (
           <Link href={reportHref} className={btnStyles}>
             View Report
           </Link>
-        ) : null}
-        {issues?.length ? (
-          <Button
-            className={btnStyles}
-            onClick={handleMainClick(
-              issues,
-              'Issues',
-              false,
-              targetUrl as string
-            )}
-          >
-            View Issues
-          </Button>
         ) : null}
         {lh ? (
           <button

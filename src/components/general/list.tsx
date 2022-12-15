@@ -17,7 +17,7 @@ function WebSites({
   setModal,
   mutatationLoading,
   loading,
-  history,
+  historyPage,
 }: any) {
   return data?.map(
     ({ url, id, pageHeaders, pageUrl, ...domainProps }: any, index: number) => (
@@ -34,7 +34,7 @@ function WebSites({
         mutatationLoading={mutatationLoading}
         pageHeaders={pageHeaders}
         index={index}
-        history={history}
+        historyPage={historyPage}
         {...domainProps}
       />
     )
@@ -60,7 +60,7 @@ export function ListComponent({
   emptyHeaderTitle = 'Empty',
   emptyHeaderSubTitle = 'Add your website below',
   refetch,
-  history,
+  historyPage,
   crawlWebsite,
   setModal,
   mutatationLoading,
@@ -91,7 +91,7 @@ export function ListComponent({
     handleClickOpenPlayer: setMiniPlayerContent,
     removePress,
     refetch,
-    history,
+    historyPage,
     crawlWebsite,
     setModal,
     mutatationLoading: mutatationLoading,
@@ -133,7 +133,7 @@ export function ListComponent({
     <>
       <div>
         <RenderInner />
-        {history || blocked ? null : (
+        {historyPage || blocked ? null : (
           <BottomButton
             buttonTitle={data?.length ? undefined : 'Lets start!'}
             okPress={addPress}
