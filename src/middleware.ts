@@ -1,22 +1,10 @@
 import { NextResponse, NextRequest, userAgent } from 'next/server'
-import { isWhitelisted } from '@app/configs/next/is-static-resource'
 import { IFRAME_ENDPOINT } from '@app/configs/next/iframe'
 
 const ROOT_URL = `.${process.env.ROOT_URL}`
 
 export async function middleware(req: NextRequest) {
-  const { pathname } = req.nextUrl
-  const whiteListed = isWhitelisted({
-    pathname,
-    url: req.url,
-  })
-
   let res = NextResponse.next()
-
-  // vercel build or static resource ignore middleware
-  if (whiteListed || req.cookies.get('_vercel_jwt')) {
-    return res
-  }
 
   const currentHost = req.headers?.get('host')?.replace(ROOT_URL, '')
 

@@ -26,26 +26,26 @@ function Features({ name }: PageProps) {
   return (
     <MarketingDrawer title={name} maxWidth='xl' footerSpacing>
       <SectionContainer container block>
-        <Header>Platform Features</Header>
-        <p>
-          Learn about features that make {companyName} stand out between the
-          rest.
-        </p>
-        <Header2 className='md:font-normal xl:text-2xl'>
-          Tools built for the job
-        </Header2>
+        <div className='pb-2'>
+          <Header>{companyName} Platform Features</Header>
+          <p>
+            Learn about features that make {companyName} stand out between the
+            rest.
+          </p>
+        </div>
+        <Header2 className='sr-only'>Tools built for the job</Header2>
         <div className={row}>
           <div className={paper}>
             <Section>
               <div>
                 <Header3>{companyName} Web Accessibility Monitoring</Header3>
                 <FeatureHeading>
-                  Our inclusion insight reporter and monitor scans for problems
-                  with recommended solutions that are tuned for any website
-                  using WCAG, Section508, and beyond. Get notified when new
-                  issues occur with detailed information on what happened on all
-                  pages. Control how often you need the reporter to run to get
-                  alerted along your schedule. Include critical{' '}
+                  Our web accessibility insight reporter and monitor scans for
+                  problems with recommended solutions that are tuned for any
+                  website using WCAG, Section508, and beyond. Get notified when
+                  new issues occur with detailed information on what happened on
+                  all pages. Control how often you need the reporter to run on
+                  based on your schedule. Include critical{' '}
                   <a
                     href={'https://web.dev/vitals/'}
                     target={'_blank'}
@@ -55,7 +55,7 @@ function Features({ name }: PageProps) {
                     Web Vitals
                   </a>{' '}
                   across all urls at once. Our service is capable of handling
-                  large websites with thousands of pages, view the
+                  large websites with thousands - millions of pages, view the
                   <a
                     href='https://github.com/a11ywatch/github-actions/pull/34'
                     target={'_blank'}

@@ -33,8 +33,8 @@ export const MenuList: FC<PropsWithChildren<{ more?: boolean }>> = ({
           leaveTo='transform opacity-0 scale-95'
         >
           <Menu.Items
-            className={`absolute right-0 ${
-              more ? 'w-60 mt-1' : 'w-44 mt-2'
+            className={`absolute right-0 mt-1 ${
+              more ? 'w-60' : 'w-44'
             } origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 z-10 ring-black ring-opacity-5 focus:outline-none`}
           >
             <div className='border rounded-sm'>{children}</div>
