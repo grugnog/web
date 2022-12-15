@@ -33,7 +33,7 @@ module.exports = {
     policies: [
       {
         userAgent: 'Twitterbot',
-        allow: ['/*'],
+        allow: ['/*', '/img/*', '/api/og?*', '/pricing?*'],
         disallow: [
           '/*?*',
           '/website-details',
@@ -54,10 +54,9 @@ module.exports = {
           '/auth-redirect?*',
         ],
       },
-
       {
         userAgent: '*',
-        allow: ['/*'],
+        allow: ['/*', '/api/og?*'],
         disallow: [
           '/*?*',
           '/api/*',

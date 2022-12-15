@@ -5,7 +5,7 @@ interface Meta {
   [name: string]: MetaFunction
 }
 
-// meta enhance a component with providers and meta tags
+// meta enhance a component with providers and meta tags [todo: remove mutating enhancement]
 export const metaSetter = (
   Component: Meta,
   { title, description, gql, rest, params, wasm }: MetaData = {}
@@ -20,9 +20,7 @@ export const metaSetter = (
   value.meta = {
     title:
       title ||
-      `${strings.appName}: ${
-        name.length <= 3 ? name.toLocaleUpperCase() : name
-      }`,
+      `${strings.appName}: ${name.length <= 3 ? name.toUpperCase() : name}`,
     description,
     name,
   }

@@ -90,8 +90,8 @@ const LayoutWrapper = ({ Component, pageProps }: InnerApp) => {
 export default function Layout({ children, ...props }: any) {
   const Component = props?.Component
   const { description, title, name } = Component?.meta || strings?.meta
-  const pathName = String(name).toLowerCase()
   const metaTitle = title || `${strings.appName}: Web Accessibility Service`
+  const pathName = String(name).toLowerCase()
   const domainName = pathName === 'blog' ? BLOG_WEBFLOW_URL : DOMAIN_NAME
 
   const gimage =
@@ -131,7 +131,7 @@ export default function Layout({ children, ...props }: any) {
             key={'twitter:image:alt'}
           />
         ) : null}
-        <meta name='twitter:image' content={gimage} key='twitter:image' />
+        {/* <meta name='twitter:image' content={gimage} key='twitter:image' /> */}
         <meta property='og:type' key='og:type' content='website' />
         <meta
           property='og:url'

@@ -3,6 +3,8 @@ import { GrClose } from 'react-icons/gr'
 import { HeadlessModal } from '../modal/headless'
 import { ToolTip } from './tool-tip'
 
+const textBaseStyle = 'flex-1'
+
 export function AnnotationContainer({
   store,
   contrastRatio,
@@ -23,8 +25,6 @@ export function AnnotationContainer({
     }
   }
 
-  const textBaseStyle = 'flex-1'
-
   const modalTitle = `${portalID || context + code}-rec-modal-title`
   const modalDescription = `${portalID || context + code}-rec-modal-description`
 
@@ -39,9 +39,7 @@ export function AnnotationContainer({
       center
     >
       <div className={'w-full bg-white'}>
-        <div
-          className={`flex place-items-center border-b py-2 px-3`}
-        >
+        <div className={`flex place-items-center border-b py-2 px-3`}>
           <h3 className={`flex-1 text-lg`}>Recommended</h3>
           <button
             id={'annotationCancel'}
