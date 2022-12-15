@@ -91,7 +91,7 @@ export default function Layout({ children, ...props }: any) {
   const Component = props?.Component
   const { description, title, name } = Component?.meta || strings?.meta
   const pathName = String(name).toLowerCase()
-  const metaTitle = title || `Web Accessibility Service | ${strings.appName}`
+  const metaTitle = title || `${strings.appName}: Web Accessibility Service`
   const domainName = pathName === 'blog' ? BLOG_WEBFLOW_URL : DOMAIN_NAME
 
   return (

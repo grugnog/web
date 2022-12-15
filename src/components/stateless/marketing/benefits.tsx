@@ -17,7 +17,7 @@ const sections: { id: string; text: string }[] = [
   },
   {
     id: 'ending',
-    text: 'Our accessibility engine is set to handle multiple edge cases that we take for granted. This includes randomizing agents, and viewports for every website and webpage while delivering real-time detailed reports for auditing.',
+    text: 'Our accessibility engine is set to handle multiple edge cases that we take for granted. This includes randomizing agents, and viewports for every page on your web application while delivering real-time detailed reports for auditing.',
   },
   {
     id: 'customers',

@@ -113,10 +113,7 @@ function Faq({ name }: PageProps) {
 
         <Header3>Help Spread the Word</Header3>
 
-        <div
-          aria-label={`support ${strings.appName}`}
-          className='border py-2 px-3 space-y-2'
-        >
+        <div className='border py-2 px-3 space-y-2'>
           <p>
             Spread the word and evangelize {strings.appName}{' '}
             <Link style={linkStyle} href={'https://a11ywatch.com'}>

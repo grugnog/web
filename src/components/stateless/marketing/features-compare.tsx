@@ -203,13 +203,12 @@ function Feature() {
             to the protocol of choice to control the browser. A11yWatch and Wave
             use the devtools protocol while Deque uses WebDriver. Devtools
             protocol allows you to manipulate the entire control beyond the UI
-            layer to enhance the way a it would normally load a web page by
-            doing things like intercepting network request, manipulating
-            elements, and more. A11yWatch goes to the next level with
-            optimisations for speed by leveraging multiple technologies like
-            Rust, protocols like gRPC and efficient algorithms. We also use a
-            custom runner that is over 10,000 times faster than any open source
-            headless runner.
+            layer to enhance the way a it would normally load a web app by doing
+            things like intercepting network request, manipulating elements, and
+            more. A11yWatch goes to the next level with optimisations for speed
+            by leveraging multiple technologies like Rust, protocols like gRPC
+            and efficient algorithms. We also use a custom runner that is over
+            10,000 times faster than any open source headless runner.
           </p>
         </div>
       </div>

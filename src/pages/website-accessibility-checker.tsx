@@ -131,8 +131,8 @@ function WebsiteAccessibilityChecker({ name }: PageProps) {
 export default metaSetter(
   { WebsiteAccessibilityChecker },
   {
-    title: `${strings.appName} - Web Acessibility Checker`,
-    description: `Check the accessibility of your web page today. Improve your web inclusion with accessibility testing, reports, monitoring, and much more.`,
+    title: `${strings.appName}: Web Acessibility Checker`,
+    description: `Check the accessibility of your web application today. Improve your web inclusion with accessibility testing, reports, monitoring, and much more.`,
     rest: true,
   }
 )
