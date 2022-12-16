@@ -102,16 +102,26 @@ export default function Layout({ Component, pageProps }: InnerApp) {
         ) : null}
         <meta name='twitter:title' key={'twitter:title'} content={metaTitle} />
         <meta
+          content='en'
+          http-equiv='Content-Language'
+          key={'content-language'}
+        />
+        <meta
           name='twitter:card'
           content='summary_large_image'
           key={'twitter:card'}
         />
-        <meta name='twitter:site' content={twitterSite} key={'twitter:site'} />
+        <meta
+          name='twitter:site'
+          content={`@${twitterSite}`}
+          key={'twitter:site'}
+        />
         <meta
           name='twitter:creator'
           content={twitterSite}
           key={'twitter:creator'}
         />
+        <meta name='twitter:image' content={gimage} key={'twitter:image'} />
         <meta property='og:type' key='og:type' content='website' />
         <meta
           property='og:url'
@@ -132,7 +142,7 @@ export default function Layout({ Component, pageProps }: InnerApp) {
         {metaTitle ? (
           <meta property='og:title' content={metaTitle} key={'og:title'} />
         ) : null}
-        <meta property='og:image' content={gimage} />
+        <meta property='og:image' content={gimage} key={'og:image'} />
         {description ? (
           <meta
             property='og:image:alt'
@@ -141,14 +151,14 @@ export default function Layout({ Component, pageProps }: InnerApp) {
           />
         ) : null}
         <meta property='og:site_name' content={companyName} />
-        <meta property='author' content='Jeff Mendez' key='author' />
+        <meta content="max-snippet:-1, max-image-preview:large, max-video-preview:-1" name="robots" key={"robots"}></meta>
         <meta
           property='keywords'
           key='keywords'
           content='Web Accessibility Tool, Web Accessibility API, OSS Web Accessibility, Inclusion, A11y, Web'
         />
         {process.env.NEXT_PUBLIC_DISABLE_SEO === '1' ? (
-          <meta name='robots' content='noindex' key='robots' />
+          <meta name='robots' content='noindex' key='noindex' />
         ) : null}
         <meta name='mobile-web-app-capable' content='yes' />
         <link rel='manifest' href='/manifest.json' key={'manifest'} />

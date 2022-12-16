@@ -23,9 +23,7 @@ const RefBanner = () => {
         'py-2 px-3 z-10 w-full flex place-items-center place-content-around gap-x-2 border rounded transition ease-in-out delay-150'
       }
     >
-      <div
-        className={'text-sm text-gray-600 font-semibold flex-1'}
-      >
+      <div className={'text-sm text-gray-600 font-semibold flex-1'}>
         💵 Fan of {companyName}?{' '}
         <Link
           href={'https://a11ywatch.getrewardful.com/signup'}
