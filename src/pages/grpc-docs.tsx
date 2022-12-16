@@ -1131,7 +1131,7 @@ function GrpcDocs({ name }: PageProps) {
                 <td></td>
                 <td>
                   <p>
-                    is the cdn for accessibility fixes connected on the page.{' '}
+                    is the cdn for accessibility remediations connected on the page.{' '}
                   </p>
                 </td>
               </tr>
@@ -1569,7 +1569,7 @@ function GrpcDocs({ name }: PageProps) {
                 <td></td>
                 <td>
                   <p>
-                    the cdn url for accessibility fixes custom to the page
+                    the cdn url for accessibility remediations custom to the page
                     minified.{' '}
                   </p>
                 </td>
@@ -1583,7 +1583,7 @@ function GrpcDocs({ name }: PageProps) {
                 <td></td>
                 <td>
                   <p>
-                    the cdn url for accessibility fixes custom to the page.{' '}
+                    the cdn url for accessibility remediations custom to the page.{' '}
                   </p>
                 </td>
               </tr>

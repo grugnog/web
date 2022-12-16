@@ -97,7 +97,7 @@ function Features({ name }: PageProps) {
                   src={'/img/cloud.svg'}
                   height={175}
                   width={175}
-                  alt={'Cloud CDN for javascript fixes'}
+                  alt={'Cloud CDN for javascript remediations'}
                 />
               </div>
             </Section>

@@ -25,7 +25,7 @@ function RoadMap({ name }: PageProps) {
         <h2 className='text-xl font-bold'>Prior Goals</h2>
 
         <p className='text-base'>
-          Some of the old goals include accessibility code generation fixes,
+          Some of the old goals include accessibility code generation remediations,
           performance targets, accessibility issue detection, and general
           portablity.
         </p>

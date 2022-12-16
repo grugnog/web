@@ -16,7 +16,7 @@ const infoDetails = [
   },
   {
     title: 'Concurrent Website Testing',
-    subTitle: `Get reports for thousands of pages in seconds with real browsers for WCAGA-AAA, Section508, and beyond. Get spot on results with up to 55% of all web accessibility issues handled with recommendations.`,
+    subTitle: `Get reports for thousands of pages in seconds with real browsers for WCAGA-AAA, Section508, and beyond. Get spot on results with up to 61% of all web accessibility issues handled with recommendations.`,
   },
   {
     title: 'Lightning Fast',
@@ -26,7 +26,7 @@ const infoDetails = [
   {
     title: 'Dynamic Testing',
     subTitle:
-      'Add custom sequences to evaluate your website in one location. Handle real world edge cases autonomously for any website. Determine real test flows that would occur on pages with simple no-code action builders.',
+      'Add custom actions to evaluate your website in one location. Handle real world edge cases autonomously for any website. Determine real test flows that would occur on pages with simple no-code form builders.',
   },
 ]
 

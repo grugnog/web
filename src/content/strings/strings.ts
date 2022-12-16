@@ -33,7 +33,7 @@ export const generateStrings = ({
         id: 0,
         title: 'On-Demand',
         detail:
-          'Target WCAG issues spot on helping to figure out problems at hand. View detailed reports and vitals on your website with ease.',
+          'Target accessibility issues spot on helping to figure out problems at hand. View detailed reports and vitals across your websites.',
       },
       {
         id: 1,
@@ -82,7 +82,7 @@ export const generateStrings = ({
         id: 8,
         title: 'Speed',
         detail:
-          'Reports run so fast that we can handle 10,000 pages within 10 mins on 8gb mem linux. The speed of the reports at this rate becomes a feature when you compare with others.',
+          'Reports run so fast that we can handle 10,000 pages within 1-5 mins on 8gb mem linux. The speed of the reports at this rate becomes a feature when you compare with others.',
       },
     ],
     alerts: {

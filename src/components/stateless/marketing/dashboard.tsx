@@ -17,7 +17,7 @@ export function MarketingDashboard(): ReactElement<any, any> | null {
             quality={100}
             src={'/img/dashboard-example.png'}
             alt={
-              'A11ywatch dashboard example for monitoring and fixing web accessibility'
+              'A11yWatch dashboard example for monitoring, remediating, and learning web accessibility'
             }
           />
         </div>

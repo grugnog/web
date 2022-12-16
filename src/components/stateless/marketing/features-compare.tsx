@@ -125,7 +125,7 @@ function Feature() {
             />
             <TableRow
               rows={[
-                'Web accessibility code fixes directly',
+                'Web accessibility code remediations directly',
                 'true',
                 'false',
                 'false',

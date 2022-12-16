@@ -33,12 +33,6 @@ const authRoutes = LOGGIN_ROUTES.map((route) => route.replace('/', ''))
 // load the application with providers depending on component
 const LayoutWrapper = ({ Component, pageProps }: InnerApp) => {
   useEffect(() => {
-    const jssStyles = document.querySelector('#jss-server-side')
-
-    if (jssStyles?.parentNode) {
-      jssStyles.parentNode.removeChild(jssStyles)
-    }
-
     initAppModel()
 
     if (UserManager.token) {
@@ -140,12 +134,6 @@ export default function Layout({ children, ...props }: any) {
           <meta property='og:title' content={metaTitle} key={'og:title'} />
         ) : null}
         <meta property='og:image' content={gimage} />
-        <meta property='og:image:width' content='1200' key={'og:image:width'} />
-        <meta
-          property='og:image:height'
-          content='728'
-          key={'og:image:height'}
-        />
         {description ? (
           <meta
             property='og:image:alt'
