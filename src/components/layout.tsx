@@ -3,7 +3,6 @@ import Head from 'next/head'
 
 import { LOGGIN_ROUTES } from '@app/configs'
 import {
-  AuthProviderWrapper,
   WASMContextProvider,
   WebsiteProviderWrapper,
 } from '@app/components/providers'
@@ -23,6 +22,7 @@ import { SkipContent, SnackBar } from './general'
 import { ping } from '@app/utils'
 import { UserManager } from '@app/managers'
 import { InteractiveProvider } from './providers/interactive'
+import { AuthProvider } from './providers/auth'
 
 if (typeof window === 'undefined') {
   enableMobxStaticRendering(true)
@@ -64,7 +64,7 @@ const LayoutWrapper = ({ Component, pageProps }: InnerApp) => {
 
   return (
     <WASMContextProvider load={wasm}>
-      <AuthProviderWrapper load={wasm || gql || rest}>
+      <AuthProvider load={wasm || gql || rest}>
         <InteractiveProvider load={wasm || gql}>
           <WebsiteProviderWrapper
             skip={!initialQuery}
@@ -77,7 +77,7 @@ const LayoutWrapper = ({ Component, pageProps }: InnerApp) => {
             </RestWebsiteProviderWrapper>
           </WebsiteProviderWrapper>
         </InteractiveProvider>
-      </AuthProviderWrapper>
+      </AuthProvider>
     </WASMContextProvider>
   )
 }

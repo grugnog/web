@@ -11,12 +11,12 @@ export function EnableNotifications() {
   const { setModal } = useInteractiveContext()
 
   const onOkPressEvent = () => {
-    setModal({ open: false, modalType: ModalType.empty, url: "" })
+    setModal({ open: false, modalType: ModalType.empty, url: '' })
     enableNotifications()
   }
 
   const onNotNowEvent = () => {
-    setModal({ open: false, modalType: ModalType.empty, url: "" })
+    setModal({ open: false, modalType: ModalType.empty, url: '' })
   }
 
   return (

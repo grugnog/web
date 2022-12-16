@@ -7,6 +7,7 @@ import {
   useState,
   useEffect,
   PropsWithChildren,
+  Fragment,
 } from 'react'
 import { UserManager } from '@app/managers'
 
@@ -22,13 +23,10 @@ const AppContext = createContext({
   setAccountType: (_x: typeof defaultAccount) => {},
 })
 
-export const AuthProvider = AppContext.Provider
+export const AuthProviderBase = AppContext.Provider
 
 // Determine the initial account type via load client-side
-export const AuthProviderWrapper: FC<PropsWithChildren<{ load?: boolean }>> = ({
-  children,
-  load,
-}) => {
+export const AuthProviderWrapper: FC<PropsWithChildren> = ({ children }) => {
   const [account, setAccountType] = useState<{
     activeSubscription: boolean
     authed: boolean
@@ -42,21 +40,29 @@ export const AuthProviderWrapper: FC<PropsWithChildren<{ load?: boolean }>> = ({
   })
 
   useEffect(() => {
-    if (load) {
-      const freeAccount = UserManager.freeAccount
-
-      setAccountType({
-        activeSubscription: !freeAccount,
-        authed: !!UserManager.token,
-        alertEnabled: !!UserManager?.user?.alertsEnabled,
-        inited: true,
-      })
-    }
-  }, [load])
+    setAccountType({
+      activeSubscription: !UserManager.freeAccount,
+      authed: !!UserManager.token,
+      alertEnabled: !!UserManager?.user?.alertsEnabled,
+      inited: true,
+    })
+  }, [])
 
   return (
-    <AuthProvider value={{ account, setAccountType }}>{children}</AuthProvider>
+    <AuthProviderBase value={{ account, setAccountType }}>
+      {children}
+    </AuthProviderBase>
   )
+}
+
+export const AuthProvider: FC<PropsWithChildren<{ load?: boolean }>> = ({
+  children,
+  load,
+}) => {
+  if (!load) {
+    return <Fragment>{children}</Fragment>
+  }
+  return <AuthProviderWrapper>{children}</AuthProviderWrapper>
 }
 
 export function useAuthContext() {

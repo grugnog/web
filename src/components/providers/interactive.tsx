@@ -12,7 +12,7 @@ import { useDynamicModal, defaultProps } from '@app/data/local/useDynamicModal'
 type BaseProps = FC<PropsWithChildren<{ load?: boolean }>>
 
 const AppContext = createContext({
-  modelData: defaultProps,
+  modelData: defaultProps, // dynamic modal data
   setModal: (_x: typeof defaultProps) => {},
 })
 

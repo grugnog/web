@@ -13,7 +13,8 @@ export function DynamicModalWrapper() {
     if (typeof dynamicModalHandler?.onClose === 'function') {
       dynamicModalHandler.onClose()
     }
-    setModal({ open: false, modalType: ModalType.empty, url: "" })  }
+    setModal({ open: false, modalType: ModalType.empty, url: '' })
+  }
 
   return (
     <HeadlessModal open={!!open} onClose={onClose}>

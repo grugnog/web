@@ -13,12 +13,12 @@ export function Onboarding() {
   const { setModal } = useInteractiveContext()
 
   const onTakePress = useCallback(async () => {
-    setModal({ open: false, modalType: ModalType.empty, url: "" })
+    setModal({ open: false, modalType: ModalType.empty, url: '' })
     await router.push('/alerts', '/alerts')
   }, [setModal, router])
 
   const onClose = () => {
-    setModal({ open: false, modalType: ModalType.empty, url: "" })
+    setModal({ open: false, modalType: ModalType.empty, url: '' })
   }
 
   return (
