@@ -119,13 +119,6 @@ export default function Layout({ children, ...props }: any) {
           content={twitterSite}
           key={'twitter:creator'}
         />
-        {pathName === '/' || pathName === 'index' ? (
-          <meta
-            name='twitter:image:alt'
-            content={`${companyName} dashboard example`}
-            key={'twitter:image:alt'}
-          />
-        ) : null}
         <meta property='og:type' key='og:type' content='website' />
         <meta
           property='og:url'

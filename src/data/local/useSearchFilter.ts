@@ -9,7 +9,7 @@ const GET_SEARCH_FILTER_STATE = gql`
   }
 `
 
-// use apollo cache for global search state
+// remove for context usage - preventing requries
 export function useSearchFilter() {
   const { data, client } = useQuery(GET_SEARCH_FILTER_STATE, { ssr: false })
 

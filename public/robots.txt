@@ -22,6 +22,4 @@ Disallow: /register?*
 Disallow: /auth-redirect
 Disallow: /auth-redirect?*
 
-Host: https://a11ywatch.com
-
 Sitemap: https://a11ywatch.com/sitemap.xml
