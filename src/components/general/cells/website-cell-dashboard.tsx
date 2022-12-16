@@ -122,14 +122,19 @@ export function WebsiteCellDashboardComponent({
       // mini player open - small modal with dynamic content
       let eventDS = eventData
 
-      if (title === 'Verify DNS') {
-        eventDS =
-          url &&
-          (await fetcher(
-            '/website/dns',
-            { domain: new URL(url).hostname },
-            'POST'
-          ))
+      // todo: open modal and set loading afterwards
+      if (title === 'Verify DNS' && url) {
+        eventDS = await fetcher(
+          '/website/dns',
+          { domain: new URL(url).hostname },
+          'POST'
+        )
+      }
+      if (title === 'Website Analytics') {
+        const path = url
+          ? `/list/analytics?limit=10000&domain=${new URL(url).hostname}`
+          : '/list/website?=limit=50'
+        eventDS = await fetcher(path, null, 'GET')
       }
 
       if (mini) {

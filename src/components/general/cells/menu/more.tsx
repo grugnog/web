@@ -101,6 +101,23 @@ function MoreOptionsComponent(props: MoreOptionsProps) {
             )}
           </Menu.Item>
         ) : null}
+        {!historyPage ? (
+          <Menu.Item>
+            {() => (
+              <button
+                className={btnStyles}
+                onClick={handleMainClick(
+                  true,
+                  'Website Analytics',
+                  false,
+                  url as string
+                )}
+              >
+                View Analytics
+              </button>
+            )}
+          </Menu.Item>
+        ) : null}
         {!verified && !historyPage ? (
           <Menu.Item>
             {() => (

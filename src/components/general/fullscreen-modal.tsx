@@ -13,6 +13,7 @@ import { FeedIssue } from './feed/issue'
 import { Header3 } from './header'
 import { HeadlessFullScreenModal } from '../modal/headless-full'
 import { fetcher } from '@app/utils/fetcher'
+import { LineChart } from './charts/line-chart'
 
 export const defaultModalState = {
   open: false,
@@ -76,6 +77,21 @@ interface FullScreenModalProps {
   data?: any
 }
 
+// handle the type of modal that should be displayed. Todo: use enum
+const handleModelType = (title: string) => {
+  const issuesModal = title === 'Issues'
+  const headerModal = title === 'Custom Headers'
+  const verifyModal = title === 'Verify DNS'
+  const analyticsModal = title === 'Website Analytics'
+
+  return {
+    issuesModal,
+    headerModal,
+    verifyModal,
+    analyticsModal,
+  }
+}
+
 // todo: split props into component
 const Body = ({
   data,
@@ -86,11 +102,22 @@ const Body = ({
   onDnsStatusEvent,
   error,
 }: Partial<FullScreenModalProps & { onDnsStatusEvent?(): any }>) => {
-  const issuesModal = title === 'Issues'
-  const headerModal = title === 'Custom Headers'
-  const verifyModal = title === 'Verify DNS'
+  const { issuesModal, headerModal, verifyModal, analyticsModal } =
+    handleModelType(title)
+
+  if (analyticsModal) {
+    const analytics = data?.data
+
+    return (
+      <div className='py-6 container mx-auto max-h-[80vh] overflow-visible'>
+        <LineChart title={`Report: ${url}`} data={analytics} />
+      </div>
+    )
+  }
 
   if (verifyModal) {
+    const textRecord = data?.data?.txtRecord
+
     return (
       <div className='p-4 space-y-6 container mx-auto'>
         <Header3>Verify DNS</Header3>
@@ -106,13 +133,13 @@ const Body = ({
           </p>
         </div>
         <div className='border border-gray-700 text-gray-600 rounded'>
-          {data?.data?.txtRecord ? (
+          {textRecord ? (
             <>
               <div className='flex flex-1 space-x-3'>
                 <div className='border-r px-4 bg-black'>
                   <div className='py-2 text-gray-100 font-medium'>.TXT</div>
                 </div>
-                <div className='py-2'>{data?.data?.txtRecord}</div>
+                <div className='py-2'>{textRecord}</div>
               </div>
             </>
           ) : (

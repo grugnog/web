@@ -151,7 +151,11 @@ export default function Layout({ Component, pageProps }: InnerApp) {
           />
         ) : null}
         <meta property='og:site_name' content={companyName} />
-        <meta content="max-snippet:-1, max-image-preview:large, max-video-preview:-1" name="robots" key={"robots"}></meta>
+        <meta
+          content='max-snippet:-1, max-image-preview:large, max-video-preview:-1'
+          name='robots'
+          key={'robots'}
+        ></meta>
         <meta
           property='keywords'
           key='keywords'
