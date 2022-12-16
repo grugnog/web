@@ -1,3 +1,5 @@
+'use client'
+
 import { ReactElement, useState } from 'react'
 import { SectionContainer } from '../containers/section-container'
 import { Link } from '../typo/link'

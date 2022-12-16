@@ -1,3 +1,5 @@
+'use client'
+
 import { memo } from 'react'
 import { Timer, TestViewRest } from '@app/components/general'
 import { CtaCdn } from '@app/components/cta'

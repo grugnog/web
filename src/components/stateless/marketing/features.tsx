@@ -16,6 +16,7 @@ import {
 } from 'react-icons/gr'
 import { Header2, Header3 } from '@app/components/general/header'
 
+// todo: remove create Element handling
 const RenderIcon = ({ index, ...props }: any): any =>
   React.createElement(
     (() => {
@@ -75,6 +76,11 @@ function FeatureItem({ item, index }: { item: any; index: number }) {
   )
 }
 
+// prep slim features trunc
+const slimFeatures = strings.features.filter((_, i) => {
+  return i < 6
+})
+
 const FeaturesList = ({
   alternative,
   all,
@@ -82,6 +88,8 @@ const FeaturesList = ({
   alternative?: boolean
   all?: boolean
 }) => {
+  const featureList = all ? slimFeatures : strings.features
+
   return (
     <SectionContainer>
       <div className={alternative ? 'pb-2' : undefined}>
@@ -94,13 +102,9 @@ const FeaturesList = ({
       </div>
       <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-1'>
         <>
-          {strings.features
-            .filter((_, i) => {
-              return all ? true : i < 6
-            })
-            .map((item: any, index: number) => (
-              <FeatureItem item={item} index={index} key={item.id} />
-            ))}
+          {featureList.map((item: any, index: number) => (
+            <FeatureItem item={item} index={index} key={item.id} />
+          ))}
         </>
       </div>
       {all ? null : (

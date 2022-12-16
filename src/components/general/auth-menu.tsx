@@ -1,3 +1,5 @@
+'use client'
+
 import { useEffect, SyntheticEvent } from 'react'
 import { useRouter } from 'next/router'
 

@@ -6,6 +6,7 @@ import { Logo, NavBarTitle } from '.'
 import { Link } from '../link'
 import { AuthMenu } from '../auth-menu'
 import { GrLinkPrevious } from 'react-icons/gr'
+import { NavbarMenu } from './navbar-menu'
 
 type LeftbuttonWrapperProps = {
   marketing?: boolean
@@ -59,6 +60,7 @@ interface NavProps {
   loading?: boolean
 }
 
+// todo: stateless navbar marketing
 export const NavBar: FC<PropsWithChildren<NavProps>> = ({
   title = strings.appName,
   backButton,
@@ -101,8 +103,10 @@ export const NavBar: FC<PropsWithChildren<NavProps>> = ({
           <div className='h-15 w-15 bg-gray-300 rounded'></div>
         ) : !authenticated && marketingLinks ? (
           marketingLinks
-        ) : (
+        ) : authenticated ? (
           <AuthMenu authenticated={authenticated} />
+        ) : (
+          <NavbarMenu />
         )}
       </div>
     </nav>

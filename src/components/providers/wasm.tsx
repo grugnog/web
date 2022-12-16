@@ -1,3 +1,5 @@
+'use client'
+
 import { ReactNode, useContext, useEffect, useState } from 'react'
 import { createContext } from 'react'
 import type { Feed } from 'a11ywatch-web-wasm'

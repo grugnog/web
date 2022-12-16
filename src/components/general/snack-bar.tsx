@@ -1,4 +1,6 @@
-import { memo, SyntheticEvent, useCallback } from 'react'
+'use client'
+
+import { memo, SyntheticEvent } from 'react'
 import { observer } from 'mobx-react-lite'
 
 import { AppManager } from '@app/managers'
@@ -12,19 +14,19 @@ interface SnackProps {
   snackID?: string
 }
 
+const handleClose = (
+  event: SyntheticEvent<any, Event>,
+  reason: string
+): any => {
+  event?.preventDefault()
+  if (reason === 'clickaway') {
+    return
+  }
+  AppManager.closeSnack()
+}
+
 const SnackbarContainer = observer(
   ({ store, topLevel, snackID }: SnackProps) => {
-    const handleClose = useCallback(
-      (event: SyntheticEvent<any, Event>, reason: string): any => {
-        event?.preventDefault()
-        if (reason === 'clickaway') {
-          return
-        }
-        AppManager.closeSnack()
-      },
-      []
-    )
-
     const snackStyle =
       !!store.snackbar.open && !(topLevel && store.modalActive)
         ? 'transition transform fixed z-100 bottom-0 inset-x-0 pb-2 sm:pb-5 opacity-100 scale-100 translate-y-0 ease-out duration-500 z-30'
