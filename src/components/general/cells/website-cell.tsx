@@ -8,7 +8,6 @@ interface WebsiteCellProps extends Partial<Website> {
   removePress(props: { variables: { url?: string | null } }): void
   handleClickOpen(a: any, b: any, c?: string): void
   handleClickOpenPlayer: (a: boolean, b: any, c?: string) => () => void
-  setModal(data: any): void
   mutatationLoading: boolean
   historyPage: boolean // history page
 }

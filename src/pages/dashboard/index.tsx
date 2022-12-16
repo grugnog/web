@@ -9,7 +9,7 @@ import {
   Drawer,
   FormDialog,
 } from '@app/components/general'
-import { useDynamicModal, useSearchFilter, useEvents } from '@app/data'
+import { useSearchFilter, useEvents } from '@app/data'
 import { filterSort } from '@app/lib'
 import { metaSetter } from '@app/utils'
 import type { PageProps, Website } from '@app/types'
@@ -24,6 +24,7 @@ import { MarketingBottomTemporaryDrawer } from '@app/components/modal'
 import { WCAGSelectInput } from '@app/components/general/select'
 import { fetcher } from '@app/utils/fetcher'
 import { AppManager } from '@app/managers'
+import { useInteractiveContext } from '@app/components/providers/interactive'
 
 const CtaHtmlInputRest = dynamic(
   () =>
@@ -105,7 +106,7 @@ function Dashboard({ name }: PageProps) {
 
   const { search } = useSearchFilter()
   const { events, setEvents } = useEvents()
-  const { setModal } = useDynamicModal()
+  const { setModal } = useInteractiveContext()
   const {
     data,
     error,

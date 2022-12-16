@@ -22,6 +22,7 @@ import { useStaticRendering as enableMobxStaticRendering } from 'mobx-react-lite
 import { SkipContent, SnackBar } from './general'
 import { ping } from '@app/utils'
 import { UserManager } from '@app/managers'
+import { InteractiveProvider } from './providers/interactive'
 
 if (typeof window === 'undefined') {
   enableMobxStaticRendering(true)
@@ -64,16 +65,18 @@ const LayoutWrapper = ({ Component, pageProps }: InnerApp) => {
   return (
     <WASMContextProvider load={wasm}>
       <AuthProviderWrapper load={wasm || gql || rest}>
-        <WebsiteProviderWrapper
-          skip={!initialQuery}
-          gqlFilter={Component?.params?.filter}
-          scopedQuery={scopedQuery}
-          gql={gql}
-        >
-          <RestWebsiteProviderWrapper rest={rest}>
-            <Component {...pageProps} name={name} />
-          </RestWebsiteProviderWrapper>
-        </WebsiteProviderWrapper>
+        <InteractiveProvider load={wasm || gql}>
+          <WebsiteProviderWrapper
+            skip={!initialQuery}
+            gqlFilter={Component?.params?.filter}
+            scopedQuery={scopedQuery}
+            gql={gql}
+          >
+            <RestWebsiteProviderWrapper rest={rest}>
+              <Component {...pageProps} name={name} />
+            </RestWebsiteProviderWrapper>
+          </WebsiteProviderWrapper>
+        </InteractiveProvider>
       </AuthProviderWrapper>
     </WASMContextProvider>
   )

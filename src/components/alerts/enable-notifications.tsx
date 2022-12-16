@@ -1,21 +1,22 @@
 import React from 'react'
 import { strings } from '@app-strings'
-import { useDynamicModal } from '@app/data'
 import { enableNotifications } from '@app/lib'
 import { GrNotification } from 'react-icons/gr'
 import { Header3 } from '../general/header'
 import { Button } from '../general'
+import { useInteractiveContext } from '../providers/interactive'
+import { ModalType } from '@app/data/enums'
 
 export function EnableNotifications() {
-  const { setModal } = useDynamicModal()
+  const { setModal } = useInteractiveContext()
 
   const onOkPressEvent = () => {
-    setModal({ open: false })
+    setModal({ open: false, modalType: ModalType.empty, url: "" })
     enableNotifications()
   }
 
   const onNotNowEvent = () => {
-    setModal({ open: false })
+    setModal({ open: false, modalType: ModalType.empty, url: "" })
   }
 
   return (

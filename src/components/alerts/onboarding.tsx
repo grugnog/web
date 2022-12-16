@@ -1,24 +1,25 @@
 import { useCallback } from 'react'
 import { useRouter } from 'next/router'
 import { strings } from '@app-strings'
-import { useDynamicModal } from '@app/data'
 import { _ONBOARDED } from '@app/lib/cookies/names'
 import { GrNotification } from 'react-icons/gr'
 import { Button } from '../general'
 import { Header3 } from '../general/header'
+import { useInteractiveContext } from '../providers/interactive'
+import { ModalType } from '@app/data/enums'
 
 export function Onboarding() {
   const router = useRouter()
-  const { setModal } = useDynamicModal()
+  const { setModal } = useInteractiveContext()
 
   const onTakePress = useCallback(async () => {
-    setModal({ open: false })
+    setModal({ open: false, modalType: ModalType.empty, url: "" })
     await router.push('/alerts', '/alerts')
   }, [setModal, router])
 
-  const onClose = useCallback(async () => {
-    setModal({ open: false })
-  }, [setModal])
+  const onClose = () => {
+    setModal({ open: false, modalType: ModalType.empty, url: "" })
+  }
 
   return (
     <div className={'px-4 py-4 space-y-4'}>

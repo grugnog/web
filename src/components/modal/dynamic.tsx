@@ -1,19 +1,19 @@
 import { memo } from 'react'
-import { useDynamicModal } from '@app/data'
 import { GetType } from './helpers'
 import { dynamicModalHandler } from '@app/data/models/singletons/modalHandler'
 import { HeadlessModal } from './headless'
+import { useInteractiveContext } from '../providers/interactive'
+import { ModalType } from '@app/data/enums'
 
 export function DynamicModalWrapper() {
-  const { modelData, setModal } = useDynamicModal()
+  const { modelData, setModal } = useInteractiveContext()
   const { open, modalType } = modelData
 
   const onClose = () => {
     if (typeof dynamicModalHandler?.onClose === 'function') {
       dynamicModalHandler.onClose()
     }
-    setModal({ open: false })
-  }
+    setModal({ open: false, modalType: ModalType.empty, url: "" })  }
 
   return (
     <HeadlessModal open={!!open} onClose={onClose}>

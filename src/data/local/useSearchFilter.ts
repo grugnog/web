@@ -1,6 +1,5 @@
 import { useQuery } from '@apollo/react-hooks'
 import gql from 'graphql-tag'
-import { useMemo } from 'react'
 
 const GET_SEARCH_FILTER_STATE = gql`
   query getSearchFilterState {
@@ -25,15 +24,8 @@ export function useSearchFilter() {
     })
   }
 
-  const search = useMemo(() => {
-    if (data?.searchFilter?.search) {
-      return data.searchFilter.search.toLowerCase()
-    }
-    return ''
-  }, [data])
-
   return {
-    search,
+    search: data?.searchFilter?.search || '',
     setSearchFilter,
   }
 }

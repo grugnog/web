@@ -1,29 +1,21 @@
-import { useEffect, useCallback } from 'react'
-import { useQuery } from '@apollo/react-hooks'
-import gql from 'graphql-tag'
+'use client'
+
+import { useCallback, useEffect, useState } from 'react'
 import { isSameDay } from 'date-fns'
 import { checkNotification } from '@app/lib'
 import { dynamicModalHandler } from '@app/data/models/singletons/modalHandler'
 import { ModalType } from '@app/data/enums'
 import { _ONBOARDED } from '@app/lib/cookies/names'
 
-const GET_DYNAMIC_MODAL_STATE = gql`
-  query getDynamicModalState {
-    modal @client {
-      open
-      modalType
-      url
-    }
-  }
-`
-
-const defaultProps = {
+export const defaultProps = {
   open: false,
   modalType: ModalType.empty,
   url: '',
 }
 
-const getLastAlertedDate = (setModal: (x: any) => void) => {
+const completeOnboarding = () => localStorage.setItem(_ONBOARDED, 'true')
+
+const getLastAlertedDate = () => {
   if (typeof localStorage !== 'undefined') {
     const alertPromptDate = localStorage.getItem('AlertPromptDate')
     const notificationsEnabled = checkNotification()
@@ -34,15 +26,15 @@ const getLastAlertedDate = (setModal: (x: any) => void) => {
       alertedDate &&
       !isSameDay(alertedDate, new Date())
     ) {
-      setModal && setModal({ open: true, modalType: ModalType.alerts })
       localStorage.setItem('AlertPromptDate', new Date() + '')
+      return true
     }
   }
+  return false
 }
 
 export function useDynamicModal() {
-  const { data, client } = useQuery(GET_DYNAMIC_MODAL_STATE, { ssr: false })
-  const modelData = data?.modal || defaultProps
+  const [data, writeData] = useState<typeof defaultProps>(defaultProps)
 
   const setModal = useCallback(
     ({ open = true, modalType = ModalType.empty, onClose, url = '' }: any) => {
@@ -52,24 +44,19 @@ export function useDynamicModal() {
       if (onClose) {
         dynamicModalHandler.bindOnClose(onClose)
       }
-
-      client.writeData({
-        data: {
-          modal: { open, modalType, url, __typename: 'DynamicModal' },
-        },
-      })
+      writeData({ open, modalType, url })
     },
-    [client]
+    [writeData]
   )
 
+  // get first time alerts and other app notifications
   useEffect(() => {
-    getLastAlertedDate(setModal)
     if (typeof localStorage !== 'undefined') {
-      const isOnboarded = localStorage.getItem(_ONBOARDED)
+      const a = getLastAlertedDate()
 
-      if (!isOnboarded) {
-        const completeOnboarding = () =>
-          localStorage.setItem(_ONBOARDED, 'true')
+      if (a) {
+        setModal({ open: true, modalType: ModalType.alerts })
+      } else if (!localStorage.getItem(_ONBOARDED)) {
         // Possible check route for only displaying on dashboard for future links to auth pages
         setModal({
           open: true,
@@ -78,10 +65,10 @@ export function useDynamicModal() {
         })
       }
     }
-  }, [setModal, client])
+  }, [setModal])
 
   return {
-    modelData,
+    modelData: data,
     setModal,
     dynamicModalHandler,
   }

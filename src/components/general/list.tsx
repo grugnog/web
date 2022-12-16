@@ -14,7 +14,6 @@ function WebSites({
   refetch,
   handleClickOpenPlayer,
   crawlWebsite,
-  setModal,
   mutatationLoading,
   loading,
   historyPage,
@@ -29,7 +28,6 @@ function WebSites({
         refetch={refetch}
         handleClickOpenPlayer={handleClickOpenPlayer}
         crawlWebsite={crawlWebsite}
-        setModal={setModal}
         loading={loading}
         mutatationLoading={mutatationLoading}
         pageHeaders={pageHeaders}
