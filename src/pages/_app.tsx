@@ -4,20 +4,14 @@ import '@app/stylesheets/tailwind.css'
 
 import Layout from '@app/components/layout'
 import { ErrorBoundary } from '@app/components/general'
-import { strings } from '@app/content/strings/a11y'
-import type { MergedApp } from '@app/types/page'
+import type { InnerApp } from '@app/types/page'
 import { AnalyticsHoc } from '@app/components/adhoc/analytics'
 import Script from 'next/script'
 
-const App = ({ Component, pageProps }: MergedApp) => {
-  const baseProps = { Component, pageProps }
-  const { name } = Component?.meta || strings?.meta
-
+const App = ({ Component, pageProps }: InnerApp) => {
   return (
     <ErrorBoundary>
-      <Layout {...baseProps}>
-        <Component {...pageProps} name={name} />
-      </Layout>
+      <Layout Component={Component} pageProps={pageProps} />
       {process.env.NEXT_PUBLIC_FATHOM_CODE ? <AnalyticsHoc /> : null}
       {process.env.NEXT_PUBLIC_REWARDS ? (
         <>

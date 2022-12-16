@@ -76,8 +76,7 @@ const LayoutWrapper = ({ Component, pageProps }: InnerApp) => {
   )
 }
 
-export default function Layout({ children, ...props }: any) {
-  const Component = props?.Component
+export default function Layout({ Component, pageProps }: InnerApp) {
   const { description, title, name } = Component?.meta || strings?.meta
   const metaTitle = title || `${strings.appName}: Web Accessibility Service`
   const pathName = String(name).toLowerCase()
@@ -176,7 +175,7 @@ export default function Layout({ children, ...props }: any) {
         />
       </Head>
       <SkipContent />
-      <LayoutWrapper {...props}>{children}</LayoutWrapper>
+      <LayoutWrapper Component={Component} pageProps={pageProps} />
       <SnackBar topLevel />
     </>
   )

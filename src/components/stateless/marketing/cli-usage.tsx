@@ -50,7 +50,7 @@ export function MarketingCli(): ReactElement<any, any> | null {
     <SectionContainer>
       <div className='ring-1 shadow-xl ring-[#0E1116] ring-offset-8 ring-offset-gray-600 py-4 px-4 rounded'>
         <div className='flex space-x-2 place-items-center'>
-          <Header3>{companyName} Web Accessibility CLI</Header3>
+          <Header3>{companyName} Web Accessibility CLI and API</Header3>
           <button
             title={
               sampleVisible
@@ -82,7 +82,7 @@ export function MarketingCli(): ReactElement<any, any> | null {
                 src={'/img/a11ywatch_cli.gif'}
                 height={494}
                 width={717}
-                alt={`A11yWatch CLI running the command: 'a11ywatch crawl --url https://a11ywatch.com -d -n -s > results.json' with the output 27/27 urls passing the report almost instantly.`}
+                alt={`${companyName} CLI running the command: 'a11ywatch crawl --url https://a11ywatch.com -d -n -s > results.json' with the output 27/27 urls passing the report almost instantly.`}
                 className={'h-auto w-auto rounded'}
                 quality={70}
               />

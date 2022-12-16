@@ -8,10 +8,6 @@ export interface InnerApp {
   name?: string
 }
 
-export interface MergedApp extends AppProps {
-  Component: AppComponent
-}
-
 export interface MetaData {
   /** Meta data page title */
   title?: string
