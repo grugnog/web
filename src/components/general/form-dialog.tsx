@@ -66,8 +66,8 @@ export function FormDialogWrapper({
   )
   const [robots, setRobots] = useState<boolean>(true)
 
-  const { activeSubscription } = useAuthContext()
-
+  const { account } = useAuthContext()
+  const { activeSubscription } = account
   const headers = useInputHeader()
   const actions = useInputActions()
 

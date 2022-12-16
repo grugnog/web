@@ -1,7 +1,6 @@
 import { computed, observable, action } from 'mobx'
 import { create, persist } from 'mobx-persist'
 import { isSameDay } from 'date-fns'
-import { userModel } from '@app/data'
 import { parseJwt } from '@app/lib/auth'
 import { SUPER_MODE } from '@app/configs'
 
@@ -11,6 +10,7 @@ const USER_DEFAULTS = {
   lastName: undefined,
   email: undefined,
   jwt: undefined,
+  alertsEnabled: undefined,
 }
 
 interface User {
@@ -19,6 +19,7 @@ interface User {
   lastName?: string
   email?: string
   jwt?: string
+  alertsEnabled?: boolean
 }
 
 class UserManager {
@@ -51,20 +52,15 @@ class UserManager {
 
   @action setUser = (user: User) => {
     this.user = user
-    userModel.logIn(user)
   }
 
   // get the authenication token.
   @computed get token() {
-    return (
-      (typeof userModel !== 'undefined' && userModel?.jwt) ||
-      this?.user?.jwt ||
-      ''
-    )
+    return this?.user?.jwt || ''
   }
 
   @computed get jwtParsed() {
-    return parseJwt(this.token) || userModel?.parsedToken
+    return parseJwt(this.token)
   }
 
   @computed get freeAccount() {
@@ -77,14 +73,18 @@ class UserManager {
 
   @action clearUser = () => {
     this.user = USER_DEFAULTS
-    userModel.logOut()
   }
 
   @action setJwt = (jwt: string) => {
     if (this.user) {
       this.user.jwt = jwt
     }
-    userModel.setJwt(jwt)
+  }
+
+  @action setAlertsEnabled = (enabled: boolean) => {
+    if (this.user) {
+      this.user.alertsEnabled = enabled
+    }
   }
 }
 

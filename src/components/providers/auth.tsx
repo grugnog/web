@@ -8,9 +8,16 @@ import {
 } from 'react'
 import { UserManager } from '@app/managers'
 
-const AppContext = createContext({
+const defaultAccount = {
   activeSubscription: false,
   authed: false,
+  alertEnabled: false,
+  inited: false,
+}
+
+const AppContext = createContext({
+  account: defaultAccount,
+  setAccountType: (_x: typeof defaultAccount) => {},
 })
 
 export const AuthProvider = AppContext.Provider
@@ -23,7 +30,14 @@ export const AuthProviderWrapper: FC<PropsWithChildren<{ load?: boolean }>> = ({
   const [account, setAccountType] = useState<{
     activeSubscription: boolean
     authed: boolean
-  }>({ activeSubscription: false, authed: false })
+    alertEnabled: boolean
+    inited: boolean
+  }>({
+    activeSubscription: false,
+    authed: false,
+    alertEnabled: false,
+    inited: false,
+  })
 
   useEffect(() => {
     if (load) {
@@ -32,11 +46,15 @@ export const AuthProviderWrapper: FC<PropsWithChildren<{ load?: boolean }>> = ({
       setAccountType({
         activeSubscription: !freeAccount,
         authed: !!UserManager.token,
+        alertEnabled: !!UserManager?.user?.alertsEnabled,
+        inited: true,
       })
     }
   }, [load])
 
-  return <AuthProvider value={account}>{children}</AuthProvider>
+  return (
+    <AuthProvider value={{ account, setAccountType }}>{children}</AuthProvider>
+  )
 }
 
 export function useAuthContext() {

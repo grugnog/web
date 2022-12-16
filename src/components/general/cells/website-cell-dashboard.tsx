@@ -84,13 +84,14 @@ export function WebsiteCellDashboardComponent({
   verified,
 }: any) {
   const [anchorEl, setAnchorEl] = useState<any>(null)
-  const { activeSubscription } = useAuthContext() // TODO: move to provider top level
+  const { account } = useAuthContext() // TODO: move to provider top level
   const { feed } = useWasmContext()
   const items = useDeferredValue(
     feed?.get_data_item(domain, tld || subdomains) ?? []
   )
 
   const issues = items?.length ? items : currentIssues
+  const { activeSubscription } = account
 
   const handleMenu = useCallback(
     (event: React.SyntheticEvent<HTMLButtonElement>) => {

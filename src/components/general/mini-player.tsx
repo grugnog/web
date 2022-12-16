@@ -1,4 +1,6 @@
-import { FunctionComponent, useMemo } from 'react'
+'use client'
+
+import { FC, useMemo } from 'react'
 import { useMiniPlayer } from '@app/data'
 import { Fab } from './fab'
 import { Link } from './link'
@@ -9,7 +11,7 @@ import { Button } from './buttons'
 import { HeadlessModal } from '../modal/headless'
 
 // a mini modal that appears that can be dragged across the screen.
-export const MiniPlayer: FunctionComponent<{}> = (_) => {
+export const MiniPlayer: FC = () => {
   const { miniPlayer, setMiniPlayerContent } = useMiniPlayer()
 
   const { open, data, title } = useMemo(() => {
@@ -20,6 +22,7 @@ export const MiniPlayer: FunctionComponent<{}> = (_) => {
         data: miniPlayer?.data ? JSON.parse(miniPlayer.data) : null,
       }
     }
+
     return miniPlayer
   }, [miniPlayer])
 

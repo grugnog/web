@@ -14,7 +14,9 @@ import { useAuthContext } from '@app/components/providers/auth'
 
 function Reports({ name, website }: PageProps) {
   const { url, domain } = website ?? { domain: '', url: 'Not Found' }
-  const { authed: authenticated } = useAuthContext()
+
+  const { account } = useAuthContext()
+  const { authed: authenticated } = account
 
   return (
     <Fragment>

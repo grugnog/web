@@ -11,29 +11,40 @@ import { ConfirmEmail } from '../../alerts'
 import { IssueFeed } from '../../feed'
 import { FormDialog } from '../form-dialog'
 import { SearchBar } from '../searchbar'
-import { MiniPlayer } from '../mini-player'
 import { RefBanner } from '../ref-banner'
 
-const DynamicModal = dynamic(() =>
-  import('../../modal/dynamic').then((mod) => mod.DynamicModal)
+const DynamicModal = dynamic(
+  () => import('../../modal/dynamic').then((mod) => mod.DynamicModal),
+  { ssr: false }
+)
+
+const MiniPlayer = dynamic(
+  () => import('../mini-player').then((mod) => mod.MiniPlayer),
+  { ssr: false }
 )
 
 export type DrawerWrapperProps = {
   route?: string
   title?: string
   dataSourceMap: any
+  loading?: boolean
 }
 
 function MainDrawerContainerComponent({
   route,
   dataSourceMap,
+  loading,
 }: DrawerWrapperProps) {
   return (
     <div
       className={`flex flex-col overflow-x-hidden w-[55px] sm:w-[15vw] md:w-[18vw] lg:w-[250px] max-w-[250px] relative print:hidden overflow-hidden`}
     >
       <div className='fixed flex flex-col w-[inherit] overflow-hidden h-full bg-lightgray z-10 space-y-3'>
-        <AuthedMenu dataSourceMap={dataSourceMap} route={route} />
+        <AuthedMenu
+          dataSourceMap={dataSourceMap}
+          route={route}
+          loading={loading}
+        />
         <div
           className={
             'xl:visible invisible p-4 place-items-center flex-col flex flex-1'
@@ -56,11 +67,13 @@ export function DrawerWrapperComponent({
   route: routePath,
   title = '',
   dataSourceMap,
+  loading,
 }: DrawerWrapperProps) {
   return (
     <MainDrawerContainer
       route={routePath ?? title}
       dataSourceMap={dataSourceMap}
+      loading={loading}
     />
   )
 }
@@ -78,8 +91,9 @@ export function NavigationBar({ title = '', authenticated }: any) {
 }
 
 export function DrawerW({ children, route, title }: any) {
-  const { data: dataSourceMap, sendConfirmEmail } = useUserData()
-  const { authed } = useAuthContext()
+  const { data: dataSourceMap, sendConfirmEmail, loading } = useUserData()
+  const { account } = useAuthContext()
+  const { authed } = account
 
   const user = dataSourceMap?.user
 
@@ -111,6 +125,7 @@ export function DrawerW({ children, route, title }: any) {
             route={route}
             title={title}
             dataSourceMap={dataSourceMap}
+            loading={loading}
           />
           <main className={'flex-1 overflow-auto'} id='main-content'>
             <NavigationBar title={title} authenticated={authed} />

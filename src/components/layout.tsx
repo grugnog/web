@@ -11,7 +11,7 @@ import { RestWebsiteProviderWrapper } from '@app/components/providers/rest/rest-
 import type { InnerApp } from '@app/types/page'
 import { buildScopeQuery } from '@app/utils/build-scope'
 import { strings } from '@app/content/strings/a11y'
-import { initAppModel, userModel } from '@app/data'
+import { initAppModel } from '@app/data'
 import {
   BLOG_WEBFLOW_URL,
   companyName,
@@ -39,15 +39,6 @@ const LayoutWrapper = ({ Component, pageProps }: InnerApp) => {
     }
 
     initAppModel()
-
-    // todo: remove js cookie parsing
-    userModel.initModel({
-      cookie:
-        typeof navigator !== 'undefined' &&
-        typeof document !== 'undefined' &&
-        navigator.cookieEnabled &&
-        document.cookie,
-    })
 
     if (UserManager.token) {
       queueMicrotask(ping)

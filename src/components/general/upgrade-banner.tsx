@@ -2,7 +2,8 @@ import { Link } from './link'
 import { useAuthContext } from '../providers/auth'
 
 const UpgradeBanner = () => {
-  const { activeSubscription } = useAuthContext()
+  const { account } = useAuthContext()
+  const { activeSubscription } = account
 
   return !activeSubscription ? (
     <div className='hidden md:block'>

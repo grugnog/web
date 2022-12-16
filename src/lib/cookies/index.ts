@@ -9,8 +9,8 @@ const parseCookie = (ck: string, p1: string, p2: string): any => {
     : null
 
   const items: Record<string, any> = {
-    [p1]: "",
-    [p2]: "",
+    [p1]: '',
+    [p2]: '',
   }
 
   if (cookie) {

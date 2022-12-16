@@ -16,7 +16,6 @@ import { User } from '@app/types'
 
 export const useUserData = (skip?: boolean, query?: 'profile' | 'settings') => {
   const variables = {}
-
   const profileQuery = query === 'profile'
   const settingsQuery = query === 'settings'
 

@@ -16,7 +16,9 @@ function Scripts({ name }: PageProps) {
   const { scriptsData, scriptsDataLoading, refetch, error, onLoadMoreScripts } =
     useWebsiteContext()
   const { search } = useSearchFilter()
-  const { activeSubscription } = useAuthContext()
+  const { account } = useAuthContext()
+
+  const { activeSubscription } = account
 
   // search local filtering
   const source = useMemo(

@@ -1,24 +1,28 @@
+'use client'
+
 import { memo, SyntheticEvent } from 'react'
-import { useFeaturesData, userModel, useEvents } from '@app/data'
+import { useFeaturesData, useEvents } from '@app/data'
 import { features } from '@app/configs'
 import { FeaturesCell } from '../cells'
+import { UserManager } from '@app/managers'
+import { useAuthContext } from '@app/components/providers/auth'
 
 type AuthedMenuProps = {
   route?: string
   isMobile?: boolean
   dataSourceMap?: any
+  loading?: boolean
 }
 
 // Side menu that appears on application routes
-export function AuthedMenuComponent({ route, dataSourceMap }: AuthedMenuProps) {
+export function AuthedMenuComponent({ route, loading }: AuthedMenuProps) {
   const { events, setEvents } = useEvents()
-  const { toggleAlert, toggleAlertData } = useFeaturesData()
+  const { toggleAlert } = useFeaturesData()
+  const { account, setAccountType } = useAuthContext()
+  const { alertEnabled, inited } = account
 
-  const enabledAlerts = userModel.alertEnabled({
-    toggleCombiner: toggleAlertData?.toggleAlert?.alertEnabled,
-    networkCombiner:
-      !toggleAlertData?.toggleAlert && dataSourceMap?.user?.alertEnabled,
-  })
+  // initial page load show skeleton [first load state]
+  const initialLoad = loading && !inited
 
   const onAlertToggle = async (e?: SyntheticEvent<HTMLInputElement>) => {
     if (e && typeof e.stopPropagation === 'function') {
@@ -26,9 +30,18 @@ export function AuthedMenuComponent({ route, dataSourceMap }: AuthedMenuProps) {
     }
 
     try {
+      const nextValue = !alertEnabled
+      setAccountType({
+        authed: account.authed,
+        activeSubscription: account.activeSubscription,
+        alertEnabled: nextValue,
+        inited: true,
+      })
+      // todo: remove local storage usage for network + memory
+      UserManager.setAlertsEnabled(nextValue)
       await toggleAlert({
         variables: {
-          alertEnabled: !enabledAlerts,
+          alertEnabled: nextValue,
         },
       })
     } catch (e) {
@@ -42,13 +55,14 @@ export function AuthedMenuComponent({ route, dataSourceMap }: AuthedMenuProps) {
         {features.map(({ feature }: any, index: number) => (
           <FeaturesCell
             key={index}
-            alertEnabled={enabledAlerts}
+            alertEnabled={alertEnabled}
             feature={feature}
             index={index}
             focused={route?.includes(feature)} // use page meta TODO
             events={events}
             setEvents={setEvents}
             toggleAlert={onAlertToggle}
+            initialLoad={initialLoad}
           />
         ))}
       </ul>

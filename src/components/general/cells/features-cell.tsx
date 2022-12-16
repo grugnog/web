@@ -1,3 +1,4 @@
+import { TextSkeleton } from '@app/components/placeholders'
 import { memo } from 'react'
 import {
   GrNotification as NotificationsIcon,
@@ -102,6 +103,7 @@ function renderGuide(index: number, events: any) {
 const listTitleStyle =
   'sr-only text-gray-600 sm:text-xs sm:not-sr-only md:text-sm'
 
+// todo: types
 export function FeaturesCellComponent({
   feature,
   alertEnabled = false,
@@ -110,6 +112,7 @@ export function FeaturesCellComponent({
   focused,
   events,
   setEvents,
+  initialLoad,
 }: any) {
   const title = focused ? 'Dashboard' : feature
 
@@ -127,7 +130,7 @@ export function FeaturesCellComponent({
               'grIcon text-blue-700 md:text-gray-700') ||
               'grIcon text-gray-700'
           )}
-          {index === 0 ? (
+          {index === 0 && !initialLoad ? (
             <label className={listTitleStyle} htmlFor='alerts-btn'>
               {title}
             </label>
@@ -136,13 +139,17 @@ export function FeaturesCellComponent({
           )}
         </div>
         {index === 0 ? (
-          <div className='hidden lg:block'>
-            <SwitchInput
-              id='alerts-btn'
-              checked={alertEnabled}
-              onChange={toggleAlert}
-            />
-          </div>
+          initialLoad ? (
+            <TextSkeleton width={40} height={20} className={'rounded'} />
+          ) : (
+            <div className='hidden lg:block'>
+              <SwitchInput
+                id='alerts-btn'
+                checked={alertEnabled}
+                onChange={toggleAlert}
+              />
+            </div>
+          )
         ) : null}
         {renderGuide(index, events)}
       </Link>

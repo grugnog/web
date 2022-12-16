@@ -1,4 +1,3 @@
-import { userModel } from '@app/data'
 import { TOGGLE_ALERT } from '@app/mutations'
 import { useMutation } from '@apollo/react-hooks'
 
@@ -8,10 +7,9 @@ export const useFeaturesData = () => {
 
   return Object.freeze({
     toggleAlertLoading,
-    toggleAlert: (alertParams?: any) => {
+    toggleAlert: async (alertParams?: any) => {
       if (alertParams?.variables) {
-        toggleAlert(alertParams)
-        userModel.toggleAlert(alertParams.variables.alertEnabled)
+        await toggleAlert(alertParams)
       }
     },
     toggleAlertData,

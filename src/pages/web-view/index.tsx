@@ -36,7 +36,9 @@ const WebCell: FC<PropsWithChildren<{ title: string; open?: boolean }>> = ({
 // detached information relating to a single website. Combine all paginaters into one.
 function WebView() {
   const router = useRouter()
-  const { authed } = useAuthContext()
+  const { account } = useAuthContext()
+
+  const { authed } = account
 
   const { url } = router?.query
 
