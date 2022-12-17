@@ -17,9 +17,13 @@ export function DynamicModalWrapper() {
   }
 
   return (
-    <HeadlessModal open={!!open} onClose={onClose}>
+    <HeadlessModal
+      open={!!open}
+      onClose={onClose}
+      size={modalType === ModalType.analytics ? '3xl' : 'lg'}
+    >
       <div>
-        <GetType modalType={modalType} />
+        <GetType modalType={modalType} data={modelData?.data} />
       </div>
     </HeadlessModal>
   )

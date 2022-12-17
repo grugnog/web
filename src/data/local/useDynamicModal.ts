@@ -7,10 +7,18 @@ import { dynamicModalHandler } from '@app/data/models/singletons/modalHandler'
 import { ModalType } from '@app/data/enums'
 import { _ONBOARDED } from '@app/lib/cookies/names'
 
-export const defaultProps = {
+export type ModalDataProps = {
+  open: boolean
+  modalType: ModalType
+  url?: string
+  data?: any
+}
+
+export const defaultProps: ModalDataProps = {
   open: false,
   modalType: ModalType.empty,
   url: '',
+  data: {},
 }
 
 const completeOnboarding = () => localStorage.setItem(_ONBOARDED, 'true')
@@ -34,17 +42,23 @@ const getLastAlertedDate = () => {
 }
 
 export function useDynamicModal() {
-  const [data, writeData] = useState<typeof defaultProps>(defaultProps)
+  const [data, writeData] = useState<ModalDataProps>(defaultProps)
 
   const setModal = useCallback(
-    ({ open = true, modalType = ModalType.empty, onClose, url = '' }: any) => {
+    ({
+      open = true,
+      modalType = ModalType.empty,
+      onClose,
+      url = '',
+      data,
+    }: ModalDataProps & { onClose?(): any }) => {
       if (!open && typeof dynamicModalHandler?.onClose === 'function') {
         dynamicModalHandler.onClose()
       }
       if (onClose) {
         dynamicModalHandler.bindOnClose(onClose)
       }
-      writeData({ open, modalType, url })
+      writeData({ open, modalType, url, data })
     },
     [writeData]
   )

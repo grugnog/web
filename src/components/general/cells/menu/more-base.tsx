@@ -54,59 +54,52 @@ function MoreOptionsBaseComponent({
   const menuId = `menu-appbar${index}`
 
   return (
-    <>
-      <TopMenu
-        id={menuId}
-        anchorEl={anchorEl}
-        open={!!anchorEl}
-        onClose={handleClose}
-      >
+    <TopMenu
+      id={menuId}
+      anchorEl={anchorEl}
+      open={!!anchorEl}
+      onClose={handleClose}
+    >
+      <Menu.Item>
+        {() => (
+          <Link href={href} className={btnStyles}>
+            View Sandbox
+          </Link>
+        )}
+      </Menu.Item>
+      {!historyPage ? (
         <Menu.Item>
           {() => (
-            <Link href={href} className={btnStyles}>
-              View Sandbox
+            <Link href={reportHref} className={btnStyles}>
+              View Report
             </Link>
           )}
         </Menu.Item>
-
-        {!historyPage ? (
-          <Menu.Item>
-            {() => (
-              <Link href={reportHref} className={btnStyles}>
-                View Report
-              </Link>
-            )}
-          </Menu.Item>
-        ) : null}
-        {lh ? (
-          <Menu.Item>
-            {() => (
-              <button
-                className={btnStyles}
-                onClick={handleMainClick(
-                  JSON.stringify(lh),
-                  'Lighthouse',
-                  true
-                )}
-              >
-                View Lighthouse
-              </button>
-            )}
-          </Menu.Item>
-        ) : null}
+      ) : null}
+      {lh ? (
         <Menu.Item>
           {() => (
             <button
-              onClick={handleMainClick(targetUrl, 'Mini Player', true)}
               className={btnStyles}
+              onClick={handleMainClick(JSON.stringify(lh), 'Lighthouse', true)}
             >
-              View Sandbox (Mini Player)
+              View Lighthouse
             </button>
           )}
         </Menu.Item>
-        {children}
-      </TopMenu>
-    </>
+      ) : null}
+      <Menu.Item>
+        {() => (
+          <button
+            onClick={handleMainClick(targetUrl, 'Mini Player', true)}
+            className={btnStyles}
+          >
+            View Sandbox (Mini Player)
+          </button>
+        )}
+      </Menu.Item>
+      {children}
+    </TopMenu>
   )
 }
 

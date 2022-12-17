@@ -4,10 +4,12 @@ import { useWebsiteContext } from '@app/components/providers/website'
 import { btnStyles, MoreOptionsBase, MoreOptionsProps } from './more-base'
 import { Link } from '@app/components/stateless/typo/link'
 import { Menu } from '@headlessui/react'
+import { useAuthContext } from '@app/components/providers/auth'
+import { GrLock } from 'react-icons/gr'
 
 function MoreOptionsComponent(props: MoreOptionsProps) {
   const { updateWebsite } = useWebsiteContext()
-
+  const { account } = useAuthContext()
   const {
     url,
     removePress,
@@ -31,13 +33,12 @@ function MoreOptionsComponent(props: MoreOptionsProps) {
   }, [updateWebsite, url, pageInsights])
 
   const onWebsiteCrawl = useCallback(async () => {
-    AppManager.toggleSnack(
-      true,
-      `Scan in progress, you’ll be notified if new issues occur.`,
-      'message'
-    )
-
     if (crawlWebsite) {
+      AppManager.toggleSnack(
+        true,
+        `Scan in progress, you’ll be notified if new issues occur.`,
+        'message'
+      )
       try {
         await crawlWebsite({
           variables: {
@@ -51,31 +52,37 @@ function MoreOptionsComponent(props: MoreOptionsProps) {
   }, [url, handleClose, crawlWebsite])
 
   return (
-    <>
-      <MoreOptionsBase {...props} index={index}>
-        {shutdown ? (
+    <MoreOptionsBase {...props} index={index}>
+      {!historyPage ? (
+        <>
           <Menu.Item>
             {() => (
-              <Link
-                className={btnStyles}
-                style={{ color: '#10b981' }}
-                href={'/payments'}
+              <button
+                className={`${btnStyles}${
+                  !account.activeSubscription ? ' flex place-items-center gap-x-2 bg-gray-100' : ''
+                }`}
+                disabled={!account.activeSubscription}
+                onClick={handleMainClick(
+                  true,
+                  'Website Analytics',
+                  false,
+                  url as string
+                )}
               >
-                Upgrade
-              </Link>
-            )}
-          </Menu.Item>
-        ) : null}
-        {typeof crawlWebsite === 'function' && !historyPage ? (
-          <Menu.Item>
-            {() => (
-              <button onClick={onWebsiteCrawl} className={btnStyles}>
-                Sync
+                View Analytics
+                {!account.activeSubscription ? <GrLock className='grIcon' /> : ''}
               </button>
             )}
           </Menu.Item>
-        ) : null}
-        {!historyPage ? (
+          {typeof crawlWebsite === 'function' ? (
+            <Menu.Item>
+              {() => (
+                <button onClick={onWebsiteCrawl} className={btnStyles}>
+                  Sync
+                </button>
+              )}
+            </Menu.Item>
+          ) : null}
           <Menu.Item>
             {() => (
               <button onClick={toggleLighthouse} className={btnStyles}>
@@ -83,8 +90,6 @@ function MoreOptionsComponent(props: MoreOptionsProps) {
               </button>
             )}
           </Menu.Item>
-        ) : null}
-        {!historyPage ? (
           <Menu.Item>
             {() => (
               <button
@@ -100,57 +105,53 @@ function MoreOptionsComponent(props: MoreOptionsProps) {
               </button>
             )}
           </Menu.Item>
-        ) : null}
-        {!historyPage ? (
-          <Menu.Item>
-            {() => (
-              <button
-                className={btnStyles}
-                onClick={handleMainClick(
-                  true,
-                  'Website Analytics',
-                  false,
-                  url as string
-                )}
-              >
-                View Analytics
-              </button>
-            )}
-          </Menu.Item>
-        ) : null}
-        {!verified && !historyPage ? (
-          <Menu.Item>
-            {() => (
-              <button
-                className={btnStyles}
-                onClick={handleMainClick(
-                  true,
-                  'Verify DNS',
-                  false,
-                  url as string
-                )}
-              >
-                Verify DNS
-              </button>
-            )}
-          </Menu.Item>
-        ) : null}
-        {typeof removePress === 'function' && !historyPage ? (
-          <div className='border-t'>
-            <Menu.Item>
-              {() => (
-                <button
-                  onClick={removePress}
-                  className={`${btnStyles} text-red-700`}
-                >
-                  Delete
-                </button>
+        </>
+      ) : null}
+      {!verified && !historyPage ? (
+        <Menu.Item>
+          {() => (
+            <button
+              className={btnStyles}
+              onClick={handleMainClick(
+                true,
+                'Verify DNS',
+                false,
+                url as string
               )}
-            </Menu.Item>
-          </div>
-        ) : null}
-      </MoreOptionsBase>
-    </>
+            >
+              Verify DNS
+            </button>
+          )}
+        </Menu.Item>
+      ) : null}
+      {shutdown ? (
+        <Menu.Item>
+          {() => (
+            <Link
+              className={btnStyles}
+              style={{ color: '#10b981' }}
+              href={'/payments'}
+            >
+              Upgrade
+            </Link>
+          )}
+        </Menu.Item>
+      ) : null}
+      {typeof removePress === 'function' && !historyPage ? (
+        <div className='border-t'>
+          <Menu.Item>
+            {() => (
+              <button
+                onClick={removePress}
+                className={`${btnStyles} text-red-700`}
+              >
+                Delete
+              </button>
+            )}
+          </Menu.Item>
+        </div>
+      ) : null}
+    </MoreOptionsBase>
   )
 }
 

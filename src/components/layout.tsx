@@ -103,7 +103,7 @@ export default function Layout({ Component, pageProps }: InnerApp) {
         <meta name='twitter:title' key={'twitter:title'} content={metaTitle} />
         <meta
           content='en'
-          http-equiv='Content-Language'
+          httpEquiv='Content-Language'
           key={'content-language'}
         />
         <meta

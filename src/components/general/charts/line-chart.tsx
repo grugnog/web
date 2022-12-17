@@ -1,22 +1,28 @@
-import { Analytic } from '@app/types'
-import { useMemo } from 'react'
+import { Skeleton } from '@app/components/placeholders/skeleton'
+import { Analytic, Website } from '@app/types'
 import {
   VictoryAxis,
   VictoryChart,
   VictoryLabel,
   VictoryLine,
   VictoryTooltip,
+  VictoryScatter,
   VictoryVoronoiContainer,
 } from 'victory'
+import { useLineChart } from './use-chart'
 
 interface LineChartProps {
   title?: string // page title
-  data?: Analytic[]
+  data?: Analytic[] | Website[]
 }
 
 // web safe colors for charts
-const BLUE_COLOR = '#00a3de'
 const RED_COLOR = '#7c270b'
+const RED_FILL_COLOR = 'rgb(220 38 38)'
+const RED_STROKE_COLOR = 'rgb(248 113 113)'
+const YELLOW_COLOR = 'rgb(234 179 8)'
+const YELLOW_FILL_COLOR = 'rgb(250 204 21)'
+const YELLOW_STROKE_COLOR = 'rgb(253 224 71)'
 
 // chart styles
 const styles = {
@@ -26,7 +32,6 @@ const styles = {
   },
   labelNumber: {
     textAnchor: 'middle',
-    fill: '#fff',
     fontFamily: 'inherit',
     fontSize: '6px',
   },
@@ -34,37 +39,45 @@ const styles = {
     axis: { stroke: RED_COLOR, strokeWidth: 0 },
     ticks: { strokeWidth: 0 },
     tickLabels: {
-      fill: RED_COLOR,
       fontFamily: 'inherit',
-      fontSize: 7,
+      fontSize: 6.5,
     },
   },
   labelOne: {
     fill: RED_COLOR,
     fontFamily: 'inherit',
-    fontSize: 8,
+    fontSize: 7,
     fontStyle: 'italic',
   },
   lineOne: {
     data: { stroke: RED_COLOR, strokeWidth: 0.8 },
   },
+  lineOneScatter: {
+    data: { stroke: RED_STROKE_COLOR, strokeWidth: 0.8, fill: RED_FILL_COLOR },
+  },
   axisTwo: {
-    axis: { stroke: BLUE_COLOR, strokeWidth: 0 },
+    axis: { stroke: YELLOW_COLOR, strokeWidth: 0 },
     tickLabels: {
-      fill: BLUE_COLOR,
       fontFamily: 'inherit',
-      fontSize: 7,
+      fontSize: 6.5,
     },
   },
   labelTwo: {
     textAnchor: 'end',
-    fill: BLUE_COLOR,
+    fill: YELLOW_COLOR,
     fontFamily: 'inherit',
-    fontSize: 8,
+    fontSize: 7,
     fontStyle: 'italic',
   },
   lineTwo: {
-    data: { stroke: BLUE_COLOR, strokeWidth: 0.8 },
+    data: { stroke: YELLOW_COLOR, strokeWidth: 0.8 },
+  },
+  lineTwoScatter: {
+    data: {
+      stroke: YELLOW_STROKE_COLOR,
+      strokeWidth: 0.8,
+      fill: YELLOW_FILL_COLOR,
+    },
   },
 }
 
@@ -78,66 +91,84 @@ export const LineChart = ({ title, data }: LineChartProps) => {
     highestWarning,
     totalErrors,
     totalWarnings,
-  } = useMemo(() => {
-    const firstSet = []
-    const secondSet = []
-    const tickSet = []
+    determinedType,
+  } = useLineChart({ data })
 
-    let maxErrorValue = 0
-    let maxWarningValue = 0
+  // display empty loading state
+  if (!data) {
+    return (
+      <div className='h-full w-full flex flex-1'>
+        <Skeleton className='h-full w-full min-h-[30vh]' />
+      </div>
+    )
+  }
 
-    let tErrors = 0
-    let tWarnings = 0
+  const headingText = `${totalErrors} error${
+    totalErrors === 1 ? '' : 's'
+  } and ${totalWarnings} warning${totalWarnings === 1 ? '' : 's'} across ${
+    ticks.length
+  } ${determinedType || 'page'}${ticks.length === 1 ? '' : 's'}`
 
-    if (data && data.length) {
-      for (let i = 0; i < data.length; i++) {
-        const item = data[i]
-
-        const errorCount = item.errorCount
-        const warningCount = item.warningCount
-        const label = item.pageUrl
-
-        if (errorCount) {
-          tErrors += errorCount
-
-          if (errorCount > maxErrorValue) {
-            maxErrorValue = errorCount
-          }
+  // render website chart
+  if (determinedType === 'website') {
+    return (
+      <VictoryChart
+        containerComponent={
+          <VictoryVoronoiContainer
+            labels={({ datum }) => datum.l}
+            labelComponent={
+              <VictoryTooltip constrainToVisibleArea style={{ fontSize: 7 }} />
+            }
+          />
         }
+      >
+        <VictoryLabel
+          x={12}
+          y={18}
+          className={'fill-gray-700 font-bold'}
+          text={title ?? 'Website Analytics'}
+        />
+        <VictoryLabel
+          x={12}
+          y={33.5}
+          className={'fill-gray-600 text-sm'}
+          style={{ fontSize: 10, fill: '#525252' }}
+          text={headingText}
+        />
 
-        if (warningCount) {
-          tWarnings += warningCount
-          if (warningCount && warningCount > maxWarningValue) {
-            maxWarningValue = warningCount
-          }
-        }
-
-        firstSet.push({
-          x: i,
-          y: errorCount,
-          l: `${errorCount} error${errorCount === 1 ? '' : 's'} - ${label}`,
-        })
-        secondSet.push({
-          x: i,
-          y: warningCount,
-          l: `${warningCount} warning${
-            warningCount === 1 ? '' : 's'
-          } - ${label}`,
-        })
-        tickSet.push(label)
-      }
-    }
-
-    return {
-      first: firstSet,
-      second: secondSet,
-      ticks: tickSet,
-      highestError: maxErrorValue,
-      highestWarning: maxWarningValue,
-      totalWarnings: tWarnings,
-      totalErrors: tErrors,
-    }
-  }, [data])
+        <VictoryLabel
+          x={420}
+          y={20}
+          style={styles.labelNumber}
+          className={'fill-gray-700 font-semibold'}
+          text={`${ticks.length} websites`}
+        />
+        <VictoryLabel x={12} y={50} style={styles.labelOne} text={'Errors'} />
+        <VictoryLabel
+          x={438}
+          y={50}
+          style={styles.labelTwo}
+          text={'Warnings'}
+        />
+        <VictoryAxis
+          dependentAxis
+          orientation='left'
+          standalone={false}
+          domain={[0, highestError]}
+          style={styles.axisOne}
+        />
+        <VictoryAxis
+          dependentAxis
+          orientation='right'
+          domain={[0, highestWarning]}
+          standalone={false}
+          style={styles.axisTwo}
+        />
+        <VictoryScatter data={first} style={styles.lineOneScatter} />
+        <VictoryScatter data={second} style={styles.lineTwoScatter} />
+      </VictoryChart>
+    )
+  }
 
   return (
     <VictoryChart
@@ -165,26 +196,22 @@ export const LineChart = ({ title, data }: LineChartProps) => {
           y='10'
           width='20'
           height='20'
-          className='fill-slate-600'
+          className='fill-gray-100 rounded'
         />
 
         <VictoryLabel
           x={25}
           y={24}
           style={styles.title}
-          className={'fill-gray-700'}
-          text={title ?? 'Website Audit'}
+          className={'fill-gray-700 font-semibold'}
+          text={title ?? 'Website Analytics'}
         />
         <VictoryLabel
           x={25}
           y={33.5}
           className={'fill-gray-600 text-sm'}
           style={{ fontSize: 10, fill: '#525252' }}
-          text={`${totalErrors} error${
-            totalErrors === 1 ? '' : 's'
-          } and ${totalWarnings} warning${
-            totalWarnings === 1 ? '' : 's'
-          } across ${ticks.length} page${ticks.length === 1 ? '' : 's'}`}
+          text={headingText}
         />
 
         <VictoryLabel

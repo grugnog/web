@@ -11,7 +11,6 @@ export {
   useMiniPlayer,
   useSearchFilter,
   useUser,
-  useCtaModal,
   useIframe,
   useDynamicModal,
   useAutoFix,

@@ -1,7 +1,6 @@
 export { useMiniPlayer } from './useMiniPlayer'
 export { useUser } from './useUser'
 export { useSearchFilter } from './useSearchFilter'
-export { useCtaModal } from './useCtaModal'
 export { useIframe } from './useIframe'
 export { useDynamicModal } from './useDynamicModal'
 export { useAutoFix } from './useAutoFix'

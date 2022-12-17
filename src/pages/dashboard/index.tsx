@@ -2,13 +2,7 @@ import { useCallback, useEffect, useMemo, useState } from 'react'
 import Head from 'next/head'
 import dynamic from 'next/dynamic'
 
-import {
-  Button,
-  PageTitle,
-  LinearBottom,
-  Drawer,
-  FormDialog,
-} from '@app/components/general'
+import { PageTitle, LinearBottom, Drawer } from '@app/components/general'
 import { useSearchFilter, useEvents } from '@app/data'
 import { filterSort } from '@app/lib'
 import { metaSetter } from '@app/utils'
@@ -25,6 +19,8 @@ import { WCAGSelectInput } from '@app/components/general/select'
 import { fetcher } from '@app/utils/fetcher'
 import { AppManager } from '@app/managers'
 import { useInteractiveContext } from '@app/components/providers/interactive'
+import { RightBar } from '@app/components/general/dashboard-menu'
+import { ModalType } from '@app/data/enums'
 
 const CtaHtmlInputRest = dynamic(
   () =>
@@ -33,71 +29,6 @@ const CtaHtmlInputRest = dynamic(
     ),
   { ssr: false }
 )
-
-// right bar
-type RightBarProps = {
-  onRemoveAllWebsitePress(x: any): void
-  onQueryEvent(x: any): void
-  onScanAllEvent?(x: any): void // scan all websites
-  onLighthouseToggle(x: any): void
-  onWebsiteSort(x: any): void
-  lighthouseVisible?: boolean
-  lhEnabled?: boolean
-  queryModalVisible?: boolean
-  sortModalVisible?: boolean
-  sortCapable?: boolean
-}
-
-const RightBar = ({
-  onWebsiteSort,
-  sortCapable,
-  onRemoveAllWebsitePress,
-  onQueryEvent,
-  onScanAllEvent,
-  queryModalVisible,
-  lhEnabled,
-  onLighthouseToggle,
-  lighthouseVisible,
-  sortModalVisible,
-}: RightBarProps) => {
-  return (
-    <div className='flex flex-wrap gap-x-2 gap-y-1 text-sm'>
-      <Button
-        onClick={onRemoveAllWebsitePress}
-        aria-label={'Remove all websites'}
-      >
-        Remove All
-      </Button>
-      <Button
-        onClick={onQueryEvent}
-        className={queryModalVisible ? 'border-blue-800' : ''}
-      >
-        Scan
-      </Button>
-      <Button
-        className={lhEnabled ? 'visible' : 'hidden'}
-        onClick={onLighthouseToggle}
-        aria-expanded={lighthouseVisible}
-        aria-label={'Toggle lighthouse reports visibility.'}
-      >
-        {lighthouseVisible ? 'Hide' : 'Display'} Lighthouse
-      </Button>
-      {onScanAllEvent ? (
-        <Button onClick={onScanAllEvent}>Sync All</Button>
-      ) : null}
-      {sortCapable ? (
-        <Button
-          onClick={onWebsiteSort}
-          aria-label={'Sort websites'}
-          className={sortModalVisible ? 'border-blue-800' : ''}
-        >
-          {sortModalVisible ? 'Toggle Sort' : 'Sort Websites'}
-        </Button>
-      ) : null}
-      <FormDialog buttonTitle={`Subscribe`} />
-    </div>
-  )
-}
 
 function Dashboard({ name }: PageProps) {
   const [sortModalVisible, setSortModalVisible] = useState<boolean>(false)
@@ -178,6 +109,17 @@ function Dashboard({ name }: PageProps) {
       return !v
     })
 
+  const onAnalyticsEvent = async () => {
+    const data = await fetcher('/list/website?=limit=50', null, 'GET')
+
+    setModal({
+      open: true,
+      url: '',
+      modalType: ModalType.analytics,
+      data: data?.data,
+    })
+  }
+
   const onStandardChange = (e: React.ChangeEvent<HTMLSelectElement>) =>
     setStandard(e.target.value)
 
@@ -233,6 +175,7 @@ function Dashboard({ name }: PageProps) {
                 onLighthouseToggle={onLighthouseToggle}
                 queryModalVisible={queryModalVisible}
                 onScanAllEvent={onScanAllEvent}
+                onAnalyticsEvent={onAnalyticsEvent}
               />
             ) : null
           }

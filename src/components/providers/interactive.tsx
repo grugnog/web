@@ -7,13 +7,17 @@ import {
   Fragment,
   PropsWithChildren,
 } from 'react'
-import { useDynamicModal, defaultProps } from '@app/data/local/useDynamicModal'
+import {
+  useDynamicModal,
+  defaultProps,
+  ModalDataProps,
+} from '@app/data/local/useDynamicModal'
 
 type BaseProps = FC<PropsWithChildren<{ load?: boolean }>>
 
 const AppContext = createContext({
   modelData: defaultProps, // dynamic modal data
-  setModal: (_x: typeof defaultProps) => {},
+  setModal: (_x: ModalDataProps) => {},
 })
 
 export const InteractiveProviderWrapper = AppContext.Provider

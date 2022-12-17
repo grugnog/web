@@ -5,13 +5,12 @@ const feats = [
   'Wildcard subdomains and TLD monitoring',
   'All pages checked daily with email status reports',
   TRUSTED_CDN,
-  'Custom workflows and events',
+  'Analytics monitor',
   '10,000+ AI Models to validate resources (text OCR, images, and etc)',
   'PageSpeed Insights across all pages',
   'Webhooks for web accessibility audits',
-  'Tools to export data',
+  'Custom workflows and events',
   'Unlimited API request',
-  // 'Email support',
 ]
 
 const lPlans = [
