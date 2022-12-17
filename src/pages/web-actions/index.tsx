@@ -1,5 +1,11 @@
 import { useMemo } from 'react'
-import { FormDialog, PageTitle, Drawer } from '@app/components/general'
+import {
+  FormDialog,
+  PageTitle,
+  Drawer,
+  PriceMemo,
+  Spacer,
+} from '@app/components/general'
 import { List } from '@app/components/general/lists/websites-pages-actions'
 import { useSearchFilter } from '@app/data'
 import { filterSort } from '@app/lib'
@@ -8,8 +14,9 @@ import type { PageProps } from '@app/types'
 import { PageLoader } from '@app/components/placeholders'
 import { useWebsiteContext } from '@app/components/providers/website'
 import { LoadMoreButton } from '@app/components/general/buttons'
+import { useAuthContext } from '@app/components/providers/auth'
 
-function WebActions({ name }: PageProps) {
+function WebActionsPage() {
   const { actionsData, actionsDataLoading, refetch, error, onLoadMoreActions } =
     useWebsiteContext()
   const { search } = useSearchFilter()
@@ -21,39 +28,47 @@ function WebActions({ name }: PageProps) {
   )
 
   return (
+    <PageLoader
+      empty={actionsData?.length === 0}
+      loading={actionsDataLoading}
+      hasWebsite={!!actionsData?.length}
+      emptyTitle={'No Websites Added'}
+      error={error}
+    >
+      <List
+        data={source}
+        loading={actionsDataLoading}
+        refetch={refetch}
+        BottomButton={FormDialog}
+        emptyHeaderTitle='No Actions found'
+        emptyHeaderSubTitle='Actions will appear here if you add them initially'
+      >
+        <li>
+          <LoadMoreButton
+            visible={source.length > 1}
+            onLoadMoreEvent={onLoadMoreActions}
+          />
+        </li>
+      </List>
+    </PageLoader>
+  )
+}
+
+function WebActions({ name }: PageProps) {
+  const { account } = useAuthContext()
+
+  return (
     <>
       <Drawer title={name}>
-        <PageTitle title={name} />
-        <p className='text-xl'>BETA</p>
-        <PageLoader
-          empty={actionsData?.length === 0}
-          loading={actionsDataLoading}
-          hasWebsite={!!actionsData?.length}
-          emptyTitle={'No Websites Added'}
-          error={error}
-        >
-          <List
-            data={source}
-            loading={actionsDataLoading}
-            refetch={refetch}
-            BottomButton={FormDialog}
-            emptyHeaderTitle='No Actions found'
-            emptyHeaderSubTitle='Actions will appear here if you add them initially'
-          >
-            <li>
-              <LoadMoreButton
-                visible={source.length > 1}
-                onLoadMoreEvent={onLoadMoreActions}
-              />
-            </li>
-          </List>
-        </PageLoader>
-        <div className='p-3 border rounded'>
-          <p className='text-sm'>
-            Updating actions coming soon, in the mean time remove your website
-            and re-add your actions.
-          </p>
-        </div>
+        <PageTitle
+          title={account.activeSubscription ? name : 'Upgrade Required'}
+        />
+        <Spacer height={'8px'} />
+        {account.activeSubscription ? (
+          <WebActionsPage />
+        ) : (
+          <PriceMemo navigate />
+        )}
       </Drawer>
     </>
   )

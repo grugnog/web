@@ -9,7 +9,7 @@ export const CdnFixBox = ({ issues }: { issues?: number }) => {
       title={'Patch'}
       icon={<GrAidOption className='grIcon' color='black' fill='black' />}
     >
-      {issues} issue{issues === 1 ? '' : 's'} patched by CDN
+      {issues} issue{issues === 1 ? '' : 's'} patched
     </InfoBlock>
   )
 }

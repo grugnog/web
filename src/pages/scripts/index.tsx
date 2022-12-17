@@ -1,5 +1,11 @@
 import { useMemo } from 'react'
-import { FormDialog, PageTitle, Drawer } from '@app/components/general'
+import {
+  FormDialog,
+  PageTitle,
+  Drawer,
+  PriceMemo,
+  Spacer,
+} from '@app/components/general'
 import { List } from '@app/components/general/lists/websites-scripts'
 import { useSearchFilter } from '@app/data'
 import { filterSort } from '@app/lib'
@@ -12,7 +18,7 @@ import { useAuthContext } from '@app/components/providers/auth'
 
 const emptyHeaderTitle = 'No scripts found'
 
-function Scripts({ name }: PageProps) {
+const ScriptsPage = () => {
   const { scriptsData, scriptsDataLoading, refetch, error, onLoadMoreScripts } =
     useWebsiteContext()
   const { search } = useSearchFilter()
@@ -31,35 +37,44 @@ function Scripts({ name }: PageProps) {
   }.`
 
   return (
-    <>
-      <Drawer title={name}>
-        <PageTitle title={name} />
-        <PageLoader
-          empty={scriptsData?.length === 0}
-          loading={scriptsDataLoading}
-          hasWebsite={!!scriptsData?.length}
-          emptyTitle={emptyHeaderTitle}
-          emptySubTitle={emptyHeaderSub}
-          error={error}
-        >
-          <List
-            data={source}
-            loading={scriptsDataLoading}
-            refetch={refetch}
-            BottomButton={FormDialog}
-            emptyHeaderTitle={emptyHeaderTitle}
-            emptyHeaderSubTitle={emptyHeaderSub}
-          >
-            <li>
-              <LoadMoreButton
-                visible={source.length > 1}
-                onLoadMoreEvent={onLoadMoreScripts}
-              />
-            </li>
-          </List>
-        </PageLoader>
-      </Drawer>
-    </>
+    <PageLoader
+      empty={scriptsData?.length === 0}
+      loading={scriptsDataLoading}
+      hasWebsite={!!scriptsData?.length}
+      emptyTitle={emptyHeaderTitle}
+      emptySubTitle={emptyHeaderSub}
+      error={error}
+    >
+      <List
+        data={source}
+        loading={scriptsDataLoading}
+        refetch={refetch}
+        BottomButton={FormDialog}
+        emptyHeaderTitle={emptyHeaderTitle}
+        emptyHeaderSubTitle={emptyHeaderSub}
+      >
+        <li>
+          <LoadMoreButton
+            visible={source.length > 1}
+            onLoadMoreEvent={onLoadMoreScripts}
+          />
+        </li>
+      </List>
+    </PageLoader>
+  )
+}
+
+function Scripts({ name }: PageProps) {
+  const { account } = useAuthContext()
+
+  return (
+    <Drawer title={name}>
+      <PageTitle
+        title={account.activeSubscription ? name : 'Upgrade Required'}
+      />
+      <Spacer height={'8px'} />
+      {account.activeSubscription ? <ScriptsPage /> : <PriceMemo navigate />}
+    </Drawer>
   )
 }
 

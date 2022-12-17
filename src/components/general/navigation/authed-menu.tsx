@@ -19,7 +19,7 @@ export function AuthedMenuComponent({ route, loading }: AuthedMenuProps) {
   const { events, setEvents } = useEvents()
   const { toggleAlert } = useFeaturesData()
   const { account, setAccountType } = useAuthContext()
-  const { alertEnabled, inited } = account
+  const { alertEnabled, inited, activeSubscription } = account
 
   // initial page load show skeleton [first load state]
   const initialLoad = loading && !inited
@@ -33,7 +33,7 @@ export function AuthedMenuComponent({ route, loading }: AuthedMenuProps) {
       const nextValue = !alertEnabled
       setAccountType({
         authed: account.authed,
-        activeSubscription: account.activeSubscription,
+        activeSubscription,
         alertEnabled: nextValue,
         inited: true,
       })
@@ -63,6 +63,7 @@ export function AuthedMenuComponent({ route, loading }: AuthedMenuProps) {
             setEvents={setEvents}
             toggleAlert={onAlertToggle}
             initialLoad={initialLoad}
+            activeSubscription={activeSubscription}
           />
         ))}
       </ul>

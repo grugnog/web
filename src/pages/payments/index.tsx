@@ -16,6 +16,7 @@ import { priceHandler } from '@app/utils/price-handler'
 import { usePaymentsHook } from '@app/data/external/payments/use-payments'
 import { roleMap } from '@app/utils/role-map'
 import { CheckoutFormless } from '@app/components/stripe/formless'
+import { useAuthContext } from '@app/components/providers/auth'
 
 interface PaymentProps extends PageProps {
   hideTitle?: boolean
@@ -41,6 +42,7 @@ function Payments({ hideTitle = false, name }: PaymentProps) {
   const [newCard, setNewCard] = useState<boolean>(false)
   const [yearly, setYearly] = useState<boolean>(false)
   const [referral, setReferral] = useState<string>('')
+  const { account } = useAuthContext()
 
   // router plan query
   const queryPlan = (router?.query?.plan as string) ?? ''
@@ -97,7 +99,7 @@ function Payments({ hideTitle = false, name }: PaymentProps) {
 
   return (
     <>
-      <NavBar title={name} backButton notitle />
+      <NavBar title={name} backButton notitle authenticated={account.authed} />
       <StateLessDrawer size='max-w-screen-2xl'>
         <SectionContainer container block>
           {hideTitle ? null : <Header>Payments</Header>}

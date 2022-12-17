@@ -1,4 +1,5 @@
 import { TextSkeleton } from '@app/components/placeholders'
+import { AppManager } from '@app/managers'
 import { memo } from 'react'
 import {
   GrNotification as NotificationsIcon,
@@ -113,8 +114,63 @@ export function FeaturesCellComponent({
   events,
   setEvents,
   initialLoad,
+  activeSubscription,
 }: any) {
   const title = focused ? 'Dashboard' : feature
+
+  const blocked = !activeSubscription && index >= 2
+
+  const onUpgradeEvent = () => {
+    AppManager.toggleSnack(
+      true,
+      `${feature} requires paid plan, upgrade your account to get access.`,
+      'error',
+      false,
+      true
+    )
+  }
+
+  if (blocked) {
+    return (
+      <li>
+        <button
+          className={`flex w-full text-gray-400 bg-gray-200 place-items-center gap-x-3 py-3 pl-2 pr-2 place-content-around min-h-[44px] hover:bg-gray-100 hover:no-underline md:py-2 md:pl-5 md:pr-2 md:min-h-[54px]`}
+          onClick={onUpgradeEvent}
+        >
+          <div className='flex flex-1 text-xs md:text-sm place-items-center gap-x-2 place-content-center md:place-content-start sm:gap-x-3 md:gap-x-4'>
+            {renderIcon(
+              title,
+              (index === 0 &&
+                alertEnabled &&
+                'grIcon text-blue-700 md:text-gray-700') ||
+                'grIcon text-gray-700'
+            )}
+            {index === 0 && !initialLoad ? (
+              <label className={listTitleStyle} htmlFor='alerts-btn'>
+                {title}
+              </label>
+            ) : (
+              <div className={listTitleStyle}>{title}</div>
+            )}
+          </div>
+          {index === 0 ? (
+            initialLoad ? (
+              <TextSkeleton width={40} height={20} className={'rounded'} />
+            ) : (
+              <div className='hidden lg:block'>
+                <SwitchInput
+                  id='alerts-btn'
+                  checked={alertEnabled}
+                  onChange={toggleAlert}
+                />
+              </div>
+            )
+          ) : null}
+          {renderGuide(index, events)}
+        </button>
+      </li>
+    )
+  }
 
   return (
     <li>

@@ -46,7 +46,7 @@ const SnackBarComponent = ({ topLevel, snackID }: SnackProps) => {
             AppManager.snackbar.type === 'error' ? 'border border-red-500' : ''
           } overflow-hidden truncate flex bg-white rounded space-x-4 p-4 place-items-center place-content-between border shadow`}
         >
-          <div className='flex space-x-3'>
+          <div className='flex gap-x-1.5'>
             <p
               id={id}
               className={`text-base max-w-[65vw] md:max-w-[40vw] truncate ${

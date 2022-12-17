@@ -35,9 +35,10 @@ import { ActionsBox } from './blocks/actions'
 import { CdnFixBox } from './blocks/cdn-fix'
 import { useWasmContext } from '@app/components/providers'
 import { useAuthContext } from '@app/components/providers/auth'
-import { GrChannel, GrValidate } from 'react-icons/gr'
+import { GrChannel, GrSync, GrValidate } from 'react-icons/gr'
 import { Lighthouse } from '../lighthouse'
 import { fetcher } from '@app/utils/fetcher'
+import { AppManager } from '@app/managers'
 
 const styles = {
   title: 'text-xl md:text-3xl font-bold truncate text-gray-600',
@@ -229,6 +230,23 @@ export function WebsiteCellDashboardComponent({
     ? `${SCRIPTS_CDN_URL_HOST}/${cdnBaseMin}`
     : notAvail
 
+  const onWebsiteCrawl = useCallback(async () => {
+    AppManager.toggleSnack(
+      true,
+      `Scan in progress, you’ll be notified if new issues occur.`,
+      'message'
+    )
+    try {
+      await crawlWebsite({
+        variables: {
+          url,
+        },
+      })
+    } catch (e) {}
+
+    handleClose()
+  }, [url, handleClose, crawlWebsite])
+
   return (
     <li
       className={`rounded bg-white border-4 overflow-hidden${
@@ -280,12 +298,19 @@ export function WebsiteCellDashboardComponent({
               />
             </div>
             <div className='flex place-items-center px-2 space-x-3'>
+              <button
+                title={`sync and check ${url} for issues`}
+                className={'hover:bg-gray-200 p-2 rounded'}
+                onClick={onWebsiteCrawl}
+              >
+                <GrSync className='grIcon' />
+              </button>
               <Link
                 title={`view in sandbox ${url}`}
                 href={linkUrl}
                 className={'hover:bg-gray-200 p-2 rounded'}
               >
-                <GrChannel />
+                <GrChannel className='grIcon' />
               </Link>
               <div className='pl-1 border-l'>
                 <div className='pl-3'>
@@ -297,7 +322,7 @@ export function WebsiteCellDashboardComponent({
           <MoreOptions
             url={url}
             issues={issues}
-            crawlWebsite={crawlWebsite}
+            crawlWebsite={onWebsiteCrawl}
             handleClose={handleClose}
             handleMenu={handleMenu}
             handleMainClick={handleMainClick}

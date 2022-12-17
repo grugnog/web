@@ -16,7 +16,7 @@ export function MarketingTrustBy() {
   return (
     <SectionContainer>
       <Header4 className='text-center max-w-none'>
-        {companyName} is used by companies that care about inclusion
+        {companyName} is used by companies that care about web access
       </Header4>
       <div>
         <div className='grid grid-cols-3'>

@@ -79,7 +79,7 @@ export const NavBar: FC<PropsWithChildren<NavProps>> = ({
   return (
     <nav
       style={{ minHeight: 55 }}
-      className={`${bg} z-1 min-h-[55px] ${
+      className={`${bg} z-1 min-h-[55px] space-x-2 ${
         className ? `${className}` : className
       } ${
         position === 'fixed' ? 'fixed left-[13%] md:left-[250px] right-0' : ''

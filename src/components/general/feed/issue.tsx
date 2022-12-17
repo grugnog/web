@@ -45,7 +45,7 @@ export function FeedIssueCardComponent({
   const largeBody = m && m?.length < 80
 
   return (
-    <div className='px-3 py-3 flex flex-col space-y-1 place-content-between h-[inherit]'>
+    <div className='px-3 py-3 flex flex-col place-content-between h-[inherit]'>
       <div>
         <div className='flex space-x-2 items-center'>
           <div
@@ -76,14 +76,16 @@ export function FeedIssueCardComponent({
             title={`view technique for ${codeDisplay}`}
             target='_blank'
             rel='noreferrer'
-            className='text-gray-600 text-xs hover:underline'
+            className='text-gray-600 text-xs hover:underline p-0 m-0'
           >
             {codeDisplay}
           </a>
         </div>
       </div>
       <div
-        className={`line-clamp-4 text-sm ${largeBody ? 'xl:text-base' : ''}`}
+        className={`line-clamp-4 text-sm text-gray-700 ${
+          largeBody ? 'xl:text-base' : 'leading-snug'
+        }`}
       >
         {m}
         {rec ? (

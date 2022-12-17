@@ -1,6 +1,14 @@
 import React from 'react'
 import { Button, FormDialog } from '@app/components/general'
 import { _ONBOARDED } from '@app/lib/cookies/names'
+import {
+  GrConnect,
+  GrDocumentTest,
+  GrHadoop,
+  GrLineChart,
+  GrSort,
+  GrTrash,
+} from 'react-icons/gr'
 
 // right bar
 export type RightBarProps = {
@@ -16,6 +24,8 @@ export type RightBarProps = {
   sortModalVisible?: boolean
   sortCapable?: boolean
 }
+
+const btnStyles = 'gap-x-1.5 flex place-items-center'
 
 export const RightBar = ({
   onWebsiteSort,
@@ -35,44 +45,51 @@ export const RightBar = ({
       <Button
         onClick={onRemoveAllWebsitePress}
         aria-label={'Remove all websites'}
+        className={btnStyles}
       >
         Remove All
+        <GrTrash className='grIcon' />
       </Button>
       <Button
         onClick={onQueryEvent}
-        className={queryModalVisible ? 'border-blue-800' : ''}
+        className={`${btnStyles}${queryModalVisible ? ' border-blue-800' : ''}`}
       >
         Scan
+        <GrDocumentTest className='grIcon' />
       </Button>
       <Button
-        className={lhEnabled ? 'visible' : 'hidden'}
+        className={`${btnStyles}${lhEnabled ? ' visible' : ' hidden'}`}
         onClick={onLighthouseToggle}
         aria-expanded={lighthouseVisible}
         aria-label={'Toggle lighthouse reports visibility.'}
       >
         {lighthouseVisible ? 'Hide' : 'Display'} Lighthouse
+        <GrHadoop className='grIcon' />
       </Button>
       {onScanAllEvent ? (
-        <Button onClick={onScanAllEvent}>Sync All</Button>
+        <Button onClick={onScanAllEvent} className={btnStyles}>
+          Sync All <GrConnect className='grIcon' />
+        </Button>
       ) : null}
 
       {sortCapable ? (
         <>
-          <Button
-            onClick={onAnalyticsEvent}
-            className={sortModalVisible ? 'border-blue-800' : ''}
-          >
+          <Button onClick={onAnalyticsEvent} className={btnStyles}>
             Analytics
+            <GrLineChart className='grIcon' />
           </Button>
           <Button
             onClick={onWebsiteSort}
-            className={sortModalVisible ? 'border-blue-800' : ''}
+            className={`${btnStyles}${
+              sortModalVisible ? ' border-blue-800' : ''
+            }`}
           >
-            {sortModalVisible ? 'Toggle Sort' : 'Sort Websites'}
+            {sortModalVisible ? 'Hide Sort' : 'Sort Websites'}
+            <GrSort className='grIcon' />
           </Button>
         </>
       ) : null}
-      <FormDialog buttonTitle={`Subscribe`} />
+      <FormDialog buttonTitle={`Subscribe`} icon buttonStyles={btnStyles}/>
     </div>
   )
 }

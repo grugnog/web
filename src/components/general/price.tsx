@@ -89,14 +89,14 @@ export function PriceMemo({
     onSelectHigh((x: boolean) => !x)
     if (typeof onClick === 'function') {
       const p = !selectHighPlans ? priceConfig.hPlans : priceConfig.lPlans
-      const s = p[selectedPlan].title
+      const s = selectedPlan >= 0 && p[selectedPlan].title
 
       s && onClick(s)
     }
   }
 
   const plans = selectHighPlans ? priceConfig.hPlans : priceConfig.lPlans
-  const selected = plans[selectedPlan].title
+  const selected = selectedPlan >= 0 && plans[selectedPlan].title
 
   return (
     <>
@@ -180,7 +180,7 @@ export function PriceMemo({
           title={'All plans include:'}
           details={priceConfig.feats}
         >
-          {navigate ? (
+          {navigate && selected ? (
             <div className='px-4 w-full'>
               <MainButton
                 title={selected}

@@ -1,5 +1,4 @@
 import { memo, useCallback } from 'react'
-import { AppManager } from '@app/managers'
 import { useWebsiteContext } from '@app/components/providers/website'
 import { btnStyles, MoreOptionsBase, MoreOptionsProps } from './more-base'
 import { Link } from '@app/components/stateless/typo/link'
@@ -18,7 +17,6 @@ function MoreOptionsComponent(props: MoreOptionsProps) {
     pageHeaders,
     index,
     handleMainClick,
-    handleClose,
     pageInsights,
     shutdown,
     verified,
@@ -32,25 +30,6 @@ function MoreOptionsComponent(props: MoreOptionsProps) {
     }
   }, [updateWebsite, url, pageInsights])
 
-  const onWebsiteCrawl = useCallback(async () => {
-    if (crawlWebsite) {
-      AppManager.toggleSnack(
-        true,
-        `Scan in progress, you’ll be notified if new issues occur.`,
-        'message'
-      )
-      try {
-        await crawlWebsite({
-          variables: {
-            url,
-          },
-        })
-      } catch (e) {}
-    }
-
-    handleClose()
-  }, [url, handleClose, crawlWebsite])
-
   return (
     <MoreOptionsBase {...props} index={index}>
       {!historyPage ? (
@@ -59,7 +38,9 @@ function MoreOptionsComponent(props: MoreOptionsProps) {
             {() => (
               <button
                 className={`${btnStyles}${
-                  !account.activeSubscription ? ' flex place-items-center gap-x-2 bg-gray-100' : ''
+                  !account.activeSubscription
+                    ? ' flex place-items-center gap-x-2 bg-gray-100'
+                    : ''
                 }`}
                 disabled={!account.activeSubscription}
                 onClick={handleMainClick(
@@ -70,14 +51,18 @@ function MoreOptionsComponent(props: MoreOptionsProps) {
                 )}
               >
                 View Analytics
-                {!account.activeSubscription ? <GrLock className='grIcon' /> : ''}
+                {!account.activeSubscription ? (
+                  <GrLock className='grIcon' />
+                ) : (
+                  ''
+                )}
               </button>
             )}
           </Menu.Item>
           {typeof crawlWebsite === 'function' ? (
             <Menu.Item>
               {() => (
-                <button onClick={onWebsiteCrawl} className={btnStyles}>
+                <button onClick={crawlWebsite} className={btnStyles}>
                   Sync
                 </button>
               )}

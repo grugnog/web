@@ -54,8 +54,7 @@ export const FilterList = observer(() => {
               return (
                 <div
                   className={classNames(
-                    active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
-                    ''
+                    active ? 'bg-gray-100 text-gray-900' : 'text-gray-700'
                   )}
                 >
                   <CheckBox name={item} />

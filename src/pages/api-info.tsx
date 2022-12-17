@@ -107,8 +107,8 @@ function ApiInfo() {
           </Box>
 
           <div className='py-2'>
-            <Box className={'border rounded p-2'}>
-              <p className={'text-lg font-semibold'}>API Reference Examples</p>
+            <Box className={'border rounded px-4 py-2'}>
+              <p className={'text-lg font-medium'}>V1 API Reference</p>
               {!data?.user && loading ? (
                 <TextSkeleton className={'p-2'} />
               ) : !data?.user ? (
@@ -120,21 +120,21 @@ function ApiInfo() {
                 </p>
               ) : (
                 <>
-                  <p className='text-lg'>
+                  <p className='text-base text-gray-800'>
                     Allowed usage{' '}
                     {`${(availableUsage
                       ? Number(availableUsage) / 1000
                       : 0
                     ).toFixed(0)}s`}
                   </p>
-                  <p className='text-lg'>
+                  <p className='text-sm text-gray-700'>
                     Usage used{' '}
                     {`${(user?.scanInfo?.totalUptime
                       ? Number(user.scanInfo.totalUptime) / 1000
                       : 0
                     ).toFixed(0)}s`}
                   </p>
-                  <p className={'text-sm'}>
+                  <p className={'text-xs text-gray-800'}>
                     Your limit will reset on your next API request if {`it's`}{' '}
                     the next day.
                   </p>
