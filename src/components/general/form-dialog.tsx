@@ -169,7 +169,7 @@ export function FormDialogWrapper({
         : null
 
       const params = {
-        url: websiteUrl,
+        url: websiteUrl.toLowerCase(),
         customHeaders: websiteCustomHeaders,
         pageInsights,
         mobile: mobileViewport,
