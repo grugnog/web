@@ -148,6 +148,8 @@ function Dashboard({ name }: PageProps) {
     queryStyle = 'visible'
   }
 
+  console.log(data)
+
   return (
     <>
       {lhEnabled ? (

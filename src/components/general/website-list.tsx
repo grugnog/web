@@ -1,8 +1,11 @@
-import { Fragment, useState, useCallback } from 'react'
+import { Fragment, useState, useCallback, FC, PropsWithChildren } from 'react'
 import { useMiniPlayer } from '@app/data'
 import { FullScreenModal } from './fullscreen-modal'
 import { DataContainer } from './data-container'
-import { WebSitesDashboard } from '@app/components/general/lists/websites-dashboard'
+import {
+  WebsiteListProps,
+  WebSitesDashboard,
+} from '@app/components/general/lists/websites-dashboard'
 
 const defaultModalState = {
   open: false,
@@ -13,7 +16,7 @@ const defaultModalState = {
 }
 
 // returns a list of websites with top level modal for displaying issues.
-export function WebsiteList({
+export const WebsiteList: FC<PropsWithChildren<WebsiteListProps>> = ({
   data,
   error,
   loading,
@@ -27,13 +30,13 @@ export function WebsiteList({
   lighthouseVisible,
   activeCrawls,
   children,
-}: any) {
+}) => {
   const [modal, setOpen] = useState(defaultModalState)
   const { setMiniPlayerContent } = useMiniPlayer(setOpen)
 
   const handleClickOpen = useCallback(
-    (data: any, title: any, url: any, error: any) => {
-      setOpen({ open: true, data, title, url, error })
+    (data: any, title: any, url: any, er: any) => {
+      setOpen({ open: true, data, title, url, error: er })
     },
     [setOpen]
   )
@@ -42,32 +45,30 @@ export function WebsiteList({
     setOpen((m) => ({ ...m, open: false }))
   }, [setOpen])
 
-  // shared props between data container and main component
-  const sharedProps = {
-    data,
-    error,
-    loading,
-    removePress,
-    emptyHeaderTitle,
-    emptyHeaderSubTitle,
-  }
-
-  // website primary props
-  const websiteProps = {
-    handleClickOpen,
-    handleClickOpenPlayer: setMiniPlayerContent,
-    refetch,
-    crawlWebsite,
-    setModal,
-    mutatationLoading,
-    lighthouseVisible,
-    activeCrawls,
-  }
-
   return (
     <Fragment>
-      <DataContainer {...sharedProps} avatar={false} dashboard>
-        <WebSitesDashboard {...sharedProps} {...websiteProps}>
+      <DataContainer
+        avatar={false}
+        dashboard
+        emptyHeaderTitle={emptyHeaderTitle}
+        emptyHeaderSubTitle={emptyHeaderSubTitle}
+        data={data}
+        loading={loading}
+        error={error}
+      >
+        <WebSitesDashboard
+          handleClickOpen={handleClickOpen}
+          handleClickOpenPlayer={setMiniPlayerContent}
+          refetch={refetch}
+          removePress={removePress}
+          crawlWebsite={crawlWebsite}
+          setModal={setModal}
+          loading={loading}
+          data={data}
+          mutatationLoading={mutatationLoading}
+          lighthouseVisible={lighthouseVisible}
+          activeCrawls={activeCrawls}
+        >
           {children}
         </WebSitesDashboard>
       </DataContainer>

@@ -89,7 +89,7 @@ export const RightBar = ({
           </Button>
         </>
       ) : null}
-      <FormDialog buttonTitle={`Subscribe`} icon buttonStyles={btnStyles}/>
+      <FormDialog buttonTitle={`Subscribe`} icon buttonStyles={btnStyles} />
     </div>
   )
 }

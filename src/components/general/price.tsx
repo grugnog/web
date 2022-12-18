@@ -9,7 +9,6 @@ import { PriceCell } from './cells/price-cell'
 import { PriceFeat } from './cells/price-feat'
 import { Header3 } from './header'
 import { Button } from './buttons'
-import { trialDuration } from '@app/configs/app-config'
 
 const getStyles = (inactive: boolean) =>
   inactive ? 'text-gray-700 border-gray-700' : 'text-blue-700 border-blue-700'
@@ -36,14 +35,13 @@ function MainButton({
   navigate: boolean
 }) {
   if (navigate) {
-    // mono font-family to prevent shift in chars on dynamic changes
     return (
       <div className='pb-2 justify-center flex'>
         <Link
-          className={`w-[15rem] tracking-wide text-lg text-gray-50 bg-blue-700 border-4 border-blue-600 px-4 py-2 hover:ring hover:no-underline rounded-3xl text-center`}
+          className={`tracking-wide text-lg text-gray-50 bg-blue-700 border-4 border-blue-600 px-4 py-2 hover:ring hover:no-underline rounded-3xl text-center`}
           href={`/register?plan=${title}${yearly ? '&yearly=true' : ''}`}
         >
-          {`${title} - ${trialDuration} Day Trial Start`}
+          Get started with a free trial
         </Link>
       </div>
     )

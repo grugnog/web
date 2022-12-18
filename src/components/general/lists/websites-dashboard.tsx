@@ -3,10 +3,22 @@ import { WebsiteCellDashboard } from '@app/components/general/cells'
 import { Website } from '@app/types'
 import { listStyle } from '@app/styles/lists/tw'
 
-type WebsiteDashboardProps = {
-  data?: any
-  removePress(): void
-  refetch(): void
+export interface WebsiteListProps {
+  data?: any[]
+  error?: any
+  loading?: boolean
+  mutatationLoading?: boolean
+  lighthouseVisible?: boolean
+  activeCrawls?: Record<string, any>
+  emptyHeaderTitle?: string
+  emptyHeaderSubTitle?: string
+  removePress?(x: any): void
+  refetch(_: any): Promise<any>
+  crawlWebsite(x: any): void
+  setModal(x: any): void
+}
+
+interface WebsiteDashboardProps extends WebsiteListProps {
   handleClickOpen(data: any, title: any, url: any, error: any): void
   // todo remove curry
   handleClickOpenPlayer: (
@@ -14,12 +26,6 @@ type WebsiteDashboardProps = {
     data?: any,
     title?: string
   ) => () => void
-  crawlWebsite(): void
-  setModal(): void
-  mutatationLoading?: boolean
-  loading?: boolean
-  lighthouseVisible?: boolean
-  activeCrawls?: Record<string, any>
 }
 
 // Iterate over website dashboard cells

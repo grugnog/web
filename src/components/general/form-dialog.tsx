@@ -22,7 +22,7 @@ interface FormDialogProps {
   buttonTitle?: string
   okPress?: (a: any) => void
   buttonStyles?: string
-  icon?: boolean; // show btn with icon
+  icon?: boolean // show btn with icon
 }
 
 interface InputHead {
@@ -52,7 +52,7 @@ export function FormDialogWrapper({
   buttonTitle = 'Subscribe',
   okPress,
   buttonStyles = '',
-  icon
+  icon,
 }: FormDialogProps) {
   const [open, setOpen] = useState<boolean>(false)
   const [websitUrl, setUrl] = useState<string>('')
@@ -267,11 +267,7 @@ export function FormDialogWrapper({
     <Fragment>
       <Button onClick={handleClickOpen} className={buttonStyles}>
         {buttonTitle}
-        {icon ? 
-        <GrChapterAdd 
-        className='grIcon'
-        />
-        : null}
+        {icon ? <GrChapterAdd className='grIcon' /> : null}
       </Button>
       <HeadlessModal
         open={open}
