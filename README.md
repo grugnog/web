@@ -4,7 +4,9 @@
 [![codecov](https://codecov.io/gh/a11ywatch/web/branch/main/graph/badge.svg?token=0LZKQ2H848)](https://codecov.io/gh/a11ywatch/web)
 <!-- [![A11yWatch status](https://api.a11ywatch.com/status/a11ywatch.com?style=svg)](https://a11ywatch.com/reports/a11ywatch.com) -->
 
-a11ywatch website
+The web application for [A11yWatch](https://a11ywatch.com) using [Rust](https://www.rust-lang.org/), [Wasm](https://webassembly.org/), and [Next.js](https://nextjs.org/).
+
+![A11yWatch web accessibility platform dashboard example](https://user-images.githubusercontent.com/8095978/208310294-9cf06fda-f03e-4329-af30-5efea8af579c.png)
 
 ## Installation
 
@@ -52,7 +54,7 @@ The default export component in the `./pages` directory needs to match the route
 
 ## Environment
 
-check out [ENVIRONMENT CONFIG](https://docs.a11ywatch.com/documentation/web/#environmental-configuration) for configuring project specefics like google authentication.
+Take a look at the [Environmental Configuration](https://docs.a11ywatch.com/documentation/web/#environmental-configuration) for configuring project specifics like google authentication.
 
 ## Translations
 
