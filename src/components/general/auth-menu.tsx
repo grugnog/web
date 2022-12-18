@@ -16,13 +16,14 @@ import { MenuList } from './menu'
 
 type AuthMenuComponentProps = {
   authenticated?: boolean // user logged in
+  settings?: boolean // display settings icon
 }
 
 const menuItemCss =
   'w-full px-4 py-2 md:px-4 h-10 flex text-sm place-items-center place-content-start hover:no-underline hover:bg-gray-100'
 
 // auth menu on the right of the ui
-export function AuthMenu({ authenticated }: AuthMenuComponentProps) {
+export function AuthMenu({ authenticated, settings }: AuthMenuComponentProps) {
   const router = useRouter()
   const [logoutMutation, { data, client }] = useMutation(LOGOUT)
   const { feed } = useWasmContext()
@@ -61,7 +62,7 @@ export function AuthMenu({ authenticated }: AuthMenuComponentProps) {
   ) {
     return (
       <div>
-        <MenuList>
+        <MenuList settings={settings}>
           {router?.pathname !== '/profile' ? (
             <Menu.Item>
               {() => (

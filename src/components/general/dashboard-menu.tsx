@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button, FormDialog } from '@app/components/general'
+import { AuthMenu, Button, FormDialog } from '@app/components/general'
 import { _ONBOARDED } from '@app/lib/cookies/names'
 import {
   GrConnect,
@@ -90,6 +90,7 @@ export const RightBar = ({
         </>
       ) : null}
       <FormDialog buttonTitle={`Subscribe`} icon buttonStyles={btnStyles} />
+      <AuthMenu authenticated settings />
     </div>
   )
 }

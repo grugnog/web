@@ -3,7 +3,6 @@ import dynamic from 'next/dynamic'
 import Head from 'next/head'
 import { useUserData } from '@app/data'
 import { UpgradeBanner } from '@app/components/general/upgrade-banner'
-import { useAuthContext } from '@app/components/providers/auth'
 import { AuthedMenu } from '../navigation'
 import { NavBar } from '../navigation/navbar'
 import { FixedCopyRight } from '../fixed-copy-right'
@@ -26,25 +25,16 @@ const MiniPlayer = dynamic(
 export type DrawerWrapperProps = {
   route?: string
   title?: string
-  dataSourceMap: any
   loading?: boolean
 }
 
-function MainDrawerContainerComponent({
-  route,
-  dataSourceMap,
-  loading,
-}: DrawerWrapperProps) {
+function MainDrawerContainerComponent({ route, loading }: DrawerWrapperProps) {
   return (
     <div
       className={`flex flex-col overflow-x-hidden w-[55px] sm:w-[15vw] md:w-[18vw] lg:w-[250px] max-w-[250px] relative print:hidden overflow-hidden`}
     >
       <div className='fixed flex flex-col w-[inherit] overflow-hidden h-full bg-lightgray z-10 space-y-3'>
-        <AuthedMenu
-          dataSourceMap={dataSourceMap}
-          route={route}
-          loading={loading}
-        />
+        <AuthedMenu route={route} loading={loading} />
         <div
           className={
             'xl:visible invisible p-4 place-items-center flex-col flex flex-1'
@@ -66,16 +56,9 @@ export const MainDrawerContainer = memo(MainDrawerContainerComponent)
 export function DrawerWrapperComponent({
   route: routePath,
   title = '',
-  dataSourceMap,
   loading,
 }: DrawerWrapperProps) {
-  return (
-    <MainDrawerContainer
-      route={routePath ?? title}
-      dataSourceMap={dataSourceMap}
-      loading={loading}
-    />
-  )
+  return <MainDrawerContainer route={routePath ?? title} loading={loading} />
 }
 
 export const DrawerWrapper = memo(DrawerWrapperComponent)
@@ -92,9 +75,6 @@ export function NavigationBar({ title = '', authenticated }: any) {
 
 export function DrawerW({ children, route, title }: any) {
   const { data: dataSourceMap, sendConfirmEmail, loading } = useUserData()
-  const { account } = useAuthContext()
-  const { authed } = account
-
   const user = dataSourceMap?.user
 
   return (
@@ -121,19 +101,12 @@ export function DrawerW({ children, route, title }: any) {
       </Head>
       <>
         <div className={'flex overflow-x-inherit md:overflow-x-hidden'}>
-          <DrawerWrapper
-            route={route}
-            title={title}
-            dataSourceMap={dataSourceMap}
-            loading={loading}
-          />
+          <DrawerWrapper route={route} title={title} loading={loading} />
           <main className={'flex-1 overflow-auto'} id='main-content'>
-            <NavigationBar title={title} authenticated={authed} />
             <div
-              style={{
-                maxHeight: `calc(100vh - 55px)`,
-              }}
-              className={'px-3 md:px-4 pt-2 scrollbar overflow-auto'}
+              className={
+                'px-3 md:px-4 pt-2 scrollbar overflow-auto max-h-screen'
+              }
             >
               <RefBanner />
               {children}

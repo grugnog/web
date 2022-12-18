@@ -5,6 +5,7 @@ import {
   Drawer,
   PriceMemo,
   Spacer,
+  AuthMenu,
 } from '@app/components/general'
 import { List } from '@app/components/general/lists/websites-pages'
 import { useSearchFilter } from '@app/data'
@@ -62,6 +63,7 @@ export function WebPages({ name }: PageProps) {
       <Drawer title={name}>
         <PageTitle
           title={account.activeSubscription ? name : 'Upgrade Required'}
+          rightButton={<AuthMenu authenticated={account.authed} settings />}
         />
         <Spacer height={'8px'} />
         {account.activeSubscription ? <WebPagesPage /> : <PriceMemo navigate />}

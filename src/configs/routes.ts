@@ -223,4 +223,5 @@ export const LOGGIN_ROUTES = [
   '/web-issues',
   '/web-actions',
   '/web-pages',
+  '/settings',
 ]

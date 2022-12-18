@@ -67,7 +67,7 @@ export const CheckoutForm = ({ onToken, plan, price, disabled }: Props) => {
         <Button
           type='submit'
           disabled={disabled}
-          className={`font-bold border text-base px-8 rounded-sm md:px-12 md:rounded-sm min-w-[250px] ${
+          className={`font-bold border text-base px-8 rounded-sm md:px-12 md:rounded-sm min-w-[260px] ${
             disabled ? 'text-black' : 'border-blue-800 text-blue-800'
           }`}
         >

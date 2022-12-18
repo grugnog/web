@@ -1,4 +1,4 @@
-import { PageTitle, Drawer } from '@app/components/general'
+import { PageTitle, Drawer, AuthMenu } from '@app/components/general'
 import { List } from '@app/components/general/lists/websites-issues'
 import { metaSetter } from '@app/utils'
 import type { PageProps } from '@app/types'
@@ -6,6 +6,7 @@ import { PageLoader } from '@app/components/placeholders'
 import { useWebsiteContext } from '@app/components/providers/website'
 import { LoadMoreButton } from '@app/components/general/buttons'
 import { useFilterSort } from '@app/data/local'
+import { useAuthContext } from '@app/components/providers/auth'
 
 function WebIssues({ name }: PageProps) {
   const {
@@ -17,11 +18,15 @@ function WebIssues({ name }: PageProps) {
     onLoadMoreIssues,
   } = useWebsiteContext()
   const { sortedData } = useFilterSort(issueData)
+  const { account } = useAuthContext()
 
   return (
     <>
       <Drawer title={name}>
-        <PageTitle title={name} />
+        <PageTitle
+          title={name}
+          rightButton={<AuthMenu authenticated={account.authed} settings />}
+        />
         <PageLoader
           empty={issueData?.length === 0}
           loading={issueDataLoading}

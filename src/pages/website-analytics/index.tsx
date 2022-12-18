@@ -5,6 +5,7 @@ import {
   Drawer,
   PriceMemo,
   Spacer,
+  AuthMenu,
 } from '@app/components/general'
 import { List } from '@app/components/general/lists/websites-analytics'
 import { useSearchFilter } from '@app/data'
@@ -67,6 +68,7 @@ function Analytics({ name }: PageProps) {
     <Drawer title={name}>
       <PageTitle
         title={account.activeSubscription ? name : 'Upgrade Required'}
+        rightButton={<AuthMenu authenticated={account.authed} settings />}
       />
       <Spacer height={'8px'} />
       {account.activeSubscription ? <AnalyticsPage /> : <PriceMemo navigate />}

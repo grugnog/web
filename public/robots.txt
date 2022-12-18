@@ -1,18 +1,18 @@
 User-agent: *
 Disallow:
 Disallow: /api
-Disallow: /website-details
 Disallow: /web-view
+Disallow: /web-actions
+Disallow: /web-issues
+Disallow: /website-details
 Disallow: /website-details/*
+Disallow: /website-analytics
 Disallow: /web-pages
 Disallow: /settings
 Disallow: /iframe/*
 Disallow: /dashboard
 Disallow: /alerts
 Disallow: /profile
-Disallow: /website-analytics
-Disallow: /web-actions
-Disallow: /web-issues
 Disallow: /scripts
 Disallow: /history
 Disallow: /payments

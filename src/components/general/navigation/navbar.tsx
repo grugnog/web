@@ -85,7 +85,7 @@ export const NavBar: FC<PropsWithChildren<NavProps>> = ({
         position === 'fixed' ? 'fixed left-[13%] md:left-[250px] right-0' : ''
       }`}
     >
-      <div className='relative flex items-center place-content-around px-4 min-h-[inherit]'>
+      <div className='relative flex items-center place-content-around px-4 gap-x-2 min-h-[inherit]'>
         {toolbar || children ? (
           toolbar || children
         ) : (

@@ -6,6 +6,7 @@ import {
   Drawer,
   Spacer,
   PriceMemo,
+  AuthMenu,
 } from '@app/components/general'
 import { useHistory } from '@app/data'
 import { metaSetter } from '@app/utils'
@@ -49,6 +50,7 @@ const History = ({ name }: PageProps) => {
       <Drawer title={name}>
         <PageTitle
           title={account.activeSubscription ? name : 'Upgrade Required'}
+          rightButton={<AuthMenu authenticated={account.authed} settings />}
         />
         <Spacer height={'8px'} />
         {account.activeSubscription ? <HistoryPage /> : <PriceMemo navigate />}

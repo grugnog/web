@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { PageTitle, Drawer } from '@app/components/general'
+import { PageTitle, Drawer, AuthMenu } from '@app/components/general'
 import { useUserData } from '@app/data'
 import { metaSetter } from '@app/utils'
 import type { PageProps } from '@app/types'
@@ -31,7 +31,10 @@ function Settings({ name }: PageProps) {
   if (!data && !loading) {
     return (
       <div className='px-2'>
-        <PageTitle title={'Settings'} />
+        <PageTitle
+          title={'Settings'}
+          rightButton={<AuthMenu authenticated={data?.user} settings />}
+        />
         <div className='p-4 text-2xl'>
           Authentication required for Settings. Please login to continue.
         </div>
@@ -44,7 +47,10 @@ function Settings({ name }: PageProps) {
   return (
     <>
       <Drawer title={name}>
-        <PageTitle title={'Settings'} />
+        <PageTitle
+          title={'Settings'}
+          rightButton={<AuthMenu authenticated={data?.user} settings />}
+        />
         <h2 className='text-2xl font-bold'>Core Web Vitals</h2>
         <p>
           Core Web Vitals are a set of speed metrics that are part of{' '}

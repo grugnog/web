@@ -192,7 +192,7 @@ const Profile: FC<PageProps> = ({ name }) => {
           </p>
         </div>
       ) : null}
-      <NavBar backButton title={name} notitle />
+      <NavBar backButton title={name} notitle authenticated={!!user} />
       <div className='container mx-auto px-8'>
         <PageTitle title={'Your Profile'} />
         <Box className='space-y-3 py-4'>

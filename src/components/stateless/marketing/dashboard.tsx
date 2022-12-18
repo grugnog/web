@@ -8,12 +8,15 @@ export function MarketingDashboard(): ReactElement<any, any> | null {
     <SectionContainer>
       <div className='place-content-center place-items-center flex flex-col'>
         <Header3>All the details you need in one location</Header3>
-        <p>Get insight on all of your domains live.</p>
+        <p>
+          Get accessibility insights and vitals across all domains with real
+          time updates.
+        </p>
         <div className='py-4'>
           <Image
-            width={1730}
+            width={1860}
             className={'shadow-xl border rounded'}
-            height={818}
+            height={876}
             quality={100}
             src={'/img/dashboard-example.png'}
             alt={

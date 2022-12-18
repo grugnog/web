@@ -1,14 +1,13 @@
 import { Menu, Transition } from '@headlessui/react'
 import { Fragment, PropsWithChildren, FC } from 'react'
 import { CgProfile } from 'react-icons/cg'
-import { GrMoreVertical } from 'react-icons/gr'
+import { GrMoreVertical, GrSettingsOption } from 'react-icons/gr'
 
 const btnClassName = 'grIcon h-5 w-5'
 
-export const MenuList: FC<PropsWithChildren<{ more?: boolean }>> = ({
-  children,
-  more,
-}) => {
+export const MenuList: FC<
+  PropsWithChildren<{ more?: boolean; settings?: boolean }>
+> = ({ children, more, settings }) => {
   return (
     <div>
       <Menu as='div' className='relative inline-block text-left'>
@@ -16,7 +15,9 @@ export const MenuList: FC<PropsWithChildren<{ more?: boolean }>> = ({
           <Menu.Button
             className={`justify-center rounded-full px-2 py-2 text-sm font-medium text-gray-800 hover:text-gray-700 hover:bg-opacity-30 hover:bg-gray-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75`}
           >
-            {more ? (
+            {settings ? (
+              <GrSettingsOption title='more options' className={btnClassName} />
+            ) : more ? (
               <GrMoreVertical title='more options' className={btnClassName} />
             ) : (
               <CgProfile className={btnClassName} title='profile menu' />
