@@ -4,9 +4,11 @@ import { useIssue, useScript } from '@app/data'
 import { AdaIframe } from '@app/components/ada/ada-iframe'
 import { metaSetter } from '@app/utils'
 import { GetServerSideProps } from 'next'
+import { useAuthContext } from '@app/components/providers/auth'
 
 // add ssr for initial website url
 function WebsiteDetails({ url: initUrl }: { url: string }) {
+  const { account } = useAuthContext()
   const router = useRouter()
   const { url } = router?.query
   const baseUrl = (url as string) || initUrl
@@ -15,7 +17,12 @@ function WebsiteDetails({ url: initUrl }: { url: string }) {
 
   return (
     <>
-      <NavBar title={baseUrl} backButton notitle />
+      <NavBar
+        title={baseUrl}
+        backButton
+        notitle
+        authenticated={account.authed}
+      />
       <AdaIframe url={baseUrl} issue={issue} />
       <Fab issue={issue} script={script} />
       <IssueModal issue={issue} />

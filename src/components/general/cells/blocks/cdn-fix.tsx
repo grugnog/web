@@ -9,7 +9,8 @@ export const CdnFixBox = ({ issues }: { issues?: number }) => {
       title={'Patch'}
       icon={<GrAidOption className='grIcon' color='black' fill='black' />}
     >
-      {issues} issue{issues === 1 ? '' : 's'} patched
+      {Intl.NumberFormat().format(issues ?? 0)} issue{issues === 1 ? '' : 's'}{' '}
+      patched
     </InfoBlock>
   )
 }

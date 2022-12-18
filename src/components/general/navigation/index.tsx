@@ -1,4 +1,4 @@
 export { NavBarTitle } from './title'
 export { AuthedMenu } from './authed-menu'
 export { MarketingNavMenu } from './marketing-nav-menu'
-export { Logo, SmallLogo } from './logo'
+export { Logo } from './logo'

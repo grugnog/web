@@ -10,7 +10,7 @@ The web application for [A11yWatch](https://a11ywatch.com) using [Rust](https://
 
 ## Installation
 
-Make sure Rust is installed if you want to build the wasm bundle for the web or Desktop application.
+Rust is required if you want to build the wasm bundle for the web or the desktop application.
 
 `curl --proto '=https' --tlsv1.2 https://sh.rustup.rs -sSf | sh`
 

@@ -4,11 +4,11 @@ import { _ONBOARDED } from '@app/lib/cookies/names'
 import {
   GrConnect,
   GrDocumentTest,
-  GrHadoop,
   GrLineChart,
   GrSort,
   GrTrash,
 } from 'react-icons/gr'
+import { SiLighthouse } from 'react-icons/si'
 
 // right bar
 export type RightBarProps = {
@@ -42,12 +42,8 @@ export const RightBar = ({
 }: RightBarProps) => {
   return (
     <div className='flex flex-wrap gap-x-2 gap-y-1 text-sm'>
-      <Button
-        onClick={onRemoveAllWebsitePress}
-        aria-label={'Remove all websites'}
-        className={btnStyles}
-      >
-        Remove All
+      <Button onClick={onRemoveAllWebsitePress} className={btnStyles}>
+        Delete All
         <GrTrash className='grIcon' />
       </Button>
       <Button
@@ -58,13 +54,15 @@ export const RightBar = ({
         <GrDocumentTest className='grIcon' />
       </Button>
       <Button
-        className={`${btnStyles}${lhEnabled ? ' visible' : ' hidden'}`}
+        className={`${btnStyles}${lhEnabled ? ' visible' : ' hidden'}${
+          lighthouseVisible ? '' : ' bg-gray-200'
+        }`}
         onClick={onLighthouseToggle}
         aria-expanded={lighthouseVisible}
         aria-label={'Toggle lighthouse reports visibility.'}
       >
-        {lighthouseVisible ? 'Hide' : 'Display'} Lighthouse
-        <GrHadoop className='grIcon' />
+        Lighthouse
+        <SiLighthouse className='grIcon' />
       </Button>
       {onScanAllEvent ? (
         <Button onClick={onScanAllEvent} className={btnStyles}>
@@ -84,7 +82,7 @@ export const RightBar = ({
               sortModalVisible ? ' border-blue-800' : ''
             }`}
           >
-            {sortModalVisible ? 'Hide Sort' : 'Sort Websites'}
+            Sort
             <GrSort className='grIcon' />
           </Button>
         </>

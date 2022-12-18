@@ -35,7 +35,7 @@ export const SortableWebsiteList: FC<{ refetch: any }> = ({ refetch }) => {
 
   return (
     <div>
-      <h2 className='pb-3 text-xl'>
+      <h2 className='pb-3 text-xl text-gray-700'>
         Drag your websites in order to re-sort the position in the dashboard
         list.
       </h2>

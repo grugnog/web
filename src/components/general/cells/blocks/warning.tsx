@@ -9,7 +9,8 @@ export const WarningsBox = ({ issues }: { issues?: number }) => {
       title={'Warnings'}
       icon={<GrAlert className='grIcon' color='black' fill='black' />}
     >
-      {issues ?? 0} possible issue{issues === 1 ? '' : 's'} to fix
+      {Intl.NumberFormat().format(issues ?? 0)} possible issue
+      {issues === 1 ? '' : 's'} to fix
     </InfoBlock>
   )
 }

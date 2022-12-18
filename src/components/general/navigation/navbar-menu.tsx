@@ -12,9 +12,18 @@ export function NavbarMenu(_: AuthMenuComponentProps) {
   const { pathname } = useRouter()
 
   return (
-    <>
-      <NavItem route={pathname} href={'/login'} name={'Login'} />
-      <NavItem route={pathname} href={'/register'} name={'Register'} />
-    </>
+    <ul className='flex list-none gap-x-3'>
+      <li>
+        <NavItem route={pathname} href={'/login'} name={'Login'} />
+      </li>
+      <li>
+        <NavItem
+          route={pathname}
+          href={'/register'}
+          name={'Register'}
+          className={'px-3 py-2 border-2 rounded'}
+        />
+      </li>
+    </ul>
   )
 }

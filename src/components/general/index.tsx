@@ -1,7 +1,7 @@
 export { Link } from './link'
 export { Footer } from './footer'
 export { NavBar } from './navigation/navbar'
-export { Logo, SmallLogo, NavBarTitle } from './navigation'
+export { Logo, NavBarTitle } from './navigation'
 export { TestView } from './test-view'
 export { SnackBar } from './snack-bar'
 export { SignOnForm } from './signon-form/gql-form'

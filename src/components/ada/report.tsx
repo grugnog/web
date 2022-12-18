@@ -12,18 +12,6 @@ const TestViewRest = dynamic(
   { ssr: false, loading: () => <div>Loading playground...</div> }
 ) as any
 
-const FeedList = dynamic(
-  () => import('../feed/list').then((mod) => mod.FeedList) as any,
-  {
-    ssr: false,
-    loading: () => (
-      <div className='flex place-items-center p-4'>
-        Loading report details...
-      </div>
-    ),
-  }
-) as any
-
 function ReportEmptyView() {
   return (
     <div className={'w-full'}>
@@ -31,6 +19,14 @@ function ReportEmptyView() {
     </div>
   )
 }
+
+const FeedList = dynamic(
+  () => import('../feed/list').then((mod) => mod.FeedList) as any,
+  {
+    ssr: false,
+    loading: () => <ReportEmptyView />,
+  }
+) as any
 
 function ReportInner({
   website,

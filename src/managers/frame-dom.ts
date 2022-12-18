@@ -21,14 +21,15 @@ export const frameDom: any = {
     }
   },
   injectAutoFix: ({ callBack, cdn, autoFixEnabled, setAutoFix }: any) => {
-    const message = autoFixEnabled
-      ? 'Removed auto fix cdn'
-      : `Applied auto fix cdn ${cdn}`
     const { dom } = frameDom
 
     if (!dom && typeof alert === 'function') {
       return alert('issue with dom')
     }
+
+    const message = autoFixEnabled
+      ? 'Removed auto fix cdn'
+      : `Applied auto fix cdn ${cdn}`
 
     const body = dom?.querySelector('body')
 

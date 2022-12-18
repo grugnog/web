@@ -9,7 +9,8 @@ export const IssuesBox = ({ issues }: { issues?: number }) => {
       title={'Errors'}
       icon={<GrEmergency className='grIcon' color='black' fill='black' />}
     >
-      {issues ?? 0} problem{issues === 1 ? '' : 's'} to fix
+      {Intl.NumberFormat().format(issues ?? 0)} issue{issues === 1 ? '' : 's'}{' '}
+      to fix
     </InfoBlock>
   )
 }
