@@ -1,6 +1,11 @@
 import { useState, useEffect, memo } from 'react'
-import MonacoEditor from '@monaco-editor/react'
-import ReactSizeDetector from 'react-resize-detector'
+import dynamic from 'next/dynamic'
+
+const MonacoEditor = dynamic(
+  () =>
+    import('@monaco-editor/react'),
+  { ssr: false, loading: () => <div>Loading editor...</div> }
+) 
 
 const WithEditorComponent = ({
   setScript,
@@ -14,25 +19,15 @@ const WithEditorComponent = ({
   }, [setScript, value])
 
   return (
-    <ReactSizeDetector handleWidth handleHeight>
-      {({ height, width }: { width?: number; height?: number }) => (
-        <MonacoEditor
-          onChange={setValue}
-          value={value}
-          language={language}
-          defaultValue={children}
-          theme='vs-dark'
-          height={
-            typeof height === 'undefined'
-              ? typeof window !== 'undefined'
-                ? window.innerHeight / 1.4
-                : 500
-              : height || '100%'
-          }
-          width={width || '100%'}
-        />
-      )}
-    </ReactSizeDetector>
+    <MonacoEditor
+      onChange={setValue}
+      value={value}
+      language={language}
+      defaultValue={children}
+      theme='vs-dark'
+      height={typeof window !== 'undefined' ? window.innerHeight / 1.4 : 500}
+      width={'100%'}
+    />
   )
 }
 

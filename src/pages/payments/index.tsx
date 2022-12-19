@@ -114,7 +114,7 @@ function Payments({ hideTitle = false, name }: PaymentProps) {
     <>
       <NavBar title={name} backButton notitle authenticated={account.authed} />
       <StateLessDrawer size='max-w-screen-2xl'>
-        <SectionContainer container block>
+        <SectionContainer container block gapY={false}>
           {hideTitle ? null : <Header>Payments</Header>}
           {loading && !data ? (
             <>
@@ -161,7 +161,7 @@ function Payments({ hideTitle = false, name }: PaymentProps) {
                           <Button
                             onClick={() => setNewCard((x) => !x)}
                             className={
-                              'border-none font-semibold text-green-700'
+                              'border-none font-semibold text-blue-700'
                             }
                           >
                             Add New Card

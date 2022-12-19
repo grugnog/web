@@ -24,7 +24,7 @@ import { ModalType } from '@app/data/enums'
 
 const CtaHtmlInputRest = dynamic(
   () =>
-    import('@app/components/cta/searchbar/cta-html-input-rest').then(
+    import('../../components/cta/searchbar/cta-html-input-rest').then(
       (mod) => mod.CtaHtmlInputRest
     ),
   { ssr: false }
@@ -176,6 +176,7 @@ function Dashboard({ name }: PageProps) {
             <MarketingBottomTemporaryDrawer authenticated />
           </div>
         </div>
+
         <div className={webpageStyle}>
           <WebsiteList
             data={websites}

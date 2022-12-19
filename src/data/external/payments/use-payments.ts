@@ -43,8 +43,10 @@ export const usePaymentsHook = (skip?: boolean) => {
 
       if (jwt) {
         UserManager.setJwt(jwt)
-        AppManager.toggleSnack(true, 'Upgrade success!', 'success')
-        !noRedirect && (await router.push('/dashboard'))
+        if (!noRedirect) {
+          AppManager.toggleSnack(true, 'Upgrade success!', 'success')
+          await router.push('/dashboard')
+        }
       } else {
         AppManager.toggleSnack(
           true,

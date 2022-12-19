@@ -1,11 +1,19 @@
 import { useState, useEffect } from 'react'
 import { Button } from '@app/components/general/buttons/button'
+import dynamic from 'next/dynamic'
 import { a11yDark } from '@app/styles'
-import { EditableMixture } from '@app/components/mixtures/editable-mixture'
 import { CdnBlock } from '../blocks/cdn'
 import { SCRIPTS_CDN_URL_HOST } from '@app/configs/app-config'
 import { useScript } from '@app/data/external/scripts/scripts'
 import { Checkbox } from '../check-box'
+
+const EditableMixture = dynamic(
+  () =>
+    import('../../mixtures/editable-mixture').then(
+      (mod) => mod.EditableMixture
+    ),
+  { ssr: false, loading: () => <div>Loading editor...</div> }
+)
 
 const classes = {
   info: 'px-2 py-2',

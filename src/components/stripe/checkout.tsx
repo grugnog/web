@@ -19,7 +19,7 @@ const style = {
   },
 }
 
-export const CheckoutForm = ({ onToken, plan, price, disabled }: Props) => {
+export const CheckoutForm = ({ onToken, price, disabled }: Props) => {
   const stripe = useStripe()
   const elements = useElements()
 
@@ -71,7 +71,7 @@ export const CheckoutForm = ({ onToken, plan, price, disabled }: Props) => {
             disabled ? 'text-black' : 'border-blue-800 text-blue-800'
           }`}
         >
-          Start {plan}
+          Start
         </Button>
       </div>
     </form>

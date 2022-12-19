@@ -85,7 +85,9 @@ module.exports = withPWA({
   experimental: {
     nextScriptWorkers: false,
   },
-  swcMinify: true,
+  httpAgentOptions: {
+    keepAlive: false,
+  },
   images: {
     unoptimized: process.env.IMAGES_UNOPTIMIZED ? true : false,
     domains,
@@ -98,7 +100,6 @@ module.exports = withPWA({
       },
     ]
   },
-  compress: true,
   generateBuildId: async () =>
     process.env.SOURCE_VERSION
       ? `cust-next-build-${process.env.SOURCE_VERSION}`
