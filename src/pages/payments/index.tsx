@@ -6,7 +6,7 @@ import { CheckoutForm } from '@app/components/stripe/checkout'
 import { StripeBadges } from '@app/components/stripe/badges'
 import { Button, NavBar, PriceMemo } from '@app/components/general'
 import { metaSetter } from '@app/utils'
-import { EmptyPayments } from '@app/components/empty'
+import { EmptyPayments } from '@app/components/empty/views/payments'
 import type { PageProps } from '@app/types'
 import { StripProvider } from '@app/components/stripe/stripe-provider'
 import { Header } from '@app/components/general/header'
@@ -48,9 +48,9 @@ function Payments({ hideTitle = false, name }: PaymentProps) {
   const queryPlan = (router?.query?.plan as string) ?? ''
   const yearSet = (router?.query?.yearly as string) ?? ''
 
+  const role = data?.role
   const paymentSubscription = data?.paymentSubscription
   const manualCheckout = !paymentSubscription || newCard
-  const role = data?.role
   const partnerProgram = !loading && role && !paymentSubscription
   // allow payments on all non maxed accounts
   const subTitle = renderPaymentTitle(partnerProgram)
@@ -117,7 +117,9 @@ function Payments({ hideTitle = false, name }: PaymentProps) {
         <SectionContainer container block>
           {hideTitle ? null : <Header>Payments</Header>}
           {loading && !data ? (
-            <EmptyPayments subTitle={subTitle} />
+            <>
+              <EmptyPayments subTitle={subTitle} />
+            </>
           ) : (
             <>
               <p className='text-xl pb-2'>{subTitle}</p>
@@ -129,7 +131,7 @@ function Payments({ hideTitle = false, name }: PaymentProps) {
                 setYearly={setYearly}
                 yearly={yearly}
                 initialIndex={initialSelectIndex}
-                highPlan={role >= 5}
+                highPlan={role > 5}
               />
               <div>
                 {!partnerProgram ? (

@@ -8,9 +8,9 @@ import { NavBar } from '../navigation/navbar'
 import { FixedCopyRight } from '../fixed-copy-right'
 import { ConfirmEmail } from '../../alerts'
 import { IssueFeed } from '../../feed'
-import { FormDialog } from '../form-dialog'
 import { SearchBar } from '../searchbar'
 import { RefBanner } from '../ref-banner'
+import { EmptyDialogButton } from '../empty-dialog'
 
 const DynamicModal = dynamic(
   () => import('../../modal/dynamic').then((mod) => mod.DynamicModal),
@@ -19,7 +19,17 @@ const DynamicModal = dynamic(
 
 const MiniPlayer = dynamic(
   () => import('../mini-player').then((mod) => mod.MiniPlayer),
-  { ssr: false }
+  {
+    ssr: false,
+  }
+)
+
+const FormDialog = dynamic(
+  () => import('../form-dialog').then((mod) => mod.FormDialog),
+  {
+    ssr: false,
+    loading: () => <EmptyDialogButton buttonStyles={'w-full bg-gray-50'} />,
+  }
 )
 
 export type DrawerWrapperProps = {

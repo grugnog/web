@@ -1,5 +1,4 @@
 import React from 'react'
-import { Box } from '@a11ywatch/ui'
 
 export function Failure({
   title = 'Website not found',
@@ -9,9 +8,9 @@ export function Failure({
   subTitle?: string
 }) {
   return (
-    <Box>
+    <div className='p-3'>
       <h2 className='text-3xl font-semibold'>{title}</h2>
       <div className='text-xl'>{subTitle}</div>
-    </Box>
+    </div>
   )
 }

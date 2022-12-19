@@ -1,6 +1,6 @@
-import { FC, PropsWithChildren, Fragment, useMemo, memo } from 'react'
-import type { BlogPageProps } from '@app/types/page'
+import { FC, PropsWithChildren, Fragment, useMemo } from 'react'
 import Head from 'next/head'
+import type { BlogPageProps } from '@app/types/page'
 import { Footer } from '@app/components/general/footer'
 import { NavBar } from '@app/components/blog/navbar'
 import parser from 'html-react-parser'
@@ -17,7 +17,7 @@ const getProps = (props: any = {}) => {
   return mainProps
 }
 
-const Page: FC<PropsWithChildren<BlogPageProps>> = ({
+export const BlogPage: FC<PropsWithChildren<BlogPageProps>> = ({
   html,
   websiteUrl,
   title,
@@ -89,26 +89,14 @@ const Page: FC<PropsWithChildren<BlogPageProps>> = ({
           )
         })}
         {memoHeadScripts}
-        <style>
-          {`h2 {
-    font-size: 1.875rem;
-    font-weight: 800;
-    padding-top: 12px;
-    padding-bottom: 7px;
-}`}
-        </style>
       </Head>
       {header ? <NavBar title={'Blog'} /> : null}
-
       {children}
       <main className='light-background'>
         <>{html ? parser(html) : ''}</>
       </main>
-
       {footer ? <Footer blog /> : null}
       {memoBodyScripts}
     </>
   )
 }
-
-export const BlogPage = memo(Page)

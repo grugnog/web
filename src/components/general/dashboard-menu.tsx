@@ -1,7 +1,22 @@
 import React from 'react'
-import { AuthMenu, Button, FormDialog } from '@app/components/general'
+import { AuthMenu, Button, EmptyDialogButton } from '@app/components/general'
 import { _ONBOARDED } from '@app/lib/cookies/names'
 import { GrConnect, GrDocumentTest, GrLineChart, GrSort } from 'react-icons/gr'
+import dynamic from 'next/dynamic'
+
+const FormDialog = dynamic(
+  () => import('../general/form-dialog').then((mod) => mod.FormDialog),
+  {
+    ssr: false,
+    loading: () => (
+      <EmptyDialogButton
+        buttonTitle={`Subscribe`}
+        icon
+        buttonStyles={btnStyles}
+      />
+    ),
+  }
+)
 
 // right bar
 export type RightBarProps = {
@@ -57,6 +72,7 @@ export const RightBar = ({
         </>
       ) : null}
       <FormDialog buttonTitle={`Subscribe`} icon buttonStyles={btnStyles} />
+
       <AuthMenu authenticated settings />
     </div>
   )

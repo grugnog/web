@@ -1,8 +1,19 @@
 import { memo, FC } from 'react'
 import Image from 'next/image'
-import { FormDialog } from '../form-dialog'
 import { CardHeader } from '@app/components/stateless/card/header'
 import { Link } from '../link'
+import dynamic from 'next/dynamic'
+import { EmptyDialogButton } from '../empty-dialog'
+
+const FormDialog = dynamic(
+  () => import('../form-dialog').then((mod) => mod.FormDialog),
+  {
+    ssr: false,
+    loading: () => (
+      <EmptyDialogButton buttonStyles={'min-w-[13rem] border-2'} />
+    ),
+  }
+)
 
 const infoDetails = [
   {

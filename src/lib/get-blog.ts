@@ -215,37 +215,39 @@ export const getBlogPage = async (
               : ''
           }
 
-              h1 {
+              .light-background h1 {
                 font-size: 2.25rem;
                 font-weight: 800;
               }
-              h2 {
+              .light-background h2 {
                 font-size: 1.875rem;
                 font-weight: 800;
-              }
-              h3 {
+                padding-top: 12px;
+                padding-bottom: 7px;
+            
+              .light-background h3 {
                 font-size: 1.5rem;
                 font-weight: 800;
                 padding-top: 10px;
                 padding-bottom: 5px;
               }
-              h4 {
+              .light-background h4 {
                 font-size: 1.25rem;
                 font-weight: 700;
               }
-              h5 {
+              .light-background h5 {
                 font-size: 1.125rem;
                 font-weight: 600;
               }
-              h6 {
+              .light-background h6 {
                 font-size: 1rem;
                 font-weight: 500;
               }
 
-              .entry-date.published, .blog-date {
+              .light-background .entry-date.published, .blog-date {
                 color: rgba(117, 117, 117, 1);
               }
-              main a {
+              .light-background main a {
                 color: rgb(37, 99, 235);
                 text-decoration: none;
                 padding: 0.2em;
