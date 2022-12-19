@@ -27,7 +27,7 @@ const getUrl = (q: string) => {
   return targetBase + `${query[0] === '/' ? query : `/${query}`}`
 }
 
-// get wordpress page and parse content by themes
+// get Blog page and parse content by themes
 export const getBlogPage = async (
   pathname: string,
   directUrl?: boolean

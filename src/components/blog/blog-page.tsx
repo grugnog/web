@@ -89,6 +89,14 @@ const Page: FC<PropsWithChildren<BlogPageProps>> = ({
           )
         })}
         {memoHeadScripts}
+        <style>
+          {`h2 {
+    font-size: 1.875rem;
+    font-weight: 800;
+    padding-top: 12px;
+    padding-bottom: 7px;
+}`}
+        </style>
       </Head>
       {header ? <NavBar title={'Blog'} /> : null}
 
@@ -103,4 +111,4 @@ const Page: FC<PropsWithChildren<BlogPageProps>> = ({
   )
 }
 
-export const WordPressPage = memo(Page)
+export const BlogPage = memo(Page)

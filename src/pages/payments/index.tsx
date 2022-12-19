@@ -93,7 +93,7 @@ function Payments({ hideTitle = false, name }: PaymentProps) {
     if (!manualCheckout) {
       if (newState !== currentPlan) {
         await onToken('', { plan: newState, yearly, referral }, true)
-        if(refetch) {
+        if (refetch) {
           await refetch()
         }
         AppManager.toggleSnack(true, `Plan set to ${newState}`)

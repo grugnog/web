@@ -1,2 +1,2 @@
 export { NavBar } from './navbar'
-export { WordPressPage } from './wordpress-page'
+export { BlogPage } from './blog-page'

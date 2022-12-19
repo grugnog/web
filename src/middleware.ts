@@ -1,14 +1,10 @@
 import { NextResponse, NextRequest, userAgent } from 'next/server'
 import { IFRAME_ENDPOINT } from '@app/configs/next/iframe'
 
-const ROOT_URL = `.${process.env.ROOT_URL}`
-
 export async function middleware(req: NextRequest) {
   let res = NextResponse.next()
 
-  const currentHost = req.headers?.get('host')?.replace(ROOT_URL, '')
-
-  if (/.blog/.test(currentHost + '')) {
+  if (req.headers.get('host')?.endsWith('.blog')) {
     const url = req.nextUrl.clone()
     url.pathname = `/blog${req.nextUrl.pathname}`
     res = NextResponse.rewrite(url)

@@ -1,11 +1,11 @@
 import { metaSetter } from '@app/utils/meta-setter'
 import { getBlogPage } from '@app/lib/get-blog'
-import { WordPressPage } from '@app/components/blog/wordpress-page'
+import { BlogPage } from '@app/components/blog/blog-page'
 import type { BlogPageProps } from '@app/types'
 import type { GetStaticProps } from 'next'
 
 function Blog(props: BlogPageProps) {
-  return <WordPressPage {...props} />
+  return <BlogPage {...props} />
 }
 
 export async function getStaticPaths() {
