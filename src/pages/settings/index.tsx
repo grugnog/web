@@ -6,6 +6,8 @@ import type { PageProps } from '@app/types'
 import { useWebsiteContext } from '@app/components/providers/website'
 import { GrTrash } from 'react-icons/gr'
 import { Header4 } from '@app/components/general/header'
+import { AppManager } from '@app/managers'
+import { SiLighthouse } from 'react-icons/si'
 
 function Settings({ name }: PageProps) {
   const [pageSpeedKey, setPageSpeed] = useState<string>('')
@@ -14,7 +16,8 @@ function Settings({ name }: PageProps) {
     loading,
     onConfirmLighthouse,
   } = useUserData(true, 'settings')
-  const { removeWebsite } = useWebsiteContext()
+  const { removeWebsite, setLighthouseVisibility, lighthouseVisible } =
+    useWebsiteContext()
 
   const onRemoveAllWebsitePress = useCallback(async () => {
     if (window.confirm('Are you sure you want to remove all websites?')) {
@@ -46,6 +49,16 @@ function Settings({ name }: PageProps) {
       console.error(e)
     }
   }
+
+  const onLighthouseToggle = useCallback(() => {
+    setLighthouseVisibility((visible: boolean) => {
+      AppManager.toggleSnack(
+        true,
+        `Lighthouse display ${!visible ? 'hidden' : 'visible'}`
+      )
+      return !visible
+    })
+  }, [setLighthouseVisibility])
 
   if (!data && !loading) {
     return (
@@ -131,7 +144,25 @@ function Settings({ name }: PageProps) {
         </div>
 
         <div className='py-2 gap-y-2 border-t'>
-          <div className='py-2'>
+          <div className='py-3'>
+            <Header4>Display Lighthouse on Dashboard</Header4>
+            <p>Toggle the visibility of lighthouse reports on the dashboard.</p>
+            <p>
+              Lighthouse visiblity is{' '}
+              {lighthouseVisible ? 'enabled' : 'disabled'}.
+            </p>
+          </div>
+          <Button
+            onClick={onLighthouseToggle}
+            className={'flex gap-x-2 place-items-center'}
+          >
+            Toggle Lighthouse Visibility
+            <SiLighthouse className='grIcon' />
+          </Button>
+        </div>
+
+        <div className='py-2 gap-y-2 border-t'>
+          <div className='py-3'>
             <Header4>Delete all data?</Header4>
             <p>This will remove all websites and associated data</p>
           </div>

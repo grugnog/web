@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import Head from 'next/head'
 import dynamic from 'next/dynamic'
 
@@ -47,7 +47,6 @@ function Dashboard({ name }: PageProps) {
     refetch,
     crawlWebsite,
     subscriptionData,
-    setLighthouseVisibility,
     lighthouseVisible,
     onLoadMoreWebsites,
     activeCrawls,
@@ -68,10 +67,6 @@ function Dashboard({ name }: PageProps) {
       })
     }
   }, [issueSubData, events, setEvents])
-
-  const onLighthouseToggle = useCallback(async () => {
-    setLighthouseVisibility((visible: boolean) => !visible)
-  }, [setLighthouseVisibility])
 
   const lhEnabled = useMemo(
     () => websites?.some((web) => web?.pageInsights),
@@ -152,11 +147,8 @@ function Dashboard({ name }: PageProps) {
               <RightBar
                 sortCapable={data?.length >= 2}
                 onQueryEvent={onQueryEvent}
-                lhEnabled={lhEnabled}
-                lighthouseVisible={lighthouseVisible}
                 sortModalVisible={sortModalVisible}
                 onWebsiteSort={onWebsiteSort}
-                onLighthouseToggle={onLighthouseToggle}
                 queryModalVisible={queryModalVisible}
                 onScanAllEvent={onScanAllEvent}
                 onAnalyticsEvent={onAnalyticsEvent}

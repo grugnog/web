@@ -1,23 +1,14 @@
 import React from 'react'
 import { AuthMenu, Button, FormDialog } from '@app/components/general'
 import { _ONBOARDED } from '@app/lib/cookies/names'
-import {
-  GrConnect,
-  GrDocumentTest,
-  GrLineChart,
-  GrSort,
-} from 'react-icons/gr'
-import { SiLighthouse } from 'react-icons/si'
+import { GrConnect, GrDocumentTest, GrLineChart, GrSort } from 'react-icons/gr'
 
 // right bar
 export type RightBarProps = {
   onQueryEvent(x: any): void
   onScanAllEvent?(x: any): void // scan all websites
-  onLighthouseToggle(x: any): void
   onWebsiteSort(x: any): void
   onAnalyticsEvent(): void
-  lighthouseVisible?: boolean
-  lhEnabled?: boolean
   queryModalVisible?: boolean
   sortModalVisible?: boolean
   sortCapable?: boolean
@@ -31,9 +22,6 @@ export const RightBar = ({
   onQueryEvent,
   onScanAllEvent,
   queryModalVisible,
-  lhEnabled,
-  onLighthouseToggle,
-  lighthouseVisible,
   sortModalVisible,
   onAnalyticsEvent,
 }: RightBarProps) => {
@@ -46,23 +34,11 @@ export const RightBar = ({
         Scan
         <GrDocumentTest className='grIcon' />
       </Button>
-      <Button
-        className={`${btnStyles}${lhEnabled ? ' visible' : ' hidden'}${
-          lighthouseVisible ? '' : ' bg-gray-200'
-        }`}
-        onClick={onLighthouseToggle}
-        aria-expanded={lighthouseVisible}
-        aria-label={'Toggle lighthouse reports visibility.'}
-      >
-        Lighthouse
-        <SiLighthouse className='grIcon' />
-      </Button>
       {onScanAllEvent ? (
         <Button onClick={onScanAllEvent} className={btnStyles}>
           Sync All <GrConnect className='grIcon' />
         </Button>
       ) : null}
-
       {sortCapable ? (
         <>
           <Button onClick={onAnalyticsEvent} className={btnStyles}>
