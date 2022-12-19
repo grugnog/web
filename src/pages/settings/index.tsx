@@ -1,8 +1,11 @@
-import React, { useState } from 'react'
-import { PageTitle, Drawer, AuthMenu } from '@app/components/general'
+import React, { useCallback, useState } from 'react'
+import { PageTitle, Drawer, AuthMenu, Button } from '@app/components/general'
 import { useUserData } from '@app/data'
 import { metaSetter } from '@app/utils'
 import type { PageProps } from '@app/types'
+import { useWebsiteContext } from '@app/components/providers/website'
+import { GrTrash } from 'react-icons/gr'
+import { Header4 } from '@app/components/general/header'
 
 function Settings({ name }: PageProps) {
   const [pageSpeedKey, setPageSpeed] = useState<string>('')
@@ -11,6 +14,22 @@ function Settings({ name }: PageProps) {
     loading,
     onConfirmLighthouse,
   } = useUserData(true, 'settings')
+  const { removeWebsite } = useWebsiteContext()
+
+  const onRemoveAllWebsitePress = useCallback(async () => {
+    if (window.confirm('Are you sure you want to remove all websites?')) {
+      try {
+        await removeWebsite({
+          variables: {
+            url: '',
+            deleteMany: true,
+          },
+        })
+      } catch (e) {
+        console.error(e)
+      }
+    }
+  }, [removeWebsite])
 
   const onSetLighthouseCode = (e: React.SyntheticEvent<HTMLInputElement>) => {
     setPageSpeed(e.currentTarget.value)
@@ -45,71 +64,87 @@ function Settings({ name }: PageProps) {
   const userPageSpeedKey = data?.user?.pageSpeedApiKey ?? ''
 
   return (
-    <>
-      <Drawer title={name}>
-        <PageTitle
-          title={'Settings'}
-          rightButton={<AuthMenu authenticated={data?.user} settings />}
-        />
-        <h2 className='text-2xl font-bold'>Core Web Vitals</h2>
-        <p>
-          Core Web Vitals are a set of speed metrics that are part of{' '}
-          {`Google’s`}
-          Page Experience signals used to measure user experience.
-        </p>
-        <p>
-          We retrieve them using {`Google’s`} PageSpeed Insights API along with
-          our own internal usage. In order to speed of your workflows you can
-          add your own key.
-        </p>
-        <p>{`It’s`} free but limited to a daily quota.</p>
-        <div className='py-2'>
-          <a
-            href={'https://developers.google.com/speed'}
-            target={'_blank'}
-            rel={'noreferrer'}
-            className={'text-blue-600'}
-          >
-            Learn more
-          </a>
-        </div>
+    <Drawer title={name}>
+      <PageTitle
+        title={'Settings'}
+        rightButton={<AuthMenu authenticated={data?.user} settings />}
+      />
+      <div className='flex flex-col gap-y-4'>
         <div>
-          <h3 className='text-xl'>API Key</h3>
-          <ul className='space-y-2 py-3 list-decimal px-4'>
-            <li>
-              <a
-                target={'_blank'}
-                rel={'noreferrer'}
-                className={'text-blue-600'}
-                href={
-                  'https://developers.google.com/speed/docs/insights/v5/get-started'
-                }
-              >
-                Get a free API key from Google
-              </a>
-            </li>
-            <li>Enter the received code</li>
-          </ul>
-          <form onSubmit={onSubmitLighthouse}>
-            <div>
-              <input
-                onChange={onSetLighthouseCode}
-                placeholder='Enter the code'
-                className='p-3 border rounded rounded-r-none'
-                value={pageSpeedKey || userPageSpeedKey}
-              ></input>
-              <button
-                type={'submit'}
-                disabled={!pageSpeedKey}
-                className={'border p-3 rounded rounded-l-none border-l-0'}
-              >
-                Submit
-              </button>
-            </div>
-          </form>
+          <h2 className='text-2xl font-bold'>Core Web Vitals</h2>
+          <p>
+            Core Web Vitals are a set of speed metrics that are part of{' '}
+            {`Google’s`} Page Experience signals used to measure user
+            experience.
+          </p>
+          <p>
+            We retrieve them using PageSpeed Insights API along with our own
+            internal usage. In order to speed of your workflows you can add your
+            own key.
+          </p>
+          <p>{`It’s`} free but limited to a daily quota.</p>
+          <div className='py-2'>
+            <a
+              href={'https://developers.google.com/speed'}
+              target={'_blank'}
+              rel={'noreferrer'}
+              className={'text-blue-600'}
+            >
+              Learn more
+            </a>
+          </div>
+          <div>
+            <h3 className='text-xl font-medium'>PageSpeed API Key</h3>
+            <ul className='space-y-2 py-3 list-decimal px-4'>
+              <li>
+                <a
+                  target={'_blank'}
+                  rel={'noreferrer'}
+                  className={'text-blue-600'}
+                  href={
+                    'https://developers.google.com/speed/docs/insights/v5/get-started'
+                  }
+                >
+                  Get a free API key from Google
+                </a>
+              </li>
+              <li>Enter the received code</li>
+            </ul>
+            <form onSubmit={onSubmitLighthouse}>
+              <div>
+                <input
+                  onChange={onSetLighthouseCode}
+                  placeholder='Enter the code'
+                  className='p-3 border rounded rounded-r-none'
+                  value={pageSpeedKey || userPageSpeedKey}
+                ></input>
+                <button
+                  type={'submit'}
+                  disabled={!pageSpeedKey}
+                  className={'border p-3 rounded rounded-l-none border-l-0'}
+                >
+                  Submit
+                </button>
+              </div>
+            </form>
+          </div>
         </div>
-      </Drawer>
-    </>
+
+        <div className='py-2 gap-y-2 border-t'>
+          <div className='py-2'>
+            <Header4>Delete all data?</Header4>
+            <p>This will remove all websites and associated data</p>
+          </div>
+          <Button
+            onClick={onRemoveAllWebsitePress}
+            className={'flex gap-x-2 place-items-center'}
+          >
+            Remove All Data
+            <GrTrash className='grIcon' />
+          </Button>
+        </div>
+      </div>
+    </Drawer>
   )
 }
 

@@ -249,8 +249,8 @@ export function WebsiteCellDashboardComponent({
 
   return (
     <li
-      className={`rounded bg-white border-4 overflow-hidden${
-        shutdown ? ' bg-yellow-50' : ''
+      className={`rounded bg-white border-4 ${
+        shutdown ? ' border-gray-600' : ''
       }`}
     >
       <div>

@@ -19,7 +19,7 @@ export const RenderInnerPages: FC<any> = (props) => {
         loading={loading}
         generalProps={generalProps}
       >
-        <ul>
+        <ul className='list-none'>
           {pagesSource?.map((page: any) => (
             <WebsiteCellPages key={page._id} {...page} {...generalProps} />
           ))}

@@ -16,6 +16,7 @@ import { PageLoader } from '@app/components/placeholders'
 import { useWebsiteContext } from '@app/components/providers/website'
 import { LoadMoreButton } from '@app/components/general/buttons'
 import { useAuthContext } from '@app/components/providers/auth'
+import { Skeleton } from '@app/components/placeholders/skeleton'
 
 export function WebPagesPage() {
   const { pagesData, pagesDataLoading, refetch, error, onLoadMorePages } =
@@ -66,7 +67,13 @@ export function WebPages({ name }: PageProps) {
           rightButton={<AuthMenu authenticated={account.authed} settings />}
         />
         <Spacer height={'8px'} />
-        {account.activeSubscription ? <WebPagesPage /> : <PriceMemo navigate />}
+        {account.activeSubscription ? (
+          <WebPagesPage />
+        ) : account.inited ? (
+          <PriceMemo navigate />
+        ) : (
+          <Skeleton className='h-full w-full' />
+        )}
       </Drawer>
     </>
   )

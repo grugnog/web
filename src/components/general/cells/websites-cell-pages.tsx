@@ -121,7 +121,7 @@ export function WebsiteCellPagesComponent({
   const lhExists = insight && Object.keys(insight)?.length
 
   return (
-    <li className={`px-3 pt-2 overflow-hidden`}>
+    <li className={`px-3 pt-2`}>
       <div className='flex space-x-2 place-items-center'>
         <div
           className={`${styles.title} ${

@@ -69,21 +69,6 @@ function Dashboard({ name }: PageProps) {
     }
   }, [issueSubData, events, setEvents])
 
-  const onRemoveAllWebsitePress = useCallback(async () => {
-    if (window.confirm('Are you sure you want to remove all websites?')) {
-      try {
-        await removeWebsite({
-          variables: {
-            url: '',
-            deleteMany: true,
-          },
-        })
-      } catch (e) {
-        console.error(e)
-      }
-    }
-  }, [removeWebsite])
-
   const onLighthouseToggle = useCallback(async () => {
     setLighthouseVisibility((visible: boolean) => !visible)
   }, [setLighthouseVisibility])
@@ -166,7 +151,6 @@ function Dashboard({ name }: PageProps) {
             !!data?.length ? (
               <RightBar
                 sortCapable={data?.length >= 2}
-                onRemoveAllWebsitePress={onRemoveAllWebsitePress}
                 onQueryEvent={onQueryEvent}
                 lhEnabled={lhEnabled}
                 lighthouseVisible={lighthouseVisible}
