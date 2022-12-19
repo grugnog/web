@@ -27,13 +27,16 @@ export const MiniPlayer: FC = () => {
   }, [miniPlayer])
 
   const onModalCloseEvent = () => {
-    if (!open) {
-      setMiniPlayerContent(false)
-    }
+    setMiniPlayerContent(false)()
   }
 
   return (
-    <HeadlessModal open={open} onClose={onModalCloseEvent} size={'xl'}>
+    <HeadlessModal
+      open={open}
+      onClose={onModalCloseEvent}
+      size={'xl'}
+      overflow={title !== 'Mini Player'}
+    >
       <div>
         <div className='flex w-full py-1.5 px-2  gap-x-2 place-items-center place-content-between border-b'>
           <div className={'flex gap-x-2 place-items-center'}>

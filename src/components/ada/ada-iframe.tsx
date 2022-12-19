@@ -12,6 +12,7 @@ import { sboxType } from './config'
 import { ResetCss } from './styles'
 import { onLoad } from './utils'
 import { AnnotationContainer } from './annotation-container'
+import { Issue } from '@app/types'
 
 const IFrameComponent = forwardRef((props: any, ref: any) => {
   const src = props?.src || ''
@@ -26,78 +27,82 @@ const IFrameComponent = forwardRef((props: any, ref: any) => {
 
 IFrameComponent.displayName = 'IFrameComponent'
 
-const urlReplacer = (url: string, homeStore: any) => {
+const urlReplacer = (url: string) => {
   if (url) {
     return `/api/iframe?url=${encodeURIComponent(url)}`
   }
-  return homeStore.getIframeSource(url)
+  return HomeManager.getIframeSource(url)
 }
 
-const MainFrame = observer(
-  ({
-    homeStore,
-    iframeStore,
-    url,
-    miniPlayer,
-    // viewMode = iframeStore?.viewMode,
-    issue,
-  }: any) => {
-    const iframeRef = useRef()
-    const { setFrameContent } = useIframe()
+interface MainFrameProps {
+  url: string
+  miniPlayer: any
+  issue: Issue
+}
 
-    useEffect(() => {
-      onLoad(null, { iframeRef })
+const AccessibilityIframe = ({
+  url,
+  miniPlayer,
+  // viewMode = iframeStore?.viewMode,
+  issue,
+}: MainFrameProps) => {
+  const iframeRef = useRef()
+  const { setFrameContent } = useIframe()
 
-      return () => {
-        iframeStore.clearPortals()
-        frameDom?.clearDom()
-      }
-    }, [iframeStore])
+  useEffect(() => {
+    onLoad(null, { iframeRef })
 
-    useEffect(() => {
-      if (issue && frameDom?.dom && !iframeStore.issueInited) {
-        iframeStore.initIssueFix(issue)
-      }
-    }, [iframeStore, issue])
-
-    const ariaL = `${url} accessibility insight view`
-
-    const loadFrame = (event: any) => {
-      onLoad(event, { setFrameContent, iframeRef })
-      if (issue) {
-        iframeStore.initIssueFix(issue)
-      }
+    return () => {
+      IframeManager.clearPortals()
+      frameDom?.clearDom()
     }
+  }, [])
 
-    const src = iframeStore?.viewMode ? url : urlReplacer(url, homeStore)
-
-    const frameProps = {
-      src,
-      title: ariaL,
-      name: ariaL,
-      onLoad: loadFrame,
-      className: mainFrame,
-      sandbox: `${sboxType} allow-scripts`,
-      ref: iframeRef,
-      allowFullScreen: true,
+  useEffect(() => {
+    if (issue && frameDom?.dom && !IframeManager.issueInited) {
+      IframeManager.initIssueFix(issue)
     }
+  }, [issue])
 
-    if (miniPlayer) {
-      return (
-        <div className={fixedFrame}>
-          <IFrameComponent {...frameProps} />
-        </div>
-      )
+  const ariaL = `${url} accessibility insight view`
+
+  const loadFrame = (event: any) => {
+    onLoad(event, { setFrameContent, iframeRef })
+    if (issue) {
+      IframeManager.initIssueFix(issue)
     }
+  }
+
+  const src = IframeManager.viewMode ? url : urlReplacer(url)
+
+  const frameProps = {
+    src,
+    title: ariaL,
+    name: ariaL,
+    onLoad: loadFrame,
+    className: mainFrame,
+    sandbox: `${sboxType} allow-scripts`,
+    ref: iframeRef,
+    allowFullScreen: true,
+  }
+
+  if (miniPlayer) {
     return (
-      <div className={mainFixed}>
-        <ResetCss />
+      <div className={fixedFrame}>
         <IFrameComponent {...frameProps} />
       </div>
     )
   }
-)
 
+  return (
+    <div className={mainFixed}>
+      <ResetCss />
+      <IFrameComponent {...frameProps} />
+    </div>
+  )
+}
+
+const MainFrame = observer(AccessibilityIframe)
 const FixPortals = observer(({ store }: { store: any }) => toJS(store.Portals))
 const Container = observer(({ store }: { store: any }) =>
   store.selectedAnnotation ? (
@@ -109,13 +114,7 @@ export const AdaIframe = ({ url = '', miniPlayer, issue }: any) => {
   return (
     <Fragment>
       {url ? (
-        <MainFrame
-          homeStore={HomeManager}
-          iframeStore={IframeManager}
-          url={url}
-          miniPlayer={miniPlayer}
-          issue={issue}
-        />
+        <MainFrame url={url} miniPlayer={miniPlayer} issue={issue} />
       ) : null}
       <FixPortals store={IframeManager} />
       <Container store={IframeManager} />

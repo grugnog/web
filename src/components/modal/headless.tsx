@@ -9,8 +9,18 @@ export const HeadlessModal: FC<
     size?: TWSize
     hideBackdrop?: boolean
     center?: boolean
+    overflow?: boolean // should apply overflow auto
   }>
-> = ({ children, open, onClose, size, hideBackdrop, center, ...props }) => {
+> = ({
+  children,
+  open,
+  onClose,
+  size,
+  hideBackdrop,
+  center,
+  overflow,
+  ...props
+}) => {
   return (
     <Transition.Root show={open} as={Fragment}>
       <Dialog
@@ -51,9 +61,11 @@ export const HeadlessModal: FC<
                 leaveTo='opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95'
               >
                 <Dialog.Panel
-                  className={`relative transform rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full overflow-hidden ${
+                  className={`relative transform rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full ${
                     size ? getSize(size) : 'sm:max-w-lg'
-                  } max-h-[75vh]`}
+                  } max-h-[80vh]${
+                    overflow ? ' overflow-auto' : ' overflow-hidden'
+                  }`}
                 >
                   {children}
                 </Dialog.Panel>
