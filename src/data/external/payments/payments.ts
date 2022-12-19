@@ -6,7 +6,7 @@ import { UserManager } from '@app/managers'
 
 // get a user payments @param skip queries
 export const usePayments = (skip?: boolean) => {
-  const { data, loading } = useQuery(GET_PAYMENTS, {
+  const { data, loading, refetch } = useQuery(GET_PAYMENTS, {
     variables: {},
     ssr: false,
     skip,
@@ -45,6 +45,7 @@ export const usePayments = (skip?: boolean) => {
     loading: loading || addPaymentLoading || cancelSubscriptionLoading,
     addSubscription,
     cancelSubscription,
+    refetch,
   })
 
   return model

@@ -6,16 +6,18 @@ type TokenParams = { plan?: string; yearly?: boolean; referral?: string }
 
 // build from payments gql hook for page interaction
 export const usePaymentsHook = (skip?: boolean) => {
-  const { data, loading, addSubscription, cancelSubscription } =
+  const { data, loading, addSubscription, cancelSubscription, refetch } =
     usePayments(skip)
   const router = useRouter()
 
   // on valid payment handling re-set current token
   const onToken = async (
     token: any,
-    { plan, yearly, referral }: TokenParams
+    { plan, yearly, referral }: TokenParams,
+    noRedirect?: boolean
   ) => {
-    AppManager.toggleSnack(true, 'Processing payment...', 'success')
+    !noRedirect &&
+      AppManager.toggleSnack(true, 'Processing payment...', 'success')
     try {
       const res = await addSubscription({
         variables: {
@@ -32,7 +34,7 @@ export const usePaymentsHook = (skip?: boolean) => {
                   referral,
                 }
           ),
-          email: token.email,
+          email: token?.email,
           yearly,
         },
       })
@@ -42,7 +44,7 @@ export const usePaymentsHook = (skip?: boolean) => {
       if (jwt) {
         UserManager.setJwt(jwt)
         AppManager.toggleSnack(true, 'Upgrade success!', 'success')
-        await router.push('/dashboard')
+        !noRedirect && (await router.push('/dashboard'))
       } else {
         AppManager.toggleSnack(
           true,
@@ -99,5 +101,6 @@ export const usePaymentsHook = (skip?: boolean) => {
     cancelSubscription,
     onToken,
     onCancelConfirm,
+    refetch,
   }
 }

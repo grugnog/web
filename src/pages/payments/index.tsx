@@ -15,8 +15,8 @@ import { SectionContainer } from '@app/components/stateless/containers/section-c
 import { priceHandler } from '@app/utils/price-handler'
 import { usePaymentsHook } from '@app/data/external/payments/use-payments'
 import { roleMap } from '@app/utils/role-map'
-import { CheckoutFormless } from '@app/components/stripe/formless'
 import { useAuthContext } from '@app/components/providers/auth'
+import { AppManager } from '@app/managers'
 
 interface PaymentProps extends PageProps {
   hideTitle?: boolean
@@ -37,7 +37,7 @@ const renderPaymentTitle = (renderPayMentBoxes?: boolean) => {
 // move plan and yearset SSR
 function Payments({ hideTitle = false, name }: PaymentProps) {
   const router = useRouter()
-  const { data, loading, onToken } = usePaymentsHook()
+  const { data, loading, onToken, refetch } = usePaymentsHook()
   const [selectedPlan, setState] = useState<string>('')
   const [newCard, setNewCard] = useState<boolean>(false)
   const [yearly, setYearly] = useState<boolean>(false)
@@ -47,6 +47,23 @@ function Payments({ hideTitle = false, name }: PaymentProps) {
   // router plan query
   const queryPlan = (router?.query?.plan as string) ?? ''
   const yearSet = (router?.query?.yearly as string) ?? ''
+
+  const paymentSubscription = data?.paymentSubscription
+  const manualCheckout = !paymentSubscription || newCard
+  const role = data?.role
+  const partnerProgram = !loading && role && !paymentSubscription
+  // allow payments on all non maxed accounts
+  const subTitle = renderPaymentTitle(partnerProgram)
+
+  const priceMultiplyier = yearly ? 0 : ''
+  const currentPlan = roleMap(role)
+  const basePlan = role && currentPlan
+
+  const price = priceHandler(selectedPlan || basePlan || 'L1')
+  const selectedPrice = Number(`${price}${priceMultiplyier}`)
+
+  // the plan at hand for payments
+  const paymentPlan = selectedPlan || basePlan || 'L1'
 
   useEffect(() => {
     if (window.rewardful) {
@@ -67,29 +84,31 @@ function Payments({ hideTitle = false, name }: PaymentProps) {
     }
   }, [yearSet, queryPlan])
 
-  const handleChange = (newState: any) => {
-    setState(newState)
-  }
-
   // on valid payment handling re-set current token
   const onTokenEvent = async (token: any) => {
     await onToken(token, { plan: selectedPlan, yearly, referral })
   }
 
-  const paymentSubscription = data?.paymentSubscription
-  const partnerProgram = !loading && data?.role && !paymentSubscription
-  // allow payments on all non maxed accounts
-  const subTitle = renderPaymentTitle(partnerProgram)
+  const handleChange = async (newState: string) => {
+    if (!manualCheckout) {
+      if (newState !== currentPlan) {
+        await onToken('', { plan: newState, yearly, referral }, true)
+        if(refetch) {
+          await refetch()
+        }
+        AppManager.toggleSnack(true, `Plan set to ${newState}`)
+      }
+    }
+    setState(newState)
+  }
 
-  const priceMultiplyier = yearly ? 0 : ''
-  const currentPlan = roleMap(data?.role)
-  const price = priceHandler(
-    selectedPlan || (data?.role && currentPlan) || 'L1'
-  )
-  const selectedPrice = Number(`${price}${priceMultiplyier}`)
+  let initialSelectIndex = 0
 
-  // the plan at hand for payments
-  const paymentPlan = selectedPlan || (data?.role && currentPlan) || 'L1'
+  if (role >= 5) {
+    initialSelectIndex = role - 6
+  } else if (role) {
+    initialSelectIndex = role - 1
+  }
 
   return (
     <>
@@ -105,12 +124,12 @@ function Payments({ hideTitle = false, name }: PaymentProps) {
               <PriceMemo
                 priceOnly
                 onClick={handleChange}
-                role={data?.role}
+                role={role}
                 currentPlan={currentPlan}
                 setYearly={setYearly}
                 yearly={yearly}
-                initialIndex={data?.role >= 5 ? data.role - 6 : data?.role}
-                highPlan={data?.role >= 5}
+                initialIndex={initialSelectIndex}
+                highPlan={role >= 5}
               />
               <div>
                 {!partnerProgram ? (
@@ -137,22 +156,14 @@ function Payments({ hideTitle = false, name }: PaymentProps) {
                             </StripProvider>
                           </>
                         ) : (
-                          <>
-                            <Button
-                              onClick={() => setNewCard((x) => !x)}
-                              className={
-                                'border-none font-semibold text-green-700'
-                              }
-                            >
-                              Add New Card
-                            </Button>
-                            <CheckoutFormless
-                              onToken={onTokenEvent}
-                              plan={paymentPlan}
-                              price={selectedPrice}
-                              disabled={!paymentPlan}
-                            />
-                          </>
+                          <Button
+                            onClick={() => setNewCard((x) => !x)}
+                            className={
+                              'border-none font-semibold text-green-700'
+                            }
+                          >
+                            Add New Card
+                          </Button>
                         )}
                       </div>
                     </div>

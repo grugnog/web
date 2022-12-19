@@ -35,7 +35,11 @@ const Top = ({
         className='visible lg:hidden p-3 hover:bg-gray-200 rounded-2xl'
         type={'button'}
       >
-        {!open ? <GrExpand /> : <GrClose />}
+        {!open ? (
+          <GrExpand className='grIcon' />
+        ) : (
+          <GrClose className='grIcon' />
+        )}
       </button>
     </div>
   )
