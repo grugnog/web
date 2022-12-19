@@ -36,7 +36,7 @@ export const RightBar = ({
       </Button>
       {onScanAllEvent ? (
         <Button onClick={onScanAllEvent} className={btnStyles}>
-          Sync All <GrConnect className='grIcon' />
+          Sync <GrConnect className='grIcon' />
         </Button>
       ) : null}
       {sortCapable ? (

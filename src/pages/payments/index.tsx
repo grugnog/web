@@ -69,12 +69,6 @@ function Payments({ hideTitle = false, name }: PaymentProps) {
 
   const handleChange = (newState: any) => {
     setState(newState)
-    // todo remove for ref
-    const inputElement = document.querySelector('input')
-
-    if (inputElement) {
-      inputElement.focus()
-    }
   }
 
   // on valid payment handling re-set current token
