@@ -9,7 +9,14 @@ function Blog(props: BlogPageProps) {
 }
 
 export async function getStaticPaths() {
-  return { paths: [], fallback: 'blocking' }
+  return {
+    paths: [
+      '/blog/next-js-to-astro',
+      '/blog/web-accessibility-monitoring',
+      '/blog/version-your-proto-definitions-for-stablity',
+    ],
+    fallback: 'blocking',
+  }
 }
 
 export const getStaticProps: GetStaticProps = async (context) => {

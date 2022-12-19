@@ -190,7 +190,7 @@ export default function Layout({ Component, pageProps }: InnerApp) {
       </Head>
       <SkipContent />
       <LayoutWrapper Component={Component} pageProps={pageProps} />
-      <SnackBar topLevel />
+      {pathName === 'blog' ? null : <SnackBar topLevel />}
     </>
   )
 }

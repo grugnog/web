@@ -10,8 +10,10 @@ export default function Document({ __NEXT_DATA__ }: DocumentProps) {
       itemType={faq ? 'https://schema.org/FAQPage' : undefined}
     >
       <Head />
-      <Main />
-      <NextScript />
+      <body>
+        <Main />
+        <NextScript />
+      </body>
     </Html>
   )
 }

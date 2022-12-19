@@ -4,7 +4,7 @@ import { IFRAME_ENDPOINT } from '@app/configs/next/iframe'
 export async function middleware(req: NextRequest) {
   let res = NextResponse.next()
 
-  if (req.headers?.get('host')?.endsWith(".blog")) {
+  if (req.headers?.get('host')?.endsWith('.blog')) {
     const url = req.nextUrl.clone()
     url.pathname = `/blog${req.nextUrl.pathname}`
     res = NextResponse.rewrite(url)

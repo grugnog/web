@@ -21,7 +21,7 @@ export const NavBar: FC<any> = ({ title = strings.appName }) => {
           style={{ display: 'flex' }}
         >
           <Link className={`text-black`} href={MAIN_HREF}>
-            <Logo className='block invert' width={24} height={24} />
+            <Logo className='block invert p-0 m-0' width={24} height={24} />
           </Link>
           <span>/</span>
           <Link className={`text-normal`} href={BLOG_HREF}>
