@@ -81,23 +81,13 @@ function MoreOptionsBaseComponent({
           {() => (
             <button
               className={btnStyles}
-              onClick={handleMainClick(JSON.stringify(lh), 'Lighthouse', true)}
+              onClick={handleMainClick(lh, 'Lighthouse', true)}
             >
               View Lighthouse
             </button>
           )}
         </Menu.Item>
       ) : null}
-      <Menu.Item>
-        {() => (
-          <button
-            onClick={handleMainClick(targetUrl, 'Mini Player', true)}
-            className={btnStyles}
-          >
-            View Sandbox (Mini Player)
-          </button>
-        )}
-      </Menu.Item>
       {children}
     </TopMenu>
   )

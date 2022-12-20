@@ -5,7 +5,10 @@ export const useLighthouse = (insight: any) => {
   const data = useMemo(() => {
     if (insight && insight?.json) {
       try {
-        const parsedResult = JSON.parse(insight?.json)
+        const parsedResult =
+          typeof insight.json === 'string'
+            ? JSON.parse(insight.json)
+            : insight.json
 
         if (parsedResult && 'lighthouseVersion' in parsedResult) {
           return parsedResult

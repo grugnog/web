@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { FC, PropsWithChildren } from 'react'
 
 // card props
 export type CardHeaderProps = {
@@ -10,13 +10,14 @@ export type CardHeaderProps = {
 }
 
 // standard card header title, subheader
-export const CardHeader = ({
+export const CardHeader: FC<PropsWithChildren<CardHeaderProps>> = ({
   title,
   subheader,
   className,
   style,
   lg,
-}: CardHeaderProps) => {
+  children
+}) => {
   return (
     <div className={className} style={style}>
       <div className='px-4 py-2 gap-y-2'>
@@ -27,9 +28,10 @@ export const CardHeader = ({
         >
           {title}
         </div>
-        <div className={`${lg ? 'text-xl' : 'text-lg'} text-gray-600`}>
+        <div className={`pb-3 ${lg ? 'text-xl' : 'text-lg'} text-gray-600`}>
           {subheader}
         </div>
+        {children}
       </div>
     </div>
   )

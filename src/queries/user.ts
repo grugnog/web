@@ -31,6 +31,7 @@ const GET_USER_SETTINGS = gql`
       passwordRequired
       pageSpeedApiKey
       emailFilteredDates
+      emailMorningOnly
     }
   }
 `
@@ -46,6 +47,7 @@ const GET_USER_PROFILE = gql`
       activeSubscription
       emailConfirmed
       emailFilteredDates
+      emailMorningOnly
       passwordRequired
       scanInfo {
         lastScanDate

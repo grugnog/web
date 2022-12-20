@@ -14,6 +14,7 @@ import { Header3 } from './header'
 import { HeadlessFullScreenModal } from '../modal/headless-full'
 import { fetcher } from '@app/utils/fetcher'
 import { LineChart } from './charts/line-chart'
+import { Lighthouse } from './lighthouse'
 
 export const defaultModalState = {
   open: false,
@@ -105,6 +106,18 @@ const Body = ({
   const { issuesModal, headerModal, verifyModal, analyticsModal } =
     handleModelType(title)
 
+  if (title === 'Lighthouse') {
+    return (
+      <div className='py-6 container mx-auto max-h-[80vh] overflow-visible h-full w-full'>
+        <Lighthouse
+          insight={data}
+          id='fullscreen-lighthouse-report'
+          lighthouseVisible
+        />
+      </div>
+    )
+  }
+
   if (analyticsModal) {
     const analytics = data?.data
 
@@ -152,6 +165,7 @@ const Body = ({
       </div>
     )
   }
+
   if (headerModal) {
     return <UpperInput data={data} url={url} />
   }

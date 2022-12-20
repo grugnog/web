@@ -26,7 +26,6 @@ export function WebsiteCellPagesComponent({
   removePress,
   handleClickOpen,
   pages,
-  handleClickOpenPlayer,
   issues,
   issuesInfo,
   cdnConnected,
@@ -66,11 +65,9 @@ export function WebsiteCellPagesComponent({
   }, [url, removePress])
 
   const handleMainClick =
-    (eventData?: any, title?: string, mini?: boolean, url?: string) => () => {
+    (eventData?: any, title?: string, _mini?: boolean, url?: string) => () => {
       // mini player open - small modal with dynamic content
-      if (mini) {
-        handleClickOpenPlayer(true, eventData, title)()
-      } else if (handleClickOpen) {
+      if (handleClickOpen) {
         handleClickOpen(eventData, title, url)
       }
 

@@ -3,7 +3,7 @@
 import React from 'react'
 import { observer } from 'mobx-react-lite'
 import { frameDom, IframeManager } from '@app/managers'
-import { useAutoFix, useMiniPlayer, useIframe } from '@app/data'
+import { useAutoFix, useIframe } from '@app/data'
 import { Box } from '@a11ywatch/ui'
 import {
   GrList,
@@ -14,16 +14,21 @@ import {
 } from 'react-icons/gr'
 import { issueExtractor } from '@app/utils'
 import { Button } from './buttons'
+import { useInteractiveContext } from '../providers/interactive'
 
 const btnStyle =
   'w-full py-3 place-items-center bg-[rgba(20,20,20,0.3)] border-3'
 
 const MFab = observer(({ iframeStore, issue, script, marketing }: any) => {
-  const { setMiniPlayerContent, miniPlayer } = useMiniPlayer()
+  const { setMiniPlayerContent, miniPlayer } = useInteractiveContext()
   const { highLight, toggleHighLight, setFrameContent } = useIframe()
   const { autoFixEnabled, setAutoFix } = useAutoFix(script)
 
   const pageIssues = issueExtractor(issue)
+
+  const onViewIssuesModal = () => {
+    setMiniPlayerContent(!miniPlayer.open)
+  }
 
   return (
     <Box
@@ -59,7 +64,7 @@ const MFab = observer(({ iframeStore, issue, script, marketing }: any) => {
         <Button
           iconButton
           className={btnStyle}
-          onClick={setMiniPlayerContent(!miniPlayer.open)}
+          onClick={onViewIssuesModal}
           title='View page issues as list'
         >
           <GrStatusWarning className={'grIcon'} />

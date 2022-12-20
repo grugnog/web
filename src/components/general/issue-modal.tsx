@@ -1,23 +1,21 @@
 import React from 'react'
 import Draggable from 'react-draggable'
-import { useMiniPlayer } from '@app/data'
 import { NavBarTitle } from './navigation'
 import { GrClose } from 'react-icons/gr'
 import { issueExtractor } from '@app/utils'
 import { FeedIssue } from './feed/issue'
 import { Button } from './buttons'
 import { HeadlessModal } from '../modal/headless'
+import { useInteractiveContext } from '../providers/interactive'
 
 export function IssueModal({ issue }: any) {
-  const { miniPlayer, setMiniPlayerContent } = useMiniPlayer()
+  const { miniPlayer, setMiniPlayerContent } = useInteractiveContext()
   const { open, title } = miniPlayer
 
   const pageIssues = issueExtractor(issue)
 
   const onModalCloseEvent = () => {
-    if (!open) {
-      setMiniPlayerContent(false)
-    }
+    setMiniPlayerContent(false)
   }
 
   return (
@@ -27,7 +25,7 @@ export function IssueModal({ issue }: any) {
           <div className={`appBar text-white bg-black rounded-t`}>
             <div className='flex place-items-center py-2 px-2'>
               <Button
-                onClick={setMiniPlayerContent(false)}
+                onClick={onModalCloseEvent}
                 aria-label='close'
                 iconButton
                 className='text-white hover:text-black'

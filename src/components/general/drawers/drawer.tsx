@@ -10,7 +10,6 @@ import { ConfirmEmail } from '../../alerts'
 import { IssueFeed } from '../../feed'
 import { SearchBar } from '../searchbar'
 import { RefBanner } from '../ref-banner'
-import { EmptyDialogButton } from '../empty-dialog'
 
 const DynamicModal = dynamic(
   () => import('../../modal/dynamic').then((mod) => mod.DynamicModal),
@@ -21,14 +20,6 @@ const MiniPlayer = dynamic(
   () => import('../mini-player').then((mod) => mod.MiniPlayer),
   {
     ssr: false,
-  }
-)
-
-const FormDialog = dynamic(
-  () => import('../form-dialog').then((mod) => mod.FormDialog),
-  {
-    ssr: false,
-    loading: () => <EmptyDialogButton buttonStyles={'w-full bg-gray-50'} />,
   }
 )
 
@@ -43,18 +34,13 @@ function MainDrawerContainerComponent({ route, loading }: DrawerWrapperProps) {
     <div
       className={`flex flex-col overflow-x-hidden w-[55px] sm:w-[15vw] md:w-[18vw] lg:w-[250px] max-w-[250px] relative print:hidden overflow-hidden`}
     >
-      <div className='fixed flex flex-col w-[inherit] overflow-hidden h-full bg-lightgray z-10 space-y-3'>
+      <div className='fixed flex flex-col w-[inherit] overflow-hidden h-full bg-lightgray z-10 space-y-3 place-content-between'>
         <AuthedMenu route={route} loading={loading} />
-        <div
-          className={
-            'xl:visible invisible p-4 place-items-center flex-col flex flex-1'
-          }
-        >
-          <FormDialog buttonStyles={'w-full bg-gray-50'} />
-        </div>
-        <UpgradeBanner />
-        <div className='invisible md:visible w-full flex place-content-center py-2 truncate'>
-          <FixedCopyRight />
+        <div>
+          <UpgradeBanner />
+          <div className='invisible md:visible w-full flex place-content-center py-2 truncate'>
+            <FixedCopyRight />
+          </div>
         </div>
       </div>
     </div>

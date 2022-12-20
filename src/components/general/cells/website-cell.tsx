@@ -21,7 +21,6 @@ export function WebsiteCell(props: WebsiteCellProps) {
   const {
     url,
     handleClickOpen,
-    handleClickOpenPlayer,
     issues,
     issuesInfo,
     cdnConnected,
@@ -56,10 +55,8 @@ export function WebsiteCell(props: WebsiteCellProps) {
   )
 
   const handleMainClick =
-    (eventData?: any, title?: string, mini?: boolean, url?: string) => () => {
-      mini
-        ? handleClickOpenPlayer(true, eventData, title)()
-        : handleClickOpen(eventData, title, url)
+    (eventData?: any, title?: string, _mini?: boolean, url?: string) => () => {
+      handleClickOpen(eventData, title, url)
       setAnchorEl(null)
     }
 

@@ -1,5 +1,4 @@
 import { Fragment, useState, useCallback, FC, PropsWithChildren } from 'react'
-import { useMiniPlayer } from '@app/data'
 import { FullScreenModal } from './fullscreen-modal'
 import { DataContainer } from './data-container'
 import {
@@ -32,7 +31,6 @@ export const WebsiteList: FC<PropsWithChildren<WebsiteListProps>> = ({
   children,
 }) => {
   const [modal, setOpen] = useState(defaultModalState)
-  const { setMiniPlayerContent } = useMiniPlayer(setOpen)
 
   const handleClickOpen = useCallback(
     (data: any, title: any, url: any, er: any) => {
@@ -58,7 +56,6 @@ export const WebsiteList: FC<PropsWithChildren<WebsiteListProps>> = ({
       >
         <WebSitesDashboard
           handleClickOpen={handleClickOpen}
-          handleClickOpenPlayer={setMiniPlayerContent}
           refetch={refetch}
           removePress={removePress}
           crawlWebsite={crawlWebsite}
@@ -77,7 +74,6 @@ export const WebsiteList: FC<PropsWithChildren<WebsiteListProps>> = ({
         handleClose={handleClose}
         handleClickOpen={handleClickOpen}
         refetch={refetch}
-        handleClickOpenPlayer={setMiniPlayerContent}
       />
     </Fragment>
   )

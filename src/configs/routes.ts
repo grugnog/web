@@ -211,7 +211,6 @@ export const LoggedInRoutes = [
  */
 export const LOGGIN_ROUTES = [
   '/analytics',
-  '/alerts',
   '/dashboard',
   '/profile',
   '/history',

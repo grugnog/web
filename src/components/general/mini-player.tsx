@@ -1,7 +1,6 @@
 'use client'
 
 import { FC, useMemo } from 'react'
-import { useMiniPlayer } from '@app/data'
 import { Fab } from './fab'
 import { Link } from './link'
 import { GrClose } from 'react-icons/gr'
@@ -9,10 +8,11 @@ import { Lighthouse } from './lighthouse'
 import { AdaIframe } from '../ada/ada-iframe'
 import { Button } from './buttons'
 import { HeadlessModal } from '../modal/headless'
+import { useInteractiveContext } from '../providers/interactive'
 
 // a mini modal that appears that can be dragged across the screen.
 export const MiniPlayer: FC = () => {
-  const { miniPlayer, setMiniPlayerContent } = useMiniPlayer()
+  const { miniPlayer, setMiniPlayerContent } = useInteractiveContext()
 
   const { open, data, title } = useMemo(() => {
     // parse lighthouse data
@@ -27,7 +27,7 @@ export const MiniPlayer: FC = () => {
   }, [miniPlayer])
 
   const onModalCloseEvent = () => {
-    setMiniPlayerContent(false)()
+    setMiniPlayerContent(false)
   }
 
   return (

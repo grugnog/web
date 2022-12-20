@@ -76,25 +76,25 @@ export const useUserData = (skip?: boolean, query?: 'profile' | 'settings') => {
       console.error(e)
     }
   }
+
+  // perform action silent
   const onFilterEmailDates = async (
     dates: number[],
     morning: boolean = false
   ) => {
-    const res = await filterEmailDates({
+    await filterEmailDates({
       variables: {
         emailFilteredDates: dates,
         morning,
       },
     }).catch((e: any) => {
-      console.error(e)
-    })
-    if (res) {
       AppManager.toggleSnack(
         true,
-        'Dates for allowed emails updated.',
-        'success'
+        e?.message ?? 'An error occured with filtering dates.',
+        'error'
       )
-    }
+      console.error(e)
+    })
   }
 
   const onConfirmLighthouse = async (pageSpeedApiKey: string) => {

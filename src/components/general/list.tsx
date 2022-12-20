@@ -1,9 +1,10 @@
-import { FC, useState, useEffect, useCallback, memo } from 'react'
-import { useMiniPlayer } from '@app/data'
+import { FC, useState, useCallback, memo } from 'react'
 import { CardHeader } from '@app/components/stateless/card/header'
 import { ListSkeleton } from '../placeholders'
 import { FullScreenModal } from './fullscreen-modal'
 import { WebsiteCell } from './cells'
+import { Button } from './buttons'
+import { UserManager } from '@app/managers'
 
 const emptyClass = 'min-h-10'
 
@@ -12,7 +13,6 @@ function WebSites({
   removePress,
   handleClickOpen,
   refetch,
-  handleClickOpenPlayer,
   crawlWebsite,
   mutatationLoading,
   loading,
@@ -26,7 +26,6 @@ function WebSites({
         key={`${id} ${url} ${pageUrl} ${index}`}
         removePress={removePress}
         refetch={refetch}
-        handleClickOpenPlayer={handleClickOpenPlayer}
         crawlWebsite={crawlWebsite}
         loading={loading}
         mutatationLoading={mutatationLoading}
@@ -47,6 +46,11 @@ const defaultModalState = {
   error: '',
 }
 
+const onLogout = () => {
+  UserManager.clearUser()
+  window.location.href = "/"
+}
+
 // TODO: remove for central history component
 export function ListComponent({
   data,
@@ -65,7 +69,6 @@ export function ListComponent({
   blocked,
 }: any) {
   const [modal, setOpen] = useState(defaultModalState)
-  const { miniPlayer, setMiniPlayerContent } = useMiniPlayer()
 
   const handleClickOpen = useCallback(
     (data: any, title: any, url: any, error: any) => {
@@ -78,15 +81,8 @@ export function ListComponent({
     setOpen((m) => ({ ...m, open: false }))
   }, [setOpen])
 
-  useEffect(() => {
-    if (miniPlayer.open) {
-      handleClose()
-    }
-  }, [miniPlayer, handleClose])
-
   const generalProps = {
     handleClickOpen,
-    handleClickOpenPlayer: setMiniPlayerContent,
     removePress,
     refetch,
     historyPage,
@@ -107,7 +103,11 @@ export function ListComponent({
           title='Error'
           subheader='An Issue occurred. Please try again. If issue persist please contact support.'
           className={emptyClass}
-        />
+        >
+        <Button onClick={onLogout}>
+          Logout
+        </Button>
+        </CardHeader>
       )
     }
     if (data?.length) {
@@ -143,7 +143,6 @@ export function ListComponent({
         handleClose={handleClose}
         handleClickOpen={handleClickOpen}
         refetch={refetch}
-        handleClickOpenPlayer={setMiniPlayerContent}
       />
     </>
   )

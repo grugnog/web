@@ -20,12 +20,6 @@ export interface WebsiteListProps {
 
 interface WebsiteDashboardProps extends WebsiteListProps {
   handleClickOpen(data: any, title: any, url: any, error: any): void
-  // todo remove curry
-  handleClickOpenPlayer: (
-    open?: boolean,
-    data?: any,
-    title?: string
-  ) => () => void
 }
 
 // Iterate over website dashboard cells
@@ -36,7 +30,6 @@ export const WebSitesDashboard: FC<
   removePress,
   handleClickOpen,
   refetch,
-  handleClickOpenPlayer,
   crawlWebsite,
   setModal,
   mutatationLoading,
@@ -61,7 +54,6 @@ export const WebSitesDashboard: FC<
           handleClickOpen={handleClickOpen}
           removePress={removePress}
           refetch={refetch}
-          handleClickOpenPlayer={handleClickOpenPlayer}
           crawlWebsite={crawlWebsite}
           setModal={setModal}
           loading={loading}

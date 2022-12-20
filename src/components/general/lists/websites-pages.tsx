@@ -1,5 +1,4 @@
-import { FC, useState, useEffect, useCallback, memo } from 'react'
-import { useMiniPlayer } from '@app/data'
+import { FC, useState, useCallback, memo } from 'react'
 import { usePagesData } from '@app/data/external/pages/pages'
 import { FullScreenModal } from '../fullscreen-modal'
 import { WebsiteCellPages } from '../cells'
@@ -107,7 +106,6 @@ export function ListComponent({
   children,
 }: any) {
   const [modal, setOpen] = useState(defaultModalState)
-  const { miniPlayer, setMiniPlayerContent } = useMiniPlayer()
 
   const handleClickOpen = (data: any, title: any, url: any, error: any) =>
     setOpen({ open: true, data, title, url, error })
@@ -115,12 +113,6 @@ export function ListComponent({
   const handleClose = useCallback(() => {
     setOpen(defaultModalState)
   }, [setOpen])
-
-  useEffect(() => {
-    if (miniPlayer.open) {
-      handleClose()
-    }
-  }, [miniPlayer, handleClose])
 
   return (
     <>
@@ -136,7 +128,6 @@ export function ListComponent({
             emptyHeaderSubTitle={emptyHeaderSubTitle}
             generalProps={{
               handleClickOpen,
-              handleClickOpenPlayer: setMiniPlayerContent,
               removePress,
               refetch,
               crawlWebsite,
@@ -152,7 +143,6 @@ export function ListComponent({
         handleClose={handleClose}
         handleClickOpen={handleClickOpen}
         refetch={refetch}
-        handleClickOpenPlayer={setMiniPlayerContent}
       />
     </>
   )

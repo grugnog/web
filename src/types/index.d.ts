@@ -430,6 +430,7 @@ export type User = {
   activeSubscription?: boolean
   emailConfirmed?: boolean
   emailFilteredDates?: number[]
+  emailMorningOnly?: boolean
   websites?: Website[]
   profileVisible?: boolean
   history?: History[]

@@ -56,7 +56,6 @@ export function WebsiteCellDashboardComponent({
   removePress,
   handleClickOpen,
   pages,
-  handleClickOpenPlayer,
   issues: currentIssues,
   issuesInfo,
   cdnConnected,
@@ -118,7 +117,7 @@ export function WebsiteCellDashboardComponent({
   }, [url, removePress])
 
   const handleMainClick =
-    (eventData?: any, title?: string, mini?: boolean, url?: string) =>
+    (eventData?: any, title?: string, _mini?: boolean, url?: string) =>
     async () => {
       // mini player open - small modal with dynamic content
       let eventDS = eventData
@@ -138,9 +137,7 @@ export function WebsiteCellDashboardComponent({
         eventDS = await fetcher(path, null, 'GET')
       }
 
-      if (mini) {
-        handleClickOpenPlayer(true, eventDS, title)()
-      } else if (handleClickOpen) {
+      if (handleClickOpen) {
         handleClickOpen(eventDS, title, url)
       }
 

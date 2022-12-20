@@ -8,6 +8,8 @@ interface Props {
   confirmDates(dates: number[], morning: boolean): Promise<void>
   filterEmailDates: number[]
   disabled?: boolean
+  defaultDayTime?: boolean
+  id?: string // top level id for dom
 }
 
 const week = [0, 1, 2, 3, 4, 5, 6]
@@ -23,17 +25,24 @@ const WeekSelectComponent: FC<Props> = ({
   confirmDates,
   filterEmailDates,
   disabled,
+  defaultDayTime,
+  id,
 }) => {
   const [selected, setSelected] = useState<number[]>(filterEmailDates ?? [])
-  const [morning, setMorning] = useState<boolean>(true)
-  const initial = useRef<boolean>(false)
+  const [morning, setMorning] = useState<boolean>(!!defaultDayTime)
+  const initialDate = useRef<boolean>(false)
+  const initialDayTime = useRef<boolean>(false)
 
   useEffect(() => {
-    if (filterEmailDates && !initial.current) {
+    if (filterEmailDates && !initialDate.current) {
       setSelected(filterEmailDates)
-      initial.current = true
+      initialDate.current = true
     }
-  }, [filterEmailDates, setSelected, initial])
+    if (defaultDayTime && !initialDayTime.current) {
+      setMorning(defaultDayTime)
+      initialDayTime.current = true
+    }
+  }, [filterEmailDates, defaultDayTime, setSelected, initialDate, setMorning])
 
   const onDateConfirm = useCallback(
     async (period: boolean) => {
@@ -82,8 +91,8 @@ const WeekSelectComponent: FC<Props> = ({
     : 'bg-gray-300 text-gray-600 md:bg-gray-300'
 
   return (
-    <div>
-      <p className={`text-base`}>
+    <div id={id ?? 'notification-selector'}>
+      <p className={`text-sm`}>
         Set what day of the week to disable notifications.
       </p>
       <div className={'flex gap-x-1 flex-wrap gap-y-2 py-3'}>
@@ -105,7 +114,7 @@ const WeekSelectComponent: FC<Props> = ({
         ))}
       </div>
       <div className='py-2 space-y-2'>
-        <p className='text-base'>Determine alert preference, day or night.</p>
+        <p className='text-base'>Determine alert preference.</p>
         <div className='flex space-x-2'>
           <Button
             onClick={onPeriodToggleMorning}

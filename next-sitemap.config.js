@@ -3,7 +3,6 @@ module.exports = {
   priority: 0.7,
   sitemapSize: 5000,
   exclude: [
-    '/alerts',
     '/dashboard',
     '/website-analytics',
     '/issues',

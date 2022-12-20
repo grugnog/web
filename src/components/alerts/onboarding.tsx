@@ -14,7 +14,7 @@ export function Onboarding() {
 
   const onTakePress = useCallback(async () => {
     setModal({ open: false, modalType: ModalType.empty, url: '' })
-    await router.push('/alerts', '/alerts')
+    await router.push('/settings#notification-selector')
   }, [setModal, router])
 
   const onClose = () => {
