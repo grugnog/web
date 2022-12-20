@@ -17,6 +17,7 @@ const defultPlayer = {
   data: '',
 }
 
+// todo: react-state
 export function useMiniPlayer(toggleModalVisibility?: (a: any) => void) {
   const { data, client } = useQuery(GET_MINI_PLAYER_STATE, { ssr: false })
 

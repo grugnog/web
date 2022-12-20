@@ -22,12 +22,14 @@ export const FormControl: FC<PropsWithChildren<LabelProps>> = ({
   visible,
   id,
   children,
+  className,
 }) => {
   return (
     <label
       className={classNames(
         `${visible ? 'text-sm' : 'sr-only'}`,
-        disabled ? 'text-gray-500' : ''
+        disabled ? 'text-gray-500' : '',
+        className
       )}
       htmlFor={htmlFor}
       id={id}

@@ -16,7 +16,7 @@ export const MiniPlayer: FC = () => {
 
   const { open, data, title } = useMemo(() => {
     // parse lighthouse data
-    if (miniPlayer?.title === 'Lighthouse') {
+    if (miniPlayer && miniPlayer?.title === 'Lighthouse') {
       return {
         ...miniPlayer,
         data: miniPlayer?.data ? JSON.parse(miniPlayer.data) : null,
@@ -42,7 +42,7 @@ export const MiniPlayer: FC = () => {
           <div className={'flex gap-x-2 place-items-center'}>
             <Button
               iconButton
-              onClick={setMiniPlayerContent(false)}
+              onClick={onModalCloseEvent}
               aria-label='close'
               className='text-black hover:text-black'
             >

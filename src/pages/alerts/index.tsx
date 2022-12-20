@@ -1,20 +1,30 @@
 import React from 'react'
 
-import { PageTitle, LinearBottom, Drawer } from '@app/components/general'
+import {
+  PageTitle,
+  LinearBottom,
+  Drawer,
+  AuthMenu,
+} from '@app/components/general'
 
 import { WeekSelect } from '@app/components/alerts'
 import { useUserData } from '@app/data'
 import { metaSetter } from '@app/utils'
 import type { PageProps } from '@app/types'
+import { useAuthContext } from '@app/components/providers/auth'
 
+// todo: remove page for settings
 function Alerts({ name }: PageProps) {
   const {
-    filterEmailDatesData,
+    filterEmailDatesData: filterEmailDates,
     onFilterEmailDates,
     filterEmailDatesLoading,
     data, // user
     loading,
   } = useUserData()
+  const { account } = useAuthContext()
+  const filterEmailDatesData =
+    filterEmailDates ?? data?.user?.emailFilteredDates
 
   if (!data && !loading) {
     return (
@@ -30,7 +40,10 @@ function Alerts({ name }: PageProps) {
   return (
     <>
       <Drawer title={name}>
-        <PageTitle title={'Alerts'} />
+        <PageTitle
+          title={'Alerts'}
+          rightButton={<AuthMenu authenticated={account.authed} settings />}
+        />
         <WeekSelect
           confirmDates={onFilterEmailDates}
           filterEmailDates={filterEmailDatesData}
@@ -45,7 +58,6 @@ export default metaSetter(
   { Alerts },
   {
     gql: true,
-    description:
-      'Set the treshold on how you want to receive your email updates.',
+    description: 'Determine how often you want to receive your email updates.',
   }
 )

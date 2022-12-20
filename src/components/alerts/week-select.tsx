@@ -1,38 +1,52 @@
-import { useEffect, useState, useCallback, memo, FC } from 'react'
+import { useEffect, useState, useCallback, memo, FC, useRef } from 'react'
 import { addDays, format, startOfWeek } from 'date-fns'
 import { GrMoon, GrSun } from 'react-icons/gr'
 import { Button } from '../general'
+import { classNames } from '@app/utils/classes'
 
 interface Props {
   confirmDates(dates: number[], morning: boolean): Promise<void>
   filterEmailDates: number[]
+  disabled?: boolean
 }
 
 const week = [0, 1, 2, 3, 4, 5, 6]
 const startDate = startOfWeek(new Date())
 const activeColor = 'rgb(59 130 246)'
-
 const timeBtnStyle = 'flex place-content-center place-items-center gap-x-2 w-28'
+const activeStyles = {
+  borderColor: activeColor,
+  color: activeColor,
+}
 
-const WeekSelectComponent: FC<Props> = ({ confirmDates, filterEmailDates }) => {
+const WeekSelectComponent: FC<Props> = ({
+  confirmDates,
+  filterEmailDates,
+  disabled,
+}) => {
   const [selected, setSelected] = useState<number[]>(filterEmailDates ?? [])
   const [morning, setMorning] = useState<boolean>(true)
+  const initial = useRef<boolean>(false)
 
   useEffect(() => {
-    if (filterEmailDates) {
+    if (filterEmailDates && !initial.current) {
       setSelected(filterEmailDates)
+      initial.current = true
     }
-  }, [filterEmailDates, setSelected])
+  }, [filterEmailDates, setSelected, initial])
 
-  const onDateConfirm = useCallback(async () => {
-    const validItems = selected.filter(
-      (item) => Number.isInteger(item) && item >= 0
-    )
-    await confirmDates(validItems, morning)
-  }, [confirmDates, selected, morning])
+  const onDateConfirm = useCallback(
+    async (period: boolean) => {
+      const validItems = selected.filter(
+        (item) => Number.isInteger(item) && item >= 0
+      )
+      await confirmDates(validItems, period)
+    },
+    [confirmDates, selected]
+  )
 
   const selectDates = useCallback(
-    (day: number) => {
+    async (day: number) => {
       const items = [...selected]
       const selectedDate = items.indexOf(day)
 
@@ -43,42 +57,61 @@ const WeekSelectComponent: FC<Props> = ({ confirmDates, filterEmailDates }) => {
       }
 
       setSelected(items)
+
+      const validItems = items.filter(
+        (item) => Number.isInteger(item) && item >= 0
+      )
+
+      await confirmDates(validItems, morning)
     },
-    [setSelected, selected]
+    [setSelected, selected, morning, confirmDates]
   )
 
-  const activeStyles = {
-    borderColor: activeColor,
-    color: activeColor,
-  }
+  const onPeriodToggleMorning = useCallback(async () => {
+    setMorning(true)
+    await onDateConfirm(true)
+  }, [setMorning, onDateConfirm])
+
+  const onPeriodToggleNight = useCallback(async () => {
+    setMorning(false)
+    await onDateConfirm(false)
+  }, [setMorning, onDateConfirm])
+
+  const disabledStyles = !disabled
+    ? ''
+    : 'bg-gray-300 text-gray-600 md:bg-gray-300'
 
   return (
     <div>
-      <h2 className={`text-xl`}>Disable notifications on selected days.</h2>
-      <div className={'flex gap-x-2 flex-wrap gap-y-2 py-4'}>
+      <p className={`text-base`}>
+        Set what day of the week to disable notifications.
+      </p>
+      <div className={'flex gap-x-1 flex-wrap gap-y-2 py-3'}>
         {week.map((day) => (
           <button
             onClick={() => selectDates(day)}
-            className={`text-xl md:text-2xl font-bold border rounded flex-1 h-[70px] px-2 py-4${
+            className={classNames(
+              `text-base md:text-lg font-semibold border rounded flex-1 px-2 py-3`,
               selected.includes(day)
-                ? ' bg-black text-white hover:opacity-90'
-                : ' hover:bg-gray-200'
-            }`}
+                ? ' bg-black md:bg-black text-white hover:opacity-90'
+                : ' hover:bg-gray-200',
+              disabledStyles
+            )}
+            disabled={disabled}
             key={day}
           >
             {format(addDays(startDate, day), 'eeee')}
           </button>
         ))}
       </div>
-      <div className='py-4 border px-4 rounded space-y-2'>
-        <h3 className='text-lg'>
-          Determine alert setting preference, day or night.
-        </h3>
-        <div className='flex space-x-2 py-2'>
+      <div className='py-2 space-y-2'>
+        <p className='text-base'>Determine alert preference, day or night.</p>
+        <div className='flex space-x-2'>
           <Button
-            onClick={() => setMorning(true)}
+            onClick={onPeriodToggleMorning}
             style={morning ? activeStyles : {}}
-            className={timeBtnStyle}
+            className={classNames(timeBtnStyle, disabledStyles)}
+            disabled={disabled}
           >
             <GrSun
               style={morning ? { fill: activeColor } : {}}
@@ -87,9 +120,10 @@ const WeekSelectComponent: FC<Props> = ({ confirmDates, filterEmailDates }) => {
             Morning
           </Button>
           <Button
-            onClick={() => setMorning(false)}
+            onClick={onPeriodToggleNight}
             style={!morning ? activeStyles : {}}
-            className={timeBtnStyle}
+            className={classNames(timeBtnStyle, disabledStyles)}
+            disabled={disabled}
           >
             <GrMoon
               style={!morning ? { fill: activeColor } : {}}
@@ -99,20 +133,8 @@ const WeekSelectComponent: FC<Props> = ({ confirmDates, filterEmailDates }) => {
           </Button>
         </div>
       </div>
-      <div className={'py-6'}>
-        <Button
-          onClick={onDateConfirm}
-          className={
-            'text-base text-blue-700 border-blue-700 border-2 md:px-10 md:rounded'
-          }
-        >
-          Update
-        </Button>
-      </div>
     </div>
   )
 }
 
-const WeekSelect = memo(WeekSelectComponent)
-
-export { WeekSelect, WeekSelectComponent }
+export const WeekSelect = memo(WeekSelectComponent)

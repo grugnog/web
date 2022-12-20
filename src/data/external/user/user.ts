@@ -15,12 +15,10 @@ import { GET_USER_PROFILE, GET_USER_SETTINGS } from '@app/queries/user'
 import { User } from '@app/types'
 
 export const useUserData = (skip?: boolean, query?: 'profile' | 'settings') => {
-  const variables = {}
   const profileQuery = query === 'profile'
   const settingsQuery = query === 'settings'
 
   const { data, loading } = useQuery(GET_USER, {
-    variables,
     skip: skip || profileQuery || settingsQuery,
     ssr: false,
   })
@@ -28,7 +26,6 @@ export const useUserData = (skip?: boolean, query?: 'profile' | 'settings') => {
   const { data: profile, loading: profileLoading } = useQuery(
     GET_USER_PROFILE,
     {
-      variables,
       skip: !profileQuery,
       ssr: false,
     }
@@ -37,7 +34,6 @@ export const useUserData = (skip?: boolean, query?: 'profile' | 'settings') => {
   const { data: settings, loading: settingsLoading } = useQuery(
     GET_USER_SETTINGS,
     {
-      variables,
       skip: !settingsQuery,
       ssr: false,
     }
@@ -70,9 +66,7 @@ export const useUserData = (skip?: boolean, query?: 'profile' | 'settings') => {
 
   const sendConfirmEmail = async () => {
     try {
-      await confirmEmail({
-        variables,
-      })
+      await confirmEmail()
       AppManager.toggleSnack(
         true,
         'Please check your email for confirmation link',
@@ -135,7 +129,7 @@ export const useUserData = (skip?: boolean, query?: 'profile' | 'settings') => {
       }
     : {}
 
-  const model = Object.freeze({
+  return Object.freeze({
     data: dataSet as { user: User }, // allow data or profile as main source
     forgotPasswordData,
     loading:
@@ -153,12 +147,9 @@ export const useUserData = (skip?: boolean, query?: 'profile' | 'settings') => {
     sendConfirmEmail,
     onFilterEmailDates,
     filterEmailDatesData:
-      filterEmailDatesData?.filterEmailDates?.emailFilteredDates ??
-      data?.user?.emailFilteredDates,
+      filterEmailDatesData?.filterEmailDates?.emailFilteredDates,
     filterEmailDatesLoading,
     onConfirmLighthouse,
     settings,
   })
-
-  return model
 }

@@ -1,13 +1,20 @@
-import React, { useCallback, useState } from 'react'
+import React, { SyntheticEvent, useCallback, useState } from 'react'
 import { PageTitle, Drawer, AuthMenu, Button } from '@app/components/general'
-import { useUserData } from '@app/data'
+import { useFeaturesData, useUserData } from '@app/data'
 import { metaSetter } from '@app/utils'
 import type { PageProps } from '@app/types'
 import { useWebsiteContext } from '@app/components/providers/website'
 import { GrTrash } from 'react-icons/gr'
-import { Header4 } from '@app/components/general/header'
-import { AppManager } from '@app/managers'
+import { Header2, Header3 } from '@app/components/general/header'
+import { AppManager, UserManager } from '@app/managers'
 import { SiLighthouse } from 'react-icons/si'
+import { WeekSelect } from '@app/components/alerts'
+import { useAuthContext } from '@app/components/providers/auth'
+import { SwitchInput } from '@app/components/general/switch'
+import { FormControl } from '@app/components/general/form-control'
+
+const headingStyle =
+  'text-xl md:text-2xl lg:text-2xl xl:text-2xl font-medium py-2'
 
 function Settings({ name }: PageProps) {
   const [pageSpeedKey, setPageSpeed] = useState<string>('')
@@ -15,9 +22,19 @@ function Settings({ name }: PageProps) {
     settings: data, // user
     loading,
     onConfirmLighthouse,
+    filterEmailDatesData: filterEmailDates,
+    onFilterEmailDates,
   } = useUserData(true, 'settings')
+
+  const { toggleAlert } = useFeaturesData()
+  const { account, setAccountType } = useAuthContext()
   const { removeWebsite, setLighthouseVisibility, lighthouseVisible } =
     useWebsiteContext()
+
+  const { alertEnabled, activeSubscription } = account
+
+  const filterEmailDatesData =
+    filterEmailDates ?? data?.user?.emailFilteredDates
 
   const onRemoveAllWebsitePress = useCallback(async () => {
     if (window.confirm('Are you sure you want to remove all websites?')) {
@@ -60,6 +77,31 @@ function Settings({ name }: PageProps) {
     })
   }, [setLighthouseVisibility])
 
+  const onAlertToggle = async (e?: SyntheticEvent<HTMLInputElement>) => {
+    if (e && typeof e.stopPropagation === 'function') {
+      e?.stopPropagation()
+    }
+
+    try {
+      const nextValue = !alertEnabled
+      setAccountType({
+        authed: account.authed,
+        activeSubscription,
+        alertEnabled: nextValue,
+        inited: true,
+      })
+      // todo: remove local storage usage for network + memory
+      UserManager.setAlertsEnabled(nextValue)
+      await toggleAlert({
+        variables: {
+          alertEnabled: nextValue,
+        },
+      })
+    } catch (e) {
+      console.error(e)
+    }
+  }
+
   if (!data && !loading) {
     return (
       <div className='px-2'>
@@ -82,32 +124,83 @@ function Settings({ name }: PageProps) {
         title={'Settings'}
         rightButton={<AuthMenu authenticated={data?.user} settings />}
       />
+      <Header2 className='sr-only'>
+        Configuration to maximize the output for you
+      </Header2>
       <div className='flex flex-col gap-y-4'>
-        <div>
-          <h2 className='text-2xl font-bold'>Core Web Vitals</h2>
-          <p>
-            Core Web Vitals are a set of speed metrics that are part of{' '}
-            {`Google’s`} Page Experience signals used to measure user
-            experience.
-          </p>
-          <p>
-            We retrieve them using PageSpeed Insights API along with our own
-            internal usage. In order to speed of your workflows you can add your
-            own key.
-          </p>
-          <p>{`It’s`} free but limited to a daily quota.</p>
-          <div className='py-2'>
-            <a
-              href={'https://developers.google.com/speed'}
-              target={'_blank'}
-              rel={'noreferrer'}
-              className={'text-blue-600'}
+        <div className='py-2 gap-y-2 border-t'>
+          <Header3 className='sr-only'>Notifications</Header3>
+          <div className='flex gap-x-2 place-items-center'>
+            <FormControl
+              htmlFor='alerts-btn'
+              visible
+              className={'text-xl md:text-2xl font-medium py-2'}
             >
-              Learn more
-            </a>
+              Notifications
+            </FormControl>
+            <SwitchInput
+              id='alerts-btn'
+              checked={alertEnabled}
+              onChange={onAlertToggle}
+            />
+          </div>
+          <WeekSelect
+            confirmDates={onFilterEmailDates}
+            filterEmailDates={filterEmailDatesData}
+            disabled={!alertEnabled}
+          />
+        </div>
+
+        <div className='py-2 gap-y-2 border-t'>
+          <div className='py-3'>
+            <div>
+              <Header3 className={headingStyle}>
+                Display Lighthouse on Dashboard
+              </Header3>
+              <p className='text-gray-700 text-sm'>
+                Toggle the visibility of lighthouse reports on the dashboard.
+              </p>
+            </div>
+            <p className='text-gray-800 py-1'>
+              Lighthouse visiblity is{' '}
+              {lighthouseVisible ? 'enabled' : 'disabled'}.
+            </p>
+          </div>
+          <Button
+            onClick={onLighthouseToggle}
+            className={'flex gap-x-2 place-items-center'}
+          >
+            Toggle Lighthouse Visibility
+            <SiLighthouse className='grIcon' />
+          </Button>
+        </div>
+
+        <div className='py-2 gap-y-2 border-t'>
+          <div>
+            <Header3 className={headingStyle}>Core Web Vitals</Header3>
+            <p>
+              Core Web Vitals are a set of speed metrics that are part of{' '}
+              {`Google’s`} Page Experience signals used to measure user
+              experience.
+            </p>
+            <p>
+              We retrieve them using PageSpeed Insights API along with our own
+              internal usage. In order to speed of your workflows you can add
+              your own key.
+            </p>
+            <p>{`It’s`} free but limited to a daily quota.</p>
+            <div className='py-2'>
+              <a
+                href={'https://developers.google.com/speed'}
+                target={'_blank'}
+                rel={'noreferrer'}
+                className={'text-blue-600'}
+              >
+                Learn more
+              </a>
+            </div>
           </div>
           <div>
-            <h3 className='text-xl font-medium'>PageSpeed API Key</h3>
             <ul className='space-y-2 py-3 list-decimal px-4'>
               <li>
                 <a
@@ -118,7 +211,7 @@ function Settings({ name }: PageProps) {
                     'https://developers.google.com/speed/docs/insights/v5/get-started'
                   }
                 >
-                  Get a free API key from Google
+                  Get a free PageSpeed API key from Google
                 </a>
               </li>
               <li>Enter the received code</li>
@@ -145,25 +238,7 @@ function Settings({ name }: PageProps) {
 
         <div className='py-2 gap-y-2 border-t'>
           <div className='py-3'>
-            <Header4>Display Lighthouse on Dashboard</Header4>
-            <p>Toggle the visibility of lighthouse reports on the dashboard.</p>
-            <p>
-              Lighthouse visiblity is{' '}
-              {lighthouseVisible ? 'enabled' : 'disabled'}.
-            </p>
-          </div>
-          <Button
-            onClick={onLighthouseToggle}
-            className={'flex gap-x-2 place-items-center'}
-          >
-            Toggle Lighthouse Visibility
-            <SiLighthouse className='grIcon' />
-          </Button>
-        </div>
-
-        <div className='py-2 gap-y-2 border-t'>
-          <div className='py-3'>
-            <Header4>Delete all data?</Header4>
+            <Header3 className={headingStyle}>Delete all data?</Header3>
             <p>This will remove all websites and associated data</p>
           </div>
           <Button

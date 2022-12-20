@@ -1,8 +1,6 @@
-import { TextSkeleton } from '@app/components/placeholders'
-import { AppManager } from '@app/managers'
 import { memo } from 'react'
+import { AppManager } from '@app/managers'
 import {
-  GrNotification as NotificationsIcon,
   GrCode as CodeIcon,
   GrAnalytics as DataUsageIcon,
   GrBug as BugReportIcon,
@@ -14,12 +12,9 @@ import {
 
 import { Link } from '../link'
 import { Pulse } from '../loaders'
-import { SwitchInput } from '../switch'
 
 const renderIcon = (feature?: string, className?: string) => {
   switch (feature) {
-    case 'Alerts':
-      return <NotificationsIcon className={className} />
     case 'Scripts':
       return <CodeIcon className={className} />
     case 'Analytics':
@@ -42,11 +37,6 @@ const renderIcon = (feature?: string, className?: string) => {
 
 const extraProps = (feature?: string, focused?: boolean, setEvents?: any) => {
   switch (feature) {
-    case 'Alerts':
-      return {
-        href: focused ? '/dashboard' : '/alerts',
-        color: 'inherit',
-      }
     case 'Scripts':
       return {
         href: focused ? '/dashboard' : '/scripts',
@@ -107,18 +97,14 @@ const listTitleStyle =
 // todo: types
 export function FeaturesCellComponent({
   feature,
-  alertEnabled = false,
   index,
-  toggleAlert,
   focused,
   events,
   setEvents,
-  initialLoad,
   activeSubscription,
 }: any) {
   const title = focused ? 'Dashboard' : feature
-
-  const blocked = !activeSubscription && index >= 2
+  const blocked = !activeSubscription && index >= 1
 
   const onUpgradeEvent = () => {
     AppManager.toggleSnack(
@@ -138,34 +124,9 @@ export function FeaturesCellComponent({
           onClick={onUpgradeEvent}
         >
           <div className='flex flex-1 text-xs md:text-sm place-items-center gap-x-2 place-content-center md:place-content-start sm:gap-x-3 md:gap-x-4'>
-            {renderIcon(
-              title,
-              (index === 0 &&
-                alertEnabled &&
-                'grIcon text-blue-700 md:text-gray-700') ||
-                'grIcon text-gray-700'
-            )}
-            {index === 0 && !initialLoad ? (
-              <label className={listTitleStyle} htmlFor='alerts-btn'>
-                {title}
-              </label>
-            ) : (
-              <div className={listTitleStyle}>{title}</div>
-            )}
+            {renderIcon(title, 'grIcon text-gray-700')}
+            <div className={listTitleStyle}>{title}</div>
           </div>
-          {index === 0 ? (
-            initialLoad ? (
-              <TextSkeleton width={40} height={20} className={'rounded'} />
-            ) : (
-              <div className='hidden lg:block'>
-                <SwitchInput
-                  id='alerts-btn'
-                  checked={alertEnabled}
-                  onChange={toggleAlert}
-                />
-              </div>
-            )
-          ) : null}
           {renderGuide(index, events)}
         </button>
       </li>
@@ -179,34 +140,9 @@ export function FeaturesCellComponent({
         {...extraProps(feature, focused, setEvents)}
       >
         <div className='flex flex-1 text-xs md:text-sm place-items-center gap-x-2 place-content-center md:place-content-start sm:gap-x-3 md:gap-x-4'>
-          {renderIcon(
-            title,
-            (index === 0 &&
-              alertEnabled &&
-              'grIcon text-blue-700 md:text-gray-700') ||
-              'grIcon text-gray-700'
-          )}
-          {index === 0 && !initialLoad ? (
-            <label className={listTitleStyle} htmlFor='alerts-btn'>
-              {title}
-            </label>
-          ) : (
-            <div className={listTitleStyle}>{title}</div>
-          )}
+          {renderIcon(title, 'grIcon text-gray-700')}
+          <div className={listTitleStyle}>{title}</div>
         </div>
-        {index === 0 ? (
-          initialLoad ? (
-            <TextSkeleton width={40} height={20} className={'rounded'} />
-          ) : (
-            <div className='hidden lg:block'>
-              <SwitchInput
-                id='alerts-btn'
-                checked={alertEnabled}
-                onChange={toggleAlert}
-              />
-            </div>
-          )
-        ) : null}
         {renderGuide(index, events)}
       </Link>
     </li>

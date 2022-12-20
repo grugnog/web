@@ -30,6 +30,7 @@ const GET_USER_SETTINGS = gql`
       activeSubscription
       passwordRequired
       pageSpeedApiKey
+      emailFilteredDates
     }
   }
 `
