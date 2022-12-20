@@ -29,7 +29,7 @@ export function PriceCell({
 
   return (
     <button
-      className={`md:min-w-[386.53px] w-full rounded flex flex-1 flex-col justify-between border border-[#2A2A2A] ${highLight(
+      className={`md:min-w-[386.53px] w-full h-full rounded flex flex-1 flex-col justify-between border border-[#2A2A2A] ${highLight(
         'border-blue-600 text-gray-900',
         selected,
         ''

@@ -137,7 +137,7 @@ export function PriceMemo({
             const activePlan = currentPlan === title
 
             return (
-              <li className='w-full' key={title}>
+              <li className='w-full h-full' key={title}>
                 <PriceCell
                   textColor={textColor}
                   onClick={onPriceClick}
