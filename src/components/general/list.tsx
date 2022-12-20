@@ -5,6 +5,8 @@ import { FullScreenModal } from './fullscreen-modal'
 import { WebsiteCell } from './cells'
 import { Button } from './buttons'
 import { UserManager } from '@app/managers'
+import { Cell } from './cells/cell'
+import { Website } from '@app/types'
 
 const emptyClass = 'min-h-10'
 
@@ -18,6 +20,11 @@ function WebSites({
   loading,
   historyPage,
 }: any) {
+  if (historyPage) {
+    return data?.map((props: Website) => (
+      <Cell key={props.url} url={props.url} domain={props.domain} />
+    ))
+  }
   return data?.map(
     ({ url, id, pageHeaders, pageUrl, ...domainProps }: any, index: number) => (
       <WebsiteCell
@@ -31,7 +38,6 @@ function WebSites({
         mutatationLoading={mutatationLoading}
         pageHeaders={pageHeaders}
         index={index}
-        historyPage={historyPage}
         {...domainProps}
       />
     )

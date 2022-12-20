@@ -213,7 +213,6 @@ export const LOGGIN_ROUTES = [
   '/analytics',
   '/dashboard',
   '/profile',
-  '/history',
   '/payments',
   '/issues',
   '/scripts', // todo: website scripts rename

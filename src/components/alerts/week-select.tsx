@@ -113,29 +113,28 @@ const WeekSelectComponent: FC<Props> = ({
           </button>
         ))}
       </div>
-      <div className='py-2 space-y-2'>
-        <p className='text-base'>Determine alert preference.</p>
+      <div className='py-2 space-y-2 border-t border-dotted'>
         <div className='flex space-x-2'>
           <Button
             onClick={onPeriodToggleMorning}
-            style={morning ? activeStyles : {}}
+            style={morning && !disabled ? activeStyles : {}}
             className={classNames(timeBtnStyle, disabledStyles)}
             disabled={disabled}
           >
             <GrSun
-              style={morning ? { fill: activeColor } : {}}
+              style={morning && !disabled ? { fill: activeColor } : {}}
               className={'grIcon'}
             />
             Morning
           </Button>
           <Button
             onClick={onPeriodToggleNight}
-            style={!morning ? activeStyles : {}}
+            style={!morning && !disabled ? activeStyles : {}}
             className={classNames(timeBtnStyle, disabledStyles)}
             disabled={disabled}
           >
             <GrMoon
-              style={!morning ? { fill: activeColor } : {}}
+              style={!morning && !disabled ? { fill: activeColor } : {}}
               className={'grIcon'}
             />
             Night

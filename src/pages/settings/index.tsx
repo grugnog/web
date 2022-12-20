@@ -10,6 +10,7 @@ import { AppManager, UserManager } from '@app/managers'
 import { SiLighthouse } from 'react-icons/si'
 import { useAuthContext } from '@app/components/providers/auth'
 import { NotificationSettings } from '@app/components/stateless/settings/notifications'
+import { HistoryList } from '@app/components/paginated/history'
 
 const headingStyle =
   'text-xl md:text-2xl lg:text-2xl xl:text-2xl font-medium py-2'
@@ -222,6 +223,29 @@ function Settings({ name }: PageProps) {
           </div>
         </div>
 
+        <div className='py-2 gap-y-2 border-t'>
+          <div className='py-3'>
+            <Header3 className={headingStyle}>History</Header3>
+            <p className='text-gray-700 text-sm'>The last websites added.</p>
+          </div>
+          <div
+            className={`h-60 ${
+              activeSubscription
+                ? 'overflow-y-auto'
+                : ' flex flex-col place-items-center place-content-center bg-gray-100 block p-3 h-full'
+            }`}
+          >
+            <>
+              {activeSubscription ? (
+                <HistoryList />
+              ) : (
+                <div className='font-medium'>
+                  Your history will show here after upgrading to a paid plan.
+                </div>
+              )}
+            </>
+          </div>
+        </div>
         <div className='py-2 pb-6 gap-y-2 border-t'>
           <div className='py-3'>
             <Header3 className={headingStyle}>Delete all data?</Header3>

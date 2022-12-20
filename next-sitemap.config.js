@@ -7,7 +7,6 @@ module.exports = {
     '/website-analytics',
     '/issues',
     '/scripts',
-    '/history',
     '/payments',
     '/website-details/*',
     '/web-issues',

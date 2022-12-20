@@ -4,7 +4,6 @@ import {
   GrCode as CodeIcon,
   GrAnalytics as DataUsageIcon,
   GrBug as BugReportIcon,
-  GrHistory as HistoryIcon,
   GrApps as DashboardIcon,
   GrCatalog as PageIcon,
   GrAction as ActionIcon,
@@ -27,8 +26,6 @@ const renderIcon = (feature?: string, className?: string) => {
       return <DashboardIcon className={className} />
     case 'Actions':
       return <ActionIcon className={className} />
-    case 'History':
-      return <HistoryIcon className={className} />
     default: {
       return <div className={className} />
     }
@@ -66,11 +63,6 @@ const extraProps = (feature?: string, focused?: boolean, setEvents?: any) => {
     case 'Actions':
       return {
         href: focused ? '/dashboard' : '/web-actions',
-        color: 'inherit',
-      }
-    case 'History':
-      return {
-        href: focused ? '/dashboard' : '/history',
         color: 'inherit',
       }
     default: {

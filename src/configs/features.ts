@@ -4,5 +4,4 @@ export const features = [
   { id: '1', feature: 'Scripts' },
   { id: '6', feature: 'Actions' },
   { id: '2', feature: 'Analytics' },
-  { id: '4', feature: 'History' },
 ]

@@ -9,7 +9,6 @@ interface WebsiteCellProps extends Partial<Website> {
   handleClickOpen(a: any, b: any, c?: string): void
   handleClickOpenPlayer: (a: boolean, b: any, c?: string) => () => void
   mutatationLoading: boolean
-  historyPage: boolean // history page
 }
 
 // OLD WEBSITE CELL [TODO: remove]
@@ -28,7 +27,6 @@ export function WebsiteCell(props: WebsiteCellProps) {
     mutatationLoading,
     lastScanDate,
     pageHeaders,
-    historyPage,
   } = extra
 
   const { adaScore } = issuesInfo ?? {}
@@ -64,13 +62,11 @@ export function WebsiteCell(props: WebsiteCellProps) {
     <li
       className={'border-b space-y-1 flex w-full px-3 py-2 hover:no-underline'}
     >
-      {historyPage ? null : (
-        <RenderAvatar
-          cdnConnected={cdnConnected}
-          adaScore={adaScore}
-          error={false}
-        />
-      )}
+      <RenderAvatar
+        cdnConnected={cdnConnected}
+        adaScore={adaScore}
+        error={false}
+      />
       <div className='space-y-2 flex flex-1 flex-col'>
         <Link href={href} className='text-lg'>
           {url}
