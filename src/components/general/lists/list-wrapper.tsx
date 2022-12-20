@@ -8,7 +8,7 @@ const emptyClass = 'min-h-10'
 
 const onLogout = () => {
   UserManager.clearUser()
-  window.location.href = "/"
+  window.location.href = '/'
 }
 
 // list wrapper to display loading and error page
@@ -31,14 +31,12 @@ const InnerWrapperComponent: FC<any> = (props) => {
   // ERROR PAGE to display errors ( not actual network error )
   if (!data && !loading && error) {
     return (
-        <CardHeader
-          title='Error'
-          subheader='An Issue occurred. Please try again. If issue persist please contact support.'
-          className={emptyClass}
-        >
-        <Button onClick={onLogout}>
-          Logout
-        </Button>
+      <CardHeader
+        title='Error'
+        subheader='An Issue occurred. Please try again. If issue persist please contact support.'
+        className={emptyClass}
+      >
+        <Button onClick={onLogout}>Logout</Button>
       </CardHeader>
     )
   }

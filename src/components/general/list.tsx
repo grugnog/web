@@ -48,7 +48,7 @@ const defaultModalState = {
 
 const onLogout = () => {
   UserManager.clearUser()
-  window.location.href = "/"
+  window.location.href = '/'
 }
 
 // TODO: remove for central history component
@@ -104,9 +104,7 @@ export function ListComponent({
           subheader='An Issue occurred. Please try again. If issue persist please contact support.'
           className={emptyClass}
         >
-        <Button onClick={onLogout}>
-          Logout
-        </Button>
+          <Button onClick={onLogout}>Logout</Button>
         </CardHeader>
       )
     }

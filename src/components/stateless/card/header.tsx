@@ -16,7 +16,7 @@ export const CardHeader: FC<PropsWithChildren<CardHeaderProps>> = ({
   className,
   style,
   lg,
-  children
+  children,
 }) => {
   return (
     <div className={className} style={style}>

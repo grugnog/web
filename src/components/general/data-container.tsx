@@ -18,7 +18,7 @@ type DataContainerProps = PropsWithChildren<{
 
 const onLogout = () => {
   UserManager.clearUser()
-  window.location.href = "/"
+  window.location.href = '/'
 }
 
 // data container to handle loading main application pages
@@ -42,14 +42,12 @@ export const DataContainer: FC<DataContainerProps> = ({
     }
     if (!loading && error) {
       return (
-          <CardHeader
-            title='Error'
-            subheader='An Issue occurred. Please try again. If issue persist please contact support.'
-            className='min-h-[88px]'
-          >
-        <Button onClick={onLogout}>
-          Logout
-        </Button>
+        <CardHeader
+          title='Error'
+          subheader='An Issue occurred. Please try again. If issue persist please contact support.'
+          className='min-h-[88px]'
+        >
+          <Button onClick={onLogout}>Logout</Button>
         </CardHeader>
       )
     }
