@@ -4,6 +4,11 @@ html {
   text-rendering: optimizeLegibility;
 }
 
+section {
+  content-visibility: auto;
+  contain-intrinsic-size: 0 450px;
+}
+
 .goog-te-banner-frame {
   bottom: 0 !important;
   top: unset !important;

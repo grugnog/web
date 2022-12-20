@@ -1,3 +1,4 @@
+import { classNames } from '@app/utils/classes'
 import { FC, PropsWithChildren } from 'react'
 
 type SectionContainerProps = PropsWithChildren<{
@@ -19,19 +20,16 @@ const SectionContainer: FC<SectionContainerProps> = ({
   ...props
 }) => {
   return (
-    <section
-      className={[gapY ? 'mt-14 md:mt-20' : '', gapX ? 'px-4' : '', className]
-        .join(' ')
-        .trim()}
-      {...props}
-    >
-      {container ? (
-        <div className={`block md:flex place-items-center pb-0 gap-x-20`}>
-          {block ? <div className={'flex-1 pb-4'}>{children}</div> : children}
-        </div>
-      ) : (
-        children
-      )}
+    <section className={classNames(gapY ? 'pt-14 md:pt-20' : '')} {...props}>
+      <div className={classNames(className, gapX ? 'px-4' : '')}>
+        {container ? (
+          <div className={`block md:flex place-items-center pb-0 gap-x-20`}>
+            {block ? <div className={'flex-1 pb-4'}>{children}</div> : children}
+          </div>
+        ) : (
+          children
+        )}
+      </div>
     </section>
   )
 }
