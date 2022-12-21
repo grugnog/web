@@ -4,7 +4,6 @@ import { Header } from './header'
 type PageTitleProps = {
   title?: string
   rightButton?: JSX.Element | null
-  component?: 'h1' | 'h2' | 'h3'
   className?: string
   id?: string
 }

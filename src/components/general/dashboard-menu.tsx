@@ -77,7 +77,6 @@ export const RightBar = ({
         </>
       ) : null}
       <FormDialog buttonTitle={`Subscribe`} icon buttonStyles={btnStyles} />
-
       <AuthMenu authenticated settings />
     </div>
   )

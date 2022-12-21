@@ -2,7 +2,7 @@ import { useEffect, useMemo, useState } from 'react'
 import Head from 'next/head'
 import dynamic from 'next/dynamic'
 
-import { PageTitle, LinearBottom, Drawer } from '@app/components/general'
+import { LinearBottom, Drawer } from '@app/components/general'
 import { useSearchFilter, useEvents } from '@app/data'
 import { filterSort } from '@app/lib'
 import { metaSetter } from '@app/utils'
@@ -21,6 +21,7 @@ import { AppManager } from '@app/managers'
 import { useInteractiveContext } from '@app/components/providers/interactive'
 import { RightBar } from '@app/components/general/dashboard-menu'
 import { ModalType } from '@app/data/enums'
+import { ViewConfigTitle } from '@app/components/general/view-config-title'
 
 const CtaHtmlInputRest = dynamic(
   () =>
@@ -140,22 +141,17 @@ function Dashboard({ name }: PageProps) {
         </Head>
       ) : null}
       <Drawer title={name}>
-        <PageTitle
-          title={'Websites'}
-          rightButton={
-            !!data?.length ? (
-              <RightBar
-                sortCapable={data?.length >= 2}
-                onQueryEvent={onQueryEvent}
-                sortModalVisible={sortModalVisible}
-                onWebsiteSort={onWebsiteSort}
-                queryModalVisible={queryModalVisible}
-                onScanAllEvent={onScanAllEvent}
-                onAnalyticsEvent={onAnalyticsEvent}
-              />
-            ) : null
-          }
-        />
+        <ViewConfigTitle title={'All Sites'}>
+          <RightBar
+            sortCapable={data?.length >= 2}
+            onQueryEvent={onQueryEvent}
+            sortModalVisible={sortModalVisible}
+            onWebsiteSort={onWebsiteSort}
+            queryModalVisible={queryModalVisible}
+            onScanAllEvent={onScanAllEvent}
+            onAnalyticsEvent={onAnalyticsEvent}
+          />
+        </ViewConfigTitle>
 
         <div className={sortStyle}>
           <SortableWebsiteList refetch={refetch} />
