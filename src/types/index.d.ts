@@ -439,6 +439,7 @@ export type User = {
   scripts?: Script[]
   script?: Script
   paymentSubscription?: PaymentSubScription
+  pageSpeedApiKey?: string
   websiteLimit?: number
   downAlerts?: Website[]
   googleId?: string

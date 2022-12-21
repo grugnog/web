@@ -28,7 +28,7 @@ export const ProfileCell = ({
         {skeletonLoad ? (
           <TextSkeleton className={className} size={'base'} />
         ) : subTitle ? (
-          <p className={`text-base ${className}`}>{subTitle}</p>
+          <p className={`text-base text-gray-600 ${className}`}>{subTitle}</p>
         ) : null}
       </div>
     )
@@ -40,7 +40,7 @@ export const ProfileCell = ({
       {skeletonLoad ? (
         <TextSkeleton className={className} size={'base'} />
       ) : subTitle ? (
-        <p className={`text-base ${className}`}>{subTitle}</p>
+        <p className={`text-base text-gray-600 ${className}`}>{subTitle}</p>
       ) : null}
     </div>
   )

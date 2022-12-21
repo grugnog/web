@@ -65,6 +65,9 @@ const GET_USER_PROFILE = gql`
         paid
         billing_reason
       }
+      paymentSubscription {
+        status
+      }
     }
   }
 `

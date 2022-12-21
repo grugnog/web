@@ -229,7 +229,7 @@ const Profile: FC<PageProps> = ({ name }) => {
               <ProfileCell
                 title={'Account Status'}
                 skeletonLoad={!user && loading}
-                subTitle={'Active'}
+                subTitle={user?.paymentSubscription?.status?.toUpperCase()}
               />
             ) : null}
             <div className='space-y-2 py-4'>

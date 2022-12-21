@@ -26,7 +26,7 @@ export type RightBarProps = {
   onAnalyticsEvent(): void
   queryModalVisible?: boolean
   sortModalVisible?: boolean
-  sortCapable?: boolean
+  sortCapable?: boolean // used to detect prem atm
 }
 
 const btnStyles = 'gap-x-1.5 flex place-items-center'
@@ -56,11 +56,16 @@ export const RightBar = ({
       ) : null}
       {sortCapable ? (
         <>
-          <Button onClick={onAnalyticsEvent} className={btnStyles}>
+          <Button
+            onClick={onAnalyticsEvent}
+            className={btnStyles}
+            disabled={!sortCapable}
+          >
             Analytics
             <GrLineChart className='grIcon' />
           </Button>
           <Button
+            disabled={!sortCapable}
             onClick={onWebsiteSort}
             className={`${btnStyles}${
               sortModalVisible ? ' border-blue-800' : ''
