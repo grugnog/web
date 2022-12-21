@@ -39,6 +39,7 @@ function Dashboard({ name }: PageProps) {
   const { search } = useSearchFilter()
   const { events, setEvents } = useEvents()
   const { setModal } = useInteractiveContext()
+
   const {
     data,
     error,
@@ -129,6 +130,8 @@ function Dashboard({ name }: PageProps) {
     queryStyle = 'visible'
   }
 
+  // if selected only render the exact query for page
+
   return (
     <>
       {lhEnabled ? (
@@ -141,7 +144,7 @@ function Dashboard({ name }: PageProps) {
         </Head>
       ) : null}
       <Drawer title={name}>
-        <ViewConfigTitle title={'All Sites'}>
+        <ViewConfigTitle title={'All sites'}>
           <RightBar
             sortCapable={data?.length >= 2}
             onQueryEvent={onQueryEvent}
@@ -158,12 +161,13 @@ function Dashboard({ name }: PageProps) {
         </div>
 
         <div className={queryStyle}>
-          <div className='py-2 h-full'>
+          <div className='py-4 h-full'>
             <div className='flex flex-col place-items-center place-content-center space-y-6'>
               <WCAGSelectInput
                 onStandardChange={onStandardChange}
                 standard={standard}
                 spacing
+                className='border rounded md:border'
               />
               <CtaInputRest standard={standard} />
               <p>Or HTML</p>

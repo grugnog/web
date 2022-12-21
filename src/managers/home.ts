@@ -16,6 +16,8 @@ class HomeManager {
 
   @persist @observable refClosed = false
 
+  @persist @observable selectedWebsite = ''
+
   constructor() {
     this.hydrate()
   }
@@ -108,6 +110,11 @@ class HomeManager {
   @action
   toggleRef = () => {
     this.refClosed = !this.refClosed
+  }
+
+  @action
+  setDashboardView = (selectedWebsite: string) => {
+    this.selectedWebsite = selectedWebsite
   }
 }
 

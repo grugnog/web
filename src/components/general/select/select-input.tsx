@@ -1,3 +1,4 @@
+import { classNames } from '@app/utils/classes'
 import React from 'react'
 
 // accessibility standards to test
@@ -21,12 +22,14 @@ export interface InputProps {
   ): void
   standard?: AccessibilityStandardKeys
   spacing?: boolean
+  className?: string
 }
 
 export const WCAGSelectInput = ({
   onStandardChange,
   standard,
   spacing,
+  className,
 }: InputProps) => {
   return (
     <div>
@@ -37,9 +40,12 @@ export const WCAGSelectInput = ({
         id='ext-select-outlined'
         value={standard}
         onChange={onStandardChange}
-        className={`text-sm border-0 m-0 hover:bg-gray-100 rounded py-1.5${
-          spacing ? ' px-2' : ''
-        }`}
+        className={classNames(
+          `text-sm border-0 m-0 hover:bg-gray-100 rounded py-1.5${
+            spacing ? ' px-2' : ''
+          }`,
+          className
+        )}
       >
         <optgroup label='Accessibility'>
           {standards.map((value: any) => (

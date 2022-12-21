@@ -1,7 +1,7 @@
 import { observable, action, toJS } from 'mobx'
 import { IframeManager } from './iframe'
 
-class AdaManager {
+class AccessibilityManager {
   @observable
   scriptFixOpen: boolean = false
 
@@ -39,6 +39,6 @@ class AdaManager {
   }
 }
 
-const manager = new AdaManager()
+const manager = new AccessibilityManager()
 
-export { manager as AdaManager }
+export { manager as AccessibilityManager }

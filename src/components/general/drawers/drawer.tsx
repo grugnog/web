@@ -100,7 +100,9 @@ export function DrawerW({ children, route, title }: any) {
           <DrawerWrapper route={route} title={title} loading={loading} />
           <main className={'flex-1 overflow-auto'} id='main-content'>
             <div
-              className={'px-3 md:px-4 scrollbar overflow-auto max-h-screen'}
+              className={
+                'px-3 md:px-4 pt-4 scrollbar overflow-auto max-h-screen'
+              }
             >
               <RefBanner />
               {children}

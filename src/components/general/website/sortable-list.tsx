@@ -4,7 +4,7 @@ import { GET_WEBSITES_LIST } from '@app/queries/websites'
 import { FC, useMemo } from 'react'
 import { SortableWebsites } from './sort'
 
-export const SortableWebsiteList: FC<{ refetch: any }> = ({ refetch }) => {
+export const SortableWebsiteList: FC<{ refetch?: any }> = ({ refetch }) => {
   const { data, loading } = useQuery(GET_WEBSITES_LIST, {
     variables: { limit: 100 },
     fetchPolicy: 'network-only',
@@ -25,11 +25,13 @@ export const SortableWebsiteList: FC<{ refetch: any }> = ({ refetch }) => {
       console.error(e)
     }
 
-    try {
-      // todo: perform cs sorting without re-fetching
-      await refetch()
-    } catch (e) {
-      console.error(e)
+    if (refetch) {
+      try {
+        // todo: perform cs sorting without re-fetching
+        await refetch()
+      } catch (e) {
+        console.error(e)
+      }
     }
   }
 

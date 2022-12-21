@@ -1,6 +1,6 @@
 import React from 'react'
 import { observer } from 'mobx-react-lite'
-import { AdaManager } from '@app/managers'
+import { AccessibilityManager } from '@app/managers'
 import { GrCopy } from 'react-icons/gr'
 import { Header3 } from '../general/header'
 import { Button } from '../general'
@@ -77,7 +77,7 @@ const ScriptFixContainer = observer(({ store }: { store: any }) => {
 })
 
 const ScriptFix = () => {
-  return <ScriptFixContainer store={AdaManager} />
+  return <ScriptFixContainer store={AccessibilityManager} />
 }
 
 export { ScriptFix }

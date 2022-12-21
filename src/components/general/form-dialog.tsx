@@ -3,7 +3,7 @@
 import React, { useState, useCallback, memo, Fragment } from 'react'
 import { Button, InputActions } from '@app/components/general'
 import { domainList as dmList } from '@app/utils'
-import { GrChapterAdd, GrClose } from 'react-icons/gr'
+import { GrAdd, GrChapterAdd, GrClose } from 'react-icons/gr'
 import { AppManager } from '@app/managers'
 import { InputHeaders } from './forms/input-headers'
 import { useInputActions, useInputHeader } from './hooks'
@@ -22,7 +22,7 @@ interface FormDialogProps {
   buttonTitle?: string
   okPress?: (a: any) => void
   buttonStyles?: string
-  icon?: boolean // show btn with icon
+  icon?: boolean | 'add' // show btn with icon
 }
 
 interface InputHead {
@@ -265,9 +265,18 @@ export function FormDialogWrapper({
 
   return (
     <Fragment>
-      <Button onClick={handleClickOpen} className={buttonStyles}>
+      <Button
+        onClick={handleClickOpen}
+        className={`flex place-items-center ${buttonStyles}`}
+      >
         {buttonTitle}
-        {icon ? <GrChapterAdd className='grIcon' /> : null}
+        {icon ? (
+          icon === 'add' ? (
+            <GrAdd className='grIcon' />
+          ) : (
+            <GrChapterAdd className='grIcon' />
+          )
+        ) : null}
       </Button>
       <HeadlessModal
         open={open}

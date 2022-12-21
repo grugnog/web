@@ -1,6 +1,6 @@
 export { IframeManager } from './iframe'
 export { HomeManager } from './home'
-export { AdaManager } from './ada'
+export { AccessibilityManager } from './accessibility'
 export { AppManager } from './app'
 export { UserManager } from './user'
 export { frameDom } from './frame-dom'
