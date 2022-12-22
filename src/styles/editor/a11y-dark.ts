@@ -85,7 +85,7 @@ export const a11yDark = {
   },
   hljs: {
     display: 'block',
-    overflowX: 'auto',
+    // overflowX: 'auto',
     background: '#2b2b2b',
     color: '#f8f8f2',
     padding: '0.5em',

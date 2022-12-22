@@ -40,7 +40,7 @@ const LiveFeed: FC = () => {
   const { mainStyle, topStyles } = useMemo(() => {
     const mobileStyles = feedOpen
       ? `h-full w-full z-20 overflow-y-auto`
-      : 'pl-[15vw] max-h-[60px] bottom-0 rounded w-full lg:max-h-full lg:overflow-y-auto lg:rounded-none lg:h-full lg:bottom-0 lg:top-0 lg:pl-0 lg:z-20'
+      : 'max-h-[60px] bottom-0 rounded w-full lg:max-h-full lg:overflow-y-auto lg:rounded-none lg:h-full lg:bottom-0 lg:top-0 lg:pl-0 lg:z-20'
 
     const mainStyle = `${
       feedOpen ? 'z-20 ' : ''

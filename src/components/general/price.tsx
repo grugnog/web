@@ -85,11 +85,24 @@ export function PriceMemo({
 
   const onTogglePlans = () => {
     onSelectHigh((x: boolean) => !x)
-    if (typeof onClick === 'function') {
-      const p = !selectHighPlans ? priceConfig.hPlans : priceConfig.lPlans
-      const s = selectedPlan >= 0 && p[selectedPlan].title
 
-      s && onClick(s)
+    if (typeof onClick === 'function') {
+      if (pricingPage) {
+        const p = !selectHighPlans ? priceConfig.hPlans : priceConfig.lPlans
+        const s = selectedPlan >= 0 && p[selectedPlan].title
+
+        s && onClick(s)
+      } else if (currentPlan) {
+        const resetPlan =
+          (!selectHighPlans && currentPlan[0] === 'L') ||
+          (selectHighPlans && currentPlan[0] === 'H')
+
+        if (resetPlan) {
+          onSelectPlan(-1)
+        } else {
+          onSelectPlan(Number(currentPlan[1]) - 1)
+        }
+      }
     }
   }
 
@@ -165,6 +178,7 @@ export function PriceMemo({
                 className={
                   'px-3 py-1 border-2 text-gray-700 rounded text-base border-gray-700 hover:border-gray-600 hover:bg-gradient-radial hover:text-black'
                 }
+                type={'button'}
               >
                 {selectHighPlans
                   ? 'View normal plans'

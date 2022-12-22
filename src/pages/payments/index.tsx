@@ -1,7 +1,5 @@
 import { useEffect, useState } from 'react'
-
 import { useRouter } from 'next/router'
-
 import { CheckoutForm } from '@app/components/stripe/checkout'
 import { StripeBadges } from '@app/components/stripe/badges'
 import { Button, NavBar, PriceMemo } from '@app/components/general'
@@ -93,7 +91,7 @@ function Payments({ hideTitle = false, name }: PaymentProps) {
     if (!manualCheckout) {
       if (newState !== currentPlan) {
         await onToken('', { plan: newState, yearly, referral }, true)
-        if (refetch) {
+        if (typeof refetch === 'function') {
           await refetch()
         }
         AppManager.toggleSnack(true, `Plan set to ${newState}`)
@@ -104,7 +102,7 @@ function Payments({ hideTitle = false, name }: PaymentProps) {
 
   let initialSelectIndex = 0
 
-  if (role >= 5) {
+  if (role > 5) {
     initialSelectIndex = role - 6
   } else if (role) {
     initialSelectIndex = role - 1

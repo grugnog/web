@@ -205,7 +205,7 @@ export const updateCache: {
 
       if (addWebsite || removeWebsite) {
         if (addWebsite) {
-          if (addWebsite?.website) {
+          if (addWebsite?.website && Array.isArray(newWebSites)) {
             newWebSites = newWebSites.concat(addWebsite.website)
           }
         } else if (removeWebsite) {

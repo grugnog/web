@@ -17,13 +17,14 @@ import {
   ISSUE_SUBSCRIPTION,
   CRAWL_COMPLETE_SUBSCRIPTION,
 } from '@app/subscriptions'
-import { AppManager } from '@app/managers'
+import { AppManager, HomeManager } from '@app/managers'
 import type { OnSubscriptionDataOptions } from '@apollo/react-common'
 import type { Website } from '@app/types'
 import { useWasmContext } from '@app/components/providers'
 import { LIGHTHOUSE_RESULT } from '@app/subscriptions/lighthouse'
 import { removeTrailingSlash } from '@a11ywatch/website-source-builder'
 import { upgradeRequired } from '@app/managers/app'
+import { useInteractiveContext } from '@app/components/providers/interactive'
 
 // fetch more items
 const updateQuery = (prev: any, { fetchMoreResult }: any) => {
@@ -57,6 +58,7 @@ export const useWebsiteData = (
   scopedQuery: string = ''
 ) => {
   const { feed } = useWasmContext()
+  const { setSelectedWebsite } = useInteractiveContext()
   const [_, forceUpdate] = useReducer((x) => x + 1, 0) // top level force update state
   const [lighthouseVisible, setLighthouseVisibility] = useState<boolean>(true)
   const [feedOpen, setIssueFeedContent] = useState<boolean>(false)
@@ -214,9 +216,11 @@ export const useWebsiteData = (
             [completedWebsite.domain]: false,
           }))
 
-          await refetch().catch((e) => {
-            console.error(e)
-          })
+          if (refetch) {
+            await refetch().catch((e) => {
+              console.error(e)
+            })
+          }
         }, 500)
       }
     },
@@ -462,6 +466,11 @@ export const useWebsiteData = (
           ...v,
           [ds.addWebsite.website.domain]: true,
         }))
+        if (HomeManager.selectedWebsite) {
+          const wurl = ds?.addWebsite?.website?.url
+          HomeManager.setDashboardView(wurl)
+          setSelectedWebsite(wurl)
+        }
       }
     } catch (e) {
       console.error(e)

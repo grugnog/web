@@ -43,7 +43,7 @@ export const StatusBadgeBoxWrapper = ({
         language={statusBadgeLanguage}
         style={prismStyles as any}
         onClick={copyClipboard}
-        className={'hover:bg-blue-500 hover:text-white cursor-pointer'}
+        className={'hover:text-blue-500 cursor-pointer'}
       >
         {statusBadgeLanguage === 'markdown'
           ? `[![A11yWatch](${statusBadgeUrl})](${reportsLink})`

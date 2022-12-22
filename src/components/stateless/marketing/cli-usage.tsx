@@ -118,7 +118,9 @@ export function MarketingCli(): ReactElement<any, any> | null {
                   return (
                     <li key={i}>
                       <Header4>{detail.title}</Header4>
-                      <div className={'text-base'}>{detail.subTitle}</div>
+                      <div className={'text-base text-gray-700'}>
+                        {detail.subTitle}
+                      </div>
                     </li>
                   )
                 }

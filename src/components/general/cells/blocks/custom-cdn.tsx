@@ -1,22 +1,55 @@
-import React, { memo, useState } from 'react'
+import React, { memo, useMemo, useState } from 'react'
 import { InfoBlock } from '../info-block'
 import { GrCloudSoftware } from 'react-icons/gr'
-import { prismStyles } from '@app/styles'
 import { copyClipboard } from '@app/lib'
 import { PrismLight } from 'react-syntax-highlighter'
+import { Script } from '@app/types'
+import { SCRIPTS_CDN_URL_HOST } from '@app/configs'
+
+const notAvail = 'Not available on a Free plan.'
 
 export const CustomCDNBoxWrapper = ({
-  cdnUrlMinifed,
-  cdnUrl,
   cdnConnected,
+  script,
+  domain,
+  activeSubscription,
 }: {
   cdnConnected?: boolean
   cdnUrlMinifed?: string
   cdnUrl?: string
+  script?: Script
+  domain: string
+  activeSubscription?: boolean
 }) => {
   const [isMinified, setMinified] = useState<boolean>(true)
 
-  const cdnText = isMinified ? cdnUrlMinifed : cdnUrl
+  const { cdnBaseMin, cdnBase } = useMemo(() => {
+    if (!activeSubscription) {
+      return {
+        cdnBase: notAvail,
+        cdnBaseMin: notAvail,
+      }
+    }
+    const cdnBase =
+      script?.cdnUrl ?? `${domain}/${domain.replace(/\./g, '-')}-ada-fix-0.js`
+    const cdnBaseMin =
+      script?.cdnUrlMinified ??
+      `${domain}/${domain.replace(/\./g, '-')}-ada-fix-0.min.js`
+
+    const cdnUrl = cdnBase ? `${SCRIPTS_CDN_URL_HOST}/${cdnBase}` : notAvail
+    const cdnUrlMinifed = cdnBaseMin
+      ? `${SCRIPTS_CDN_URL_HOST}/${cdnBaseMin}`
+      : notAvail
+
+    return {
+      cdnBase: cdnUrl,
+      cdnBaseMin: cdnUrlMinifed,
+    }
+  }, [script, activeSubscription, domain])
+
+  const cdnText = isMinified ? cdnBaseMin : cdnBase
+
+  const disabled = cdnText === '[Paid plan required]'
 
   return (
     <InfoBlock title={'CDN'} icon={<GrCloudSoftware />}>
@@ -30,19 +63,21 @@ export const CustomCDNBoxWrapper = ({
             className={
               'text-gray-700 outline-none relative inline-flex flex-shrink-0 h-4 w-7 rounded-full cursor-pointer transition-colors ease-in-out duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'
             }
+            disabled={disabled}
           ></input>
         </div>
-        {/*  @ts-ignore */}
-        <PrismLight
-          language={'html'}
-          style={prismStyles}
-          onClick={
-            cdnText === '[Paid plan required]' ? () => {} : copyClipboard
-          }
-          className={'hover:bg-blue-500 hover:text-white cursor-pointer'}
-        >
-          {cdnText}
-        </PrismLight>
+        {!disabled ? (
+          <PrismLight
+            language={'html'}
+            onClick={copyClipboard}
+            customStyle={{ background: undefined }}
+            className={'hover:text-blue-500 cursor-pointer'}
+          >
+            {cdnText}
+          </PrismLight>
+        ) : (
+          <pre className={' cursor-pointer'}>{cdnText}</pre>
+        )}
         <div
           className={`py-2 text-sm ${
             !cdnConnected ? 'text-gray-700' : 'text-green-600'

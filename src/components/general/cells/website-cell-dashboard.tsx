@@ -8,11 +8,7 @@ import React, {
 import { MoreOptions } from '@app/components/general/cells/menu/more'
 import { Link } from '../link'
 import { WebsiteSecondary } from './render'
-import {
-  SCRIPTS_CDN_URL_HOST,
-  BASE_GQL_URL,
-  STATUS_URL,
-} from '@app/configs/app-config'
+import { BASE_GQL_URL, STATUS_URL } from '@app/configs/app-config'
 
 import {
   AccessibilityBox,
@@ -47,9 +43,6 @@ const styles = {
   row: 'flex flex-1',
   metaBlock: 'px-2 py-1 border',
 }
-
-const notAvail = 'Not available on a Free plan.'
-const ppr = '[Paid plan required]'
 
 // TODO: add types
 export function WebsiteCellDashboardComponent({
@@ -222,17 +215,6 @@ export function WebsiteCellDashboardComponent({
 
   const { adaScoreAverage: adaScore } = issuesInfo ?? {}
 
-  const cdnBase =
-    script?.cdnUrl ?? `${domain}/${domain.replace(/\./g, '-')}-ada-fix-0.js`
-  const cdnBaseMin =
-    script?.cdnUrlMinified ??
-    `${domain}/${domain.replace(/\./g, '-')}-ada-fix-0.min.js`
-
-  const cdnUrl = cdnBase ? `${SCRIPTS_CDN_URL_HOST}/${cdnBase}` : notAvail
-  const cdnUrlMinifed = cdnBaseMin
-    ? `${SCRIPTS_CDN_URL_HOST}/${cdnBaseMin}`
-    : notAvail
-
   const onWebsiteCrawl = useCallback(async () => {
     AppManager.toggleSnack(
       true,
@@ -365,9 +347,10 @@ export function WebsiteCellDashboardComponent({
         </div>
         <div className='grid grid-cols-1 md:grid-cols-3 gap-1'>
           <CustomCDNBox
-            cdnUrl={activeSubscription ? cdnUrl : ppr}
-            cdnUrlMinifed={activeSubscription ? cdnUrlMinifed : ppr}
             cdnConnected={cdnConnected}
+            script={script}
+            activeSubscription={activeSubscription}
+            domain={domain}
           />
           <StatusBadgeBox
             reportsLink={reportsLink}
