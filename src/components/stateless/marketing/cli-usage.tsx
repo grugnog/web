@@ -67,7 +67,7 @@ export function MarketingCli(): ReactElement<any, any> | null {
             )}
           </button>
         </div>
-        <p className='text-lg pb-4 leading-10'>
+        <p className='text-lg pb-4 leading-10 text-gray-700'>
           Run {companyName} on any machine using the Command Line Interface.
           Install the CLI in shell using the command{' '}
           <code className='text-gray-700 bg-gray-300 p-1'>

@@ -26,14 +26,14 @@ export type RightBarProps = {
   onAnalyticsEvent(): void
   queryModalVisible?: boolean
   sortModalVisible?: boolean
-  sortCapable?: boolean // used to detect prem atm
+  premiumEnabled?: boolean // used to detect prem atm
 }
 
 const btnStyles = 'gap-x-1.5 flex place-items-center'
 
 export const RightBar = ({
   onWebsiteSort,
-  sortCapable,
+  premiumEnabled,
   onQueryEvent,
   onScanAllEvent,
   queryModalVisible,
@@ -54,18 +54,18 @@ export const RightBar = ({
           Sync <GrConnect className='grIcon' />
         </Button>
       ) : null}
-      {sortCapable ? (
+      {premiumEnabled ? (
         <>
           <Button
             onClick={onAnalyticsEvent}
             className={btnStyles}
-            disabled={!sortCapable}
+            disabled={!premiumEnabled}
           >
             Analytics
             <GrLineChart className='grIcon' />
           </Button>
           <Button
-            disabled={!sortCapable}
+            disabled={!premiumEnabled}
             onClick={onWebsiteSort}
             className={`${btnStyles}${
               sortModalVisible ? ' border-blue-800' : ''
@@ -76,7 +76,11 @@ export const RightBar = ({
           </Button>
         </>
       ) : null}
-      <FormDialog buttonTitle={`Subscribe`} icon buttonStyles={btnStyles} />
+      <FormDialog
+        buttonTitle={`Subscribe`}
+        icon
+        buttonStyles={`flex place-items-center ${btnStyles}`}
+      />
       <AuthMenu authenticated settings />
     </div>
   )

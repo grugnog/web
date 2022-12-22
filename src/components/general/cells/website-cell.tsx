@@ -3,6 +3,8 @@ import { Link } from '../link'
 import { RenderAvatar, RenderSecondary } from './render'
 import { MoreOptions } from '@app/components/general/cells/menu/more'
 import type { Website } from '@app/types'
+import { useInteractiveContext } from '@app/components/providers/interactive'
+import { HomeManager } from '@app/managers'
 
 interface WebsiteCellProps extends Partial<Website> {
   removePress(props: { variables: { url?: string | null } }): void
@@ -14,7 +16,7 @@ interface WebsiteCellProps extends Partial<Website> {
 // OLD WEBSITE CELL [TODO: remove]
 export function WebsiteCell(props: WebsiteCellProps) {
   const [anchorEl, setAnchorEl] = useState<any>(null)
-
+  const { selectedWebsite, setSelectedWebsite } = useInteractiveContext()
   const { removePress, ...extra } = props
 
   const {
@@ -39,13 +41,17 @@ export function WebsiteCell(props: WebsiteCellProps) {
     setAnchorEl(null)
   }
 
-  const onRemovePress = useCallback(() => {
-    removePress({
+  const onRemovePress = useCallback(async () => {
+    await removePress({
       variables: {
         url,
       },
     })
-  }, [url, removePress])
+    if (url === selectedWebsite) {
+      HomeManager.setDashboardView('')
+      setSelectedWebsite('')
+    }
+  }, [url, removePress, selectedWebsite, setSelectedWebsite])
 
   const href = useMemo(
     () => (url ? `/website-details?url=${encodeURIComponent(url)}` : ''),

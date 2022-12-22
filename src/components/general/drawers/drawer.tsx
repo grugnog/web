@@ -1,6 +1,5 @@
 import { memo } from 'react'
 import dynamic from 'next/dynamic'
-import Head from 'next/head'
 import { useUserData } from '@app/data'
 import { UpgradeBanner } from '@app/components/general/upgrade-banner'
 import { AuthedMenu } from '../navigation'
@@ -10,6 +9,7 @@ import { ConfirmEmail } from '../../alerts'
 import { IssueFeed } from '../../feed'
 import { SearchBar } from '../searchbar'
 import { RefBanner } from '../ref-banner'
+import { DrawerHead } from './drawer-head'
 
 const DynamicModal = dynamic(
   () => import('../../modal/dynamic').then((mod) => mod.DynamicModal),
@@ -75,26 +75,7 @@ export function DrawerW({ children, route, title }: any) {
 
   return (
     <>
-      <Head>
-        <style>
-          {`html { overflow: hidden; }
-.scrollbar::-webkit-scrollbar { width: 12px; }
-.scrollbar::-webkit-scrollbar-track {
-  border-radius: 10px;
-  background: #f2f4f7;
-}
-.scrollbar::-webkit-scrollbar-thumb {
-    background: #ccc;
-    border-radius: 10px;
-    border: 2px solid #ebedf2;
-}
-@media (any-pointer: coarse) {
-  ul a {
-    padding:inherit;
-  }
-}`}
-        </style>
-      </Head>
+      <DrawerHead />
       <>
         <div className={'flex overflow-x-inherit md:overflow-x-hidden'}>
           <DrawerWrapper route={route} title={title} loading={loading} />

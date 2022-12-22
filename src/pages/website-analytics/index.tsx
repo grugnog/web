@@ -1,6 +1,5 @@
 import { useMemo } from 'react'
 import {
-  FormDialog,
   PageTitle,
   Drawer,
   PriceMemo,
@@ -46,7 +45,6 @@ function AnalyticsPage() {
         data={source}
         loading={analyticsDataLoading}
         refetch={refetch}
-        BottomButton={FormDialog}
         emptyHeaderTitle='No issues found'
         emptyHeaderSubTitle='Issues will appear here when they arise'
       >

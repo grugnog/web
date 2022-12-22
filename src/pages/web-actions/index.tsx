@@ -1,6 +1,5 @@
 import { useMemo } from 'react'
 import {
-  FormDialog,
   PageTitle,
   Drawer,
   PriceMemo,
@@ -40,7 +39,6 @@ function WebActionsPage() {
         data={source}
         loading={actionsDataLoading}
         refetch={refetch}
-        BottomButton={FormDialog}
         emptyHeaderTitle='No Actions found'
         emptyHeaderSubTitle='Actions will appear here if you add them initially'
       >

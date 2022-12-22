@@ -1,6 +1,5 @@
 import { useMemo } from 'react'
 import {
-  FormDialog,
   PageTitle,
   Drawer,
   PriceMemo,
@@ -41,7 +40,6 @@ export function WebPagesPage() {
         data={source}
         loading={pagesDataLoading}
         refetch={refetch}
-        BottomButton={FormDialog}
         emptyHeaderTitle='No pages found'
         emptyHeaderSubTitle='Pages will appear here if issues arise'
       >

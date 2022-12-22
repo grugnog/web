@@ -14,7 +14,7 @@ function Website({ website, index }: any) {
     <Draggable draggableId={website.id} index={index}>
       {(provided: any) => (
         <li
-          className='px-3 py-2 border-2 rounded text-lg'
+          className='px-3 py-2 border-2 rounded text-lg bg-white'
           ref={provided.innerRef}
           {...provided.draggableProps}
           {...provided.dragHandleProps}

@@ -265,10 +265,7 @@ export function FormDialogWrapper({
 
   return (
     <Fragment>
-      <Button
-        onClick={handleClickOpen}
-        className={`flex place-items-center ${buttonStyles}`}
-      >
+      <Button onClick={handleClickOpen} className={`${buttonStyles}`}>
         {buttonTitle}
         {icon ? (
           icon === 'add' ? (

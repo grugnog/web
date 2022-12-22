@@ -38,7 +38,8 @@ import { useAuthContext } from '@app/components/providers/auth'
 import { GrChannel, GrSync, GrValidate } from 'react-icons/gr'
 import { Lighthouse } from '../lighthouse'
 import { fetcher } from '@app/utils/fetcher'
-import { AppManager } from '@app/managers'
+import { AppManager, HomeManager } from '@app/managers'
+import { useInteractiveContext } from '@app/components/providers/interactive'
 
 const styles = {
   title: 'text-xl md:text-3xl font-bold truncate text-gray-600',
@@ -89,6 +90,7 @@ export function WebsiteCellDashboardComponent({
   const items = useDeferredValue(
     feed?.get_data_item(domain, tld || subdomains) ?? []
   )
+  const { setSelectedWebsite, selectedWebsite } = useInteractiveContext()
 
   const issues = items?.length ? items : currentIssues
   const { activeSubscription } = account
@@ -105,6 +107,10 @@ export function WebsiteCellDashboardComponent({
   }, [setAnchorEl])
 
   const onRemovePress = useCallback(async () => {
+    if (url === selectedWebsite) {
+      HomeManager.setDashboardView('')
+      setSelectedWebsite('')
+    }
     try {
       await removePress({
         variables: {
@@ -114,7 +120,7 @@ export function WebsiteCellDashboardComponent({
     } catch (e) {
       console.error(e)
     }
-  }, [url, removePress])
+  }, [url, removePress, selectedWebsite, setSelectedWebsite])
 
   const handleMainClick =
     (eventData?: any, title?: string, _mini?: boolean, url?: string) =>

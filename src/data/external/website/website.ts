@@ -1,20 +1,19 @@
 import { useQuery } from '@apollo/react-hooks'
-import { GET_WEBSITE } from '@app/queries'
+import { GET_WEBSITE_STATS } from '@app/queries'
 
 // get a single website data [NOT USED]
 const useWebsite = (url: string, query: boolean = true) => {
-  const { data, loading, refetch } = useQuery(GET_WEBSITE, {
+  const { data, loading, refetch, error } = useQuery(GET_WEBSITE_STATS, {
     variables: { url },
     skip: !query,
   })
 
-  const model = Object.freeze({
+  return Object.freeze({
     data,
-    loading: loading,
+    loading,
     refetch,
+    error,
   })
-
-  return model
 }
 
 export { useWebsite }

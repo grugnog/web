@@ -9,7 +9,7 @@ export {
   GET_WEBSITE_PAGES_PAGINATED,
 } from './websites'
 export { GET_USER } from './user'
-export { GET_WEBSITE } from './website'
+export { GET_WEBSITE, GET_WEBSITE_STATS } from './website'
 export { GET_ISSUE } from './issue'
 export { GET_HISTORY } from './history'
 export { GET_ANALYTICS } from './analytics'

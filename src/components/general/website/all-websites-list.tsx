@@ -27,7 +27,7 @@ const WebsiteCellItem = ({
 export const AllWebsitesList: FC = () => {
   const { data, loading } = useQuery(GET_WEBSITES_LIST, {
     variables: { limit: 100 },
-    fetchPolicy: 'network-only',
+    fetchPolicy: 'cache-and-network',
     ssr: false,
   })
   const { setSelectedWebsite } = useInteractiveContext()
@@ -46,7 +46,7 @@ export const AllWebsitesList: FC = () => {
   }
 
   return (
-    <ul className='max-h-64 overflow-y-auto list-none bg-gray-100 shadow rounded border'>
+    <ul className='max-h-64 overflow-y-auto list-none bg-gray-100 shadow rounded border scrollbar'>
       <li>
         <Popover.Button
           onClick={onViewAllEvent}
@@ -58,11 +58,11 @@ export const AllWebsitesList: FC = () => {
         </Popover.Button>
       </li>
       {list?.length ? (
-        list.map((item: { domain: string }) => (
+        list.map((item: { domain: string; url: string }) => (
           <WebsiteCellItem
             domain={item.domain}
             key={item.domain}
-            onClick={() => onClickEvent(item.domain)}
+            onClick={() => onClickEvent(item.url)}
           />
         ))
       ) : (

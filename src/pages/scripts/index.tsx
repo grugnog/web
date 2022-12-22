@@ -1,6 +1,5 @@
 import { useMemo } from 'react'
 import {
-  FormDialog,
   PageTitle,
   Drawer,
   PriceMemo,
@@ -50,7 +49,6 @@ const ScriptsPage = () => {
         data={source}
         loading={scriptsDataLoading}
         refetch={refetch}
-        BottomButton={FormDialog}
         emptyHeaderTitle={emptyHeaderTitle}
         emptyHeaderSubTitle={emptyHeaderSub}
       >

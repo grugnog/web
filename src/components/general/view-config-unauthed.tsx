@@ -1,7 +1,6 @@
-import { Popover } from '@headlessui/react'
+import React from 'react'
 import { classNames } from '@app/utils/classes'
-import { PropsWithChildren, useMemo } from 'react'
-import { AllWebsitesList } from './website/all-websites-list'
+import { PropsWithChildren } from 'react'
 import { useInteractiveContext } from '../providers/interactive'
 import { GrStatusGoodSmall } from 'react-icons/gr'
 
@@ -11,23 +10,12 @@ type ViewConfigTitleProps = {
 }
 
 // determine layout for view one of all or selected website todo
-function ViewConfigTitle({
+function ViewConfigTitleStateless({
   title = '',
   children,
   className = '',
 }: PropsWithChildren<ViewConfigTitleProps>) {
   const { selectedWebsite } = useInteractiveContext()
-
-  const pageTitle = useMemo(() => {
-    // todo: set hostname on event instead
-    if (selectedWebsite) {
-      try {
-        return new URL(selectedWebsite).hostname
-      } catch (e) {
-        console.error(e)
-      }
-    }
-  }, [selectedWebsite])
 
   return (
     <div
@@ -37,25 +25,22 @@ function ViewConfigTitle({
       )}
     >
       <>
-        <Popover className='relative'>
-          <Popover.Button
+        <div className='relative'>
+          <div
             className={
               'border rounded px-3 py-1.5 text-sm font-medium text-gray-600 flex place-items-center gap-x-3'
             }
           >
-            <h1 className={'min-w-[80px] max-w-[180px] truncate text-left'}>
-              {pageTitle || title}
+            <h1 className={'min-w-[80px] max-w-[125px] truncate text-left'}>
+              {selectedWebsite || title}
             </h1>
             <GrStatusGoodSmall className='grIcon text-[9px] text-gray-400' />
-          </Popover.Button>
-          <Popover.Panel className='absolute z-10 text-gray-700 w-96 py-1'>
-            <AllWebsitesList />
-          </Popover.Panel>
-        </Popover>
+          </div>
+        </div>
         {children}
       </>
     </div>
   )
 }
 
-export { ViewConfigTitle }
+export { ViewConfigTitleStateless }

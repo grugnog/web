@@ -62,7 +62,11 @@ const EmptyWebsiteFormComponent: FC<EmptyWebsiteProps> = ({
           Go to {goToPayments ? 'Payments' : 'Dashboard'}
         </Link>
       ) : (
-        <FormDialog buttonStyles={'min-w-[13rem] border-2'} />
+        <FormDialog
+          buttonStyles={
+            'min-w-[13rem] border-2 text-center md:text-center md:place-items-center'
+          }
+        />
       )}
       <div className={'flex space-items-center space-x-10 py-12'}>
         <ul

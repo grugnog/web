@@ -21,7 +21,7 @@ const Top = ({
       {feedExist ? (
         <button
           onClick={clearFeed}
-          className={'px-4 py-3 hover:bg-gray-200 rounded-2xl'}
+          className={'px-4 py-3 hover:bg-gray-200 rounded-2xl text-sm'}
           title={'Clear Recent'}
         >
           Clear

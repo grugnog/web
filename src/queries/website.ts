@@ -1,23 +1,11 @@
+import { websiteFragments } from '@app/apollo'
 import gql from 'graphql-tag'
 
 const GET_WEBSITE = gql`
+  ${websiteFragments}
   query getWebsite($url: String) {
     website(url: $url) {
-      _id
-      url
-      userId
-      domain
-      cdnConnected
-      timestamp
-      online
-      pageInsights
-      mobile
-      tld
-      subdomains
-      verified
-      insight {
-        json
-      }
+      ...WebsiteParts
       script {
         _id
         script
@@ -29,17 +17,6 @@ const GET_WEBSITE = gql`
         durationFormated
         color
       }
-      pageHeaders {
-        key
-        value
-      }
-      issuesInfo {
-        adaScore
-        adaScoreAverage
-        issuesFixedByCdn
-        possibleIssuesFixedByCdn
-        totalIssues
-      }
       issues {
         pageUrl
       }
@@ -47,4 +24,13 @@ const GET_WEBSITE = gql`
   }
 `
 
-export { GET_WEBSITE }
+const GET_WEBSITE_STATS = gql`
+  ${websiteFragments}
+  query getWebsite($url: String) {
+    website(url: $url) {
+      ...WebsiteParts
+    }
+  }
+`
+
+export { GET_WEBSITE, GET_WEBSITE_STATS }

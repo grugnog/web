@@ -18,7 +18,7 @@ export const JavascriptUsage = () => {
     <SectionContainer>
       <div className='place-content-center place-items-center flex flex-col'>
         <Header3>Javascript Integration</Header3>
-        <p className='pb-2'>
+        <p className='pb-2 text-gray-700'>
           Use npm or your favorite javascript package manager to install the
           suite.
         </p>

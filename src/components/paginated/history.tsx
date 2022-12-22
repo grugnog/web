@@ -1,9 +1,9 @@
 import React from 'react'
-import { List, FormDialog } from '@app/components/general'
 import { useHistory } from '@app/data'
 import { PageLoader } from '@app/components/placeholders'
 import { useWebsiteContext } from '@app/components/providers/website'
 import { useFilterSort } from '@app/data/local'
+import { List } from '../general/lists/websites-history'
 
 export const HistoryList = () => {
   const { data: websiteData } = useWebsiteContext()
@@ -22,7 +22,6 @@ export const HistoryList = () => {
         data={sortedData}
         loading={loading}
         refetch={refetch}
-        BottomButton={FormDialog}
         historyPage
         emptyHeaderTitle='No websites found'
         emptyHeaderSubTitle='Websites will appear here once you remove them from the dashboard'

@@ -12,6 +12,7 @@ import { HistoryView } from '@app/components/settings/history-view'
 import { CoreVitalsView } from '@app/components/settings/core-vitals-view'
 import { RemoveDataView } from '@app/components/settings/remove-data-view'
 import { LighthouseView } from '@app/components/settings/lighthouse-view'
+import { useInteractiveContext } from '@app/components/providers/interactive'
 
 function Settings({ name }: PageProps) {
   const {
@@ -26,7 +27,7 @@ function Settings({ name }: PageProps) {
   const { account, setAccountType } = useAuthContext()
   const { removeWebsite, setLighthouseVisibility, lighthouseVisible } =
     useWebsiteContext()
-
+  const { setSelectedWebsite } = useInteractiveContext()
   const { alertEnabled, activeSubscription } = account
 
   const user = data?.user
@@ -42,11 +43,12 @@ function Settings({ name }: PageProps) {
             deleteMany: true,
           },
         })
+        setSelectedWebsite('')
       } catch (e) {
         console.error(e)
       }
     }
-  }, [removeWebsite])
+  }, [removeWebsite, setSelectedWebsite])
 
   const onLighthouseToggle = useCallback(() => {
     setLighthouseVisibility((visible: boolean) => {

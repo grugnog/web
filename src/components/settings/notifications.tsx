@@ -3,6 +3,7 @@ import { Header3 } from '@app/components/general/header'
 import { WeekSelect } from '@app/components/alerts'
 import { SwitchInput } from '@app/components/general/switch'
 import { FormControl } from '@app/components/general/form-control'
+import { settingsHeadingStyle } from '@app/styles/headings'
 
 type NotificationSettingsProps = {
   filterEmailDatesData: number[]
@@ -27,9 +28,7 @@ export const NotificationSettings = ({
         <FormControl
           htmlFor='alerts-btn'
           visible
-          className={
-            'text-xl md:text-2xl lg:text-2xl xl:text-2xl font-medium py-2'
-          }
+          className={settingsHeadingStyle}
         >
           Notifications
         </FormControl>

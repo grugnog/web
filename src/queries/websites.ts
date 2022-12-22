@@ -30,6 +30,7 @@ export const GET_WEBSITES_LIST = gql`
       websites(limit: $limit, offset: $offset) {
         _id
         domain
+        url
       }
     }
   }

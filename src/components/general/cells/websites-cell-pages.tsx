@@ -23,7 +23,6 @@ const styles = {
 // TODO: add types
 export function WebsiteCellPagesComponent({
   url,
-  removePress,
   handleClickOpen,
   pages,
   issues,
@@ -51,18 +50,6 @@ export function WebsiteCellPagesComponent({
   const handleClose = useCallback(() => {
     setAnchorEl(null)
   }, [setAnchorEl])
-
-  const onRemovePress = useCallback(async () => {
-    try {
-      await removePress({
-        variables: {
-          url,
-        },
-      })
-    } catch (e) {
-      console.error(e)
-    }
-  }, [url, removePress])
 
   const handleMainClick =
     (eventData?: any, title?: string, _mini?: boolean, url?: string) => () => {
@@ -142,7 +129,6 @@ export function WebsiteCellPagesComponent({
             handleMenu={handleMenu}
             handleMainClick={handleMainClick}
             anchorEl={anchorEl}
-            removePress={onRemovePress}
             pages={pages}
             pageHeaders={pageHeaders}
             index={index}
