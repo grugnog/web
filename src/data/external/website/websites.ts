@@ -55,7 +55,6 @@ export const useWebsiteData = (
   const [_, forceUpdate] = useReducer((x) => x + 1, 0) // top level force update state
   const [lighthouseVisible, setLighthouseVisibility] = useState<boolean>(true)
   const [feedOpen, setIssueFeedContent] = useState<boolean>(false)
-
   const [activeCrawls, setActiveCrawl] = useState<
     { [key: string]: boolean } | Record<string, any>
   >({})

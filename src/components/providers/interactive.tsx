@@ -34,7 +34,6 @@ const AppContext = createContext({
 
 export const InteractiveProviderWrapper = AppContext.Provider
 
-// Determine the initial account type via load client-side
 export const InteractiveProviderMain: BaseProps = ({ children }) => {
   const [selectedWebsite, setSelectedWebsite] = useState<string>('')
   const { modelData, setModal } = useDynamicModal()
