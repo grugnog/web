@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import dynamic from 'next/dynamic'
 import { LinearBottom } from '@app/components/general'
 import { metaSetter } from '@app/utils'
@@ -34,7 +34,16 @@ function Dashboard({ name }: PageProps) {
   const [standard, setStandard] = useState<string>('WCAG2AA')
   const { setModal, selectedWebsite } = useInteractiveContext()
   const { account } = useAuthContext()
-  const { mutatationLoading, refetch } = useWebsiteContext()
+  const { mutatationLoading, refetch, getWebsites } = useWebsiteContext()
+  const initialQuery = useRef<boolean>(false)
+
+  // lazy fire first query
+  useEffect(() => {
+    if (account.inited && !selectedWebsite && !initialQuery.current) {
+      getWebsites()
+      initialQuery.current = true
+    }
+  }, [getWebsites, account, selectedWebsite])
 
   const onWebsiteSort = () =>
     setSortModalVisible((v) => {

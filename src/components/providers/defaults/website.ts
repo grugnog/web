@@ -1,4 +1,5 @@
 import { ApolloError } from 'apollo-client'
+import type { QueryLazyOptions } from '@apollo/react-hooks'
 
 // default provider data for application.
 export const sharedWebsiteDefaults = {
@@ -71,6 +72,19 @@ export const sharedWebsiteDefaults = {
     return _
   },
   forceUpdate: (): void => {
+    return
+  },
+  getWebsites: (
+    _options?:
+      | QueryLazyOptions<{
+          filter: string
+          customHeaders: any
+          url: string
+          limit: number
+          offset: number
+        }>
+      | undefined
+  ) => {
     return
   },
 }

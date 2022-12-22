@@ -98,7 +98,9 @@ const FeaturesList = ({
         ) : (
           <Header2>{strings.headers[2][0]}</Header2>
         )}
-        {alternative ? null : <p className='pb-2 text-gray-700'>{strings.headers[2][1]}</p>}
+        {alternative ? null : (
+          <p className='pb-2 text-gray-700'>{strings.headers[2][1]}</p>
+        )}
       </div>
       <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-1'>
         <>

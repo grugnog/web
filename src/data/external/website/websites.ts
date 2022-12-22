@@ -1,5 +1,10 @@
 import { useState, useEffect, useCallback, useReducer, useMemo } from 'react'
-import { useQuery, useMutation, useSubscription } from '@apollo/react-hooks'
+import {
+  useQuery,
+  useMutation,
+  useSubscription,
+  useLazyQuery,
+} from '@apollo/react-hooks'
 import {
   ADD_WEBSITE,
   REMOVE_WEBSITE,
@@ -61,25 +66,27 @@ export const useWebsiteData = (
 
   // get vars for querys
   const { variables, pageVars } = useMemo(() => {
-    const defaultVars = {
-      filter,
-      customHeaders,
-      url,
+    return {
+      variables: {
+        filter,
+        customHeaders,
+        url,
+      },
+      pageVars: {
+        filter,
+        customHeaders,
+        url,
+        limit: 5,
+        offset: 0,
+      },
     }
-    const pageVars = {
-      ...defaultVars,
-      limit: 5,
-      offset: 0,
-    }
-    return { variables: defaultVars, pageVars }
   }, [filter, customHeaders, url])
 
   // start of main queries for pages. Root gets all
-  const { data, loading, refetch, error, fetchMore } = useQuery(GET_WEBSITES, {
-    variables: pageVars,
-    skip: skip || !!scopedQuery, // when scoped queries ignore the initial result
-    ssr: false,
-  })
+  const [getWebsites, { data, loading, refetch, error, fetchMore }] =
+    useLazyQuery(GET_WEBSITES, {
+      variables: pageVars,
+    })
 
   // Only get issues from websites
   const {
@@ -505,5 +512,7 @@ export const useWebsiteData = (
     // network status
     networkStatusIssues,
     networkStatusPages,
+    // lazy queries
+    getWebsites,
   }
 }

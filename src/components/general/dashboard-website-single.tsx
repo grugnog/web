@@ -34,12 +34,12 @@ export const DashboardWebsiteSingle: FC<DashboardWebsiteListProps> = ({
   const { data, loading, error } = useWebsite(url)
 
   useEffect(() => {
-    const clearData = error || !data && !loading
+    const clearData = error || (!data && !loading)
     // return to dashboard all display
     if (clearData) {
       HomeManager.setDashboardView('')
       setSelectedWebsite('')
-    } 
+    }
   }, [data, loading, error, setSelectedWebsite])
 
   const websites: Website[] = useMemo(() => {

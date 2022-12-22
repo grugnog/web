@@ -18,7 +18,6 @@ export const DashboardWebsiteList: FC<DashboardWebsiteListProps> = ({
   queryModalVisible,
 }) => {
   const { setModal } = useInteractiveContext()
-
   const {
     data,
     error,
