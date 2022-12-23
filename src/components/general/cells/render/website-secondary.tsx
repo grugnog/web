@@ -63,12 +63,12 @@ export function WebsiteSecondaryComponent({
       className={`flex space-x-2 ${
         !dashboard
           ? 'overflow-x-auto max-w-[75vw]'
-          : 'overflow-x-auto max-w-[56vw] md:max-w-[50.5vw] lg:max-w-[61.5vw]'
+          : 'overflow-x-auto max-w-[64vw]'
       }`}
     >
       {shutdown ? (
         <Chip
-          title={`Website scan did not complete. Upgrade your account to increase your duration.`}
+          title={`Website scan did not complete. Upgrade your account to increase your scanning up-time.`}
           avatar={<GrPowerShutdown className={'grIcon'} />}
           label={'Shutdown'}
         />

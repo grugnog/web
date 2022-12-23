@@ -31,7 +31,7 @@ interface InputHead {
 }
 
 const checkBoxContainerStyles =
-  'flex place-items-center gap-x-2 min-w-[80px] md:min-w-20'
+  'flex place-items-center gap-x-1 min-w-[80px] md:min-w-20 md:gap-x-2'
 
 // validate the headers inputs and send
 function validateHeaders(object: InputHead[]) {

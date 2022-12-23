@@ -19,6 +19,7 @@ import { DashboardDrawer } from '@app/components/general/drawers/dashboard-drawe
 import { DashboardWebsiteList } from '@app/components/general/dashboard-website-list'
 import { useAuthContext } from '@app/components/providers/auth'
 import { DashboardWebsiteSingle } from '@app/components/general/dashboard-website-single'
+import { StateLessViewConfigTitle } from '@app/components/stateless/titles/view-config-title'
 
 const CtaHtmlInputRest = dynamic(
   () =>
@@ -100,21 +101,37 @@ function Dashboard({ name }: PageProps) {
   return (
     <>
       <DashboardDrawer title={name}>
-        <ViewConfigTitle title={'All sites'}>
-          <RightBar
-            premiumEnabled={account.activeSubscription}
-            onQueryEvent={onQueryEvent}
-            sortModalVisible={sortModalVisible}
-            onWebsiteSort={onWebsiteSort}
-            queryModalVisible={queryModalVisible}
-            onScanAllEvent={onScanAllEvent}
-            onAnalyticsEvent={onAnalyticsEvent}
-          />
-        </ViewConfigTitle>
+        {account.activeSubscription ? (
+          <>
+            <ViewConfigTitle title={'All sites'}>
+              <RightBar
+                premiumEnabled={account.activeSubscription}
+                onQueryEvent={onQueryEvent}
+                sortModalVisible={sortModalVisible}
+                onWebsiteSort={onWebsiteSort}
+                queryModalVisible={queryModalVisible}
+                onScanAllEvent={onScanAllEvent}
+                onAnalyticsEvent={onAnalyticsEvent}
+              />
+            </ViewConfigTitle>
 
-        <div className={sortStyle}>
-          <SortableWebsiteList refetch={refetch} />
-        </div>
+            <div className={sortStyle}>
+              <SortableWebsiteList refetch={refetch} />
+            </div>
+          </>
+        ) : (
+          <StateLessViewConfigTitle title={'All sites'}>
+            <RightBar
+              premiumEnabled={account.activeSubscription}
+              onQueryEvent={onQueryEvent}
+              sortModalVisible={sortModalVisible}
+              onWebsiteSort={onWebsiteSort}
+              queryModalVisible={queryModalVisible}
+              onScanAllEvent={onScanAllEvent}
+              onAnalyticsEvent={onAnalyticsEvent}
+            />
+          </StateLessViewConfigTitle>
+        )}
 
         <div className={queryStyle}>
           <div className='py-4 h-full'>

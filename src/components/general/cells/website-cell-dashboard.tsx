@@ -62,7 +62,7 @@ interface WebsiteCellProps {
   pageHeaders?: any
 }
 
-// the main dashboard cell with details and paginated views
+// main dashboard cell with details and paginated views
 export function WebsiteCellDashboardComponent({
   url,
   removePress,
