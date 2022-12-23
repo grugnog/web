@@ -39,8 +39,8 @@ ENV PORT 3000
 ARG WEB_SOCKET_URL
 ARG API
 
-ENV API={API:-http://localhost:3280/graphql}
-ENV WEB_SOCKET_URL={WEB_SOCKET_URL:-ws://localhost:3280/graphql}
+ENV API=${API:-http://localhost:3280/graphql}
+ENV WEB_SOCKET_URL=${WEB_SOCKET_URL:-ws://localhost:3280/graphql}
 ENV NODE_ENV production
 ENV NEXT_TELEMETRY_DISABLED 1
 ENV DOCKER_CONTAINER 1
