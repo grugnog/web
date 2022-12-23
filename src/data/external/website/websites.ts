@@ -78,7 +78,7 @@ export const useWebsiteData = (
         filter,
         customHeaders,
         url,
-        limit: 4,
+        limit: 4, // todo: use default config var
         offset: 0,
       },
     }

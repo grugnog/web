@@ -155,6 +155,7 @@ function Dashboard({ name }: PageProps) {
             queryModalVisible={queryModalVisible}
             sortModalVisible={sortModalVisible}
             url={selectedWebsite}
+            refetchWebsites={refetch}
           />
         ) : (
           <DashboardWebsiteList

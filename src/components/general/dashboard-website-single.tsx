@@ -13,12 +13,14 @@ type DashboardWebsiteListProps = {
   sortModalVisible?: boolean
   queryModalVisible?: boolean
   url: string
+  refetchWebsites(_?: any): Promise<any>
 }
 
 export const DashboardWebsiteSingle: FC<DashboardWebsiteListProps> = ({
   sortModalVisible,
   queryModalVisible,
   url,
+  refetchWebsites,
 }) => {
   const { setModal, setSelectedWebsite } = useInteractiveContext()
 
@@ -49,6 +51,20 @@ export const DashboardWebsiteSingle: FC<DashboardWebsiteListProps> = ({
     return []
   }, [data])
 
+  const onRemoveWebsiteEvent = async (x: any) => {
+    // refetch the base list
+    try {
+      await removeWebsite(x)
+    } catch (e) {
+      console.error(e)
+    }
+    try {
+      await refetchWebsites()
+    } catch (e) {
+      console.error(e)
+    }
+  }
+
   // conditional display
   let webpageStyle = 'visible py-2'
 
@@ -77,7 +93,7 @@ export const DashboardWebsiteSingle: FC<DashboardWebsiteListProps> = ({
           error={error}
           loading={loading}
           mutatationLoading={mutatationLoading}
-          removePress={removeWebsite}
+          removePress={onRemoveWebsiteEvent}
           crawlWebsite={crawlWebsite}
           refetch={refetch}
           setModal={setModal}

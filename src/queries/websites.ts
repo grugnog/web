@@ -174,6 +174,13 @@ export const GET_PAGES = gql`
   }
 `
 
+// initial vars default use same object for query
+const variables = {
+  filter: '',
+  limit: 4,
+  offset: 0,
+}
+
 export const updateCache: {
   update?: MutationUpdaterFn<any>
   last: any // last website stored in cache
@@ -182,13 +189,6 @@ export const updateCache: {
   last: [],
   lastVariables: {},
   update(cache, { data }) {
-    // initial vars
-    const variables = {
-      filter: '',
-      limit: 5,
-      offset: 0,
-    }
-
     // TODO: pass in filter
     const query = cache.readQuery<{ user: User }>({
       query: GET_WEBSITES,
