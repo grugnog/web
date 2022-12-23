@@ -1,0 +1,6 @@
+.hiddenList {
+    content-visibility: hidden;
+}
+.visibleList {
+    content-visibility: visible;
+}

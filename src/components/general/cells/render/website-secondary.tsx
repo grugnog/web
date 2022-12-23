@@ -30,7 +30,7 @@ export function WebsiteSecondaryComponent({
   dashboard,
 }: Website & {
   pageIssueCount?: number
-  adaScore?: number
+  adaScore?: number | string
   dashboard?: boolean
 }) {
   const [scanDate, setScanDate] = useState<string>('')

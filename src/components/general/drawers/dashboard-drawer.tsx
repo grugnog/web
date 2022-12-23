@@ -29,7 +29,9 @@ export function DrawerW({ children }: any) {
         <div className={'flex overflow-x-inherit md:overflow-x-hidden'}>
           <main className={'flex-1 overflow-auto'} id='main-content'>
             <div
-              className={'px-3 md:px-4 scrollbar overflow-auto max-h-screen'}
+              className={
+                'px-3 md:px-4 scrollbar overflow-auto max-h-screen bg-[#f2f4f7]'
+              }
             >
               <RefBanner />
               {children}

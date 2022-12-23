@@ -24,18 +24,24 @@ import {
   WarningsBox,
 } from './blocks'
 import { MobileBox } from './blocks/mobile'
-import { Issue } from '@app/types'
+import { Issue, Website } from '@app/types'
 import { Timer } from '../timer'
 import { UserAgentBox } from './blocks/user-agent'
 import { ActionsBox } from './blocks/actions'
 import { CdnFixBox } from './blocks/cdn-fix'
 import { useWasmContext } from '@app/components/providers'
 import { useAuthContext } from '@app/components/providers/auth'
-import { GrChannel, GrSync, GrValidate } from 'react-icons/gr'
+import {
+  GrChannel,
+  GrStatusWarningSmall,
+  GrSync,
+  GrValidate,
+} from 'react-icons/gr'
 import { Lighthouse } from '../lighthouse'
 import { fetcher } from '@app/utils/fetcher'
 import { AppManager, HomeManager } from '@app/managers'
 import { useInteractiveContext } from '@app/components/providers/interactive'
+import { RenderInnerIssuesPaging } from '../lists/render/issues/issue-paging'
 
 const styles = {
   title: 'text-xl md:text-3xl font-bold truncate text-gray-600',
@@ -44,7 +50,19 @@ const styles = {
   metaBlock: 'px-2 py-1 border',
 }
 
-// TODO: add types
+interface WebsiteCellProps {
+  index: number
+  crawlWebsite(x: any): Promise<any>
+  removePress(x: any): Promise<any>
+  crawlDuration?: number
+  lighthouseVisible?: boolean
+  activeCrawl?: Record<string, unknown>
+  handleClickOpen(data: any, title: any, url: any, error: any): void
+  url: string
+  pageHeaders?: any
+}
+
+// the main dashboard cell with details and paginated views
 export function WebsiteCellDashboardComponent({
   url,
   removePress,
@@ -76,12 +94,12 @@ export function WebsiteCellDashboardComponent({
   tld,
   shutdown,
   verified,
-}: any) {
+}: Website & WebsiteCellProps) {
   const [anchorEl, setAnchorEl] = useState<any>(null)
   const { account } = useAuthContext() // TODO: move to provider top level
   const { feed } = useWasmContext()
   const items = useDeferredValue(
-    feed?.get_data_item(domain, tld || subdomains) ?? []
+    feed?.get_data_item(domain, !!(tld || subdomains)) ?? []
   )
   const { setSelectedWebsite, selectedWebsite } = useInteractiveContext()
 
@@ -137,7 +155,7 @@ export function WebsiteCellDashboardComponent({
       }
 
       if (handleClickOpen) {
-        handleClickOpen(eventDS, title, url)
+        handleClickOpen(eventDS, title, url, null)
       }
 
       setAnchorEl(null)
@@ -165,10 +183,10 @@ export function WebsiteCellDashboardComponent({
             }
           })
         })
-      } else {
-        errors = issuesInfo?.errorCount
-        warnings = issuesInfo?.warningCount
-        notices = issuesInfo?.noticesCount
+      } else if (issuesInfo) {
+        errors = issuesInfo.errorCount || 0
+        warnings = issuesInfo.warningCount || 0
+        notices = issuesInfo.noticeCount || 0
       }
 
       return {
@@ -208,10 +226,10 @@ export function WebsiteCellDashboardComponent({
     }
   }, [domain, url])
 
-  const pageIssueCount =
-    issues?.length > issuesInfo?.pageCount
-      ? issues.length
-      : issuesInfo?.pageCount
+  const pagecount = issuesInfo?.pageCount || 0
+  const issueTotal = issuesInfo?.totalIssues || 0
+
+  const pageIssueCount = issues?.length > pagecount ? issues.length : pagecount
 
   const { adaScoreAverage: adaScore } = issuesInfo ?? {}
 
@@ -233,137 +251,147 @@ export function WebsiteCellDashboardComponent({
   }, [url, handleClose, crawlWebsite])
 
   return (
-    <li
-      className={`rounded bg-white border-4 ${
-        shutdown ? ' border-gray-600' : ''
-      }`}
-    >
-      <div>
-        <div className='flex gap-x-1 place-items-center place-content-between border-b px-3 pt-2 pb-4'>
-          <div className='flex gap-3 place-items-center flex-wrap'>
-            <div>
-              <div
-                className={`${styles.title} flex space-x-2 place-items-center pb-2`}
-              >
-                <Link
-                  title={`view details ${url}`}
-                  href={linkView}
-                  className={styles.title}
+    <li>
+      <div className={`rounded bg-white`}>
+        <div>
+          <div className='flex gap-x-1 place-items-center place-content-between border-b px-3 pt-2 pb-4'>
+            <div className='flex gap-3 place-items-center flex-wrap'>
+              <div>
+                <div
+                  className={`${styles.title} flex space-x-2 place-items-center pb-2`}
                 >
-                  {domainHost}
-                </Link>
-                {verified ? (
-                  <GrValidate
-                    className='grIcon text-sm'
-                    title={`${url} is verified.`}
-                  />
-                ) : null}
+                  <Link
+                    title={`view details ${url}`}
+                    href={linkView}
+                    className={styles.title}
+                  >
+                    {domainHost}
+                  </Link>
+                  {shutdown ? (
+                    <GrStatusWarningSmall
+                      className={`grIcon text-xs text-gray-700`}
+                      title={'Crawl did not complete.'}
+                    />
+                  ) : null}
+                  {verified ? (
+                    <GrValidate
+                      className='grIcon text-sm'
+                      title={`${url} is verified.`}
+                    />
+                  ) : null}
+                </div>
+                <WebsiteSecondary
+                  domain={domain}
+                  issuesInfo={{
+                    ...issuesInfo,
+                    totalIssues:
+                      totalIssues > issueTotal ? totalIssues : issueTotal,
+                  }}
+                  pageIssueCount={pageIssueCount}
+                  cdnConnected={cdnConnected}
+                  adaScore={adaScore}
+                  issues={issues}
+                  pageLoadTime={pageLoadTime}
+                  lastScanDate={lastScanDate}
+                  pageHeaders={pageHeaders}
+                  robots={robots}
+                  subdomains={subdomains}
+                  tld={tld}
+                  shutdown={shutdown}
+                  dashboard
+                />
               </div>
-              <WebsiteSecondary
-                domain={domain}
-                issuesInfo={{
-                  ...issuesInfo,
-                  totalIssues:
-                    totalIssues > issuesInfo?.totalIssues
-                      ? totalIssues
-                      : issuesInfo?.totalIssues,
-                }}
-                pageIssueCount={pageIssueCount}
-                cdnConnected={cdnConnected}
-                adaScore={adaScore}
-                issues={issues}
-                pageLoadTime={pageLoadTime}
-                lastScanDate={lastScanDate}
-                pageHeaders={pageHeaders}
-                robots={robots}
-                subdomains={subdomains}
-                tld={tld}
-                shutdown={shutdown}
-                dashboard
-              />
-            </div>
-            <div className='flex place-items-center px-2 space-x-3'>
-              <button
-                title={`sync and check ${url} for issues`}
-                className={'hover:bg-gray-200 p-2 rounded'}
-                onClick={onWebsiteCrawl}
-              >
-                <GrSync className='grIcon' />
-              </button>
-              <Link
-                title={`view in sandbox ${url}`}
-                href={linkUrl}
-                className={'hover:bg-gray-200 p-2 rounded'}
-              >
-                <GrChannel className='grIcon' />
-              </Link>
-              <div className='pl-1 border-l'>
-                <div className='pl-3'>
-                  <Timer stop={!activeCrawl} duration={crawlDuration} />
+              <div className='flex place-items-center px-2 space-x-3'>
+                <button
+                  title={`sync and check ${url} for issues`}
+                  className={'hover:bg-gray-200 p-2 rounded'}
+                  onClick={onWebsiteCrawl}
+                >
+                  <GrSync className='grIcon' />
+                </button>
+                <Link
+                  title={`view in sandbox ${url}`}
+                  href={linkUrl}
+                  className={'hover:bg-gray-200 p-2 rounded'}
+                >
+                  <GrChannel className='grIcon' />
+                </Link>
+                <div className='pl-1 border-l'>
+                  <div className='pl-3'>
+                    <Timer stop={!activeCrawl} duration={crawlDuration} />
+                  </div>
                 </div>
               </div>
             </div>
+            <MoreOptions
+              url={url}
+              issues={issues}
+              crawlWebsite={onWebsiteCrawl}
+              handleClose={handleClose}
+              handleMenu={handleMenu}
+              handleMainClick={handleMainClick}
+              anchorEl={anchorEl}
+              removePress={onRemovePress}
+              pages={pages}
+              pageHeaders={pageHeaders}
+              index={index}
+              subdomains={subdomains}
+              tld={tld}
+              pageInsights={pageInsights}
+              shutdown={shutdown}
+              verified={verified}
+            />
           </div>
-          <MoreOptions
-            url={url}
-            issues={issues}
-            crawlWebsite={onWebsiteCrawl}
-            handleClose={handleClose}
-            handleMenu={handleMenu}
-            handleMainClick={handleMainClick}
-            anchorEl={anchorEl}
-            removePress={onRemovePress}
-            pages={pages}
-            pageHeaders={pageHeaders}
-            index={index}
-            subdomains={subdomains}
-            tld={tld}
-            pageInsights={pageInsights}
-            shutdown={shutdown}
-            verified={verified}
-          />
+        </div>
+        <div className='space-y-1'>
+          <div className='grid grid-cols-1 md:grid-cols-3 gap-1'>
+            <AccessibilityBox adaScore={adaScore} />
+            <IssuesBox issues={errorCount} />
+            <WarningsBox issues={warningCount} />
+          </div>
+          <div className='grid grid-cols-1 md:grid-cols-3 gap-1'>
+            <CdnFixBox issues={issuesFixedByCdn} />
+            <PagesBox count={pageIssueCount ?? 'N/A'} />
+            <LoadTimeBox duration={pageLoadTime?.duration} />
+          </div>
+          <div className='grid grid-cols-1 md:grid-cols-3 gap-1'>
+            <StandardBox standard={standard} url={url} />
+            <HeadersBox pageHeaders={pageHeaders} />
+            <LighthouseBox pageInsights={pageInsights} />
+          </div>
+          <div className='grid grid-cols-1 md:grid-cols-3 gap-1'>
+            <UserAgentBox ua={ua} url={url} />
+            <ActionsBox actions={actionsEnabled || actions?.length} />
+            <OnlineBox online={online} />
+          </div>
+          <div className='grid grid-cols-1 md:grid-cols-3 gap-1'>
+            <CustomCDNBox
+              cdnConnected={cdnConnected}
+              script={script}
+              activeSubscription={activeSubscription}
+              domain={domain}
+            />
+            <StatusBadgeBox
+              reportsLink={reportsLink}
+              statusBadgeUrl={statusBadgeUrl}
+              domain={domain}
+              reportsPageLink={reportsPageLink}
+            />
+            <MobileBox mobile={mobile} url={url} />
+          </div>
+        </div>
+        {pageInsights && insight && lighthouseVisible ? (
+          <Lighthouse insight={insight} lighthouseVisible={lighthouseVisible} />
+        ) : null}
+        <div>
+          <div className='flex px-4 py-2 flex-1 w-full place-items-center place-content-end text-gray-500 text-right text-sm border-t border-dotted'>
+            <div className='text-right'>Issues</div>
+          </div>
+          <div className='border-t border-dotted'>
+            <RenderInnerIssuesPaging pageUrl={url} small />
+          </div>
         </div>
       </div>
-      <div className='space-y-1'>
-        <div className='grid grid-cols-1 md:grid-cols-3 gap-1'>
-          <AccessibilityBox adaScore={adaScore} />
-          <IssuesBox issues={errorCount} />
-          <WarningsBox issues={warningCount} />
-        </div>
-        <div className='grid grid-cols-1 md:grid-cols-3 gap-1'>
-          <CdnFixBox issues={issuesFixedByCdn} />
-          <PagesBox count={pageIssueCount ?? 'N/A'} />
-          <LoadTimeBox duration={pageLoadTime?.duration} />
-        </div>
-        <div className='grid grid-cols-1 md:grid-cols-3 gap-1'>
-          <StandardBox standard={standard} url={url} />
-          <HeadersBox pageHeaders={pageHeaders} />
-          <LighthouseBox pageInsights={pageInsights} />
-        </div>
-        <div className='grid grid-cols-1 md:grid-cols-3 gap-1'>
-          <UserAgentBox ua={ua} url={url} />
-          <ActionsBox actions={actionsEnabled || actions?.length} />
-          <OnlineBox online={online} />
-        </div>
-        <div className='grid grid-cols-1 md:grid-cols-3 gap-1'>
-          <CustomCDNBox
-            cdnConnected={cdnConnected}
-            script={script}
-            activeSubscription={activeSubscription}
-            domain={domain}
-          />
-          <StatusBadgeBox
-            reportsLink={reportsLink}
-            statusBadgeUrl={statusBadgeUrl}
-            domain={domain}
-            reportsPageLink={reportsPageLink}
-          />
-          <MobileBox mobile={mobile} url={url} />
-        </div>
-      </div>
-      {pageInsights && insight && lighthouseVisible ? (
-        <Lighthouse insight={insight} lighthouseVisible={lighthouseVisible} />
-      ) : null}
     </li>
   )
 }

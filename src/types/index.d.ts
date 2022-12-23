@@ -1,22 +1,3 @@
-export type Maybe<T> = T | null
-export type Exact<T extends { [key: string]: unknown }> = {
-  [K in keyof T]: T[K]
-}
-export type MakeOptional<T, K extends keyof T> = Omit<T, K> & {
-  [SubKey in K]?: Maybe<T[SubKey]>
-}
-export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & {
-  [SubKey in K]: Maybe<T[SubKey]>
-}
-/** All built-in and custom scalars, mapped to their actual values */
-export type Scalars = {
-  ID: string
-  String: string
-  Boolean: boolean
-  Int: number
-  Float: number
-}
-
 export type Analytic = {
   __typename?: 'Analytic'
   id?: string
@@ -27,7 +8,7 @@ export type Analytic = {
   errorOccurances?: string
   userId?: number
   domain?: string
-  adaScore?: Maybe<Scalars['Float']>
+  adaScore?: number
 }
 
 export type BasicMutationResponse = MutationResponse & {
@@ -104,7 +85,10 @@ export type IssueMeta = {
   skipContentIncluded?: boolean
   errorCount?: number
   warningCount?: number
+  noticeCount?: number
   adaScore?: number
+  pageCount?: number
+  adaScoreAverage?: string // todo: replace name to accessScore
 }
 
 export type Mutation = {
@@ -115,7 +99,7 @@ export type Mutation = {
   updateUser?: UpdateUserMutationResponse
   toggleAlert?: UpdateUserMutationResponse
   updateWebsite?: UpdateWebSiteMutationResponse
-  updateScript?: Maybe<UpdateScriptMutationResponse>
+  updateScript?: UpdateScriptMutationResponse
   crawlWebsite?: UpdateWebSiteMutationResponse
   scanWebsite?: UpdateWebSiteMutationResponse
   forgotPassword?: User
@@ -157,7 +141,7 @@ export type MutationUpdateWebsiteArgs = {
 
 export type MutationUpdateScriptArgs = {
   url?: string
-  scriptMeta?: Maybe<ScriptMetaInput>
+  scriptMeta?: ScriptMetaInput
   editScript?: boolean
   newScript?: string
 }
@@ -191,7 +175,7 @@ export type MutationAddWebsiteArgs = {
 }
 
 export type MutationFilterEmailDatesArgs = {
-  emailFilteredDates?: Maybe<Array<number>>
+  emailFilteredDates?: number[]
 }
 
 export type MutationRemoveWebsiteArgs = {
@@ -258,7 +242,7 @@ export type PaymentSubScription = {
   canceled_at?: string
   status?: string
   start_date?: string
-  plan?: Maybe<PaymentPlan>
+  plan?: PaymentPlan
   days_until_due?: string
   current_period_end?: string
   current_period_start?: string
@@ -475,7 +459,7 @@ export type Website = {
   issue?: PageIssue[]
   issuesInfo?: IssueMeta
   pages?: Pages
-  script?: Maybe<Script>
+  script?: Script
   lastScanDate?: string
   cdn?: string
   pageHeaders?: PageHeaders[]
@@ -489,6 +473,11 @@ export type Website = {
   shutdown?: boolean // did the website complete the scan
   verified?: boolean // website verified
   verificationCode?: string // txt record to verify dns
+  mobile?: boolean
+  ua?: string
+  actionsEnabled?: boolean
+  actions?: any[]
+  standard?: 'WCAG2A' | 'WCAG2AA' | 'WCAG2AAA' | 'Section508'
 }
 
 export type WebsiteIssuesArgs = {

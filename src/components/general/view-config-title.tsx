@@ -40,7 +40,7 @@ function ViewConfigTitle({
         <Popover className='relative'>
           <Popover.Button
             className={
-              'border rounded px-3 py-1.5 text-sm font-medium text-gray-600 flex place-items-center gap-x-3'
+              'border rounded px-3 py-1.5 text-sm font-medium text-gray-600 flex place-items-center gap-x-3 bg-white'
             }
           >
             <h1 className={'min-w-[80px] max-w-[180px] truncate text-left'}>

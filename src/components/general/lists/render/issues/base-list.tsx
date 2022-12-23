@@ -25,11 +25,18 @@ const RenderInnerIssuesWrapper: FC<any> = (props) => {
               {...page}
               open={props.open}
               small={props.small}
+              singleRow={props.singleRow}
             />
           ))}
         </ul>
       </InnerWrapper>
-      <div className={`pb-8 ${issueSource?.length > 1 ? '' : 'hidden'}`}>
+      <div
+        className={
+          props.singleRow
+            ? `${issueSource?.length > 1 ? '' : 'hidden'}`
+            : `pb-8 ${issueSource?.length > 1 ? '' : 'hidden'}`
+        }
+      >
         <LoadMoreButton
           visible={issueSource?.length > 1}
           onLoadMoreEvent={onLoadMore}

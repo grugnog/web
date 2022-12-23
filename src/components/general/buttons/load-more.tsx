@@ -5,7 +5,7 @@ import { Button } from './button'
 export const LoadMoreButton: React.FC<{
   onLoadMoreEvent(x: any): Promise<void>
   visible?: boolean
-  title?: string
+  title?: string | React.ReactElement
   loading?: boolean
 }> = ({ onLoadMoreEvent, visible, loading, title }) => {
   return (

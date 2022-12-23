@@ -2,10 +2,10 @@ import React from 'react'
 import { InfoBlock } from '../info-block'
 import { GrAction } from 'react-icons/gr'
 
-export const ActionsBox = ({ actions }: { actions?: string }) => {
+export const ActionsBox = ({ actions }: { actions?: any }) => {
   return (
     <InfoBlock title={'Actions'} icon={<GrAction />}>
-      {actions ? 'Enabled' : 'N/A'}
+      {!!actions ? 'Enabled' : 'N/A'}
     </InfoBlock>
   )
 }

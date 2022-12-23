@@ -12,9 +12,9 @@ export interface WebsiteListProps {
   activeCrawls?: Record<string, any>
   emptyHeaderTitle?: string
   emptyHeaderSubTitle?: string
-  removePress?(x: any): void
+  removePress(x: any): Promise<any>
   refetch(_: any): Promise<any>
-  crawlWebsite(x: any): void
+  crawlWebsite(x: any): Promise<any>
   setModal(x: any): void
 }
 
@@ -29,11 +29,7 @@ export const WebSitesDashboard: FC<
   data,
   removePress,
   handleClickOpen,
-  refetch,
   crawlWebsite,
-  setModal,
-  mutatationLoading,
-  loading,
   lighthouseVisible,
   activeCrawls,
   children,
@@ -53,14 +49,11 @@ export const WebSitesDashboard: FC<
           key={props._id}
           handleClickOpen={handleClickOpen}
           removePress={removePress}
-          refetch={refetch}
           crawlWebsite={crawlWebsite}
-          setModal={setModal}
-          loading={loading}
-          mutatationLoading={mutatationLoading}
           lighthouseVisible={lighthouseVisible}
           activeCrawl={activeCrawls && activeCrawls[props.domain]}
           index={index}
+          url={props.url as string}
           {...props}
         />
       ))}

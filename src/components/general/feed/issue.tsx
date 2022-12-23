@@ -45,7 +45,7 @@ export function FeedIssueCardComponent({
   const largeBody = m && m?.length < 80
 
   return (
-    <div className='px-3 py-3 flex flex-col place-content-between h-[inherit]'>
+    <div className='px-3 py-3 flex gap-y-0.5 flex-col place-content-between h-[inherit]'>
       <div>
         <div className='flex space-x-2 items-center'>
           <div
@@ -96,7 +96,7 @@ export function FeedIssueCardComponent({
         ) : null}
       </div>
       {context ? (
-        <SyntaxHighlighter language='html' style={docco}>
+        <SyntaxHighlighter language='html' style={docco} className={'text-xs'}>
           {context}
         </SyntaxHighlighter>
       ) : null}

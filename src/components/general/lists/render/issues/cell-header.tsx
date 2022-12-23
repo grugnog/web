@@ -6,6 +6,7 @@ type CellHeaderProps = {
   visible?: boolean
   totalIssues?: number
   small?: boolean
+  singleRow?: boolean // display in a single row
 }
 
 const ListCellHeaderW = ({
@@ -14,8 +15,28 @@ const ListCellHeaderW = ({
   visible,
   totalIssues,
   small,
+  singleRow,
 }: CellHeaderProps) => {
   const onTogglelist = () => setVisible((v: boolean) => !v)
+
+  // return a small single row of the page and issues with a dropdown
+  if (singleRow) {
+    return (
+      <button
+        className={`px-4 py-3 w-full text-left hover:bg-gray-100`}
+        onClick={onTogglelist}
+        aria-expanded={visible}
+        aria-label={`Toggle section visible for ${title}`}
+      >
+        <div className='flex flex-1 text-xs md:text-sm place-content-around place-items-center'>
+          <div className={`text-gray-700 flex-1`}>{title}</div>
+          <div>
+            <div className={`text-gray-600`}>{totalIssues}</div>
+          </div>
+        </div>
+      </button>
+    )
+  }
 
   return (
     <button

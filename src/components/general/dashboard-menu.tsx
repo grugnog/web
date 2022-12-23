@@ -29,7 +29,7 @@ export type RightBarProps = {
   premiumEnabled?: boolean // used to detect prem atm
 }
 
-const btnStyles = 'gap-x-1.5 flex place-items-center'
+const btnStyles = 'gap-x-1.5 flex place-items-center bg-white'
 
 export const RightBar = ({
   onWebsiteSort,

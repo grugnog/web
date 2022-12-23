@@ -46,7 +46,7 @@ export const AllWebsitesList: FC = () => {
   }
 
   return (
-    <ul className='max-h-64 overflow-y-auto list-none bg-gray-100 shadow rounded border scrollbar'>
+    <ul className='max-h-64 overflow-y-auto list-none bg-white shadow rounded border scrollbar'>
       <li>
         <Popover.Button
           onClick={onViewAllEvent}

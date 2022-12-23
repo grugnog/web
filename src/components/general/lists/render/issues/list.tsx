@@ -1,5 +1,6 @@
-import { Issue } from '@app/types'
 import React, { useState, memo } from 'react'
+import { hiddenList, visibleList } from '@app/stylesheets/list.module.css'
+import { Issue } from '@app/types'
 import { FeedIssue } from '../../../feed/issue'
 import { ListCellHeader } from './cell-header'
 
@@ -9,7 +10,8 @@ const IssuesWrapper = ({
   pageUrl,
   open,
   small,
-}: Issue & { open?: boolean; small?: boolean }) => {
+  singleRow,
+}: Issue & { open?: boolean; small?: boolean; singleRow?: boolean }) => {
   const [visible, setVisible] = useState<boolean>(!!open)
 
   return (
@@ -20,10 +22,13 @@ const IssuesWrapper = ({
         setVisible={setVisible}
         visible={visible}
         small={small}
+        singleRow={singleRow}
       />
       <ul
         aria-hidden={!visible}
-        className={`${visible ? 'visible' : 'hidden'} rounded-b`}
+        className={`${visible ? 'visible' : 'hidden'} rounded-b ${
+          visible ? visibleList : hiddenList
+        }`}
       >
         {issues?.map((props: any, index: number) => (
           <FeedIssue

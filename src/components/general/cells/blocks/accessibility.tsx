@@ -6,7 +6,7 @@ export const AccessibilityBox = ({
   adaScore = 0,
   average = true,
 }: {
-  adaScore?: number
+  adaScore?: string | number
   average?: boolean
 }) => {
   return (
