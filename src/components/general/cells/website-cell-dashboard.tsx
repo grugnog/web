@@ -42,6 +42,7 @@ import { fetcher } from '@app/utils/fetcher'
 import { AppManager, HomeManager } from '@app/managers'
 import { useInteractiveContext } from '@app/components/providers/interactive'
 import { RenderInnerIssuesPaging } from '../lists/render/issues/issue-paging'
+import { LazyMount } from '@app/components/lazy/lazymount'
 
 const styles = {
   title: 'text-xl md:text-3xl font-bold truncate text-gray-600',
@@ -379,7 +380,11 @@ export function WebsiteCellDashboardComponent({
             <div className='text-right'>Issues</div>
           </div>
           <div className='border-t border-dotted'>
-            <RenderInnerIssuesPaging pageUrl={url} small />
+            <LazyMount
+              className={'h-[455px] md:h-[480px] overflow-y-auto bg-white'}
+            >
+              <RenderInnerIssuesPaging pageUrl={url} small />
+            </LazyMount>
           </div>
         </div>
       </div>

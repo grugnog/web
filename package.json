@@ -1,6 +1,6 @@
 {
   "name": "@a11ywatch/web",
-  "version": "0.5.15",
+  "version": "0.5.16",
   "scripts": {
     "dev": "NODE_OPTIONS='--inspect' next dev",
     "dev:vercel": "NODE_OPTIONS='--inspect' vercel dev",
@@ -57,6 +57,7 @@
     "react-google-login": "5.2.2",
     "react-icons": "4.7.1",
     "react-syntax-highlighter": "^15.5.0",
+    "react-visibility-sensor": "^5.1.1",
     "react-window": "^1.8.8",
     "sharp": "^0.31.2",
     "victory": "36.0.0",
