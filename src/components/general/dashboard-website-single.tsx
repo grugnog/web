@@ -34,7 +34,7 @@ export const DashboardWebsiteSingle: FC<DashboardWebsiteListProps> = ({
   const { data, loading, error } = useWebsite(url)
 
   useEffect(() => {
-    const clearData = error || (!data && !loading)
+    const clearData = error || (!data?.website && !loading)
     // return to dashboard all display
     if (clearData) {
       HomeManager.setDashboardView('')

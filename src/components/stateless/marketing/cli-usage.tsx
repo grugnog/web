@@ -31,10 +31,9 @@ const infoDetails = [
 ]
 
 const previewStyles = {
-  width: '8px',
   display: 'inline-block',
   height: '1.25rem',
-  marginLeft: '0.2rem',
+  marginLeft: '0.18rem',
   transform: 'translateY(0.2rem)',
   backgroundColor: 'rgb(160, 160, 160)',
 }
@@ -93,7 +92,7 @@ export function MarketingCli(): ReactElement<any, any> | null {
               } h-full flex place-items-center md:h-initial flex-1 w-full`}
             >
               <div className={`bg-[#0E1116] rounded shadow-xl w-full`}>
-                <div className='py-3 px-3 text-base lg:text-xl md:text-lg'>
+                <div className='py-2 px-2 text-base lg:text-xl md:text-lg md:py-3 md:px-3'>
                   <div className='text-gray-100'>
                     <span className='text-gray-300 select-none'>~ </span> npm i
                     a11ywatch-cli -g
@@ -104,8 +103,11 @@ export function MarketingCli(): ReactElement<any, any> | null {
                   </div>
                   <div className='text-gray-300'>
                     <span className='text-gray-400 select-none'>~ </span>{' '}
-                    a11ywatch crawl -u localhost:3000
-                    <span style={previewStyles}></span>
+                    a11ywatch crawl -d -u a11ywatch.com
+                    <span
+                      style={previewStyles}
+                      className={'w-[4px] md:w-[8px]'}
+                    ></span>
                   </div>
                 </div>
               </div>

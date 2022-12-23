@@ -41,9 +41,11 @@ const InnerWrapperComponent: FC<any> = (props) => {
     if (small) {
       return (
         <>
-          {Array.from(Array(count || 10).keys()).map((item: string | number) => (
-            <SingleList key={item} />
-          ))}
+          {Array.from(Array(count || 10).keys()).map(
+            (item: string | number) => (
+              <SingleList key={item} />
+            )
+          )}
         </>
       )
     }

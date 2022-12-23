@@ -103,8 +103,7 @@ export function FeaturesCellComponent({
       true,
       `${feature} requires paid plan, upgrade your account to get access.`,
       'error',
-      false,
-      true
+      false
     )
   }
 

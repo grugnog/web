@@ -19,6 +19,7 @@ const handleClose = (
   reason: string
 ): any => {
   event?.preventDefault()
+  event?.stopPropagation()
   if (reason === 'clickaway') {
     return
   }
@@ -63,16 +64,14 @@ const SnackBarComponent = ({ topLevel, snackID }: SnackProps) => {
               </Link>
             ) : null}
           </div>
-          {AppManager.snackbar.autoClose ? null : (
-            <Button
-              aria-label='close'
-              onClick={handleClose}
-              className={'border-0 md:py-2'}
-              iconButton
-            >
-              <GrClose className='grIcon text-sm' title='Close bar' />
-            </Button>
-          )}
+          <Button
+            aria-label='close'
+            onClick={handleClose}
+            className={'border-0 md:py-2'}
+            iconButton
+          >
+            <GrClose className='grIcon text-sm' title='Close bar' />
+          </Button>
         </div>
       </div>
     </div>

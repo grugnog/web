@@ -263,7 +263,7 @@ export function WebsiteCellDashboardComponent({
                   <Link
                     title={`view details ${url}`}
                     href={linkView}
-                    className={styles.title}
+                    className={`${styles.title} p-0`}
                   >
                     {domainHost}
                   </Link>

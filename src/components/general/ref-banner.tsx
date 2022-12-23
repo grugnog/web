@@ -21,7 +21,7 @@ const RefBanner = () => {
     <div className='pt-2'>
       <div
         className={
-          'py-2 px-3 z-10 w-full flex place-items-center place-content-around gap-x-2 border rounded transition ease-in-out delay-150'
+          'py-2 px-3 z-10 w-full bg-white flex place-items-center place-content-around gap-x-2 border rounded transition ease-in-out delay-150'
         }
       >
         <div className={'text-sm text-gray-600 font-semibold flex-1'}>

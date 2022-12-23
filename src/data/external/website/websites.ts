@@ -195,8 +195,7 @@ export const useWebsiteData = (
             AppManager.toggleSnack(
               true,
               `Crawl did not complete for ${completedWebsite.domain}. Upgrade your account for a larger scan uptime.`,
-              'error',
-              true
+              'error'
             )
           } else {
             AppManager.toggleSnack(

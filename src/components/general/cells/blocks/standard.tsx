@@ -33,7 +33,7 @@ export const StandardBoxWrapper = ({
       })
       AppManager.toggleSnack(true, `Updated standard ${url} to ${value}`)
     } catch (e) {
-      AppManager.toggleSnack(true, e)
+      AppManager.toggleSnack(true, 'An issue occured updating standard.')
     }
   }
 
