@@ -5,6 +5,7 @@ import { copyClipboard } from '@app/lib'
 import { PrismLight } from 'react-syntax-highlighter'
 import { Script } from '@app/types'
 import { SCRIPTS_CDN_URL_HOST } from '@app/configs'
+import { classNames } from '@app/utils/classes'
 
 const notAvail = 'Not available on a Free plan.'
 
@@ -52,7 +53,14 @@ export const CustomCDNBoxWrapper = ({
   const disabled = cdnText === '[Paid plan required]'
 
   return (
-    <InfoBlock title={'CDN'} icon={<GrCloudSoftware />}>
+    <InfoBlock
+      title={'CDN'}
+      icon={
+        <GrCloudSoftware
+          className={classNames('grIcon', cdnConnected ? 'text-green-600' : '')}
+        />
+      }
+    >
       <>
         <div className='flex space-x-1'>
           <span className='text-sm pb-2 font-medium'>Minified</span>
@@ -78,13 +86,6 @@ export const CustomCDNBoxWrapper = ({
         ) : (
           <pre className={' cursor-pointer'}>{cdnText}</pre>
         )}
-        <div
-          className={`py-2 text-sm ${
-            !cdnConnected ? 'text-gray-700' : 'text-green-600'
-          }`}
-        >
-          {cdnConnected ? 'Connected' : 'Disconnected'}
-        </div>
       </>
     </InfoBlock>
   )

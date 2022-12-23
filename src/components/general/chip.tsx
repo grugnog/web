@@ -26,7 +26,7 @@ export const Chip: FC<PropsWithChildren<ChipProps>> = ({
   return (
     <div
       className={classNames(
-        'rounded-xl bg-gray-50 flex space-x-1 place-items-center text-xs border px-1 py-0.5 max-w-[95.147px] min-w-[76.8px] text-gray-700 truncate',
+        'rounded-xl bg-gray-50 flex gap-x-1 place-items-center text-xs border px-1.5 py-0.5 max-w-[200px] text-gray-700 truncate',
         className
       )}
       style={style}

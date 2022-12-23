@@ -343,42 +343,33 @@ export function WebsiteCellDashboardComponent({
             />
           </div>
         </div>
-        <div className='space-y-1'>
-          <div className='grid grid-cols-1 md:grid-cols-3 gap-1'>
-            <AccessibilityBox adaScore={adaScore} />
-            <IssuesBox issues={errorCount} />
-            <WarningsBox issues={warningCount} />
-          </div>
-          <div className='grid grid-cols-1 md:grid-cols-3 gap-1'>
-            <CdnFixBox issues={issuesFixedByCdn} />
-            <PagesBox count={pageIssueCount ?? 'N/A'} />
-            <LoadTimeBox duration={pageLoadTime?.duration} />
-          </div>
-          <div className='grid grid-cols-1 md:grid-cols-3 gap-1'>
-            <StandardBox standard={standard} url={url} />
-            <HeadersBox pageHeaders={pageHeaders} />
-            <LighthouseBox pageInsights={pageInsights} />
-          </div>
-          <div className='grid grid-cols-1 md:grid-cols-3 gap-1'>
-            <UserAgentBox ua={ua} url={url} />
-            <ActionsBox actions={actionsEnabled || actions?.length} />
-            <OnlineBox online={online} />
-          </div>
-          <div className='grid grid-cols-1 md:grid-cols-3 gap-1'>
-            <CustomCDNBox
-              cdnConnected={cdnConnected}
-              script={script}
-              activeSubscription={activeSubscription}
-              domain={domain}
-            />
-            <StatusBadgeBox
-              reportsLink={reportsLink}
-              statusBadgeUrl={statusBadgeUrl}
-              domain={domain}
-              reportsPageLink={reportsPageLink}
-            />
-            <MobileBox mobile={mobile} url={url} />
-          </div>
+        <div className='grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-1'>
+          <AccessibilityBox adaScore={adaScore} />
+          <IssuesBox issues={errorCount} />
+          <WarningsBox issues={warningCount} />
+          <CdnFixBox issues={issuesFixedByCdn} />
+          <PagesBox count={pageIssueCount ?? 'N/A'} />
+          <LoadTimeBox duration={pageLoadTime?.duration} />
+          <HeadersBox pageHeaders={pageHeaders} />
+          <LighthouseBox pageInsights={pageInsights} />
+          <ActionsBox actions={actionsEnabled || actions?.length} />
+          <OnlineBox online={online} />
+          <UserAgentBox ua={ua} url={url} />
+          <StandardBox standard={standard} url={url} />
+          <CustomCDNBox
+            cdnConnected={cdnConnected}
+            script={script}
+            activeSubscription={activeSubscription}
+            domain={domain}
+          />
+          <StatusBadgeBox
+            reportsLink={reportsLink}
+            statusBadgeUrl={statusBadgeUrl}
+            domain={domain}
+            reportsPageLink={reportsPageLink}
+            hideBadge
+          />
+          <MobileBox mobile={mobile} url={url} />
         </div>
         {pageInsights && insight && lighthouseVisible ? (
           <Lighthouse insight={insight} lighthouseVisible={lighthouseVisible} />

@@ -11,11 +11,13 @@ export const StatusBadgeBoxWrapper = ({
   reportsLink,
   domain,
   reportsPageLink,
+  hideBadge,
 }: {
   statusBadgeUrl?: string
   reportsLink?: string
   domain?: string
   reportsPageLink?: string // path to reports page for website locally
+  hideBadge?: boolean
 }) => {
   const [isMarkdown, setMarkdown] = useState<boolean>(true)
 
@@ -49,7 +51,7 @@ export const StatusBadgeBoxWrapper = ({
           ? `[![A11yWatch](${statusBadgeUrl})](${reportsLink})`
           : `<a href="${reportsLink}"><img src="${statusBadgeUrl}" /></a>`}
       </PrismLight>
-      {statusBadgeUrl && reportsPageLink ? (
+      {!hideBadge && statusBadgeUrl && reportsPageLink ? (
         <Link href={reportsPageLink} className={'block py-2'}>
           <img
             src={statusBadgeUrl}

@@ -10,7 +10,6 @@ export const IssuesBox = ({ issues }: { issues?: number }) => {
       icon={<GrEmergency className='grIcon' color='black' fill='black' />}
     >
       {Intl.NumberFormat().format(issues ?? 0)} issue{issues === 1 ? '' : 's'}{' '}
-      to fix
     </InfoBlock>
   )
 }
