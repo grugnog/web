@@ -1,14 +1,15 @@
 import React from 'react'
-import { Logo, MarketingDrawer } from '@app/components/general'
+import { MarketingDrawer } from '@app/components/general'
 import { metaSetter } from '@app/utils'
 import type { PageProps } from '@app/types'
 import { Header } from '@app/components/general/header'
+import { GrOfflineStorage } from 'react-icons/gr'
 
 const Offline = ({ name }: PageProps) => {
   return (
     <MarketingDrawer title={name} footerSpacing>
       <Header>Offline</Header>
-      <Logo />
+      <GrOfflineStorage className='text-xl md:text-2xl' />
       <p>
         It looks like your offline. Try to refresh the page to re-establish your
         connection.
