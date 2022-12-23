@@ -18,4 +18,4 @@ export {
   useSearch,
 } from './local'
 
-export { appModel, initAppModel } from './models'
+export { appModel, initPWAWorker } from './models'

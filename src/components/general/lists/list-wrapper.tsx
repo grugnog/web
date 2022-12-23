@@ -1,6 +1,6 @@
 import { FC, memo } from 'react'
 import { CardHeader } from '@app/components/stateless/card/header'
-import { ListSkeleton } from '../../placeholders'
+import { ListSkeleton, TextSkeleton } from '../../placeholders'
 import { Button } from '../buttons'
 import { UserManager } from '@app/managers'
 
@@ -9,6 +9,17 @@ const emptyClass = 'min-h-10'
 const onLogout = () => {
   UserManager.clearUser()
   window.location.href = '/'
+}
+
+const SingleList = () => {
+  return (
+    <div className='flex px-4 py-3 w-full text-left hover:bg-gray-100 min-h-[45px]'>
+      <div className='flex flex-1'>
+        <TextSkeleton width={200} height={12} />
+      </div>
+      <TextSkeleton width={12} height={12} />
+    </div>
+  )
 }
 
 // list wrapper to display loading and error page
@@ -21,10 +32,21 @@ const InnerWrapperComponent: FC<any> = (props) => {
     emptyHeaderTitle,
     emptyHeaderSubTitle,
     avatar = false,
+    small,
+    count,
   } = props
 
   // Loading
   if (!data && loading) {
+    if (small) {
+      return (
+        <>
+          {Array.from(Array(count || 10).keys()).map((item: string | number) => (
+            <SingleList key={item} />
+          ))}
+        </>
+      )
+    }
     return <ListSkeleton avatar={avatar} />
   }
 

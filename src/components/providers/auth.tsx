@@ -10,6 +10,7 @@ import {
   Fragment,
 } from 'react'
 import { UserManager } from '@app/managers'
+import { ping } from '@app/utils'
 
 const defaultAccount = {
   activeSubscription: false,
@@ -40,12 +41,16 @@ export const AuthProviderWrapper: FC<PropsWithChildren> = ({ children }) => {
   })
 
   useEffect(() => {
+    const authenticated = !!UserManager.token
+
     setAccountType({
       activeSubscription: !UserManager.freeAccount,
-      authed: !!UserManager.token,
+      authed: authenticated,
       alertEnabled: !!UserManager?.user?.alertsEnabled,
       inited: true,
     })
+
+    authenticated && queueMicrotask(ping)
   }, [])
 
   return (

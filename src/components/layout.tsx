@@ -10,7 +10,7 @@ import { RestWebsiteProviderWrapper } from '@app/components/providers/rest/rest-
 import type { InnerApp } from '@app/types/page'
 import { buildScopeQuery } from '@app/utils/build-scope'
 import { strings } from '@app/content/strings/a11y'
-import { initAppModel } from '@app/data'
+import { initPWAWorker } from '@app/data/models/app'
 import {
   BLOG_WEBFLOW_URL,
   companyName,
@@ -19,8 +19,6 @@ import {
 } from '@app/configs/app-config'
 import { useStaticRendering as enableMobxStaticRendering } from 'mobx-react-lite'
 import { SkipContent, SnackBar } from './general'
-import { ping } from '@app/utils'
-import { UserManager } from '@app/managers'
 import { InteractiveProvider } from './providers/interactive'
 import { AuthProvider } from './providers/auth'
 
@@ -33,11 +31,7 @@ const authRoutes = LOGGIN_ROUTES.map((route) => route.replace('/', ''))
 // load the application with providers depending on component
 const LayoutWrapper = ({ Component, pageProps }: InnerApp) => {
   useEffect(() => {
-    initAppModel()
-
-    if (UserManager.token) {
-      queueMicrotask(ping)
-    }
+    initPWAWorker()
   }, [])
 
   const { name } = Component?.meta || strings?.meta

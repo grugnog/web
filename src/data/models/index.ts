@@ -1,2 +1,2 @@
 // TODO: REMOVE METHODS FROM MODELS
-export { appModel, initAppModel } from './app'
+export { appModel, initPWAWorker } from './app'

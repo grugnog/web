@@ -17,7 +17,7 @@ function setPwaInstalled(event?: Event) {
   }
 }
 
-function initAppModel() {
+function initPWAWorker() {
   if (!dev && typeof window !== 'undefined') {
     if (window.matchMedia('(display-mode: standalone)').matches) {
       setPwaInstalled()
@@ -31,4 +31,4 @@ function initAppModel() {
   }
 }
 
-export { appModel, initAppModel }
+export { appModel, initPWAWorker }

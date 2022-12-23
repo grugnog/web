@@ -41,7 +41,7 @@ export const RightBar = ({
   onAnalyticsEvent,
 }: RightBarProps) => {
   return (
-    <div className='flex flex-wrap gap-x-2 gap-y-1 text-sm'>
+    <div className='flex flex-wrap gap-x-1 gap-y-1.5 text-sm'>
       <Button
         onClick={onQueryEvent}
         className={`${btnStyles}${queryModalVisible ? ' border-blue-800' : ''}`}
