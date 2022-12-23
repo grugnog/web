@@ -13,14 +13,15 @@ type LeftbuttonWrapperProps = {
   backButton?: boolean // display a go back button
 }
 
+const onClickEvent = () => {
+  if (typeof history !== 'undefined') {
+    history.back()
+  }
+}
+
 // start left button of the nav
 const Leftbutton = ({ marketing, backButton }: LeftbuttonWrapperProps) => {
   if (backButton) {
-    const onClickEvent = () => {
-      if (typeof history !== 'undefined') {
-        history.back()
-      }
-    }
     return (
       <button
         className={'text-lg hover:bg-gray-100 rounded-3xl px-3 py-3'}

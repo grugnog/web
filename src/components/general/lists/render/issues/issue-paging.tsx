@@ -6,6 +6,7 @@ import { Issues } from './list'
 import type { Issue, PageIssue } from '@app/types'
 import { GrFormNextLink, GrFormPreviousLink } from 'react-icons/gr'
 
+// paging issues for website dashboard cell
 const RenderInnerIssuesWrapper: FC<any> = (props) => {
   const [issueIndex, setIndex] = useState<number>(0)
 
@@ -23,9 +24,8 @@ const RenderInnerIssuesWrapper: FC<any> = (props) => {
 
     if (issueSource) {
       const base = (issueIndex + 1) * 10
-      const low = base - 10
 
-      for (let i = low; i < base; i++) {
+      for (let i = base - 10; i < base; i++) {
         const item = issueSource[i]
         if (!item) {
           break
@@ -55,16 +55,16 @@ const RenderInnerIssuesWrapper: FC<any> = (props) => {
   return (
     <>
       <div className='flex flex-col place-content-around'>
-        <div className='h-96 md:h-[550px] overflow-y-auto bg-white'>
+        <div className='h-[455px] md:h-[480px] overflow-y-auto bg-white'>
           <InnerWrapper {...props} data={issueSource?.length} loading={loading}>
-            <ul>
+            <ul className='list-none'>
               {issueList?.map((page: Issue) => (
                 <Issues
                   key={page?._id}
-                  {...page}
                   open={props.open}
                   small={props.small}
                   singleRow
+                  {...page}
                 />
               ))}
             </ul>

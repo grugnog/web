@@ -48,13 +48,13 @@ function WebView() {
       <div className='px-6 py-6 space-y-2 mx-auto container'>
         <PageTitle className='sr-only'>{`${url} Details`}</PageTitle>
         <WebCell title={'Issues'}>
-          <RenderInnerIssues pageUrl={url} />
+          <RenderInnerIssues pageUrl={url} small singleRow />
         </WebCell>
         <WebCell title={'Pages'}>
           <RenderInnerPages pageUrl={url} />
         </WebCell>
         <WebCell title={'Analytics'}>
-          <RenderInnerAnalytics pageUrl={url} />
+          <RenderInnerAnalytics pageUrl={url} small singleRow />
         </WebCell>
         <WebCell title={'Scripts'}>
           <RenderInnerScripts pageUrl={url} />

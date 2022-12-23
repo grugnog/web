@@ -4,6 +4,7 @@ import { AnalyticsCell } from '../cells/website-cell-analytics'
 import { useAnalyticsData } from '@app/data/external/analytics/analytics'
 import { LoadMoreButton } from '../buttons'
 import { listStyle } from '@app/styles/lists/tw'
+import { ListCellHeader } from './render/issues/cell-header'
 
 // return issues maped
 function AnalyticsWrapper(props: any) {
@@ -13,26 +14,18 @@ function AnalyticsWrapper(props: any) {
     setVisible((v: boolean) => !v)
   }
 
-  const totalIssues = props?.totalIssues
+  const { pageUrl, totalIssues, issues, small, singleRow } = props ?? {}
 
   return (
     <li>
-      <button
-        className={`border border-l-0 border-r-0 px-3 py-3 w-full text-left ${
-          visible ? 'rounded-b-none' : ''
-        }`}
-        onClick={onTogglelist}
-        aria-expanded={visible}
-        aria-label={`Toggle section visible for ${props?.pageUrl}`}
-      >
-        <div>
-          <div className={'text-2xl font-bold'}>{props?.pageUrl}</div>
-          <div>
-            {totalIssues} possible issue
-            {totalIssues === 1 ? '' : 's'}
-          </div>
-        </div>
-      </button>
+      <ListCellHeader
+        title={pageUrl}
+        totalIssues={issues?.length || totalIssues || 0}
+        setVisible={onTogglelist}
+        visible={visible}
+        small={small}
+        singleRow={singleRow}
+      />
       <div
         aria-hidden={!visible}
         className={`${visible ? 'visible' : 'hidden'} rounded-b`}
@@ -47,7 +40,7 @@ function AnalyticsWrapper(props: any) {
 const Analytics = memo(AnalyticsWrapper)
 
 export const RenderInnerAnalytics: FC<any> = (props) => {
-  const { pageUrl, generalProps } = props
+  const { pageUrl, generalProps, small, singleRow } = props
   const {
     data: analyticsSource,
     loading,
@@ -65,7 +58,13 @@ export const RenderInnerAnalytics: FC<any> = (props) => {
       >
         <ul>
           {analyticsSource?.map((page: any) => (
-            <Analytics key={`${page._id}`} {...page} {...generalProps} />
+            <Analytics
+              key={`${page._id}`}
+              {...page}
+              {...generalProps}
+              small={small}
+              singleRow={singleRow}
+            />
           ))}
         </ul>
       </InnerWrapper>

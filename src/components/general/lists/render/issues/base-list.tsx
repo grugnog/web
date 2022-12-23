@@ -18,14 +18,14 @@ const RenderInnerIssuesWrapper: FC<any> = (props) => {
   return (
     <>
       <InnerWrapper {...props} data={issueSource?.length} loading={loading}>
-        <ul>
+        <ul className='list-none'>
           {issueSource?.map((page: Issue) => (
             <Issues
               key={page._id}
-              {...page}
               open={props.open}
               small={props.small}
               singleRow={props.singleRow}
+              {...page}
             />
           ))}
         </ul>

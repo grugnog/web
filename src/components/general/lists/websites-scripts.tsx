@@ -5,16 +5,15 @@ import { ScriptCell } from '../cells'
 import { LoadMoreButton } from '../buttons'
 import { listStyle } from '@app/styles/lists/tw'
 
-// return Scripts maped
+// return Scripts maped todo refactor
 function ScriptsWrapper(props: any) {
   const [visible, setVisible] = useState<boolean>(false)
-
   const onTogglelist = () => setVisible((v: boolean) => !v)
 
   return (
     <li>
       <button
-        className={`border border-l-0 border-r-0 px-3 py-3 w-full text-left md:text-base ${
+        className={`px-3 py-3 hover:bg-gray-100 w-full text-left md:text-base ${
           visible ? 'rounded-b-none' : ''
         }`}
         onClick={onTogglelist}

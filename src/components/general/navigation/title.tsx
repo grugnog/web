@@ -36,7 +36,9 @@ const NavBarTitle: FC<NavBarTitleProps> = ({
       >
         <div className={`flex place-items-center space-x-1.5`}>
           <Logo />
-          <div className={`text-2xl tracking-normal font-bold hidden md:block`}>
+          <div
+            className={`text-lg md:text-xl tracking-normal font-bold hidden md:block`}
+          >
             {companyName}
           </div>
         </div>
@@ -46,7 +48,7 @@ const NavBarTitle: FC<NavBarTitleProps> = ({
 
   return (
     <span
-      className={`text-2xl tracking-normal flex flex-1 line-clamp-1`}
+      className={`text-lg md:text-xl tracking-normal font-medium flex flex-1 line-clamp-1`}
       {...props}
     >
       {children || title}
