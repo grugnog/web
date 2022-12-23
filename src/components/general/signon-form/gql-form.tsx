@@ -129,11 +129,7 @@ const SignOnFormWrapper: FunctionComponent<SignOnProps> = ({
           {(loginView && 'Login') || 'Register'}
         </Heading>
         <div className={'text-center p-3'}>
-          <div
-            className={
-              clientID ? 'space-y-2 flex flex-col place-items-center' : ''
-            }
-          >
+          <div className={'space-y-2 flex flex-col place-items-center'}>
             {clientID ? (
               <a
                 className='inline-flex'

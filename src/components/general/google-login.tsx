@@ -15,7 +15,12 @@ interface GoogleLoginButton {
 export const GoogleLoginButton = (props: GoogleLoginButton) => {
   const { onSuccess, skeleton, loginView, round } = props ?? {}
 
-  if (GOOGLE_CLIENT_ID && !skeleton) {
+  // hide btn if no client id found
+  if (!GOOGLE_CLIENT_ID) {
+    return null
+  }
+
+  if (!skeleton) {
     return (
       <GoogleLogin
         clientId={String(GOOGLE_CLIENT_ID)}
