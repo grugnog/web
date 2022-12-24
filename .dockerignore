@@ -10,3 +10,5 @@ Dockerfile*
 .gitignore
 .env
 src-tauri
+docker-compose.yml
+out

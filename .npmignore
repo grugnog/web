@@ -12,3 +12,6 @@ codecov.yml
 .prettierignore
 .github
 src-tauri
+out
+.dockerignore
+docker-compose.yml
