@@ -1,39 +1,54 @@
+import { useEffect, useState, memo } from 'react'
 import { Analytic } from '@app/types'
 import { fetcher } from '@app/utils/fetcher'
-import { LegendProps } from '@nivo/legends'
+// import { LegendProps } from '@nivo/legends'
 import { ResponsiveStream } from '@nivo/stream'
-import { useEffect, useState } from 'react'
+
+const theme = {
+  axis: {
+    ticks: {
+      text: {
+        fill: 'rgb(115,115,115)',
+        fontSize: '0.75rem',
+      },
+    },
+  },
+}
 
 const axisLeft = {
-  orient: 'left',
-  tickSize: 5,
-  tickPadding: 5,
+  orient: 'right',
+  tickSize: 0,
+  tickPadding: -20,
   tickRotation: 0,
   legend: '',
   legendOffset: -35,
 }
 
-const legends: LegendProps[] = [
-  {
-    anchor: 'bottom-right',
-    direction: 'column',
-    translateX: 95,
-    itemWidth: 80,
-    itemHeight: 20,
-    itemTextColor: '#999999',
-    symbolSize: 12,
-    symbolShape: 'circle',
-    effects: [
-      {
-        on: 'hover',
-        style: {
-          itemTextColor: '#000000',
-        },
-      },
-    ],
-  },
-]
+const StackTip = ({ item }: { item: Analytic }) => {
+  if (!item) {
+    return null
+  }
 
+  return (
+    <div className='rounded bg-white border'>
+      <div className='p-2 bg-gray-50 border-b'>
+        <div className='text-gray-700 text-sm'>{item.pageUrl}</div>
+      </div>
+      <div className='p-3 space-y-1'>
+        <div className='text-gray-600 text-xs flex gap-x-2'>
+          <div className='w-4 h-4 bg-[rgb(242,108,85)]'></div>
+          {item.errorCount} Error{item.errorCount === 1 ? '' : 's'}
+        </div>
+        <div className='text-gray-600 text-xs flex gap-x-2'>
+          <div className='w-4 h-4 bg-[rgb(236,223,113)]'></div>
+          {item.warningCount} Warning{item.warningCount === 1 ? '' : 's'}
+        </div>
+      </div>
+    </div>
+  )
+}
+
+// todo: cache / use apollo
 const getData = async (domain: string, page: number = 0) => {
   let eventDS = null
 
@@ -53,7 +68,7 @@ const getData = async (domain: string, page: number = 0) => {
 const getLabel = (item: { id: string | number }) =>
   String(item.id).replace('Count', '')
 
-export const WebsiteAnalyticStream = ({ domain }: { domain: string }) => {
+const WebsiteAnalyticStreamComponent = ({ domain }: { domain: string }) => {
   const [data, setData] = useState<Analytic[]>([])
 
   useEffect(() => {
@@ -84,23 +99,31 @@ export const WebsiteAnalyticStream = ({ domain }: { domain: string }) => {
   }, [domain])
 
   if (!data.length) {
-    return <div className='bg-gray-200 h-[290px] md:h-[325px]]' />
+    return <div className='bg-gray-200 h-[295px] md:h-[330px]' />
   }
 
   return (
     <ResponsiveStream
       data={data}
       keys={['noticeCount', 'errorCount', 'warningCount']}
-      margin={{ top: 40, right: 120, bottom: 40, left: 60 }}
+      margin={{ top: 20, right: 0, bottom: 20, left: 0 }}
       axisBottom={null}
       axisLeft={axisLeft}
+      axisRight={null}
       enableGridX={false}
       enableGridY={false}
       offsetType='silhouette'
       colors={{ scheme: 'nivo' }}
-      borderColor={{ theme: 'background' }}
       label={getLabel}
-      legends={legends}
+      theme={theme}
+      layers={['dots', 'grid', 'layers', 'slices', 'legends', 'axes']}
+      stackTooltip={(stack) =>
+        data && <StackTip item={data[stack.slice.index]} />
+      }
+      // legends={legends}
     />
   )
 }
+
+
+export const  WebsiteAnalyticStream = memo(WebsiteAnalyticStreamComponent)

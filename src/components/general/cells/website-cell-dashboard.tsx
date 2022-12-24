@@ -376,8 +376,8 @@ export function WebsiteCellDashboardComponent({
         </div>
 
         {account.activeSubscription ? (
-          <div className='h-[290px] md:h-[325px] border-t pb-6'>
-            <LazyMount className={'h-[290px] md:h-[325px]'} full>
+          <div className='h-[295px] md:h-[330px] border-t'>
+            <LazyMount className={'h-[295px] md:h-[330px]'} full>
               <WebsiteAnalyticStream domain={domain} />
             </LazyMount>
           </div>
