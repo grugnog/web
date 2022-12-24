@@ -182,11 +182,7 @@ export const useWebsiteData = (
 
   // website crawl finished
   const onCrawlCompleteSubscription = useCallback(
-    async ({
-      subscriptionData,
-    }: {
-      subscriptionData: any
-    }) => {
+    async ({ subscriptionData }: { subscriptionData: any }) => {
       const completedWebsite = subscriptionData?.data?.crawlComplete
 
       // website did not complete due to time elasped across pages

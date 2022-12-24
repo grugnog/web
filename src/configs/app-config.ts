@@ -6,7 +6,6 @@ const api = process.env.API || `http://${DEFAULT_API_URL}/graphql`
 
 const AppConfig = {
   graphQLUrl: api,
-  graphQLUrlDocker: api,
   webSocketUrl: process.env.WEB_SOCKET_URL || `ws://${DEFAULT_API_URL}/graphql`,
 }
 
@@ -37,22 +36,20 @@ const DOMAIN_NAME =
 const companyName = process.env.COMPANY_NAME || 'A11yWatch'
 const twitterSite = process.env.TWITTER_SITE || 'a11ywatcher'
 
-// USED FOR REPORTS ( TODO REVISIT URL )
-const BASE_GQL_URL = `${AppConfig?.graphQLUrl
-  ?.replace('api.', '')
-  ?.replace('3280', '3000')
-  ?.replace('/graphql', '')}/reports`
-
 const STATUS_URL = AppConfig?.graphQLUrl?.replace('/graphql', '/status')
 
 export const REST_API = api.replace('/graphql', '')
-
-export const isA11yWatch = /a11ywatch/.test(REST_API)
 
 // free trial premium
 export const trialDuration = process.env.NEXT_PUBLIC_FREE_TRIAL
   ? parseInt(process.env.NEXT_PUBLIC_FREE_TRIAL, 10)
   : 14
+
+// USED FOR REPORTS ( TODO REVISIT URL )
+const BASE_GQL_URL = `${AppConfig?.graphQLUrl
+  ?.replace('api.', '')
+  ?.replace('3280', '3000')
+  ?.replace('/graphql', '')}/reports`
 
 export {
   BLOG_WEBFLOW_URL,

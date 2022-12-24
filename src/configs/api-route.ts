@@ -7,16 +7,16 @@ const getAPIRoute = (type: 'api' | 'graphql' = 'api', middleware?: boolean) => {
   const endpoint = API_ENDPOINT ? API_ENDPOINT.replace('graphql', type) : ''
 
   if (
-    process.env.NODE_ENV !== 'production' &&
+    // when inside a docker container the edge function needs to make internal request since localhost is not available and or the container name
     process.env.DOCKER_CONTAINER &&
     middleware
   ) {
-    const newTarget = endpoint.replace('localhost', 'host.docker.internal')
-
-    return newTarget
+    return endpoint.replace('localhost', 'host.docker.internal')
   }
 
   return endpoint
 }
 
-export { API_ENDPOINT, getAPIRoute }
+const IFRAME_URL = `${getAPIRoute('api', true)}/iframe`
+
+export { API_ENDPOINT, IFRAME_URL, getAPIRoute }

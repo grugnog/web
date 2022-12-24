@@ -1,5 +1,5 @@
 import { NextResponse, NextRequest, userAgent } from 'next/server'
-import { IFRAME_ENDPOINT } from '@app/configs/next/iframe'
+import { IFRAME_URL } from './configs/api-route'
 
 export async function middleware(req: NextRequest) {
   let res = NextResponse.next()
@@ -14,11 +14,9 @@ export async function middleware(req: NextRequest) {
     const base = searchParams.get('baseHref')
 
     if (u) {
-      const b =
-        IFRAME_ENDPOINT +
-        `/iframe?url=${encodeURIComponent(u)}&baseHref=${base || true}`
-
-      res = NextResponse.rewrite(b)
+      res = NextResponse.rewrite(
+        IFRAME_URL + `?url=${encodeURIComponent(u)}&baseHref=${base || true}`
+      )
     }
   }
 

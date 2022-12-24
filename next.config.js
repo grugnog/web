@@ -11,7 +11,6 @@ const env = {
   API: process.env.API,
   WEB_SOCKET_URL: process.env.WEB_SOCKET_URL,
   STRIPE_KEY: process.env.STRIPE_KEY,
-  IFRAME_URL: process.env.IFRAME_URL,
   GOOGLE_CLIENT_ID: process.env.GOOGLE_CLIENT_ID,
   GITHUB_CLIENT_ID: process.env.GITHUB_CLIENT_ID,
   NEXT_PUBLIC_DOMAIN_NAME: DOMAIN_NAME,

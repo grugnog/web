@@ -10,16 +10,13 @@ import { createHttpLink } from 'apollo-link-http'
 import { setContext } from 'apollo-link-context'
 import { onError } from 'apollo-link-error'
 import { UserManager, AppManager } from '@app/managers'
-import { AppConfig, dev } from '@app/configs/app-config'
+import { AppConfig } from '@app/configs/app-config'
 import { resolvers } from './resolvers'
 import { WebSocketLink } from './ws-link'
 
 const createLink = (): ApolloLink => {
   const httpLink = createHttpLink({
-    uri:
-      dev && typeof window === 'undefined'
-        ? AppConfig.graphQLUrlDocker
-        : AppConfig.graphQLUrl,
+    uri: AppConfig.graphQLUrl,
     fetch: fetcher,
     credentials: 'include',
   })
