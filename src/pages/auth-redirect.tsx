@@ -59,7 +59,7 @@ function AuthRedirect(props: {
         console.error(e)
       }
     },
-    [signOnMutation, router?.query?.plan]
+    [signOnMutation, router]
   )
 
   useEffect(() => {

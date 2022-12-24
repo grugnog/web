@@ -15,6 +15,7 @@ EXPOSE 3000
 ENV PORT 3000
 ENV DOCKER_CONTAINER 1
 ENV NEXT_TELEMETRY_DISABLED 1
+ENV PWA_ENABLED 1
 
 # link the wasm bundle
 RUN cd ./wasm/pkg && npm link --force && cd ../.. && npm link a11ywatch-web-wasm --force

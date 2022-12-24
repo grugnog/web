@@ -8,7 +8,6 @@ Dockerfile.dev
 wasm
 playwright.config.ts
 codecov.yml
-.swcrc
 .prettierignore
 .github
 src-tauri

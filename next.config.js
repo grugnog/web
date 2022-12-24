@@ -1,22 +1,4 @@
-const runtimeCaching = require('next-pwa/cache')
-
 const dev = process.env.NODE_ENV === 'development'
-
-const withPWA = require('next-pwa')({
-  runtimeCaching,
-  dest: 'public',
-  mode: process.env.WORKBOX_MODE || 'production',
-  disable: dev,
-  publicExcludes: ['!robots.txt', '!sitemap.xml.gz'],
-  buildExcludes: [
-    /middleware-manifest\.json$/,
-    /middleware-runtime.js$/,
-    /_middleware.js$/,
-    /_middleware.js.map$/,
-    /_next\/server\/middleware-manifest\.json$/,
-    /_next\/server\/middleware-runtime.js$/,
-  ],
-})
 
 // replace with only exact domain name without protocol
 const DOMAIN_NAME =
@@ -81,7 +63,8 @@ if (DOMAIN_NAME.includes('a11ywatch')) {
   })
 }
 
-module.exports = withPWA({
+// app configuration
+let nextJSConfigs = {
   experimental: {
     nextScriptWorkers: false,
   },
@@ -115,4 +98,27 @@ module.exports = withPWA({
 
     return config
   },
-})
+}
+
+if (process.env.PWA_ENABLED !== "0") {
+  const runtimeCaching = require('next-pwa/cache')
+  const withPWA = require('next-pwa')({
+    runtimeCaching,
+    dest: 'public',
+    mode: process.env.WORKBOX_MODE || 'production',
+    disable: dev,
+    publicExcludes: ['!robots.txt', '!sitemap.xml.gz'],
+    buildExcludes: [
+      /middleware-manifest\.json$/,
+      /middleware-runtime.js$/,
+      /_middleware.js$/,
+      /_middleware.js.map$/,
+      /_next\/server\/middleware-manifest\.json$/,
+      /_next\/server\/middleware-runtime.js$/,
+    ],
+  })
+  
+  nextJSConfigs = withPWA(nextJSConfigs)
+}
+
+module.exports = nextJSConfigs;

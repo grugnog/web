@@ -18,7 +18,6 @@ import {
   CRAWL_COMPLETE_SUBSCRIPTION,
 } from '@app/subscriptions'
 import { AppManager, HomeManager } from '@app/managers'
-import type { OnSubscriptionDataOptions } from '@apollo/react-common'
 import type { Website } from '@app/types'
 import { useWasmContext } from '@app/components/providers'
 import { LIGHTHOUSE_RESULT } from '@app/subscriptions/lighthouse'
@@ -183,7 +182,11 @@ export const useWebsiteData = (
 
   // website crawl finished
   const onCrawlCompleteSubscription = useCallback(
-    async ({ subscriptionData }: OnSubscriptionDataOptions<any>) => {
+    async ({
+      subscriptionData,
+    }: {
+      subscriptionData: any
+    }) => {
       const completedWebsite = subscriptionData?.data?.crawlComplete
 
       // website did not complete due to time elasped across pages
@@ -277,7 +280,7 @@ export const useWebsiteData = (
   })
 
   const onIssueSubscription = useCallback(
-    ({ subscriptionData }: OnSubscriptionDataOptions<any>) => {
+    ({ subscriptionData }: any) => {
       const newIssue = subscriptionData?.data?.issueAdded
 
       setTimeout(() => {
@@ -289,7 +292,7 @@ export const useWebsiteData = (
   )
 
   const onLighthouseResult = useCallback(
-    ({ subscriptionData }: OnSubscriptionDataOptions<any>) => {
+    ({ subscriptionData }: any) => {
       const results = subscriptionData?.data?.lighthouseResult
 
       setTimeout(() => {
