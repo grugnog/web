@@ -1,4 +1,4 @@
-const TRUSTED_CDN = 'Custom realtime CDN safeguard'
+const TRUSTED_CDN = 'Custom live CDN safeguard'
 
 const feats = [
   '50 domains',

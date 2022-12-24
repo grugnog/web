@@ -59,7 +59,7 @@ export default metaSetter(
   {
     title: `${companyName}: Try web accessibility playground`,
     description:
-      'Free website accessibility testing sandbox. View your website in realtime using the playground to visualize and fix issues, validate contrast, and much more.',
+      'Free website accessibility testing sandbox. View your website live using the playground to fix issues with visualatizations, validate contrast, and much more.',
     gql: true,
     rest: true,
   }

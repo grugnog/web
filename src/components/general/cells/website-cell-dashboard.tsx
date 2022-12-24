@@ -43,6 +43,7 @@ import { AppManager, HomeManager } from '@app/managers'
 import { useInteractiveContext } from '@app/components/providers/interactive'
 import { RenderInnerIssuesPaging } from '../lists/render/issues/issue-paging'
 import { LazyMount } from '@app/components/lazy/lazymount'
+import { WebsiteAnalyticStream } from '@app/components/charts/streams'
 
 const styles = {
   title: 'text-xl md:text-3xl font-bold truncate text-gray-600',
@@ -253,7 +254,7 @@ export function WebsiteCellDashboardComponent({
 
   return (
     <li>
-      <div className={`rounded bg-white`}>
+      <div className={`bg-white ${index ? 'border-t' : ''}`}>
         <div>
           <div className='flex gap-x-1 place-items-center place-content-between border-b px-3 pt-2 pb-4'>
             <div className='flex gap-3 place-items-center flex-wrap'>
@@ -344,6 +345,7 @@ export function WebsiteCellDashboardComponent({
             />
           </div>
         </div>
+
         <div className='grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-1'>
           <AccessibilityBox adaScore={adaScore} />
           <IssuesBox issues={errorCount} />
@@ -372,6 +374,15 @@ export function WebsiteCellDashboardComponent({
           />
           <MobileBox mobile={mobile} url={url} />
         </div>
+
+        {account.activeSubscription ? (
+          <div className='h-[290px] md:h-[325px] border-t pb-6'>
+            <LazyMount className={'h-[290px] md:h-[325px]'} full>
+              <WebsiteAnalyticStream domain={domain} />
+            </LazyMount>
+          </div>
+        ) : null}
+
         {pageInsights && insight && lighthouseVisible ? (
           <Lighthouse insight={insight} lighthouseVisible={lighthouseVisible} />
         ) : null}
@@ -380,9 +391,7 @@ export function WebsiteCellDashboardComponent({
             <div className='text-right'>Issues</div>
           </div>
           <div className='border-t border-dotted'>
-            <LazyMount
-              className={'h-[455px] md:h-[480px] overflow-y-auto bg-white'}
-            >
+            <LazyMount className={'h-[450px] bg-white'}>
               <RenderInnerIssuesPaging pageUrl={url} small />
             </LazyMount>
           </div>

@@ -2,10 +2,9 @@ import { FC, PropsWithChildren, useCallback, useState } from 'react'
 import VisibilitySensor from 'react-visibility-sensor'
 import { InnerWrapper } from '../general/lists/list-wrapper'
 
-export const LazyMount: FC<PropsWithChildren<{ className?: string }>> = ({
-  children,
-  className,
-}) => {
+export const LazyMount: FC<
+  PropsWithChildren<{ className?: string; full?: boolean }>
+> = ({ children, className, full }) => {
   const [mounted, setMounted] = useState<boolean>(false)
 
   const onChange = useCallback(
@@ -18,12 +17,16 @@ export const LazyMount: FC<PropsWithChildren<{ className?: string }>> = ({
   )
 
   return (
-    <VisibilitySensor onChange={onChange}>
+    <VisibilitySensor
+      onChange={onChange}
+      partialVisibility={'top'}
+      minTopValue={100}
+    >
       {mounted ? (
         children
       ) : (
         <div className={className}>
-          <InnerWrapper loading small />
+          <InnerWrapper loading small full={full} />
         </div>
       )}
     </VisibilitySensor>

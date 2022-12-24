@@ -13,9 +13,9 @@ export function MarketingDashboard(): ReactElement<any, any> | null {
         </p>
         <div className='py-4'>
           <Image
-            width={1441}
+            width={1559}
             className={'shadow border rounded'}
-            height={1065}
+            height={923}
             quality={100}
             src={'/img/dashboard-example.png'}
             alt={

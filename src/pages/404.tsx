@@ -2,7 +2,7 @@ import React from 'react'
 import { MarketingDrawer, PageTitle } from '@app/components/general'
 import { metaSetter } from '@app/utils'
 import type { PageProps } from '@app/types'
-import { GrHelp} from 'react-icons/gr'
+import { GrHelp } from 'react-icons/gr'
 
 const PageNotFound = ({ name }: PageProps) => {
   return (

@@ -6,7 +6,7 @@
 
 The web application for [A11yWatch](https://a11ywatch.com) using [Rust](https://www.rust-lang.org/), [Wasm](https://webassembly.org/), and [Next.js](https://nextjs.org/).
 
-![A11yWatch web accessibility platform dashboard example](https://user-images.githubusercontent.com/8095978/209388430-0e7dca7e-0e38-4ab4-8942-f7e671acc93d.png)
+https://user-images.githubusercontent.com/8095978/209417141-c287dbab-5b00-4d2b-b19a-dad013403718.mp4
 
 ## Installation
 

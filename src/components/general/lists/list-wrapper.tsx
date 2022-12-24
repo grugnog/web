@@ -34,10 +34,15 @@ const InnerWrapperComponent: FC<any> = (props) => {
     avatar = false,
     small,
     count,
+    full,
   } = props
 
   // Loading
   if (!data && loading) {
+    if (full) {
+      // basic fullscreen loader
+      return <div className='w-full h-full bg-gray-100'></div>
+    }
     if (small) {
       return (
         <>

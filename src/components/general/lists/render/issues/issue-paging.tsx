@@ -55,7 +55,7 @@ const RenderInnerIssuesWrapper: FC<any> = (props) => {
   return (
     <>
       <div className='flex flex-col place-content-around'>
-        <div className='h-[455px] md:h-[480px] overflow-y-auto bg-white'>
+        <div className='h-[450px] overflow-y-auto bg-white'>
           <InnerWrapper {...props} data={issueSource?.length} loading={loading}>
             <ul className='list-none'>
               {issueList?.map((page: Issue) => (
