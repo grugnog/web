@@ -62,8 +62,8 @@ export const CustomCDNBoxWrapper = ({
       }
     >
       <>
-        <div className='flex space-x-1'>
-          <span className='text-sm pb-2 font-medium'>Minified</span>
+        <div className='flex space-x-1 place-items-center'>
+          <span className='text-sm font-medium'>Minified</span>
           <input
             checked={isMinified}
             type='checkbox'

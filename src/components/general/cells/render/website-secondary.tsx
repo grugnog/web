@@ -1,19 +1,14 @@
-import { memo, useMemo } from 'react'
+import { memo, useEffect, useMemo, useState } from 'react'
 import {
   GrCalendar,
   GrCircleAlert,
   GrConfigure,
   GrMagic,
-  GrInherit,
-  GrRobot,
-  GrHost,
   GrPowerShutdown,
 } from 'react-icons/gr'
 import { format } from 'date-fns'
 import { Chip } from '@app/components/general/chip'
-import { PageLoad } from './page-load'
 import { Website } from '@app/types'
-import { classNames } from '@app/utils/classes'
 
 // TODO: REFACTOR WITH Secondary (BASE)
 export function WebsiteSecondaryComponent({
@@ -21,18 +16,13 @@ export function WebsiteSecondaryComponent({
   lastScanDate,
   issuesInfo,
   pageHeaders,
-  pageLoadTime = {
-    duration: 0,
-  },
-  robots,
-  subdomains,
-  tld,
   shutdown,
 }: Website & {
   pageIssueCount?: number
   adaScore?: number | string
   dashboard?: boolean
 }) {
+  const [lastScan, setScanDate] = useState<string>('')
   const {
     possibleIssuesFixedByCdn,
     issuesFixedByCdn,
@@ -50,12 +40,12 @@ export function WebsiteSecondaryComponent({
     return { headers: heads, headingJson: heads && JSON.stringify(heads) }
   }, [pageHeaders])
 
-  const lastScan = useMemo(() => {
+  useEffect(() => {
     // format client side date - mismatch hydrated data
-    if (lastScanDate) {
-      return format(new Date(lastScanDate), 'dd/MM/yyyy')
+    if (!lastScan && lastScanDate) {
+      setScanDate(format(new Date(lastScanDate), 'dd/MM/yyyy'))
     }
-  }, [lastScanDate])
+  }, [lastScan, lastScanDate, setScanDate])
 
   return (
     <div className={`flex gap-x-1 overflow-x-auto max-w-[75vw]`}>
@@ -66,25 +56,13 @@ export function WebsiteSecondaryComponent({
           label={'Shutdown'}
         />
       ) : null}
-      {pageIssueCount ? (
+      {pageIssueCount && totalIssues ? (
         <Chip
           avatar={<GrCircleAlert className={'grIcon'} />}
           label={totalIssues}
           title={`Total page issues between warnings and errors: ${totalIssues}`}
         />
       ) : null}
-      <Chip
-        className={subdomains ? '' : 'text-gray-400'}
-        avatar={<GrInherit className={classNames('grIcon')} />}
-        label={`Subdomains`}
-        title={`Subdomains ${subdomains ? 'enabled' : 'disabled'}`}
-      />
-      <Chip
-        className={tld ? '' : 'text-gray-400'}
-        avatar={<GrHost className={classNames('grIcon')} />}
-        label={`TLDs`}
-        title={`TLDs ${tld ? 'enabled' : 'disabled'}`}
-      />
       {possibleIssuesFixedByCdn && totalIssues ? (
         <Chip
           avatar={<GrMagic />}
@@ -102,13 +80,6 @@ export function WebsiteSecondaryComponent({
           }
         />
       ) : null}
-      {typeof robots !== 'undefined' ? (
-        <Chip
-          className={robots ? '' : 'text-gray-400'}
-          avatar={<GrRobot className={classNames('grIcon')} />}
-          title={`Respect robots.txt ${robots ? 'enabled' : 'disabled'}`}
-        />
-      ) : null}
       {lastScan ? (
         <Chip avatar={<GrCalendar className={'grIcon'} />} label={lastScan} />
       ) : null}
@@ -119,12 +90,6 @@ export function WebsiteSecondaryComponent({
             headers.length === 1 ? '' : 's'
           }`}
           title={`Custom headers ${headingJson}`}
-        />
-      ) : null}
-      {!robots && pageLoadTime?.duration && pageLoadTime?.durationFormated ? (
-        <PageLoad
-          durationFormated={pageLoadTime.durationFormated}
-          duration={pageLoadTime.duration}
         />
       ) : null}
     </div>

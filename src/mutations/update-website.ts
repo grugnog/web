@@ -9,6 +9,8 @@ export const UPDATE_WEBSITE = gql`
     $standard: String
     $ua: String
     $actions: [PageActionsInput]
+    $tld: Boolean
+    $subdomains: Boolean
   ) {
     updateWebsite(
       url: $url
@@ -18,6 +20,8 @@ export const UPDATE_WEBSITE = gql`
       standard: $standard
       ua: $ua
       actions: $actions
+      tld: $tld
+      subdomains: $subdomains
     ) {
       code
       success
@@ -28,6 +32,8 @@ export const UPDATE_WEBSITE = gql`
         domain
         userId
         mobile
+        tld
+        subdomains
         script {
           _id
           script

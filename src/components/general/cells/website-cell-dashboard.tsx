@@ -43,6 +43,9 @@ import { useInteractiveContext } from '@app/components/providers/interactive'
 import { IssueCard } from './card/issue-card'
 import { AnalyticsCard } from './card/analytics-card'
 import { LighthouseCard } from './card/lighthouse-card'
+import { TLDBox } from './blocks/tld'
+import { SubDomainsBox } from './blocks/subdomains'
+import { RobotsBox } from './blocks/robots'
 
 const styles = {
   title: 'text-xl md:text-3xl font-bold truncate text-gray-600',
@@ -345,7 +348,7 @@ export function WebsiteCellDashboardComponent({
           </div>
         </div>
 
-        <div className='grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-1'>
+        <div className='grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-1'>
           <AccessibilityBox adaScore={adaScore} />
           <IssuesBox issues={errorCount} />
           <WarningsBox issues={warningCount} />
@@ -354,10 +357,25 @@ export function WebsiteCellDashboardComponent({
           <LoadTimeBox duration={pageLoadTime?.duration} />
           <HeadersBox pageHeaders={pageHeaders} />
           <LighthouseBox pageInsights={pageInsights} />
-          <ActionsBox actions={actionsEnabled || actions?.length} />
+          <ActionsBox actions={actionsEnabled && actions?.length} />
           <OnlineBox online={online} />
           <UserAgentBox ua={ua} url={url} />
           <StandardBox standard={standard} url={url} />
+
+          <RobotsBox robots={robots} url={url} />
+          <MobileBox mobile={mobile} url={url} />
+
+          <TLDBox
+            tld={tld}
+            url={url}
+            activeSubscription={account.activeSubscription}
+          />
+          <SubDomainsBox
+            subdomains={subdomains}
+            url={url}
+            activeSubscription={account.activeSubscription}
+          />
+
           <CustomCDNBox
             cdnConnected={cdnConnected}
             script={script}
@@ -371,7 +389,6 @@ export function WebsiteCellDashboardComponent({
             reportsPageLink={reportsPageLink}
             hideBadge
           />
-          <MobileBox mobile={mobile} url={url} />
         </div>
 
         <AnalyticsCard
