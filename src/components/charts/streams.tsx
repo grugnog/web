@@ -125,5 +125,4 @@ const WebsiteAnalyticStreamComponent = ({ domain }: { domain: string }) => {
   )
 }
 
-
-export const  WebsiteAnalyticStream = memo(WebsiteAnalyticStreamComponent)
+export const WebsiteAnalyticStream = memo(WebsiteAnalyticStreamComponent)

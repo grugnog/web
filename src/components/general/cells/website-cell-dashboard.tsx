@@ -37,13 +37,12 @@ import {
   GrSync,
   GrValidate,
 } from 'react-icons/gr'
-import { Lighthouse } from '../lighthouse'
 import { fetcher } from '@app/utils/fetcher'
 import { AppManager, HomeManager } from '@app/managers'
 import { useInteractiveContext } from '@app/components/providers/interactive'
-import { RenderInnerIssuesPaging } from '../lists/render/issues/issue-paging'
-import { LazyMount } from '@app/components/lazy/lazymount'
-import { WebsiteAnalyticStream } from '@app/components/charts/streams'
+import { IssueCard } from './card/issue-card'
+import { AnalyticsCard } from './card/analytics-card'
+import { LighthouseCard } from './card/lighthouse-card'
 
 const styles = {
   title: 'text-xl md:text-3xl font-bold truncate text-gray-600',
@@ -375,27 +374,17 @@ export function WebsiteCellDashboardComponent({
           <MobileBox mobile={mobile} url={url} />
         </div>
 
-        {account.activeSubscription ? (
-          <div className='h-[295px] md:h-[330px] border-t'>
-            <LazyMount className={'h-[295px] md:h-[330px]'} full>
-              <WebsiteAnalyticStream domain={domain} />
-            </LazyMount>
-          </div>
-        ) : null}
+        <AnalyticsCard
+          activeSubscription={account.activeSubscription}
+          domain={domain}
+        />
 
-        {pageInsights && insight && lighthouseVisible ? (
-          <Lighthouse insight={insight} lighthouseVisible={lighthouseVisible} />
-        ) : null}
-        <div>
-          <div className='flex px-4 py-2 flex-1 w-full place-items-center place-content-end text-gray-500 text-right text-sm border-t border-dotted'>
-            <div className='text-right'>Issues</div>
-          </div>
-          <div className='border-t border-dotted'>
-            <LazyMount className={'h-[450px] bg-white'}>
-              <RenderInnerIssuesPaging pageUrl={url} small />
-            </LazyMount>
-          </div>
-        </div>
+        <LighthouseCard
+          lighthouseVisible={pageInsights && insight && lighthouseVisible}
+          insight={insight}
+        />
+
+        <IssueCard pageUrl={url} />
       </div>
     </li>
   )
