@@ -35,7 +35,12 @@ export const TLDBoxWrapper = ({
   return (
     <InfoBlock title={'TLDs'} icon={<GrBladesHorizontal className='grIcon' />}>
       <div className='flex space-x-1 place-items-center'>
-        <FormControl htmlFor={labelId} visible disabled={!activeSubscription} className='text-sm font-medium'>
+        <FormControl
+          htmlFor={labelId}
+          visible
+          disabled={!activeSubscription}
+          className='text-sm font-medium'
+        >
           TLDs
         </FormControl>
         <input

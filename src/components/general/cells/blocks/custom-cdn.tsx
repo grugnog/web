@@ -27,8 +27,8 @@ export const CustomCDNBoxWrapper = ({
   const { cdnBaseMin, cdnBase } = useMemo(() => {
     if (!activeSubscription) {
       return {
-        cdnBase: notAvail,
-        cdnBaseMin: notAvail,
+        cdnBase: 'Paid Plan Required',
+        cdnBaseMin: 'Paid Plan Required',
       }
     }
     const cdnBase =

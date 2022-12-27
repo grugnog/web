@@ -108,12 +108,13 @@ if (process.env.PWA_ENABLED !== "0") {
     disable: dev,
     publicExcludes: ['!robots.txt', '!sitemap.xml.gz'],
     buildExcludes: [
+      /chunks\/images\/.*$/,
       /middleware-manifest\.json$/,
       /middleware-runtime.js$/,
       /_middleware.js$/,
       /_middleware.js.map$/,
       /_next\/server\/middleware-manifest\.json$/,
-      /_next\/server\/middleware-runtime.js$/,
+      /_next\/server\/middleware-runtime.js$/
     ],
   })
   

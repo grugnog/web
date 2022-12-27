@@ -79,7 +79,7 @@ export const parseHtml = async (body: string) => {
 
   htmlRoot.insertAdjacentHTML(
     'beforeend',
-    `<style type="text/css">
+    `<style>
             .light-background article > .entry-wrapper > p {
               max-width: none;
             }

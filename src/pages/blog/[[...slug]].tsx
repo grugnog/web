@@ -3,6 +3,7 @@ import { getBlogPage } from '@app/lib/get-blog'
 import { BlogPage } from '@app/components/blog/blog-page'
 import type { BlogPageProps } from '@app/types'
 import type { GetStaticProps } from 'next'
+import { DOMAIN_NAME } from '@app/configs'
 
 function Blog(props: BlogPageProps) {
   return <BlogPage {...props} />
@@ -10,11 +11,14 @@ function Blog(props: BlogPageProps) {
 
 export async function getStaticPaths() {
   return {
-    paths: [
-      '/blog/next-js-to-astro',
-      '/blog/web-accessibility-monitoring',
-      '/blog/version-your-proto-definitions-for-stablity',
-    ],
+    paths:
+      DOMAIN_NAME === 'https://a11ywatch.com'
+        ? [
+            '/blog/next-js-to-astro',
+            '/blog/web-accessibility-monitoring',
+            '/blog/version-your-proto-definitions-for-stablity',
+          ]
+        : [],
     fallback: 'blocking',
   }
 }

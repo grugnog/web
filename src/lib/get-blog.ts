@@ -22,9 +22,9 @@ const getUrl = (q: string) => {
     query = `${query.replace('blog/', '')}`
   }
 
-  const targetBase = BLOG_WEBFLOW_URL + baseFolder
-
-  return targetBase + `${query[0] === '/' ? query : `/${query}`}`
+  return (
+    BLOG_WEBFLOW_URL + baseFolder + `${query[0] === '/' ? query : `/${query}`}`
+  )
 }
 
 // get Blog page and parse content by themes
@@ -44,12 +44,12 @@ export const getBlogPage = async (
 
   try {
     const res = await fetch(websiteUrl)
-    const { parseHtml } = await import('./parse-html')
 
     if (res && res?.ok) {
       const response = await res?.text()
 
       if (response) {
+        const { parseHtml } = await import('./parse-html')
         const htmlRoot = await parseHtml(response)
 
         const titleElement = htmlRoot.querySelector('title')
@@ -189,7 +189,7 @@ export const getBlogPage = async (
 
         htmlRoot.insertAdjacentHTML(
           'beforeend',
-          `<style type="text/css">
+          `<style>
 
           ${
             directUrl
@@ -284,11 +284,6 @@ export const getBlogPage = async (
     console.error(e)
   }
 
-  const targetUrl = websiteUrl.replace(
-    BLOG_WEBFLOW_URL,
-    DOMAIN_NAME?.replace('.com', '.blog')
-  )
-
   return {
     name: '',
     html,
@@ -298,6 +293,9 @@ export const getBlogPage = async (
     metas,
     bodyScripts,
     headScripts,
-    websiteUrl: targetUrl,
+    websiteUrl: websiteUrl.replace(
+      BLOG_WEBFLOW_URL,
+      DOMAIN_NAME?.replace('.com', '.blog')
+    ),
   }
 }

@@ -4,7 +4,10 @@ import { IFRAME_URL } from './configs/api-route'
 export async function middleware(req: NextRequest) {
   let res = NextResponse.next()
 
-  if (req.headers?.get('host')?.endsWith('.blog')) {
+  if (
+    req.headers?.get('host')?.endsWith('.blog') ||
+    req.nextUrl.pathname.startsWith('/blog')
+  ) {
     const url = req.nextUrl.clone()
     url.pathname = `/blog${req.nextUrl.pathname}`
     res = NextResponse.rewrite(url)
@@ -21,4 +24,15 @@ export async function middleware(req: NextRequest) {
   }
 
   return res
+}
+
+export const config = {
+  matcher: [
+    '/',
+    '/blog',
+    '/blog/:path*',
+    '/categories/:path*',
+    '/authors/:path*',
+    '/api/iframe/:path*',
+  ],
 }

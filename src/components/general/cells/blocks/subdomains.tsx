@@ -38,7 +38,12 @@ export const SubDomainsBoxWrapper = ({
       icon={<GrBladesVertical className='grIcon' />}
     >
       <div className='flex space-x-1 place-items-center'>
-        <FormControl htmlFor={labelId} visible disabled={!activeSubscription} className='text-sm font-medium'>
+        <FormControl
+          htmlFor={labelId}
+          visible
+          disabled={!activeSubscription}
+          className='text-sm font-medium'
+        >
           Subdomains
         </FormControl>
 

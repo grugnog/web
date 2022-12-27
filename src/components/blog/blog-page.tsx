@@ -1,9 +1,9 @@
-import { FC, PropsWithChildren, Fragment, useMemo } from 'react'
+import { FC, PropsWithChildren, Fragment } from 'react'
+import parser from 'html-react-parser'
 import Head from 'next/head'
 import type { BlogPageProps } from '@app/types/page'
 import { Footer } from '@app/components/general/footer'
 import { NavBar } from '@app/components/blog/navbar'
-import parser from 'html-react-parser'
 
 const getProps = (props: any = {}) => {
   const { children, ...mainProps } = props?.children
@@ -24,39 +24,11 @@ export const BlogPage: FC<PropsWithChildren<BlogPageProps>> = ({
   links,
   stylesheets,
   metas,
-  headScripts,
-  bodyScripts,
-  children,
+  headScripts = [],
+  bodyScripts = [],
   footer = true,
   header = true,
 }) => {
-  const memoHeadScripts = useMemo(
-    () =>
-      headScripts?.map((node, index) => {
-        const scriptProps = getProps(node)
-        const scriptID = scriptProps?.id ?? `head-script-${index}`
-
-        return <script {...scriptProps} key={scriptID} async />
-      }),
-    [headScripts]
-  )
-  const memoBodyScripts = useMemo(
-    () =>
-      bodyScripts?.length
-        ? bodyScripts.map((node, index) => {
-            const keyID = node?.id || `body-script-${index}`
-            const scriptProps = getProps(node)
-
-            if (!node) {
-              return null
-            }
-
-            return <script key={keyID} {...scriptProps} />
-          })
-        : [],
-    [bodyScripts]
-  )
-
   return (
     <>
       <Head>
@@ -71,7 +43,7 @@ export const BlogPage: FC<PropsWithChildren<BlogPageProps>> = ({
           </Fragment>
         ))}
         {metas?.map((node, index) => {
-          const key = (node && node?.name) || node?.property || node?.charset
+          const key = node && (node?.name || node?.property)
 
           return (
             <Fragment key={`${key}-${index}`}>
@@ -88,15 +60,28 @@ export const BlogPage: FC<PropsWithChildren<BlogPageProps>> = ({
             </Fragment>
           )
         })}
-        {memoHeadScripts}
+        {headScripts?.map((node, index) => {
+          const scriptProps = getProps(node)
+          const scriptID = scriptProps?.id ?? `head-script-${index}`
+
+          return <script {...scriptProps} key={scriptID} async />
+        })}
       </Head>
       {header ? <NavBar title={'Blog'} /> : null}
-      {children}
       <main className='light-background' id='#main-content'>
-        <>{html ? parser(html) : ''}</>
+        {html ? parser(html) : ''}
       </main>
       {footer ? <Footer blog /> : null}
-      {memoBodyScripts}
+      {bodyScripts?.map((node, index) => {
+        const keyID = node?.id || `body-script-${index}`
+        const scriptProps = getProps(node)
+
+        if (!node) {
+          return null
+        }
+
+        return <script key={keyID} {...scriptProps} />
+      })}
     </>
   )
 }

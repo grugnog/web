@@ -9,7 +9,7 @@ function Playground() {
   return (
     <div>
       <Head>
-        <style type='text/css'>
+        <style>
           {`
     
     #main-content {
