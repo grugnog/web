@@ -37,10 +37,10 @@ function ViewConfigTitle({
       )}
     >
       <>
-        <Popover className='relative'>
+        <Popover className='relative w-full md:w-auto'>
           <Popover.Button
             className={
-              'border rounded px-3 py-1.5 text-sm font-medium text-gray-600 flex place-items-center gap-x-3 bg-white'
+              'w-full md:w-auto border rounded px-3 py-1.5 text-sm font-medium flex place-items-center place-content-between gap-x-3'
             }
           >
             <h1 className={'min-w-[80px] max-w-[180px] truncate text-left'}>
@@ -48,7 +48,7 @@ function ViewConfigTitle({
             </h1>
             <GrStatusGoodSmall className='grIcon text-[9px] text-gray-400' />
           </Popover.Button>
-          <Popover.Panel className='absolute z-10 text-gray-700 w-96 py-1'>
+          <Popover.Panel className='absolute z-10  w-96 py-1'>
             <AllWebsitesList />
           </Popover.Panel>
         </Popover>

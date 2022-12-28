@@ -93,9 +93,7 @@ function AuthRedirect(props: {
               <div id='auth-value' className='line-clamp-4 text-base'>
                 {jwt}
               </div>
-              <div className='text-sm text-gray-700'>
-                You can now close this page.
-              </div>
+              <div className='text-sm '>You can now close this page.</div>
             </div>
           </>
         )}

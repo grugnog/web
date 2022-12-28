@@ -120,21 +120,21 @@ function ApiInfo() {
                 </p>
               ) : (
                 <>
-                  <p className='text-base text-gray-800'>
+                  <p className='text-base '>
                     Allowed usage{' '}
                     {`${(availableUsage
                       ? Number(availableUsage) / 1000
                       : 0
                     ).toFixed(0)}s`}
                   </p>
-                  <p className='text-sm text-gray-700'>
+                  <p className='text-sm '>
                     Usage used{' '}
                     {`${(user?.scanInfo?.totalUptime
                       ? Number(user.scanInfo.totalUptime) / 1000
                       : 0
                     ).toFixed(0)}s`}
                   </p>
-                  <p className={'text-xs text-gray-800'}>
+                  <p className={'text-xs '}>
                     Your limit will reset on your next API request if {`it's`}{' '}
                     the next day.
                   </p>

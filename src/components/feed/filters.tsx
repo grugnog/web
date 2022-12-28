@@ -16,16 +16,16 @@ export const CheckBox = observer(({ name }: FilterItem & { name: string }) => {
   const id = `check-${name}`
 
   return (
-    <div className='text-gray-700 px-3 py-2 overflow-hidden text-xs'>
+    <div className=' px-3 py-2 overflow-hidden text-xs'>
       <input
-        className='appearance-none h-4 w-4 border border-gray-300 rounded-sm bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer'
+        className='appearance-none h-4 w-4 border rounded-sm bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer'
         type='checkbox'
         id={id}
         checked={checked}
         onChange={onClick}
       />
       <label
-        className='text-gray-800 inline-block max-w-[82%] lg:max-w-[84%] xl:max-w-[89%] pt-0.5 truncate'
+        className=' inline-block max-w-[82%] lg:max-w-[84%] xl:max-w-[89%] pt-0.5 truncate'
         htmlFor={id}
       >
         {name}
@@ -54,7 +54,7 @@ export const FilterList = observer(() => {
               return (
                 <div
                   className={classNames(
-                    active ? 'bg-gray-100 text-gray-900' : 'text-gray-700'
+                    active ? 'bg-gray-100 text-gray-900' : ''
                   )}
                 >
                   <CheckBox name={item} />

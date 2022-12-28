@@ -38,10 +38,7 @@ export const StandardBoxWrapper = ({
   }
 
   return (
-    <InfoBlock
-      title={'Standard'}
-      icon={<GrDocumentTest className='grIcon' color='black' fill='black' />}
-    >
+    <InfoBlock title={'Standard'} icon={<GrDocumentTest className='grIcon' />}>
       <WCAGSelectInput
         standard={standard}
         onStandardChange={onStandardChange}

@@ -135,11 +135,11 @@ const Body = ({
       <div className='p-4 space-y-6 container mx-auto'>
         <Header3>Verify DNS</Header3>
         <div className='py-2 space-y-2'>
-          <p className='text-gray-800 text-lg'>
+          <p className=' text-lg'>
             Enter the following .txt record to confirm your domain. You can
             remove the record after confirmation.
           </p>
-          <p className='text-gray-700'>
+          <p className=''>
             By verifying your domain, you can enable the CDN to store content.
             If you need help please, contact support for alternative validation
             steps.

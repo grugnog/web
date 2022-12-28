@@ -22,7 +22,7 @@ function StateLessViewConfigTitle({
     >
       <div
         className={
-          'border rounded px-3 py-1.5 text-sm font-medium text-gray-600 flex place-items-center gap-x-3 bg-white'
+          'w-full md:w-auto border rounded px-3 py-1.5 text-sm font-medium flex place-items-center place-content-between gap-x-3'
         }
       >
         <h1 className={'min-w-[80px] max-w-[180px] truncate text-left'}>

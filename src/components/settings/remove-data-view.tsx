@@ -13,7 +13,7 @@ export const RemoveDataView = ({
     <div className='py-2 pb-6 gap-y-2 border-t'>
       <div className='py-3'>
         <Header3 className={settingsHeadingStyle}>Delete all data?</Header3>
-        <p className='text-gray-700 text-sm'>
+        <p className=' text-sm'>
           This will remove all websites and associated data except your account.
         </p>
       </div>

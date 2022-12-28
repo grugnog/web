@@ -20,7 +20,7 @@ export const LazyMount: FC<
     <VisibilitySensor
       onChange={onChange}
       partialVisibility={'top'}
-      minTopValue={100}
+      minTopValue={10}
     >
       {mounted ? (
         children

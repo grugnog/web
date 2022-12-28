@@ -5,10 +5,7 @@ import { GrEmergency } from 'react-icons/gr'
 // hard errors that need to be fixed display [TODO: Refactor]
 export const IssuesBox = ({ issues }: { issues?: number }) => {
   return (
-    <InfoBlock
-      title={'Errors'}
-      icon={<GrEmergency className='grIcon' color='black' fill='black' />}
-    >
+    <InfoBlock title={'Errors'} icon={<GrEmergency className='grIcon' />}>
       {Intl.NumberFormat().format(issues ?? 0)} issue{issues === 1 ? '' : 's'}{' '}
     </InfoBlock>
   )

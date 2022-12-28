@@ -29,7 +29,7 @@ function MarketingIntro({
           </h2>
         ) : (
           <div>
-            <p className='text-base text-gray-800'>
+            <p className='text-base '>
               A11ywatch provides powerful tools for testing web inclusivity
               correctly so you can build better software. We created a smart
               safeguard that prevents drastic issues across your websites
@@ -37,9 +37,11 @@ function MarketingIntro({
               improving web accessibility test coverage, efficiency & speed, and
               other integrations that help productivity.
             </p>
-            <p className='text-base py-1 text-gray-700'>
+            <p className='text-base py-1 '>
               Gain confidence across every step with robust solutions like{' '}
-              <strong>embed scripts, automated solutions, API, and more</strong>
+              <strong>
+                embed scripts, automated workflows, API access, and much more
+              </strong>
               . Add custom actions and authentication for different use cases
               easy.
             </p>
@@ -47,7 +49,7 @@ function MarketingIntro({
         )}
         <div className='py-3 pb-4 relative'>
           <Link
-            className={`px-6 py-2 rounded border tracking-wider flex place-content-center w-40 font-medium after:text-sm after:content-['Try_for_free.'] after:left-[11.2rem] after:absolute after:pointer-events-none hover:bg-gray-100 hover:no-underline after:font-normal after:text-gray-600`}
+            className={`px-6 py-2 rounded border tracking-wider flex place-content-center w-40 font-medium after:text-sm after:content-['Try_for_free.'] after:left-[11.2rem] after:absolute after:pointer-events-none hover:opacity-70 hover:no-underline after:font-normal`}
             href={'/register'}
           >
             Get Started

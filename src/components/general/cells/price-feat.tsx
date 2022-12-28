@@ -21,12 +21,12 @@ export const PriceFeat = ({
 }: PropsWithChildren<any>) => {
   return (
     <div
-      className={`w-full flex-1 md:w-auto min-w-[330px] rounded flex flex-col justify-between text-gray-800 bg-white border border-[#2A2A2A] border-t-[4px] border-2 rounded`}
+      className={`w-full flex-1 md:w-auto min-w-[330px] rounded flex flex-col justify-between  bg-white dark:bg-black border border-[#2A2A2A] border-t-[4px] border-2 rounded`}
     >
       <>
         <div className='w-full'>
           <div
-            className='text-left w-full flex-col text-gray-800 px-8 py-1 border-b'
+            className='text-left w-full flex-col  px-8 py-1 border-b'
             style={{ backgroundColor: textColor }}
           >
             <SubHeading

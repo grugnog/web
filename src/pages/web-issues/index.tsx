@@ -5,7 +5,6 @@ import type { PageProps } from '@app/types'
 import { PageLoader } from '@app/components/placeholders'
 import { useWebsiteContext } from '@app/components/providers/website'
 import { LoadMoreButton } from '@app/components/general/buttons'
-import { useFilterSort } from '@app/data/local'
 import { useAuthContext } from '@app/components/providers/auth'
 
 function WebIssues({ name }: PageProps) {
@@ -17,7 +16,6 @@ function WebIssues({ name }: PageProps) {
     error,
     onLoadMoreIssues,
   } = useWebsiteContext()
-  const { sortedData } = useFilterSort(issueData)
   const { account } = useAuthContext()
 
   return (
@@ -28,14 +26,14 @@ function WebIssues({ name }: PageProps) {
           rightButton={<AuthMenu authenticated={account.authed} settings />}
         />
         <PageLoader
-          empty={issueData?.length === 0}
+          empty={issueData.length === 0}
           loading={issueDataLoading}
-          hasWebsite={!!issueData?.length}
+          hasWebsite={!!issueData.length}
           emptyTitle={'No Websites Added'}
           error={error}
         >
           <List
-            data={sortedData}
+            data={issueData}
             loading={issueDataLoading}
             refetch={refetch}
             emptyHeaderTitle='No issues found'
@@ -43,7 +41,7 @@ function WebIssues({ name }: PageProps) {
           >
             <li>
               <LoadMoreButton
-                visible={sortedData.length > 1}
+                visible={issueData.length > 1}
                 onLoadMoreEvent={onLoadMoreIssues}
                 loading={networkStatusIssues === 3}
               />

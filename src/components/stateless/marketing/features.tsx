@@ -66,7 +66,7 @@ function FeatureItem({ item, index }: { item: any; index: number }) {
     >
       <div className='flex space-x-2 pb-4 items-center'>
         <div className='flex rounded-3xl border w-10 h-10 justify-center items-center'>
-          <RenderIcon index={index} fontSize='16px' />
+          <RenderIcon index={index} fontSize='16px' className={'grIcon'} />
         </div>
         <div className='text-xl'>{item.title}</div>
       </div>
@@ -98,9 +98,7 @@ const FeaturesList = ({
         ) : (
           <Header2>{strings.headers[2][0]}</Header2>
         )}
-        {alternative ? null : (
-          <p className='pb-2 text-gray-700'>{strings.headers[2][1]}</p>
-        )}
+        {alternative ? null : <p className='pb-2'>{strings.headers[2][1]}</p>}
       </div>
       <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-1'>
         <>

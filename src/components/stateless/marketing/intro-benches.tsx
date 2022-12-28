@@ -8,9 +8,9 @@ export const IntroBenches: FC = () => {
           <h2 className='text-xl font-semibold'>
             Website Accessibility Reports
           </h2>
-          <p className='text-base text-gray-800'>Reports per minute (Linux)</p>
+          <p className='text-base'>Reports per minute (Linux)</p>
         </div>
-        <ul className='grid grid-cols-3 place-items-start pt-1 h-40 place-items-center bg-gray-50'>
+        <ul className='grid grid-cols-3 place-items-start pt-1 h-40 place-items-center'>
           <li className='flex flex-1 px-2 h-full'>
             <div className='flex flex-col h-full place-content-end'>
               <div className='py-1' aria-hidden='true'>
@@ -53,8 +53,8 @@ export const IntroBenches: FC = () => {
             aria-label='a11ywatch benchmark source'
           >
             <div className='text-base font-medium'>a11ywatch</div>
-            <div className='text-sm text-gray-800'>v0.8.7</div>
-            <div className='text-xs text-gray-700'>view source</div>
+            <div className='text-sm '>v0.8.7</div>
+            <div className='text-xs '>view source</div>
           </a>
           <a
             href='https://github.com/a11ywatch/github-actions/blob/main/.github/workflows/bench-pa11y.yml'
@@ -64,8 +64,8 @@ export const IntroBenches: FC = () => {
             rel='noreferrer'
           >
             <div className='text-base font-medium'>wave</div>
-            <div className='text-sm text-gray-800'>v6.2.3</div>
-            <div className='text-xs text-gray-700'>view source</div>
+            <div className='text-sm '>v6.2.3</div>
+            <div className='text-xs '>view source</div>
           </a>
           <a
             href='https://github.com/a11ywatch/github-actions/blob/main/.github/workflows/bench-axe.yml'
@@ -75,8 +75,8 @@ export const IntroBenches: FC = () => {
             rel='noreferrer'
           >
             <div className='text-base font-medium'>deque</div>
-            <div className='text-sm text-gray-800'>v4.4.3</div>
-            <div className='text-xs text-gray-700'>view source</div>
+            <div className='text-sm '>v4.4.3</div>
+            <div className='text-xs '>view source</div>
           </a>
         </div>
       </div>

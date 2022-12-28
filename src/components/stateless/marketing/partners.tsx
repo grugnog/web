@@ -2,7 +2,7 @@ import { FC } from 'react'
 
 export const Partners: FC = () => {
   return (
-    <div className='p-5 bg-gray-100 my-5 space-y-3 rounded border'>
+    <div className='p-5 my-5 space-y-3 rounded border'>
       <h4 className='text-xl font-bold'>Partner With Us</h4>
       <div className='text-lg'>
         Apply to become partners as an approved agency, technology services, or

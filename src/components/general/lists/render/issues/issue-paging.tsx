@@ -55,7 +55,7 @@ const RenderInnerIssuesWrapper: FC<any> = (props) => {
   return (
     <>
       <div className='flex flex-col place-content-around'>
-        <div className='h-[450px] overflow-y-auto bg-white'>
+        <div className='h-[450px] overflow-y-auto'>
           <InnerWrapper {...props} data={issueSource?.length} loading={loading}>
             <ul className='list-none'>
               {issueList?.map((page: Issue) => (
@@ -78,17 +78,17 @@ const RenderInnerIssuesWrapper: FC<any> = (props) => {
           <Button
             iconButton
             onClick={onPrevSelect}
-            className={`text-gray-700 ${issueIndex ? 'visible' : 'hidden'}`}
+            className={` ${issueIndex ? 'visible' : 'hidden'}`}
           >
-            <GrFormPreviousLink className='grIcon text-gray-700' />
+            <GrFormPreviousLink className='grIcon' />
           </Button>
           <Button
             iconButton
             disabled={loading}
             onClick={onLoadEvent}
-            className={`text-gray-700 ${!blocked ? 'visible' : 'hidden'}`}
+            className={` ${!blocked ? 'visible' : 'hidden'}`}
           >
-            <GrFormNextLink className='grIcon text-gray-700' />
+            <GrFormNextLink className='grIcon' />
           </Button>
         </div>
       </div>

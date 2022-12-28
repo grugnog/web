@@ -32,7 +32,7 @@ export const MobileBoxWrapper = ({
   return (
     <InfoBlock
       title={'Mobile'}
-      icon={<GrPhoneFlip className='grIcon' color='black' fill='black' />}
+      icon={<GrPhoneFlip className='grIcon fill-black dark:fill-white' />}
     >
       <div className='flex space-x-1 place-items-center'>
         <label className='text-sm font-medium' htmlFor={labelId}>

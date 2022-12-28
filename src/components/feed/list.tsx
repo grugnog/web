@@ -43,14 +43,14 @@ const FeedListComponent: FC<FeedComponentProps> = ({
     if (!issueCount) {
       return (
         <div
-          className={`bg-[rgba(172,182,192,0.06)] w-full h-full place-content-center flex p-3`}
+          className={`bg-[rgba(172,182,192,0.06)] dark:bg-black w-full h-full place-content-center flex p-3`}
         >
           <Header3>No Issues found!</Header3>
         </div>
       )
     }
     return (
-      <ul className={`bg-[rgba(172,182,192,0.06)] w-full h-full`}>
+      <ul className={`bg-[rgba(172,182,192,0.06)] dark:bg-black w-full h-full`}>
         <List
           height={height}
           itemCount={issueCount}
@@ -79,7 +79,7 @@ const FeedListComponent: FC<FeedComponentProps> = ({
         highLight={!!highLight}
       />
       {sectionHidden ? null : (
-        <ul className={`overflow-x-hidden bg-gray-50`}>
+        <ul className={`overflow-x-hidden bg-gray-50 dark:bg-gray-800`}>
           <List
             height={height}
             itemCount={issueCount}

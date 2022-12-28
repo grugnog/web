@@ -20,7 +20,7 @@ export const Checkbox = forwardRef(function Checkbox(
     <input
       type={'checkbox'}
       className={classNames(
-        'px-4 py-3 disabled:bg-slate-50 disabled:text-slate-500 invalid:border-gray-700 invalid:text-gray-700',
+        'px-4 py-3 disabled:bg-slate-50 disabled:text-slate-500 invalid:border-gray-700 invalid:',
         className || ''
       )}
       value={value}

@@ -38,7 +38,7 @@ export const FeedHeadingComponent = ({
     <div className={'flex space-x-1 h-15'}>
       <div className='flex-1 px-4 py-2 truncate space-y-1'>
         <IssueTitle pageUrl={pageUrl} />
-        <div className='flex space-x-1 place-items-center text-[#707070] text-sm'>
+        <div className='flex space-x-1 place-items-center text-sm'>
           <div
             className={
               hlight
@@ -70,14 +70,14 @@ export const FeedHeadingComponent = ({
           <button
             onClick={onScan}
             title={`Scan ${pageUrl} and sync`}
-            className='px-5 py-1 hover:bg-blue-100'
+            className='px-5 py-1 hover:opacity-70'
           >
             <GrSync className={'text-base grIcon'} />
           </button>
         ) : null}
         <button
           onClick={onToggle}
-          className='px-5 py-1 hover:bg-gray-200'
+          className='px-5 py-1 hover:opacity-70'
           title={`Toggle issues ${
             sectionHidden ? 'visible' : 'hidden'
           } for ${pageUrl}`}

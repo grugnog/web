@@ -70,6 +70,7 @@ const theme = {
 }
 
 module.exports = {
+  darkMode: 'class',
   theme,
   content: ['./src/**/*.{html,js,jsx,ts,tsx}'],
   plugins: [require('@tailwindcss/line-clamp')],

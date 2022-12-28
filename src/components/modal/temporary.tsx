@@ -6,7 +6,7 @@ import { GrClose } from 'react-icons/gr'
 import { ReportView } from '@app/components/ada'
 import { useRestWebsiteContext } from '../providers/rest/rest-website'
 import { HeadlessFullScreenModal } from './headless-full'
-import { SnackBar } from '../general'
+import { Button, SnackBar } from '../general'
 import { AppManager } from '@app/managers'
 
 interface BottomDrawer {
@@ -30,13 +30,14 @@ export function BottomDrawer({
     <HeadlessFullScreenModal open={!!bottomModal} onClose={closeFeed}>
       <ReportView
         closeButton={
-          <button
-            className={'text-lg hover:bg-gray-100 rounded-3xl px-3 py-3'}
+          <Button
+            className={'text-lg hover:opacity-70 rounded-3xl px-3 py-3'}
             aria-label='close modal'
             onClick={closeFeed}
+            iconButton
           >
-            <GrClose />
-          </button>
+            <GrClose className='grIcon' />
+          </Button>
         }
         authenticated={authenticated}
         website={website}

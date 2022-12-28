@@ -4,7 +4,7 @@ import { VscVmActive } from 'react-icons/vsc'
 
 export const OnlineBox = ({ online }: { online?: boolean }) => {
   return (
-    <InfoBlock title={'Online'} icon={<VscVmActive />}>
+    <InfoBlock title={'Online'} icon={<VscVmActive className='grIcon' />}>
       {online ? 'Yes' : 'No'}
     </InfoBlock>
   )

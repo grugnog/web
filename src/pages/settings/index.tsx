@@ -13,6 +13,8 @@ import { CoreVitalsView } from '@app/components/settings/core-vitals-view'
 import { RemoveDataView } from '@app/components/settings/remove-data-view'
 import { LighthouseView } from '@app/components/settings/lighthouse-view'
 import { useInteractiveContext } from '@app/components/providers/interactive'
+import { ThemesView } from '@app/components/settings/themes-view'
+import { LazyMount } from '@app/components/lazy/lazymount'
 
 function Settings({ name }: PageProps) {
   const {
@@ -124,7 +126,12 @@ function Settings({ name }: PageProps) {
           onConfirmLighthouse={onConfirmLighthouse}
           user={data?.user}
         />
-        <HistoryView />
+        <LazyMount>
+          <ThemesView />
+        </LazyMount>
+        <LazyMount>
+          <HistoryView />
+        </LazyMount>
         <RemoveDataView onRemoveAllWebsitePress={onRemoveAllWebsitePress} />
       </div>
     </Drawer>

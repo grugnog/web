@@ -21,6 +21,7 @@ import { useStaticRendering as enableMobxStaticRendering } from 'mobx-react-lite
 import { SkipContent, SnackBar } from './general'
 import { InteractiveProvider } from './providers/interactive'
 import { AuthProvider } from './providers/auth'
+import { ThemeProvider } from 'next-themes'
 
 if (typeof window === 'undefined') {
   enableMobxStaticRendering(true)
@@ -51,22 +52,24 @@ const LayoutWrapper = ({ Component, pageProps }: InnerApp) => {
   )
 
   return (
-    <WASMContextProvider load={wasm}>
-      <AuthProvider load={wasm || gql || rest}>
-        <InteractiveProvider load={wasm || gql}>
-          <WebsiteProviderWrapper
-            skip={!initialQuery}
-            gqlFilter={Component?.params?.filter}
-            scopedQuery={scopedQuery}
-            gql={gql}
-          >
-            <RestWebsiteProviderWrapper rest={rest}>
-              <Component {...pageProps} name={name} />
-            </RestWebsiteProviderWrapper>
-          </WebsiteProviderWrapper>
-        </InteractiveProvider>
-      </AuthProvider>
-    </WASMContextProvider>
+    <ThemeProvider attribute='class' enableSystem>
+      <WASMContextProvider load={wasm}>
+        <AuthProvider load={wasm || gql || rest}>
+          <InteractiveProvider load={wasm || gql}>
+            <WebsiteProviderWrapper
+              skip={!initialQuery}
+              gqlFilter={Component?.params?.filter}
+              scopedQuery={scopedQuery}
+              gql={gql}
+            >
+              <RestWebsiteProviderWrapper rest={rest}>
+                <Component {...pageProps} name={name} />
+              </RestWebsiteProviderWrapper>
+            </WebsiteProviderWrapper>
+          </InteractiveProvider>
+        </AuthProvider>
+      </WASMContextProvider>
+    </ThemeProvider>
   )
 }
 

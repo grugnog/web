@@ -24,11 +24,11 @@ const Leftbutton = ({ marketing, backButton }: LeftbuttonWrapperProps) => {
   if (backButton) {
     return (
       <button
-        className={'text-lg hover:bg-gray-100 rounded-3xl px-3 py-3'}
+        className={'text-lg hover:opacity-70 rounded-3xl px-3 py-3'}
         title={'Navigate to home'}
         onClick={onClickEvent}
       >
-        <GrLinkPrevious />
+        <GrLinkPrevious className='grIcon' />
       </button>
     )
   }
@@ -36,7 +36,7 @@ const Leftbutton = ({ marketing, backButton }: LeftbuttonWrapperProps) => {
   if (!marketing) {
     return (
       <Link
-        className={'text-lg hover:bg-gray-100 rounded-3xl px-3 py-3'}
+        className={'text-lg hover:opacity-70 rounded-3xl px-3 py-3'}
         title={'Navigate to home'}
         href={'/'}
       >
@@ -75,7 +75,7 @@ export const NavBar: FC<PropsWithChildren<NavProps>> = ({
   authenticated,
   loading,
 }) => {
-  const bg = position === 'static' ? `bg-white` : 'bg-[inherit]'
+  const bg = position === 'static' ? `` : 'bg-[inherit]'
 
   return (
     <nav

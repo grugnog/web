@@ -22,13 +22,13 @@ export const ProfileCell = ({
     return (
       <div className='border py-2 px-3'>
         <div className='flex'>
-          <p className={`text-xl font-semibold ${titleClassName}`}>{title}</p>
+          <p className={`text-xl font-medium ${titleClassName}`}>{title}</p>
           {children}
         </div>
         {skeletonLoad ? (
           <TextSkeleton className={className} size={'base'} />
         ) : subTitle ? (
-          <p className={`text-base text-gray-600 ${className}`}>{subTitle}</p>
+          <p className={`text-base ${className}`}>{subTitle}</p>
         ) : null}
       </div>
     )
@@ -36,11 +36,11 @@ export const ProfileCell = ({
 
   return (
     <div className='border py-2 px-3'>
-      <p className={`text-xl font-semibold ${titleClassName}`}>{title}</p>
+      <p className={`text-xl font-medium ${titleClassName}`}>{title}</p>
       {skeletonLoad ? (
         <TextSkeleton className={className} size={'base'} />
       ) : subTitle ? (
-        <p className={`text-base text-gray-600 ${className}`}>{subTitle}</p>
+        <p className={`text-base ${className}`}>{subTitle}</p>
       ) : null}
     </div>
   )

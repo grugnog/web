@@ -13,13 +13,13 @@ export const HistoryView = () => {
     <div className='py-2 gap-y-2 border-t'>
       <div className='py-3'>
         <Header3 className={settingsHeadingStyle}>History</Header3>
-        <p className='text-gray-700 text-sm'>The last websites added.</p>
+        <p className='text-sm'>The last websites added.</p>
       </div>
       <div
         className={`h-60 ${
           activeSubscription
             ? 'overflow-y-auto'
-            : ' flex flex-col place-items-center place-content-center bg-gray-100 block p-3 h-full'
+            : ' flex flex-col place-items-center place-content-center block p-3 h-full'
         }`}
       >
         <>

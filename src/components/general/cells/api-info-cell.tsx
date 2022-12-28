@@ -73,11 +73,11 @@ ${
     <li className={'text-base border-2 rounded'}>
       <button
         onClick={onToggleSection}
-        className={'w-full border-0 text-left p-3 m-0 hover:bg-gray-200'}
+        className={'w-full border-0 text-left p-3 m-0 hover:opacity-70'}
         aria-label={`toggle section visible for ${route.title}`}
       >
         <div>
-          <p className='text-2xl font-extrabold text-gray-800'>{route.title}</p>
+          <p className='text-2xl font-extrabold '>{route.title}</p>
           <p className='text-base'>{route.info}</p>
         </div>
       </button>
@@ -124,10 +124,10 @@ ${
                   <span className='block text-lg'>
                     {item} <span className='text-sky-700'>{type}</span>
                   </span>
-                  <span className='text-sm text-gray-800 block'>{desc}</span>
+                  <span className='text-sm  block'>{desc}</span>
                   <span
                     className={`text-xs font-bold block ${
-                      optional ? 'text-gray-700' : 'text-red-800'
+                      optional ? '' : 'text-red-800'
                     }`}
                   >
                     {optional ? 'Optional' : 'Required'}

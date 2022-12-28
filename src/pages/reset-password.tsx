@@ -137,7 +137,7 @@ function ResetPassword({ name }: PageProps) {
         <Button
           className={`border-2 rounded-full py-2 px-3 text-base ${
             !resetSent && emailState.length < 5
-              ? 'border-gray-700 text-gray-700'
+              ? 'border-gray-700 '
               : 'border-blue-700 text-blue-700'
           }`}
           type='submit'

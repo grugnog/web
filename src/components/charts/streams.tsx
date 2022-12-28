@@ -2,7 +2,7 @@ import { useEffect, useState, memo } from 'react'
 import { Analytic } from '@app/types'
 import { fetcher } from '@app/utils/fetcher'
 // import { LegendProps } from '@nivo/legends'
-import { ResponsiveStream } from '@nivo/stream'
+import { ResponsiveStream, TooltipProps } from '@nivo/stream'
 
 const theme = {
   axis: {
@@ -30,19 +30,45 @@ const StackTip = ({ item }: { item: Analytic }) => {
   }
 
   return (
-    <div className='rounded bg-white border'>
-      <div className='p-2 bg-gray-50 border-b'>
-        <div className='text-gray-700 text-sm'>{item.pageUrl}</div>
+    <div className='rounded bg-white dark:bg-black border'>
+      <div className='p-2 border-b'>
+        <div className='text-sm'>{item.pageUrl}</div>
       </div>
       <div className='p-3 space-y-1'>
-        <div className='text-gray-600 text-xs flex gap-x-2'>
+        <div className='text-gray-600 dark:text-gray-200 text-xs flex gap-x-2'>
           <div className='w-4 h-4 bg-[rgb(242,108,85)]'></div>
           {item.errorCount} Error{item.errorCount === 1 ? '' : 's'}
         </div>
-        <div className='text-gray-600 text-xs flex gap-x-2'>
+        <div className='text-gray-600 dark:text-gray-200 text-xs flex gap-x-2'>
           <div className='w-4 h-4 bg-[rgb(236,223,113)]'></div>
           {item.warningCount} Warning{item.warningCount === 1 ? '' : 's'}
         </div>
+      </div>
+    </div>
+  )
+}
+
+const Tip = ({ item }: { item: TooltipProps }) => {
+  if (!item) {
+    return null
+  }
+
+  console.log(item)
+
+  return (
+    <div className='rounded bg-white dark:bg-black border'>
+      <div className='p-3 space-y-1'>
+        {item.layer.label === 'error' ? (
+          <div className='text-gray-600 dark:text-gray-200 text-xs flex gap-x-2'>
+            <div className='w-4 h-4 bg-[rgb(242,108,85)]'></div>
+            Errors
+          </div>
+        ) : (
+          <div className='text-gray-600 dark:text-gray-200 text-xs flex gap-x-2'>
+            <div className='w-4 h-4 bg-[rgb(236,223,113)]'></div>
+            Warnings
+          </div>
+        )}
       </div>
     </div>
   )
@@ -99,8 +125,10 @@ const WebsiteAnalyticStreamComponent = ({ domain }: { domain: string }) => {
   }, [domain])
 
   if (!data.length) {
-    return <div className='bg-gray-200 h-[295px] md:h-[330px]' />
+    return <div className='bg-gray-200 dark:bg-gray-800 h-[295px] md:h-[330px]' />
   }
+
+  // todo: tooltip darkmode
 
   return (
     <ResponsiveStream
@@ -120,6 +148,7 @@ const WebsiteAnalyticStreamComponent = ({ domain }: { domain: string }) => {
       stackTooltip={(stack) =>
         data && <StackTip item={data[stack.slice.index]} />
       }
+      tooltip={(stack) => data && <Tip item={stack} />}
       // legends={legends}
     />
   )

@@ -33,12 +33,9 @@ const sections: { id: string; text: string }[] = [
 export const MarketingBenefits = () => {
   return (
     <SectionContainer className='py-6 px-0'>
-      <article className='grid md:grid-cols-3 gap-x-8 gap-y-4 bg-gray-50 rounded p-6'>
+      <article className='grid md:grid-cols-3 gap-x-8 gap-y-4 rounded p-6'>
         {sections.map((section) => (
-          <p
-            key={section.id}
-            className={'text-sm text-gray-700 font-mono leading-7'}
-          >
+          <p key={section.id} className={'text-sm font-mono leading-7'}>
             {section.text}
           </p>
         ))}

@@ -33,7 +33,7 @@ export const CoreVitalsView = ({
     <div className='py-2 gap-y-2 border-t'>
       <div>
         <Header3 className={settingsHeadingStyle}>Core Web Vitals</Header3>
-        <p className='text-gray-700'>
+        <p>
           Core Web Vitals are a set of speed metrics that are part of{' '}
           {`Google’s`} Page Experience signals used to measure user experience.
           We retrieve them using PageSpeed Insights API along with our own

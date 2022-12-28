@@ -27,12 +27,12 @@ const TableHeading = ({ title }: { title: string }) => {
 
 const TableRow = ({ rows }: TableRowProps) => {
   return (
-    <tr className='border-b bg-gray-50'>
+    <tr className='border-b bg-gray-50 dark:bg-gray-700'>
       {rows.map((row: string, i: number) => {
         return (
           <>
             <td
-              className={`px-6 py-2.5 whitespace-nowrap text-base text-gray-700 ${
+              className={`px-6 py-2.5 whitespace-nowrap text-base  ${
                 i === 0 ? 'font-medium' : 'font-light'
               }`}
             >

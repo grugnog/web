@@ -54,7 +54,7 @@ export function FeedIssueCardComponent({
             )} min-w-[0.75rem] min-h-[0.75rem] w-3 h-3 rounded-full`}
           />
           <p
-            className={`text-gray-800 truncate text-sm font-medium max-w-[90%] flex-1 ${
+            className={`truncate text-sm font-medium max-w-[90%] flex-1 ${
               largeBody ? 'xl:text-base' : ''
             }`}
           >
@@ -76,14 +76,14 @@ export function FeedIssueCardComponent({
             title={`view technique for ${codeDisplay}`}
             target='_blank'
             rel='noreferrer'
-            className='text-gray-600 text-xs hover:underline p-0 m-0'
+            className='text-gray-600 dark:text-blue-700 text-xs hover:underline p-0 m-0'
           >
             {codeDisplay}
           </a>
         </div>
       </div>
       <div
-        className={`line-clamp-4 text-sm text-gray-700 ${
+        className={`line-clamp-5 md:line-clamp-4 text-sm ${
           largeBody ? 'xl:text-base' : 'leading-snug'
         }`}
       >

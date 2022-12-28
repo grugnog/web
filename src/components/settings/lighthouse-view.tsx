@@ -18,12 +18,7 @@ export const LighthouseView = ({
           <Header3 className={settingsHeadingStyle}>
             Display Lighthouse on Dashboard
           </Header3>
-          <p className='text-gray-700 text-sm'>
-            Toggle the visibility of lighthouse reports on the dashboard.
-          </p>
-        </div>
-        <div className='pt-2 p-1'>
-          <p className='text-gray-800 text-sm'>
+          <p className='text-sm'>
             Lighthouse visiblity is{' '}
             <b className='font-medium'>
               {lighthouseVisible ? 'enabled' : 'disabled'}

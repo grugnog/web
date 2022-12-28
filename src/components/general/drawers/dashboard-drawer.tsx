@@ -30,7 +30,7 @@ export function DrawerW({ children }: any) {
           <main className={'flex-1 overflow-auto'} id='main-content'>
             <div
               className={
-                'px-3 md:px-4 scrollbar overflow-auto max-h-screen bg-[#f2f4f7]'
+                'px-3 md:px-4 scrollbar overflow-auto max-h-screen bg-[#f2f4f7] dark:bg-black'
               }
             >
               <RefBanner />

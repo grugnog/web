@@ -21,6 +21,7 @@ export const ListComponent: FC<PropsWithChildren<any>> = ({
           error={error}
           emptyHeaderTitle={emptyHeaderTitle}
           emptyHeaderSubTitle={emptyHeaderSubTitle}
+          isVisible
         />
       ))}
       {children}

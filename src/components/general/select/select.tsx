@@ -24,7 +24,7 @@ export const Select = forwardRef(function Select(
       value={value}
       onChange={onChange}
       className={classNames(
-        'text-sm border-0 m-0 hover:bg-gray-100 rounded py-1.5'
+        'text-sm border-0 m-0 hover:opacity-70 rounded py-1.5'
       )}
       {...props}
     >

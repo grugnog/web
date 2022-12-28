@@ -10,7 +10,7 @@ export const AccessibilityBox = ({
   average?: boolean
 }) => {
   return (
-    <InfoBlock title={'Score'} icon={<GrAccessibility />}>
+    <InfoBlock title={'Score'} icon={<GrAccessibility className='grIcon' />}>
       {typeof adaScore !== 'undefined' && average ? 'Average ' : ''}{' '}
       {adaScore || 'N/A'}
     </InfoBlock>

@@ -83,8 +83,7 @@ function renderGuide(index: number, events: any) {
   return null
 }
 
-const listTitleStyle =
-  'sr-only text-gray-600 sm:text-xs sm:not-sr-only md:text-sm'
+const listTitleStyle = 'sr-only sm:text-xs sm:not-sr-only md:text-sm'
 
 // todo: types
 export function FeaturesCellComponent({
@@ -111,11 +110,11 @@ export function FeaturesCellComponent({
     return (
       <li>
         <button
-          className={`flex w-full text-gray-400 bg-gray-200 place-items-center gap-x-3 py-3 pl-2 pr-2 place-content-around min-h-[44px] hover:bg-gray-100 hover:no-underline md:py-2 md:pl-5 md:pr-2 md:min-h-[54px]`}
+          className={`flex w-full text-gray-400 bg-gray-200 place-items-center gap-x-3 py-3 pl-2 pr-2 place-content-around min-h-[44px] hover:opacity-70 hover:no-underline md:py-2 md:pl-5 md:pr-2 md:min-h-[54px]`}
           onClick={onUpgradeEvent}
         >
           <div className='flex flex-1 text-xs md:text-sm place-items-center gap-x-2 place-content-center md:place-content-start sm:gap-x-3 md:gap-x-4'>
-            {renderIcon(title, 'grIcon text-gray-700')}
+            {renderIcon(title, 'grIcon ')}
             <div className={listTitleStyle}>{title}</div>
           </div>
           {renderGuide(index, events)}
@@ -127,11 +126,11 @@ export function FeaturesCellComponent({
   return (
     <li>
       <Link
-        className={`flex text-gray-600 place-items-center gap-x-3 py-3 pl-2 pr-2 place-content-around min-h-[44px] hover:bg-gray-100 hover:no-underline md:py-2 md:pl-5 md:pr-2 md:min-h-[54px]`}
+        className={`flex place-items-center gap-x-3 py-3 pl-2 pr-2 place-content-around min-h-[44px] hover:opacity-70 hover:no-underline md:py-2 md:pl-5 md:pr-2 md:min-h-[54px]`}
         {...extraProps(feature, focused, setEvents)}
       >
         <div className='flex flex-1 text-xs md:text-sm place-items-center gap-x-2 place-content-center md:place-content-start sm:gap-x-3 md:gap-x-4'>
-          {renderIcon(title, 'grIcon text-gray-700')}
+          {renderIcon(title, 'grIcon')}
           <div className={listTitleStyle}>{title}</div>
         </div>
         {renderGuide(index, events)}

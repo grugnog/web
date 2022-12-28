@@ -56,7 +56,7 @@ export function MarketingCli(): ReactElement<any, any> | null {
                 ? 'Pause intro sample CLI video'
                 : 'Watch intro sample CLI usage'
             }
-            className='px-3 rounded-3xl border h-10 w-10 hover:bg-gray-200'
+            className='px-3 rounded-3xl border h-10 w-10 hover:opacity-70'
             onClick={toggleSample}
           >
             {sampleVisible ? (
@@ -66,10 +66,10 @@ export function MarketingCli(): ReactElement<any, any> | null {
             )}
           </button>
         </div>
-        <p className='text-lg pb-4 leading-10 text-gray-700'>
+        <p className='text-lg pb-4 leading-10'>
           Run {companyName} on any machine using the Command Line Interface.
           Install the CLI in shell using the command{' '}
-          <code className='text-gray-700 bg-gray-300 p-1'>
+          <code className='text-gray-700  bg-gray-300 p-1'>
             npm i a11ywatch-cli -g
           </code>
           .
@@ -120,9 +120,7 @@ export function MarketingCli(): ReactElement<any, any> | null {
                   return (
                     <li key={i}>
                       <Header4>{detail.title}</Header4>
-                      <div className={'text-base text-gray-700'}>
-                        {detail.subTitle}
-                      </div>
+                      <div className={'text-base '}>{detail.subTitle}</div>
                     </li>
                   )
                 }

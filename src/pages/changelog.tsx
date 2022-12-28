@@ -13,6 +13,10 @@ interface ListLog {
 
 const list: ListLog[] = [
   {
+    date: 'December 2022',
+    updates: ['Analytics across all pages and domains.', 'Dark mode support!'],
+  },
+  {
     date: 'November 2022',
     updates: [
       'Scaled pricing plans are now live with all features 🥳!',
@@ -101,10 +105,7 @@ function ChangeLog({ name }: PageProps) {
                 <ul className='list-disc py-2 px-6'>
                   {item.updates.map((li, i) => {
                     return (
-                      <li
-                        key={`changeloglist-${i}`}
-                        className={'text-lg text-gray-800'}
-                      >
+                      <li key={`changeloglist-${i}`} className={'text-lg '}>
                         {li}
                       </li>
                     )

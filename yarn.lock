@@ -7403,10 +7403,10 @@ natural-compare@^1.4.0:
   resolved "https://registry.npmjs.org/natural-compare/-/natural-compare-1.4.0.tgz"
   integrity sha1-Sr6/7tdUHywnrPspvbvRXI1bpPc=
 
-next-lighthouse@^1.1.0:
-  version "1.1.0"
-  resolved "https://registry.npmjs.org/next-lighthouse/-/next-lighthouse-1.1.0.tgz"
-  integrity sha512-bK9v6st1PesCQKTBG27q5XdUkzL+r2ke6y22Ata7Z33H9yO5LCL+fNSbIBQgX7j7zqFl0HC1XstMbH3cDeZspg==
+next-lighthouse@1.2.4:
+  version "1.2.4"
+  resolved "https://registry.yarnpkg.com/next-lighthouse/-/next-lighthouse-1.2.4.tgz#b15ac0a67ed02b0c7368126afd53ec3b3beed751"
+  integrity sha512-GIY3nNK7jifWxuenz+cbYoOvFThxsC4vbr6T9+SXM78EA2B4MEu1rOAgS14NmYCTZCQ7PRyoVtFUhbDgnfQhFg==
 
 next-pwa@5.6.0:
   version "5.6.0"
@@ -7427,6 +7427,11 @@ next-sitemap@^3.1.42:
   dependencies:
     "@corex/deepmerge" "^4.0.29"
     minimist "^1.2.7"
+
+next-themes@^0.2.1:
+  version "0.2.1"
+  resolved "https://registry.yarnpkg.com/next-themes/-/next-themes-0.2.1.tgz#0c9f128e847979daf6c67f70b38e6b6567856e45"
+  integrity sha512-B+AKNfYNIzh0vqQQKqQItTS8evEouKD7H5Hj3kmuPERwddR2TxvDSFZuTj6T7Jfn1oyeUyJMydPl1Bkxkh0W7A==
 
 next@*:
   version "12.2.5"

@@ -75,7 +75,7 @@ const Footer = ({ sticky, blog }: { sticky?: boolean; blog?: boolean }) => {
             <div className='flex flex-wrap gap-x-4 md:gap-x-20'>
               <div>
                 <p className={'font-bold text-3xl pb-2'}>{strings.appName}</p>
-                <p className='text-gray-600'>Inclusivity brings us together.</p>
+                <p className='text-sm'>Inclusivity brings us together.</p>
               </div>
               <ul className='flex flex-1 md:flex-none gap-x-6 place-items-center place-content-center'>
                 <li>

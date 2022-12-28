@@ -29,18 +29,18 @@ const FeedButton = ({
   return (
     <div className='flex'>
       <button
-        className='p-4 text-lg w-full text-left font-medium hover:bg-gray-200'
+        className='p-4 text-lg w-full text-left font-medium hover:opacity-70'
         onClick={onHeadingToggleEvent}
       >
         <div>
           {domain}
-          <div className='text-sm text-gray-600 font-normal'>
+          <div className='text-sm font-normal'>
             {pageCount} page{pageCount === 1 ? '' : 's'}
           </div>
         </div>
       </button>
       <button
-        className='p-4 text-left hover:bg-gray-200'
+        className='p-4 text-left hover:opacity-70'
         onClick={onSortClick}
         title={`sort ${domain}`}
         aria-label={`sort ${domain}`}
@@ -83,10 +83,7 @@ const FeedItemWrapper = ({
         onSortClick={onSortClick}
         pageCount={pages.length}
       />
-      <ul
-        className={!visible ? 'hidden' : 'visible bg-gray-50'}
-        aria-hidden={!visible}
-      >
+      <ul className={!visible ? 'hidden' : 'visible'} aria-hidden={!visible}>
         <PageList
           pages={pages}
           onScanEvent={onScanEvent}

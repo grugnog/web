@@ -281,177 +281,179 @@ export function FormDialogWrapper({
         aria-labelledby='form-dialog-title'
         size={'3xl'}
       >
-        <div className={'px-6 py-3 flex place-items-center'}>
-          <h3 id='form-dialog-title' className={'flex-1 text-xl font-medium'}>
-            Subscribe
-          </h3>
-          <Button aria-label='close modal' onClick={handleClose} iconButton>
-            <GrClose className='grIcon' />
-          </Button>
-        </div>
-        <form onSubmit={submit} noValidate>
-          <div
-            className={`px-7 py-1 overflow-hidden relative flex flex-col gap-y-2`}
-          >
-            <p className='text-base text-gray-700'>
-              To add a website to your watchlist, enter the url below.
-            </p>
-            <FormControl htmlFor='name'>Enter Website Url</FormControl>
-            <div className={'pb-1 py-4 w-full'}>
-              <TextField
-                autoFocus
-                onChange={onChangeText}
-                minLength={3}
-                className={`w-full border px-3 py-2 rounded`}
-                color='secondary'
-                value={websitUrl}
-                id='name'
-                placeholder='Website url'
-                type='url'
-                required
-              />
-            </div>
-            <div
-              className={`flex flex-1 place-items-center space-x-3 overflow-x-auto pt-2 pb-1`}
-            >
-              <div className={checkBoxContainerStyles}>
-                <Checkbox
-                  checked={https}
-                  onChange={() => {
-                    setTransportType(!https)
-                  }}
-                  id={'https'}
-                />
-                <FormControl htmlFor='https' visible>
-                  HTTPS
-                </FormControl>
-              </div>
-              <div className={checkBoxContainerStyles}>
-                <Checkbox
-                  checked={pageInsights}
-                  onChange={() => {
-                    setPageInsights(!pageInsights)
-                  }}
-                  id={'lighthouse'}
-                />
-                <FormControl htmlFor='lighthouse' visible>
-                  Lighthouse
-                </FormControl>
-              </div>
-
-              <div className={checkBoxContainerStyles}>
-                <Checkbox
-                  checked={mobileViewport}
-                  onChange={() => {
-                    setMobile(!mobileViewport)
-                  }}
-                  id={'mobile'}
-                />
-                <FormControl htmlFor='mobile' visible>
-                  Mobile
-                </FormControl>
-              </div>
-
-              <div className={checkBoxContainerStyles}>
-                <Checkbox
-                  color='primary'
-                  checked={robots}
-                  onChange={onChangeRobotsEvent}
-                  id={'robots'}
-                />
-                <FormControl htmlFor='robots' visible>
-                  Robots
-                </FormControl>
-              </div>
-
-              <div className={checkBoxContainerStyles}>
-                <Checkbox
-                  checked={subdomains}
-                  onChange={onChangeSubdomainsEvent}
-                  id={'subdomains'}
-                  disabled={!activeSubscription}
-                />
-                <FormControl
-                  htmlFor='subdomains'
-                  visible
-                  disabled={!activeSubscription}
-                >
-                  Subdomains
-                </FormControl>
-              </div>
-
-              <div className={checkBoxContainerStyles}>
-                <Checkbox
-                  checked={tld}
-                  onChange={onChangeTldEvent}
-                  id={'tlds'}
-                  disabled={!activeSubscription}
-                />
-                <FormControl
-                  htmlFor='tlds'
-                  visible
-                  disabled={!activeSubscription}
-                >
-                  TLDs
-                </FormControl>
-              </div>
-            </div>
-            <div
-              className={`flex flex-1 place-items-center space-x-3 overflow-x-auto pb-2`}
-            >
-              <div className={checkBoxContainerStyles}>
-                <Checkbox
-                  checked={customActions}
-                  onChange={onChangeActionsEvent}
-                  id={'actions'}
-                />
-                <FormControl htmlFor='actions' visible>
-                  Actions
-                </FormControl>
-              </div>
-
-              <div className={checkBoxContainerStyles}>
-                <Checkbox
-                  checked={customHeader}
-                  onChange={onChangeHeadersEvent}
-                  id={'headers'}
-                />
-                <FormControl htmlFor='headers' visible>
-                  Headers
-                </FormControl>
-              </div>
-
-              <WCAGSelectInput
-                standard={standard}
-                onStandardChange={onStandardChange}
-                spacing
-              />
-              <FormControl htmlFor='ua'>Enter User Agent</FormControl>
-              <TextField
-                onChange={onChangeUA}
-                className={`px-2 py-0.5 border-none`}
-                style={{ maxWidth: 120 }}
-                value={ua}
-                id='ua'
-                placeholder='User-Agent'
-                type='text'
-              />
-            </div>
-            {customHeader ? <InputHeaders {...headers} /> : null}
-            {customActions ? <InputActions {...actions} /> : null}
-          </div>
-          <div className='pt-2'>
-            <Button
-              disabled={!websitUrl}
-              type='submit'
-              className={`w-full border rounded-none ${
-                !websitUrl ? 'bg-gray-100 text-gray-500' : ''
-              } md:py-3`}
-            >
+        <div className='bg-white dark:bg-black'>
+          <div className={'px-6 py-3 flex place-items-center'}>
+            <h3 id='form-dialog-title' className={'flex-1 text-xl font-medium'}>
               Subscribe
+            </h3>
+            <Button aria-label='close modal' onClick={handleClose} iconButton>
+              <GrClose className='grIcon' />
             </Button>
           </div>
-        </form>
+          <form onSubmit={submit} noValidate>
+            <div
+              className={`px-7 py-1 overflow-hidden relative flex flex-col gap-y-2`}
+            >
+              <p className='text-base '>
+                To add a website to your watchlist, enter the url below.
+              </p>
+              <FormControl htmlFor='name'>Enter Website Url</FormControl>
+              <div className={'pb-1 py-4 w-full'}>
+                <TextField
+                  autoFocus
+                  onChange={onChangeText}
+                  minLength={3}
+                  className={`w-full border px-3 py-2 rounded`}
+                  color='secondary'
+                  value={websitUrl}
+                  id='name'
+                  placeholder='Website url'
+                  type='url'
+                  required
+                />
+              </div>
+              <div
+                className={`flex flex-1 place-items-center space-x-3 overflow-x-auto pt-2 pb-1`}
+              >
+                <div className={checkBoxContainerStyles}>
+                  <Checkbox
+                    checked={https}
+                    onChange={() => {
+                      setTransportType(!https)
+                    }}
+                    id={'https'}
+                  />
+                  <FormControl htmlFor='https' visible>
+                    HTTPS
+                  </FormControl>
+                </div>
+                <div className={checkBoxContainerStyles}>
+                  <Checkbox
+                    checked={pageInsights}
+                    onChange={() => {
+                      setPageInsights(!pageInsights)
+                    }}
+                    id={'lighthouse'}
+                  />
+                  <FormControl htmlFor='lighthouse' visible>
+                    Lighthouse
+                  </FormControl>
+                </div>
+
+                <div className={checkBoxContainerStyles}>
+                  <Checkbox
+                    checked={mobileViewport}
+                    onChange={() => {
+                      setMobile(!mobileViewport)
+                    }}
+                    id={'mobile'}
+                  />
+                  <FormControl htmlFor='mobile' visible>
+                    Mobile
+                  </FormControl>
+                </div>
+
+                <div className={checkBoxContainerStyles}>
+                  <Checkbox
+                    color='primary'
+                    checked={robots}
+                    onChange={onChangeRobotsEvent}
+                    id={'robots'}
+                  />
+                  <FormControl htmlFor='robots' visible>
+                    Robots
+                  </FormControl>
+                </div>
+
+                <div className={checkBoxContainerStyles}>
+                  <Checkbox
+                    checked={subdomains}
+                    onChange={onChangeSubdomainsEvent}
+                    id={'subdomains'}
+                    disabled={!activeSubscription}
+                  />
+                  <FormControl
+                    htmlFor='subdomains'
+                    visible
+                    disabled={!activeSubscription}
+                  >
+                    Subdomains
+                  </FormControl>
+                </div>
+
+                <div className={checkBoxContainerStyles}>
+                  <Checkbox
+                    checked={tld}
+                    onChange={onChangeTldEvent}
+                    id={'tlds'}
+                    disabled={!activeSubscription}
+                  />
+                  <FormControl
+                    htmlFor='tlds'
+                    visible
+                    disabled={!activeSubscription}
+                  >
+                    TLDs
+                  </FormControl>
+                </div>
+              </div>
+              <div
+                className={`flex flex-1 place-items-center space-x-3 overflow-x-auto pb-2`}
+              >
+                <div className={checkBoxContainerStyles}>
+                  <Checkbox
+                    checked={customActions}
+                    onChange={onChangeActionsEvent}
+                    id={'actions'}
+                  />
+                  <FormControl htmlFor='actions' visible>
+                    Actions
+                  </FormControl>
+                </div>
+
+                <div className={checkBoxContainerStyles}>
+                  <Checkbox
+                    checked={customHeader}
+                    onChange={onChangeHeadersEvent}
+                    id={'headers'}
+                  />
+                  <FormControl htmlFor='headers' visible>
+                    Headers
+                  </FormControl>
+                </div>
+
+                <WCAGSelectInput
+                  standard={standard}
+                  onStandardChange={onStandardChange}
+                  spacing
+                />
+                <FormControl htmlFor='ua'>Enter User Agent</FormControl>
+                <TextField
+                  onChange={onChangeUA}
+                  className={`px-2 py-0.5 border-none`}
+                  style={{ maxWidth: 120 }}
+                  value={ua}
+                  id='ua'
+                  placeholder='User-Agent'
+                  type='text'
+                />
+              </div>
+              {customHeader ? <InputHeaders {...headers} /> : null}
+              {customActions ? <InputActions {...actions} /> : null}
+            </div>
+            <div className='pt-2'>
+              <Button
+                disabled={!websitUrl}
+                type='submit'
+                className={`w-full border-l-0 border-b-0 border-r-0 border-t rounded-none ${
+                  !websitUrl ? 'opacity-80 text-gray-500' : ''
+                } md:py-3`}
+              >
+                Subscribe
+              </Button>
+            </div>
+          </form>
+        </div>
       </HeadlessModal>
     </Fragment>
   )

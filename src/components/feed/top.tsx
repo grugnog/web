@@ -16,12 +16,12 @@ const Top = ({
   const closeFeed = () => onClick(!open)
 
   return (
-    <div className={`flex place-items-center px-3 py-1 h-14 text-side gap-x-5`}>
+    <div className={`flex place-items-center px-3 py-1 h-14 gap-x-5`}>
       <p className={`flex-1 text-lg font-semibold`}>Recent</p>
       {feedExist ? (
         <button
           onClick={clearFeed}
-          className={'px-4 py-3 hover:bg-gray-200 rounded-2xl text-sm'}
+          className={'px-4 py-3 hover:opacity-70 rounded-2xl text-sm'}
           title={'Clear Recent'}
         >
           Clear
@@ -32,7 +32,7 @@ const Top = ({
         onClick={closeFeed}
         aria-label='close'
         title='close issue feed'
-        className='visible lg:hidden p-3 hover:bg-gray-200 rounded-2xl'
+        className='visible lg:hidden p-3 hover:opacity-70 rounded-2xl'
         type={'button'}
       >
         {!open ? (

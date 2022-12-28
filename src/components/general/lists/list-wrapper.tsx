@@ -13,7 +13,7 @@ const onLogout = () => {
 
 const SingleList = () => {
   return (
-    <div className='flex px-4 py-3 w-full text-left hover:bg-gray-100 min-h-[45px]'>
+    <div className='flex px-4 py-3 w-full text-left hover:opacity-70 min-h-[45px]'>
       <div className='flex flex-1'>
         <TextSkeleton width={200} height={12} />
       </div>
@@ -41,7 +41,7 @@ const InnerWrapperComponent: FC<any> = (props) => {
   if (!data && loading) {
     if (full) {
       // basic fullscreen loader
-      return <div className='w-full h-full bg-gray-100'></div>
+      return <div className='w-full h-full bg-gray-100 dark:bg-gray-800'></div>
     }
     if (small) {
       return (

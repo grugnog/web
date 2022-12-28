@@ -29,7 +29,7 @@ const handleClose = (
 const SnackBarComponent = ({ topLevel, snackID }: SnackProps) => {
   const snackStyle =
     !!AppManager.snackbar.open && !(topLevel && AppManager.modalActive)
-      ? 'transition transform fixed z-100 bottom-0 inset-x-0 pb-2 sm:pb-5 opacity-100 scale-100 translate-y-0 ease-out duration-500 z-30'
+      ? 'transition transform fixed z-100 bottom-0 inset-x-0 pb-2 sm:pb-5 scale-100 translate-y-0 ease-out duration-500 z-30'
       : 'hidden'
 
   // custom id to use for accessibility
@@ -45,15 +45,13 @@ const SnackBarComponent = ({ topLevel, snackID }: SnackProps) => {
         <div
           className={`min-w-[50vw] overflow-hidden truncate ${
             AppManager.snackbar.type === 'error' ? 'border border-red-500' : ''
-          } overflow-hidden truncate flex bg-white rounded space-x-4 p-4 place-items-center place-content-between border shadow`}
+          } overflow-hidden truncate flex bg-white dark:bg-black rounded space-x-4 p-4 place-items-center place-content-between border shadow`}
         >
           <div className='flex gap-x-1.5'>
             <p
               id={id}
               className={`text-base max-w-[65vw] md:max-w-[40vw] truncate ${
-                AppManager.snackbar.type === 'error'
-                  ? 'text-red-600'
-                  : 'text-black'
+                AppManager.snackbar.type === 'error' ? 'text-red-600' : ''
               }`}
             >
               {AppManager.snackbar.title}

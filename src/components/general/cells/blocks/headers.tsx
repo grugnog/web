@@ -4,7 +4,7 @@ import { GrFlag } from 'react-icons/gr'
 
 export const HeadersBox = ({ pageHeaders }: { pageHeaders?: boolean }) => {
   return (
-    <InfoBlock title={'Headers'} icon={<GrFlag />}>
+    <InfoBlock title={'Headers'} icon={<GrFlag className='grIcon' />}>
       {pageHeaders ? 'Yes' : 'No'}
     </InfoBlock>
   )

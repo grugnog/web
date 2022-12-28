@@ -39,12 +39,12 @@ export const UserAgentBoxWrapper = ({
   const uaLabel = `${url}-ua-id`
 
   return (
-    <InfoBlock title={'User-Agent'} icon={<GrUser />}>
+    <InfoBlock title={'User-Agent'} icon={<GrUser className='grIcon' />}>
       <label htmlFor={uaLabel} className={'sr-only'}>
         User-Agent
       </label>
       <input
-        className='text-gray-700 py-1 bg-transparent focus:outline-none focus:border-r-2 focus:border-blue-300 hover:border-r-2'
+        className=' py-1 bg-transparent focus:outline-none focus:border-r-2 focus:border-blue-300 hover:border-r-2'
         onChange={onChangeUA}
         value={ua}
         id={uaLabel}

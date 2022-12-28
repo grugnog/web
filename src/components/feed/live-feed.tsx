@@ -121,7 +121,7 @@ const LiveFeedComponent: FC<BaseFeed> = ({
         highLight={!!highLight}
       />
       {sectionHidden ? null : (
-        <ul className={`overflow-x-hidden bg-gray-50`}>
+        <ul className={`overflow-x-hidden`}>
           <List
             height={height}
             itemCount={issueCount}

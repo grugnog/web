@@ -138,9 +138,7 @@ function ScriptCell({ source: sourceData }: any) {
               </Button>
               <Button
                 onClick={onEditPress}
-                className={
-                  'text-gray-800 border-gray-800 font-medium rounded-3xl'
-                }
+                className={' border-gray-800 font-medium rounded-3xl'}
               >
                 Cancel
               </Button>

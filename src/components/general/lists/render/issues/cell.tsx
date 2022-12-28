@@ -1,5 +1,4 @@
 import React, { memo, useState } from 'react'
-import { hiddenList, visibleList } from '@app/stylesheets/list.module.css'
 import { RenderInnerIssues } from './base-list'
 import { ListCellHeader } from './cell-header'
 
@@ -10,15 +9,14 @@ export const ListCellW = ({
   error,
   emptyHeaderTitle,
   emptyHeaderSubTitle,
+  isVisible = false,
 }: any) => {
-  const [visible, setVisible] = useState<boolean>(false)
+  const [visible, setVisible] = useState<boolean>(isVisible)
 
   return (
     <li
       key={item._id}
-      className={`border-4 rounded ${
-        visible ? `${visibleList} rounded-b-none` : hiddenList
-      }`}
+      className={`border-4 rounded ${visible ? `rounded-b-none` : ''}`}
     >
       <ListCellHeader
         title={item.domain}

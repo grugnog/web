@@ -13,7 +13,7 @@ export const MenuList: FC<
       <Menu as='div' className='relative inline-block text-left'>
         <div>
           <Menu.Button
-            className={`justify-center rounded-full px-2 py-2 text-sm font-medium text-gray-800 hover:text-gray-700 hover:bg-opacity-30 hover:bg-gray-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75`}
+            className={`justify-center rounded-full px-2 py-2 text-sm font-medium hover: hover:bg-opacity-30 hover:opacity-70 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75`}
           >
             {settings ? (
               <GrSettingsOption title='more options' className={btnClassName} />
@@ -36,7 +36,7 @@ export const MenuList: FC<
           <Menu.Items
             className={`absolute right-0 mt-1 ${
               more ? 'w-60' : 'w-44'
-            } origin-top-right divide-y divide-gray-100 rounded-md bg-gray-50 shadow-lg ring-1 z-10 ring-black ring-opacity-5 focus:outline-none`}
+            } origin-top-right divide-y divide-gray-100 rounded-md bg-gray-50 dark:bg-black shadow-lg ring-1 z-10 ring-black ring-opacity-5 focus:outline-none`}
           >
             <div className='border rounded-sm'>{children}</div>
           </Menu.Items>

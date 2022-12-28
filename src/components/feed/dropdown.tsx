@@ -7,7 +7,7 @@ export const DropDown: FC<
   return (
     <Menu as='div' className='relative inline-block text-left'>
       <div>
-        <Menu.Button className='inline-flex w-full justify-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-100'>
+        <Menu.Button className='inline-flex w-full justify-center rounded-md border bg-white dark:bg-black px-4 py-2 text-sm  shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-100'>
           Filter
           <svg
             className='-mr-1 ml-2 h-5 w-5'
@@ -39,7 +39,7 @@ export const DropDown: FC<
             !open
               ? 'bottom-0 right-24 origin-bottom-left lg:bottom-[inherit] lg:right-0'
               : 'origin-top-right'
-          } right-0 z-30 mt-2 w-42 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none ${
+          } right-0 z-30 mt-2 w-42 rounded-md bg-white dark:bg-black shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none ${
             right
               ? ' origin-top-right w-[12vw] min-w-[210px] md:min-w-[22rem] -right-24'
               : 'md:w-[22vw]'

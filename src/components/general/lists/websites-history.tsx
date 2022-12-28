@@ -44,7 +44,7 @@ export function ListComponent({
 
   if (data?.length) {
     return (
-      <ul className={`border rounded bg-white`}>
+      <ul className={`border rounded`}>
         <WebSites data={data} />
       </ul>
     )

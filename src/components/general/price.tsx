@@ -11,7 +11,7 @@ import { Header3 } from './header'
 import { Button } from './buttons'
 
 const getStyles = (inactive: boolean) =>
-  inactive ? 'text-gray-700 border-gray-700' : 'text-blue-700 border-blue-700'
+  inactive ? ' border-gray-700' : 'text-blue-700 border-blue-700'
 
 const getPrimaryColor = (title: string) => {
   let color = '#0E1116'
@@ -165,7 +165,7 @@ export function PriceMemo({
             )
           })}
           <li className='w-full'>
-            <div className='min-w-[330px] w-full h-full rounded flex flex-1 flex-col justify-between border-2 px-4 py-2 border-black text-gray-700'>
+            <div className='min-w-[330px] w-full h-full rounded flex flex-1 flex-col justify-between border-2 px-4 py-2 border-black '>
               <div className='text-base font-medium'>
                 All pricing is in USD.
               </div>
@@ -176,7 +176,7 @@ export function PriceMemo({
               <button
                 onClick={onTogglePlans}
                 className={
-                  'px-3 py-1 border-2 text-gray-700 rounded text-base border-gray-700 hover:border-gray-600 hover:bg-gradient-radial hover:text-black'
+                  'px-3 py-1 border-2  rounded text-base border-gray-700 hover:border-gray-600 hover:bg-gradient-radial hover:text-black'
                 }
                 type={'button'}
               >

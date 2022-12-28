@@ -4,7 +4,7 @@ import { SiLighthouse } from 'react-icons/si'
 
 export const LighthouseBox = ({ pageInsights }: { pageInsights?: boolean }) => {
   return (
-    <InfoBlock title={'Lighthouse'} icon={<SiLighthouse />}>
+    <InfoBlock title={'Lighthouse'} icon={<SiLighthouse className='grIcon' />}>
       {pageInsights ? 'Enabled' : 'Not Enabled'}
     </InfoBlock>
   )

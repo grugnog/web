@@ -26,7 +26,7 @@ export const StatusBadgeBoxWrapper = ({
   const labelId = `${domain}-form-markdown`
 
   return (
-    <InfoBlock title={'Badge'} icon={<GrShield />}>
+    <InfoBlock title={'Badge'} icon={<GrShield className='grIcon' />}>
       <div className='flex space-x-1 place-items-center'>
         <label className='text-sm font-medium' htmlFor={labelId}>
           Markdown
@@ -37,7 +37,7 @@ export const StatusBadgeBoxWrapper = ({
           id={labelId}
           onChange={() => setMarkdown((minified: boolean) => !minified)}
           className={
-            'text-gray-700 outline-none relative inline-flex flex-shrink-0 h-4 w-7 rounded-full cursor-pointer transition-colors ease-in-out duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'
+            ' outline-none relative inline-flex flex-shrink-0 h-4 w-7 rounded-full cursor-pointer transition-colors ease-in-out duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'
           }
         ></input>
       </div>

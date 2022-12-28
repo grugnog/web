@@ -37,7 +37,7 @@ export const WebSitesDashboard: FC<
   if (!data?.length) {
     return (
       <Fragment>
-        <div className='text-gray-800 text-base'>No websites exist</div>
+        <div className=' text-base'>No websites exist</div>
       </Fragment>
     )
   }

@@ -187,7 +187,7 @@ const Profile: FC<PageProps> = ({ name }) => {
     <Fragment>
       {user?.passwordRequired ? (
         <div className='text-center py-2'>
-          <p className='text-base text-gray-700'>
+          <p className='text-base '>
             Password reset required. Please change your password now
           </p>
         </div>

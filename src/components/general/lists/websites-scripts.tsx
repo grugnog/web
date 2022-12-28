@@ -13,7 +13,7 @@ function ScriptsWrapper(props: any) {
   return (
     <li>
       <button
-        className={`px-3 py-3 hover:bg-gray-100 w-full text-left md:text-base ${
+        className={`px-3 py-3 hover:opacity-70 w-full text-left md:text-base ${
           visible ? 'rounded-b-none' : ''
         }`}
         onClick={onTogglelist}

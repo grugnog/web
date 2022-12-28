@@ -34,7 +34,7 @@ function MainDrawerContainerComponent({ route, loading }: DrawerWrapperProps) {
     <div
       className={`flex flex-col overflow-x-hidden w-[55px] sm:w-[15vw] md:w-[18vw] lg:w-[250px] max-w-[250px] relative print:hidden overflow-hidden`}
     >
-      <div className='fixed flex flex-col w-[inherit] overflow-hidden h-full bg-lightgray z-10 space-y-3 place-content-between'>
+      <div className='fixed flex flex-col w-[inherit] overflow-hidden h-full bg-lightgray dark:bg-black z-10 space-y-3 place-content-between'>
         <AuthedMenu route={route} loading={loading} />
         <div>
           <UpgradeBanner />
@@ -76,28 +76,26 @@ export function DrawerW({ children, route, title }: any) {
   return (
     <>
       <DrawerHead />
-      <>
-        <div className={'flex overflow-x-inherit md:overflow-x-hidden'}>
-          <DrawerWrapper route={route} title={title} loading={loading} />
-          <main className={'flex-1 overflow-auto'} id='main-content'>
-            <div
-              className={
-                'px-3 md:px-4 pt-4 scrollbar overflow-auto max-h-screen'
-              }
-            >
-              <RefBanner />
-              {children}
-            </div>
-            <ConfirmEmail
-              sendEmail={sendConfirmEmail}
-              visible={!!user?.loggedIn && !user?.emailConfirmed}
-            />
-          </main>
-          <IssueFeed />
-        </div>
-        <DynamicModal />
-        <MiniPlayer />
-      </>
+      <div className={'flex overflow-x-inherit md:overflow-x-hidden'}>
+        <DrawerWrapper route={route} title={title} loading={loading} />
+        <main className={'flex-1 overflow-auto'} id='main-content'>
+          <div
+            className={
+              'px-3 pt-4 pb-20 scrollbar overflow-auto max-h-screen md:px-4 md:pb-0'
+            }
+          >
+            <RefBanner />
+            {children}
+          </div>
+          <ConfirmEmail
+            sendEmail={sendConfirmEmail}
+            visible={!!user?.loggedIn && !user?.emailConfirmed}
+          />
+        </main>
+        <IssueFeed />
+      </div>
+      <DynamicModal />
+      <MiniPlayer />
     </>
   )
 }

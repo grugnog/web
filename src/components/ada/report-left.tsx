@@ -51,7 +51,7 @@ export function ReportViewComponentLeft({
     website?.url || (website?.issues?.length ? 'HTML Audit' : strings.trySearch)
 
   return (
-    <div className={'p-1 md:w-[38vw]'}>
+    <div className={'p-1 md:w-[38vw] dark:bg-black'}>
       <div className={`flex place-items-center py-3 space-x-3 px-2`}>
         {closeButton}
         <p className={'flex-1 font-medium truncate text-lg'}>{title}</p>
@@ -78,7 +78,7 @@ export function ReportViewComponentLeft({
         onToggleViewModeEvent={onToggleViewModeEvent}
       />
       {empty ? null : (
-        <div className='hidden md:block'>
+        <div className='hidden md:block '>
           <MainView website={website} viewMode={viewMode} />
         </div>
       )}

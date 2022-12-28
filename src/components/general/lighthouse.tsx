@@ -2,6 +2,7 @@ import { memo, useMemo } from 'react'
 import { useLighthouse } from '@app/data/formatters/use-lighthouse'
 import { ErrorBoundary } from './error-boundary'
 import ReportViewer from 'next-lighthouse'
+import { useTheme } from 'next-themes'
 
 // Lighthouse viewer that converts a json string into a report.
 export function LighthouseComponent({
@@ -9,6 +10,7 @@ export function LighthouseComponent({
   lighthouseVisible = true,
   id,
 }: any) {
+  const { theme } = useTheme()
   const parsedInsight = useLighthouse(insight)
 
   const lhId = useMemo(() => {
@@ -34,7 +36,7 @@ export function LighthouseComponent({
 
   return (
     <ErrorBoundary>
-      <ReportViewer json={parsedInsight} initFeatures={false} id={lhId} />
+      <ReportViewer json={parsedInsight} initFeatures={false} id={lhId} darkMode={theme === "dark"} />
     </ErrorBoundary>
   )
 }

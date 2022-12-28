@@ -102,8 +102,8 @@ const WeekSelectComponent: FC<Props> = ({
             className={classNames(
               `text-base md:text-lg font-semibold border rounded flex-1 px-2 py-3`,
               selected.includes(day)
-                ? ' bg-black md:bg-black text-white hover:opacity-90'
-                : ' hover:bg-gray-200',
+                ? 'bg-blue-500 text-white hover:opacity-90'
+                : 'hover:opacity-70',
               disabledStyles
             )}
             disabled={disabled}

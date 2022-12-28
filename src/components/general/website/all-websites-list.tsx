@@ -15,7 +15,7 @@ const WebsiteCellItem = ({
   return (
     <li className='w-full'>
       <Popover.Button
-        className='w-full rounded-none text-left text-sm px-2 py-1.5 md:px-4 md:py-1.5 hover:bg-gray-50'
+        className='w-full rounded-none text-left text-sm px-2 py-1.5 md:px-4 md:py-1.5 hover:opacity-70'
         onClick={onClick}
       >
         {domain}
@@ -46,12 +46,12 @@ export const AllWebsitesList: FC = () => {
   }
 
   return (
-    <ul className='max-h-64 overflow-y-auto list-none bg-white shadow rounded border scrollbar'>
+    <ul className='max-h-64 overflow-y-auto list-none bg-white dark:bg-black shadow rounded border scrollbar'>
       <li>
         <Popover.Button
           onClick={onViewAllEvent}
           className={
-            'w-full text-left text-sm px-2 py-1.5 md:px-4 md:py-1.5 hover:bg-gray-50 hover:rounded-t'
+            'w-full text-left text-sm px-2 py-1.5 md:px-4 md:py-1.5 hover:opacity-70 hover:rounded-t'
           }
         >
           View all sites

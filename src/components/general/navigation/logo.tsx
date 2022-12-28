@@ -17,9 +17,21 @@ export const Logo: FC<Logo> = ({ width, height, className }) => {
       fill='none'
       viewBox='0 0 32 32'
     >
-      <rect width='32' height='32' fill='#FFFEFE' />
-      <ellipse cx='15.868' cy='16' fill='#000' rx='13.223' ry='13.115' />
-      <rect width='8.264' height='8.197' x='16.694' y='19.279' fill='#fff' />
+      <rect width='32' height='32' className='' />
+      <ellipse
+        cx='15.868'
+        cy='16'
+        className='fill-black dark:fill-white'
+        rx='13.223'
+        ry='13.115'
+      />
+      <rect
+        width='8.264'
+        height='8.197'
+        x='16.694'
+        y='19.279'
+        className='fill-white dark:fill-black'
+      />
     </svg>
   )
 }

@@ -55,7 +55,7 @@ export function AnnotationContainer({
           </p>
           <p
             id={modalTitle}
-            className={`${textBaseStyle} text-gray-700 text-sm font-medium`}
+            className={`${textBaseStyle}  text-sm font-medium`}
           >
             {context}
           </p>

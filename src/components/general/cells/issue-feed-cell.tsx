@@ -19,9 +19,11 @@ const IssueFeedCellComponent = ({
     FilterManager.filters.has(item.code) &&
     FilterManager.filters.get(item.code)?.checked
 
-  const filterStyles = filtered ? ' bg-gray-200 text-gray-700 font-medium' : ''
+  const filterStyles = filtered
+    ? ' bg-gray-200 dark:bg-gray-500 font-medium'
+    : ''
   const completedStyles = completed
-    ? ' bg-green-100 text-gray-700 font-medium'
+    ? ' bg-green-100 dark:bg-green-700 font-medium'
     : ''
 
   return (

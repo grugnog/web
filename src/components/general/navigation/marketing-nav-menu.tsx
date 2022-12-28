@@ -26,7 +26,7 @@ function MarketingNavMenu({ home = '' }: Props) {
           <li key={name}>
             <Link
               href={homeRoute ? '/' : href}
-              className={`${classMinor} px-6 py-2 hover:bg-gray-100`}
+              className={`${classMinor} px-6 py-2 hover:opacity-70`}
             >
               {homeRoute ? 'Home' : name}
             </Link>

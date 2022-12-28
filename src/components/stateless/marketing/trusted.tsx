@@ -20,13 +20,13 @@ export function MarketingTrustBy() {
       </Header4>
       <div>
         <div className='grid grid-cols-3'>
-          <div className='invert flex justify-center py-8 px-8 grayscale'>
+          <div className='invert flex justify-center py-8 px-8 grayscale dark:invert-0'>
             <HuluSvg {...props} />
           </div>
-          <div className='invert flex justify-center py-8 px-8 grayscale'>
+          <div className='invert flex justify-center py-8 px-8 grayscale dark:invert-0'>
             <BlockChainSvg {...props} />
           </div>
-          <div className='invert flex justify-center py-8 px-8 grayscale'>
+          <div className='invert flex justify-center py-8 px-8 grayscale dark:invert-0'>
             <ArrowSvg {...props} />
           </div>
         </div>

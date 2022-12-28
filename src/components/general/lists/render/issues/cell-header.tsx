@@ -23,15 +23,17 @@ const ListCellHeaderW = ({
   if (singleRow) {
     return (
       <button
-        className={`px-4 py-3 w-full text-left hover:bg-gray-100`}
+        className={`px-4 py-3 w-full text-left hover:opacity-80`}
         onClick={onTogglelist}
         aria-expanded={visible}
         aria-label={`Toggle section visible for ${title}`}
       >
         <div className='flex flex-1 text-xs md:text-sm place-content-around place-items-center'>
-          <div className={`text-gray-700 flex-1`}>{title}</div>
+          <div className={`flex-1`}>{title}</div>
           <div>
-            <div className={`text-gray-600`}>{totalIssues}</div>
+            <div className={`text-gray-600 dark:text-gray-300`}>
+              {totalIssues}
+            </div>
           </div>
         </div>
       </button>
@@ -40,7 +42,7 @@ const ListCellHeaderW = ({
 
   return (
     <button
-      className={`p-3 w-full text-left hover:bg-gray-100`}
+      className={`p-3 w-full text-left hover:opacity-80`}
       onClick={onTogglelist}
       aria-expanded={visible}
       aria-label={`Toggle section visible for ${title}`}

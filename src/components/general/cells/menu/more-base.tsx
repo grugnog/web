@@ -5,7 +5,7 @@ import { TopMenu } from '@app/components/general/top-menu'
 import type { Website } from '@app/types'
 
 export const btnStyles =
-  'px-3 py-3 block w-full text-left border-none rounded-none text-sm md:px-4 md:border-none hover:no-underline hover:bg-gray-100 hover:shadow-none'
+  'px-3 py-3 block w-full text-left border-none rounded-none text-sm md:px-4 md:border-none hover:no-underline hover:opacity-70 hover:shadow-none'
 
 export interface MoreOptionsProps extends Partial<Website> {
   removePress?(): void

@@ -44,7 +44,7 @@ export function PriceCell({
       <>
         <div className='w-full'>
           <div
-            className={`text-left w-full flex-col text-white px-8 py-4 text-gray-800 ${highLight(
+            className={`text-left w-full flex-col text-white px-8 py-4  ${highLight(
               'bg-blue-700 text-white',
               selected,
               selectHighPlans ? 'bg-gradient-radial' : `bg-[${textColor}]`
@@ -54,7 +54,7 @@ export function PriceCell({
               className={`w-full ${highLight(
                 'text-gray-50',
                 selected,
-                selectHighPlans ? 'text-gray-800' : ''
+                selectHighPlans ? '' : ''
               )}`}
               pricingPage={pricingPage}
             >
@@ -69,9 +69,7 @@ export function PriceCell({
                   {yearly ? costYearly : cost} |{' '}
                   <span
                     className={`text-sm ${
-                      selectHighPlans && !selected
-                        ? 'text-gray-800'
-                        : 'text-gray-100'
+                      selectHighPlans && !selected ? '' : 'text-gray-100'
                     }`}
                   >
                     up to {pageCountFormatted} daily analyzations

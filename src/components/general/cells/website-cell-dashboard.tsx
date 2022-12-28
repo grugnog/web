@@ -48,7 +48,8 @@ import { SubDomainsBox } from './blocks/subdomains'
 import { RobotsBox } from './blocks/robots'
 
 const styles = {
-  title: 'text-xl md:text-3xl font-bold truncate text-gray-600',
+  title:
+    'text-xl md:text-3xl font-bold truncate text-gray-600 dark:text-gray-100',
   spacing: 'py-2',
   row: 'flex flex-1',
   metaBlock: 'px-2 py-1 border',
@@ -256,7 +257,7 @@ export function WebsiteCellDashboardComponent({
 
   return (
     <li>
-      <div className={`bg-white ${index ? 'border-t' : ''}`}>
+      <div className={`${index ? 'border-t' : ''}`}>
         <div>
           <div className='flex gap-x-1 place-items-center place-content-between border-b px-3 pt-2 pb-4'>
             <div className='flex gap-3 place-items-center flex-wrap'>
@@ -273,7 +274,7 @@ export function WebsiteCellDashboardComponent({
                   </Link>
                   {shutdown ? (
                     <GrStatusWarningSmall
-                      className={`grIcon text-xs text-gray-700`}
+                      className={`grIcon text-xs `}
                       title={'Crawl did not complete.'}
                     />
                   ) : null}
@@ -308,7 +309,7 @@ export function WebsiteCellDashboardComponent({
               <div className='flex place-items-center px-2 space-x-3'>
                 <button
                   title={`sync and check ${url} for issues`}
-                  className={'hover:bg-gray-200 p-2 rounded'}
+                  className={'hover:opacity-70 p-2 rounded'}
                   onClick={onWebsiteCrawl}
                 >
                   <GrSync className='grIcon' />
@@ -316,7 +317,7 @@ export function WebsiteCellDashboardComponent({
                 <Link
                   title={`view in sandbox ${url}`}
                   href={linkUrl}
-                  className={'hover:bg-gray-200 p-2 rounded'}
+                  className={'hover:opacity-70 p-2 rounded'}
                 >
                   <GrChannel className='grIcon' />
                 </Link>

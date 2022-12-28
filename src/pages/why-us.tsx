@@ -15,7 +15,7 @@ function WhyUs({ name }: PageProps) {
           <h2 className='text-xl font-bold'>
             Web accessibility tool comparison
           </h2>
-          <p className='text-base text-gray-700'>
+          <p className='text-base '>
             A detailed list of comparing tools and services for web
             accessibility.
           </p>

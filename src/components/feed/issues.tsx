@@ -44,9 +44,9 @@ const LiveFeed: FC = () => {
 
     const mainStyle = `${
       feedOpen ? 'z-20 ' : ''
-    }border-t md:border-t-0 text-side fixed lg:min-w-[24vw] lg:relative`
+    }border-t md:border-t-0 fixed lg:min-w-[24vw] lg:relative`
 
-    const topStyles = `fixed bottom-0 bg-lightgray gap-x-4 lg:w-[24vw] ${mobileStyles}`
+    const topStyles = `fixed bottom-0 bg-lightgray dark:bg-black gap-x-4 lg:w-[24vw] ${mobileStyles}`
 
     return {
       mainStyle,

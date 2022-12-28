@@ -9,9 +9,7 @@ import { Header, Header2, Header3 } from '@app/components/general/header'
 import { companyName } from '@app/configs'
 
 const FeatureHeading: FC<PropsWithChildren> = ({ children }) => {
-  return (
-    <p className='text-base font-medium text-gray-700 leading-7'>{children}</p>
-  )
+  return <p className='text-base font-medium  leading-7'>{children}</p>
 }
 
 const { paper, row } = {

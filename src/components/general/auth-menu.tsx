@@ -20,7 +20,7 @@ type AuthMenuComponentProps = {
 }
 
 const menuItemCss =
-  'w-full px-4 py-2 md:px-4 h-10 flex text-sm place-items-center place-content-start hover:no-underline hover:bg-gray-100'
+  'w-full px-4 py-2 md:px-4 h-10 flex text-sm place-items-center place-content-start hover:no-underline hover:opacity-70 dark:bg-black'
 
 // auth menu on the right of the ui
 export function AuthMenu({ authenticated, settings }: AuthMenuComponentProps) {

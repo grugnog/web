@@ -21,11 +21,7 @@ export const CardHeader: FC<PropsWithChildren<CardHeaderProps>> = ({
   return (
     <div className={className} style={style}>
       <div className='px-4 py-2 gap-y-2'>
-        <div
-          className={`${
-            lg ? 'text-3xl' : 'text-xl'
-          } font-semibold text-gray-700`}
-        >
+        <div className={`${lg ? 'text-3xl' : 'text-xl'} font-semibold `}>
           {title}
         </div>
         <div className={`pb-3 ${lg ? 'text-xl' : 'text-lg'} text-gray-600`}>
