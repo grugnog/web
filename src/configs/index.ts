@@ -15,6 +15,6 @@ export {
 export { getAPIRoute, API_ENDPOINT } from './api-route'
 export { Routes, LoggedInRoutes, LOGGIN_ROUTES } from './routes'
 export { features } from './features'
-export { priceConfig, featuresConfig } from './page-configs'
+export { featuresConfig } from './page-configs'
 export { PRIVATE_KEY, PUBLIC_KEY } from './keys'
 export { OSSRoutes } from './oss-list'

@@ -30,7 +30,7 @@ export function PriceCell({
   return (
     <button
       className={`md:min-w-[386.53px] w-full h-full rounded flex flex-1 flex-col justify-between border border-[#2A2A2A] ${highLight(
-        'border-blue-600 text-gray-900',
+        'border-blue-600',
         selected,
         ''
       )} border-t-[4px] border-2 ${
@@ -44,7 +44,7 @@ export function PriceCell({
       <>
         <div className='w-full'>
           <div
-            className={`text-left w-full flex-col text-white px-8 py-4  ${highLight(
+            className={`text-left w-full flex-col text-white px-8 py-4 ${highLight(
               'bg-blue-700 text-white',
               selected,
               selectHighPlans ? 'bg-gradient-radial' : `bg-[${textColor}]`
@@ -54,7 +54,7 @@ export function PriceCell({
               className={`w-full ${highLight(
                 'text-gray-50',
                 selected,
-                selectHighPlans ? '' : ''
+                selectHighPlans ? 'text-black dark:text-white' : ''
               )}`}
               pricingPage={pricingPage}
             >

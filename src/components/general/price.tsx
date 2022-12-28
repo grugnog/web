@@ -1,8 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { priceConfig } from '@app/configs'
-
+import { priceConfig } from '@a11ywatch/website-source-builder'
 import { Link } from '@app/components/stateless/typo/link'
 import { SectionContainer } from '@app/components/stateless/containers/section-container'
 import { PriceCell } from './cells/price-cell'
@@ -165,7 +164,7 @@ export function PriceMemo({
             )
           })}
           <li className='w-full'>
-            <div className='min-w-[330px] w-full h-full rounded flex flex-1 flex-col justify-between border-2 px-4 py-2 border-black '>
+            <div className='min-w-[330px] w-full h-full rounded flex flex-1 flex-col justify-between border-2 px-4 py-2 border-black dark:border-[#2A2A2A]'>
               <div className='text-base font-medium'>
                 All pricing is in USD.
               </div>
