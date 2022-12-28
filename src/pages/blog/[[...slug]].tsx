@@ -17,6 +17,7 @@ export async function getStaticPaths() {
             '/blog/next-js-to-astro',
             '/blog/web-accessibility-monitoring',
             '/blog/version-your-proto-definitions-for-stablity',
+            '/blog/create-blog-nextjs',
           ]
         : [],
     fallback: 'blocking',

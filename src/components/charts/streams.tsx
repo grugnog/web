@@ -125,7 +125,9 @@ const WebsiteAnalyticStreamComponent = ({ domain }: { domain: string }) => {
   }, [domain])
 
   if (!data.length) {
-    return <div className='bg-gray-200 dark:bg-gray-800 h-[295px] md:h-[330px]' />
+    return (
+      <div className='bg-gray-200 dark:bg-gray-800 h-[295px] md:h-[330px]' />
+    )
   }
 
   // todo: tooltip darkmode

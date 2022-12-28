@@ -4,12 +4,13 @@ import { IFRAME_URL } from './configs/api-route'
 export async function middleware(req: NextRequest) {
   let res = NextResponse.next()
 
-  if (
-    req.headers?.get('host')?.endsWith('.blog') ||
-    req.nextUrl.pathname.startsWith('/blog')
-  ) {
+  const blogRoute = req.nextUrl.pathname.startsWith('/blog')
+
+  if (req.headers?.get('host')?.endsWith('.blog') || blogRoute) {
     const url = req.nextUrl.clone()
-    url.pathname = `/blog${req.nextUrl.pathname}`
+    url.pathname = !blogRoute
+      ? `/blog${req.nextUrl.pathname}`
+      : req.nextUrl.pathname
     res = NextResponse.rewrite(url)
   } else if (req.nextUrl.pathname === '/api/iframe' && !userAgent(req).isBot) {
     const { searchParams } = req.nextUrl

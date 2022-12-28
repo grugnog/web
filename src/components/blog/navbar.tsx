@@ -20,8 +20,12 @@ export const NavBar: FC<any> = ({ title = strings.appName }) => {
           className='flex content-center place-items-center text-white md:space-x-2 font-semibold'
           style={{ display: 'flex' }}
         >
-          <Link className={`text-black`} href={MAIN_HREF}>
-            <Logo className='block invert p-0 m-0' width={24} height={24} />
+          <Link href={MAIN_HREF}>
+            <Logo
+              className='block invert dark:invert-0 p-0 m-0'
+              width={24}
+              height={24}
+            />
           </Link>
           <span>/</span>
           <Link className={`text-normal`} href={BLOG_HREF}>

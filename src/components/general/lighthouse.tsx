@@ -36,7 +36,12 @@ export function LighthouseComponent({
 
   return (
     <ErrorBoundary>
-      <ReportViewer json={parsedInsight} initFeatures={false} id={lhId} darkMode={theme === "dark"} />
+      <ReportViewer
+        json={parsedInsight}
+        initFeatures={false}
+        id={lhId}
+        darkMode={theme === 'dark'}
+      />
     </ErrorBoundary>
   )
 }
