@@ -33,7 +33,7 @@ function ViewConfigTitle({
     <div
       className={classNames(
         className,
-        'flex items-center justify-between flex-wrap gap-y-1.5 pt-4 pb-2'
+        'flex items-center justify-between flex-wrap gap-y-2 pt-4 pb-2'
       )}
     >
       <>
@@ -48,7 +48,7 @@ function ViewConfigTitle({
             </h1>
             <GrStatusGoodSmall className='grIcon text-[9px] text-gray-400' />
           </Popover.Button>
-          <Popover.Panel className='absolute z-10  w-96 py-1'>
+          <Popover.Panel className='absolute z-10 w-96 py-1'>
             <AllWebsitesList />
           </Popover.Panel>
         </Popover>

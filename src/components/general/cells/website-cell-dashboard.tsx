@@ -49,7 +49,7 @@ import { RobotsBox } from './blocks/robots'
 
 const styles = {
   title:
-    'text-xl md:text-3xl font-bold truncate text-gray-600 dark:text-gray-100',
+    'text-xl md:text-3xl font-bold truncate',
   spacing: 'py-2',
   row: 'flex flex-1',
   metaBlock: 'px-2 py-1 border',

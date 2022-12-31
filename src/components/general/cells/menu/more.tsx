@@ -39,7 +39,7 @@ function MoreOptionsComponent(props: MoreOptionsProps) {
               <button
                 className={`${btnStyles}${
                   !account.activeSubscription
-                    ? ' flex place-items-center gap-x-2 bg-gray-100'
+                    ? ' flex place-items-center gap-x-2 opacity-90'
                     : ''
                 }`}
                 disabled={!account.activeSubscription}

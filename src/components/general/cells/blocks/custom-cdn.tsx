@@ -6,6 +6,7 @@ import { PrismLight } from 'react-syntax-highlighter'
 import { Script } from '@app/types'
 import { SCRIPTS_CDN_URL_HOST } from '@app/configs'
 import { classNames } from '@app/utils/classes'
+import { FormControl } from '../../form-control'
 
 const notAvail = 'Not available on a Free plan.'
 
@@ -50,7 +51,9 @@ export const CustomCDNBoxWrapper = ({
 
   const cdnText = isMinified ? cdnBaseMin : cdnBase
 
-  const disabled = cdnText === '[Paid plan required]'
+  const disabled = !activeSubscription
+
+  const labelId = `${domain}-cdn-form`
 
   return (
     <InfoBlock
@@ -63,14 +66,22 @@ export const CustomCDNBoxWrapper = ({
     >
       <>
         <div className='flex space-x-1 place-items-center'>
-          <span className='text-sm font-medium'>Minified</span>
+          <FormControl
+            htmlFor={labelId}
+            visible
+            disabled={!activeSubscription}
+            className='text-sm font-medium'
+          >
+            Minified
+          </FormControl>
           <input
             checked={isMinified}
             type='checkbox'
+            id={labelId}
             onChange={() => setMinified((minified: boolean) => !minified)}
-            className={
-              ' outline-none relative inline-flex flex-shrink-0 h-4 w-7 rounded-full cursor-pointer transition-colors ease-in-out duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'
-            }
+            className={classNames(
+              'outline-none relative inline-flex flex-shrink-0 h-4 w-7 rounded-full cursor-pointer transition-colors ease-in-out duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'
+            )}
             disabled={disabled}
           ></input>
         </div>
@@ -84,7 +95,7 @@ export const CustomCDNBoxWrapper = ({
             {cdnText}
           </PrismLight>
         ) : (
-          <pre className={' cursor-pointer'}>{cdnText}</pre>
+          <pre className={''}>{cdnText}</pre>
         )}
       </>
     </InfoBlock>

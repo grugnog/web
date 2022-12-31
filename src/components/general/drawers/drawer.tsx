@@ -34,7 +34,7 @@ function MainDrawerContainerComponent({ route, loading }: DrawerWrapperProps) {
     <div
       className={`flex flex-col overflow-x-hidden w-[55px] sm:w-[15vw] md:w-[18vw] lg:w-[250px] max-w-[250px] relative print:hidden overflow-hidden`}
     >
-      <div className='fixed flex flex-col w-[inherit] overflow-hidden h-full bg-lightgray dark:bg-black z-10 space-y-3 place-content-between'>
+      <div className='fixed flex flex-col w-[inherit] overflow-hidden h-full bg-lightgray dark:bg-inherit z-10 space-y-3 place-content-between'>
         <AuthedMenu route={route} loading={loading} />
         <div>
           <UpgradeBanner />
