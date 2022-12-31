@@ -2,7 +2,7 @@ import { useMemo } from 'react'
 import {
   PageTitle,
   Drawer,
-  PriceMemo,
+  PaymentPlans,
   Spacer,
   AuthMenu,
 } from '@app/components/general'
@@ -68,7 +68,7 @@ export function WebPages({ name }: PageProps) {
         {account.activeSubscription ? (
           <WebPagesPage />
         ) : account.inited ? (
-          <PriceMemo navigate />
+          <PaymentPlans pricingPage />
         ) : (
           <Skeleton className='h-full w-full' />
         )}

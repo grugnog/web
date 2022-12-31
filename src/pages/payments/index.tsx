@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import { CheckoutForm } from '@app/components/stripe/checkout'
 import { StripeBadges } from '@app/components/stripe/badges'
-import { Button, NavBar, PriceMemo } from '@app/components/general'
+import { Button, NavBar, PaymentPlans } from '@app/components/general'
 import { metaSetter } from '@app/utils'
 import { EmptyPayments } from '@app/components/empty/views/payments'
 import type { PageProps } from '@app/types'
@@ -100,6 +100,8 @@ function Payments({ hideTitle = false, name }: PaymentProps) {
     setState(newState)
   }
 
+  const onToggleCard = () => setNewCard((x) => !x)
+
   let initialSelectIndex = 0
 
   if (role > 5) {
@@ -121,10 +123,8 @@ function Payments({ hideTitle = false, name }: PaymentProps) {
           ) : (
             <>
               <p className='text-xl pb-2'>{subTitle}</p>
-              <PriceMemo
-                priceOnly
+              <PaymentPlans
                 onClick={handleChange}
-                role={role}
                 currentPlan={currentPlan}
                 setYearly={setYearly}
                 yearly={yearly}
@@ -140,7 +140,7 @@ function Payments({ hideTitle = false, name }: PaymentProps) {
                           <>
                             {newCard && data.activeSubscription ? (
                               <Button
-                                onClick={() => setNewCard((x) => !x)}
+                                onClick={onToggleCard}
                                 className={'border-none font-semibold'}
                               >
                                 Use Old Card
@@ -157,7 +157,7 @@ function Payments({ hideTitle = false, name }: PaymentProps) {
                           </>
                         ) : (
                           <Button
-                            onClick={() => setNewCard((x) => !x)}
+                            onClick={onToggleCard}
                             className={
                               'border-none font-semibold text-blue-700'
                             }

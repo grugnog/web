@@ -2,7 +2,7 @@ import { useMemo } from 'react'
 import {
   PageTitle,
   Drawer,
-  PriceMemo,
+  PaymentPlans,
   Spacer,
   AuthMenu,
 } from '@app/components/general'
@@ -73,7 +73,11 @@ function Scripts({ name }: PageProps) {
         rightButton={<AuthMenu authenticated={account.authed} settings />}
       />
       <Spacer height={'8px'} />
-      {account.activeSubscription ? <ScriptsPage /> : <PriceMemo navigate />}
+      {account.activeSubscription ? (
+        <ScriptsPage />
+      ) : (
+        <PaymentPlans pricingPage />
+      )}
     </Drawer>
   )
 }

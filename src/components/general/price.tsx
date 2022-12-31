@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { Dispatch, SetStateAction, useState } from 'react'
 import { priceConfig } from '@a11ywatch/website-source-builder'
 import { Link } from '@app/components/stateless/typo/link'
 import { SectionContainer } from '@app/components/stateless/containers/section-container'
@@ -49,26 +49,35 @@ function MainButton({
   return null
 }
 
-export function PriceMemo({
+interface PriceProps {
+  onClick?(newState: string): Promise<void>
+  yearly?: boolean // render the yearly price
+  setYearly?: Dispatch<SetStateAction<boolean>> // toggle yearly
+  pricingPage?: boolean // pricing page
+  initialIndex?: number // selected plan index
+  highPlan?: boolean // high plans
+  currentPlan?: string // users current plan
+}
+
+export function PaymentPlans({
   onClick,
-  navigate,
   yearly: year,
   setYearly: setYear,
   pricingPage,
   initialIndex = 0,
   highPlan = false,
   currentPlan,
-}: any) {
+}: PriceProps) {
   const [yearly, onSetYear] = useState<boolean>(!!year)
   const [selectedPlan, onSelectPlan] = useState<number>(initialIndex || 0)
   const [selectHighPlans, onSelectHigh] = useState<boolean>(highPlan)
 
-  const setYearly = (params: any) => {
+  const setYearly = (cb: (x: boolean) => boolean) => {
     if (typeof setYear === 'function') {
-      setYear(params)
+      setYear(cb)
     }
     // inner state
-    onSetYear(params)
+    onSetYear(cb)
   }
 
   const onSetYearlyEvent = () => {
@@ -113,7 +122,7 @@ export function PriceMemo({
       {typeof onClick === 'undefined' && !pricingPage ? (
         <>
           <Header3 style={onClick ? { fontWeight: 200 } : {}}>
-            {navigate ? 'Plans for everyone' : 'Pricing'}
+            {pricingPage ? 'Plans for everyone' : 'Pricing'}
           </Header3>
           <p className='pb-2 text-xl'>
             Flexible plans that can be adjusted at any time.
@@ -140,7 +149,7 @@ export function PriceMemo({
           id='plans-section'
           className={`w-full md:w-auto grid nowrap md:flex-wrap xl:grid-cols-2 gap-2 list-none`}
         >
-          {plans.map((planProps: any, index: number) => {
+          {plans.map((planProps, index) => {
             const title = planProps.title
             const onPriceClick = () => onPlanClick(title, index)
             const textColor = getPrimaryColor(title)
@@ -191,11 +200,11 @@ export function PriceMemo({
           title={'All plans include:'}
           details={priceConfig.feats}
         >
-          {navigate && selected ? (
+          {pricingPage && selected ? (
             <div className='px-4 w-full'>
               <MainButton
                 title={selected}
-                navigate={navigate}
+                navigate={pricingPage}
                 yearly={yearly}
               />
             </div>
@@ -217,7 +226,7 @@ export function PriceMemo({
 export const Price = (props: any) => {
   return (
     <SectionContainer>
-      <PriceMemo {...props} />
+      <PaymentPlans {...props} />
     </SectionContainer>
   )
 }

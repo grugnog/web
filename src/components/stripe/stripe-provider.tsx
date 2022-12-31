@@ -1,8 +1,6 @@
 import { memo, PropsWithChildren, useEffect, useState } from 'react'
-
 import { loadStripe, Stripe } from '@stripe/stripe-js'
 import { Elements } from '@stripe/react-stripe-js'
-
 import { AppManager } from '@app/managers'
 import { STRIPE_KEY } from '@app/configs/app-config'
 
@@ -22,7 +20,7 @@ export const StripProviderWrapper = ({ children }: PropsWithChildren) => {
           console.error(e)
           AppManager.toggleSnack(
             true,
-            'Error, Please contact support issue with payment proccesor.',
+            'Error, Please contact support issue with payment processor.',
             'error'
           )
         }

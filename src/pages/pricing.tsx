@@ -1,4 +1,4 @@
-import { MarketingDrawer, PriceMemo } from '@app/components/general'
+import { MarketingDrawer, PaymentPlans } from '@app/components/general'
 import { metaSetter } from '@app/utils'
 import type { PageProps } from '@app/types'
 import { Partners } from '@app/components/stateless/marketing/partners'
@@ -22,7 +22,7 @@ function Pricing({ name }: PageProps) {
           other web accessibility SaaS.
         </p>
 
-        <PriceMemo navigate pricingPage />
+        <PaymentPlans pricingPage />
 
         <div className='py-4 text-center'>
           <p>

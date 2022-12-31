@@ -2,7 +2,7 @@ import { useMemo } from 'react'
 import {
   PageTitle,
   Drawer,
-  PriceMemo,
+  PaymentPlans,
   Spacer,
   AuthMenu,
 } from '@app/components/general'
@@ -67,7 +67,7 @@ function WebActions({ name }: PageProps) {
         {account.activeSubscription ? (
           <WebActionsPage />
         ) : (
-          <PriceMemo navigate />
+          <PaymentPlans pricingPage />
         )}
       </Drawer>
     </>
