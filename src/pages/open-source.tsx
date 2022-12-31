@@ -24,7 +24,7 @@ function OSSCell({ item }: { item: typeof OSSRoutes[number] }) {
       >
         <div>
           <Header3 className='text-xl font-bold'>{item.name}</Header3>
-          <p className='text-lg text-gray-600'>{item.description}</p>
+          <p className='text-lg'>{item.description}</p>
         </div>
         <div className='flex place-content-between place-items-center pt-3'>
           <div className='text-sm'>{item.fullName.toLowerCase()}</div>
@@ -49,7 +49,7 @@ function OpenSource({
       <SectionContainer container block>
         <Header>Open Source Software</Header>
         <h2 className='py-4 text-blue-600 text-sm'>Ethos</h2>
-        <p className='text-base pt-1 pb-4 text-gray-600'>
+        <p className='text-base pt-1 pb-4'>
           Open source has a big role on the way we build our products here.
           <p>
             We give back to the community and provide some free and simple
