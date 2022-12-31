@@ -1,10 +1,11 @@
 import { NextResponse, NextRequest, userAgent } from 'next/server'
+import { dev } from './configs'
 import { IFRAME_URL } from './configs/api-route'
 
 export async function middleware(req: NextRequest) {
   let res = NextResponse.next()
 
-  const blogRoute = req.nextUrl.pathname.startsWith('/blog')
+  const blogRoute = dev && req.nextUrl.pathname.startsWith('/blog')
 
   if (req.headers?.get('host')?.endsWith('.blog') || blogRoute) {
     const url = req.nextUrl.clone()
