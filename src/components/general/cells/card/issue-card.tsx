@@ -6,8 +6,14 @@ import { RenderInnerAnalyticsPaging } from '../../lists/render/issues/analytics-
 const IssueCardCommponent = ({ pageUrl }: { pageUrl: string }) => {
   return (
     <div>
-      <div className='flex px-4 py-2 flex-1 w-full place-items-center place-content-end text-right text-sm border-t border-dotted'>
-        <div className='text-right'>Issues</div>
+      <div className='flex px-4 py-2 flex-1 w-full place-items-center border-t border-dotted text-xs md:text-sm'>
+        <div className='text-left'>Pages</div>
+        <div className='flex flex-1 w-full place-content-end text-right'>
+          <div className='grid grid grid-cols-2 gap-4'>
+            <div>Warnings</div>
+            <div>Errors</div>
+          </div>
+        </div>
       </div>
       <div className='border-t border-dotted'>
         <LazyMount className={'h-[450px]'}>

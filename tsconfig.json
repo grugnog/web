@@ -29,5 +29,5 @@
     }
   },
   "exclude": ["node_modules"],
-  "include": ["next-env.d.ts", "./src/**/*.ts", "./src/**/*.tsx"]
+  "include": ["next-env.d.ts", "./src/**/*.ts", "./src/**/*.tsx", "src/components/general/lists/render/issues/analytics-headertsx"]
 }

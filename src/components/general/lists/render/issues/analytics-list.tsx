@@ -1,19 +1,18 @@
 import { useState, memo, useEffect } from 'react'
 import { hiddenList, visibleList } from '@app/stylesheets/list.module.css'
 import { Analytic } from '@app/types'
-import { ListCellHeader } from './cell-header'
+import { ListCellAnalyticsHeader } from './analytics-header'
 import { FetchIssue } from './fetch-issue'
 import { Skeleton } from '@app/components/placeholders/skeleton'
 
 // return issues maped
 const AnalyticsWrapper = ({
-  //   issues,
-  //   errorCount,
+  errorCount,
+  warningCount,
   totalIssues,
+  domain,
   pageUrl,
   open,
-  small,
-  singleRow,
 }: Analytic & { open?: boolean; small?: boolean; singleRow?: boolean }) => {
   const [visible, setVisible] = useState<boolean>(!!open)
   const [loaded, setLoaded] = useState<boolean>(false)
@@ -25,16 +24,17 @@ const AnalyticsWrapper = ({
   }, [visible, loaded, setLoaded])
 
   return (
-    <div>
-      <ListCellHeader
-        title={pageUrl}
+    <>
+      <ListCellAnalyticsHeader
+        url={pageUrl}
         totalIssues={totalIssues}
         setVisible={setVisible}
         visible={visible}
-        small={small}
-        singleRow={singleRow}
+        warningCount={warningCount}
+        errorCount={errorCount}
+        domain={domain as string}
       />
-      <ul
+      <div
         aria-hidden={!visible}
         className={`${visible ? 'visible' : 'hidden'} rounded-b ${
           visible ? visibleList : hiddenList
@@ -45,8 +45,8 @@ const AnalyticsWrapper = ({
         ) : (
           <Skeleton className='w-full h-30' />
         )}
-      </ul>
-    </div>
+      </div>
+    </>
   )
 }
 

@@ -25,25 +25,23 @@ export function DrawerW({ children }: any) {
   return (
     <>
       <DrawerHead />
-      <>
-        <div className={'flex overflow-x-inherit md:overflow-x-hidden'}>
-          <main className={'flex-1 overflow-auto'} id='main-content'>
-            <div
-              className={'px-3 md:px-4 scrollbar overflow-auto max-h-screen'}
-            >
-              <RefBanner />
-              {children}
-            </div>
-            <ConfirmEmail
-              sendEmail={sendConfirmEmail}
-              visible={!!user?.loggedIn && !user?.emailConfirmed}
-            />
-          </main>
-          <IssueFeed />
-        </div>
-        <DynamicModal />
-        <MiniPlayer />
-      </>
+      <div className={'flex overflow-x-inherit md:overflow-x-hidden'}>
+        <main className={'flex-1 overflow-auto'} id='main-content'>
+          <div
+            className={'px-3 md:px-4 pb-24 md:pb-2 overflow-auto max-h-screen'}
+          >
+            <RefBanner />
+            {children}
+          </div>
+          <ConfirmEmail
+            sendEmail={sendConfirmEmail}
+            visible={!!user?.loggedIn && !user?.emailConfirmed}
+          />
+        </main>
+        <IssueFeed />
+      </div>
+      <DynamicModal />
+      <MiniPlayer />
     </>
   )
 }

@@ -53,17 +53,11 @@ const RenderInnerAnalyticsWrapper: FC<any> = (props) => {
   return (
     <>
       <div className='flex flex-col place-content-around'>
-        <div className='h-[450px] overflow-y-auto'>
+        <div className='h-[450px]'>
           <InnerWrapper {...props} data={issueSource?.length} loading={loading}>
             <ul className='list-none'>
               {issueList?.map((page) => (
-                <AnalyticsList
-                  key={page?._id}
-                  open={props.open}
-                  small={props.small}
-                  singleRow
-                  {...page}
-                />
+                <AnalyticsList key={page?._id} open={props.open} {...page} />
               ))}
             </ul>
           </InnerWrapper>
