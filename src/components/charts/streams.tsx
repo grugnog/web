@@ -53,8 +53,6 @@ const Tip = ({ item }: { item: TooltipProps }) => {
     return null
   }
 
-  console.log(item)
-
   return (
     <div className='rounded bg-white dark:bg-black border'>
       <div className='p-3 space-y-1'>

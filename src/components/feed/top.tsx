@@ -46,4 +46,4 @@ const Top = ({
 }
 
 // re-render on state change for toggling click event
-export const TopSection = memo(Top)
+export const FeedTopSection = memo(Top)

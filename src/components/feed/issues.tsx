@@ -2,7 +2,7 @@ import { memo, FC, useDeferredValue, useCallback, useMemo } from 'react'
 import { useWebsiteContext } from '../providers/website'
 import { useWasmContext } from '../providers'
 import type { Website } from '@app/types'
-import { TopSection } from './top'
+import { FeedTopSection } from './top'
 import { alertIssueDifference } from '@app/utils/alerts'
 import { DomainList } from './domain-list'
 
@@ -64,7 +64,7 @@ const LiveFeed: FC = () => {
       {feedOpen ? <style>{`body { overflow: hidden; }`}</style> : null}
       <div className={mainStyle} aria-live='polite'>
         <div className={topStyles} id='live-feed'>
-          <TopSection
+          <FeedTopSection
             onClick={setIssueFeedContent}
             open={feedOpen}
             clearFeed={clearData}

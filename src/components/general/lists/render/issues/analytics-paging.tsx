@@ -1,26 +1,26 @@
 import { FC, memo, useMemo, useState } from 'react'
-import { useIssueData } from '@app/data/external/issues/issue'
+import { useAnalyticsData } from '@app/data/external/analytics/analytics'
 import { InnerWrapper } from '../../list-wrapper'
 import { Button } from '../../../buttons'
-import { Issues } from './list'
-import type { Issue, PageIssue } from '@app/types'
+import { AnalyticsList } from './analytics-list'
+import type { Analytic } from '@app/types'
 import { GrFormNextLink, GrFormPreviousLink } from 'react-icons/gr'
 
 // paging issues for website dashboard cell
-const RenderInnerIssuesWrapper: FC<any> = (props) => {
+const RenderInnerAnalyticsWrapper: FC<any> = (props) => {
   const [issueIndex, setIndex] = useState<number>(0)
 
   const {
     data: issueSource,
     loading,
     onLoadMore,
-  } = useIssueData(
+  } = useAnalyticsData(
     props?.pageUrl || props?.data?.url,
     props?.data?.subdomains || props?.data?.tld
   )
 
   const issueList = useMemo(() => {
-    const items: PageIssue[] = []
+    const items: Analytic[] = []
 
     if (issueSource) {
       const base = (issueIndex + 1) * 10
@@ -56,8 +56,8 @@ const RenderInnerIssuesWrapper: FC<any> = (props) => {
         <div className='h-[450px] overflow-y-auto'>
           <InnerWrapper {...props} data={issueSource?.length} loading={loading}>
             <ul className='list-none'>
-              {issueList?.map((page: Issue) => (
-                <Issues
+              {issueList?.map((page) => (
+                <AnalyticsList
                   key={page?._id}
                   open={props.open}
                   small={props.small}
@@ -94,4 +94,4 @@ const RenderInnerIssuesWrapper: FC<any> = (props) => {
   )
 }
 
-export const RenderInnerIssuesPaging = memo(RenderInnerIssuesWrapper)
+export const RenderInnerAnalyticsPaging = memo(RenderInnerAnalyticsWrapper)

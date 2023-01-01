@@ -70,13 +70,11 @@ export const useIssueData = (url?: string | string[], all?: boolean) => {
     }
   }
 
-  const model = Object.freeze({
+  return Object.freeze({
     data: issues,
     loading: loading,
     refetch,
     error,
     onLoadMore,
   })
-
-  return model
 }

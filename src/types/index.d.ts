@@ -1,5 +1,6 @@
 export type Analytic = {
   __typename?: 'Analytic'
+  _id?: string
   id?: string
   pageUrl?: string
   errorCount?: number
@@ -9,6 +10,7 @@ export type Analytic = {
   userId?: number
   domain?: string
   adaScore?: number
+  totalIssues?: number
 }
 
 export type BasicMutationResponse = MutationResponse & {

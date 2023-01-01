@@ -1,5 +1,4 @@
 import { useQuery } from '@apollo/react-hooks'
-import { AppManager } from '@app/managers'
 import { GET_ANALYTICS, GET_WEBSITE_ANALYTICS } from '@app/queries'
 
 // get a single page analytics [NOT USED]
@@ -34,7 +33,6 @@ export const useAnalyticsData = (url?: string | string[], all?: boolean) => {
 
   const updateQuery = (prev: any, { fetchMoreResult }: any) => {
     if (!fetchMoreResult || !fetchMoreResult?.website?.analytics?.length) {
-      AppManager.toggleSnack(true, 'No more analytics exist.')
       return prev
     }
 
@@ -69,13 +67,11 @@ export const useAnalyticsData = (url?: string | string[], all?: boolean) => {
     }
   }
 
-  const model = Object.freeze({
+  return Object.freeze({
     data: analytics,
     loading: loading,
     refetch,
     error,
     onLoadMore,
   })
-
-  return model
 }
