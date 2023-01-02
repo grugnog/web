@@ -23,6 +23,7 @@
     "@a11ywatch/website-source-builder": "^0.0.35",
     "@apollo/react-hooks": "3.1.5",
     "@apollo/react-ssr": "3.1.5",
+    "@headlessui/react": "^1.7.7",
     "@monaco-editor/react": "^4.4.6",
     "@nivo/bar": "^0.80.0",
     "@nivo/core": "^0.80.0",

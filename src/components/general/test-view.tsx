@@ -7,7 +7,6 @@ import { HomeManager } from '@app/managers'
 import { TestOutIframe } from '../ada/testout-iframe'
 import { Fab } from './fab'
 import { IssueModal } from './issue-modal'
-import { OverlayPortalContainer } from './overlay'
 import { Website } from '@app/types'
 
 // test view playground
@@ -40,7 +39,6 @@ const TestViewContainer = observer(
           website={website}
         />
         <Fab direction='left' issue={issue} marketing={marketing} />
-        <OverlayPortalContainer />
         <IssueModal issue={issue} />
       </Fragment>
     )
@@ -68,7 +66,6 @@ const TestViewContainerStatic = observer(
           website={website}
         />
         <Fab direction='left' issue={issue} marketing={marketing} />
-        <OverlayPortalContainer />
         <IssueModal issue={issue} />
       </Fragment>
     )

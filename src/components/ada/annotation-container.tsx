@@ -1,12 +1,23 @@
 import React from 'react'
 import { GrClose } from 'react-icons/gr'
-import { HeadlessModal } from '../modal/headless'
+import { Popover } from '@headlessui/react'
 import { ToolTip } from './tool-tip'
+import { IframeManager } from '@app/managers'
+import { Annotations } from './annotations'
 
-const textBaseStyle = 'flex-1'
+type AnnotationContainerProps = {
+  contrastRatio?: string
+  source: string
+  portalID: number
+  elementParent: string
+  message: string
+  code: string
+  context: string
+  recurrence: string
+  errorType: 'warning' | 'error'
+}
 
 export function AnnotationContainer({
-  store,
   contrastRatio,
   source,
   // errorType,
@@ -16,75 +27,120 @@ export function AnnotationContainer({
   code,
   context,
   recurrence,
-}: any) {
-  const onClose = (event: any) => {
-    store.setActiveAnnotation(null)
-    if (event) {
-      event?.preventDefault()
-      event?.stopPropagation()
-    }
-  }
-
+  errorType,
+}: AnnotationContainerProps) {
   const modalTitle = `${portalID || context + code}-rec-modal-title`
   const modalDescription = `${portalID || context + code}-rec-modal-description`
 
-  // todo: move multi headless injections outside
   return (
-    <HeadlessModal
-      onClose={onClose}
-      open={store?.activeAnnotation}
+    <Popover
+      className='relative'
       aria-labelledby={modalTitle}
       aria-describedby={modalDescription}
-      hideBackdrop
-      center
     >
-      <div className={'w-full bg-white border-4 shadow-xl'}>
-        <div className={`flex place-items-center border-b py-2 px-3`}>
-          <h3 className={`flex-1 text-lg`}>Recommended</h3>
-          <button
-            aria-label='close modal'
-            onClick={onClose}
-            className={'pointer-none px-1 py-2'}
-          >
-            <GrClose />
-          </button>
-        </div>
-        <div className='px-3 py-2 space-y-2'>
-          <p className={`${textBaseStyle} text-sm truncate font-light`}>
-            {code}
-          </p>
-          <p
-            id={modalTitle}
-            className={`${textBaseStyle}  text-sm font-medium`}
-          >
-            {context}
-          </p>
-          {recurrence ? (
-            <p className={'truncate text-sm font-bold'}>
-              Recurred: {recurrence} times
-            </p>
-          ) : null}
-          <p
-            className={`${textBaseStyle} text-sm text-gray-600`}
-            id={modalDescription}
-          >
-            {message}
-          </p>
-        </div>
-        {String(message)?.includes('contrast ratio') ? (
-          <ToolTip
-            visible={store.activeAnnotation}
-            source={source}
-            portalID={portalID}
-            elementParent={elementParent}
+      {({ open }) => (
+        <>
+          <Popover.Panel>
+            {open ? (
+              <div style={{ position: 'absolute', zIndex: 9999 }}>
+                <div
+                  style={{
+                    background: '#fff',
+                    color: '#000',
+                    border: 0,
+                    borderRadius: '0.2rem',
+                    maxWidth: '33rem',
+                    width: '100%',
+                    boxShadow: `inset 0 -1em 1em rgba(0, 0, 0, 0.1), 0 0 0 1px rgba(255, 255, 255, 0.5),
+                    0.3em 0.3em 1em rgba(0, 0, 0, 0.3)`,
+                  }}
+                >
+                  <div
+                    style={{
+                      display: 'flex',
+                      placeItems: 'center',
+                      padding: '0.7rem 0.5rem',
+                      textAlign: 'left',
+                      borderBottom: '0.5px solid #ccc',
+                    }}
+                  >
+                    <p
+                      style={{
+                        flex: 1,
+                        fontSize: '0.77rem',
+                        fontWeight: 500,
+                        margin: 0,
+                        paddingRight: '0.4rem',
+                      }}
+                    >
+                      {code}
+                    </p>
+                    <Popover.Button
+                      aria-label='close modal'
+                      className={'pointer-none px-1 py-2'}
+                      style={{
+                        background: 'none',
+                        border: 0,
+                        color: '#ccc',
+                        zIndex: 20,
+                      }}
+                    >
+                      <GrClose className='grIcon' />
+                    </Popover.Button>
+                  </div>
+                  <div style={{ padding: '0.25rem 0.5rem', textAlign: 'left' }}>
+                    <p
+                      style={{
+                        fontSize: '0.88rem',
+                        fontWeight: 300,
+                        margin: 0,
+                        padding: '0.4rem 0',
+                      }}
+                      id={modalTitle}
+                    >
+                      {context}
+                    </p>
+                    {recurrence ? (
+                      <p
+                        style={{
+                          fontWeight: 500,
+                          fontSize: '0.7rem',
+                          margin: 0,
+                        }}
+                      >
+                        Recurred: {recurrence} times
+                      </p>
+                    ) : null}
+                    <p
+                      style={{ fontSize: '0.9rem', margin: 0 }}
+                      id={modalDescription}
+                    >
+                      {message}
+                    </p>
+                  </div>
+                  {String(message)?.includes('contrast ratio') ? (
+                    <ToolTip
+                      visible={IframeManager.activeAnnotation}
+                      source={source}
+                      portalID={portalID}
+                      elementParent={elementParent}
+                      contrastRatio={contrastRatio}
+                      message={message}
+                      code={code}
+                      context={context}
+                    />
+                  ) : null}
+                </div>
+              </div>
+            ) : null}
+          </Popover.Panel>
+          <Annotations
             contrastRatio={contrastRatio}
-            message={message}
-            code={code}
-            context={context}
-            close={onClose}
+            errorType={errorType as 'warning' | 'error'}
+            open
           />
-        ) : null}
-      </div>
-    </HeadlessModal>
+        </>
+      )}
+    </Popover>
   )
 }

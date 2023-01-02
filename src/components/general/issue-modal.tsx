@@ -28,7 +28,7 @@ export function IssueModal({ issue }: any) {
                 onClick={onModalCloseEvent}
                 aria-label='close'
                 iconButton
-                className='text-white hover:text-black'
+                className='text-white hover:opacity-80'
               >
                 <GrClose className='grIcon' />
               </Button>

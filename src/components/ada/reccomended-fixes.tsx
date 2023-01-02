@@ -1,5 +1,4 @@
 import { useEffect, memo, useRef, useCallback } from 'react'
-import { fixes, row, reccList } from '@app/stylesheets/main.module.css'
 import { IframeManager } from '@app/managers'
 
 const dataSource = [
@@ -81,13 +80,13 @@ const ReccomendedItem = memo(
           style={{
             background: item,
             flex: 1,
+            minHeight: '50px',
             minWidth: '55px',
             width: '100%',
             height: '100%',
             border: 0,
             borderRadius: 0,
           }}
-          className={fixes}
           aria-label={`${item} color`}
         >
           {''}
@@ -114,7 +113,15 @@ export function ReccomendedFixes({
   const autoFixSource = contrastRatio >= 3 ? elementParent : source
 
   return (
-    <ul className={`${reccList} ${row}`}>
+    <ul
+      style={{
+        listStyle: 'none',
+        flexWrap: 'wrap',
+        display: 'flex',
+        padding: 0,
+        margin: 0,
+      }}
+    >
       {dataSource.map((item: any, index: number) => (
         <ReccomendedItem
           item={primaryColorContrast[amp](item)}

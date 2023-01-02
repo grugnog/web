@@ -106,7 +106,7 @@ const MainFrame = observer(AccessibilityIframe)
 const FixPortals = observer(({ store }: { store: any }) => toJS(store.Portals))
 const Container = observer(({ store }: { store: any }) =>
   store.selectedAnnotation ? (
-    <AnnotationContainer store={store} {...store.selectedAnnotation} />
+    <AnnotationContainer {...store.selectedAnnotation} />
   ) : null
 )
 

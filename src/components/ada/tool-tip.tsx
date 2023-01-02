@@ -47,6 +47,12 @@ const TooltipContainer = observer(
               store?.toggle()
             }}
             type={'button'}
+            style={{
+              width: '100%',
+              padding: '1rem 1rem',
+              background: 'inherit',
+              border: 0,
+            }}
             className={`${mainButton} ${tipType}`}
           >
             {!store.textFix ? 'Background' : 'Text'}

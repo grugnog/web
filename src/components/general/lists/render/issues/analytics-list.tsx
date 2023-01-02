@@ -12,9 +12,9 @@ const AnalyticsWrapper = ({
   totalIssues,
   domain,
   pageUrl,
-  open,
+  open: defaultOpen,
 }: Analytic & { open?: boolean; small?: boolean; singleRow?: boolean }) => {
-  const [visible, setVisible] = useState<boolean>(!!open)
+  const [visible, setVisible] = useState<boolean>(!!defaultOpen)
   const [loaded, setLoaded] = useState<boolean>(false)
 
   useEffect(() => {

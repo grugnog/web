@@ -1,9 +1,7 @@
 import { createElement } from 'react'
 import { createPortal } from 'react-dom'
-import { Overlay } from '@app/components/general'
-import { Annotations } from '@app/components/ada'
-
-import { IframeManager, AppManager, frameDom } from '@app/managers'
+import { AnnotationContainer } from '@app/components/ada'
+import { IframeManager, frameDom } from '@app/managers'
 import { bindItemClick } from './ada/bind'
 
 export const createAnnotations = (issueMap: any, url: string) => {
@@ -18,13 +16,6 @@ export const createAnnotations = (issueMap: any, url: string) => {
     }
 
     if (issueMap?.length) {
-      const overlayElement = dom.createElement('div')
-
-      dom.body.appendChild(overlayElement)
-      AppManager.setPortals(
-        createPortal(createElement(Overlay, {}), overlayElement)
-      )
-
       issueMap.forEach((item: any) => {
         const el = item?.element
 
@@ -45,11 +36,12 @@ export const createAnnotations = (issueMap: any, url: string) => {
               context: item?.context,
               message: item?.message,
               code: item?.code,
-              //   contrastRatio: [0],
+              recurrence: item?.recurrence,
             }
+
             IframeManager.setPortals(
               createPortal(
-                createElement(Annotations, annotationProps),
+                createElement(AnnotationContainer, annotationProps),
                 newElement
               )
             )

@@ -31,7 +31,7 @@ class AppManager {
   dismissAnnotation = () => {}
 
   @action
-  toggleOverlay = (method: any, open: boolean) => {
+  toggleOverlay = (method?: any, open?: boolean) => {
     if (this.overlay) {
       this.dismissAnnotation()
     }

@@ -2,7 +2,6 @@ import { Fragment, useRef, useEffect } from 'react'
 import { observer } from 'mobx-react-lite'
 import { mainFixed, mainFrame } from '@app/stylesheets/index.module.css'
 import { IframeManager, HomeManager, frameDom } from '@app/managers'
-import { AnnotationContainer } from './annotation-container'
 import { ResetCss } from './styles'
 import { sboxType } from './config'
 import { onLoad } from './utils'
@@ -67,14 +66,7 @@ const MainFrame = observer(
 
 // container and portal of annonations into iframe
 const Portals = observer(({ store }: { store: typeof IframeManager }) => {
-  const frameProps = store?.selectedAnnotation ? store.selectedAnnotation : {}
-
-  return store.Portals?.length ? (
-    <>
-      {store.Portals.slice()}
-      <AnnotationContainer store={store} {...frameProps} />
-    </>
-  ) : null
+  return <>{store.Portals?.length ? store.Portals.slice() : null}</>
 })
 
 // Iframe component to use for marketing websites
