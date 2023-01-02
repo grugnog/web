@@ -9,7 +9,7 @@ import { Header, Header2, Header3 } from '@app/components/general/header'
 import { companyName } from '@app/configs'
 
 const FeatureHeading: FC<PropsWithChildren> = ({ children }) => {
-  return <p className='text-base font-medium  leading-7'>{children}</p>
+  return <p className='text-base font-medium leading-7'>{children}</p>
 }
 
 const { paper, row } = {
@@ -18,7 +18,7 @@ const { paper, row } = {
   row: 'flex flex-wrap md:flex-nowrap',
 }
 
-const paperStyle = 'flex place-content-center bg-gray-100 py-2 rounded'
+const paperStyle = 'flex place-content-center py-2 rounded'
 
 function Features({ name }: PageProps) {
   return (

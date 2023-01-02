@@ -4,6 +4,7 @@ import { BlogPage } from '@app/components/blog/blog-page'
 import type { BlogPageProps } from '@app/types'
 import type { GetStaticProps } from 'next'
 import { DOMAIN_NAME } from '@app/configs'
+import { blogPaths } from '@app/data/static/blog-paths'
 
 function Blog(props: BlogPageProps) {
   return <BlogPage {...props} />
@@ -11,15 +12,7 @@ function Blog(props: BlogPageProps) {
 
 export async function getStaticPaths() {
   return {
-    paths:
-      DOMAIN_NAME === 'https://a11ywatch.com'
-        ? [
-            '/blog/next-js-to-astro',
-            '/blog/web-accessibility-monitoring',
-            '/blog/version-your-proto-definitions-for-stablity',
-            '/blog/create-blog-nextjs',
-          ]
-        : [],
+    paths: DOMAIN_NAME === 'https://a11ywatch.com' ? blogPaths : [],
     fallback: 'blocking',
   }
 }
@@ -37,7 +30,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
 
   return {
     props,
-    revalidate: 3600 * 4, // every 4 hours
+    revalidate: 3600 * 12, // every 12 hours
   }
 }
 

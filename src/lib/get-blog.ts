@@ -198,10 +198,9 @@ export const getBlogPage = async (
                 width: auto;
               }
 
-              body .light-background {
+              body .blog-main {
                 width: 60em;
                 margin: 1em auto;
-                color: #222;
                 font-family: system-ui;
                 padding-bottom: 4em;
               }
@@ -215,39 +214,45 @@ export const getBlogPage = async (
               : ''
           }
 
-              .light-background h1 {
+              .blog-main h1 {
                 font-size: 2.25rem;
                 font-weight: 800;
               }
-              .light-background h2 {
+              .blog-main h2 {
                 font-size: 1.875rem;
-                font-weight: 800;
-                padding-top: 12px;
-                padding-bottom: 7px;
-            
-              .light-background h3 {
-                font-size: 1.5rem;
-                font-weight: 800;
-                padding-top: 10px;
-                padding-bottom: 5px;
+                font-weight: 700;
+                padding-top: 0.5rem;
+                padding-bottom: 0.3rem;
               }
-              .light-background h4 {
+              .blog-main h3 {
+                font-size: 1.5rem;
+                font-weight: 600;
+                padding-top: 0.35rem;
+                padding-bottom: 0.2rem;
+              }
+              .blog-main h4 {
+                font-weight: 500;
                 font-size: 1.25rem;
                 font-weight: 700;
+                padding-top: 0.28rem;
+                padding-bottom: 0.18rem;
               }
-              .light-background h5 {
+              .blog-main h5 {
                 font-size: 1.125rem;
-                font-weight: 600;
+                font-weight: 500;
+                padding-top: 0.24rem;
+                padding-bottom: 0.14rem;
               }
-              .light-background h6 {
+              .blog-main h6 {
                 font-size: 1rem;
                 font-weight: 500;
+                padding-top: 0.21rem;
+                padding-bottom: 0.12rem;
               }
-
-              .light-background .entry-date.published, .blog-date {
+              .blog-main .entry-date.published, .blog-date {
                 color: rgba(117, 117, 117, 1);
               }
-              .light-background main a {
+              .blog-main main a {
                 color: rgb(37, 99, 235);
                 text-decoration: none;
                 padding: 0.2em;

@@ -80,15 +80,15 @@ export const parseHtml = async (body: string) => {
   htmlRoot.insertAdjacentHTML(
     'beforeend',
     `<style>
-            .light-background article > .entry-wrapper > p {
+            .blog-main article > .entry-wrapper > p {
               max-width: none;
             }
-            .light-background #content, #comments {
+            .blog-main #content, #comments {
               padding-top: 20px;
               padding-bottom: 20px;
               overflow: hidden;
             }
-            .light-background {
+            .blog-main {
               background-color: #fff;
               font-family: system-ui;
             }
