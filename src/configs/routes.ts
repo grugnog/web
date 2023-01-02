@@ -1,3 +1,5 @@
+import { dev } from './app-config'
+
 export const Routes = [
   {
     nav: false,
@@ -31,7 +33,7 @@ export const Routes = [
   },
   {
     nav: false,
-    href: 'https://a11ywatch.blog',
+    href: dev ? '/blog' : 'https://a11ywatch.blog',
     name: 'Blog',
     type: 'company',
   },

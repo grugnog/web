@@ -5,6 +5,7 @@ import { SearchBar } from '../searchbar'
 import { NavBar } from '../navigation/navbar'
 import { Footer } from '../footer'
 import { MarketingAlternatives } from '@app/components/stateless/marketing/alternative'
+import { GithubBadge } from '@app/components/badges'
 
 // main marketing pages drawer
 export function MarketingDrawer({
@@ -28,7 +29,10 @@ export function MarketingDrawer({
           authenticated={authenticated}
           loading={loading}
           marketingLinks={
-            <MarketingNavMenu home={`/${String(title).toLowerCase()}`} />
+            <>
+              <MarketingNavMenu home={`/${String(title).toLowerCase()}`} />
+              <GithubBadge className='text-3xl' />
+            </>
           }
         >
           <div className={'flex flex-1 align-center'}>
