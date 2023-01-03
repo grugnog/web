@@ -1,4 +1,4 @@
-import { useCallback, useMemo, useState } from 'react'
+import { useCallback, useMemo } from 'react'
 import { Link } from '../link'
 import { RenderAvatar, RenderSecondary } from './render'
 import { MoreOptions } from '@app/components/general/cells/menu/more'
@@ -15,7 +15,6 @@ interface WebsiteCellProps extends Partial<Website> {
 
 // OLD WEBSITE CELL [TODO: remove]
 export function WebsiteCell(props: WebsiteCellProps) {
-  const [anchorEl, setAnchorEl] = useState<any>(null)
   const { selectedWebsite, setSelectedWebsite } = useInteractiveContext()
   const { removePress, ...extra } = props
 
@@ -32,14 +31,6 @@ export function WebsiteCell(props: WebsiteCellProps) {
   } = extra
 
   const { adaScore } = issuesInfo ?? {}
-
-  const handleMenu = (event: any) => {
-    setAnchorEl(event?.currentTarget)
-  }
-
-  const handleClose = () => {
-    setAnchorEl(null)
-  }
 
   const onRemovePress = useCallback(async () => {
     await removePress({
@@ -61,7 +52,6 @@ export function WebsiteCell(props: WebsiteCellProps) {
   const handleMainClick =
     (eventData?: any, title?: string, _mini?: boolean, url?: string) => () => {
       handleClickOpen(eventData, title, url)
-      setAnchorEl(null)
     }
 
   return (
@@ -91,9 +81,6 @@ export function WebsiteCell(props: WebsiteCellProps) {
       <div className='py-2'>
         <MoreOptions
           handleMainClick={handleMainClick}
-          anchorEl={anchorEl}
-          handleClose={handleClose}
-          handleMenu={handleMenu}
           removePress={onRemovePress}
           {...extra}
         />

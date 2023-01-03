@@ -1,4 +1,4 @@
-import { useState, useMemo, useCallback, memo } from 'react'
+import { useMemo, memo } from 'react'
 import { Link } from '../link'
 
 import {
@@ -37,19 +37,7 @@ export function WebsiteCellPagesComponent({
   pageInsights,
   lighthouseVisible,
 }: any) {
-  const [anchorEl, setAnchorEl] = useState<any>(null)
   const { adaScore } = issuesInfo ?? {}
-
-  const handleMenu = useCallback(
-    (event: any) => {
-      setAnchorEl(event?.currentTarget)
-    },
-    [setAnchorEl]
-  )
-
-  const handleClose = useCallback(() => {
-    setAnchorEl(null)
-  }, [setAnchorEl])
 
   const handleMainClick =
     (eventData?: any, title?: string, _mini?: boolean, url?: string) => () => {
@@ -57,8 +45,6 @@ export function WebsiteCellPagesComponent({
       if (handleClickOpen) {
         handleClickOpen(eventData, title, url)
       }
-
-      setAnchorEl(null)
     }
 
   const linkUrl = useMemo(
@@ -125,10 +111,7 @@ export function WebsiteCellPagesComponent({
             url={url}
             issues={issues}
             crawlWebsite={crawlWebsite}
-            handleClose={handleClose}
-            handleMenu={handleMenu}
             handleMainClick={handleMainClick}
-            anchorEl={anchorEl}
             pages={pages}
             pageHeaders={pageHeaders}
             index={index}

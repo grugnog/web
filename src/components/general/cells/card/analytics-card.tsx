@@ -12,6 +12,7 @@ const AnalyticsCardComponent = ({
   if (!activeSubscription) {
     return null
   }
+
   return (
     <div className='h-[295px] md:h-[330px] border-t'>
       <LazyMount className={'h-[295px] md:h-[330px]'} full>

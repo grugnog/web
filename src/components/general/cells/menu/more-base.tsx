@@ -9,7 +9,7 @@ export const btnStyles =
 
 export interface MoreOptionsProps extends Partial<Website> {
   removePress?(): void
-  handleClose(): void
+  handleClose?(): void
   handleMainClick: (
     data: any,
     title: string,
@@ -20,8 +20,6 @@ export interface MoreOptionsProps extends Partial<Website> {
   index?: number
   pageHeaders?: any
   historyPage?: boolean // is this a history page?
-  anchorEl?: any
-  handleMenu?: any
   lh?: any // lighthouse data render as modal
   children?: any
   url?: string // base url or domain
@@ -37,7 +35,6 @@ function MoreOptionsBaseComponent({
   children,
   // events
   handleMainClick,
-  anchorEl,
   handleClose,
   historyPage,
 }: MoreOptionsProps) {
@@ -54,12 +51,7 @@ function MoreOptionsBaseComponent({
   const menuId = `menu-appbar${index}`
 
   return (
-    <TopMenu
-      id={menuId}
-      anchorEl={anchorEl}
-      open={!!anchorEl}
-      onClose={handleClose}
-    >
+    <TopMenu id={menuId} onClose={handleClose}>
       <Menu.Item>
         {() => (
           <Link href={href} className={btnStyles}>

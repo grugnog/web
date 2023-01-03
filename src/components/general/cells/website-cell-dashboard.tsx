@@ -1,10 +1,4 @@
-import React, {
-  useState,
-  useMemo,
-  useCallback,
-  memo,
-  useDeferredValue,
-} from 'react'
+import React, { useMemo, useCallback, memo, useDeferredValue } from 'react'
 import { MoreOptions } from '@app/components/general/cells/menu/more'
 import { Link } from '../link'
 import { WebsiteSecondary } from './render'
@@ -99,7 +93,6 @@ export function WebsiteCellDashboardComponent({
   shutdown,
   verified,
 }: Website & WebsiteCellProps) {
-  const [anchorEl, setAnchorEl] = useState<any>(null)
   const { account } = useAuthContext() // TODO: move to provider top level
   const { feed } = useWasmContext()
   const items = useDeferredValue(
@@ -109,17 +102,6 @@ export function WebsiteCellDashboardComponent({
 
   const issues = items?.length ? items : currentIssues
   const { activeSubscription } = account
-
-  const handleMenu = useCallback(
-    (event: React.SyntheticEvent<HTMLButtonElement>) => {
-      setAnchorEl(event?.currentTarget)
-    },
-    [setAnchorEl]
-  )
-
-  const handleClose = useCallback(() => {
-    setAnchorEl(null)
-  }, [setAnchorEl])
 
   const onRemovePress = useCallback(async () => {
     if (url === selectedWebsite) {
@@ -161,11 +143,9 @@ export function WebsiteCellDashboardComponent({
       if (handleClickOpen) {
         handleClickOpen(eventDS, title, url, null)
       }
-
-      setAnchorEl(null)
     }
 
-  // real time issue tracking todo: send subscription with issuesInfo
+  // real time issue tracking todo: send subscription with issuesInfo [todo: build analytics feed usage]
   const { errorCount, warningCount, totalIssues, issuesFixedByCdn } =
     useMemo(() => {
       let errors = 0
@@ -250,9 +230,7 @@ export function WebsiteCellDashboardComponent({
         },
       })
     } catch (e) {}
-
-    handleClose()
-  }, [url, handleClose, crawlWebsite])
+  }, [url, crawlWebsite])
 
   return (
     <li>
@@ -331,10 +309,7 @@ export function WebsiteCellDashboardComponent({
               url={url}
               issues={issues}
               crawlWebsite={onWebsiteCrawl}
-              handleClose={handleClose}
-              handleMenu={handleMenu}
               handleMainClick={handleMainClick}
-              anchorEl={anchorEl}
               removePress={onRemovePress}
               pages={pages}
               pageHeaders={pageHeaders}
@@ -390,18 +365,17 @@ export function WebsiteCellDashboardComponent({
             hideBadge
           />
         </div>
-
-        <AnalyticsCard
-          activeSubscription={account.activeSubscription}
-          domain={domain}
-        />
-
+        {issuesInfo ? (
+          <AnalyticsCard
+            activeSubscription={account.activeSubscription}
+            domain={domain}
+          />
+        ) : null}
         <LighthouseCard
           lighthouseVisible={pageInsights && insight && lighthouseVisible}
           insight={insight}
         />
-
-        <IssueCard pageUrl={url} />
+        {issuesInfo ? <IssueCard pageUrl={url} /> : null}
       </div>
     </li>
   )

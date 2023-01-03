@@ -3,14 +3,11 @@ import { MenuList } from './menu'
 
 export function TopMenuComponent({
   children,
-  anchorEl,
   id,
   ...props
 }: {
   children: any
-  anchorEl?: any
   id?: string
-  open: boolean
   onClose?: any
 }) {
   return (

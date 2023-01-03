@@ -1,4 +1,4 @@
-import { useEffect, useState, memo } from 'react'
+import { useEffect, useState, memo, Dispatch, SetStateAction } from 'react'
 import { Analytic } from '@app/types'
 import { fetcher } from '@app/utils/fetcher'
 // import { LegendProps } from '@nivo/legends'
@@ -92,34 +92,48 @@ const getData = async (domain: string, page: number = 0) => {
 const getLabel = (item: { id: string | number }) =>
   String(item.id).replace('Count', '')
 
-const WebsiteAnalyticStreamComponent = ({ domain }: { domain: string }) => {
-  const [data, setData] = useState<Analytic[]>([])
+// recrusive get data until complete
+const getDataUntil = (
+  {
+    domain,
+    setData,
+  }: { domain: string; setData: Dispatch<SetStateAction<Analytic[]>> },
+  page = 0
+) => {
+  queueMicrotask(async () => {
+    const res = await getData(domain)
+    const nextData: Analytic[] = res?.data
+
+    if (nextData && nextData.length) {
+      setData((x) => {
+        if (x.length) {
+          x.push(...nextData)
+          return x
+        }
+        return nextData
+      })
+      const nextPage = page + 1
+      const blocked = nextData?.length < nextPage * 10
+
+      if (!blocked) {
+        await getDataUntil({ domain, setData }, nextPage)
+      }
+    }
+  })
+}
+
+const WebsiteAnalyticStreamComponent = ({
+  domain,
+  liveData,
+}: {
+  domain: string
+  liveData?: Analytic[]
+}) => {
+  const [analyticsData, setData] = useState<Analytic[]>([])
+  const data = liveData?.length ? liveData : analyticsData
 
   useEffect(() => {
-    const getDataUntil = (page = 0) => {
-      queueMicrotask(async () => {
-        const res = await getData(domain)
-        const nextData: Analytic[] = res?.data
-
-        if (nextData && nextData.length) {
-          setData((x) => {
-            if (x.length) {
-              x.push(...nextData)
-              return x
-            }
-            return nextData
-          })
-          const nextPage = page + 1
-          const blocked = nextData?.length < nextPage * 10
-
-          if (!blocked) {
-            await getDataUntil(nextPage)
-          }
-        }
-      })
-    }
-
-    getDataUntil()
+    getDataUntil({ domain, setData })
   }, [domain])
 
   if (!data.length) {
@@ -127,8 +141,6 @@ const WebsiteAnalyticStreamComponent = ({ domain }: { domain: string }) => {
       <div className='bg-gray-200 dark:bg-gray-800 h-[295px] md:h-[330px]' />
     )
   }
-
-  // todo: tooltip darkmode
 
   return (
     <ResponsiveStream
