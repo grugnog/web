@@ -21,7 +21,7 @@ const RenderInnerAnalyticsWrapper: FC<AnalyticsPagingProps> = ({
   const [issueIndex, setIndex] = useState<number>(0)
   const { data, loading, onLoadMore } = useAnalyticsData(pageUrl, false)
   const issueSource = useMemo(
-    () => (liveData ? liveData : data) || [],
+    () => (liveData?.length ? liveData : data) || [],
     [liveData, data]
   )
 

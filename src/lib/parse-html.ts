@@ -1,3 +1,4 @@
+import { dev } from '@app/configs'
 import { parse } from 'node-html-parser'
 
 const BLOG_URL =
@@ -61,8 +62,10 @@ export const parseHtml = async (body: string) => {
       // convert all to relative
       let urlBase = url.replace(BLOG_URL, '')
 
-      if (process.env.NODE_ENV === 'development' && !url.startsWith('/blog')) {
-        urlBase = `/blog${url}`
+      if (dev) {
+        if (url.startsWith('/blog') || url.startsWith('/authors') || url.startsWith('/categories')) {
+          urlBase = `/blog${url}`
+        }
       }
       link.setAttribute('href', urlBase)
     }

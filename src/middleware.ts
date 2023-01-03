@@ -1,17 +1,13 @@
 import { NextResponse, NextRequest, userAgent } from 'next/server'
-import { dev } from './configs'
 import { IFRAME_URL } from './configs/api-route'
 
 export async function middleware(req: NextRequest) {
   let res = NextResponse.next()
 
-  const blogRoute = dev && req.nextUrl.pathname.startsWith('/blog')
-
-  if (req.headers?.get('host')?.endsWith('.blog') || blogRoute) {
+  if (req.headers?.get('host')?.endsWith('.blog')) {
     const url = req.nextUrl.clone()
-    url.pathname = !blogRoute
-      ? `/blog${req.nextUrl.pathname}`
-      : req.nextUrl.pathname
+    // blog write page
+    url.pathname = `/blog${req.nextUrl.pathname}`
     res = NextResponse.rewrite(url)
   } else if (req.nextUrl.pathname === '/api/iframe' && !userAgent(req).isBot) {
     const { searchParams } = req.nextUrl

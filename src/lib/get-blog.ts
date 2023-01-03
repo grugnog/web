@@ -1,4 +1,5 @@
 import { DOMAIN_NAME } from '@app/configs'
+import { parseHtml } from './parse-html'
 import type { BlogPageProps } from '@app/types'
 
 const BLOG_WEBFLOW_URL =
@@ -49,7 +50,6 @@ export const getBlogPage = async (
       const response = await res?.text()
 
       if (response) {
-        const { parseHtml } = await import('./parse-html')
         const htmlRoot = await parseHtml(response)
 
         const titleElement = htmlRoot.querySelector('title')
