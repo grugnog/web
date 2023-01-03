@@ -7,17 +7,11 @@ const listHeight = 'h-[295px] md:h-[330px]'
 
 const AnalyticsCardComponent = ({
   domain,
-  activeSubscription,
   liveData,
 }: {
-  activeSubscription: boolean
   domain: string
   liveData?: Analytic[]
 }) => {
-  if (!activeSubscription) {
-    return null
-  }
-
   return (
     <div className={`${listHeight} border-t`}>
       <LazyMount className={listHeight} full>

@@ -6,17 +6,23 @@ import { AnalyticsList } from './analytics-list'
 import type { Analytic } from '@app/types'
 import { GrFormNextLink, GrFormPreviousLink } from 'react-icons/gr'
 
-// paging issues for website dashboard cell
-const RenderInnerAnalyticsWrapper: FC<any> = (props) => {
-  const [issueIndex, setIndex] = useState<number>(0)
+type AnalyticsPagingProps = {
+  pageUrl?: string
+  liveData?: Analytic[]
+  open?: boolean
+}
 
-  const {
-    data: issueSource,
-    loading,
-    onLoadMore,
-  } = useAnalyticsData(
-    props?.pageUrl || props?.data?.url,
-    props?.data?.subdomains || props?.data?.tld
+// paging issues for website dashboard cell
+const RenderInnerAnalyticsWrapper: FC<AnalyticsPagingProps> = ({
+  liveData,
+  pageUrl,
+  open: defaultOpen,
+}) => {
+  const [issueIndex, setIndex] = useState<number>(0)
+  const { data, loading, onLoadMore } = useAnalyticsData(pageUrl, false)
+  const issueSource = useMemo(
+    () => (liveData ? liveData : data) || [],
+    [liveData, data]
   )
 
   const issueList = useMemo(() => {
@@ -44,27 +50,34 @@ const RenderInnerAnalyticsWrapper: FC<any> = (props) => {
   }
 
   const onLoadEvent = async () => {
-    await onLoadMore()
+    // get the next set of data
+    if (issueSource.length < issueIndex + 1 * 10) {
+      await onLoadMore()
+    }
     setIndex((x: number) => x + 1)
   }
 
-  const blocked = issueSource?.length < (issueIndex + 1) * 10
+  const blocked = issueSource.length < (issueIndex + 1) * 10
 
   return (
     <>
       <div className='flex flex-col place-content-around'>
         <div className='h-[450px]'>
-          <InnerWrapper {...props} data={issueSource?.length} loading={loading}>
+          <InnerWrapper data={issueSource.length} loading={loading}>
             <ul className='list-none'>
-              {issueList?.map((page) => (
-                <AnalyticsList key={page?._id} open={props.open} {...page} />
+              {issueList.map((page) => (
+                <AnalyticsList
+                  key={page?._id || page.pageUrl}
+                  open={defaultOpen}
+                  {...page}
+                />
               ))}
             </ul>
           </InnerWrapper>
         </div>
         <div
           className={`${
-            issueSource?.length > 1 ? '' : 'hidden'
+            issueSource.length > 1 ? '' : 'hidden'
           } text-right flex place-items-center place-content-end p-2 gap-x-2`}
         >
           <Button

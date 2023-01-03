@@ -1,6 +1,7 @@
 import { memo } from 'react'
 import { LazyMount } from '@app/components/lazy/lazymount'
 import { RenderInnerAnalyticsPaging } from '../../lists/render/issues/analytics-paging'
+import { Analytic } from '@app/types'
 
 const PageBar = () => {
   return (
@@ -17,13 +18,19 @@ const PageBar = () => {
 }
 
 // issue card paging
-const IssueCardCommponent = ({ pageUrl }: { pageUrl: string }) => {
+const IssueCardCommponent = ({
+  pageUrl,
+  liveData,
+}: {
+  pageUrl: string
+  liveData?: Analytic[]
+}) => {
   return (
     <div>
       <PageBar />
       <div className='border-t border-dotted'>
         <LazyMount className={'h-[450px]'}>
-          <RenderInnerAnalyticsPaging pageUrl={pageUrl} small />
+          <RenderInnerAnalyticsPaging pageUrl={pageUrl} liveData={liveData} />
         </LazyMount>
       </div>
     </div>

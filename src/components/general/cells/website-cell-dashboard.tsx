@@ -1,4 +1,4 @@
-import React, { useMemo, useCallback, memo, useDeferredValue } from 'react'
+import React, { useMemo, useCallback, useDeferredValue } from 'react'
 import { MoreOptions } from '@app/components/general/cells/menu/more'
 import { Link } from '../link'
 import { WebsiteSecondary } from './render'
@@ -62,7 +62,7 @@ interface WebsiteCellProps {
 }
 
 // main dashboard cell with details and paginated views
-export function WebsiteCellDashboardComponent({
+export function WebsiteCellDashboard({
   url,
   removePress,
   handleClickOpen,
@@ -100,7 +100,7 @@ export function WebsiteCellDashboardComponent({
     feed?.get_data_item(domain, !!(tld || subdomains)) ?? []
   )
   const { setSelectedWebsite, selectedWebsite } = useInteractiveContext()
-  const issues = items?.length ? items : currentIssues
+  const issues = items.length ? items : currentIssues
   const { activeSubscription } = account
 
   // real time issue tracking todo: send subscription with issuesInfo [todo: build analytics feed usage]
@@ -335,7 +335,6 @@ export function WebsiteCellDashboardComponent({
         </div>
         {issuesInfo || liveData.length ? (
           <AnalyticsCard
-            activeSubscription={account.activeSubscription}
             domain={domain}
             liveData={liveData}
           />
@@ -344,10 +343,10 @@ export function WebsiteCellDashboardComponent({
           lighthouseVisible={pageInsights && insight && lighthouseVisible}
           insight={insight}
         />
-        {issuesInfo ? <IssueCard pageUrl={url} /> : null}
+        {issuesInfo || liveData.length ? (
+          <IssueCard pageUrl={url} liveData={liveData} />
+        ) : null}
       </div>
     </li>
   )
 }
-
-export const WebsiteCellDashboard = memo(WebsiteCellDashboardComponent)

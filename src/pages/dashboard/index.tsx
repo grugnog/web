@@ -2,7 +2,6 @@ import { useEffect, useRef, useState } from 'react'
 import dynamic from 'next/dynamic'
 import { LinearBottom } from '@app/components/general'
 import { metaSetter } from '@app/utils'
-import type { PageProps } from '@app/types'
 import { _ONBOARDED } from '@app/lib/cookies/names'
 import { useWebsiteContext } from '@app/components/providers/website'
 import { SortableWebsiteList } from '@app/components/general/website'
@@ -29,7 +28,7 @@ const CtaHtmlInputRest = dynamic(
   { ssr: false }
 )
 
-function Dashboard({ name }: PageProps) {
+function Dashboard() {
   const [sortModalVisible, setSortModalVisible] = useState<boolean>(false)
   const [queryModalVisible, setQueryModalVisible] = useState<boolean>(false)
   const [standard, setStandard] = useState<string>('WCAG2AA')
@@ -100,7 +99,7 @@ function Dashboard({ name }: PageProps) {
 
   return (
     <>
-      <DashboardDrawer title={name}>
+      <DashboardDrawer>
         {account.activeSubscription ? (
           <>
             <ViewConfigTitle title={'All sites'}>

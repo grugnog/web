@@ -145,7 +145,7 @@ const WebsiteAnalyticStreamComponent = ({
     <ResponsiveStream
       data={data}
       keys={['noticeCount', 'errorCount', 'warningCount']}
-      margin={{ top: 20, right: 0, bottom: 20, left: 0 }}
+      margin={{ top: 15, right: 0, bottom: 9, left: 3 }}
       axisBottom={null}
       axisLeft={axisLeft}
       axisRight={null}
@@ -160,6 +160,7 @@ const WebsiteAnalyticStreamComponent = ({
         data && <StackTip item={data[stack.slice.index]} />
       }
       tooltip={(stack) => data && <Tip item={stack} />}
+      motionConfig='gentle'
     />
   )
 }

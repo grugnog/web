@@ -1,4 +1,4 @@
-import { FC, Fragment, PropsWithChildren } from 'react'
+import { FC, Fragment, memo, PropsWithChildren } from 'react'
 import { WebsiteCellDashboard } from '@app/components/general/cells'
 import { Website } from '@app/types'
 import { listStyle } from '@app/styles/lists/tw'
@@ -23,7 +23,7 @@ interface WebsiteDashboardProps extends WebsiteListProps {
 }
 
 // Iterate over website dashboard cells
-export const WebSitesDashboard: FC<
+export const WebSitesDashboardComponent: FC<
   PropsWithChildren<WebsiteDashboardProps>
 > = ({
   data,
@@ -61,3 +61,5 @@ export const WebSitesDashboard: FC<
     </ul>
   )
 }
+
+export const WebSitesDashboard = memo(WebSitesDashboardComponent)

@@ -1,5 +1,5 @@
 User-agent: *
-Disallow:
+
 Disallow: /api
 Disallow: /web-view
 Disallow: /web-actions

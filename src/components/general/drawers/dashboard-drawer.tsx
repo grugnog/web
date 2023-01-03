@@ -1,4 +1,4 @@
-import { memo } from 'react'
+import { FC, memo, PropsWithChildren } from 'react'
 import dynamic from 'next/dynamic'
 import { useUserData } from '@app/data'
 import { ConfirmEmail } from '../../alerts'
@@ -18,7 +18,7 @@ const MiniPlayer = dynamic(
   }
 )
 
-export function DrawerW({ children }: any) {
+export const DrawerW: FC<PropsWithChildren<{}>> = ({ children }) => {
   const { data: dataSourceMap, sendConfirmEmail } = useUserData()
   const user = dataSourceMap?.user
 
@@ -28,7 +28,7 @@ export function DrawerW({ children }: any) {
       <div className={'flex overflow-x-inherit md:overflow-x-hidden'}>
         <main className={'flex-1 overflow-auto'} id='main-content'>
           <div
-            className={'px-3 md:px-4 pb-24 md:pb-2 overflow-auto max-h-screen'}
+            className={'px-3 md:px-4 pb-24 md:pb-16 overflow-auto max-h-screen'}
           >
             <RefBanner />
             {children}
