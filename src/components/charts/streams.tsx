@@ -1,7 +1,6 @@
 import { useEffect, useState, memo, Dispatch, SetStateAction } from 'react'
 import { Analytic } from '@app/types'
 import { fetcher } from '@app/utils/fetcher'
-// import { LegendProps } from '@nivo/legends'
 import { ResponsiveStream, TooltipProps } from '@nivo/stream'
 
 const theme = {
@@ -124,12 +123,12 @@ const getDataUntil = (
 
 const WebsiteAnalyticStreamComponent = ({
   domain,
-  liveData,
+  liveData = [],
 }: {
   domain: string
   liveData?: Analytic[]
 }) => {
-  const [analyticsData, setData] = useState<Analytic[]>([])
+  const [analyticsData, setData] = useState<Analytic[]>(liveData ?? [])
   const data = liveData?.length ? liveData : analyticsData
 
   useEffect(() => {
@@ -161,7 +160,6 @@ const WebsiteAnalyticStreamComponent = ({
         data && <StackTip item={data[stack.slice.index]} />
       }
       tooltip={(stack) => data && <Tip item={stack} />}
-      // legends={legends}
     />
   )
 }

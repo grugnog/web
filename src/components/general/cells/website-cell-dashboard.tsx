@@ -40,6 +40,7 @@ import { LighthouseCard } from './card/lighthouse-card'
 import { TLDBox } from './blocks/tld'
 import { SubDomainsBox } from './blocks/subdomains'
 import { RobotsBox } from './blocks/robots'
+import { useWebsiteLiveData } from '@app/data/formatters/use-live-data'
 
 const styles = {
   title: 'text-xl md:text-3xl font-bold truncate',
@@ -95,13 +96,16 @@ export function WebsiteCellDashboardComponent({
 }: Website & WebsiteCellProps) {
   const { account } = useAuthContext() // TODO: move to provider top level
   const { feed } = useWasmContext()
-  const items = useDeferredValue(
+  const items: Issue[] = useDeferredValue(
     feed?.get_data_item(domain, !!(tld || subdomains)) ?? []
   )
   const { setSelectedWebsite, selectedWebsite } = useInteractiveContext()
-
   const issues = items?.length ? items : currentIssues
   const { activeSubscription } = account
+
+  // real time issue tracking todo: send subscription with issuesInfo [todo: build analytics feed usage]
+  const { errorCount, warningCount, totalIssues, issuesFixedByCdn, liveData } =
+    useWebsiteLiveData({ issues, issuesInfo })
 
   const onRemovePress = useCallback(async () => {
     if (url === selectedWebsite) {
@@ -145,43 +149,6 @@ export function WebsiteCellDashboardComponent({
       }
     }
 
-  // real time issue tracking todo: send subscription with issuesInfo [todo: build analytics feed usage]
-  const { errorCount, warningCount, totalIssues, issuesFixedByCdn } =
-    useMemo(() => {
-      let errors = 0
-      let warnings = 0
-      let notices = 0
-
-      if (issues?.length) {
-        issues.forEach((iss: any) => {
-          const pageIssues = iss?.issues
-          pageIssues?.forEach((page: Issue) => {
-            if (page?.type === 'error') {
-              errors++
-            }
-            if (page?.type === 'warning') {
-              warnings++
-            }
-            if (page?.type === 'notice') {
-              notices++
-            }
-          })
-        })
-      } else if (issuesInfo) {
-        errors = issuesInfo.errorCount || 0
-        warnings = issuesInfo.warningCount || 0
-        notices = issuesInfo.noticeCount || 0
-      }
-
-      return {
-        issuesFixedByCdn: issuesInfo?.issuesFixedByCdn,
-        errorCount: errors,
-        warningCount: warnings,
-        noticeCount: notices,
-        totalIssues: errors + warnings + notices,
-      }
-    }, [issues, issuesInfo])
-
   const {
     statusBadgeUrl,
     reportsLink,
@@ -213,7 +180,10 @@ export function WebsiteCellDashboardComponent({
   const pagecount = issuesInfo?.pageCount || 0
   const issueTotal = issuesInfo?.totalIssues || 0
 
-  const pageIssueCount = issues?.length > pagecount ? issues.length : pagecount
+  const pageIssueCount =
+    issues && Array.isArray(issues) && issues.length > pagecount
+      ? issues.length
+      : pagecount
 
   const { adaScoreAverage: adaScore } = issuesInfo ?? {}
 
@@ -251,7 +221,7 @@ export function WebsiteCellDashboardComponent({
                   </Link>
                   {shutdown ? (
                     <GrStatusWarningSmall
-                      className={`grIcon text-xs `}
+                      className={`grIcon text-xs`}
                       title={'Crawl did not complete.'}
                     />
                   ) : null}
@@ -272,7 +242,6 @@ export function WebsiteCellDashboardComponent({
                   pageIssueCount={pageIssueCount}
                   cdnConnected={cdnConnected}
                   adaScore={adaScore}
-                  issues={issues}
                   pageLoadTime={pageLoadTime}
                   lastScanDate={lastScanDate}
                   pageHeaders={pageHeaders}
@@ -307,7 +276,6 @@ export function WebsiteCellDashboardComponent({
             </div>
             <MoreOptions
               url={url}
-              issues={issues}
               crawlWebsite={onWebsiteCrawl}
               handleMainClick={handleMainClick}
               removePress={onRemovePress}
@@ -365,10 +333,11 @@ export function WebsiteCellDashboardComponent({
             hideBadge
           />
         </div>
-        {issuesInfo ? (
+        {issuesInfo || liveData.length ? (
           <AnalyticsCard
             activeSubscription={account.activeSubscription}
             domain={domain}
+            liveData={liveData}
           />
         ) : null}
         <LighthouseCard
