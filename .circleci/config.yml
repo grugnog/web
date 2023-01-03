@@ -4,7 +4,7 @@ orbs:
 jobs:
   web:
     docker:
-      - image: cimg/node:19.0.0
+      - image: cimg/node:19.3.0
     environment:
       PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: 1
       PLAYWRIGHT_BROWSERS_PATH: 0

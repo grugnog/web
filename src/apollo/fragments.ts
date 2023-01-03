@@ -110,6 +110,7 @@ export const websiteFragments = gql`
     subdomains
     tld
     shutdown
+    ignore
   }
 `
 

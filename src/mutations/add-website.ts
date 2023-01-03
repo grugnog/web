@@ -14,6 +14,7 @@ export const ADD_WEBSITE = gql`
     $robots: Boolean
     $subdomains: Boolean
     $tld: Boolean
+    $ignore: [String]
   ) {
     addWebsite(
       url: $url
@@ -26,6 +27,7 @@ export const ADD_WEBSITE = gql`
       robots: $robots
       subdomains: $subdomains
       tld: $tld
+      ignore: $ignore
     ) {
       website {
         ...WebsiteParts
