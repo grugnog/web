@@ -114,14 +114,6 @@ export const apiRoutes = [
         encodedParams: `-d '{ "url": "https://a11ywatch.com" }'`,
       },
       {
-        pathName: 'crawl-stream',
-        method: 'POST',
-        params: crawlParams,
-        info: 'Multi page scan for issues using streams.',
-        title: 'Crawl Stream',
-        encodedParams: `-d '{ "url": "https://a11ywatch.com" }'`,
-      },
-      {
         pathName: 'websites-sync',
         method: 'POST',
         params: null,
