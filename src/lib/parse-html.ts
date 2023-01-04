@@ -63,7 +63,11 @@ export const parseHtml = async (body: string) => {
       let urlBase = url.replace(BLOG_URL, '')
 
       if (dev) {
-        if (url.startsWith('/blog') || url.startsWith('/authors') || url.startsWith('/categories')) {
+        if (
+          url.startsWith('/blog') ||
+          url.startsWith('/authors') ||
+          url.startsWith('/categories')
+        ) {
           urlBase = `/blog${url}`
         }
       }

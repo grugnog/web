@@ -334,10 +334,7 @@ export function WebsiteCellDashboard({
           />
         </div>
         {issuesInfo || liveData.length ? (
-          <AnalyticsCard
-            domain={domain}
-            liveData={liveData}
-          />
+          <AnalyticsCard domain={domain} liveData={liveData} />
         ) : null}
         <LighthouseCard
           lighthouseVisible={pageInsights && insight && lighthouseVisible}
