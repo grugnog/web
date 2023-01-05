@@ -81,9 +81,7 @@ export const DashboardWebsiteSingle: FC<DashboardWebsiteListProps> = ({
       {data?.pageInsights ? (
         <Head>
           <style>
-            {`.lh-root .lh-topbar__url, .report-icon--download ${
-              data?.length >= 2 ? ', .lh-tools' : ''
-            } { display: none !important; } `}
+            {`.lh-root .lh-topbar__url, .report-icon--download, .lh-topbar__logo, .report-icon--dark { display: none !important; } .lh-topbar { z-index: 1; }`}
           </style>
         </Head>
       ) : null}
