@@ -139,14 +139,12 @@ const SignOnFormWrapper: FunctionComponent<SignOnProps> = ({
                 target='_parent'
                 rel='noreferrer'
               >
-                <div className='inline-flex gap-x-2 border-2 rounded place-items-center place-content-center font-semibold w-[200px] text-sm min-h-[40px]'>
-                  <span className='block'>
-                    <GrGithub
-                      className='grIcon w-[18px] h-[18px]'
-                      height={40}
-                      width={40}
-                    />
-                  </span>
+                <div className='inline-flex gap-x-2 border-2 rounded place-items-center place-content-center font-semibold w-[211px] text-sm min-h-[40px]'>
+                  <GrGithub
+                    className='grIcon w-[18px] h-[18px]'
+                    height={40}
+                    width={40}
+                  />
                   {loginView ? 'Login' : 'Sign up'} with Github
                 </div>
               </a>

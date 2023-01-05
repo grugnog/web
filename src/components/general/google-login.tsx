@@ -34,10 +34,10 @@ export const GoogleLoginButton = (props: GoogleLoginButton) => {
           <Button
             round={round}
             onClick={renderProps.onClick}
-            className={`w-[200px] md:min-w-[200px] text-sm border-2 min-h-[40px] flex rounded-sm md:rounded-sm gap-x-2 place-items-center place-content-center font-semibold md:font-semibold`}
+            className={`w-[211px] text-sm border-2 min-h-[40px] flex rounded-sm md:rounded-sm gap-x-2 place-items-center place-content-center font-semibold md:font-semibold`}
             disabled={renderProps.disabled}
           >
-            <GoogleIcon src={''} />{' '}
+            <GoogleIcon src={''} />
             {loginView ? 'Login with Google' : 'Sign up with Google'}
           </Button>
         )}
@@ -49,9 +49,9 @@ export const GoogleLoginButton = (props: GoogleLoginButton) => {
     <Button
       disabled={true}
       round={round}
-      className={`w-[200px] md:min-w-[200px] border-2 min-h-[40px] flex rounded-sm md:rounded-sm gap-x-2 place-items-center place-content-center font-semibold md:font-semibold`}
+      className={`w-[211px] border-2 min-h-[40px] flex rounded-sm md:rounded-sm gap-x-2 place-items-center place-content-center font-semibold md:font-semibold`}
     >
-      <GoogleIcon src={''} />{' '}
+      <GoogleIcon src={''} />
       {loginView ? 'Login with Google' : 'Sign up with Google'}
     </Button>
   )
