@@ -14,7 +14,6 @@ import { useAuthContext } from '@app/components/providers/auth'
 
 function Reports({ name, website }: PageProps) {
   const { url, domain } = website ?? { domain: '', url: 'Not Found' }
-
   const { account } = useAuthContext()
   const { authed: authenticated } = account
 
@@ -60,7 +59,7 @@ const getWebsite = async (url: string, jwt?: string) => {
 
   try {
     res = await fetch(
-      `${baseUrl}/get-website?q=${url}`,
+      `${baseUrl}/report?q=${url}`,
       jwt ? { headers: { Authorization: jwt } } : undefined
     )
   } catch (e) {

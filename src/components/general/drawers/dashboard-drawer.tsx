@@ -28,7 +28,7 @@ export const DrawerW: FC<PropsWithChildren<{}>> = ({ children }) => {
       <div className={'flex overflow-x-inherit md:overflow-x-hidden'}>
         <main className={'flex-1 overflow-auto'} id='main-content'>
           <div
-            className={'px-3 md:px-4 pb-24 md:pb-16 overflow-auto max-h-screen'}
+            className={'px-3 md:px-4 pb-28 md:pb-16 overflow-auto max-h-screen'}
           >
             <RefBanner />
             {children}
