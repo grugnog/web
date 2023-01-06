@@ -61,7 +61,7 @@ export const HeadlessModal: FC<
                 leaveTo='opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95'
               >
                 <Dialog.Panel
-                  className={`relative transform rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full ${
+                  className={`relative transform rounded-lg bg-white dark:bg-black text-left shadow-xl transition-all sm:my-8 sm:w-full ${
                     size ? getSize(size) : 'sm:max-w-lg'
                   } max-h-[80vh]${
                     overflow ? ' overflow-auto' : ' overflow-hidden'

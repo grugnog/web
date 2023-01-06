@@ -15,6 +15,7 @@ import { LighthouseView } from '@app/components/settings/lighthouse-view'
 import { useInteractiveContext } from '@app/components/providers/interactive'
 import { ThemesView } from '@app/components/settings/themes-view'
 import { LazyMount } from '@app/components/lazy/lazymount'
+import { ApiView } from '@app/components/settings/api-view'
 
 function Settings({ name }: PageProps) {
   const {
@@ -129,6 +130,7 @@ function Settings({ name }: PageProps) {
         <LazyMount>
           <ThemesView />
         </LazyMount>
+        <ApiView user={user} />
         <LazyMount>
           <HistoryView />
         </LazyMount>

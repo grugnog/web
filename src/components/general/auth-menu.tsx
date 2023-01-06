@@ -81,11 +81,11 @@ export function AuthMenu({ authenticated, settings }: AuthMenuComponentProps) {
               )}
             </Menu.Item>
           ) : null}
-          {router?.pathname !== '/api-info' ? (
+          {router?.pathname !== '/web-pages' ? (
             <Menu.Item>
               {() => (
-                <Link href={'/api-info'} className={menuItemCss}>
-                  API
+                <Link href={'/web-pages'} className={menuItemCss}>
+                  Pages
                 </Link>
               )}
             </Menu.Item>

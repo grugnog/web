@@ -95,7 +95,7 @@ export function FeaturesCellComponent({
   activeSubscription,
 }: any) {
   const title = focused ? 'Dashboard' : feature
-  const blocked = !activeSubscription && index >= 1
+  const blocked = !activeSubscription && index >= 2
 
   const onUpgradeEvent = () => {
     AppManager.toggleSnack(

@@ -43,7 +43,7 @@ export const WebSitesDashboardComponent: FC<
   }
 
   return (
-    <ul className={listStyle}>
+    <ul className={`${listStyle} bg-[rgb(246,246,249)] dark:bg-black`}>
       {data?.map((props: Website, index: number) => (
         <WebsiteCellDashboard
           key={props._id}

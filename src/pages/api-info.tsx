@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Link, Button, MarketingDrawer } from '@app/components/general'
+import { Button, MarketingDrawer } from '@app/components/general'
 import { Box } from '@a11ywatch/ui'
 import { TextSkeleton } from '@app/components/placeholders'
 import { UserManager, AppManager } from '@app/managers'
@@ -11,7 +11,7 @@ import { apiRoutes } from '@app/templates/rest-api'
 import { ApiCell } from '@app/components/general/cells/api-info-cell'
 import { Header } from '@app/components/general/header'
 import { SectionContainer } from '@app/components/stateless/containers/section-container'
-import { getUsageLimitsMs } from '@a11ywatch/website-source-builder'
+import { APIInfoBlock } from '@app/components/general/blocks/api-info'
 
 // TODO: GENERATE DOCS FROM API
 function ApiInfo() {
@@ -32,8 +32,6 @@ function ApiInfo() {
   // token
   const token = UserManager.token
   const authed = !!user
-
-  const availableUsage = getUsageLimitsMs(user?.role ?? 0)
 
   return (
     <MarketingDrawer authenticated={authed} loading={loading}>
@@ -107,40 +105,7 @@ function ApiInfo() {
           </Box>
 
           <div className='py-2'>
-            <Box className={'border rounded px-4 py-2'}>
-              <p className={'text-lg font-medium'}>V1 API Reference</p>
-              {!data?.user && loading ? (
-                <TextSkeleton className={'p-2'} />
-              ) : !data?.user ? (
-                <p className={'pb-2 text-lg'}>
-                  <Link href={'/login'} className={'underline'}>
-                    Login
-                  </Link>{' '}
-                  to see your API limits and test requests using your account.
-                </p>
-              ) : (
-                <>
-                  <p className='text-base '>
-                    Allowed usage{' '}
-                    {`${(availableUsage
-                      ? Number(availableUsage) / 1000
-                      : 0
-                    ).toFixed(0)}s`}
-                  </p>
-                  <p className='text-sm '>
-                    Usage used{' '}
-                    {`${(user?.scanInfo?.totalUptime
-                      ? Number(user.scanInfo.totalUptime) / 1000
-                      : 0
-                    ).toFixed(0)}s`}
-                  </p>
-                  <p className={'text-xs '}>
-                    Your limit will reset on your next API request if {`it's`}{' '}
-                    the next day.
-                  </p>
-                </>
-              )}
-            </Box>
+            <APIInfoBlock user={user} />
           </div>
 
           <Box>

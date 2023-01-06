@@ -1,11 +1,5 @@
 import { useMemo } from 'react'
-import {
-  PageTitle,
-  Drawer,
-  PaymentPlans,
-  Spacer,
-  AuthMenu,
-} from '@app/components/general'
+import { PageTitle, Drawer, Spacer, AuthMenu } from '@app/components/general'
 import { List } from '@app/components/general/lists/websites-pages'
 import { useSearchFilter } from '@app/data'
 import { filterSort } from '@app/lib'
@@ -15,7 +9,6 @@ import { PageLoader } from '@app/components/placeholders'
 import { useWebsiteContext } from '@app/components/providers/website'
 import { LoadMoreButton } from '@app/components/general/buttons'
 import { useAuthContext } from '@app/components/providers/auth'
-import { Skeleton } from '@app/components/placeholders/skeleton'
 
 export function WebPagesPage() {
   const { pagesData, pagesDataLoading, refetch, error, onLoadMorePages } =
@@ -61,17 +54,11 @@ export function WebPages({ name }: PageProps) {
     <>
       <Drawer title={name}>
         <PageTitle
-          title={account.activeSubscription ? name : 'Upgrade Required'}
+          title={name}
           rightButton={<AuthMenu authenticated={account.authed} settings />}
         />
         <Spacer height={'8px'} />
-        {account.activeSubscription ? (
-          <WebPagesPage />
-        ) : account.inited ? (
-          <PaymentPlans pricingPage />
-        ) : (
-          <Skeleton className='h-full w-full' />
-        )}
+        <WebPagesPage />
       </Drawer>
     </>
   )
