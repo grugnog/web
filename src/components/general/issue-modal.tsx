@@ -21,7 +21,7 @@ export function IssueModal({ issue }: any) {
   return (
     <HeadlessModal open={open} hideBackdrop onClose={onModalCloseEvent}>
       <Draggable allowAnyClick={false} handle={'.appBar'}>
-        <div className='shadow'>
+        <div className='shadow rounded border'>
           <div className={`appBar text-white bg-black rounded-t`}>
             <div className='flex place-items-center py-2 px-2'>
               <Button
@@ -50,7 +50,7 @@ export function IssueModal({ issue }: any) {
                 pageIssues?.length === 1
                   ? 'max-h-auto'
                   : 'max-h-[50vh] overflow-y-scroll'
-              } list-none bg-white z-100`}
+              } list-none bg-white dark:bg-black z-100`}
             >
               {pageIssues?.map((item: any) => {
                 return (

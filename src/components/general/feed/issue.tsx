@@ -2,7 +2,7 @@ import { memo } from 'react'
 import { getErrorColor } from '@app/lib/base-colors'
 import { Issue } from '@app/types'
 import SyntaxHighlighter from 'react-syntax-highlighter'
-import { docco } from 'react-syntax-highlighter/dist/cjs/styles/hljs'
+import { docco } from '@app/styles/code'
 
 type CellIssue = Partial<Issue> & {
   hidden?: boolean //the entire section is hidden
@@ -45,7 +45,7 @@ export function FeedIssueCardComponent({
   const largeBody = m && m?.length < 80
 
   return (
-    <div className='px-3 py-3 flex gap-y-0.5 flex-col place-content-between h-[inherit]'>
+    <div className='px-3 py-3 flex gap-y-1 flex-col place-content-between h-[inherit]'>
       <div>
         <div className='flex space-x-2 items-center'>
           <div
@@ -96,7 +96,11 @@ export function FeedIssueCardComponent({
         ) : null}
       </div>
       {context ? (
-        <SyntaxHighlighter language='html' style={docco} className={'text-xs'}>
+        <SyntaxHighlighter
+          language='html'
+          style={docco}
+          className={'text-xs dark:bg-gray-600'}
+        >
           {context}
         </SyntaxHighlighter>
       ) : null}

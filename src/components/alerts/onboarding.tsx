@@ -24,7 +24,7 @@ export function Onboarding() {
   return (
     <div className={'px-4 py-4 space-y-4'}>
       <div className='gap-y-3'>
-        <GrNotification fontSize='large' className='grIcon'/>
+        <GrNotification fontSize='large' className='grIcon' />
         <Header3>{strings.onboarding.limitEmailsTitle}</Header3>
         <p className='text-sm'>{strings.onboarding.limitEmailsDetail}</p>
       </div>
