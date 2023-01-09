@@ -14,6 +14,7 @@ import { MarketingDashboard } from '@app/components/stateless/marketing/dashboar
 import { MarketingBottomTemporaryDrawer } from '@app/components/modal'
 import { companyName } from '@app/configs'
 import { MarketingBenefits } from '@app/components/stateless/marketing/benefits'
+import { MarketingProducts } from '@app/components/stateless/marketing/products'
 
 function Index() {
   return (
@@ -26,6 +27,7 @@ function Index() {
         <MarketingDashboard />
         <JavascriptUsage />
         <MarketingCli />
+        <MarketingProducts />
         <MarketingBenefits />
         <MarketingTrustBy />
       </MarketingDrawer>

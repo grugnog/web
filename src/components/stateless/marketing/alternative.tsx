@@ -7,7 +7,7 @@ import { Link } from '../typo/link'
 export function MarketingAlternatives() {
   return (
     <SectionContainer className={'bg-blue-50 dark:bg-gray-700 py-6'}>
-      <div className='container mx-auto'>
+      <div className='container mx-auto px-2'>
         <div className='flex flex-1 flex-col md:flex-row space-between place-items-center gap-3'>
           <div className='flex-1 flex flex-col'>
             <Header3 className='max-w-none'>

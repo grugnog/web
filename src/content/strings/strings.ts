@@ -49,7 +49,7 @@ export const generateStrings = ({
       },
       {
         id: 3,
-        title: 'Cloud',
+        title: 'Safeguard CDN',
         detail:
           'Add a CDN script that mitigates drastic issues for your users easily. If you accidently deploy an issue to act like a safeguard.',
         icon: 'accessibility',

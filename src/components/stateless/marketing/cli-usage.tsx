@@ -47,99 +47,103 @@ export function MarketingCli(): ReactElement<any, any> | null {
 
   return (
     <SectionContainer>
-      <div className='ring-1 shadow-xl ring-[#0E1116] ring-offset-8 ring-offset-gray-600 py-4 px-4 rounded'>
-        <div className='flex space-x-2 place-items-center'>
-          <Header3>{companyName} Web Accessibility CLI and API</Header3>
-          <button
-            title={
-              sampleVisible
-                ? 'Pause intro sample CLI video'
-                : 'Watch intro sample CLI usage'
-            }
-            className='px-3 rounded-3xl border h-10 w-10 hover:opacity-70'
-            onClick={toggleSample}
-          >
-            {sampleVisible ? (
-              <GrPause className='grIcon' height={20} width={20} />
-            ) : (
-              <GrPlay className='grIcon' height={20} width={20} />
-            )}
-          </button>
-        </div>
-        <p className='text-lg pb-4 leading-10'>
-          Run {companyName} on any machine using the Command Line Interface.
-          Install the CLI in shell using the command{' '}
-          <code className='text-gray-700  bg-gray-300 p-1'>
-            npm i a11ywatch-cli -g
-          </code>
-          .
-        </p>
-        <div className={`flex flex-wrap gap-x-5 space-y-4 place-items-center`}>
-          <div className='flex flex-1 sm:w-1/3 h-60 place-items-center'>
-            <div className={`${sampleVisible ? 'block' : 'hidden'}`}>
-              <Image
-                src={'/img/a11ywatch_cli.gif'}
-                height={494}
-                width={717}
-                alt={`${companyName} CLI running the command: 'a11ywatch crawl --url https://a11ywatch.com -d -n -s > results.json' with the output 27/27 urls passing the report almost instantly.`}
-                className={'h-auto w-auto rounded'}
-                quality={70}
-              />
-            </div>
-            <div
-              className={`${
-                sampleVisible ? 'hidden' : 'block'
-              } h-full flex place-items-center md:h-initial flex-1 w-full`}
+      <div className='py-1'>
+        <div className='ring-1 shadow-xl ring-[#0E1116] ring-offset-8 ring-offset-gray-600 py-4 px-4 rounded'>
+          <div className='flex space-x-2 place-items-center'>
+            <Header3>{companyName} Web Accessibility CLI and API</Header3>
+            <button
+              title={
+                sampleVisible
+                  ? 'Pause intro sample CLI video'
+                  : 'Watch intro sample CLI usage'
+              }
+              className='px-3 rounded-3xl border h-10 w-10 hover:opacity-70'
+              onClick={toggleSample}
             >
-              <div className={`bg-[#0E1116] rounded shadow-xl w-full`}>
-                <div className='py-2 px-2 text-base lg:text-xl md:text-lg md:py-3 md:px-3'>
-                  <div className='text-gray-100'>
-                    <span className='text-gray-300 select-none'>~ </span> npm i
-                    a11ywatch-cli -g
-                  </div>
-                  <div className='text-gray-200'>
-                    <span className='text-gray-300 select-none'>~ </span>{' '}
-                    {`a11ywatch build && a11ywatch start`}
-                  </div>
-                  <div className='text-gray-300'>
-                    <span className='text-gray-400 select-none'>~ </span>{' '}
-                    a11ywatch crawl -d -u a11ywatch.com
-                    <span
-                      style={previewStyles}
-                      className={'w-[4px] md:w-[8px]'}
-                    ></span>
+              {sampleVisible ? (
+                <GrPause className='grIcon' height={20} width={20} />
+              ) : (
+                <GrPlay className='grIcon' height={20} width={20} />
+              )}
+            </button>
+          </div>
+          <p className='text-lg pb-4 leading-10'>
+            Run {companyName} on any machine using the Command Line Interface.
+            Install the CLI in shell using the command{' '}
+            <code className='text-gray-700  bg-gray-300 p-1'>
+              npm i a11ywatch-cli -g
+            </code>
+            .
+          </p>
+          <div
+            className={`flex flex-wrap gap-x-5 space-y-4 place-items-center`}
+          >
+            <div className='flex flex-1 sm:w-1/3 h-60 place-items-center'>
+              <div className={`${sampleVisible ? 'block' : 'hidden'}`}>
+                <Image
+                  src={'/img/a11ywatch_cli.gif'}
+                  height={494}
+                  width={717}
+                  alt={`${companyName} CLI running the command: 'a11ywatch crawl --url https://a11ywatch.com -d -n -s > results.json' with the output 27/27 urls passing the report almost instantly.`}
+                  className={'h-auto w-auto rounded'}
+                  quality={70}
+                />
+              </div>
+              <div
+                className={`${
+                  sampleVisible ? 'hidden' : 'block'
+                } h-full flex place-items-center md:h-initial flex-1 w-full`}
+              >
+                <div className={`bg-[#0E1116] rounded shadow-xl w-full`}>
+                  <div className='py-2 px-2 text-base lg:text-xl md:text-lg md:py-3 md:px-3'>
+                    <div className='text-gray-100'>
+                      <span className='text-gray-300 select-none'>~ </span> npm
+                      i a11ywatch-cli -g
+                    </div>
+                    <div className='text-gray-200'>
+                      <span className='text-gray-300 select-none'>~ </span>{' '}
+                      {`a11ywatch build && a11ywatch start`}
+                    </div>
+                    <div className='text-gray-300'>
+                      <span className='text-gray-400 select-none'>~ </span>{' '}
+                      a11ywatch crawl -d -u a11ywatch.com
+                      <span
+                        style={previewStyles}
+                        className={'w-[4px] md:w-[8px]'}
+                      ></span>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
-          <div className='md:w-1/2 sm:w-1/3'>
-            <ul className={'text-left space-y-3'}>
-              {infoDetails.map(
-                (detail: { title: string; subTitle: string }, i: number) => {
-                  return (
-                    <li key={i}>
-                      <Header4>{detail.title}</Header4>
-                      <div className={'text-base '}>{detail.subTitle}</div>
-                    </li>
-                  )
-                }
-              )}
-            </ul>
+            <div className='md:w-1/2 sm:w-1/3'>
+              <ul className={'text-left space-y-3'}>
+                {infoDetails.map(
+                  (detail: { title: string; subTitle: string }, i: number) => {
+                    return (
+                      <li key={i}>
+                        <Header4>{detail.title}</Header4>
+                        <div className={'text-base '}>{detail.subTitle}</div>
+                      </li>
+                    )
+                  }
+                )}
+              </ul>
+            </div>
           </div>
         </div>
-      </div>
 
-      <div className='flex py-6 place-content-center text-center'>
-        <Link
-          href={'https://docs.a11ywatch.com/documentation/cli/'}
-          target='_blank'
-          rel='referrer'
-        >
-          <div className='border px-4 py-2 rounded bg-[#0E1116] text-white hover:bg-gray-800 underline-none text-lg'>
-            View CLI Details
-          </div>
-        </Link>
+        <div className='flex py-6 place-content-center text-center'>
+          <Link
+            href={'https://docs.a11ywatch.com/documentation/cli/'}
+            target='_blank'
+            rel='referrer'
+          >
+            <div className='border px-4 py-2 rounded bg-[#0E1116] text-white hover:bg-gray-800 underline-none text-lg'>
+              View CLI Details
+            </div>
+          </Link>
+        </div>
       </div>
     </SectionContainer>
   )
