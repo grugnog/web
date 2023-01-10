@@ -10,7 +10,6 @@ import {
   LoadTimeBox,
   HeadersBox,
   LighthouseBox,
-  OnlineBox,
   StatusBadgeBox,
   CustomCDNBox,
   StandardBox,
@@ -41,6 +40,7 @@ import { TLDBox } from './blocks/tld'
 import { SubDomainsBox } from './blocks/subdomains'
 import { RobotsBox } from './blocks/robots'
 import { useWebsiteLiveData } from '@app/data/formatters/use-live-data'
+import { RunnersBox } from './blocks/runner'
 
 const styles = {
   title: 'text-xl md:text-3xl font-bold truncate',
@@ -93,6 +93,7 @@ export function WebsiteCellDashboard({
   tld,
   shutdown,
   verified,
+  runners,
 }: Website & WebsiteCellProps) {
   const { account } = useAuthContext() // TODO: move to provider top level
   const { feed } = useWasmContext()
@@ -250,6 +251,7 @@ export function WebsiteCellDashboard({
                   tld={tld}
                   shutdown={shutdown}
                   dashboard
+                  online={online}
                 />
               </div>
               <div className='flex place-items-center px-2 space-x-3'>
@@ -301,13 +303,12 @@ export function WebsiteCellDashboard({
           <HeadersBox pageHeaders={pageHeaders} />
           <LighthouseBox pageInsights={pageInsights} />
           <ActionsBox actions={actionsEnabled && actions?.length} />
-          <OnlineBox online={online} />
+          <RunnersBox url={url} runners={runners} />
+          {/* <OnlineBox online={online} /> */}
           <UserAgentBox ua={ua} url={url} />
           <StandardBox standard={standard} url={url} />
-
           <RobotsBox robots={robots} url={url} />
           <MobileBox mobile={mobile} url={url} />
-
           <TLDBox
             tld={tld}
             url={url}
@@ -318,7 +319,6 @@ export function WebsiteCellDashboard({
             url={url}
             activeSubscription={account.activeSubscription}
           />
-
           <CustomCDNBox
             cdnConnected={cdnConnected}
             script={script}

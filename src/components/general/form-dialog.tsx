@@ -15,6 +15,7 @@ import { HeadlessModal } from '../modal/headless'
 import { TextField } from './text-field'
 import { useAuthContext } from '../providers/auth'
 import { Checkbox } from './check-box'
+import { RunnerSelect } from './runner-select'
 
 const domainList = [...dmList, 'none']
 
@@ -54,6 +55,7 @@ export function FormDialogWrapper({
   buttonStyles = '',
   icon,
 }: FormDialogProps) {
+  // custom state
   const [open, setOpen] = useState<boolean>(false)
   const [websitUrl, setUrl] = useState<string>('')
   const [https, setTransportType] = useState<boolean>(true)
@@ -61,17 +63,18 @@ export function FormDialogWrapper({
   const [mobileViewport, setMobile] = useState<boolean>(false)
   const [subdomains, setSubdomains] = useState<boolean>(false)
   const [tld, setTld] = useState<boolean>(false)
-
   const [ua, setUserAgent] = useState<string>('')
   const [standard, setWCAGStandard] = useState<AccessibilityStandardKeys>(
     Standard[Standard.WCAG2AA] as AccessibilityStandardKeys
   )
   const [robots, setRobots] = useState<boolean>(true)
+  const [runners, setRunners] = useState<string[]>([])
 
   const { account } = useAuthContext()
-  const { activeSubscription } = account
   const headers = useInputHeader()
   const actions = useInputActions()
+
+  const { activeSubscription } = account
 
   const { addWebsite } = useWebsiteContext()
 
@@ -92,7 +95,12 @@ export function FormDialogWrapper({
     },
     [setWCAGStandard]
   )
-
+  const onRunnerEvent = useCallback(
+    (event: string[]) => {
+      setRunners(event)
+    },
+    [setRunners]
+  )
   const handleClose = useCallback(() => {
     setOpen(false)
     setUrl('')
@@ -181,6 +189,7 @@ export function FormDialogWrapper({
         robots,
         subdomains,
         tld,
+        runners,
       }
 
       // CLOSE pre-optimistic prevent dialog unmount state error
@@ -224,6 +233,7 @@ export function FormDialogWrapper({
       robots,
       subdomains,
       tld,
+      runners,
     ]
   )
 
@@ -279,7 +289,7 @@ export function FormDialogWrapper({
         open={open}
         onClose={handleClose}
         aria-labelledby='form-dialog-title'
-        size={'3xl'}
+        size={'4xl'}
       >
         <div className='bg-white dark:bg-black'>
           <div className={'px-6 py-3 flex place-items-center'}>
@@ -291,9 +301,7 @@ export function FormDialogWrapper({
             </Button>
           </div>
           <form onSubmit={submit} noValidate>
-            <div
-              className={`px-7 py-1 overflow-hidden relative flex flex-col gap-y-2`}
-            >
+            <div className={`px-7 py-1 relative flex flex-col gap-y-2`}>
               <p className='text-base '>
                 To add a website to your watchlist, enter the url below.
               </p>
@@ -313,7 +321,7 @@ export function FormDialogWrapper({
                 />
               </div>
               <div
-                className={`flex flex-1 place-items-center space-x-3 overflow-x-auto pt-2 pb-1`}
+                className={`flex flex-1 place-items-center space-x-5 pt-2 pb-1`}
               >
                 <div className={checkBoxContainerStyles}>
                   <Checkbox
@@ -339,7 +347,6 @@ export function FormDialogWrapper({
                     Lighthouse
                   </FormControl>
                 </div>
-
                 <div className={checkBoxContainerStyles}>
                   <Checkbox
                     checked={mobileViewport}
@@ -352,7 +359,6 @@ export function FormDialogWrapper({
                     Mobile
                   </FormControl>
                 </div>
-
                 <div className={checkBoxContainerStyles}>
                   <Checkbox
                     color='primary'
@@ -364,7 +370,6 @@ export function FormDialogWrapper({
                     Robots
                   </FormControl>
                 </div>
-
                 <div className={checkBoxContainerStyles}>
                   <Checkbox
                     checked={subdomains}
@@ -380,7 +385,6 @@ export function FormDialogWrapper({
                     Subdomains
                   </FormControl>
                 </div>
-
                 <div className={checkBoxContainerStyles}>
                   <Checkbox
                     checked={tld}
@@ -396,9 +400,10 @@ export function FormDialogWrapper({
                     TLDs
                   </FormControl>
                 </div>
+                <RunnerSelect cb={onRunnerEvent} />
               </div>
               <div
-                className={`flex flex-1 place-items-center space-x-3 overflow-x-auto pb-2`}
+                className={`flex flex-1 place-items-center space-x-5 overflow-x-auto pb-2`}
               >
                 <div className={checkBoxContainerStyles}>
                   <Checkbox

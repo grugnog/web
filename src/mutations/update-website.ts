@@ -11,6 +11,9 @@ export const UPDATE_WEBSITE = gql`
     $actions: [PageActionsInput]
     $tld: Boolean
     $subdomains: Boolean
+    $ignore: [String]
+    $rules: [String]
+    $runners: [String]
   ) {
     updateWebsite(
       url: $url
@@ -22,6 +25,9 @@ export const UPDATE_WEBSITE = gql`
       actions: $actions
       tld: $tld
       subdomains: $subdomains
+      ignore: $ignore
+      rules: $rules
+      runners: $runners
     ) {
       code
       success
@@ -52,6 +58,9 @@ export const UPDATE_WEBSITE = gql`
           path
           events
         }
+        runners
+        rules
+        ignore
         pages {
           domain
           url

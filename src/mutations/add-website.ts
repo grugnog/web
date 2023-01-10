@@ -15,6 +15,8 @@ export const ADD_WEBSITE = gql`
     $subdomains: Boolean
     $tld: Boolean
     $ignore: [String]
+    $rules: [String]
+    $runners: [String]
   ) {
     addWebsite(
       url: $url
@@ -28,6 +30,8 @@ export const ADD_WEBSITE = gql`
       subdomains: $subdomains
       tld: $tld
       ignore: $ignore
+      rules: $rules
+      runners: $runners
     ) {
       website {
         ...WebsiteParts

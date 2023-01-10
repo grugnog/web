@@ -111,6 +111,8 @@ export const websiteFragments = gql`
     tld
     shutdown
     ignore
+    rules
+    runners
   }
 `
 

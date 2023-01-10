@@ -480,6 +480,9 @@ export type Website = {
   actionsEnabled?: boolean
   actions?: any[]
   standard?: 'WCAG2A' | 'WCAG2AA' | 'WCAG2AAA' | 'Section508'
+  runners?: string[] // axe or htmlcs
+  rules?: string[]
+  ignore?: string[]
 }
 
 export type WebsiteIssuesArgs = {

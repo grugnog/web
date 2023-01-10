@@ -17,10 +17,12 @@ export function WebsiteSecondaryComponent({
   issuesInfo,
   pageHeaders,
   shutdown,
+  online,
 }: Website & {
   pageIssueCount?: number
   adaScore?: number | string
   dashboard?: boolean
+  online?: boolean
 }) {
   const [lastScan, setScanDate] = useState<string>('')
   const {
@@ -61,6 +63,13 @@ export function WebsiteSecondaryComponent({
           avatar={<GrCircleAlert className={'grIcon'} />}
           label={totalIssues}
           title={`Total page issues between warnings and errors: ${totalIssues}`}
+        />
+      ) : null}
+      {typeof online !== 'undefined' && !online ? (
+        <Chip
+          avatar={<GrPowerShutdown className={'grIcon'} />}
+          label={'Offline'}
+          title={`The page is offline`}
         />
       ) : null}
       {possibleIssuesFixedByCdn && totalIssues ? (

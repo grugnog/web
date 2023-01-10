@@ -56,7 +56,9 @@ export function MarketingProducts(): ReactElement<any, any> | null {
           {infoDetails.map(({ title, href, subTitle, Icon }, i: number) => {
             return (
               <li key={i}>
-                <Header4 className='text-center'>{title}</Header4>
+                <Header4 className='font-medium text-left md:text-center'>
+                  {title}
+                </Header4>
                 <div className={'text-base'}>{subTitle}</div>
                 <Link href={href}>
                   <span className='flex flex-1 h-20 rounded-sm place-items-center place-content-center px-2 py-2 text-medium text-white dark:text-black bg-black dark:bg-white md:text-xl lg:text-2xl hover:opacity-90'>

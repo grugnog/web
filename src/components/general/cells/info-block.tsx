@@ -1,8 +1,7 @@
 import React, { FC, PropsWithChildren } from 'react'
 
 const styles = {
-  infoContainer:
-    'px-4 py-2.5 flex flex-col flex-1 text-base justify-start overflow-hidden',
+  infoContainer: 'px-4 py-2.5 flex flex-col flex-1 text-base justify-start',
   infoBorder: '',
   p: 'text-base',
   spacing: 'pt-2',
