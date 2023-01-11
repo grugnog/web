@@ -1,7 +1,7 @@
 import { PropsWithChildren } from 'react'
 import { Link } from '../typo/link'
 import { SectionContainer } from '../containers/section-container'
-import { IntroBenches } from './intro-benches'
+import { IntroGraph } from './intro-graph'
 import { IntroSvg } from '../../svgs/intro'
 import { Header } from '@app/components/general/header'
 
@@ -58,7 +58,7 @@ function MarketingIntro({
         {children}
       </div>
       <div className={'flex-1 place-content-center'}>
-        {checker ? <IntroSvg /> : <IntroBenches />}
+        {checker ? <IntroSvg /> : <IntroGraph />}
       </div>
     </SectionContainer>
   )

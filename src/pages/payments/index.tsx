@@ -136,9 +136,9 @@ function Payments({ hideTitle = false, name }: PaymentProps) {
                   <div className='space-y-8 py-1'>
                     <div className='sm:w-full place-content-center place-items-center align-center min-w-[350px]'>
                       <div className='space-y-3'>
-                        {!data.activeSubscription || newCard ? (
+                        {!data?.activeSubscription || newCard ? (
                           <>
-                            {newCard && data.activeSubscription ? (
+                            {newCard && data?.activeSubscription ? (
                               <Button
                                 onClick={onToggleCard}
                                 className={'border-none font-semibold'}
