@@ -17,7 +17,10 @@ function ConfirmEmail({ sendEmail, visible }: Props) {
   return !!visible ? (
     <div className={classes.sticky}>
       <div
-        className={[classes.container, 'items-center flex rounded bg-gray-100']
+        className={[
+          classes.container,
+          'items-center flex rounded bg-gray-100 dark:bg-black',
+        ]
           .join(' ')
           .trim()}
       >

@@ -27,7 +27,7 @@ export const StatusBadgeBoxWrapper = ({
 
   return (
     <InfoBlock title={'Badge'} icon={<GrShield className='grIcon' />}>
-      <div className='flex space-x-1 place-items-center'>
+      <div className='flex space-x-1 place-items-center overflow-hidden'>
         <label className='text-sm font-medium' htmlFor={labelId}>
           Markdown
         </label>

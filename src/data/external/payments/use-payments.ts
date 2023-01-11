@@ -13,7 +13,7 @@ export const usePaymentsHook = (skip?: boolean) => {
   // on valid payment handling re-set current token
   const onToken = async (
     token: any,
-    { plan = "L1", yearly, referral }: TokenParams,
+    { plan = 'L1', yearly, referral }: TokenParams,
     noRedirect?: boolean
   ) => {
     !noRedirect &&

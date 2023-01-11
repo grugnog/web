@@ -1,3 +1,4 @@
+import { classNames } from '@app/utils/classes'
 import React, { FC, PropsWithChildren } from 'react'
 
 const styles = {
@@ -12,6 +13,7 @@ type BaseProps = PropsWithChildren<{
   title: string
   titleButton?: React.ReactElement
   icon?: any
+  className?: string
 }>
 
 export const InfoBlock: FC<BaseProps> = ({
@@ -19,12 +21,14 @@ export const InfoBlock: FC<BaseProps> = ({
   title,
   titleButton,
   icon = null,
+  className,
 }) => {
   return (
     <div
-      className={`${styles.infoContainer}${
-        icon ? ` ${styles.infoBorder}` : ''
-      }`}
+      className={classNames(
+        `${styles.infoContainer}${icon ? ` ${styles.infoBorder}` : ''}`,
+        className
+      )}
     >
       <div className={styles.row}>
         {icon}

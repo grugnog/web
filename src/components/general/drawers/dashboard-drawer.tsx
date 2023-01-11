@@ -2,7 +2,6 @@ import { FC, memo, PropsWithChildren } from 'react'
 import dynamic from 'next/dynamic'
 import { useUserData } from '@app/data'
 import { ConfirmEmail } from '../../alerts'
-import { IssueFeed } from '../../feed'
 import { RefBanner } from '../ref-banner'
 import { DrawerHead } from './drawer-head'
 
@@ -38,7 +37,6 @@ export const DrawerW: FC<PropsWithChildren<{}>> = ({ children }) => {
             visible={!!user?.loggedIn && !user?.emailConfirmed}
           />
         </main>
-        <IssueFeed />
       </div>
       <DynamicModal />
       <MiniPlayer />

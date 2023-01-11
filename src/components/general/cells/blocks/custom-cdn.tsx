@@ -58,6 +58,7 @@ export const CustomCDNBoxWrapper = ({
   return (
     <InfoBlock
       title={'CDN'}
+      className={'overflow-hidden'}
       icon={
         <GrCloudSoftware
           className={classNames('grIcon', cdnConnected ? 'text-green-600' : '')}
