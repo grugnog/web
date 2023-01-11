@@ -17,6 +17,7 @@ export const ADD_WEBSITE = gql`
     $ignore: [String]
     $rules: [String]
     $runners: [String]
+    $proxy: String
   ) {
     addWebsite(
       url: $url
@@ -32,6 +33,7 @@ export const ADD_WEBSITE = gql`
       ignore: $ignore
       rules: $rules
       runners: $runners
+      proxy: $proxy
     ) {
       website {
         ...WebsiteParts

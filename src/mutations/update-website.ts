@@ -14,6 +14,7 @@ export const UPDATE_WEBSITE = gql`
     $ignore: [String]
     $rules: [String]
     $runners: [String]
+    $proxy: String
   ) {
     updateWebsite(
       url: $url
@@ -28,6 +29,7 @@ export const UPDATE_WEBSITE = gql`
       ignore: $ignore
       rules: $rules
       runners: $runners
+      proxy: $proxy
     ) {
       code
       success
@@ -40,6 +42,7 @@ export const UPDATE_WEBSITE = gql`
         mobile
         tld
         subdomains
+        proxy
         script {
           _id
           script

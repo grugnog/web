@@ -28,11 +28,11 @@ export const InfoBlock: FC<BaseProps> = ({
     >
       <div className={styles.row}>
         {icon}
-        <p className={[styles.p, ''].join(' ').trim()}>{title}</p>
+        <p className={styles.p}>{title}</p>
         {titleButton}
       </div>
       <div className={styles.spacing} />
-      <div className=' text-sm'>{children}</div>
+      <div className='text-sm'>{children}</div>
     </div>
   )
 }

@@ -15,6 +15,7 @@ import {
   StandardBox,
   IssuesBox,
   WarningsBox,
+  // OnlineBox,
 } from './blocks'
 import { MobileBox } from './blocks/mobile'
 import { Issue, Website } from '@app/types'
@@ -41,6 +42,7 @@ import { SubDomainsBox } from './blocks/subdomains'
 import { RobotsBox } from './blocks/robots'
 import { useWebsiteLiveData } from '@app/data/formatters/use-live-data'
 import { RunnersBox } from './blocks/runner'
+import { ProxyBox } from './blocks/proxy'
 
 const styles = {
   title: 'text-xl md:text-3xl font-bold truncate',
@@ -94,6 +96,7 @@ export function WebsiteCellDashboard({
   shutdown,
   verified,
   runners,
+  proxy,
 }: Website & WebsiteCellProps) {
   const { account } = useAuthContext() // TODO: move to provider top level
   const { feed } = useWasmContext()
@@ -305,6 +308,13 @@ export function WebsiteCellDashboard({
           <ActionsBox actions={actionsEnabled && actions?.length} />
           <RunnersBox url={url} runners={runners} />
           {/* <OnlineBox online={online} /> */}
+          {account.activeSubscription ? (
+            <ProxyBox
+              proxy={proxy}
+              url={url}
+              activeSubscription={account.activeSubscription}
+            />
+          ) : null}
           <UserAgentBox ua={ua} url={url} />
           <StandardBox standard={standard} url={url} />
           <RobotsBox robots={robots} url={url} />

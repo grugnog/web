@@ -483,6 +483,7 @@ export type Website = {
   runners?: string[] // axe or htmlcs
   rules?: string[]
   ignore?: string[]
+  proxy?: string // proxy for request
 }
 
 export type WebsiteIssuesArgs = {

@@ -113,6 +113,7 @@ export const websiteFragments = gql`
     ignore
     rules
     runners
+    proxy
   }
 `
 

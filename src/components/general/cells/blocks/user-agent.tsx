@@ -13,16 +13,14 @@ export const UserAgentBoxWrapper = ({
   const [ua, setUa] = useState<string>(agent || '')
   const { updateWebsite } = useWebsiteContext()
 
-  const onChangeUA = (e: React.ChangeEvent<any>) => {
-    setUa(e?.target?.value)
-  }
+  const onChangeUA = (e: React.ChangeEvent<any>) => setUa(e?.target?.value)
 
   useEffect(() => {
     if (ua === agent) {
       return
     }
     const debounce = setTimeout(async () => {
-      if (url !== ua) {
+      if (agent !== ua) {
         try {
           await updateWebsite({
             variables: { url, ua },

@@ -64,6 +64,7 @@ export function FormDialogWrapper({
   const [subdomains, setSubdomains] = useState<boolean>(false)
   const [tld, setTld] = useState<boolean>(false)
   const [ua, setUserAgent] = useState<string>('')
+  const [proxy, setProxy] = useState<string>('')
   const [standard, setWCAGStandard] = useState<AccessibilityStandardKeys>(
     Standard[Standard.WCAG2AA] as AccessibilityStandardKeys
   )
@@ -190,6 +191,7 @@ export function FormDialogWrapper({
         subdomains,
         tld,
         runners,
+        proxy,
       }
 
       // CLOSE pre-optimistic prevent dialog unmount state error
@@ -234,11 +236,16 @@ export function FormDialogWrapper({
       subdomains,
       tld,
       runners,
+      proxy,
     ]
   )
 
   const onChangeUA = (event: React.ChangeEvent<HTMLInputElement>) => {
     setUserAgent(event.target.value)
+  }
+
+  const onChangeProxy = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setProxy(event.target.value)
   }
 
   // toggle actions form
@@ -441,6 +448,19 @@ export function FormDialogWrapper({
                   id='ua'
                   placeholder='User-Agent'
                   type='text'
+                />
+                <FormControl htmlFor='proxy'>Enter Proxy</FormControl>
+                <TextField
+                  onChange={onChangeProxy}
+                  className={`px-2 py-0.5 border-none ${
+                    !activeSubscription ? 'opacity-80' : ''
+                  }`}
+                  style={{ maxWidth: 120 }}
+                  value={proxy}
+                  id='proxy'
+                  placeholder='Proxy'
+                  type='text'
+                  disabled={!activeSubscription}
                 />
               </div>
               {customHeader ? <InputHeaders {...headers} /> : null}
