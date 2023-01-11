@@ -28,7 +28,7 @@ export const IntroGraph: FC = () => {
                 <div className='text-base font-semibold'>60%</div>
               </div>
               <div className='px-2 bg-black dark:bg-white h-[60%] w-20 rounded-t border-4 border-b-0 border-gray-700'>
-                <div className='sr-only'>60% accuracy across issues</div>
+                <div className='sr-only'>60% coverage across issues</div>
               </div>
             </div>
           </li>
@@ -45,8 +45,8 @@ export const IntroGraph: FC = () => {
         </ul>
         <div className='grid grid-cols-3 py-2 text-center'>
           <div className='text-sm font-medium'>Audits per second</div>
-          <div className='text-sm font-medium'>Accuracy</div>
-          <div className='text-sm font-medium'>Percent Open Source</div>
+          <div className='text-sm font-medium'>Accessibility coverage</div>
+          <div className='text-sm font-medium'>Percent open source</div>
         </div>
       </div>
     </div>

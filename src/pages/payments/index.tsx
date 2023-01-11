@@ -84,7 +84,7 @@ function Payments({ hideTitle = false, name }: PaymentProps) {
 
   // on valid payment handling re-set current token
   const onTokenEvent = async (token: any) => {
-    await onToken(token, { plan: selectedPlan, yearly, referral })
+    await onToken(token, { plan: paymentPlan, yearly, referral })
   }
 
   const handleChange = async (newState: string) => {
