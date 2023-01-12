@@ -1,6 +1,6 @@
 import React, { FC } from 'react'
 import { render, screen, act } from '@testing-library/react'
-import MyApp from '../src/pages/_app'
+import Layout from '../src/components/layout'
 
 interface Target {
   component?: FC
@@ -13,10 +13,9 @@ export const describePage = jest.fn(
   ({ component, folder }: Target, callBack?: () => void) => {
     describe(folder.toUpperCase(), () => {
       const Component = component || require(`@app/pages/${folder}`).default
-
       it('renders without crashing', () => {
         act(() => {
-          render(<MyApp Component={Component} />)
+          render(<Layout Component={Component} />)
         })
 
         expect(screen.getByRole('heading', { level: 1 })).toBeInTheDocument()

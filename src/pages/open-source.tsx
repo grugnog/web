@@ -8,7 +8,7 @@ import { GrStar } from 'react-icons/gr'
 import { SectionContainer } from '@app/components/stateless/containers/section-container'
 import { Header, Header3 } from '@app/components/general/header'
 
-function OSSCell({ item }: { item: typeof OSSRoutes[number] }) {
+function OSSCell({ item }: { item: (typeof OSSRoutes)[number] }) {
   return (
     <a
       href={item.href}

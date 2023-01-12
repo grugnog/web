@@ -30,7 +30,7 @@ if (typeof window === 'undefined') {
 const authRoutes = LOGGIN_ROUTES.map((route) => route.replace('/', ''))
 
 // load the application with providers depending on component
-const LayoutWrapper = ({ Component, pageProps }: InnerApp) => {
+export const LayoutWrapper = ({ Component, pageProps }: InnerApp) => {
   useEffect(() => {
     initPWAWorker()
   }, [])

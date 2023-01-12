@@ -19,7 +19,10 @@ function setPwaInstalled(event?: Event) {
 
 function initPWAWorker() {
   if (!dev && typeof window !== 'undefined') {
-    if (window.matchMedia('(display-mode: standalone)').matches) {
+    if (
+      typeof window.matchMedia === 'function' &&
+      window.matchMedia('(display-mode: standalone)').matches
+    ) {
       setPwaInstalled()
     } else if (!appModel.pwaInstalled && 'serviceWorker' in navigator) {
       try {
