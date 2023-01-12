@@ -8,7 +8,7 @@ const getData = async (domain: string, page: number = 0) => {
 
   try {
     eventDS = await fetcher(
-      `/list/analytics?limit=50&domain=${domain}&page${page}`,
+      `/list/analytics?limit=50&domain=${domain}&page=${page}`,
       null,
       'GET'
     )
@@ -28,7 +28,7 @@ const getDataUntil = (
   page = 0
 ) => {
   queueMicrotask(async () => {
-    const res = await getData(domain)
+    const res = await getData(domain, page)
     const nextData: Analytic[] = res?.data
 
     if (nextData && nextData.length) {
