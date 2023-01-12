@@ -5,6 +5,7 @@ import { Link } from '@app/components/stateless/typo/link'
 import { Menu } from '@headlessui/react'
 import { useAuthContext } from '@app/components/providers/auth'
 import { GrLock } from 'react-icons/gr'
+import { classNames } from '@app/utils/classes'
 
 function MoreOptionsComponent(props: MoreOptionsProps) {
   const { updateWebsite } = useWebsiteContext()
@@ -113,8 +114,7 @@ function MoreOptionsComponent(props: MoreOptionsProps) {
         <Menu.Item>
           {() => (
             <Link
-              className={btnStyles}
-              style={{ color: '#10b981' }}
+              className={classNames(btnStyles, 'text-green-700')}
               href={'/payments'}
             >
               Upgrade

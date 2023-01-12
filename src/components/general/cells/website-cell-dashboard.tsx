@@ -5,7 +5,6 @@ import { WebsiteSecondary } from './render'
 import { BASE_GQL_URL, STATUS_URL } from '@app/configs/app-config'
 
 import {
-  AccessibilityBox,
   PagesBox,
   LoadTimeBox,
   HeadersBox,
@@ -43,10 +42,11 @@ import { RobotsBox } from './blocks/robots'
 import { useWebsiteLiveData } from '@app/data/formatters/use-live-data'
 import { RunnersBox } from './blocks/runner'
 import { ProxyBox } from './blocks/proxy'
+import { Score } from '../blocks/score'
 // import { HeatMapCard } from './card/heatmap-card'
 
 const styles = {
-  title: 'text-xl md:text-3xl font-bold truncate',
+  title: 'text-xl md:text-3xl font-black truncate',
   spacing: 'py-2',
   row: 'flex flex-1',
   metaBlock: 'px-2 py-1 border',
@@ -190,7 +190,9 @@ export function WebsiteCellDashboard({
       ? issues.length
       : pagecount
 
-  const { adaScoreAverage: adaScore } = issuesInfo ?? {}
+  const { adaScoreAverage: accessScore } = issuesInfo ?? {}
+
+  console.log(accessScore)
 
   const onWebsiteCrawl = useCallback(async () => {
     AppManager.toggleSnack(
@@ -246,7 +248,6 @@ export function WebsiteCellDashboard({
                   }}
                   pageIssueCount={pageIssueCount}
                   cdnConnected={cdnConnected}
-                  adaScore={adaScore}
                   pageLoadTime={pageLoadTime}
                   lastScanDate={lastScanDate}
                   pageHeaders={pageHeaders}
@@ -258,7 +259,7 @@ export function WebsiteCellDashboard({
                   online={online}
                 />
               </div>
-              <div className='flex place-items-center px-2 space-x-3'>
+              <div className='flex place-items-center px-2 space-x-4'>
                 <button
                   title={`sync and check ${url} for issues`}
                   className={'hover:opacity-70 p-2 rounded'}
@@ -277,6 +278,9 @@ export function WebsiteCellDashboard({
                   <div className='pl-3'>
                     <Timer stop={!activeCrawl} duration={crawlDuration} />
                   </div>
+                </div>
+                <div className='pl-3'>
+                  <Score score={accessScore} />
                 </div>
               </div>
             </div>
@@ -298,7 +302,6 @@ export function WebsiteCellDashboard({
         </div>
 
         <div className='grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-1'>
-          <AccessibilityBox adaScore={adaScore} />
           <IssuesBox issues={errorCount} />
           <WarningsBox issues={warningCount} />
           <CdnFixBox issues={issuesFixedByCdn} />

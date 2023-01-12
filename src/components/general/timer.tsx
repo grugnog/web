@@ -2,12 +2,6 @@
 
 import { useState, useEffect } from 'react'
 
-const style = {
-  backgroundColor: '#fff',
-  color: 'rgba(0, 0, 0, 0.7)',
-  border: '1px solid rgb(209 213 219)',
-}
-
 // TODO: allow scan duration or crawl per setting based on property crawlDuration or scanDuration
 export const Timer = ({
   stop,
@@ -30,17 +24,16 @@ export const Timer = ({
     return () => clearInterval(interval)
   }, [stop, duration])
 
-  const secs = seconds.toFixed(0)
-  const defaultDuration = duration ? Number(duration / 1000).toFixed(0) : 0
-
-  const displayTimer = seconds ? secs : defaultDuration
+  const defaultDuration = duration ? Number(duration / 1000) : 0
+  const displayTimer = (seconds ? seconds : defaultDuration).toFixed(0)
 
   return (
     <div
-      className='rounded-3xl p-1 w-9 h-9 items-center justify-center flex truncate font-semibold'
-      style={style}
+      className={`rounded-3xl p-1 w-9 h-9 items-center justify-center flex truncate font-semibold border ${
+        seconds > 100 ? 'text-[.73rem]' : 'text-xs'
+      }`}
     >
-      <p className='text-xs'>{displayTimer}s</p>
+      {displayTimer}s
     </div>
   )
 }

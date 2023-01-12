@@ -20,7 +20,6 @@ export function WebsiteSecondaryComponent({
   online,
 }: Website & {
   pageIssueCount?: number
-  adaScore?: number | string
   dashboard?: boolean
   online?: boolean
 }) {

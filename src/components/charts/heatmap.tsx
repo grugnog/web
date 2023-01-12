@@ -57,7 +57,6 @@ HeatmapProps) => {
     height: defaultHeight,
   })
   const mounted = useRef<boolean>(false)
-  // todo: d3 types check valid imports
   const scaleLinear = useRef<typeof scaling>()
 
   useEffect(() => {
@@ -126,6 +125,11 @@ HeatmapProps) => {
   xScale?.range([0, xMax])
   yScale?.range([yMax, 0])
 
+  console.log(binData)
+
+  // page -> issuesInfo -> error count
+  // page -> issuesInfo -> warning count
+
   return width < 10 ? null : (
     <svg width={'100%'} height={'100%'}>
       <rect x={0} y={0} width={'100%'} height={'100%'} fill={'transparent'} />
@@ -188,6 +192,7 @@ HeatmapProps) => {
                     if (!events) {
                       return
                     }
+                    // todo: display modal of issue.
                     const { row, column } = bin
                     alert(JSON.stringify({ row, column, bin: bin.bin }))
                   }}

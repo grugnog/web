@@ -88,9 +88,9 @@ export type IssueMeta = {
   errorCount?: number
   warningCount?: number
   noticeCount?: number
-  adaScore?: number
+  adaScore?: number // todo: replace name to accessScore
   pageCount?: number
-  adaScoreAverage?: string // todo: replace name to accessScore
+  adaScoreAverage?: number // todo: replace name to accessScoreAverage
 }
 
 export type Mutation = {
