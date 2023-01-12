@@ -14,9 +14,12 @@ export const fetcher = async (
   if (UserManager.token) {
     headers.append('authorization', UserManager.token)
   }
+
   if ((method === 'POST' && body) || method !== 'POST') {
     headers.append('Content-Type', 'application/json')
   }
+
+  headers.append('Connection', 'keep-alive')
 
   try {
     const source = await fetch(API_ENDPOINT + url, {

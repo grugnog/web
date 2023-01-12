@@ -1,7 +1,7 @@
-import { useEffect, useState, memo, Dispatch, SetStateAction } from 'react'
+import { memo } from 'react'
 import { Analytic } from '@app/types'
-import { fetcher } from '@app/utils/fetcher'
 import { ResponsiveStream, TooltipProps } from '@nivo/stream'
+import { useFullAnalytics } from '@app/data/external/analytics/analytics-rest'
 
 const theme = {
   axis: {
@@ -71,55 +71,8 @@ const Tip = ({ item }: { item: TooltipProps }) => {
   )
 }
 
-// todo: cache / use apollo
-const getData = async (domain: string, page: number = 0) => {
-  let eventDS = null
-
-  try {
-    eventDS = await fetcher(
-      `/list/analytics?limit=50&domain=${domain}&page${page}`,
-      null,
-      'GET'
-    )
-  } catch (e) {
-    console.error(e)
-  }
-
-  return eventDS
-}
-
 const getLabel = (item: { id: string | number }) =>
   String(item.id).replace('Count', '')
-
-// recrusive get data until complete
-const getDataUntil = (
-  {
-    domain,
-    setData,
-  }: { domain: string; setData: Dispatch<SetStateAction<Analytic[]>> },
-  page = 0
-) => {
-  queueMicrotask(async () => {
-    const res = await getData(domain)
-    const nextData: Analytic[] = res?.data
-
-    if (nextData && nextData.length) {
-      setData((x) => {
-        if (x.length) {
-          x.push(...nextData)
-          return x
-        }
-        return nextData
-      })
-      const nextPage = page + 1
-      const blocked = nextData?.length < nextPage * 10
-
-      if (!blocked) {
-        await getDataUntil({ domain, setData }, nextPage)
-      }
-    }
-  })
-}
 
 const WebsiteAnalyticStreamComponent = ({
   domain,
@@ -128,12 +81,7 @@ const WebsiteAnalyticStreamComponent = ({
   domain: string
   liveData?: Analytic[]
 }) => {
-  const [analyticsData, setData] = useState<Analytic[]>(liveData ?? [])
-  const data = liveData?.length ? liveData : analyticsData
-
-  useEffect(() => {
-    getDataUntil({ domain, setData })
-  }, [domain])
+  const { data } = useFullAnalytics({ domain, liveData })
 
   if (!data.length) {
     return (

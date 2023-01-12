@@ -49,6 +49,7 @@ const HeatMapComponent = ({
   events = false,
   margin = defaultMargin,
   separation = 20,
+  liveData,
 }: //   domain,
 //   liveData,
 HeatmapProps) => {
@@ -125,7 +126,7 @@ HeatmapProps) => {
   xScale?.range([0, xMax])
   yScale?.range([yMax, 0])
 
-  console.log(binData)
+  console.log(binData, liveData)
 
   // page -> issuesInfo -> error count
   // page -> issuesInfo -> warning count
