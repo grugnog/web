@@ -38,7 +38,6 @@ import { useWebsiteLiveData } from '@app/data/formatters/use-live-data'
 import { RunnersBox } from './blocks/runner'
 import { ProxyBox } from './blocks/proxy'
 import { Score } from '../blocks/score'
-// import { HeatMapCard } from './card/heatmap-card'
 
 const styles = {
   title: 'text-xl md:text-3xl font-medium truncate',
@@ -353,10 +352,7 @@ export function WebsiteCellDashboard({
           />
         </div>
         {issuesInfo || liveData.length ? (
-          <>
-            {/* <HeatMapCard domain={domain} liveData={liveData} /> */}
             <AnalyticsCard domain={domain} liveData={liveData} />
-          </>
         ) : null}
         <LighthouseCard
           lighthouseVisible={pageInsights && insight && lighthouseVisible}
