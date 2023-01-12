@@ -5,6 +5,7 @@ import {
   GrConfigure,
   GrMagic,
   GrPowerShutdown,
+  GrScorecard,
 } from 'react-icons/gr'
 import { format } from 'date-fns'
 import { Chip } from '@app/components/general/chip'
@@ -18,10 +19,14 @@ export function WebsiteSecondaryComponent({
   pageHeaders,
   shutdown,
   online,
+  score,
+  borderLess,
 }: Website & {
   pageIssueCount?: number
   dashboard?: boolean
   online?: boolean
+  score?: number
+  borderLess?: boolean
 }) {
   const [lastScan, setScanDate] = useState<string>('')
   const {
@@ -55,6 +60,7 @@ export function WebsiteSecondaryComponent({
           title={`Website scan did not complete. Upgrade your account to increase your scanning up-time.`}
           avatar={<GrPowerShutdown className={'grIcon'} />}
           label={'Shutdown'}
+          borderLess={borderLess}
         />
       ) : null}
       {pageIssueCount && totalIssues ? (
@@ -62,6 +68,7 @@ export function WebsiteSecondaryComponent({
           avatar={<GrCircleAlert className={'grIcon'} />}
           label={totalIssues}
           title={`Total page issues between warnings and errors: ${totalIssues}`}
+          borderLess={borderLess}
         />
       ) : null}
       {typeof online !== 'undefined' && !online ? (
@@ -69,11 +76,21 @@ export function WebsiteSecondaryComponent({
           avatar={<GrPowerShutdown className={'grIcon'} />}
           label={'Offline'}
           title={`The page is offline`}
+          borderLess={borderLess}
+        />
+      ) : null}
+      {typeof score !== 'undefined' ? (
+        <Chip
+          avatar={<GrScorecard className={'grIcon'} />}
+          label={`Score: ${score}`}
+          title={`Avg score ${score}`}
+          borderLess={borderLess}
         />
       ) : null}
       {possibleIssuesFixedByCdn && totalIssues ? (
         <Chip
-          avatar={<GrMagic />}
+          avatar={<GrMagic className='grIcon' />}
+          borderLess={borderLess}
           label={
             issuesFixedByCdn
               ? `${issuesFixedByCdn}/${totalIssues}`
@@ -89,7 +106,11 @@ export function WebsiteSecondaryComponent({
         />
       ) : null}
       {lastScan ? (
-        <Chip avatar={<GrCalendar className={'grIcon'} />} label={lastScan} />
+        <Chip
+          avatar={<GrCalendar className={'grIcon'} />}
+          label={lastScan}
+          borderLess={borderLess}
+        />
       ) : null}
       {headers && headers.length ? (
         <Chip
@@ -97,6 +118,7 @@ export function WebsiteSecondaryComponent({
           label={`${headers.length} custom header${
             headers.length === 1 ? '' : 's'
           }`}
+          borderLess={borderLess}
           title={`Custom headers ${headingJson}`}
         />
       ) : null}

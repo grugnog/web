@@ -4,6 +4,7 @@ import { useUserData } from '@app/data'
 import { ConfirmEmail } from '../../alerts'
 import { RefBanner } from '../ref-banner'
 import { DrawerHead } from './drawer-head'
+import { IssueFeed } from '@app/components/feed'
 
 const DynamicModal = dynamic(
   () => import('../../modal/dynamic').then((mod) => mod.DynamicModal),
@@ -24,8 +25,11 @@ export const DrawerW: FC<PropsWithChildren<{}>> = ({ children }) => {
   return (
     <>
       <DrawerHead />
-      <div className={'flex overflow-x-inherit md:overflow-x-hidden'}>
-        <main className={'flex-1 overflow-auto'} id='main-content'>
+      <main
+        className={'flex overflow-x-inherit md:overflow-x-hidden'}
+        id='main-content'
+      >
+        <div className={'flex-1 overflow-auto'}>
           <div
             className={'px-3 md:px-4 pb-28 md:pb-16 overflow-auto max-h-screen'}
           >
@@ -36,8 +40,9 @@ export const DrawerW: FC<PropsWithChildren<{}>> = ({ children }) => {
             sendEmail={sendConfirmEmail}
             visible={!!user?.loggedIn && !user?.emailConfirmed}
           />
-        </main>
-      </div>
+        </div>
+        <IssueFeed />
+      </main>
       <DynamicModal />
       <MiniPlayer />
     </>

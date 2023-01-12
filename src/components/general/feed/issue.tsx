@@ -2,7 +2,6 @@ import { memo } from 'react'
 import { getErrorColor } from '@app/lib/base-colors'
 import { Issue } from '@app/types'
 import SyntaxHighlighter from 'react-syntax-highlighter'
-import { docco } from '@app/styles/code'
 
 type CellIssue = Partial<Issue> & {
   hidden?: boolean //the entire section is hidden
@@ -98,7 +97,6 @@ export function FeedIssueCardComponent({
       {context ? (
         <SyntaxHighlighter
           language='html'
-          style={docco}
           className={'text-xs dark:bg-gray-600'}
         >
           {context}

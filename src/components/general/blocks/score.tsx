@@ -1,6 +1,9 @@
 import React from 'react'
 
-const determineScore = (score: number) => {
+const determineScore = (score?: number) => {
+  if (typeof score === 'undefined') {
+    return 'N'
+  }
   if (score === 100) {
     return 'S'
   }
@@ -33,8 +36,8 @@ const determineScore = (score: number) => {
 
 export const Score = ({ score }: { score?: number }) => {
   return (
-    <div className='text-lg md:text-2xl lg:text-3xl font-bold'>
-      {determineScore(score || 0)}
+    <div className='text-xl md:text-3xl lg:text-4xl xl:text-5xl font-medium md:font-bold w-7 md:w-16'>
+      {determineScore(score)}
     </div>
   )
 }

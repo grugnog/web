@@ -24,12 +24,7 @@ import { ActionsBox } from './blocks/actions'
 import { CdnFixBox } from './blocks/cdn-fix'
 import { useWasmContext } from '@app/components/providers'
 import { useAuthContext } from '@app/components/providers/auth'
-import {
-  GrChannel,
-  GrStatusWarningSmall,
-  GrSync,
-  GrValidate,
-} from 'react-icons/gr'
+import { GrChannel, GrSync, GrValidate } from 'react-icons/gr'
 import { fetcher } from '@app/utils/fetcher'
 import { AppManager, HomeManager } from '@app/managers'
 import { useInteractiveContext } from '@app/components/providers/interactive'
@@ -46,7 +41,7 @@ import { Score } from '../blocks/score'
 // import { HeatMapCard } from './card/heatmap-card'
 
 const styles = {
-  title: 'text-xl md:text-3xl font-black truncate',
+  title: 'text-xl md:text-3xl font-medium truncate',
   spacing: 'py-2',
   row: 'flex flex-1',
   metaBlock: 'px-2 py-1 border',
@@ -62,6 +57,36 @@ interface WebsiteCellProps {
   handleClickOpen(data: any, title: any, url: any, error: any): void
   url: string
   pageHeaders?: any
+}
+
+interface InteractiveProps extends Partial<WebsiteCellProps> {
+  linkUrl: string
+  onWebsiteCrawl(x: any): Promise<any>
+}
+
+const WebsiteInteractiveBlock = ({
+  url,
+  onWebsiteCrawl,
+  linkUrl,
+}: InteractiveProps) => {
+  return (
+    <div className='flex place-items-center px-2 space-x-3 py-2 border-t'>
+      <button
+        title={`sync and check ${url} for issues`}
+        className={'hover:opacity-70 p-2 rounded text-xs md:text-sm lg:text-lg'}
+        onClick={onWebsiteCrawl}
+      >
+        <GrSync className='grIcon' />
+      </button>
+      <Link
+        title={`view in sandbox ${url}`}
+        href={linkUrl}
+        className={'hover:opacity-70 p-2 rounded text-xs md:text-sm lg:text-lg'}
+      >
+        <GrChannel className='grIcon' />
+      </Link>
+    </div>
+  )
 }
 
 // main dashboard cell with details and paginated views
@@ -192,8 +217,6 @@ export function WebsiteCellDashboard({
 
   const { adaScoreAverage: accessScore } = issuesInfo ?? {}
 
-  console.log(accessScore)
-
   const onWebsiteCrawl = useCallback(async () => {
     AppManager.toggleSnack(
       true,
@@ -212,13 +235,16 @@ export function WebsiteCellDashboard({
   return (
     <li>
       <div className={`${index ? 'border-t' : ''}`}>
-        <div>
-          <div className='flex gap-x-1 place-items-center place-content-between border-b px-3 pt-2 pb-4'>
-            <div className='flex gap-3 place-items-center flex-wrap'>
-              <div>
-                <div
-                  className={`${styles.title} flex space-x-2 place-items-center pb-2`}
-                >
+        <div className='border-b'>
+          <div className='flex gap-x-1 place-items-center place-content-between'>
+            <div className='flex gap-3 place-items-center flex-wrap py-2 px-2'>
+              <div className='border-r border-dashed text-center px-2'>
+                <Score score={accessScore} />
+              </div>
+              <div
+                className={`flex space-x-3 place-items-center truncate flex-wrap pl-1`}
+              >
+                <div>
                   <Link
                     title={`view details ${url}`}
                     href={linkView}
@@ -226,63 +252,36 @@ export function WebsiteCellDashboard({
                   >
                     {domainHost}
                   </Link>
-                  {shutdown ? (
-                    <GrStatusWarningSmall
-                      className={`grIcon text-xs`}
-                      title={'Crawl did not complete.'}
-                    />
-                  ) : null}
-                  {verified ? (
-                    <GrValidate
-                      className='grIcon text-sm'
-                      title={`${url} is verified.`}
-                    />
-                  ) : null}
+                  <WebsiteSecondary
+                    domain={domain}
+                    issuesInfo={{
+                      ...issuesInfo,
+                      totalIssues:
+                        totalIssues > issueTotal ? totalIssues : issueTotal,
+                    }}
+                    pageIssueCount={pageIssueCount}
+                    cdnConnected={cdnConnected}
+                    pageLoadTime={pageLoadTime}
+                    lastScanDate={lastScanDate}
+                    score={accessScore}
+                    pageHeaders={pageHeaders}
+                    robots={robots}
+                    subdomains={subdomains}
+                    tld={tld}
+                    shutdown={shutdown}
+                    dashboard
+                    online={online}
+                    borderLess
+                  />
                 </div>
-                <WebsiteSecondary
-                  domain={domain}
-                  issuesInfo={{
-                    ...issuesInfo,
-                    totalIssues:
-                      totalIssues > issueTotal ? totalIssues : issueTotal,
-                  }}
-                  pageIssueCount={pageIssueCount}
-                  cdnConnected={cdnConnected}
-                  pageLoadTime={pageLoadTime}
-                  lastScanDate={lastScanDate}
-                  pageHeaders={pageHeaders}
-                  robots={robots}
-                  subdomains={subdomains}
-                  tld={tld}
-                  shutdown={shutdown}
-                  dashboard
-                  online={online}
-                />
+                {verified ? (
+                  <GrValidate
+                    className='grIcon text-sm'
+                    title={`${url} is verified.`}
+                  />
+                ) : null}
               </div>
-              <div className='flex place-items-center px-2 space-x-4'>
-                <button
-                  title={`sync and check ${url} for issues`}
-                  className={'hover:opacity-70 p-2 rounded'}
-                  onClick={onWebsiteCrawl}
-                >
-                  <GrSync className='grIcon' />
-                </button>
-                <Link
-                  title={`view in sandbox ${url}`}
-                  href={linkUrl}
-                  className={'hover:opacity-70 p-2 rounded'}
-                >
-                  <GrChannel className='grIcon' />
-                </Link>
-                <div className='pl-1 border-l'>
-                  <div className='pl-3'>
-                    <Timer stop={!activeCrawl} duration={crawlDuration} />
-                  </div>
-                </div>
-                <div className='pl-3'>
-                  <Score score={accessScore} />
-                </div>
-              </div>
+              <Timer stop={!activeCrawl} duration={crawlDuration} />
             </div>
             <MoreOptions
               url={url}
@@ -299,6 +298,13 @@ export function WebsiteCellDashboard({
               verified={verified}
             />
           </div>
+          <WebsiteInteractiveBlock
+            url={url}
+            linkUrl={linkUrl}
+            onWebsiteCrawl={onWebsiteCrawl}
+            activeCrawl={activeCrawl}
+            crawlDuration={crawlDuration}
+          />
         </div>
 
         <div className='grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-1'>
@@ -311,7 +317,6 @@ export function WebsiteCellDashboard({
           <LighthouseBox pageInsights={pageInsights} />
           <ActionsBox actions={actionsEnabled && actions?.length} />
           <RunnersBox url={url} runners={runners} />
-          {/* <OnlineBox online={online} /> */}
           {account.activeSubscription ? (
             <ProxyBox
               proxy={proxy}

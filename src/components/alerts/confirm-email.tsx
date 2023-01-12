@@ -24,7 +24,11 @@ function ConfirmEmail({ sendEmail, visible }: Props) {
           .join(' ')
           .trim()}
       >
-        <p className={[classes.text, 'text-xl mr-5'].join(' ').trim()}>
+        <p
+          className={[classes.text, 'text-sm mr-5 md:text-lg lg:text-xl']
+            .join(' ')
+            .trim()}
+        >
           Please confirm your email to enable alerts
         </p>
         <button

@@ -29,8 +29,8 @@ export const Timer = ({
 
   return (
     <div
-      className={`rounded-3xl p-1 w-9 h-9 items-center justify-center flex truncate font-semibold border ${
-        seconds > 100 ? 'text-[.73rem]' : 'text-xs'
+      className={`rounded-3xl w-8 h-8 p-1 md:w-9 md:h-9 items-center justify-center flex truncate font-semibold border ${
+        seconds > 100 ? 'text-[.72rem]' : 'text-xs'
       }`}
     >
       {displayTimer}s
