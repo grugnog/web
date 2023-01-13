@@ -5,7 +5,6 @@ import {
   GrConfigure,
   GrMagic,
   GrPowerShutdown,
-  GrScorecard,
 } from 'react-icons/gr'
 import { format } from 'date-fns'
 import { Chip } from '@app/components/general/chip'
@@ -19,7 +18,6 @@ export function WebsiteSecondaryComponent({
   pageHeaders,
   shutdown,
   online,
-  score,
   borderLess,
 }: Website & {
   pageIssueCount?: number
@@ -63,11 +61,10 @@ export function WebsiteSecondaryComponent({
           borderLess={borderLess}
         />
       ) : null}
-      {pageIssueCount && totalIssues ? (
+      {lastScan ? (
         <Chip
-          avatar={<GrCircleAlert className={'grIcon'} />}
-          label={totalIssues}
-          title={`Total page issues between warnings and errors: ${totalIssues}`}
+          avatar={<GrCalendar className={'grIcon'} />}
+          label={lastScan}
           borderLess={borderLess}
         />
       ) : null}
@@ -76,14 +73,6 @@ export function WebsiteSecondaryComponent({
           avatar={<GrPowerShutdown className={'grIcon'} />}
           label={'Offline'}
           title={`The page is offline`}
-          borderLess={borderLess}
-        />
-      ) : null}
-      {typeof score !== 'undefined' ? (
-        <Chip
-          avatar={<GrScorecard className={'grIcon'} />}
-          label={`Score: ${score}`}
-          title={`Avg score ${score}`}
           borderLess={borderLess}
         />
       ) : null}
@@ -105,13 +94,6 @@ export function WebsiteSecondaryComponent({
           }
         />
       ) : null}
-      {lastScan ? (
-        <Chip
-          avatar={<GrCalendar className={'grIcon'} />}
-          label={lastScan}
-          borderLess={borderLess}
-        />
-      ) : null}
       {headers && headers.length ? (
         <Chip
           avatar={<GrConfigure className={'grIcon'} />}
@@ -120,6 +102,14 @@ export function WebsiteSecondaryComponent({
           }`}
           borderLess={borderLess}
           title={`Custom headers ${headingJson}`}
+        />
+      ) : null}
+      {pageIssueCount && totalIssues ? (
+        <Chip
+          avatar={<GrCircleAlert className={'grIcon'} />}
+          label={totalIssues}
+          title={`Total page issues between warnings and errors: ${totalIssues}`}
+          borderLess={borderLess}
         />
       ) : null}
     </div>

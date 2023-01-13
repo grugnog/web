@@ -36,7 +36,10 @@ const determineScore = (score?: number) => {
 
 export const Score = ({ score }: { score?: number }) => {
   return (
-    <div className='text-xl md:text-3xl lg:text-4xl xl:text-5xl font-medium md:font-bold w-7 md:w-16'>
+    <div
+      className='text-xl md:text-3xl lg:text-4xl xl:text-5xl font-medium md:font-bold w-7 md:w-16'
+      title={`Average ${score}`}
+    >
       {determineScore(score)}
     </div>
   )

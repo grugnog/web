@@ -236,14 +236,14 @@ export function WebsiteCellDashboard({
       <div className={`${index ? 'border-t' : ''}`}>
         <div className='border-b'>
           <div className='flex gap-x-1 place-items-center place-content-between'>
-            <div className='flex gap-3 place-items-center flex-wrap py-2 px-2'>
-              <div className='border-r border-dashed text-center px-2'>
+            <div className='flex gap-4 place-items-center flex-wrap py-2 px-2'>
+              <div className='border-r border-dashed text-center pl-2 pr-4'>
                 <Score score={accessScore} />
               </div>
               <div
-                className={`flex space-x-3 place-items-center truncate flex-wrap pl-1`}
+                className={`flex place-items-center truncate flex-wrap`}
               >
-                <div>
+                <div className='pr-4'>
                   <Link
                     title={`view details ${url}`}
                     href={linkView}

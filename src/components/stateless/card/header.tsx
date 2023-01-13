@@ -24,7 +24,11 @@ export const CardHeader: FC<PropsWithChildren<CardHeaderProps>> = ({
         <div className={`${lg ? 'text-3xl' : 'text-xl'} font-semibold `}>
           {title}
         </div>
-        <div className={`pb-3 ${lg ? 'text-xl' : 'text-lg'} text-gray-600`}>
+        <div
+          className={`pb-3 ${
+            lg ? 'text-xl' : 'text-lg'
+          } text-gray-600 dark:text-gray-300`}
+        >
           {subheader}
         </div>
         {children}
