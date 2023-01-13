@@ -1,4 +1,4 @@
-import { websiteFragments } from '@app/apollo'
+import { websiteFragments, pagespeedFragment } from '@app/apollo'
 import gql from 'graphql-tag'
 
 const GET_WEBSITE = gql`
@@ -33,4 +33,13 @@ const GET_WEBSITE_STATS = gql`
   }
 `
 
-export { GET_WEBSITE, GET_WEBSITE_STATS }
+const GET_PAGESPEED_STATS = gql`
+  ${pagespeedFragment}
+  query getPagespeed($url: String) {
+    pagespeed(url: $url) {
+      ...PagespeedParts
+    }
+  }
+`
+
+export { GET_WEBSITE, GET_WEBSITE_STATS, GET_PAGESPEED_STATS }

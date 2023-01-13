@@ -24,6 +24,7 @@ export interface MoreOptionsProps extends Partial<Website> {
   children?: any
   url?: string // base url or domain
   pageUrl?: string // main target for page
+  pageInsights?: boolean // can fetch lighthouse data
 }
 
 // Base of more options ...
@@ -37,6 +38,7 @@ function MoreOptionsBaseComponent({
   handleMainClick,
   handleClose,
   historyPage,
+  pageInsights,
 }: MoreOptionsProps) {
   const targetUrl = pageUrl || url
 
@@ -68,7 +70,7 @@ function MoreOptionsBaseComponent({
           )}
         </Menu.Item>
       ) : null}
-      {lh ? (
+      {lh || pageInsights ? (
         <Menu.Item>
           {() => (
             <button

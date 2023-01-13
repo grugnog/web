@@ -12,6 +12,7 @@ import {
 import { Issue } from '@app/types'
 import { MoreOptionsBase } from './menu'
 import { Lighthouse } from '../lighthouse'
+import { usePageSpeed } from '@app/data/external/pagespeed/results'
 
 const styles = {
   title: 'text-base md:text-lg truncate',
@@ -38,11 +39,17 @@ export function WebsiteCellPagesComponent({
   lighthouseVisible,
 }: any) {
   const { adaScore } = issuesInfo ?? {}
+  const { loading, getPageSpeed } = usePageSpeed(url, (eventData) => {
+    handleClickOpen(eventData, 'Lighthouse', url)
+  })
+
+  const lhExists = insight && Object.keys(insight)?.length
 
   const handleMainClick =
     (eventData?: any, title?: string, _mini?: boolean, url?: string) => () => {
-      // mini player open - small modal with dynamic content
-      if (handleClickOpen) {
+      if (!lhExists) {
+        getPageSpeed()
+      } else if (handleClickOpen) {
         handleClickOpen(eventData, title, url)
       }
     }
@@ -88,10 +95,10 @@ export function WebsiteCellPagesComponent({
     }
   }, [issues, issuesInfo])
 
-  const lhExists = insight && Object.keys(insight)?.length
+  const lhQuerable = pageInsights || (insight && !!lhExists)
 
   return (
-    <li className={`px-3 pt-2`}>
+    <li className={'px-3 pt-2'}>
       <div className='flex space-x-2 place-items-center'>
         <div
           className={`${styles.title} ${
@@ -105,6 +112,12 @@ export function WebsiteCellPagesComponent({
           >
             {url}
           </Link>
+        </div>
+        <div
+          aria-hidden={!!loading}
+          className={`text-xs opacity-90 ${loading ? 'block' : 'hidden'}`}
+        >
+          Loading Lighthouse...
         </div>
         <div>
           <MoreOptionsBase
@@ -126,7 +139,7 @@ export function WebsiteCellPagesComponent({
         <IssuesBox issues={errorCount} />
         <WarningsBox issues={warningCount} />
         <LoadTimeBox duration={pageLoadTime?.duration} />
-        <LighthouseBox pageInsights={insight || (insight && !!lhExists)} />
+        <LighthouseBox pageInsights={lhQuerable} />
         <OnlineBox online={online} />
       </div>
       <div className={styles.spacing} />

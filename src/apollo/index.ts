@@ -3,8 +3,9 @@ export { typeDefs } from './type-defs'
 export { resolvers } from './resolvers'
 export {
   issueFragments,
-  subdomainFragments,
+  pagesFragments,
   websiteFragments,
   analyticsFragments,
   scriptsFragments,
+  pagespeedFragment,
 } from './fragments'

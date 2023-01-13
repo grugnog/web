@@ -4,7 +4,7 @@ import { MutationUpdaterFn } from 'apollo-client'
 import {
   issueFragments,
   websiteFragments,
-  subdomainFragments,
+  pagesFragments,
   analyticsFragments,
   scriptsFragments,
 } from '@app/apollo'
@@ -58,7 +58,7 @@ export const GET_WEBSITE_ISSUES = gql`
 
 // pages paginated
 export const GET_WEBSITE_PAGES_PAGINATED = gql`
-  ${subdomainFragments}
+  ${pagesFragments}
   query getWebsitePagesPaginated($url: String, $limit: Int, $offset: Int) {
     website(url: $url) {
       ... on Website {
@@ -150,7 +150,7 @@ export const GET_WEBSITES_INFO = gql`
 
 // TODO: refactor pages to pages query
 export const GET_PAGES = gql`
-  ${subdomainFragments}
+  ${pagesFragments}
   query getWebsitesPages($limit: Int, $offset: Int) {
     user {
       id

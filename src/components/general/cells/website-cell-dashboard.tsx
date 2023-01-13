@@ -235,7 +235,7 @@ export function WebsiteCellDashboard({
     <li>
       <div className={`${index ? 'border-t' : ''}`}>
         <div className='border-b'>
-          <div className='flex gap-x-1 place-items-center place-content-between'>
+          <div className='flex gap-x-1 place-items-center place-content-between pr-3'>
             <div className='flex gap-4 place-items-center flex-wrap py-2 px-2'>
               <div className='border-r border-dashed text-center pl-2 pr-4'>
                 <Score score={accessScore} />

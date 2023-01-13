@@ -55,13 +55,11 @@ export const usePagesData = (url?: string | string[]) => {
     }
   }
 
-  const model = Object.freeze({
+  return Object.freeze({
     data: pages,
     loading: loading,
     refetch,
     error,
     onLoadMorePages: onLoadMorePages,
   })
-
-  return model
 }

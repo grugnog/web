@@ -1,6 +1,5 @@
 import { memo, useMemo } from 'react'
 import { useLighthouse } from '@app/data/formatters/use-lighthouse'
-import { ErrorBoundary } from './error-boundary'
 import ReportViewer from 'next-lighthouse'
 import { useTheme } from 'next-themes'
 
@@ -16,13 +15,11 @@ export function LighthouseComponent({
   const lhId = useMemo(() => {
     if (!id && parsedInsight) {
       try {
-        const domain = parsedInsight?.requestedUrl
+        return parsedInsight?.requestedUrl
           .replace('https://', '')
           .replace('http://', '')
           .replace(/\./g, '-')
           .replace(/\//g, '-')
-
-        return domain
       } catch (e) {
         console.error(e)
       }
@@ -35,14 +32,7 @@ export function LighthouseComponent({
   }
 
   return (
-    <ErrorBoundary>
-      <ReportViewer
-        json={parsedInsight}
-        initFeatures={false}
-        id={lhId}
-        darkMode={theme === 'dark'}
-      />
-    </ErrorBoundary>
+    <ReportViewer json={parsedInsight} id={lhId} darkMode={theme === 'dark'} />
   )
 }
 

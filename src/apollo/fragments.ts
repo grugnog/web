@@ -41,15 +41,12 @@ export const scriptsFragments = gql`
   }
 `
 
-export const subdomainFragments = gql`
+export const pagesFragments = gql`
   fragment PagesParts on Pages {
     _id
     domain
     url
     pageInsights
-    insight {
-      json
-    }
     online
     pageLoadTime {
       duration
@@ -129,5 +126,14 @@ export const analyticsFragments = gql`
     errorCount
     warningCount
     noticeCount
+  }
+`
+
+export const pagespeedFragment = gql`
+  fragment PagespeedParts on PageInsights {
+    _id
+    domain
+    pageUrl
+    json
   }
 `
