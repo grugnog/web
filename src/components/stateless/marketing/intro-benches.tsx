@@ -1,5 +1,6 @@
 import { FC } from 'react'
 
+// todo: use on a benchmark page. Focus sole on A11yWatch across feature usage speeds.
 export const IntroBenches: FC = () => {
   return (
     <div className='py-6'>
@@ -14,11 +15,11 @@ export const IntroBenches: FC = () => {
           <li className='flex flex-1 px-2 h-full'>
             <div className='flex flex-col h-full place-content-end'>
               <div className='py-1' aria-hidden='true'>
-                <div className='text-base font-semibold'>150,025</div>
+                <div className='text-base font-semibold'>208,633</div>
               </div>
               <div className='px-2 bg-blue-600 h-full w-20 rounded-t border-4 border-b-0 border-blue-700'>
                 <div className='sr-only'>
-                  A11yWatch: 150,025 scans per minute
+                  A11yWatch: 208,633 scans per minute
                 </div>
               </div>
             </div>

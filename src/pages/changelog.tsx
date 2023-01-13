@@ -13,6 +13,14 @@ interface ListLog {
 
 const list: ListLog[] = [
   {
+    date: 'January 2023',
+    updates: [
+      'Selecting multiple runners supported.',
+      'Proxy connect support.',
+      'Performance improvements reaching 200k audits per minute!',
+    ],
+  },
+  {
     date: 'December 2022',
     updates: ['Analytics across all pages and domains.', 'Dark mode support!'],
   },
