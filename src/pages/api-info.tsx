@@ -114,7 +114,7 @@ function ApiInfo() {
                 return (
                   <li key={ro.title} id={ro.id}>
                     <div className='py-4'>
-                      <div className='py-2 pr-4 pl-1 md:pl-2 text-[#0E1116] border-l-4 border-[#0E1116] rounded'>
+                      <div className='py-2 pr-4 pl-1 md:pl-2 text-[#0E1116] border-l-4 border-[#0E1116] rounded dark:text-white dark:border-white'>
                         <h3 className='text-2xl md:text-2xl font-bold'>
                           <a href={`#${ro.id}`}>{ro.title}</a>
                         </h3>

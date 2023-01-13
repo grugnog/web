@@ -42,7 +42,7 @@ export const IntroGraph: FC = () => {
             </div>
           </li>
         </ul>
-        <div className='grid grid-cols-3 py-2 text-center'>
+        <div className='grid grid-cols-3 py-2 text-center px-1'>
           <div className='text-sm font-medium'>Audits per minute</div>
           <div className='text-sm font-medium'>Accessibility coverage</div>
           <div className='text-sm font-medium'>Percent open source</div>

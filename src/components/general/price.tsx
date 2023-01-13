@@ -184,7 +184,7 @@ export function PaymentPlans({
               <button
                 onClick={onTogglePlans}
                 className={
-                  'px-3 py-1 border-2  rounded text-base border-gray-700 hover:border-gray-600 hover:bg-gradient-radial hover:text-black'
+                  'px-3 py-1 border-2 rounded text-base border-gray-700 hover:border-gray-600 hover:bg-gradient-radial hover:opacity-90'
                 }
                 type={'button'}
               >
