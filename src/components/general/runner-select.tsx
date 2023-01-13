@@ -28,7 +28,18 @@ export const RunnerSelectComponent = ({
   }, [defaultRunners, setSelectedRunners, mounted])
 
   const onChangeEvent = (selected: typeof runners) => {
-    const nextRunners = selected.filter((_, i) => i < 2)
+    let nextRunners: {
+      id: number
+      name: string
+    }[] = []
+    if (selected.length === 3) {
+      nextRunners = selected.filter((item) => item.name !== selected[2].name)
+    } else if (selected.length === 2 && selected[0] === selected[1]) {
+      nextRunners = [selected[0]]
+    } else {
+      nextRunners = selected
+    }
+
     setSelectedRunners(nextRunners)
     if (cb && typeof cb === 'function') {
       cb(nextRunners.map((runner) => runner.name))

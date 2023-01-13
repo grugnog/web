@@ -240,9 +240,7 @@ export function WebsiteCellDashboard({
               <div className='border-r border-dashed text-center pl-2 pr-4'>
                 <Score score={accessScore} />
               </div>
-              <div
-                className={`flex place-items-center truncate flex-wrap`}
-              >
+              <div className={`flex place-items-center truncate flex-wrap`}>
                 <div className='pr-4'>
                   <Link
                     title={`view details ${url}`}
