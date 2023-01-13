@@ -107,7 +107,7 @@ export function WebsiteSecondaryComponent({
       {pageIssueCount && totalIssues ? (
         <Chip
           avatar={<GrCircleAlert className={'grIcon'} />}
-          label={totalIssues}
+          label={Intl.NumberFormat().format(totalIssues)}
           title={`Total page issues between warnings and errors: ${totalIssues}`}
           borderLess={borderLess}
         />
