@@ -75,7 +75,7 @@ export function FeedIssueCardComponent({
             title={`view technique for ${codeDisplay}`}
             target='_blank'
             rel='noreferrer'
-            className='text-gray-600 dark:text-blue-700 text-xs hover:underline p-0 m-0'
+            className='text-gray-600 dark:text-gray-300 text-xs hover:underline p-0 m-0'
           >
             {codeDisplay}
           </a>

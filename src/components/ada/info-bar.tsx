@@ -13,7 +13,7 @@ interface InfoBarComponent {
 }
 
 const btnStyles =
-  'border px-3 py-1.5 place-items-center flex text-sm rounded no-underline hover:border-blue-700 hover:bg-gray-50'
+  'border px-3 py-1.5 place-items-center flex text-sm rounded no-underline hover:border-blue-700 hover:opacity-90'
 
 const apiRoute = getAPIRoute()
 

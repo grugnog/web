@@ -9,10 +9,10 @@
   dependencies:
     "@headlessui/react" "^1.7.4"
 
-"@a11ywatch/website-source-builder@^0.0.39":
-  version "0.0.39"
-  resolved "https://registry.yarnpkg.com/@a11ywatch/website-source-builder/-/website-source-builder-0.0.39.tgz#0a9adbb655e513817f7db28ba5a95bee76fbfec5"
-  integrity sha512-a1ebMjlajHCSDtMK0KRXHZRJkjvjkTtPFQwWsy3cXL8tau9fVM1051jJegcbiPIX+GyebJxJhUihfUzzkc2SGg==
+"@a11ywatch/website-source-builder@^0.0.41":
+  version "0.0.41"
+  resolved "https://registry.yarnpkg.com/@a11ywatch/website-source-builder/-/website-source-builder-0.0.41.tgz#c5bb7062a51d298e61a9e59d0331ce62b921cbd1"
+  integrity sha512-Uzw2PQ2KIyaXtVlCCQKmQ5AJeThz388S7+uiJjbv+JiJ91Wo/NsaURdrRhms62ZYuQof9iOzisS+GfE1E06c2w==
 
 "@adobe/css-tools@^4.0.1":
   version "4.0.1"

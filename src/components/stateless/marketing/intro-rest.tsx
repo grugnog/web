@@ -19,7 +19,7 @@ function MarketingIntro({
           {checker ? (
             'Open Source Web Accessibility Platform'
           ) : (
-            <>The open source web accessibility platform without limits</>
+            <>The web accessibility platform without limits</>
           )}
         </Header>
         {checker ? (
