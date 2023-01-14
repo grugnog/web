@@ -38,6 +38,7 @@ import { useWebsiteLiveData } from '@app/data/formatters/use-live-data'
 import { RunnersBox } from './blocks/runner'
 import { ProxyBox } from './blocks/proxy'
 import { Score } from '../blocks/score'
+// import { PageCard } from './card/pages-card'
 
 const styles = {
   title: 'text-xl md:text-3xl font-medium truncate',
@@ -356,9 +357,15 @@ export function WebsiteCellDashboard({
           lighthouseVisible={pageInsights && insight && lighthouseVisible}
           insight={insight}
         />
-        {issuesInfo || liveData.length ? (
-          <IssueCard pageUrl={url} liveData={liveData} />
-        ) : null}
+        <div className='py-4'>
+          {issuesInfo || liveData.length ? (
+            <IssueCard pageUrl={url} liveData={liveData} />
+          ) : // <div className='grid grid-cols-1 md:grid-cols-2 gap-3 px-2'>
+          //   <IssueCard pageUrl={url} liveData={liveData} />
+          //   <PageCard pageUrl={url} liveData={liveData} />
+          // </div>
+          null}
+        </div>
       </div>
     </li>
   )

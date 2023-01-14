@@ -335,6 +335,7 @@ export type ScriptMetaInput = {
 
 export type Pages = {
   __typename?: 'Pages'
+  _id?: string
   id?: string
   url?: string
   user?: User
@@ -346,7 +347,7 @@ export type Pages = {
   issuesInfo?: IssueMeta
   pageInsights?: boolean
   insight?: PageInsights
-}
+} & Partial<Analytic>
 
 export type SubDomainIssuesArgs = {
   filter?: string

@@ -22,10 +22,12 @@ const ListCellAnalyticsHeaderW = ({
   const pathName = useMemo(() => {
     let value = url
 
-    try {
-      value = new URL(url).pathname
-    } catch (e) {
-      console.error(e)
+    if (value) {
+      try {
+        value = new URL(url).pathname
+      } catch (e) {
+        console.error(e)
+      }
     }
 
     return value
@@ -35,7 +37,7 @@ const ListCellAnalyticsHeaderW = ({
   return (
     <div className='flex place-items-center text-xs md:text-sm'>
       <button
-        className={`px-4 py-3 text-left place-items-center hover:opacity-80 flex-1 max-w-2/3 md:w-auto`}
+        className={`px-4 py-3 text-left place-items-center hover:opacity-80 flex-1 max-w-2/3 md:w-auto line-clamp-1 truncate`}
         onClick={onTogglelist}
         aria-expanded={visible}
         aria-label={`Toggle section visible for ${url}`}

@@ -65,6 +65,22 @@ export const pagesFragments = gql`
   }
 `
 
+// todo: rename pagesSlim and use fragment
+export const pagesSlimFragments = gql`
+  fragment PagesSlimParts on Pages {
+    _id
+    domain
+    url
+    pageInsights
+    online
+    pageLoadTime {
+      duration
+      durationFormated
+      color
+    }
+  }
+`
+
 export const websiteFragments = gql`
   fragment WebsiteParts on Website {
     _id

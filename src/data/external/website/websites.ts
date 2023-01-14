@@ -295,14 +295,13 @@ export const useWebsiteData = (
         const dataSource = websites.find(
           (source: Website) => source.domain === results?.domain
         )
-        // if (page) {
-        //   feed.insert_website({ ...page, ...results });
-        // }
 
         if (dataSource && dataSource.url === removeTrailingSlash(results.url)) {
           dataSource.insight = results.insight
           forceUpdate()
         }
+
+        feed.insert_website(dataSource)
 
         AppManager.toggleSnack(
           true,

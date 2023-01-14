@@ -1,32 +1,35 @@
 import { FC, memo, useMemo, useState } from 'react'
-import { useAnalyticsData } from '@app/data/external/analytics/analytics'
 import { InnerWrapper } from '../../list-wrapper'
 import { Button } from '../../../buttons'
-import { AnalyticsList } from './analytics-list'
-import type { Analytic } from '@app/types'
+import { PagesList } from './pages-list'
+import type { Analytic, Pages } from '@app/types'
 import { GrFormNextLink, GrFormPreviousLink } from 'react-icons/gr'
+import { usePagesData } from '@app/data/external/pages/pages'
 
-type AnalyticsPagingProps = {
+type PagesPagingProps = {
   pageUrl?: string
   liveData?: Analytic[]
   open?: boolean
 }
 
 // paging issues for website dashboard cell
-const RenderInnerAnalyticsWrapper: FC<AnalyticsPagingProps> = ({
+const RenderInnerPagesWrapper: FC<PagesPagingProps> = ({
   liveData,
   pageUrl,
   open: defaultOpen,
 }) => {
   const [issueIndex, setIndex] = useState<number>(0)
-  const { data, loading, onLoadMore } = useAnalyticsData(pageUrl, false) // todo: use onComplete callback for next page
+  const {
+    data,
+    loading,
+    onLoadMorePages: onLoadMore,
+  } = usePagesData(pageUrl, false)
   const issueSource = useMemo(
-    () => (liveData?.length ? liveData : data) || [],
+    () => (liveData?.length ? (liveData as Pages[]) : data) || [],
     [liveData, data]
   )
-
   const issueList = useMemo(() => {
-    const items: Analytic[] = []
+    const items: Pages[] = []
 
     if (issueSource) {
       const base = (issueIndex + 1) * 10
@@ -48,7 +51,6 @@ const RenderInnerAnalyticsWrapper: FC<AnalyticsPagingProps> = ({
       setIndex((x: number) => x - 1)
     }
   }
-
   const idx = (issueIndex + 1) * 10
   const blocked = issueSource.length < idx
 
@@ -67,8 +69,9 @@ const RenderInnerAnalyticsWrapper: FC<AnalyticsPagingProps> = ({
           <InnerWrapper data={issueSource.length} loading={loading}>
             <ul className='list-none'>
               {issueList.map((page) => (
-                <AnalyticsList
-                  key={page?._id || page.pageUrl}
+                <PagesList
+                  key={page?._id || page.url}
+                  pageUrl={page.url}
                   open={defaultOpen}
                   {...page}
                 />
@@ -102,4 +105,4 @@ const RenderInnerAnalyticsWrapper: FC<AnalyticsPagingProps> = ({
   )
 }
 
-export const RenderInnerAnalyticsPaging = memo(RenderInnerAnalyticsWrapper)
+export const RenderInnerPagesPaging = memo(RenderInnerPagesWrapper)

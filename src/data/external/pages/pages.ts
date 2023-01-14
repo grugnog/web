@@ -1,9 +1,12 @@
 import { useQuery } from '@apollo/react-hooks'
 import { AppManager } from '@app/managers'
-import { GET_WEBSITE_PAGES_PAGINATED } from '@app/queries/websites'
+import {
+  GET_WEBSITE_PAGES_PAGINATED,
+  GET_WEBSITE_PAGES_SLIM_PAGINATED,
+} from '@app/queries/websites'
 
 // get pages pagined by website
-export const usePagesData = (url?: string | string[]) => {
+export const usePagesData = (url?: string | string[], slim?: boolean) => {
   const variables = { url, limit: 10, offset: 0 }
 
   const {
@@ -12,10 +15,13 @@ export const usePagesData = (url?: string | string[]) => {
     refetch,
     error,
     fetchMore: fetchMorePages,
-  } = useQuery(GET_WEBSITE_PAGES_PAGINATED, {
-    variables,
-    ssr: false,
-  })
+  } = useQuery(
+    slim ? GET_WEBSITE_PAGES_SLIM_PAGINATED : GET_WEBSITE_PAGES_PAGINATED,
+    {
+      variables,
+      ssr: false,
+    }
+  )
 
   const updateQuery = (prev: any, { fetchMoreResult }: any) => {
     if (!fetchMoreResult) {
@@ -29,12 +35,13 @@ export const usePagesData = (url?: string | string[]) => {
 
     const pages = [...prev?.website?.pages, ...fetchMoreResult?.website?.pages]
 
-    return Object.assign({}, prev, {
+    return {
+      ...prev,
       website: {
         ...prev?.website,
         pages,
       },
-    })
+    }
   }
 
   const pages = data?.website?.pages

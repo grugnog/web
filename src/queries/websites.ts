@@ -1,14 +1,15 @@
 import gql from 'graphql-tag'
 import { AppManager } from '@app/managers'
 import { MutationUpdaterFn } from 'apollo-client'
+import { User } from '@app/types'
 import {
+  pagesSlimFragments,
   issueFragments,
   websiteFragments,
   pagesFragments,
   analyticsFragments,
   scriptsFragments,
-} from '@app/apollo'
-import { User } from '@app/types'
+} from '@app/apollo/fragments'
 
 const GET_WEBSITES = gql`
   ${websiteFragments}
@@ -65,6 +66,21 @@ export const GET_WEBSITE_PAGES_PAGINATED = gql`
         _id
         pages(limit: $limit, offset: $offset) {
           ...PagesParts
+        }
+      }
+    }
+  }
+`
+
+// pages paginated
+export const GET_WEBSITE_PAGES_SLIM_PAGINATED = gql`
+  ${pagesSlimFragments}
+  query getWebsitePagesPaginated($url: String, $limit: Int, $offset: Int) {
+    website(url: $url) {
+      ... on Website {
+        _id
+        pages(limit: $limit, offset: $offset) {
+          ...PagesSlimParts
         }
       }
     }
