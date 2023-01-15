@@ -353,11 +353,7 @@ export function WebsiteCellDashboard({
         {issuesInfo || liveData.length ? (
           <AnalyticsCard domain={domain} liveData={liveData} />
         ) : null}
-        <LighthouseCard
-          lighthouseVisible={pageInsights && insight && lighthouseVisible}
-          insight={insight}
-        />
-        <div className='py-4'>
+        <div className='py-3'>
           {issuesInfo || liveData.length ? (
             <IssueCard pageUrl={url} liveData={liveData} />
           ) : // <div className='grid grid-cols-1 md:grid-cols-2 gap-3 px-2'>
@@ -365,6 +361,12 @@ export function WebsiteCellDashboard({
           //   <PageCard pageUrl={url} liveData={liveData} />
           // </div>
           null}
+        </div>
+        <div className='py-3'>
+          <LighthouseCard
+            lighthouseVisible={pageInsights && insight && lighthouseVisible}
+            insight={insight}
+          />
         </div>
       </div>
     </li>
