@@ -30,7 +30,7 @@ export function WebsiteCell(props: WebsiteCellProps) {
     pageHeaders,
   } = extra
 
-  const { adaScore } = issuesInfo ?? {}
+  const { accessScore } = issuesInfo ?? {}
 
   const onRemovePress = useCallback(async () => {
     await removePress({
@@ -60,7 +60,7 @@ export function WebsiteCell(props: WebsiteCellProps) {
     >
       <RenderAvatar
         cdnConnected={cdnConnected}
-        adaScore={adaScore}
+        accessScore={accessScore}
         error={false}
       />
       <div className='space-y-2 flex flex-1 flex-col'>
@@ -70,7 +70,7 @@ export function WebsiteCell(props: WebsiteCellProps) {
         <RenderSecondary
           issuesInfo={issuesInfo}
           cdnConnected={cdnConnected}
-          adaScore={adaScore}
+          accessScore={accessScore}
           issues={issues}
           pageLoadTime={pageLoadTime}
           mutatationLoading={mutatationLoading}

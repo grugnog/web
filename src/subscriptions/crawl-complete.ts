@@ -4,7 +4,7 @@ const CRAWL_COMPLETE_SUBSCRIPTION = gql`
   subscription crawlComplete {
     crawlComplete {
       domain
-      adaScoreAverage
+      accessScoreAverage
       shutdown
     }
   }

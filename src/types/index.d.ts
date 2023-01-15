@@ -9,7 +9,7 @@ export type Analytic = {
   errorOccurances?: string
   userId?: number
   domain?: string
-  adaScore?: number
+  accessScore?: number
   totalIssues?: number
 }
 
@@ -88,9 +88,9 @@ export type IssueMeta = {
   errorCount?: number
   warningCount?: number
   noticeCount?: number
-  adaScore?: number // todo: replace name to accessScore
+  accessScore?: number // todo: replace name to accessScore
   pageCount?: number
-  adaScoreAverage?: number // todo: replace name to accessScoreAverage
+  accessScoreAverage?: number // todo: replace name to accessScoreAverage
 }
 
 export type Mutation = {

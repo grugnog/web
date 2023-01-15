@@ -1063,7 +1063,7 @@ function GrpcDocs({ name }: PageProps) {
               </tr>
 
               <tr>
-                <td>adaScore</td>
+                <td>accessScore</td>
                 <td>
                   <a href='#int32'>int32</a>
                 </td>

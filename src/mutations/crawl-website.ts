@@ -28,7 +28,7 @@ export const CRAWL_WEBSITE = gql`
           color
         }
         issuesInfo {
-          adaScore
+          accessScore
           issuesFixedByCdn
           possibleIssuesFixedByCdn
           totalIssues

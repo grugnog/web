@@ -154,8 +154,8 @@ export const GET_WEBSITES_INFO = gql`
           tld
           subdomains
           issuesInfo {
-            adaScore
-            adaScoreAverage
+            accessScore
+            accessScoreAverage
             totalIssues
           }
         }
@@ -177,8 +177,8 @@ export const GET_PAGES = gql`
           domain
           cdnConnected
           issuesInfo {
-            adaScore
-            adaScoreAverage
+            accessScore
+            accessScoreAverage
             totalIssues
           }
         }

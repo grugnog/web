@@ -54,7 +54,7 @@ export const pagesFragments = gql`
       color
     }
     issuesInfo {
-      adaScore
+      accessScore
       possibleIssuesFixedByCdn
       totalIssues
       issuesFixedByCdn
@@ -97,8 +97,8 @@ export const websiteFragments = gql`
       json
     }
     issuesInfo {
-      adaScore
-      adaScoreAverage
+      accessScore
+      accessScoreAverage
       possibleIssuesFixedByCdn
       totalIssues
       issuesFixedByCdn
@@ -135,7 +135,7 @@ export const analyticsFragments = gql`
     _id
     domain
     pageUrl
-    adaScore
+    accessScore
     possibleIssuesFixedByCdn
     totalIssues
     issuesFixedByCdn

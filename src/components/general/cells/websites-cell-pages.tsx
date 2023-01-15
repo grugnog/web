@@ -38,7 +38,7 @@ export function WebsiteCellPagesComponent({
   pageInsights,
   lighthouseVisible,
 }: any) {
-  const { adaScore } = issuesInfo ?? {}
+  const { accessScore } = issuesInfo ?? {}
   const { loading, getPageSpeed } = usePageSpeed(url, (eventData) => {
     handleClickOpen(eventData, 'Lighthouse', url)
   })
@@ -135,7 +135,7 @@ export function WebsiteCellPagesComponent({
       </div>
       <div className={styles.spacing} />
       <div className='grid grid-cols-1 gap-1 sm:grid-cols-3'>
-        <AccessibilityBox adaScore={adaScore} average={false} />
+        <AccessibilityBox accessScore={accessScore} average={false} />
         <IssuesBox issues={errorCount} />
         <WarningsBox issues={warningCount} />
         <LoadTimeBox duration={pageLoadTime?.duration} />

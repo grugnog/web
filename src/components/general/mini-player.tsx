@@ -5,7 +5,7 @@ import { Fab } from './fab'
 import { Link } from './link'
 import { GrClose } from 'react-icons/gr'
 import { Lighthouse } from './lighthouse'
-import { AdaIframe } from '../ada/ada-iframe'
+import { AccessIframe } from '../ada/access-iframe'
 import { Button } from './buttons'
 import { HeadlessModal } from '../modal/headless'
 import { useInteractiveContext } from '../providers/interactive'
@@ -73,7 +73,7 @@ export const MiniPlayer: FC = () => {
             </>
           ) : (
             <div>
-              <AdaIframe url={data} miniPlayer />
+              <AccessIframe url={data} miniPlayer />
               <Fab />
             </div>
           )}

@@ -110,7 +110,7 @@ const Container = observer(({ store }: { store: any }) =>
   ) : null
 )
 
-export const AdaIframe = ({ url = '', miniPlayer, issue }: any) => {
+export const AccessIframe = ({ url = '', miniPlayer, issue }: any) => {
   return (
     <Fragment>
       {url ? (

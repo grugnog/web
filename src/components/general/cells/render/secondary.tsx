@@ -5,7 +5,7 @@ import { format } from 'date-fns'
 import { Chip } from '@app/components/general/chip'
 
 export function RenderSecondaryComponent({
-  adaScore,
+  accessScore,
   pageLoadTime = {
     duration: 0,
   },
@@ -43,7 +43,7 @@ export function RenderSecondaryComponent({
 
   return (
     <div className={'flex space-x-2'}>
-      {mainIssues && adaScore !== 100 ? (
+      {mainIssues && accessScore !== 100 ? (
         <Chip
           avatar={<GrCircleAlert className='grIcon' />}
           label={mainIssues}

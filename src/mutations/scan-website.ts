@@ -32,7 +32,7 @@ const SCAN_WEBSITE = gql`
           value
         }
         issuesInfo {
-          adaScore
+          accessScore
           issuesFixedByCdn
           possibleIssuesFixedByCdn
           totalIssues

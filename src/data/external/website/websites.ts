@@ -188,7 +188,7 @@ export const useWebsiteData = (
       // website did not complete due to time elasped across pages
       if (completedWebsite) {
         setTimeout(async () => {
-          const adaScoreAverage = completedWebsite.adaScoreAverage
+          const accessScoreAverage = completedWebsite.accessScoreAverage
 
           if (completedWebsite.shutdown) {
             AppManager.toggleSnack(
@@ -199,7 +199,7 @@ export const useWebsiteData = (
           } else {
             AppManager.toggleSnack(
               true,
-              `Crawl finished for ${completedWebsite.domain}. Average score across pages ${adaScoreAverage}`,
+              `Crawl finished for ${completedWebsite.domain}. Average score across pages ${accessScoreAverage}`,
               'success'
             )
 

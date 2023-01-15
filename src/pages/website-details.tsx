@@ -1,7 +1,7 @@
 import { NavBar, IssueModal, Fab } from '@app/components/general'
 import { useRouter } from 'next/router'
 import { useIssue, useScript } from '@app/data'
-import { AdaIframe } from '@app/components/ada/ada-iframe'
+import { AccessIframe } from '@app/components/ada/access-iframe'
 import { metaSetter } from '@app/utils'
 import { GetServerSideProps } from 'next'
 import { useAuthContext } from '@app/components/providers/auth'
@@ -23,7 +23,7 @@ function WebsiteDetails({ url: initUrl }: { url: string }) {
         notitle
         authenticated={account.authed}
       />
-      <AdaIframe url={baseUrl} issue={issue} />
+      <AccessIframe url={baseUrl} issue={issue} />
       <Fab issue={issue} script={script} />
       <IssueModal issue={issue} />
     </>

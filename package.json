@@ -1,6 +1,6 @@
 {
   "name": "@a11ywatch/web",
-  "version": "0.5.120",
+  "version": "0.5.121",
   "scripts": {
     "dev": "NODE_OPTIONS='--inspect' next dev",
     "dev:vercel": "NODE_OPTIONS='--inspect' vercel dev",
@@ -25,7 +25,6 @@
     "@apollo/react-ssr": "3.1.5",
     "@headlessui/react": "^1.7.7",
     "@monaco-editor/react": "^4.4.6",
-    "@nivo/bar": "^0.80.0",
     "@nivo/core": "^0.80.0",
     "@nivo/stream": "^0.80.0",
     "@stripe/react-stripe-js": "1.15.0",

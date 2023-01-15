@@ -13,8 +13,8 @@ export const websiteDataMock = [
     verified: false,
     insight: null,
     issuesInfo: {
-      adaScore: null,
-      adaScoreAverage: 76,
+      accessScore: null,
+      accessScoreAverage: 76,
       possibleIssuesFixedByCdn: 0,
       totalIssues: 12709,
       issuesFixedByCdn: 10,
@@ -53,8 +53,8 @@ export const websiteDataMock = [
     verified: false,
     insight: null,
     issuesInfo: {
-      adaScore: null,
-      adaScoreAverage: 84,
+      accessScore: null,
+      accessScoreAverage: 84,
       possibleIssuesFixedByCdn: 0,
       totalIssues: 1104,
       issuesFixedByCdn: 9,
@@ -96,8 +96,8 @@ export const websiteDataMock = [
       __typename: 'PageInsights',
     },
     issuesInfo: {
-      adaScore: null,
-      adaScoreAverage: 100,
+      accessScore: null,
+      accessScoreAverage: 100,
       possibleIssuesFixedByCdn: 0,
       totalIssues: 96,
       issuesFixedByCdn: 0,

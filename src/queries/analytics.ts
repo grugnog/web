@@ -10,7 +10,7 @@ const GET_ANALYTICS = gql`
         warningCount
         noticeCount
         errorCount
-        adaScore
+        accessScore
       }
     }
   }

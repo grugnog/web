@@ -215,7 +215,7 @@ export function WebsiteCellDashboard({
       ? issues.length
       : pagecount
 
-  const { adaScoreAverage: accessScore } = issuesInfo ?? {}
+  const { accessScoreAverage: accessScore } = issuesInfo ?? {}
 
   const onWebsiteCrawl = useCallback(async () => {
     AppManager.toggleSnack(

@@ -2,13 +2,13 @@ import { memo } from 'react'
 import { GrFolder, GrStatusWarning } from 'react-icons/gr'
 
 export function RenderAvatarComponent({
-  adaScore,
+  accessScore,
   cdnConnected,
   error, // issues view
   className = '',
 }: any) {
-  const newScore = adaScore && `${Math.round(adaScore)}`
-  const ADASCORE = adaScore
+  const newScore = accessScore && `${Math.round(accessScore)}`
+  const ADASCORE = accessScore
     ? `Accessibility score ${newScore}`
     : error
     ? ''
@@ -18,7 +18,7 @@ export function RenderAvatarComponent({
 
   let inner = <GrFolder />
 
-  if (adaScore) {
+  if (accessScore) {
     inner = (
       <p
         aria-label={ADASCORE}
