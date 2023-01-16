@@ -163,7 +163,7 @@ function Feature() {
             <TableRow
               rows={[
                 'Average pages tested per 10$ spent',
-                '2,500-5,000 daily',
+                '8,000-15,000 daily',
                 '100',
                 '10-75?',
               ]}

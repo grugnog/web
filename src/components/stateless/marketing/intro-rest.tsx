@@ -31,19 +31,16 @@ function MarketingIntro({
           <div>
             <p className='text-base '>
               A11ywatch provides powerful tools for testing web inclusivity
-              correctly so you can build better software. We created a smart
-              safeguard that prevents drastic issues across your websites
-              without hurting SEO and without overlays. Our system is constantly
-              improving web accessibility test coverage, efficiency & speed, and
-              other integrations that help productivity.
+              correctly so you can build better software. Our system is
+              constantly improving web accessibility test coverage, efficiency &
+              speed, and other integrations that help productivity.
             </p>
             <p className='text-base py-1 '>
               Gain confidence across every step with robust solutions like{' '}
               <strong>
                 embed scripts, automated workflows, API access, and much more
               </strong>
-              . Add custom actions and authentication for different use cases
-              easy.
+              .
             </p>
           </div>
         )}

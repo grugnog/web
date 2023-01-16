@@ -4,9 +4,6 @@ const determineScore = (score?: number) => {
   if (typeof score === 'undefined') {
     return 'N'
   }
-  if (score === 100) {
-    return 'S'
-  }
   if (score >= 95) {
     return 'A+'
   }
