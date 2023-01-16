@@ -8,9 +8,10 @@ const PageBar = () => {
     <div className='flex px-4 py-2 flex-1 w-full place-items-center text-xs md:text-sm'>
       <div className='text-left'>Pages</div>
       <div className='flex flex-1 w-full place-content-end text-right'>
-        <div className='grid grid grid-cols-2 gap-4'>
-          <div>Warnings</div>
-          <div>Errors</div>
+        <div className='grid grid grid-cols-3 gap-2.5'>
+          <div>Lighthouse</div>
+          <div>Online</div>
+          <div>TTL</div>
         </div>
       </div>
     </div>
@@ -21,16 +22,22 @@ const PageBar = () => {
 const PageCardCommponent = ({
   pageUrl,
   liveData,
+  handleMainClick,
 }: {
   pageUrl: string
   liveData?: Analytic[]
+  handleMainClick?: any // modal
 }) => {
   return (
     <div>
       <PageBar />
       <div className='border-t'>
         <LazyMount className={'h-[450px]'}>
-          <RenderInnerPagesPaging pageUrl={pageUrl} liveData={liveData} />
+          <RenderInnerPagesPaging
+            pageUrl={pageUrl}
+            liveData={liveData}
+            handleMainClick={handleMainClick}
+          />
         </LazyMount>
       </div>
     </div>

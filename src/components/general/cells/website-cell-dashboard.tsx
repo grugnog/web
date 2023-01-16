@@ -38,7 +38,7 @@ import { useWebsiteLiveData } from '@app/data/formatters/use-live-data'
 import { RunnersBox } from './blocks/runner'
 import { ProxyBox } from './blocks/proxy'
 import { Score } from '../blocks/score'
-// import { PageCard } from './card/pages-card'
+import { PageCard } from './card/pages-card'
 
 const styles = {
   title: 'text-xl md:text-3xl font-medium truncate',
@@ -167,6 +167,7 @@ export function WebsiteCellDashboard({
           'POST'
         )
       }
+
       if (title === 'Website Analytics') {
         const path = url
           ? `/list/analytics?limit=10000&domain=${new URL(url).hostname}`
@@ -266,7 +267,6 @@ export function WebsiteCellDashboard({
                     robots={robots}
                     subdomains={subdomains}
                     tld={tld}
-                    shutdown={shutdown}
                     dashboard
                     online={online}
                     borderLess
@@ -279,7 +279,11 @@ export function WebsiteCellDashboard({
                   />
                 ) : null}
               </div>
-              <Timer stop={!activeCrawl} duration={crawlDuration} />
+              <Timer
+                stop={!activeCrawl}
+                duration={crawlDuration}
+                shutdown={shutdown}
+              />
             </div>
             <MoreOptions
               url={url}
@@ -355,12 +359,19 @@ export function WebsiteCellDashboard({
         ) : null}
         <div className='py-3'>
           {issuesInfo || liveData.length ? (
-            <IssueCard pageUrl={url} liveData={liveData} />
-          ) : // <div className='grid grid-cols-1 md:grid-cols-2 gap-3 px-2'>
-          //   <IssueCard pageUrl={url} liveData={liveData} />
-          //   <PageCard pageUrl={url} liveData={liveData} />
-          // </div>
-          null}
+            <div className='grid grid-cols-1 md:grid-cols-2 gap-3 px-2'>
+              <div className='border rounded-sm'>
+                <IssueCard pageUrl={url} liveData={liveData} />
+              </div>
+              <div className='border rounded-sm'>
+                <PageCard
+                  pageUrl={url}
+                  liveData={liveData}
+                  handleMainClick={handleMainClick}
+                />
+              </div>
+            </div>
+          ) : null}
         </div>
         <div className='py-3'>
           <LighthouseCard

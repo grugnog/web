@@ -10,6 +10,7 @@ type PagesPagingProps = {
   pageUrl?: string
   liveData?: Analytic[]
   open?: boolean
+  handleMainClick?(): any // modal
 }
 
 // paging issues for website dashboard cell
@@ -17,6 +18,7 @@ const RenderInnerPagesWrapper: FC<PagesPagingProps> = ({
   liveData,
   pageUrl,
   open: defaultOpen,
+  handleMainClick,
 }) => {
   const [issueIndex, setIndex] = useState<number>(0)
   const {
@@ -70,9 +72,10 @@ const RenderInnerPagesWrapper: FC<PagesPagingProps> = ({
             <ul className='list-none'>
               {issueList.map((page) => (
                 <PagesList
-                  key={page?._id || page.url}
+                  key={page?._id ?? page.url ?? page.pageUrl}
                   pageUrl={page.url}
                   open={defaultOpen}
+                  handleMainClick={handleMainClick}
                   {...page}
                 />
               ))}
@@ -87,7 +90,7 @@ const RenderInnerPagesWrapper: FC<PagesPagingProps> = ({
           <Button
             iconButton
             onClick={onPrevSelect}
-            className={` ${issueIndex ? 'visible' : 'hidden'}`}
+            className={`${issueIndex ? 'visible' : 'hidden'}`}
           >
             <GrFormPreviousLink className='grIcon' />
           </Button>

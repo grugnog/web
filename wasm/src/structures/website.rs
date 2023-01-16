@@ -28,6 +28,8 @@ pub struct Website {
     #[serde(rename = "lastScanDate")]
     pub last_scan_date: String,
     pub insight: Option<LightHouse>,
+    #[serde(rename = "pageInsights")]
+    pub page_insights: bool,
     #[serde(rename = "pageLoadTime")]
     pub page_load_time: PageLoadTime,
     pub tld: bool,
@@ -40,5 +42,7 @@ pub struct PageIssue {
     #[serde(rename = "pageUrl")]
     pub page_url: String,
     pub domain: String,
-    pub issues: Option<Vec<Issue>>
+    pub issues: Option<Vec<Issue>>,
+    #[serde(rename = "pageInsights")]
+    pub page_insights: bool,
 }

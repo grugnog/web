@@ -281,7 +281,12 @@ export const useWebsiteData = (
 
       setTimeout(() => {
         AppManager.toggleSnack(true, `Insight found on ${newIssue.pageUrl}`)
-        feed?.insert_website(newIssue)
+        feed?.insert_website({
+          domain: newIssue.domain,
+          issues: newIssue.issues,
+          pageUrl: newIssue.pageUrl,
+          pageInsights: false,
+        })
       })
     },
     [feed]
@@ -296,12 +301,21 @@ export const useWebsiteData = (
           (source: Website) => source.domain === results?.domain
         )
 
+        const feedItem = feed.get_page(results.domain, results.url)
+
+        if (feedItem && feedItem.domain) {
+          feed.insert_website({
+            pageUrl: results.url,
+            pageInsights: true,
+            domain: results.domain,
+            issues: (feedItem && feedItem.issues) || [],
+          })
+        }
+
         if (dataSource && dataSource.url === removeTrailingSlash(results.url)) {
           dataSource.insight = results.insight
           forceUpdate()
         }
-
-        feed.insert_website(dataSource)
 
         AppManager.toggleSnack(
           true,

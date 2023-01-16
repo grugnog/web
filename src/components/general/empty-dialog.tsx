@@ -12,7 +12,7 @@ export const EmptyDialogButton = ({
   buttonStyles?: string
 }) => {
   return (
-    <Button className={`bg-gray-200 ${buttonStyles}`} disabled>
+    <Button className={`bg-gray-200 dark:bg-inherit ${buttonStyles}`} disabled>
       {buttonTitle}
       {icon ? <GrChapterAdd className='grIcon' /> : null}
     </Button>

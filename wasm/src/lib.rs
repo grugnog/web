@@ -67,9 +67,14 @@ impl Feed {
     pub fn get_page(&self, domain: String, page_url: String) -> JsValue {
         if self.data.contains_key(&domain) {
             let value = self.data.get(&domain).unwrap();
-            let value = value.get(&page_url).unwrap();
-
-            serde_wasm_bindgen::to_value(&value).unwrap()
+            match value.get(&page_url) {
+                Some(res) => {
+                    serde_wasm_bindgen::to_value(&res).unwrap()
+                },
+                _ => {
+                    serde_wasm_bindgen::to_value(&false).unwrap()
+                }
+            }
         } else {
             serde_wasm_bindgen::to_value(&false).unwrap()
         }

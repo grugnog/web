@@ -12,14 +12,16 @@ fn insert_website() {
     let web: PageIssue = PageIssue {
         page_url: "https://a11ywatch.com/login".to_string(),
         domain: "a11ywatch.com".to_string(),
-        issues: None
+        issues: None,
+        page_insights: false
     };
     let value = serde_wasm_bindgen::to_value(&web).unwrap();
 
     let web1: PageIssue = PageIssue {
         page_url: "https://jeffmendez.com".to_string(),
         domain: "jeffmendez.com".to_string(),
-        issues: None
+        issues: None,
+        page_insights: false
     };
     let value1 = serde_wasm_bindgen::to_value(&web1).unwrap();
 
@@ -40,7 +42,8 @@ fn get_page() {
     let web: PageIssue = PageIssue {
         page_url: "https://a11ywatch.com/login".to_string(),
         domain: "a11ywatch.com".to_string(),
-        issues: None
+        issues: None,
+        page_insights: false
     };
 
     let value = serde_wasm_bindgen::to_value(&web).unwrap();
@@ -59,7 +62,8 @@ fn get_website_item() {
     let web: PageIssue = PageIssue {
         page_url: "https://a11ywatch.com/login".to_string(),
         domain: "a11ywatch.com".to_string(),
-        issues: None
+        issues: None,
+        page_insights: false
     };
 
     let value = serde_wasm_bindgen::to_value(&web).unwrap();
@@ -77,7 +81,8 @@ fn sort_website() {
     let web: PageIssue = PageIssue {
         page_url: "https://hbo.com/about".to_string(),
         domain: "hbo.com".to_string(),
-        issues: None
+        issues: None,
+        page_insights: false
     };
     let value = serde_wasm_bindgen::to_value(&web).unwrap();
     feed.insert_website(value.clone());
@@ -85,7 +90,8 @@ fn sort_website() {
     let web: PageIssue = PageIssue {
         page_url: "https://a11ywatch.com/login".to_string(),
         domain: "a11ywatch.com".to_string(),
-        issues: None
+        issues: None,
+        page_insights: false
     };
 
     let value = serde_wasm_bindgen::to_value(&web).unwrap();
@@ -93,7 +99,8 @@ fn sort_website() {
     let web: PageIssue = PageIssue {
         page_url: "https://a11ywatch.com/about".to_string(),
         domain: "a11ywatch.com".to_string(),
-        issues: None
+        issues: None,
+        page_insights: false
     };
     let value = serde_wasm_bindgen::to_value(&web).unwrap();
     feed.insert_website(value.clone());
@@ -112,7 +119,8 @@ fn get_keys() {
     let web: PageIssue = PageIssue {
         page_url: "https://a11ywatch.com/about".to_string(),
         domain: "a11ywatch.com".to_string(),
-        issues: None
+        issues: None,
+        page_insights: false
     };
     let value = serde_wasm_bindgen::to_value(&web).unwrap();
     feed.insert_website(value.clone());

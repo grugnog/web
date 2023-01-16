@@ -347,6 +347,7 @@ export type Pages = {
   issuesInfo?: IssueMeta
   pageInsights?: boolean
   insight?: PageInsights
+  online?: boolean
 } & Partial<Analytic>
 
 export type SubDomainIssuesArgs = {

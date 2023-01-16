@@ -1,19 +1,26 @@
 import { useState, memo, useEffect } from 'react'
 import { hiddenList, visibleList } from '@app/stylesheets/list.module.css'
 import { Pages } from '@app/types'
-import { ListCellAnalyticsHeader } from './analytics-header'
+import { ListCellPagesHeader } from './pages-header'
 import { FetchIssue } from './fetch-issue'
 import { Skeleton } from '@app/components/placeholders/skeleton'
 
 // return issues maped
 const PagesWrapper = ({
-  errorCount,
-  warningCount,
-  totalIssues,
+  handleMainClick,
   domain,
   url,
   open: defaultOpen,
-}: Pages & { open?: boolean; small?: boolean; singleRow?: boolean }) => {
+  pageUrl,
+  pageInsights,
+  online,
+  pageLoadTime,
+}: Pages & {
+  open?: boolean
+  small?: boolean
+  singleRow?: boolean
+  handleMainClick?(ata: any, name: string, _mini: boolean, url: string): void
+}) => {
   const [visible, setVisible] = useState<boolean>(!!defaultOpen)
   const [loaded, setLoaded] = useState<boolean>(false)
 
@@ -25,14 +32,15 @@ const PagesWrapper = ({
 
   return (
     <>
-      <ListCellAnalyticsHeader
-        url={url}
-        totalIssues={totalIssues}
+      <ListCellPagesHeader
+        url={url || pageUrl}
         setVisible={setVisible}
         visible={visible}
-        warningCount={warningCount}
-        errorCount={errorCount}
         domain={domain as string}
+        online={online}
+        pageInsights={pageInsights}
+        duration={pageLoadTime?.duration}
+        handleMainClick={handleMainClick}
       />
       <div
         aria-hidden={!visible}
@@ -41,7 +49,7 @@ const PagesWrapper = ({
         }`}
       >
         {loaded ? (
-          <FetchIssue url={url} />
+          <FetchIssue url={url || pageUrl} />
         ) : (
           <Skeleton className='w-full h-30' />
         )}

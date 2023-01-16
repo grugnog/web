@@ -1,4 +1,4 @@
-import { memo, useMemo } from 'react'
+import { memo } from 'react'
 
 type CellHeaderProps = {
   url?: string
@@ -19,20 +19,6 @@ const ListCellAnalyticsHeaderW = ({
 }: CellHeaderProps) => {
   const onTogglelist = () => setVisible((v: boolean) => !v)
 
-  const pathName = useMemo(() => {
-    let value = url
-
-    if (value) {
-      try {
-        value = new URL(url).pathname
-      } catch (e) {
-        console.error(e)
-      }
-    }
-
-    return value
-  }, [url])
-
   // return a small single row of the page and issues with a dropdown
   return (
     <div className='flex place-items-center text-xs md:text-sm'>
@@ -42,7 +28,7 @@ const ListCellAnalyticsHeaderW = ({
         aria-expanded={visible}
         aria-label={`Toggle section visible for ${url}`}
       >
-        {pathName}
+        {url}
       </button>
       <div className='grid grid grid-cols-2 gap-4 auto-cols-max pr-4'>
         <div className='text-right'>{warningCount}</div>

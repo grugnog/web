@@ -16,7 +16,6 @@ export function WebsiteSecondaryComponent({
   lastScanDate,
   issuesInfo,
   pageHeaders,
-  shutdown,
   online,
   borderLess,
 }: Website & {
@@ -53,14 +52,6 @@ export function WebsiteSecondaryComponent({
 
   return (
     <div className={`flex gap-x-1 overflow-x-auto max-w-[75vw]`}>
-      {shutdown ? (
-        <Chip
-          title={`Website scan did not complete. Upgrade your account to increase your scanning up-time.`}
-          avatar={<GrPowerShutdown className={'grIcon'} />}
-          label={'Shutdown'}
-          borderLess={borderLess}
-        />
-      ) : null}
       {lastScan ? (
         <Chip
           avatar={<GrCalendar className={'grIcon'} />}

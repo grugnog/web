@@ -1,6 +1,10 @@
 import { Analytic, Issue, IssueMeta } from '@app/types'
 import { useMemo } from 'react'
 
+type LiveItem = Analytic & {
+  pageInsights?: boolean
+}
+
 // format live data for a website
 export const useWebsiteLiveData = ({
   issues,
@@ -14,7 +18,7 @@ export const useWebsiteLiveData = ({
       let errors = 0
       let warnings = 0
       let notices = 0
-      let liveData: Analytic[] = []
+      let liveData: LiveItem[] = []
 
       // todo: only use live feed data
       if (issues && Array.isArray(issues) && issues.length) {
@@ -41,6 +45,7 @@ export const useWebsiteLiveData = ({
 
           liveData.push({
             pageUrl: iss.pageUrl,
+            pageInsights: !!iss.pageInsights,
             errorCount: currentErrors,
             warningCount: currentWarnings,
             noticeCount: currentNotices,

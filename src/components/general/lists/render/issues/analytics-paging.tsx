@@ -24,7 +24,6 @@ const RenderInnerAnalyticsWrapper: FC<AnalyticsPagingProps> = ({
     () => (liveData?.length ? liveData : data) || [],
     [liveData, data]
   )
-
   const issueList = useMemo(() => {
     const items: Analytic[] = []
 
