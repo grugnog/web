@@ -36,7 +36,7 @@ export const Chip: FC<PropsWithChildren<ChipProps>> = ({
       {...extra}
     >
       <div>{children || avatar}</div>
-      {label ? <div>{label}</div> : null}
+      {label ? label : null}
     </div>
   )
 }

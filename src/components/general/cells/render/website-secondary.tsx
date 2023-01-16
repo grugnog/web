@@ -110,6 +110,7 @@ export function WebsiteSecondaryComponent({
           label={Intl.NumberFormat().format(totalIssues)}
           title={`Total page issues between warnings and errors: ${totalIssues}`}
           borderLess={borderLess}
+          className={'w-[73px] md:w-auto'}
         />
       ) : null}
     </div>

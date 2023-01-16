@@ -309,7 +309,7 @@ export const useWebsiteData = (
         )
       })
     },
-    [websites, forceUpdate]
+    [feed, websites, forceUpdate]
   )
 
   const { data: issueSubData } = useSubscription(ISSUE_SUBSCRIPTION, {
