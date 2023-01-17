@@ -25,7 +25,7 @@ const cdn = process.env.CDN || 'http://localhost:8090'
 
 const SCRIPTS_CDN_URL_HOST = `${cdn}/scripts`
 
-const SUPER_MODE = process.env.SUPER_MODE
+const SUPER_MODE = process.env.NEXT_PUBLIC_SUPER_MODE
 
 // the front-end domain name
 const DOMAIN_NAME =

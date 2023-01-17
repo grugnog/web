@@ -13,10 +13,10 @@ const env = {
   STRIPE_KEY: process.env.STRIPE_KEY,
   GOOGLE_CLIENT_ID: process.env.GOOGLE_CLIENT_ID,
   GITHUB_CLIENT_ID: process.env.GITHUB_CLIENT_ID,
-  NEXT_PUBLIC_DOMAIN_NAME: DOMAIN_NAME,
-  SUPER_MODE: process.env.SUPER_MODE === 'true',
   DOCKER_CONTAINER: process.env.DOCKER_CONTAINER === 'true', // app is using docker runtime
   CDN: process.env.CDN, // single CDN for app assets
+  NEXT_PUBLIC_DOMAIN_NAME: DOMAIN_NAME,
+  NEXT_PUBLIC_SUPER_MODE: process.env.SUPER_MODE === 'true' ? true : false,
 }
 
 let domains = []

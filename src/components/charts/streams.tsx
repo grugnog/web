@@ -103,6 +103,7 @@ const WebsiteAnalyticStreamComponent = ({
       colors={{ scheme: 'nivo' }}
       label={getLabel}
       theme={theme}
+      animate={false}
       layers={['dots', 'grid', 'layers', 'slices', 'legends', 'axes']}
       stackTooltip={(stack) =>
         data && <StackTip item={data[stack.slice.index]} />

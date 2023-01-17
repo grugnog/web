@@ -16,6 +16,7 @@ import { TextField } from './text-field'
 import { useAuthContext } from '../providers/auth'
 import { Checkbox } from './check-box'
 import { RunnerSelect } from './runner-select'
+import { SUPER_MODE } from '@app/configs'
 
 const domainList = [...dmList, 'none']
 
@@ -75,7 +76,7 @@ export function FormDialogWrapper({
   const headers = useInputHeader()
   const actions = useInputActions()
 
-  const { activeSubscription } = account
+  const activeSubscription = account?.activeSubscription || SUPER_MODE
 
   const { addWebsite } = useWebsiteContext()
 
@@ -250,7 +251,7 @@ export function FormDialogWrapper({
 
   // toggle actions form
   const onChangeActionsEvent = () => {
-    if (account.activeSubscription) {
+    if (activeSubscription) {
       actions.setCustomActions((v: boolean) => !v)
     } else {
       AppManager.toggleSnack(
