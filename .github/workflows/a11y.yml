@@ -7,7 +7,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: A11yWatch website scan
-        uses: a11ywatch/github-action@v1.12.0
+        uses: a11ywatch/github-action@v1
         with:
           WEBSITE_URL: https://a11ywatch.com
           FAIL_TOTAL_COUNT: 1250
