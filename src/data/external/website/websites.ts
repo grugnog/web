@@ -194,7 +194,9 @@ export const useWebsiteData = (
             AppManager.toggleSnack(
               true,
               `Crawl did not complete for ${completedWebsite.domain}. Upgrade your account for a larger scan uptime.`,
-              'error'
+              'error',
+              false,
+              true
             )
           } else {
             AppManager.toggleSnack(
@@ -280,7 +282,6 @@ export const useWebsiteData = (
       const newIssue = subscriptionData?.data?.issueAdded
 
       setTimeout(() => {
-        AppManager.toggleSnack(true, `Insight found on ${newIssue.pageUrl}`)
         feed?.insert_website({
           domain: newIssue.domain,
           issues: newIssue.issues,
