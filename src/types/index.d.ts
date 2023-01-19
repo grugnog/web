@@ -216,7 +216,6 @@ export type PageLoadTimeMeta = {
   __typename?: 'PageLoadTimeMeta'
   duration?: number
   durationFormated?: string
-  color?: string
 }
 
 export type PaymentPlan = {

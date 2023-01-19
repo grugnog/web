@@ -28,7 +28,6 @@ export const websiteDataMock = [
     pageLoadTime: {
       duration: 57,
       durationFormated: 'Lightning Fast',
-      color: '#A5D6A7',
       __typename: 'PageLoadTimeMeta',
     },
     crawlDuration: 30954.146223000018,
@@ -68,7 +67,6 @@ export const websiteDataMock = [
     pageLoadTime: {
       duration: 7,
       durationFormated: 'Cached/Extremely Fast',
-      color: '#A5D6A7',
       __typename: 'PageLoadTimeMeta',
     },
     crawlDuration: 1885.3699599988759,
@@ -111,7 +109,6 @@ export const websiteDataMock = [
     pageLoadTime: {
       duration: 11,
       durationFormated: 'Cached/Extremely Fast',
-      color: '#A5D6A7',
       __typename: 'PageLoadTimeMeta',
     },
     crawlDuration: 1894.0222919993103,

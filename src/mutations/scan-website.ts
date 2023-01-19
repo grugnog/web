@@ -25,7 +25,6 @@ const SCAN_WEBSITE = gql`
         pageLoadTime {
           duration
           durationFormated
-          color
         }
         pageHeaders {
           key

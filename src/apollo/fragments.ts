@@ -51,7 +51,6 @@ export const pagesFragments = gql`
     pageLoadTime {
       duration
       durationFormated
-      color
     }
     issuesInfo {
       accessScore
@@ -76,7 +75,6 @@ export const pagesSlimFragments = gql`
     pageLoadTime {
       duration
       durationFormated
-      color
     }
   }
 `
@@ -114,7 +112,6 @@ export const websiteFragments = gql`
     pageLoadTime {
       duration
       durationFormated
-      color
     }
     crawlDuration
     ua

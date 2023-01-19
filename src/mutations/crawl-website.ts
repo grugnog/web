@@ -25,7 +25,6 @@ export const CRAWL_WEBSITE = gql`
         pageLoadTime {
           duration
           durationFormated
-          color
         }
         issuesInfo {
           accessScore
