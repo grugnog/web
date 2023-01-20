@@ -217,11 +217,9 @@ export const LOGGIN_ROUTES = [
   '/profile',
   '/payments',
   '/issues',
-  '/scripts', // todo: website scripts rename
   '/website-analytics',
   '/website-details',
   '/web-issues',
   '/web-actions',
-  '/web-pages',
   '/settings',
 ]

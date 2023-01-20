@@ -126,17 +126,6 @@ export const useWebsiteData = (
 
   // Get Scripts Pages
   const {
-    data: scriptsResults,
-    loading: scriptsDataLoading,
-    fetchMore: fetchMoreScripts,
-  } = useQuery(GET_WEBSITES_INFO, {
-    variables: pageVars,
-    skip: scopedQuery !== 'scripts',
-    ssr: false,
-  })
-
-  // Get Scripts Pages
-  const {
     data: actionResults,
     loading: actionsDataLoading,
     fetchMore: fetchMoreActions,
@@ -173,9 +162,7 @@ export const useWebsiteData = (
   const analyticsData = useMemo(() => {
     return analyticsResults?.user?.websites || []
   }, [analyticsResults])
-  const scriptsData = useMemo(() => {
-    return scriptsResults?.user?.websites || []
-  }, [scriptsResults])
+
   const actionsData = useMemo(() => {
     return actionResults?.user?.websites || []
   }, [actionResults])
@@ -431,23 +418,6 @@ export const useWebsiteData = (
     }
   }, [analyticsData, fetchMoreAnalytics, analyticsDataLoading])
 
-  // scripts page pagination
-  const onLoadMoreScripts = useCallback(async () => {
-    if (!scriptsDataLoading) {
-      try {
-        await fetchMoreScripts({
-          query: GET_WEBSITES_INFO,
-          variables: {
-            offset: Number(scriptsData.length || 0),
-          },
-          updateQuery,
-        })
-      } catch (e) {
-        console.error(e)
-      }
-    }
-  }, [scriptsData, fetchMoreScripts, scriptsDataLoading])
-
   // actions page pagination
   const onLoadMoreActions = useCallback(async () => {
     if (!actionsDataLoading) {
@@ -497,10 +467,8 @@ export const useWebsiteData = (
     issueData, // [scoped] collection of issues
     pagesData, // [scoped] collection of pages
     analyticsData, // [scoped] collection of analytics
-    scriptsData, // [scoped] collection of scripts
     actionsData, // [scopred] collection of actions
     analyticsDataLoading, // [scoped] analytics loading]
-    scriptsDataLoading, // [scoped] scripts loading
     pagesDataLoading, // [scoped] pages loading
     issueDataLoading, // [scoped] issues loading
     actionsDataLoading, // [scoped] issues loading
@@ -522,7 +490,6 @@ export const useWebsiteData = (
     onLoadMoreIssues,
     onLoadMorePages,
     onLoadMoreAnalytics,
-    onLoadMoreScripts,
     onLoadMoreActions,
     // other state
     activeCrawls,

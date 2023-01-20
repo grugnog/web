@@ -18,9 +18,9 @@ export const APIInfoBlock = ({
   const availableUsage = getUsageLimitsMs(user?.role ?? 0)
 
   return (
-    <Box className={'border rounded px-4 py-2'}>
+    <Box className={'border border-dotted rounded px-4 py-2'}>
       {hideHeader ? null : (
-        <p className={'text-lg font-medium'}>V1 API Reference</p>
+        <p className={'text-lg font-medium'}>API Reference</p>
       )}
       {!user && loading ? (
         <TextSkeleton className={'p-2'} />

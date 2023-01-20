@@ -43,10 +43,6 @@ export const UPDATE_WEBSITE = gql`
         tld
         subdomains
         proxy
-        script {
-          _id
-          script
-        }
         standard
         pageInsights
         insight {

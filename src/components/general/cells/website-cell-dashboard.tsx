@@ -10,7 +10,6 @@ import {
   HeadersBox,
   LighthouseBox,
   StatusBadgeBox,
-  CustomCDNBox,
   StandardBox,
   IssuesBox,
   WarningsBox,
@@ -103,7 +102,6 @@ export function WebsiteCellDashboard({
   lastScanDate,
   pageHeaders,
   index,
-  script,
   domain,
   online,
   insight,
@@ -131,7 +129,6 @@ export function WebsiteCellDashboard({
   )
   const { setSelectedWebsite, selectedWebsite } = useInteractiveContext()
   const issues = items.length ? items : currentIssues
-  const { activeSubscription } = account
 
   // real time issue tracking todo: send subscription with issuesInfo [todo: build analytics feed usage]
   const { errorCount, warningCount, totalIssues, issuesFixedByCdn, liveData } =
@@ -339,12 +336,6 @@ export function WebsiteCellDashboard({
             subdomains={subdomains}
             url={url}
             activeSubscription={account.activeSubscription}
-          />
-          <CustomCDNBox
-            cdnConnected={cdnConnected}
-            script={script}
-            activeSubscription={activeSubscription}
-            domain={domain}
           />
           <StatusBadgeBox
             reportsLink={reportsLink}

@@ -69,7 +69,7 @@ function ApiInfo() {
             {!data?.user && loading ? (
               <TextSkeleton className={'p-2'} />
             ) : data?.user ? (
-              <div className='py-2'>
+              <div className='py-2 space-y-1'>
                 <span id='toggle-key' className='sr-only'>
                   Toggle the visibility of your authentication token
                 </span>
@@ -77,9 +77,9 @@ function ApiInfo() {
                   type='button'
                   onClick={toggleKey}
                   aria-labelledby={'togle-key'}
-                  className={'font-medium px-4 py-2'}
+                  className={'px-6 py-2'}
                 >
-                  {`${keyVisible ? 'Hide' : 'View'} Token`}
+                  {`${keyVisible ? 'Hide' : 'Show'} API Token`}
                 </Button>
                 <div
                   className={`py-2 relative pr-12 ${

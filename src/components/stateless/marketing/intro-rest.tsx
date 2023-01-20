@@ -37,10 +37,7 @@ function MarketingIntro({
             </p>
             <p className='text-base py-1 '>
               Gain confidence across every step with robust solutions like{' '}
-              <strong>
-                embed scripts, automated workflows, API access, and much more
-              </strong>
-              .
+              <strong>automated workflows, API access, and much more</strong>.
             </p>
           </div>
         )}

@@ -6,7 +6,6 @@ module.exports = {
     '/dashboard',
     '/website-analytics',
     '/issues',
-    '/scripts',
     '/payments',
     '/website-details/*',
     '/web-issues',

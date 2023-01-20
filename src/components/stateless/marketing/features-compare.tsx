@@ -132,12 +132,6 @@ function Feature() {
               ]}
             />
             <TableRow
-              rows={['Custom smart safeguard CDN', 'true', 'false', 'false']}
-            />
-            <TableRow
-              rows={['Custom editable scripts', 'true', 'false', 'false']}
-            />
-            <TableRow
               rows={[
                 'Lighthouse reports across pages',
                 'true',

@@ -5,7 +5,6 @@ import { RenderInnerPages } from '@app/components/general/lists/websites-pages'
 import { RenderInnerIssues } from '@app/components/general/lists/render/issues/base-list'
 import { RenderInnerPageActions } from '@app/components/general/lists/websites-pages-actions'
 import { RenderInnerAnalytics } from '@app/components/general/lists/websites-analytics'
-import { RenderInnerScripts } from '@app/components/general/lists/websites-scripts'
 import { FC, PropsWithChildren, useState } from 'react'
 import { useAuthContext } from '@app/components/providers/auth'
 
@@ -55,9 +54,6 @@ function WebView() {
         </WebCell>
         <WebCell title={'Analytics'}>
           <RenderInnerAnalytics pageUrl={url} small singleRow />
-        </WebCell>
-        <WebCell title={'Scripts'}>
-          <RenderInnerScripts pageUrl={url} />
         </WebCell>
         <WebCell title={'Actions'}>
           <RenderInnerPageActions pageUrl={url} />

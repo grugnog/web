@@ -1,6 +1,6 @@
 import { NavBar, IssueModal, Fab } from '@app/components/general'
 import { useRouter } from 'next/router'
-import { useIssue, useScript } from '@app/data'
+import { useIssue } from '@app/data'
 import { AccessIframe } from '@app/components/ada/access-iframe'
 import { metaSetter } from '@app/utils'
 import { GetServerSideProps } from 'next'
@@ -13,7 +13,6 @@ function WebsiteDetails({ url: initUrl }: { url: string }) {
   const { url } = router?.query
   const baseUrl = (url as string) || initUrl
   const { issue } = useIssue(baseUrl, !baseUrl)
-  const { script } = useScript(baseUrl, !baseUrl)
 
   return (
     <>
@@ -24,7 +23,7 @@ function WebsiteDetails({ url: initUrl }: { url: string }) {
         authenticated={account.authed}
       />
       <AccessIframe url={baseUrl} issue={issue} />
-      <Fab issue={issue} script={script} />
+      <Fab issue={issue} />
       <IssueModal issue={issue} />
     </>
   )
@@ -33,7 +32,7 @@ function WebsiteDetails({ url: initUrl }: { url: string }) {
 export default metaSetter(
   { WebsiteDetails },
   {
-    description: 'Detailed website reports for any page.',
+    description: 'Detailed accessibility reports for your web page.',
     gql: true,
   }
 )

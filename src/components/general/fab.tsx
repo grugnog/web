@@ -2,12 +2,11 @@
 
 import React from 'react'
 import { observer } from 'mobx-react-lite'
-import { frameDom, IframeManager } from '@app/managers'
-import { useAutoFix, useIframe } from '@app/data'
+import { IframeManager } from '@app/managers'
+import { useIframe } from '@app/data'
 import { Box } from '@a11ywatch/ui'
 import {
   GrList,
-  GrMagic,
   GrMultimedia,
   GrStatusWarning,
   GrTestDesktop,
@@ -19,10 +18,9 @@ import { useInteractiveContext } from '../providers/interactive'
 const btnStyle =
   'w-full py-3 place-items-center bg-[rgba(20,20,20,0.3)] border-3'
 
-const MFab = observer(({ iframeStore, issue, script, marketing }: any) => {
+const MFab = observer(({ iframeStore, issue, marketing }: any) => {
   const { setMiniPlayerContent, miniPlayer } = useInteractiveContext()
-  const { highLight, toggleHighLight, setFrameContent } = useIframe()
-  const { autoFixEnabled, setAutoFix } = useAutoFix(script)
+  const { highLight, toggleHighLight } = useIframe()
 
   const pageIssues = issueExtractor(issue)
 
@@ -70,22 +68,6 @@ const MFab = observer(({ iframeStore, issue, script, marketing }: any) => {
           <GrStatusWarning className={'grIcon'} />
         </Button>
       ) : null}
-      {script?.cdnUrlMinified && pageIssues?.length && !autoFixEnabled ? (
-        <Button
-          iconButton
-          onClick={() =>
-            frameDom.injectAutoFix({
-              cdn: script?.cdnUrlMinified,
-              autoFixEnabled,
-              setAutoFix,
-              callBack: setFrameContent,
-            })
-          }
-          className={btnStyle}
-        >
-          <GrMagic className={'grIcon'} />
-        </Button>
-      ) : null}
     </Box>
   )
 })
@@ -98,11 +80,10 @@ const MFab = observer(({ iframeStore, issue, script, marketing }: any) => {
 //   <CodeIcon color='secondary' />
 // </Button>
 
-export const Fab = ({ issue, script, marketing }: any) => (
+export const Fab = ({ issue, marketing }: any) => (
   <MFab
     iframeStore={IframeManager}
     issue={issue}
-    script={script}
     marketing={marketing}
   />
 )

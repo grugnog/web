@@ -75,31 +75,6 @@ function Features({ name }: PageProps) {
               </div>
             </Section>
           </div>
-          <div className={paper}>
-            <Section>
-              <div>
-                <Header3>Accessibility CDN</Header3>
-                <FeatureHeading>
-                  Include a personal custom CDN that fixes critical issues at
-                  runtime that would drastically hurt a users experience. Our
-                  cdn uses a neural network that is composed of a couple of open
-                  nets like GoogleNet, ImageNet, and MobileNet. We also use
-                  common learning into the mixture to have a generic model. The
-                  networks in layers allow us to learn and declare images with
-                  extraordinary precision. View your CDN at any time and even
-                  edit it as needed with the live script editor.
-                </FeatureHeading>
-              </div>
-              <div className={paperStyle}>
-                <Image
-                  src={'/img/cloud.svg'}
-                  height={175}
-                  width={175}
-                  alt={'Cloud CDN for javascript remediations'}
-                />
-              </div>
-            </Section>
-          </div>
         </div>
         <div className={row}>
           <div className={paper}>
@@ -111,9 +86,7 @@ function Features({ name }: PageProps) {
                   your page. Experiment with recommended fixes to validate
                   changes before release in real-time. Verify how your website
                   would respond to visual updates with tools that help validate
-                  contrast, alts, spacing, and more. The pre-built dynamic
-                  javascript works with frameworks like Next.js, Angular, Astro,
-                  or any other web technology.
+                  contrast, alts, spacing, and more.
                 </FeatureHeading>
               </div>
               <div className={paperStyle}>
@@ -129,15 +102,13 @@ function Features({ name }: PageProps) {
           <div className={paper}>
             <Section>
               <div>
-                <Header3>Embed Script Safeguard</Header3>
+                <Header3>API Integrations</Header3>
                 <FeatureHeading>
-                  View your website javascript remedies that come from the
-                  scripts page. Verify exactly what goes into production with
-                  notes on whats being changed. If you need to make a tweak,
-                  edit the script in real time with our editor. This is suppose
-                  to be a temporary solution so you can get to the fixes with a
-                  dedicated check list. Bridge the gap between dynamic changes
-                  real-time across all web pages.
+                  Get web accessibility results any-where at any time. We built
+                  many tools that can fit within your pipeline to help fine
+                  accessibility and web vitals. With uptime set to fit your flow
+                  take ideas to the next level. The most affordable price for
+                  accessibility auditing with portablity and efficiency.
                 </FeatureHeading>
               </div>
               <div className={paperStyle}>

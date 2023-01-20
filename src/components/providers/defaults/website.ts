@@ -16,9 +16,7 @@ export const sharedWebsiteDefaults = {
   issueData: [],
   pagesData: [],
   analyticsData: [],
-  scriptsData: [],
   actionsData: [],
-  scriptsDataLoading: false,
   pagesDataLoading: false,
   issueDataLoading: false,
   actionsDataLoading: false,
@@ -66,9 +64,6 @@ export const sharedWebsiteDefaults = {
     return _
   },
   onLoadMoreActions: (_: any): Promise<any> => {
-    return _
-  },
-  onLoadMoreScripts: (_: any): Promise<any> => {
     return _
   },
   forceUpdate: (): void => {

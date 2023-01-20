@@ -8,7 +8,6 @@ import {
   websiteFragments,
   pagesFragments,
   analyticsFragments,
-  scriptsFragments,
 } from '@app/apollo/fragments'
 
 const GET_WEBSITES = gql`
@@ -115,25 +114,6 @@ export const GET_WEBSITE_ANALYTICS = gql`
         _id
         analytics(limit: $limit, offset: $offset, all: $all) {
           ...AnalyticParts
-        }
-      }
-    }
-  }
-`
-
-export const GET_WEBSITE_SCRIPTS = gql`
-  ${scriptsFragments}
-  query getWebsiteScripts(
-    $url: String
-    $limit: Int
-    $offset: Int
-    $all: Boolean
-  ) {
-    website(url: $url) {
-      ... on Website {
-        _id
-        scripts(limit: $limit, offset: $offset, all: $all) {
-          ...ScriptParts
         }
       }
     }

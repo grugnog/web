@@ -1,7 +1,6 @@
 import { memo } from 'react'
 import { AppManager } from '@app/managers'
 import {
-  GrCode as CodeIcon,
   GrAnalytics as DataUsageIcon,
   GrBug as BugReportIcon,
   GrApps as DashboardIcon,
@@ -14,8 +13,6 @@ import { Pulse } from '../loaders'
 
 const renderIcon = (feature?: string, className?: string) => {
   switch (feature) {
-    case 'Scripts':
-      return <CodeIcon className={className} />
     case 'Analytics':
       return <DataUsageIcon className={className} />
     case 'Issues':
@@ -32,14 +29,8 @@ const renderIcon = (feature?: string, className?: string) => {
   }
 }
 
-const extraProps = (feature?: string, focused?: boolean, setEvents?: any) => {
+const extraProps = (feature?: string, focused?: boolean) => {
   switch (feature) {
-    case 'Scripts':
-      return {
-        href: focused ? '/dashboard' : '/scripts',
-        onClick: setEvents ? () => setEvents({ firstAdd: 'set' }) : undefined,
-        color: 'inherit',
-      }
     case 'Issues':
       return {
         href: focused ? '/dashboard' : '/web-issues',
@@ -91,7 +82,6 @@ export function FeaturesCellComponent({
   index,
   focused,
   events,
-  setEvents,
   activeSubscription,
 }: any) {
   const title = focused ? 'Dashboard' : feature
@@ -128,7 +118,7 @@ export function FeaturesCellComponent({
     <li>
       <Link
         className={`flex place-items-center gap-x-3 py-3 pl-2 pr-2 place-content-around min-h-[44px] hover:opacity-70 hover:no-underline md:py-2 md:pl-5 md:pr-2 md:min-h-[54px]`}
-        {...extraProps(feature, focused, setEvents)}
+        {...extraProps(feature, focused)}
       >
         <div className='flex flex-1 text-xs md:text-sm place-items-center gap-x-2 place-content-center md:place-content-start sm:gap-x-3 md:gap-x-4'>
           {renderIcon(title, 'grIcon')}

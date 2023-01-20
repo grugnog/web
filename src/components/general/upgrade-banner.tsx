@@ -18,7 +18,7 @@ const UpgradeBanner = () => {
             Upgrade
           </Link>{' '}
           your account to add up to 50 websites, subdomain and TLD monitoring,
-          multi page lighthouse reports, CDN scripts, and more.
+          multi page lighthouse reports, and more.
         </div>
       </div>
     </div>

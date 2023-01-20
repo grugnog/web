@@ -49,9 +49,9 @@ export const generateStrings = ({
       },
       {
         id: 3,
-        title: 'Safeguard CDN',
+        title: 'Jampacked Integrations',
         detail:
-          'Add a CDN script that mitigates drastic issues for your users easily. If you accidently deploy an issue to act like a safeguard.',
+          'Integrations for any situation with direct access to the same engine across any platform or 3rd party tool.',
         icon: 'accessibility',
       },
       {

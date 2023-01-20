@@ -15,7 +15,6 @@ export {
 export { UPDATE_WEBSITE } from './update-website'
 export { CRAWL_WEBSITE } from './crawl-website'
 export { SCAN_WEBSITE } from './scan-website'
-export { UPDATE_SCRIPT } from './update-script'
 export { FILTER_EMAIL_DATES } from './filter-email-dates'
 export { LOGOUT } from './logout'
 export { SORT_WEBSITES } from './sort'

@@ -6,6 +6,5 @@ export {
   pagesFragments,
   websiteFragments,
   analyticsFragments,
-  scriptsFragments,
   pagespeedFragment,
 } from './fragments'

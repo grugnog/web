@@ -20,10 +20,6 @@ export const buildScopeQuery = (nameLowerCased: string, query: boolean) => {
     initialQuery = false
     scopedQuery = 'analytics'
   }
-  if (nameLowerCased === 'scripts') {
-    initialQuery = false
-    scopedQuery = 'scripts'
-  }
 
   return {
     initialQuery,

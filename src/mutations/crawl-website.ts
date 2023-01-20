@@ -17,11 +17,6 @@ export const CRAWL_WEBSITE = gql`
         insight {
           json
         }
-        script {
-          _id
-          script
-          cdnUrl
-        }
         pageLoadTime {
           duration
           durationFormated

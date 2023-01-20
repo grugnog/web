@@ -259,8 +259,6 @@ export type Query = {
   issues?: Issue[]
   history?: History[]
   analytics?: Analytic[]
-  scripts?: Script[]
-  script?: Script
   issue?: Issue
   user?: User
 }
@@ -313,7 +311,6 @@ export type Script = {
   id?: string
   pageUrl?: string
   domain?: string
-  script?: string
   cdnUrl?: string
   cdnUrlMinified?: string
   cdnConnected?: boolean
@@ -372,7 +369,6 @@ export type UpdateScriptMutationResponse = MutationResponse & {
   code: string
   success: boolean
   message: string
-  script?: Script
 }
 
 export type UpdateUserMutationResponse = MutationResponse & {
@@ -424,7 +420,6 @@ export type User = {
   scanInfo?: ScanInformation
   analytics?: Analytic[]
   scripts?: Script[]
-  script?: Script
   paymentSubscription?: PaymentSubScription
   pageSpeedApiKey?: string
   websiteLimit?: number
@@ -462,7 +457,6 @@ export type Website = {
   issue?: PageIssue[]
   issuesInfo?: IssueMeta
   pages?: Pages
-  script?: Script
   lastScanDate?: string
   cdn?: string
   pageHeaders?: PageHeaders[]

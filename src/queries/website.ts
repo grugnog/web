@@ -6,12 +6,6 @@ const GET_WEBSITE = gql`
   query getWebsite($url: String) {
     website(url: $url) {
       ...WebsiteParts
-      script {
-        _id
-        script
-        cdnUrl
-        cdnUrlMinified
-      }
       pageLoadTime {
         duration
         durationFormated

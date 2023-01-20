@@ -18,10 +18,6 @@ const SCAN_WEBSITE = gql`
         timestamp
         online
         mobile
-        script {
-          _id
-          script
-        }
         pageLoadTime {
           duration
           durationFormated

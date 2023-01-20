@@ -23,24 +23,6 @@ export const issueFragments = gql`
   }
 `
 
-export const scriptsFragments = gql`
-  fragment ScriptParts on Script {
-    _id
-    pageUrl
-    domain
-    script
-    cdnUrl
-    cdnUrlMinified
-    cdnConnected
-    issueMeta {
-      skipContentIncluded
-    }
-    scriptMeta {
-      skipContentEnabled
-    }
-  }
-`
-
 export const pagesFragments = gql`
   fragment PagesParts on Pages {
     _id
